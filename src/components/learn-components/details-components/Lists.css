@@ -1,0 +1,30 @@
+.list-item-container {
+    padding: 2px 0 4px;
+}
+
+.list-item-icon {
+    padding-right: 4px;
+    justify-content: center;
+}
+
+.list-item-first-element {
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 2px; /* Must be the same as list-item-second-element's padding-bottom */
+    padding-right: 4px;
+}
+
+.list-item-second-element {
+    margin: 0 !important;
+    padding-bottom: 2px; /* Needed because of overflow */
+    width: 190px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.list-item-third-element {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -1,0 +1,35 @@
+.chinese-char-wrapper-big { 
+  border-radius: 20px;
+  padding: 6px;
+  text-align: center;
+}
+
+.chinese-char-wrapper-small { 
+  border-radius: 12px;
+  padding: 4px;
+  text-align: center;
+}
+
+.chinese-char-inner-big {
+  position: relative;
+  border-radius: 14px;
+  padding: 6px 18px;
+}
+
+.chinese-char-inner-small {
+  position: relative;
+  border-radius: 8px;
+  padding: 0 10px 2px;
+}
+
+.pinyin-productive {
+  position: absolute;
+  cursor: help;
+  left: 6px;
+}
+
+.charinfo-primitive-box {
+  display: flex;
+  padding-left: 4px;
+  align-items: center
+}

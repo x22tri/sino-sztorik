@@ -1,0 +1,7 @@
+.lesson-card-parent .lesson-card-review-button {
+    visibility: hidden;
+}
+
+.lesson-card-parent:hover .lesson-card-review-button {
+    visibility: visible;
+}

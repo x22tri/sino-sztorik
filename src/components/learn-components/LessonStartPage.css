@@ -1,0 +1,35 @@
+.lesson-start-page {
+  min-height: 100vh;
+  padding: 30px 10px
+}
+
+.lesson-start-body {
+  text-align: center;
+  margin: auto;
+  max-width: 600px
+}
+
+.lesson-start-name {
+  margin-top: 5px;
+  margin-bottom: 25px;
+}
+
+.lesson-start-text {
+  text-align: justify;
+  line-height: 200%;
+}
+
+.lesson-start-character-list-header {
+  margin-top: 50px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.lesson-start-character-list {
+  padding-bottom: 50px;
+}
+
+.lesson-start-character-list-element {
+  margin: 0 5px;
+  padding: 14px 7px 7px
+}

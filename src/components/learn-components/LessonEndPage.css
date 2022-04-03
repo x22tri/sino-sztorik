@@ -1,0 +1,19 @@
+.lesson-end-page {
+    min-height: 100vh;
+    padding: 60px 10px 30px
+  }
+  
+  .lesson-end-body {
+    margin: 60px auto;
+    text-align: center
+  }
+  
+  .lesson-end-button-box {
+    display: flex;
+    flex-direction: column;
+    max-width: 250px;
+    padding: 70px 0;
+    margin: 0 auto;
+    row-gap: 20px;
+    justify-content: stretch;
+  }

@@ -1,0 +1,13 @@
+.details-box {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  line-height: 100%;
+}
+
+.chevron-box {
+  position: absolute;
+  z-index: 1000;
+  margin-left: -20px;
+  margin-top: -4px
+}

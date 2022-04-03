@@ -1,0 +1,17 @@
+/* Generic selectors: */
+
+.disable-select {
+  -webkit-user-select: none;  
+  -moz-user-select: none;    
+  -ms-user-select: none;      
+  user-select: none;
+}
+
+.spacer {
+  display: table-row;
+  height: 10px
+}
+
+.centerer {
+  padding-left: calc(100vw - 100%); /* Needed so that the scrollbar won't shift content */
+}

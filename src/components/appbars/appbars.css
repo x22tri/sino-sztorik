@@ -1,0 +1,13 @@
+.topbar-progressbox {
+  flex-grow: 1;
+  text-align: center
+}
+
+.topbar-searchbox {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.topbar-logo {
+  flex-grow: 1;
+}
