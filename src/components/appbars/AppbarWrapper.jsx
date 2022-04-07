@@ -58,7 +58,8 @@ const Logo = () => {
     return (
     <Box display='flex' flexGrow={1} alignItems='center'>
         <img src={logoImage} alt='' width='auto' height='28px' />
-        <Typography variant='topbarLogoText' sx={{marginLeft: '8px', color: theme.palette.tertiary.main, fontWeight: 'bold', display: {xs: 'none', md: 'block'}}}>
+        <Typography className='disable-select' variant='topbarLogoText' 
+        sx={{marginLeft: '8px', color: theme.palette.tertiary.main, fontWeight: 'bold', display: {xs: 'none', md: 'block'}}}>
             Sino-sztorik
         </Typography>
     </Box>

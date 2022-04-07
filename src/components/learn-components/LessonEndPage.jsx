@@ -17,7 +17,7 @@ export default function LessonEndPage({ lessonIsReview }) {
     const auth = useContext(AuthContext)
 
     const advanceLesson = async (goToNextLesson) => {
-        if (lessonIsReview) return;
+        if (lessonIsReview) navigate('/')
         else {
         let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/advance`, {
         headers: {'Authorization': `Bearer ${auth.token}`},

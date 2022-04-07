@@ -82,7 +82,7 @@ function MainPage({themeToggle}) {
                                     <Box>
                                         <Typography variant='mainPageText' component='p'>
                                         A <strong>Sino-sztorik</strong> segítségével hatékonyan megtanulhatod a <strong>3000 </strong>
-                                        legfontosabb kínai írásjelet, magolás helyett <strong>könnyen megjegyezhető történetekkel.</strong>
+                                        legfontosabb kínai írásjegyet, magolás helyett <strong>könnyen megjegyezhető történetekkel.</strong>
                                         </Typography>
                                     </Box>
 
@@ -148,10 +148,6 @@ function MainPage({themeToggle}) {
                     Minden karakterhez történetet csatol, amely a karakter alkotóelemeire épül.
                     Ha egy alkotóelem önmagában nem jelent semmit, vagy a jelentése túl elvont, a Sino-sztorik olyan jelentéssel ruházza fel, amely könnyebben elképzelhető.'
                 />
-                {/* <FAQAccordion 
-                    question='A Sino-sztorik ingyenes?' 
-                    answer='Az első 300 karakter ingyenes, havi mindössze 1199 forintért pedig az összes többi leckéhez is hozzáférhetsz.'
-                /> */}
                 <FAQAccordion 
                     question='Már korábban elkezdtem kínaiul tanulni. Így is belekezdhetek a Sino-sztorikba?' 
                     answer='Persze! Ez a kurzus abban segít, hogy magabiztosan fel tudd ismerni, meg tudd különböztetni és le tudd írni a kínai karaktereket.

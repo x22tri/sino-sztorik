@@ -1,70 +1,28 @@
-# Getting Started with Create React App
+# Sino-sztorik (frontend)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Sino-sztorik is a **language course for Hungarian learners of Chinese**. It teaches the 3000 most common Chinese characters through visual associations and stories.
 
-## Available Scripts
+The project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), uses the [MUI](https://mui.com) component library, and is connected to a MySQL database through a [Node.js/Express backend](https://github.com/x22tri/sino-sztorik-backend).
 
-In the project directory, you can run:
+## Structural Overview
 
-### `npm start`
+The course content is available after signing up. The 3000 most common Chinese characters are divided into *lessons* with around 20 characters each. New lessons introduce new *character elements* that make up characters.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Furthermore, commonly used characters are prioritized while rarer ones are introduced later. For this reason, the course is also divided into 4 *tiers*. Finishing all lessons in one tier grant access to the next tier, where already known character elements are revisited to introduce less commonly used characters.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Features
 
-### `npm test`
+- **Tracks user progress**, unlocking new lessons in a linear fashion
+- Doubles as a "learner's Chinese dictionary": phrases, additional meanings and easily confusable characters are listed for each Chinese character
+- **Admin screen** to create, edit and delete characters (some features unavailable at the moment)
+- A playful **light** and an elegant **dark theme**, with conscious color choices to distinguish between a character's actual meaning and its meaning as a character component
+- A **search** function where any Chinese character can be looked up
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Planned Features
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Add story illustrations
+- Add missing features to the admin screen and redesign the Admin dashboard and the Similar Characters screen
+- Security fixes
+- Improve "learn" screen, with a "preview pane" instead of a popper for character references
+- Optimize SQL queries
+...and much more.
