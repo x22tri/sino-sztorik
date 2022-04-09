@@ -4,9 +4,7 @@ Sino-sztorik is a **language course for Hungarian learners of Chinese**. It teac
 
 The project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), uses the [MUI](https://mui.com) component library, and is connected to a MySQL database through a [Node.js/Express backend](https://github.com/x22tri/sino-sztorik-backend).
 
-Watch the **video demonstration** here (demonstration of the code begins at 13:40):
-
-[![Youtube preview](https://i.ytimg.com/vi_webp/ROojjfTMzqI/maxresdefault.webp)](https://www.youtube.com/watch?v=ROojjfTMzqI)
+A live demo (with the fist 5 lessons) is available at https://sino-sztorik.web.app/.
 
 ## Structural Overview
 
