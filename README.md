@@ -4,13 +4,13 @@ Sino-sztorik is a **language course for Hungarian learners of Chinese**. It teac
 
 The project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), uses the [MUI](https://mui.com) component library, and is connected to a MySQL database through a [Node.js/Express backend](https://github.com/x22tri/sino-sztorik-backend).
 
-A live demo (with the fist 5 lessons) is available at https://sino-sztorik.web.app/.
+A live demo (with the first 5 lessons) is available at https://sino-sztorik.web.app/.
 
 ## Structural Overview
 
 The course content is available after signing up. The 3000 most common Chinese characters are divided into *lessons* with around 20 characters each. New lessons introduce new *character elements* that make up characters.
 
-Furthermore, commonly used characters are prioritized while rarer ones are introduced later. For this reason, the course is also divided into 4 *tiers*. Finishing all lessons in one tier grant access to the next tier, where already known character elements are revisited to introduce less commonly used characters.
+Furthermore, commonly used characters are prioritized while rarer ones are introduced later. For this reason, the course is also divided into 4 *tiers*. Finishing all lessons in one tier grants access to the next tier, where already known character elements are revisited to introduce less commonly used characters.
 
 ## Features
 
