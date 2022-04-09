@@ -43,13 +43,19 @@ const TierStatus = ({tier, status, cardInactive}) => {
 
     // let currentTierRoman = await getRomanNumeralForTier(currentTier)
 
-
     return (
-        <PopupTooltip title={status}>
+        <PopupTooltip title={status || 'A lecke állapotát nem sikerült lekérni.'}>
             <Box component='span' sx={{margin: '0 5px'}}>
+                {colorDictionary[status] && colorDictionary[status][theme.palette.type] && colorDictionary[status][theme.palette.type][+!cardInactive] ?
+                
                 <Typography variant='lessonSelectTier' color={colorDictionary[status][theme.palette.type][+!cardInactive]}>
                 {getRomanNumeralForTier(tier)}
                 </Typography>
+                
+                :
+
+                <Typography variant='lessonSelectTier'>?</Typography>
+                }
             </Box>
         </PopupTooltip>
     )
