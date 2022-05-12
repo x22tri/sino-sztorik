@@ -1,6 +1,7 @@
 import { useTheme } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
+import LoadingButton from '@mui/lab/LoadingButton'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import { lighten, darken } from '@material-ui/core/styles'
@@ -97,6 +98,28 @@ const SecondaryColorButton = ({ text, ...props }) => {
   )
 }
 
+const SecondaryColorLoadingButton = ({ text, ...props }) => {
+  const theme = useTheme()
+  return (
+    <LoadingButton
+      {...props}
+      variant='contained'
+      color='secondary'
+      sx={{
+        textTransform: 'none',
+        fontWeight: 'bold',
+        color: theme.palette.primary.contrastText,
+        '&:hover': {
+          backgroundColor: theme.palette.secondary.main,
+          color: darken(theme.palette.secondary.main, 0.4),
+        },
+      }}
+    >
+      {text}
+    </LoadingButton>
+  )
+}
+
 const WhiteButton = ({ text, ...props }) => {
   const theme = useTheme()
   return (
@@ -179,6 +202,7 @@ export {
   LowEmphasisOnColoredBGButton,
   PrimaryColorButton,
   SecondaryColorButton,
+  SecondaryColorLoadingButton,
   WhiteButton,
   ErrorField,
 }
