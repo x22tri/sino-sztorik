@@ -54,18 +54,20 @@ function AuthPage({
       )
 
       console.log(response)
-      const responseData = await response.json()
-      console.log(responseData)
-      if (!response.ok) {
-        setLoading(false)
-        setAuthError(responseData.message)
-        setTimeout(() => setAuthError(''), 5000)
-      } else {
-        setLoading(false)
-        auth.login(responseData.userId, responseData.token)
-      }
+      // const responseData = await response.json()
+      // console.log(responseData)
+      // if (!response.ok) {
+      //   setLoading(false)
+      //   setAuthError(responseData.message)
+      //   setTimeout(() => setAuthError(''), 5000)
+      // } else {
+      //   setLoading(false)
+      //   auth.login(responseData.userId, responseData.token)
+      // }
     } catch (err) {
       setLoading(false)
+      setAuthError('Hiba történt. Kérjük, próbálkozz később.')
+      setTimeout(() => setAuthError(''), 5000)
       throw new Error(err)
     }
   }
