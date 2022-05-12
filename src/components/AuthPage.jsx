@@ -54,6 +54,7 @@ function AuthPage({
       )
 
       const responseData = await response.json()
+      console.log(responseData)
       if (!response.ok) {
         setLoading(false)
         setAuthError(responseData.message)
