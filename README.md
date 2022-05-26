@@ -1,4 +1,5 @@
-# Sino-sztorik (frontend)
+<img src='./src/assets/logo-readme.png' alt='Logo' />
+![alt]('./src/assets/logo-readme.png')
 
 Sino-sztorik is a **language course for Hungarian learners of Chinese**. It teaches the 3000 most common Chinese characters through visual associations and stories.
 
@@ -10,9 +11,9 @@ A live demo (with the first 5 lessons) is available at https://sino-sztorik.web.
 
 ## Structural Overview
 
-The course content is available after signing up. The 3000 most common Chinese characters are divided into *lessons* with around 20 characters each. New lessons introduce new *character elements* that make up characters.
+The course content is available after signing up. The 3000 most common Chinese characters are divided into _lessons_ with around 20 characters each. New lessons introduce new _character elements_ that make up characters.
 
-Furthermore, commonly used characters are prioritized while rarer ones are introduced later. For this reason, the course is also divided into 4 *tiers*. Finishing all lessons in one tier grants access to the next tier, where already known character elements are revisited to introduce less commonly used characters.
+Furthermore, commonly used characters are prioritized while rarer ones are introduced later. For this reason, the course is also divided into 4 _tiers_. Finishing all lessons in one tier grants access to the next tier, where already known character elements are revisited to introduce less commonly used characters.
 
 ## Features
 
