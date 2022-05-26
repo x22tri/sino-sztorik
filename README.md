@@ -1,5 +1,4 @@
 <img src='./src/assets/logo-readme.png' alt='Logo' />
-![alt]('./src/assets/logo-readme.png')
 
 Sino-sztorik is a **language course for Hungarian learners of Chinese**. It teaches the 3000 most common Chinese characters through visual associations and stories.
 
