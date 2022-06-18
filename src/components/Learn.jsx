@@ -1,40 +1,43 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState, useEffect, useContext } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import LearnAppbar from './appbars/LearnAppbar'
-import LessonMainPage from "./learn-components/LessonMainPage";
-import LessonEndPage from "./learn-components/LessonEndPage";
-import LessonStartPage from "./learn-components/LessonStartPage";
+import LessonMainPage from './learn-components/LessonMainPage'
+import LessonEndPage from './learn-components/LessonEndPage'
+import LessonStartPage from './learn-components/LessonStartPage'
 
-import AuthContext from "../context/auth-context";
+import AuthContext from '../context/AuthContext'
 
-import useEventListener from "../auxiliaries/useEventListener";
-import useCharCardSlide from "../auxiliaries/useCharCardSlide";
+import useEventListener from '../auxiliaries/useEventListener'
+import useCharCardSlide from '../auxiliaries/useCharCardSlide'
 
-import Slide from '@mui/material/Slide';
+import Slide from '@mui/material/Slide'
 
-const SlideWrapper = ({slideIn, slideDirection, slideTimeout, content}) => (
-  <div style={{ overflow: 'hidden' }}> {/* Needed to prevent horizontal scrollbar on slide. */}
+const SlideWrapper = ({ slideIn, slideDirection, slideTimeout, content }) => (
+  <div style={{ overflow: 'hidden' }}>
+    {' '}
+    {/* Needed to prevent horizontal scrollbar on slide. */}
     <Slide in={slideIn} direction={slideDirection} timeout={slideTimeout}>
-        <div> {/* Needed to make Slide functional */}
+      <div>
+        {' '}
+        {/* Needed to make Slide functional */}
         {content}
-        </div>
+      </div>
     </Slide>
   </div>
 )
 
-const Learn = ({themeToggle}) => {
+const Learn = ({ themeToggle }) => {
   const auth = useContext(AuthContext)
   let { lessonNumberToReview } = useParams()
 
   // Getting the current lesson's data from the server.
   const [lessonData, setLessonData] = useState()
-  
+
   // Fetching the lesson to learn and changing the page title on mount.
   try {
-  useEffect(() => {
+    useEffect(() => {
       const fetchLesson = async () => {
-
         let APIendpoint
         if (lessonNumberToReview) {
           APIendpoint = `${process.env.REACT_APP_BACKEND_URL}/review/${lessonNumberToReview}`
@@ -44,11 +47,13 @@ const Learn = ({themeToggle}) => {
           document.title = 'Tanulás - Sino-sztorik'
         }
 
-        let response = await fetch(APIendpoint, {headers: {'Authorization': `Bearer ${auth.token}`}})
+        let response = await fetch(APIendpoint, {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        })
         response = await response.json()
         setLessonData(response.foundLesson)
-    }
-    fetchLesson()
+      }
+      fetchLesson()
     }, [auth.token, lessonNumberToReview])
   } catch (err) {
     throw new Error('Hiba a lecke lekérése közben.')
@@ -59,7 +64,12 @@ const Learn = ({themeToggle}) => {
   const [currentCharacterIndex, setCurrentCharacterIndex] = useState(-1)
 
   // Using the custom "useCharCardSlide" hook to manage the Slide transitions.
-  const [slideIn, slideDirection, slideTimeout, onArrowClick] = useCharCardSlide(lessonData, currentCharacterIndex, setCurrentCharacterIndex)
+  const [slideIn, slideDirection, slideTimeout, onArrowClick] =
+    useCharCardSlide(
+      lessonData,
+      currentCharacterIndex,
+      setCurrentCharacterIndex
+    )
 
   // Setting up the hotkeys.
   const navigate = useNavigate()
@@ -77,33 +87,67 @@ const Learn = ({themeToggle}) => {
     let currentChar = lessonData.characters[currentCharacterIndex] || undefined
 
     let showLessonStart = !!(currentCharacterIndex < 0)
-    let showLessonEnd = !showLessonStart && !!(currentCharacterIndex > characterArray.length - 1)
+    let showLessonEnd =
+      !showLessonStart && !!(currentCharacterIndex > characterArray.length - 1)
     let showCharacterCard = !showLessonStart && !showLessonEnd
 
-  return (
-    <>
-      <LearnAppbar lessonLength={characterArray.length} lastCharacterInLesson={characterArray?.length && characterArray[characterArray.length - 1].character || undefined}
-        {...{currentChar, currentCharacterIndex, onArrowClick, themeToggle}}   
-      />
+    return (
+      <>
+        <LearnAppbar
+          lessonLength={characterArray.length}
+          lastCharacterInLesson={
+            (characterArray?.length &&
+              characterArray[characterArray.length - 1].character) ||
+            undefined
+          }
+          {...{ currentChar, currentCharacterIndex, onArrowClick, themeToggle }}
+        />
 
-      {showLessonStart && <SlideWrapper content={
-        <LessonStartPage currentTier={lessonData.tier} currentLesson={lessonData.lessonNumber} lessonName={lessonData.name} preface={lessonData.preface}
-          {...{characterArray, onArrowClick}}
-        />} {...{slideIn, slideDirection, slideTimeout}} 
-      />}
+        {showLessonStart && (
+          <SlideWrapper
+            content={
+              <LessonStartPage
+                currentTier={lessonData.tier}
+                currentLesson={lessonData.lessonNumber}
+                lessonName={lessonData.name}
+                preface={lessonData.preface}
+                {...{ characterArray, onArrowClick }}
+              />
+            }
+            {...{ slideIn, slideDirection, slideTimeout }}
+          />
+        )}
 
-      {showLessonEnd && <SlideWrapper content={
-        <LessonEndPage lessonIsReview={!!lessonNumberToReview} {...{onArrowClick}}
-        />} {...{slideIn, slideDirection, slideTimeout}} 
-      />}
+        {showLessonEnd && (
+          <SlideWrapper
+            content={
+              <LessonEndPage
+                lessonIsReview={!!lessonNumberToReview}
+                {...{ onArrowClick }}
+              />
+            }
+            {...{ slideIn, slideDirection, slideTimeout }}
+          />
+        )}
 
-      {showCharacterCard && <SlideWrapper content={
-        <LessonMainPage {...{currentChar, characterArray, currentCharacterIndex, onArrowClick}} 
-        />} {...{slideIn, slideDirection, slideTimeout}} 
-      />}
-    </>
-  )
-}
+        {showCharacterCard && (
+          <SlideWrapper
+            content={
+              <LessonMainPage
+                {...{
+                  currentChar,
+                  characterArray,
+                  currentCharacterIndex,
+                  onArrowClick,
+                }}
+              />
+            }
+            {...{ slideIn, slideDirection, slideTimeout }}
+          />
+        )}
+      </>
+    )
+  }
 }
 
 export default Learn

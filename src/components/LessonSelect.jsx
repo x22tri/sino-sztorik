@@ -10,7 +10,7 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import { lighten, darken } from '@material-ui/core/styles'
 
 import LessonSelectAppbar from './appbars/LessonSelectAppbar'
-import AuthContext from '../context/auth-context'
+import AuthContext from '../context/AuthContext'
 import getRomanNumeralForTier from '../auxiliaries/getRomanNumeralForTier'
 import PopupTooltip from '../auxiliaries/PopupTooltip'
 import LessonMainPage from './learn-components/LessonMainPage'

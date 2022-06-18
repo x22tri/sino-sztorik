@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Formik, Form, useField } from 'formik'
 
-import AuthContext from '../context/auth-context'
+import AuthContext from '../context/AuthContext'
 
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
