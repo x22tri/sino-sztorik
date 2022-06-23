@@ -27,9 +27,25 @@ const SlideWrapper = ({ slideIn, slideDirection, slideTimeout, content }) => (
   </div>
 )
 
+// const fetchLesson = async (token, lessonNumberToReview, setLessonData) => {
+//   const APIendpoint = !!lessonNumberToReview // There's no lesson 0 so this is fine.
+//     ? `${process.env.REACT_APP_BACKEND_URL}/review/${lessonNumberToReview}`
+//     : `${process.env.REACT_APP_BACKEND_URL}/learn`
+
+//   document.title = !!lessonNumberToReview
+//     ? `Ismétlés (${lessonNumberToReview}. lecke) - Sino-sztorik`
+//     : 'Tanulás - Sino-sztorik'
+
+//   let response = await fetch(APIendpoint, {
+//     headers: { Authorization: `Bearer ${token}` },
+//   })
+//   response = await response.json()
+//   return response
+// }
+
 const Learn = ({ themeToggle }) => {
   const auth = useContext(AuthContext)
-  let { lessonNumberToReview } = useParams()
+  const { lessonNumberToReview } = useParams()
 
   // Getting the current lesson's data from the server.
   const [lessonData, setLessonData] = useState()
@@ -38,14 +54,13 @@ const Learn = ({ themeToggle }) => {
   try {
     useEffect(() => {
       const fetchLesson = async () => {
-        let APIendpoint
-        if (lessonNumberToReview) {
-          APIendpoint = `${process.env.REACT_APP_BACKEND_URL}/review/${lessonNumberToReview}`
-          document.title = `Ismétlés (${lessonNumberToReview}. lecke) - Sino-sztorik`
-        } else {
-          APIendpoint = `${process.env.REACT_APP_BACKEND_URL}/learn`
-          document.title = 'Tanulás - Sino-sztorik'
-        }
+        const APIendpoint = !!lessonNumberToReview // There's no lesson 0 so this is fine.
+          ? `${process.env.REACT_APP_BACKEND_URL}/review/${lessonNumberToReview}`
+          : `${process.env.REACT_APP_BACKEND_URL}/learn`
+
+        document.title = !!lessonNumberToReview
+          ? `Ismétlés (${lessonNumberToReview}. lecke) - Sino-sztorik`
+          : 'Tanulás - Sino-sztorik'
 
         let response = await fetch(APIendpoint, {
           headers: { Authorization: `Bearer ${auth.token}` },
@@ -77,7 +92,7 @@ const Learn = ({ themeToggle }) => {
   useEventListener('keydown', ({ key }) => {
     if (key === 'ArrowLeft') onArrowClick('left')
     if (key === 'ArrowRight') onArrowClick('right')
-    if (key === 'Escape') navigate('/')
+    if (key === 'Escape') navigate('/') // To-Do: ask for confirmation before leaving the lesson
   })
 
   // Renders the LessonStartPage, the LessonEndPage or the CharPage conditionally.
@@ -85,10 +100,8 @@ const Learn = ({ themeToggle }) => {
   else {
     let characterArray = lessonData.characters
     let currentChar = lessonData.characters[currentCharacterIndex] || undefined
-
-    let showLessonStart = !!(currentCharacterIndex < 0)
-    let showLessonEnd =
-      !showLessonStart && !!(currentCharacterIndex > characterArray.length - 1)
+    let showLessonStart = currentCharacterIndex < 0
+    let showLessonEnd = currentCharacterIndex >= characterArray.length
     let showCharacterCard = !showLessonStart && !showLessonEnd
 
     return (

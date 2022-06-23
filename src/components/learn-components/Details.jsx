@@ -78,7 +78,7 @@ export default function Details({
           {/* Expand/Collapse chevron button */}
           {(currentChar.character?.constituents?.length ||
             currentChar.character?.frequency) && (
-            <PopupTooltip title={'Részletek megjelenítése/elrejtése (R)'}>
+            <PopupTooltip title={'Részletek megjelenítése/elrejtése'}>
               <Box
                 className='chevron-box'
                 style={{

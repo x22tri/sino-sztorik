@@ -1,10 +1,18 @@
-const getRomanNumeralForTier = (tier) => {
-    if (tier === 1) return 'I'
-    else if (tier === 2) return 'II'
-    else if (tier === 3) return 'III'
-    else if (tier === 4) return 'IV'
-    else if (tier === 5) return 'V'
-    else return null
+const getRomanNumeralForTier = tier => {
+  switch (tier) {
+    case 1:
+      return 'I'
+    case 2:
+      return 'II'
+    case 3:
+      return 'III'
+    case 4:
+      return 'IV'
+    case 5:
+      return 'V'
+    default:
+      return null
+  }
 }
 
 export default getRomanNumeralForTier

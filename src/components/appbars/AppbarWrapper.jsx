@@ -85,7 +85,7 @@ const ThemeChangeButton = ({ themeToggle, ...props }) => {
       {...props}
       onClick={themeToggle}
       textContent='Téma váltása'
-      tooltip='Váltás sötét/világos kinézet között (T)'
+      tooltip='Váltás sötét/világos kinézet között'
       hideTextWhenSmall
       endIcon={
         <FontAwesomeIcon

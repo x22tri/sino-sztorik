@@ -10,9 +10,7 @@ it('renders MainPage route when unauthenticated', () => {
       <App />
     </BrowserRouter>
   )
-
-  const heroText = screen.getByText(/Tanulj/i)
-  expect(heroText).toBeInTheDocument()
+  expect(screen.getByText(/Tanulj/i)).toBeInTheDocument() // Text from the MainPage component
 })
 
 it('shows AuthPage when Login button is clicked', async () => {
@@ -21,8 +19,6 @@ it('shows AuthPage when Login button is clicked', async () => {
       <App />
     </BrowserRouter>
   )
-
   userEvent.click(screen.getByText(/Már van fiókom/i))
-  const enterDataText = await screen.findByText(/Add meg adataidat/i)
-  expect(enterDataText).toBeInTheDocument()
+  expect(await screen.findByText(/Add meg adataidat/i)).toBeInTheDocument()
 })
