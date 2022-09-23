@@ -111,7 +111,7 @@ const Recap = ({
                     component={forwardRef((props, ref) => (
                       <Box {...props} ref={ref} flex={1} position='relative'>
                         <TabHotkey {...{ value, index, characters }} />
-                        <CharacterInfo small char={char.character} />
+                        <CharacterInfo small char={char} />
                       </Box>
                     ))}
                   />
@@ -123,8 +123,8 @@ const Recap = ({
             <Box ref={recapFieldRef}>
               {characters.map((char, index) => (
                 <TabPanel key={index} {...{ value, index }}>
-                  {char?.character?.story ? (
-                    <Story small story={char.character.story} />
+                  {char?.story ? (
+                    <Story small story={char.story} />
                   ) : (
                     'A történet nem elérhető.'
                   )}

@@ -76,8 +76,7 @@ export default function Details({
           }}
         >
           {/* Expand/Collapse chevron button */}
-          {(currentChar.character?.constituents?.length ||
-            currentChar.character?.frequency) && (
+          {(currentChar?.constituents?.length || currentChar?.frequency) && (
             <PopupTooltip title={'Részletek megjelenítése/elrejtése'}>
               <Box
                 className='chevron-box'
@@ -97,14 +96,13 @@ export default function Details({
             in={wideDetails}
             nameAndIcon={nameIconDictionary.constituentList}
             type='constituentList'
-            // currentChar={currentChar?.character}
-            sourceArray={currentChar.character?.constituents}
+            sourceArray={currentChar?.constituents}
             {...{ currentChar, state, dispatch, transitionTimeout }}
           />
 
           <Frequency
             in={wideDetails}
-            frequency={currentChar.character?.frequency}
+            frequency={currentChar?.frequency}
             nameAndIcon={nameIconDictionary.frequency}
             {...{ transitionTimeout }}
           />

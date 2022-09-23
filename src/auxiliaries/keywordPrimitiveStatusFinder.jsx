@@ -14,15 +14,17 @@ const characterNameFinder = character => {
   if (!character) return
 
   const displayedElements = {
-    primitiveOnly: ['primitiveMeaning'],
-    keywordOnly: ['keyword'],
+    primitiveOnly: ['primitiveMeaning', undefined],
+    keywordOnly: ['keyword', undefined],
     keywordAndPrimitive: ['keyword', 'primitiveMeaning'],
-    none: [undefined],
+    none: [undefined, undefined],
   }
 
-  const [mainCharacterName, secondaryCharacterName] = [
-    character[displayedElements[keywordPrimitiveStatusFinder(character)]],
-  ]
+  const [mainProperty, secondaryProperty] =
+    displayedElements[keywordPrimitiveStatusFinder(character)]
+
+  const mainCharacterName = character[mainProperty]
+  const secondaryCharacterName = character[secondaryProperty]
 
   return [mainCharacterName, secondaryCharacterName]
 }

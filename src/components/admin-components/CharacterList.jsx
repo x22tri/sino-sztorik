@@ -41,16 +41,14 @@ const CharacterList = () => {
       field: 'charChinese',
       headerName: 'Írásjel',
       width: 70,
-      renderCell: params => params.row.character.charChinese,
+      renderCell: params => params.row.charChinese,
     },
     {
       field: 'keyword',
       headerName: 'Kulcsszó',
       width: 150,
       renderCell: params => (
-        <Box color={theme.palette.primary.dark}>
-          {params.row.character.keyword}
-        </Box>
+        <Box color={theme.palette.primary.dark}>{params.row.keyword}</Box>
       ),
     },
     {
@@ -59,7 +57,7 @@ const CharacterList = () => {
       width: 150,
       renderCell: params => (
         <Box color={theme.palette.tertiary.main}>
-          {params.row.character.primitiveMeaning}
+          {params.row.primitiveMeaning}
         </Box>
       ),
     },
@@ -67,19 +65,19 @@ const CharacterList = () => {
       field: 'story',
       headerName: 'Történet',
       width: 300,
-      renderCell: params => params.row.character.story,
+      renderCell: params => params.row.story,
     },
     {
       field: 'frequency',
       headerName: 'Gyakoriság',
       width: 100,
       renderCell: params =>
-        params.row.character.frequency && (
+        params.row.frequency && (
           <Box margin='auto'>
             <FontAwesomeIcon
               icon={faChartColumn}
               size='xl'
-              color={frequencyCheck(params.row.character.frequency)[0]}
+              color={frequencyCheck(params.row.frequency)[0]}
             />
           </Box>
         ),
@@ -88,7 +86,7 @@ const CharacterList = () => {
       field: 'pinyin',
       headerName: 'Kiejtés',
       width: 70,
-      renderCell: params => params.row.character.pinyin,
+      renderCell: params => params.row.pinyin,
     },
     { field: 'tier', headerName: 'Kör', width: 30 },
     { field: 'orderId', headerName: 'Bejegyzés azonosítója', width: 200 },

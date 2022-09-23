@@ -22,7 +22,7 @@ const useAuth = () => {
   // Setting up auto-login.
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem('userData'))
-    if (storedData && storedData.token) {
+    if (storedData?.userId && storedData?.token) {
       login(storedData.userId, storedData.token)
     }
   }, [login])

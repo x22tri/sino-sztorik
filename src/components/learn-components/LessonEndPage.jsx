@@ -30,6 +30,7 @@ export default function LessonEndPage({ lessonIsReview }) {
       )
       // console.log(response.json())
       response = await response.json()
+      console.log(response)
       if (response && goToNextLesson) navigate('/continue')
       else if (response) navigate('/')
     }

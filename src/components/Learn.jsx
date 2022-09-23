@@ -110,7 +110,7 @@ const Learn = ({ themeToggle }) => {
           lessonLength={characterArray.length}
           lastCharacterInLesson={
             (characterArray?.length &&
-              characterArray[characterArray.length - 1].character) ||
+              characterArray[characterArray.length - 1]) ||
             undefined
           }
           {...{ currentChar, currentCharacterIndex, onArrowClick, themeToggle }}

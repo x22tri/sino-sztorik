@@ -31,6 +31,8 @@ function AuthPage({
   // The function that sends a login or signup request to the backend.
   const sendAuthRequest = async values => {
     try {
+      const { email, password, displayName } = values
+
       setLoading(true)
       const response = await fetch(
         signupOrLoginState === 'login' ? loginRoute : signupRoute,
@@ -42,13 +44,13 @@ function AuthPage({
           body:
             signupOrLoginState === 'login'
               ? JSON.stringify({
-                  email: values.email,
-                  password: values.password,
+                  email,
+                  password,
                 })
               : JSON.stringify({
-                  email: values.email,
-                  password: values.password,
-                  displayName: values.displayName,
+                  email,
+                  password,
+                  displayName,
                 }),
         }
       )
@@ -73,12 +75,11 @@ function AuthPage({
   // The validator for the email, password and displayName fields.
   const validate = values => {
     const errors = {}
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
 
     if (!values.email) {
       errors.email = 'Nem adtál meg e-mail-címet.'
-    } else if (
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-    ) {
+    } else if (!emailRegex.test(values.email)) {
       errors.email = 'A megadott e-mail-cím érvénytelen.'
     }
 
