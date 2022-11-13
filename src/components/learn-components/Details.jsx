@@ -111,7 +111,7 @@ export default function Details({
             in={wideDetails}
             nameAndIcon={nameIconDictionary.phrases}
             type='phrases'
-            sourceArray={currentChar.phrases}
+            sourceArray={currentChar?.phrases}
             {...{ currentChar, dispatch, transitionTimeout }}
           />
 
@@ -119,7 +119,7 @@ export default function Details({
             in={wideDetails}
             nameAndIcon={nameIconDictionary.similarAppearance}
             type='similarAppearance'
-            sourceArray={currentChar.similarAppearance}
+            sourceArray={currentChar?.similarAppearance}
             {...{ currentChar, dispatch, transitionTimeout }}
           />
 
@@ -127,7 +127,7 @@ export default function Details({
             in={wideDetails}
             nameAndIcon={nameIconDictionary.similarMeaning}
             type='similarMeaning'
-            sourceArray={currentChar.similarMeaning}
+            sourceArray={currentChar?.similarMeaning}
             {...{ currentChar, dispatch, transitionTimeout }}
           />
 

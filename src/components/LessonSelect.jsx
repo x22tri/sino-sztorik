@@ -271,7 +271,7 @@ const ForceSearchButton = ({ auth, lastSearch, setSearchedChar }) => {
   const handleForceSearchChar = async () => {
     try {
       const searchedCharInfo = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/force-search/${lastSearch}`,
+        `${process.env.REACT_APP_BACKEND_URL}/search/${lastSearch}?force=true`,
         {
           headers: { Authorization: `Bearer ${auth.token}` },
         }
@@ -316,6 +316,7 @@ const LessonSelect = ({
   // Getting the all lessons' data from the server.
   const [lessonSelectData, setLessonSelectData] = useState()
   const [userData, setUserData] = useState()
+  const [lessonName, setLessonName] = useState()
   const [searchedChar, setSearchedChar] = useState()
   const [lastSearch, setLastSearch] = useState() // Needed as the search term is erased before user could click "See anyway"
 
@@ -335,6 +336,7 @@ const LessonSelect = ({
         const lessonConverted = await lessonTable.json()
         setLessonSelectData(lessonConverted.lessonArray)
         setUserData(lessonConverted.user)
+        setLessonName(lessonConverted.currentLessonName)
       }
       fetchLessonSelect()
     }, [auth.token])
@@ -365,7 +367,7 @@ const LessonSelect = ({
                 displayName={userData.displayName}
                 currentTier={userData.currentTier}
                 currentLesson={userData.currentLesson}
-                currentLessonName={userData.currentLessonName}
+                currentLessonName={lessonName}
               />
 
               <Grid

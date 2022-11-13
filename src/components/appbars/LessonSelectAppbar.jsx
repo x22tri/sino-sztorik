@@ -51,6 +51,8 @@ const SearchField = ({ setSearchedChar, setLastSearch }) => {
         const searchedCharInfoJson = await searchedCharInfo.json()
         searchedCharInfoJson.status = searchedCharInfo.status // Adding the status to the returned object.
 
+        console.log(searchedCharInfoJson)
+
         if (
           Array.isArray(searchedCharInfoJson) &&
           searchedCharInfoJson.length === 1

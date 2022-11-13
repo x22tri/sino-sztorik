@@ -66,7 +66,7 @@ const Learn = ({ themeToggle }) => {
           headers: { Authorization: `Bearer ${auth.token}` },
         })
         response = await response.json()
-        setLessonData(response.foundLesson)
+        setLessonData(response)
       }
       fetchLesson()
     }, [auth.token, lessonNumberToReview])

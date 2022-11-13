@@ -49,7 +49,7 @@ const unmockedFetch = global.fetch
 beforeAll(() => {
   global.fetch = () =>
     Promise.resolve({
-      json: () => Promise.resolve({ foundLesson: mockLessonData }),
+      json: () => Promise.resolve(mockLessonData),
     })
 })
 

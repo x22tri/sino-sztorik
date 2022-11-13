@@ -54,7 +54,7 @@ const SimilarList = ({ type }) => {
       setSearchTermSimilar('')
       try {
         const searchedCharInfo = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/force-search/${searchTermSimilar}`
+          `${process.env.REACT_APP_BACKEND_URL}/search/${searchTermSimilar}?force=true`
         )
         const searchedCharInfoJson = await searchedCharInfo.json()
 

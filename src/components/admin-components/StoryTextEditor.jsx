@@ -169,7 +169,7 @@ const FormattingToolbar = ({ constituentValue, setConstituentValue }) => {
       setSearchTermValue('')
       try {
         const searchedCharInfo = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/force-search/${searchTermValue}`
+          `${process.env.REACT_APP_BACKEND_URL}/search/${searchTermValue}?force=true`
         )
         const searchedCharInfoJson = await searchedCharInfo.json()
 
