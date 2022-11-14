@@ -2,12 +2,20 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
-import { darken } from '@material-ui/core/styles'
+import { deepOrange, blue, grey } from '@mui/material/colors'
+import { useState } from 'react'
 
 const LESSON_LOCKED = 'Még nincs feloldva'
 const LESSON_UPCOMING = 'Soron következő lecke'
 const LESSON_COMPLETED = 'Már megtanult lecke'
 const LESSON_NOT_IN_TIER = 'Ebben a körben nincs ilyen lecke'
+
+const LEARN_BUTTON = 'Tanulás'
+const REVIEW_BUTTON = 'Ismétlés'
+const LESSON_SELECT_TITLE = 'Leckeválasztó'
+const LESSON_DETAILS_TITLE = 'A lecke részletei'
+const UPCOMING_LESSON_LABEL = 'KÖVETKEZŐ'
+const CHARACTER_AMOUNT_LABEL = 'karakter'
 
 const LessonStatuses = {
   NOT_IN_TIER: LESSON_NOT_IN_TIER,
@@ -41,7 +49,7 @@ const LESSONS: {
   },
   {
     id: 2,
-    title: 'Kezdjünk kombinálgatni!',
+    title: 'Több, mint a részek összege',
     preface: 'teszt2',
     tierStatuses: [
       LessonStatuses.COMPLETED,
@@ -103,105 +111,75 @@ const LESSONS: {
 
 const TEMP_PALETTE = {
   WHITE: '#ffffff',
-  LIGHTGRAY: '#cccccc',
-  MIDGRAY: '#bababa',
   PASTELBLUE: '#EBF8FF',
-  MIDBLUE: '#59BCF1',
-  YELLOW: '#ffcc00',
+  VERY_LOW_OPACITY_BLACK: '#00000011',
+  LOW_OPACITY_BLACK: '#00000044',
 }
 
-const { WHITE, LIGHTGRAY, MIDGRAY, PASTELBLUE, MIDBLUE, YELLOW } = TEMP_PALETTE
+const { WHITE, PASTELBLUE, VERY_LOW_OPACITY_BLACK, LOW_OPACITY_BLACK } =
+  TEMP_PALETTE
 
-const colorDictionary = {
-  [LessonStatuses.NOT_IN_TIER]: WHITE, // Same as the page background color
-  [LessonStatuses.LOCKED]: MIDGRAY,
-  [LessonStatuses.UPCOMING]: YELLOW,
-  [LessonStatuses.COMPLETED]: MIDBLUE,
-}
-
-function TierStatusBlips({
-  lessonNumber,
-  tierStatuses,
-}: {
-  lessonNumber: number
-  tierStatuses: TierStatuses
-}) {
-  const lastEligibleTier = findLastEligibleTier(tierStatuses)
+function TierStatusBlips({ tierStatuses }: { tierStatuses: TierStatuses }) {
+  const colorDictionary = {
+    [LessonStatuses.NOT_IN_TIER]: 'transparent', // Same as the page background color
+    [LessonStatuses.LOCKED]: grey[400],
+    [LessonStatuses.UPCOMING]: deepOrange[500],
+    [LessonStatuses.COMPLETED]: blue[800],
+  }
 
   return (
     <Box display='flex' flexDirection='row' gap='4px' alignItems='center'>
-      {tierStatuses.map((tier, index) =>
-        index === lastEligibleTier ? (
-          <Box
-            key={index}
-            component='span'
-            display='flex'
-            justifyContent='center'
-            alignItems='center'
-            sx={{
-              borderRadius: '50%',
-              border: `2px solid ${darken(colorDictionary[tier], 0.1)}`,
-              color: darken(colorDictionary[tier], 0.5),
-              width: '48px',
-              height: '48px',
-              backgroundColor: colorDictionary[tier],
-            }}
-          />
-        ) : (
+      {tierStatuses.map((tier, index) => {
+        const tierStatusColor = colorDictionary[tier]
+
+        const border =
+          tier === LessonStatuses.NOT_IN_TIER
+            ? `2px solid ${VERY_LOW_OPACITY_BLACK}`
+            : `none`
+
+        return (
           <Box
             key={index}
             component='span'
             sx={{
+              width: '12px',
+              height: '12px',
+              backgroundColor: tierStatusColor,
               borderRadius: '50%',
-              border: `2px solid ${darken(colorDictionary[tier], 0.1)}`,
-              width: '16px',
-              height: '16px',
-              backgroundColor: colorDictionary[tier],
+              border,
             }}
           />
         )
-      )}
+      })}
     </Box>
   )
-}
-
-function findLastEligibleTier(tierStatuses: TierStatuses): number {
-  const upcomingIndex = tierStatuses.findIndex(
-    tierStatus => tierStatus === LessonStatuses.UPCOMING
-  )
-
-  if (upcomingIndex !== -1) {
-    return upcomingIndex
-  }
-
-  const lastCompletedLesson = [...tierStatuses]
-    .reverse()
-    .findIndex(tierStatus => tierStatus === LessonStatuses.COMPLETED) // findLastIndex seems to not be supported.
-
-  if (lastCompletedLesson !== -1) {
-    return tierStatuses.length - lastCompletedLesson - 1
-  }
-
-  const firstExistingLesson = tierStatuses.findIndex(
-    tierStatus => tierStatus === LessonStatuses.LOCKED
-  )
-
-  if (firstExistingLesson !== -1) {
-    return firstExistingLesson
-  }
-
-  return 0
 }
 
 function LessonCard({
   id,
   title,
   tierStatuses,
+  selectedLessonId,
+  setSelectedLessonId,
+  currentLessonId,
 }: {
   id: number
   title: string
   tierStatuses: TierStatuses
+  selectedLessonId: number
+  setSelectedLessonId: React.Dispatch<React.SetStateAction<number>>
+  currentLessonId: number
 }) {
+  const selected = id === selectedLessonId
+  const isCurrentLesson = id === currentLessonId
+  const borderColor = isCurrentLesson
+    ? deepOrange[500]
+    : selected
+    ? blue[800]
+    : 'transparent'
+  const borderWidth = isCurrentLesson && !selected ? '1px' : '2px'
+  const upcomingLabelWeight = isCurrentLesson && selected ? 'bold' : 'normal'
+
   return (
     <Grid
       item
@@ -210,7 +188,31 @@ function LessonCard({
       alignItems='center'
       xs={4}
       sm={12 / 5}
+      position='relative'
+      sx={{
+        transition: 'transform 0.15s ease-in-out',
+        '&:hover': {
+          transform: 'translate(0%, -8%)',
+          transition: 'transform 0.15s ease-in-out',
+          cursor: 'pointer',
+        },
+      }}
+      onClick={() => setSelectedLessonId(id)}
     >
+      {isCurrentLesson && (
+        <Box
+          component='span'
+          fontSize='70%'
+          fontWeight={upcomingLabelWeight}
+          color={deepOrange[500]}
+          alignSelf='flex-start'
+          position='absolute'
+          top='1px'
+          left='10px'
+        >
+          {UPCOMING_LESSON_LABEL}
+        </Box>
+      )}
       <Box
         position='relative'
         sx={{
@@ -219,19 +221,20 @@ function LessonCard({
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          backgroundColor: WHITE,
-          borderRadius: '16px',
+          backgroundColor: 'white',
+          borderRadius: isCurrentLesson ? '0 16px' : '16px',
+          border: `${borderWidth} solid ${borderColor}`,
           py: 2,
         }}
       >
-        <TierStatusBlips lessonNumber={id} {...{ tierStatuses }} />
+        <TierStatusBlips {...{ tierStatuses }} />
         <Box textAlign='center' sx={{ my: 1, fontSize: '90%' }}>
           {title}
         </Box>
         <Box
           position='absolute'
           bottom='2px'
-          color={LIGHTGRAY}
+          color={LOW_OPACITY_BLACK}
           fontSize='small'
         >
           {id}
@@ -243,21 +246,15 @@ function LessonCard({
 
 function SectionTitle({ title }: { title: string }) {
   return (
-    <Box
-      textAlign='center'
-      mb={2}
-      width='100%'
-      fontSize='90%'
-      fontWeight='bold'
-      color={MIDGRAY}
-    >
+    <Box my={6} fontSize='140%' fontWeight='bold'>
       {title}
     </Box>
   )
 }
 
 function LessonSelect() {
-  const selectedLessonId = 1
+  const [selectedLessonId, setSelectedLessonId] = useState<number>(1)
+  const [currentLessonId] = useState<number>(1)
 
   const selectedLesson = LESSONS.find(lesson => lesson.id === selectedLessonId)
 
@@ -275,10 +272,20 @@ function LessonSelect() {
         justifyContent='center'
       >
         <Grid item xs={12} md={7}>
-          <SectionTitle title={'LECKEVÁLASZTÓ'} />
+          <SectionTitle title={LESSON_SELECT_TITLE} />
           <Grid container rowSpacing={2} columnSpacing={1}>
             {LESSONS.map(({ id, title, tierStatuses }) => (
-              <LessonCard key={id} {...{ id, title, tierStatuses }} />
+              <LessonCard
+                key={id}
+                {...{
+                  id,
+                  title,
+                  tierStatuses,
+                  selectedLessonId,
+                  setSelectedLessonId,
+                  currentLessonId,
+                }}
+              />
             ))}
           </Grid>
         </Grid>
@@ -289,7 +296,7 @@ function LessonSelect() {
           flexDirection='column'
           sx={{ display: { xs: 'none', md: 'flex' } }} // On xs and sm, appears on click
         >
-          <SectionTitle title={'BETEKINTŐ ABLAK'} />
+          <SectionTitle title={LESSON_DETAILS_TITLE} />
           {selectedLesson && (
             <Box sx={{ backgroundColor: WHITE, borderRadius: '16px', p: 2 }}>
               <Box textAlign='center' fontSize='large' fontWeight='bold'>
@@ -305,11 +312,20 @@ function LessonSelect() {
                   flexDirection: { xs: 'column', md: 'row' },
                 }}
               >
-                <Button variant='contained'>Tanulás</Button>
-                <Button variant='outlined'>Ismétlés</Button>
+                {selectedLesson.id === currentLessonId && (
+                  <Button
+                    variant='contained'
+                    sx={{ backgroundColor: '#FF4920' }}
+                  >
+                    {LEARN_BUTTON}
+                  </Button>
+                )}
+                <Button variant='outlined'>{REVIEW_BUTTON}</Button>
               </Box>
               <Divider sx={{ my: 3 }} />
-              <Box>{selectedLesson.characters.length} karakter</Box>
+              <Box>
+                {selectedLesson.characters.length} {CHARACTER_AMOUNT_LABEL}
+              </Box>
               <Box display='flex' gap='4px' justifyContent='center'>
                 {selectedLesson.characters.map(char => (
                   <Box component='span' key={char}>
