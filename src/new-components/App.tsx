@@ -1,6 +1,6 @@
 import CssBaseline from '@mui/material/CssBaseline'
 import Landing from './Landing'
-import LessonSelect from './LessonSelect'
+import LessonSelect from './lesson-select/LessonSelect'
 
 function App() {
   return (
