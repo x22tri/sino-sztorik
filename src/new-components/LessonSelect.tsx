@@ -1,6 +1,5 @@
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import Card from '@mui/material/Card'
 import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
 import { darken } from '@material-ui/core/styles'
@@ -102,31 +101,96 @@ const LESSONS: {
   },
 ]
 
-const colorDictionary = {
-  [LessonStatuses.NOT_IN_TIER]: '#ffffff', // Same as the page background color
-  [LessonStatuses.LOCKED]: '#bababa',
-  [LessonStatuses.UPCOMING]: '#ffcc00',
-  [LessonStatuses.COMPLETED]: '#59BCF1',
+const TEMP_PALETTE = {
+  WHITE: '#ffffff',
+  LIGHTGRAY: '#cccccc',
+  MIDGRAY: '#bababa',
+  PASTELBLUE: '#EBF8FF',
+  MIDBLUE: '#59BCF1',
+  YELLOW: '#ffcc00',
 }
 
-function TierStatusBlips({ tierStatuses }: { tierStatuses: TierStatuses }) {
+const { WHITE, LIGHTGRAY, MIDGRAY, PASTELBLUE, MIDBLUE, YELLOW } = TEMP_PALETTE
+
+const colorDictionary = {
+  [LessonStatuses.NOT_IN_TIER]: WHITE, // Same as the page background color
+  [LessonStatuses.LOCKED]: MIDGRAY,
+  [LessonStatuses.UPCOMING]: YELLOW,
+  [LessonStatuses.COMPLETED]: MIDBLUE,
+}
+
+function TierStatusBlips({
+  lessonNumber,
+  tierStatuses,
+}: {
+  lessonNumber: number
+  tierStatuses: TierStatuses
+}) {
+  const lastEligibleTier = findLastEligibleTier(tierStatuses)
+
   return (
-    <Box display='flex' flexDirection='row' gap='4px'>
-      {tierStatuses.map((tier, index) => (
-        <Box
-          key={index}
-          component='span'
-          sx={{
-            borderRadius: '50%',
-            border: `2px solid ${darken(colorDictionary[tier], 0.1)}`,
-            width: '16px',
-            height: '16px',
-            backgroundColor: colorDictionary[tier],
-          }}
-        />
-      ))}
+    <Box display='flex' flexDirection='row' gap='4px' alignItems='center'>
+      {tierStatuses.map((tier, index) =>
+        index === lastEligibleTier ? (
+          <Box
+            key={index}
+            component='span'
+            display='flex'
+            justifyContent='center'
+            alignItems='center'
+            sx={{
+              borderRadius: '50%',
+              border: `2px solid ${darken(colorDictionary[tier], 0.1)}`,
+              color: darken(colorDictionary[tier], 0.5),
+              width: '48px',
+              height: '48px',
+              backgroundColor: colorDictionary[tier],
+            }}
+          />
+        ) : (
+          <Box
+            key={index}
+            component='span'
+            sx={{
+              borderRadius: '50%',
+              border: `2px solid ${darken(colorDictionary[tier], 0.1)}`,
+              width: '16px',
+              height: '16px',
+              backgroundColor: colorDictionary[tier],
+            }}
+          />
+        )
+      )}
     </Box>
   )
+}
+
+function findLastEligibleTier(tierStatuses: TierStatuses): number {
+  const upcomingIndex = tierStatuses.findIndex(
+    tierStatus => tierStatus === LessonStatuses.UPCOMING
+  )
+
+  if (upcomingIndex !== -1) {
+    return upcomingIndex
+  }
+
+  const lastCompletedLesson = [...tierStatuses]
+    .reverse()
+    .findIndex(tierStatus => tierStatus === LessonStatuses.COMPLETED) // findLastIndex seems to not be supported.
+
+  if (lastCompletedLesson !== -1) {
+    return tierStatuses.length - lastCompletedLesson - 1
+  }
+
+  const firstExistingLesson = tierStatuses.findIndex(
+    tierStatus => tierStatus === LessonStatuses.LOCKED
+  )
+
+  if (firstExistingLesson !== -1) {
+    return firstExistingLesson
+  }
+
+  return 0
 }
 
 function LessonCard({
@@ -148,34 +212,29 @@ function LessonCard({
       sm={12 / 5}
     >
       <Box
+        position='relative'
         sx={{
           width: '100%',
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          backgroundColor: '#ffffff',
+          backgroundColor: WHITE,
           borderRadius: '16px',
           py: 2,
         }}
       >
-        <TierStatusBlips {...{ tierStatuses }} />
+        <TierStatusBlips lessonNumber={id} {...{ tierStatuses }} />
+        <Box textAlign='center' sx={{ my: 1, fontSize: '90%' }}>
+          {title}
+        </Box>
         <Box
-          display='flex'
-          justifyContent='center'
-          alignItems='center'
-          sx={{
-            borderRadius: '50%',
-            border: '4px double lightgrey',
-            width: '64px',
-            height: '64px',
-            mt: 1,
-          }}
+          position='absolute'
+          bottom='2px'
+          color={LIGHTGRAY}
+          fontSize='small'
         >
           {id}
-        </Box>
-        <Box textAlign='center' sx={{ mt: 1, fontSize: '90%' }}>
-          {title}
         </Box>
       </Box>
     </Grid>
@@ -190,7 +249,7 @@ function SectionTitle({ title }: { title: string }) {
       width='100%'
       fontSize='90%'
       fontWeight='bold'
-      color='#999999'
+      color={MIDGRAY}
     >
       {title}
     </Box>
@@ -206,7 +265,7 @@ function LessonSelect() {
     <Box
       display='flex'
       justifyContent='center'
-      sx={{ mt: 3, backgroundColor: '#EBF8FF' }}
+      sx={{ mt: 3, backgroundColor: PASTELBLUE }}
     >
       <Grid
         container
@@ -232,9 +291,7 @@ function LessonSelect() {
         >
           <SectionTitle title={'BETEKINTŐ ABLAK'} />
           {selectedLesson && (
-            <Box
-              sx={{ backgroundColor: '#ffffff', borderRadius: '16px', p: 2 }}
-            >
+            <Box sx={{ backgroundColor: WHITE, borderRadius: '16px', p: 2 }}>
               <Box textAlign='center' fontSize='large' fontWeight='bold'>
                 {selectedLesson.title}
               </Box>
@@ -255,7 +312,9 @@ function LessonSelect() {
               <Box>{selectedLesson.characters.length} karakter</Box>
               <Box display='flex' gap='4px' justifyContent='center'>
                 {selectedLesson.characters.map(char => (
-                  <Box component='span'>{char}</Box>
+                  <Box component='span' key={char}>
+                    {char}
+                  </Box>
                 ))}
               </Box>
             </Box>
