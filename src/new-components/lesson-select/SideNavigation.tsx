@@ -1,17 +1,36 @@
 import { useTheme } from '@mui/material'
-import { faBook, IconDefinition } from '@fortawesome/free-solid-svg-icons'
+import {
+  faBook,
+  faMagnifyingGlass,
+  IconDefinition,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Typography from '@mui/material/Typography'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
-import { LESSON_SELECT_TITLE } from '../shared/strings'
+import { LESSON_SELECT_TITLE, CHARACTER_SEARCH_TITLE } from '../shared/strings'
+import { SideNavigationItem } from '../shared/interfaces'
+import { Dispatch, SetStateAction } from 'react'
 
-const SIDE_NAVIGATION_ELEMENTS = [
+interface SideNavigationElement {
+  title: SideNavigationItem
+  icon: IconDefinition
+  link: string
+}
+
+const SIDE_NAVIGATION_ELEMENTS: SideNavigationElement[] = [
   { title: LESSON_SELECT_TITLE, icon: faBook, link: '' },
+  { title: CHARACTER_SEARCH_TITLE, icon: faMagnifyingGlass, link: '' },
 ]
 
-export default function SideNavigation() {
+export default function SideNavigation({
+  selectedNavigationItem,
+  setSelectedNavigationItem,
+}: {
+  selectedNavigationItem: SideNavigationItem
+  setSelectedNavigationItem: Dispatch<SetStateAction<SideNavigationItem>>
+}) {
   return (
     <List
       component='nav'
@@ -21,28 +40,44 @@ export default function SideNavigation() {
       {SIDE_NAVIGATION_ELEMENTS.map(element => {
         const { title, icon } = element
 
-        return <SideNavigationItem key={title} {...{ title, icon }} />
+        const isSelected = selectedNavigationItem === title
+
+        return (
+          <SideNavigationListItem
+            key={title}
+            {...{ title, icon, isSelected, setSelectedNavigationItem }}
+          />
+        )
       })}
     </List>
   )
 }
 
-function SideNavigationItem({
+function SideNavigationListItem({
   title,
   icon,
+  isSelected,
+  setSelectedNavigationItem,
 }: {
-  title: string
+  title: SideNavigationItem
   icon: IconDefinition
+  isSelected: boolean
+  setSelectedNavigationItem: Dispatch<SetStateAction<SideNavigationItem>>
 }) {
   const { palette } = useTheme()
 
   return (
-    <ListItem disablePadding>
+    <ListItem>
       <ListItemButton
         component='button'
-        selected={true}
+        selected={isSelected}
         sx={{
-          p: '0 4px',
+          justifyContent: 'space-between',
+          borderBottom: `2px solid transparent`,
+          p: 0,
+          ':hover': {
+            color: palette.primary.main,
+          },
           '&.Mui-selected': {
             backgroundColor: 'transparent',
             borderBottom: `2px solid ${palette.primary.main}`,
@@ -52,8 +87,10 @@ function SideNavigationItem({
             backgroundColor: 'transparent',
           },
         }}
+        onClick={() => setSelectedNavigationItem(title)}
       >
-        <FontAwesomeIcon {...{ icon }} color={palette.primary.main} size='lg' />
+        <FontAwesomeIcon {...{ icon }} size='lg' />
+
         <Typography component='span' variant='h6' sx={{ ml: 1 }}>
           {title}
         </Typography>

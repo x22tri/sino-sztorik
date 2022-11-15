@@ -2,6 +2,7 @@ import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
+import { Dispatch, SetStateAction } from 'react'
 import { TierStatuses } from '../shared/interfaces'
 import { UPCOMING_LESSON_LABEL } from '../shared/strings'
 import TierStatusBlips from './TierStatusBlips'
@@ -18,7 +19,7 @@ export default function LessonCard({
   title: string
   tierStatuses: TierStatuses
   selectedLessonNumber: number
-  setSelectedLessonNumber: React.Dispatch<React.SetStateAction<number>>
+  setSelectedLessonNumber: Dispatch<SetStateAction<number>>
   currentLessonNumber: number
 }) {
   const { palette } = useTheme()

@@ -24,7 +24,7 @@ export default function LessonDetails({
 
   const { title, preface, characters } = lesson
 
-  const lessonDetailsWidth = '300px'
+  const lessonDetailsWidth = '30em'
 
   return (
     <Box

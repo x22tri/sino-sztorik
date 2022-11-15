@@ -3,6 +3,8 @@ import {
   LESSON_LOCKED,
   LESSON_UPCOMING,
   LESSON_COMPLETED,
+  LESSON_SELECT_TITLE,
+  CHARACTER_SEARCH_TITLE,
 } from './strings'
 
 export const LessonStatuses = {
@@ -13,6 +15,14 @@ export const LessonStatuses = {
 } as const
 
 export type LessonStatus = typeof LessonStatuses[keyof typeof LessonStatuses]
+
+export const SideNavigationItems = {
+  LESSON_SELECT: LESSON_SELECT_TITLE,
+  CHARACTER_SEARCH: CHARACTER_SEARCH_TITLE,
+} as const
+
+export type SideNavigationItem =
+  typeof SideNavigationItems[keyof typeof SideNavigationItems]
 
 export type TierStatuses = [
   LessonStatus,
