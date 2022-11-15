@@ -67,14 +67,14 @@ function SideNavigationListItem({
   const { palette } = useTheme()
 
   return (
-    <ListItem>
+    <ListItem sx={{ pt: 0, pb: 3 }}>
       <ListItemButton
         component='button'
         selected={isSelected}
         sx={{
           justifyContent: 'space-between',
           borderBottom: `2px solid transparent`,
-          p: 0,
+          p: '0 0 8px 0',
           ':hover': {
             color: palette.primary.main,
           },
@@ -91,7 +91,7 @@ function SideNavigationListItem({
       >
         <FontAwesomeIcon {...{ icon }} size='lg' />
 
-        <Typography component='span' variant='h6' sx={{ ml: 1 }}>
+        <Typography component='span' variant='h6' sx={{ ml: 1, lineHeight: 1 }}>
           {title}
         </Typography>
       </ListItemButton>

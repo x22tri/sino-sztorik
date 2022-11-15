@@ -4,6 +4,7 @@ import LessonSelect from './lesson-select/LessonSelect'
 
 import { ThemeProvider } from '@mui/material/styles'
 import theme from './shared/theme'
+import AppbarWrapper from './toolbar/AppbarWrapper'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <CssBaseline />
       {/* <Landing /> */}
       <ThemeProvider {...{ theme }}>
+        <AppbarWrapper />
         <LessonSelect />
       </ThemeProvider>
     </>

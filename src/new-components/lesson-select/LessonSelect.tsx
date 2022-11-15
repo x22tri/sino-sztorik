@@ -8,6 +8,7 @@ import { LESSONS } from '../shared/MOCK_LESSONS'
 import { useTheme } from '@mui/material'
 import { SideNavigationItem } from '../shared/interfaces'
 import { LESSON_SELECT_TITLE } from '../shared/strings'
+import Typography from '@mui/material/Typography'
 
 export default function LessonSelect() {
   const { palette } = useTheme()
@@ -22,14 +23,14 @@ export default function LessonSelect() {
     ({ lessonNumber }) => lessonNumber === selectedLessonNumber
   )
 
-  const toolbarHeight = '48px'
+  const toolbarHeight = '64px'
 
   return (
     <Box
       display='flex'
       justifyContent='center'
       gap={4}
-      height='100vh'
+      height={`calc(100vh - ${toolbarHeight})`}
       sx={{
         pt: toolbarHeight,
         px: 2,
@@ -40,7 +41,8 @@ export default function LessonSelect() {
         {...{ selectedNavigationItem, setSelectedNavigationItem }}
       />
 
-      <Box component='main'>
+      <Box component='main' display='block'>
+        {/* ^ Needed to prevent grid items from being too tall. */}
         <Grid container rowSpacing={2} columnSpacing={1}>
           {LESSONS.map(({ lessonNumber, title, tierStatuses }) => (
             <LessonCard

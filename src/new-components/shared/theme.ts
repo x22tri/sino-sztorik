@@ -1,6 +1,10 @@
 import { createTheme } from '@mui/material/styles'
 import { blue, deepOrange } from '@mui/material/colors'
 import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
+import { indigo } from '@material-ui/core/colors'
+
+const genericFont = "'Noto Sans', sans-serif"
+const emphasisFont = "'Montserrat', sans-serif"
 
 const theme = responsiveFontSizes(
   createTheme({
@@ -12,29 +16,35 @@ const theme = responsiveFontSizes(
       },
     },
     typography: {
-      fontFamily: "'Noto Sans', sans-serif",
+      fontFamily: genericFont,
+      h4: {
+        fontFamily: emphasisFont,
+        fontWeight: 800,
+        fontSize: 24,
+      },
       h5: {
-        fontFamily: "'Montserrat', sans-serif",
+        fontFamily: emphasisFont,
         fontWeight: 600,
       },
       h6: {
-        fontFamily: "'Montserrat', sans-serif",
+        fontFamily: emphasisFont,
         fontWeight: 600,
       },
       button: {
-        fontFamily: "'Montserrat', sans-serif",
+        fontFamily: emphasisFont,
       },
     },
     palette: {
       primary: {
         main: blue[800],
+        dark: indigo[900],
       },
       secondary: {
         main: deepOrange[500],
         dark: deepOrange[700],
       },
       background: {
-        default: '#EBF8FF',
+        default: blue[50],
       },
     },
   })
