@@ -4,6 +4,13 @@ import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
 
 const theme = responsiveFontSizes(
   createTheme({
+    components: {
+      MuiButtonBase: {
+        defaultProps: {
+          disableRipple: true,
+        },
+      },
+    },
     typography: {
       fontFamily: "'Montserrat', sans-serif",
     },

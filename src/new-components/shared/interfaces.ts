@@ -16,5 +16,13 @@ type LessonStatus = typeof LessonStatuses[keyof typeof LessonStatuses]
 
 type TierStatuses = [LessonStatus, LessonStatus, LessonStatus, LessonStatus]
 
+interface AssembledLesson {
+  lessonNumber: number
+  title: string
+  preface: string
+  tierStatuses: TierStatuses
+  characters: string[]
+}
+
 export { LessonStatuses }
-export type { LessonStatus, TierStatuses }
+export type { LessonStatus, TierStatuses, AssembledLesson }

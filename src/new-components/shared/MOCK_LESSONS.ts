@@ -1,12 +1,6 @@
-import { TierStatuses, LessonStatuses } from './interfaces'
+import { LessonStatuses, AssembledLesson } from './interfaces'
 
-const LESSONS: {
-  lessonNumber: number
-  title: string
-  preface: string
-  tierStatuses: TierStatuses
-  characters: string[]
-}[] = [
+const LESSONS: AssembledLesson[] = [
   {
     lessonNumber: 1,
     title: 'Első lépések',

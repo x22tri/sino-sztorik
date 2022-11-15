@@ -42,8 +42,9 @@ function LessonCard({
       display='flex'
       flexDirection='column'
       alignItems='center'
-      xs={4}
-      sm={12 / 5}
+      xs={12 / 3}
+      md={12 / 4}
+      lg={12 / 5}
       position='relative'
       sx={{
         transition: 'transform 0.15s ease-in-out',
@@ -56,7 +57,7 @@ function LessonCard({
     >
       {isCurrentLesson && (
         <Box
-          component='span'
+          component='label'
           fontSize='70%'
           fontWeight={upcomingLabelWeight}
           color={palette.secondary.main}
