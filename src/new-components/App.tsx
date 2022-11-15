@@ -2,23 +2,8 @@ import CssBaseline from '@mui/material/CssBaseline'
 import Landing from './Landing'
 import LessonSelect from './lesson-select/LessonSelect'
 
-import { createTheme, ThemeProvider } from '@mui/material/styles'
-import { blue, deepOrange } from '@mui/material/colors'
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: blue[800],
-    },
-    secondary: {
-      main: deepOrange[500],
-      dark: deepOrange[700],
-    },
-    background: {
-      default: '#EBF8FF',
-    },
-  },
-})
+import { ThemeProvider } from '@mui/material/styles'
+import theme from './shared/theme'
 
 function App() {
   return (

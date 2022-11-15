@@ -1,6 +1,5 @@
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
-import { deepOrange, blue } from '@mui/material/colors'
 import { TierStatuses } from '../shared/interfaces'
 import { UPCOMING_LESSON_LABEL } from '../shared/strings'
 import TierStatusBlips from './TierStatusBlips'
