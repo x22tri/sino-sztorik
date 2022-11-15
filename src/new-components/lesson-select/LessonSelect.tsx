@@ -3,7 +3,6 @@ import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
 import { useState } from 'react'
-import TEMP_PALETTE from '../shared/TEMP_PALETTE'
 import LessonCard from './LessonCard'
 
 import {
@@ -14,10 +13,11 @@ import {
 } from '../shared/strings'
 
 import LESSONS from '../shared/MOCK_LESSONS'
-
-const { PASTELBLUE } = TEMP_PALETTE
+import { useTheme } from '@mui/material'
 
 function LessonSelect() {
+  const { palette } = useTheme()
+
   const [selectedLessonNumber, setSelectedLessonNumber] = useState<number>(1)
   const [currentLessonNumber] = useState<number>(1)
 
@@ -29,7 +29,7 @@ function LessonSelect() {
     <Box
       display='flex'
       justifyContent='center'
-      sx={{ mt: 3, backgroundColor: PASTELBLUE }}
+      sx={{ mt: 3, background: palette.background.default }}
     >
       <Grid
         container
@@ -67,7 +67,7 @@ function LessonSelect() {
           flexDirection='column'
           sx={{ display: { xs: 'none', md: 'flex' } }} // To-Do: On xs and sm, appears on click
         >
-          {selectedLesson && (
+          {selectedLesson && ( // To-Do: Extract this into LessonDetails component
             <Box sx={{ backgroundColor: 'white', borderRadius: '16px', p: 2 }}>
               <Box textAlign='center' fontSize='large' fontWeight='bold'>
                 {selectedLesson.title}
@@ -83,14 +83,13 @@ function LessonSelect() {
                 }}
               >
                 {selectedLesson.lessonNumber === currentLessonNumber && (
-                  <Button
-                    variant='contained'
-                    sx={{ backgroundColor: '#FF4920' }}
-                  >
+                  <Button variant='contained' color='secondary'>
                     {LEARN_BUTTON}
                   </Button>
                 )}
-                <Button variant='outlined'>{REVIEW_BUTTON}</Button>
+                <Button variant='outlined' color='primary'>
+                  {REVIEW_BUTTON}
+                </Button>
               </Box>
               <Divider sx={{ my: 3 }} />
               <Box>

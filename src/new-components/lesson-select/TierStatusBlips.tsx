@@ -1,16 +1,16 @@
+import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
-import { grey, deepOrange, blue } from '@mui/material/colors'
 import { TierStatuses, LessonStatuses } from '../shared/interfaces'
-import TEMP_PALETTE from '../shared/TEMP_PALETTE'
-
-const { VERY_LOW_OPACITY_BLACK } = TEMP_PALETTE
+const { NOT_IN_TIER, LOCKED, UPCOMING, COMPLETED } = LessonStatuses
 
 function TierStatusBlips({ tierStatuses }: { tierStatuses: TierStatuses }) {
+  const { palette } = useTheme()
+
   const colorDictionary = {
-    [LessonStatuses.NOT_IN_TIER]: 'transparent', // Same as the page background color
-    [LessonStatuses.LOCKED]: grey[400],
-    [LessonStatuses.UPCOMING]: deepOrange[500],
-    [LessonStatuses.COMPLETED]: blue[800],
+    [NOT_IN_TIER]: 'transparent', // Same as the page background color
+    [LOCKED]: palette.grey[400],
+    [UPCOMING]: palette.secondary.main,
+    [COMPLETED]: palette.primary.main,
   }
 
   return (
@@ -19,9 +19,7 @@ function TierStatusBlips({ tierStatuses }: { tierStatuses: TierStatuses }) {
         const tierStatusColor = colorDictionary[tier]
 
         const border =
-          tier === LessonStatuses.NOT_IN_TIER
-            ? `2px solid ${VERY_LOW_OPACITY_BLACK}`
-            : `none`
+          tier === NOT_IN_TIER ? `2px solid ${palette.grey[300]}` : `none`
 
         return (
           <Box

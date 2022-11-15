@@ -4,9 +4,7 @@ import { deepOrange, blue } from '@mui/material/colors'
 import { TierStatuses } from '../shared/interfaces'
 import { UPCOMING_LESSON_LABEL } from '../shared/strings'
 import TierStatusBlips from './TierStatusBlips'
-import TEMP_PALETTE from '../shared/TEMP_PALETTE'
-
-const { LOW_OPACITY_BLACK } = TEMP_PALETTE
+import { useTheme } from '@mui/material'
 
 function LessonCard({
   lessonNumber,
@@ -23,14 +21,20 @@ function LessonCard({
   setSelectedLessonNumber: React.Dispatch<React.SetStateAction<number>>
   currentLessonNumber: number
 }) {
+  const { palette } = useTheme()
+
   const selected = lessonNumber === selectedLessonNumber
+
   const isCurrentLesson = lessonNumber === currentLessonNumber
+
   const borderColor = isCurrentLesson
-    ? deepOrange[500]
+    ? palette.secondary.main
     : selected
-    ? blue[800]
+    ? palette.primary.main
     : 'transparent'
+
   const borderWidth = isCurrentLesson && !selected ? '1px' : '2px'
+
   const upcomingLabelWeight = isCurrentLesson && selected ? 'bold' : 'normal'
 
   return (
@@ -56,7 +60,7 @@ function LessonCard({
           component='span'
           fontSize='70%'
           fontWeight={upcomingLabelWeight}
-          color={deepOrange[500]}
+          color={palette.secondary.main}
           alignSelf='flex-start'
           position='absolute'
           top='1px'
@@ -86,7 +90,7 @@ function LessonCard({
         <Box
           position='absolute'
           bottom='2px'
-          color={LOW_OPACITY_BLACK}
+          color={palette.grey[400]}
           fontSize='small'
         >
           {lessonNumber}
