@@ -3,7 +3,11 @@ import Box from '@mui/material/Box'
 import { TierStatuses, LessonStatuses } from '../shared/interfaces'
 const { NOT_IN_TIER, LOCKED, UPCOMING, COMPLETED } = LessonStatuses
 
-function TierStatusBlips({ tierStatuses }: { tierStatuses: TierStatuses }) {
+export default function TierStatusBlips({
+  tierStatuses,
+}: {
+  tierStatuses: TierStatuses
+}) {
   const { palette } = useTheme()
 
   const colorDictionary = {
@@ -38,5 +42,3 @@ function TierStatusBlips({ tierStatuses }: { tierStatuses: TierStatuses }) {
     </Box>
   )
 }
-
-export default TierStatusBlips

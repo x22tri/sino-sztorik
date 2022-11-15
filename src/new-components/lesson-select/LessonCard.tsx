@@ -1,11 +1,12 @@
+import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
+import Typography from '@mui/material/Typography'
 import { TierStatuses } from '../shared/interfaces'
 import { UPCOMING_LESSON_LABEL } from '../shared/strings'
 import TierStatusBlips from './TierStatusBlips'
-import { useTheme } from '@mui/material'
 
-function LessonCard({
+export default function LessonCard({
   lessonNumber,
   title,
   tierStatuses,
@@ -22,19 +23,17 @@ function LessonCard({
 }) {
   const { palette } = useTheme()
 
-  const selected = lessonNumber === selectedLessonNumber
+  const isSelected = lessonNumber === selectedLessonNumber
 
   const isCurrentLesson = lessonNumber === currentLessonNumber
 
   const borderColor = isCurrentLesson
     ? palette.secondary.main
-    : selected
+    : isSelected
     ? palette.primary.main
     : 'transparent'
 
-  const borderWidth = isCurrentLesson && !selected ? '1px' : '2px'
-
-  const upcomingLabelWeight = isCurrentLesson && selected ? 'bold' : 'normal'
+  const borderWidth = isCurrentLesson && !isSelected ? '1px' : '2px'
 
   return (
     <Grid
@@ -55,20 +54,8 @@ function LessonCard({
       }}
       onClick={() => setSelectedLessonNumber(lessonNumber)}
     >
-      {isCurrentLesson && (
-        <Box
-          component='label'
-          fontSize='70%'
-          fontWeight={upcomingLabelWeight}
-          color={palette.secondary.main}
-          alignSelf='flex-start'
-          position='absolute'
-          top='1px'
-          left='10px'
-        >
-          {UPCOMING_LESSON_LABEL}
-        </Box>
-      )}
+      {isCurrentLesson && <UpcomingLessonLabel {...{ isSelected }} />}
+
       <Box
         position='relative'
         sx={{
@@ -84,20 +71,48 @@ function LessonCard({
         }}
       >
         <TierStatusBlips {...{ tierStatuses }} />
-        <Box textAlign='center' sx={{ my: 1, fontSize: '90%' }}>
+
+        <Typography variant='body2' textAlign='center' sx={{ my: 1 }}>
           {title}
-        </Box>
-        <Box
-          position='absolute'
-          bottom='2px'
-          color={palette.grey[400]}
-          fontSize='small'
-        >
-          {lessonNumber}
-        </Box>
+        </Typography>
+
+        <LessonNumberFooter {...{ lessonNumber }} />
       </Box>
     </Grid>
   )
 }
 
-export default LessonCard
+function UpcomingLessonLabel({ isSelected }: { isSelected: boolean }) {
+  const { palette } = useTheme()
+  const upcomingLabelWeight = isSelected ? 'bold' : 'normal'
+
+  return (
+    <Typography
+      component='label'
+      variant='overline'
+      alignSelf='flex-start'
+      position='absolute'
+      top='-8px'
+      left='8px'
+      fontWeight={upcomingLabelWeight}
+      sx={{ color: palette.secondary.main }}
+    >
+      {UPCOMING_LESSON_LABEL}
+    </Typography>
+  )
+}
+
+function LessonNumberFooter({ lessonNumber }: { lessonNumber: number }) {
+  const { palette } = useTheme()
+
+  return (
+    <Box
+      position='absolute'
+      bottom='2px'
+      color={palette.grey[400]}
+      fontSize='small'
+    >
+      {lessonNumber}
+    </Box>
+  )
+}

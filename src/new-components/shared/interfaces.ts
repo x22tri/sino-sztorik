@@ -5,24 +5,26 @@ import {
   LESSON_COMPLETED,
 } from './strings'
 
-const LessonStatuses = {
+export const LessonStatuses = {
   NOT_IN_TIER: LESSON_NOT_IN_TIER,
   LOCKED: LESSON_LOCKED,
   UPCOMING: LESSON_UPCOMING,
   COMPLETED: LESSON_COMPLETED,
 } as const
 
-type LessonStatus = typeof LessonStatuses[keyof typeof LessonStatuses]
+export type LessonStatus = typeof LessonStatuses[keyof typeof LessonStatuses]
 
-type TierStatuses = [LessonStatus, LessonStatus, LessonStatus, LessonStatus]
+export type TierStatuses = [
+  LessonStatus,
+  LessonStatus,
+  LessonStatus,
+  LessonStatus
+]
 
-interface AssembledLesson {
+export interface AssembledLesson {
   lessonNumber: number
   title: string
   preface: string
   tierStatuses: TierStatuses
   characters: string[]
 }
-
-export { LessonStatuses }
-export type { LessonStatus, TierStatuses, AssembledLesson }

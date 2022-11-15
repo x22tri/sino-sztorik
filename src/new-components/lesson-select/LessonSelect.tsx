@@ -4,10 +4,10 @@ import { useState } from 'react'
 import LessonCard from './LessonCard'
 import LessonDetails from './LessonDetails'
 import SideNavigation from './SideNavigation'
-import LESSONS from '../shared/MOCK_LESSONS'
+import { LESSONS } from '../shared/MOCK_LESSONS'
 import { useTheme } from '@mui/material'
 
-function LessonSelect() {
+export default function LessonSelect() {
   const { palette } = useTheme()
 
   const [selectedLessonNumber, setSelectedLessonNumber] = useState<number>(1)
@@ -58,5 +58,3 @@ function LessonSelect() {
     </Box>
   )
 }
-
-export default LessonSelect

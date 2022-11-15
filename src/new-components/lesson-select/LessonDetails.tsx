@@ -1,7 +1,11 @@
 import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
+import Typography from '@mui/material/Typography'
+import {
+  MajorActionButton,
+  MinorActionButton,
+} from '../shared/basic-components'
 import { AssembledLesson } from '../shared/interfaces'
 import {
   LEARN_BUTTON,
@@ -9,7 +13,7 @@ import {
   CHARACTER_AMOUNT_LABEL,
 } from '../shared/strings'
 
-function LessonDetails({
+export default function LessonDetails({
   lesson,
   isCurrentLesson,
 }: {
@@ -17,6 +21,8 @@ function LessonDetails({
   isCurrentLesson: boolean
 }) {
   const { palette } = useTheme()
+
+  const { title, preface, characters } = lesson
 
   const lessonDetailsWidth = '300px'
 
@@ -33,48 +39,50 @@ function LessonDetails({
       borderRadius='16px'
       // To-Do: On xs, drawer appears on click
     >
-      <Box
-        component='h5'
+      <Typography
+        component='header'
+        variant='h5'
         textAlign='center'
-        fontSize='large'
-        fontWeight='bold'
         sx={{ m: 1 }}
       >
-        {lesson.title}
-      </Box>
-      <Box component='p' sx={{ my: 3 }}>
-        {lesson.preface}
-      </Box>
-      <Box
-        display='flex'
-        gap='20px'
-        justifyContent='center'
-        sx={{
-          flexDirection: { xs: 'column', md: 'row' },
-        }}
-      >
-        {isCurrentLesson && (
-          <Button variant='contained' color='secondary'>
-            {LEARN_BUTTON}
-          </Button>
-        )}
-        <Button variant='outlined' color='primary'>
-          {REVIEW_BUTTON}
-        </Button>
-      </Box>
+        {title}
+      </Typography>
+
+      <Typography component='p' variant='body1' sx={{ my: 3 }}>
+        {preface}
+      </Typography>
+
+      <LearnReviewButtons {...{ isCurrentLesson }} />
+
       <Divider sx={{ my: 3 }} />
-      <Box>
-        {lesson.characters.length} {CHARACTER_AMOUNT_LABEL}
-      </Box>
+
+      <Typography>
+        {characters.length} {CHARACTER_AMOUNT_LABEL}
+      </Typography>
+
       <Box display='flex' gap='4px' justifyContent='center'>
-        {lesson.characters.map(char => (
-          <Box component='span' key={char}>
+        {characters.map(char => (
+          <Typography component='span' key={char}>
             {char}
-          </Box>
+          </Typography>
         ))}
       </Box>
     </Box>
   )
 }
 
-export default LessonDetails
+function LearnReviewButtons({ isCurrentLesson }: { isCurrentLesson: boolean }) {
+  return (
+    <Box
+      display='flex'
+      gap='20px'
+      justifyContent='center'
+      sx={{
+        flexDirection: { xs: 'column', md: 'row' },
+      }}
+    >
+      {isCurrentLesson && <MajorActionButton text={LEARN_BUTTON} />}
+      <MinorActionButton text={REVIEW_BUTTON} />
+    </Box>
+  )
+}

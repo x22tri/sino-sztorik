@@ -12,7 +12,18 @@ const theme = responsiveFontSizes(
       },
     },
     typography: {
-      fontFamily: "'Montserrat', sans-serif",
+      fontFamily: "'Noto Sans', sans-serif",
+      h5: {
+        fontFamily: "'Montserrat', sans-serif",
+        fontWeight: 600,
+      },
+      h6: {
+        fontFamily: "'Montserrat', sans-serif",
+        fontWeight: 600,
+      },
+      button: {
+        fontFamily: "'Montserrat', sans-serif",
+      },
     },
     palette: {
       primary: {

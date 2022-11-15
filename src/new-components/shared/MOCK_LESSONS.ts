@@ -1,6 +1,6 @@
 import { LessonStatuses, AssembledLesson } from './interfaces'
 
-const LESSONS: AssembledLesson[] = [
+export const LESSONS: AssembledLesson[] = [
   {
     lessonNumber: 1,
     title: 'Első lépések',
@@ -74,5 +74,3 @@ const LESSONS: AssembledLesson[] = [
     characters: [],
   },
 ]
-
-export default LESSONS

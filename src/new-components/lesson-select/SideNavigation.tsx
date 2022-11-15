@@ -11,7 +11,7 @@ const SIDE_NAVIGATION_ELEMENTS = [
   { title: LESSON_SELECT_TITLE, icon: faBook, link: '' },
 ]
 
-function SideNavigation() {
+export default function SideNavigation() {
   return (
     <List
       component='nav'
@@ -42,7 +42,7 @@ function SideNavigationItem({
         component='button'
         selected={true}
         sx={{
-          padding: '4px 4px 0',
+          p: '0 4px',
           '&.Mui-selected': {
             backgroundColor: 'transparent',
             borderBottom: `2px solid ${palette.primary.main}`,
@@ -61,5 +61,3 @@ function SideNavigationItem({
     </ListItem>
   )
 }
-
-export default SideNavigation
