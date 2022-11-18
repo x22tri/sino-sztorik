@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles'
-import { blue, deepOrange } from '@mui/material/colors'
+import { blue, deepOrange, grey } from '@mui/material/colors'
 import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
 import { indigo } from '@material-ui/core/colors'
 
@@ -44,7 +44,7 @@ const theme = responsiveFontSizes(
         dark: deepOrange[700],
       },
       background: {
-        default: blue[50],
+        default: grey[50],
       },
     },
   })

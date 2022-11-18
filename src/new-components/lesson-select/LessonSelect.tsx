@@ -29,7 +29,7 @@ export default function LessonSelect() {
     <Box
       display='flex'
       justifyContent='center'
-      gap={4}
+      gap={6}
       height={`calc(100vh - ${toolbarHeight})`}
       sx={{
         pt: toolbarHeight,

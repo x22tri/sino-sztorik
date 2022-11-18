@@ -1,10 +1,12 @@
 import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
+import Card from '@mui/material/Card'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 import {
   MajorActionButton,
   MinorActionButton,
+  RoundedCard,
 } from '../shared/basic-components'
 import { AssembledLesson } from '../shared/interfaces'
 import {
@@ -20,23 +22,17 @@ export default function LessonDetails({
   lesson: AssembledLesson
   isCurrentLesson: boolean
 }) {
-  const { palette } = useTheme()
-
   const { title, preface, characters } = lesson
 
   const lessonDetailsWidth = '30em'
 
   return (
-    <Box
+    <RoundedCard
       component='aside'
       sx={{
         display: { xs: 'none', sm: 'block' },
-        backgroundColor: palette.background.paper,
-        p: 2,
+        width: lessonDetailsWidth,
       }}
-      width={lessonDetailsWidth}
-      height='fit-content'
-      borderRadius='16px'
       // To-Do: On xs, drawer appears on click
     >
       <Typography
@@ -67,7 +63,7 @@ export default function LessonDetails({
           </Typography>
         ))}
       </Box>
-    </Box>
+    </RoundedCard>
   )
 }
 

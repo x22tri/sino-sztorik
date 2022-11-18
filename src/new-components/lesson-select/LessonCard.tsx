@@ -1,8 +1,10 @@
 import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
+import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import { Dispatch, SetStateAction } from 'react'
+import { RoundedCard } from '../shared/basic-components'
 import { TierStatuses } from '../shared/interfaces'
 import { UPCOMING_LESSON_LABEL } from '../shared/strings'
 import TierStatusBlips from './TierStatusBlips'
@@ -43,7 +45,6 @@ export default function LessonCard({
       flexDirection='column'
       alignItems='center'
       xs={12 / 3}
-      md={12 / 4}
       lg={12 / 5}
       position='relative'
       sx={{
@@ -57,18 +58,19 @@ export default function LessonCard({
     >
       {isCurrentLesson && <UpcomingLessonLabel {...{ isSelected }} />}
 
-      <Box
-        position='relative'
+      <RoundedCard
         sx={{
+          position: 'relative',
           width: '100%',
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          backgroundColor: 'white',
+          boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px;',
           borderRadius: isCurrentLesson ? '0 16px' : '16px',
           border: `${borderWidth} solid ${borderColor}`,
           py: 2,
+          px: 1,
         }}
       >
         <TierStatusBlips {...{ tierStatuses }} />
@@ -78,7 +80,7 @@ export default function LessonCard({
         </Typography>
 
         <LessonNumberFooter {...{ lessonNumber }} />
-      </Box>
+      </RoundedCard>
     </Grid>
   )
 }
