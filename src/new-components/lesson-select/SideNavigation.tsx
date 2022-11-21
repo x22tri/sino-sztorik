@@ -91,7 +91,11 @@ function SideNavigationListItem({
       >
         <FontAwesomeIcon {...{ icon }} size='lg' />
 
-        <Typography component='span' variant='h6' sx={{ ml: 1, lineHeight: 1 }}>
+        <Typography
+          component='span'
+          variant='h6'
+          sx={{ ml: 1, lineHeight: 1, display: { md: 'none', lg: 'block' } }}
+        >
           {title}
         </Typography>
       </ListItemButton>

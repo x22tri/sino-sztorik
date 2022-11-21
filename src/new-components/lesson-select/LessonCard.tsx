@@ -13,30 +13,37 @@ export default function LessonCard({
   lessonNumber,
   title,
   tierStatuses,
-  selectedLessonNumber,
+  // selectedLessonNumber,
   setSelectedLessonNumber,
   currentLessonNumber,
+  setIsLessonDetailsVisible,
 }: {
   lessonNumber: number
   title: string
   tierStatuses: TierStatuses
-  selectedLessonNumber: number
-  setSelectedLessonNumber: Dispatch<SetStateAction<number>>
+  // selectedLessonNumber: number
+  setSelectedLessonNumber: Dispatch<SetStateAction<number | null>>
   currentLessonNumber: number
+  setIsLessonDetailsVisible: Dispatch<SetStateAction<boolean>>
 }) {
   const { palette } = useTheme()
 
-  const isSelected = lessonNumber === selectedLessonNumber
+  // const isSelected = lessonNumber === selectedLessonNumber
 
   const isCurrentLesson = lessonNumber === currentLessonNumber
 
   const borderColor = isCurrentLesson
     ? palette.secondary.main
-    : isSelected
-    ? palette.primary.main
-    : 'transparent'
+    : // : isSelected
+      // ? palette.primary.main
+      'transparent'
 
-  const borderWidth = isCurrentLesson && !isSelected ? '1px' : '2px'
+  // const borderWidth = isCurrentLesson && !isSelected ? '1px' : '2px'
+  const borderWidth = isCurrentLesson ? '1px' : '2px'
+
+  // function handleLessonCardClick(lessonNumber) {
+
+  // }
 
   return (
     <Grid
@@ -45,6 +52,7 @@ export default function LessonCard({
       flexDirection='column'
       alignItems='center'
       xs={12 / 3}
+      sm={12 / 4}
       lg={12 / 5}
       position='relative'
       sx={{
@@ -54,9 +62,13 @@ export default function LessonCard({
           cursor: 'pointer',
         },
       }}
-      onClick={() => setSelectedLessonNumber(lessonNumber)}
+      onClick={() => {
+        setSelectedLessonNumber(lessonNumber)
+        setIsLessonDetailsVisible(true)
+      }}
     >
-      {isCurrentLesson && <UpcomingLessonLabel {...{ isSelected }} />}
+      {/* {isCurrentLesson && <UpcomingLessonLabel {...{ isSelected }} />} */}
+      {isCurrentLesson && <UpcomingLessonLabel isSelected={false} />}
 
       <RoundedCard
         sx={{
@@ -66,10 +78,8 @@ export default function LessonCard({
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px;',
           borderRadius: isCurrentLesson ? '0 16px' : '16px',
           border: `${borderWidth} solid ${borderColor}`,
-          py: 2,
           px: 1,
         }}
       >

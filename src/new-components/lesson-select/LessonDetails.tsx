@@ -24,14 +24,14 @@ export default function LessonDetails({
 }) {
   const { title, preface, characters } = lesson
 
-  const lessonDetailsWidth = '30em'
+  // const lessonDetailsWidth = '30em'
 
   return (
     <RoundedCard
       component='aside'
       sx={{
         display: { xs: 'none', sm: 'block' },
-        width: lessonDetailsWidth,
+        // width: lessonDetailsWidth,
       }}
       // To-Do: On xs, drawer appears on click
     >
