@@ -5,6 +5,7 @@ import LessonSelect from './lesson-select/LessonSelect'
 import { ThemeProvider } from '@mui/material/styles'
 import theme from './shared/theme'
 import AppbarWrapper from './toolbar/AppbarWrapper'
+import Box from '@mui/material/Box'
 
 function App() {
   return (
@@ -12,8 +13,15 @@ function App() {
       <CssBaseline />
       {/* <Landing /> */}
       <ThemeProvider {...{ theme }}>
-        <AppbarWrapper />
-        <LessonSelect />
+        <Box
+          sx={{
+            backgroundColor: ({ palette }) => palette.background.default,
+            height: '100vh',
+          }}
+        >
+          <AppbarWrapper />
+          <LessonSelect />
+        </Box>
       </ThemeProvider>
     </>
   )

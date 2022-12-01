@@ -24,17 +24,8 @@ export default function LessonDetails({
 }) {
   const { title, preface, characters } = lesson
 
-  // const lessonDetailsWidth = '30em'
-
   return (
-    <RoundedCard
-      component='aside'
-      sx={{
-        display: { xs: 'none', sm: 'block' },
-        // width: lessonDetailsWidth,
-      }}
-      // To-Do: On xs, drawer appears on click
-    >
+    <RoundedCard>
       <Typography
         component='header'
         variant='h5'
@@ -73,11 +64,10 @@ function LearnReviewButtons({ isCurrentLesson }: { isCurrentLesson: boolean }) {
       display='flex'
       gap='20px'
       justifyContent='center'
-      sx={{
-        flexDirection: { xs: 'column', md: 'row' },
-      }}
+      sx={{ flexDirection: { xs: 'column', md: 'row' } }}
     >
       {isCurrentLesson && <MajorActionButton text={LEARN_BUTTON} />}
+
       <MinorActionButton text={REVIEW_BUTTON} />
     </Box>
   )

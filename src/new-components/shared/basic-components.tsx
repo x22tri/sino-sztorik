@@ -29,7 +29,6 @@ export function RoundedCard<C extends ElementType>(
       {...props}
       sx={{
         backgroundColor: palette.background.paper,
-        boxShadow: 'rgba(200, 200, 200, 0.2) 0px 8px 24px',
         borderRadius: '16px',
         py: 2,
         px: 2,

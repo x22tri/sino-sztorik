@@ -1,16 +1,14 @@
 import Box from '@mui/material/Box'
-import Dialog from '@mui/material/Dialog'
-import Popover from '@mui/material/Popover'
 import Grid from '@mui/material/Grid'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import LessonCard from './LessonCard'
 import LessonDetails from './LessonDetails'
-import SideNavigation from './SideNavigation'
 import { LESSONS } from '../shared/MOCK_LESSONS'
 import { Card, Grow, useTheme } from '@mui/material'
 import { SideNavigationItem } from '../shared/interfaces'
 import { LESSON_SELECT_TITLE } from '../shared/strings'
 import Typography from '@mui/material/Typography'
+import Container from '@mui/material/Container'
 
 export default function LessonSelect() {
   const { palette } = useTheme()
@@ -40,98 +38,69 @@ export default function LessonSelect() {
   const lessonDetailsTimeout = 150
 
   return (
-    <Box display='flex'>
-      <Box
-        // display='grid'
-        margin='auto'
-        justifyContent='center'
-        // gap={6}
-        height={`calc(100vh - ${toolbarHeight})`}
-        width='1400px'
-        sx={{
-          display: { xs: 'block', md: 'grid' },
-          pt: toolbarHeight,
-          px: 2,
-          pb: 5,
-          background: palette.background.default,
-          gridTemplateColumns: 'min-content 1fr',
-          gridColumnGap: '5em',
-        }}
-      >
-        <SideNavigation
-          {...{ selectedNavigationItem, setSelectedNavigationItem }}
-        />
+    <Container
+      component='main'
+      maxWidth='lg'
+      sx={{
+        height: `calc(100vh - ${toolbarHeight})`,
+        pt: '2em',
+      }}
+    >
+      {selectedLesson === undefined ? (
+        <Grid
+          container
+          rowSpacing={2}
+          columnSpacing={1}
+          sx={{ margin: 'auto', height: 'fit-content' }}
+        >
+          {LESSONS.map(({ lessonNumber, title, tierStatuses }) => (
+            <LessonCard
+              key={lessonNumber}
+              {...{
+                lessonNumber,
+                title,
+                tierStatuses,
+                setSelectedLessonNumber,
+                currentLessonNumber,
+                setIsLessonDetailsVisible,
+              }}
+            />
+          ))}
+        </Grid>
+      ) : null}
 
-        {/* <Box
-          component='main'
-          display='grid'
-          gridTemplateColumns='3fr 1fr'
-          position='relative'
-        > */}
-        {/* ^ Needed to prevent grid items from being too tall. */}
-        {selectedLesson === undefined ? (
-          <Grid
-            container
-            rowSpacing={2}
-            columnSpacing={1}
+      <Grow in={isLessonDetailsVisible} timeout={lessonDetailsTimeout}>
+        {selectedLesson !== undefined ? (
+          <Card
             sx={{
+              margin: 'auto',
+              display: 'flex',
+              flexDirection: 'column',
               height: 'fit-content',
               maxWidth: { xs: 'auto', md: '800px' },
-              // margin: { xs: '0 auto', md: 'initial' },
-              // justifyContent: 'space-evenly',
             }}
           >
-            {LESSONS.map(({ lessonNumber, title, tierStatuses }) => (
-              <LessonCard
-                key={lessonNumber}
-                {...{
-                  lessonNumber,
-                  title,
-                  tierStatuses,
-
-                  setSelectedLessonNumber,
-                  currentLessonNumber,
-                  setIsLessonDetailsVisible,
-                }}
-              />
-            ))}
-          </Grid>
-        ) : null}
-
-        <Grow in={isLessonDetailsVisible} timeout={lessonDetailsTimeout}>
-          {selectedLesson !== undefined ? (
-            <Card
+            <Box
               sx={{
                 display: 'flex',
-                flexDirection: 'column',
-                height: 'fit-content',
-                maxWidth: { xs: 'auto', md: '800px' },
+                justifyContent: 'flex-end',
               }}
+              onClick={() => handleCloseLessonDetails()}
             >
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'flex-end',
-                }}
-                onClick={() => handleCloseLessonDetails()}
-              >
-                X
-              </Box>
+              X
+            </Box>
 
-              <LessonDetails
-                lesson={selectedLesson}
-                isCurrentLesson={
-                  selectedLesson.lessonNumber === currentLessonNumber
-                }
-              />
-            </Card>
-          ) : (
-            <></>
-          )}
-        </Grow>
-
-        {/* <Box sx={{ display: { xs: 'none', lg: 'block' } }}>aa</Box> */}
-      </Box>
-    </Box>
+            <LessonDetails
+              lesson={selectedLesson}
+              isCurrentLesson={
+                selectedLesson.lessonNumber === currentLessonNumber
+              }
+            />
+          </Card>
+        ) : (
+          <></>
+        )}
+      </Grow>
+    </Container>
   )
 }

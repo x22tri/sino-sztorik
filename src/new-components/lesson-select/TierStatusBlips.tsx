@@ -11,34 +11,24 @@ export default function TierStatusBlips({
   const { palette } = useTheme()
 
   const colorDictionary = {
-    [NOT_IN_TIER]: 'transparent', // Same as the page background color
+    [NOT_IN_TIER]: palette.grey[400],
     [LOCKED]: palette.grey[400],
     [UPCOMING]: palette.secondary.main,
     [COMPLETED]: palette.primary.main,
   }
 
   return (
-    <Box display='flex' flexDirection='row' gap='4px' alignItems='center'>
-      {tierStatuses.map((tier, index) => {
-        const tierStatusColor = colorDictionary[tier]
-
-        const border =
-          tier === NOT_IN_TIER ? `2px solid ${palette.grey[300]}` : `none`
-
-        return (
-          <Box
-            key={index}
-            component='span'
-            sx={{
-              width: '12px',
-              height: '12px',
-              backgroundColor: tierStatusColor,
-              borderRadius: '50%',
-              border,
-            }}
-          />
-        )
-      })}
+    <Box lineHeight='100%'>
+      {tierStatuses.map((tier, index) => (
+        <Box
+          key={index}
+          component='span'
+          color={colorDictionary[tier]}
+          fontSize='1.8em'
+        >
+          {tier === NOT_IN_TIER ? '○' : '●'}
+        </Box>
+      ))}
     </Box>
   )
 }

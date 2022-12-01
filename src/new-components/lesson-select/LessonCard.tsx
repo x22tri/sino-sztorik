@@ -13,7 +13,6 @@ export default function LessonCard({
   lessonNumber,
   title,
   tierStatuses,
-  // selectedLessonNumber,
   setSelectedLessonNumber,
   currentLessonNumber,
   setIsLessonDetailsVisible,
@@ -21,29 +20,15 @@ export default function LessonCard({
   lessonNumber: number
   title: string
   tierStatuses: TierStatuses
-  // selectedLessonNumber: number
   setSelectedLessonNumber: Dispatch<SetStateAction<number | null>>
   currentLessonNumber: number
   setIsLessonDetailsVisible: Dispatch<SetStateAction<boolean>>
 }) {
   const { palette } = useTheme()
 
-  // const isSelected = lessonNumber === selectedLessonNumber
-
   const isCurrentLesson = lessonNumber === currentLessonNumber
 
-  const borderColor = isCurrentLesson
-    ? palette.secondary.main
-    : // : isSelected
-      // ? palette.primary.main
-      'transparent'
-
-  // const borderWidth = isCurrentLesson && !isSelected ? '1px' : '2px'
-  const borderWidth = isCurrentLesson ? '1px' : '2px'
-
-  // function handleLessonCardClick(lessonNumber) {
-
-  // }
+  const borderColor = isCurrentLesson ? palette.secondary.main : 'inherit'
 
   return (
     <Grid
@@ -53,7 +38,8 @@ export default function LessonCard({
       alignItems='center'
       xs={12 / 3}
       sm={12 / 4}
-      lg={12 / 5}
+      md={12 / 6}
+      lg={12 / 8}
       position='relative'
       sx={{
         transition: 'transform 0.15s ease-in-out',
@@ -67,25 +53,32 @@ export default function LessonCard({
         setIsLessonDetailsVisible(true)
       }}
     >
-      {/* {isCurrentLesson && <UpcomingLessonLabel {...{ isSelected }} />} */}
-      {isCurrentLesson && <UpcomingLessonLabel isSelected={false} />}
+      {isCurrentLesson && <UpcomingLessonLabel />}
 
       <RoundedCard
         sx={{
           position: 'relative',
           width: '100%',
           height: '100%',
+          minHeight: '8em',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           borderRadius: isCurrentLesson ? '0 16px' : '16px',
-          border: `${borderWidth} solid ${borderColor}`,
+          border: `2px solid ${borderColor}`,
           px: 1,
         }}
       >
         <TierStatusBlips {...{ tierStatuses }} />
 
-        <Typography variant='body2' textAlign='center' sx={{ my: 1 }}>
+        <Typography
+          variant='body2'
+          display='flex'
+          height='100%'
+          alignItems='center'
+          textAlign='center'
+          sx={{ my: 1 }}
+        >
           {title}
         </Typography>
 
@@ -95,9 +88,8 @@ export default function LessonCard({
   )
 }
 
-function UpcomingLessonLabel({ isSelected }: { isSelected: boolean }) {
+function UpcomingLessonLabel() {
   const { palette } = useTheme()
-  const upcomingLabelWeight = isSelected ? 'bold' : 'normal'
 
   return (
     <Typography
@@ -107,7 +99,7 @@ function UpcomingLessonLabel({ isSelected }: { isSelected: boolean }) {
       position='absolute'
       top='-8px'
       left='8px'
-      fontWeight={upcomingLabelWeight}
+      fontWeight='bold'
       sx={{ color: palette.secondary.main }}
     >
       {UPCOMING_LESSON_LABEL}
