@@ -7,7 +7,7 @@ import {
 const { UPCOMING, COMPLETED, LOCKED } = LessonStatuses
 
 interface LessonCardStyling {
-  background?: string
+  backgroundColor?: string
   borderColor?: string
   boxShadow?: string
 }
@@ -17,7 +17,7 @@ export function useLessonCardStyling(tierStatuses: TierStatuses) {
 
   const colorDictionary: { [key in LessonStatus]?: LessonCardStyling } = {
     [LOCKED]: {
-      background: palette.grey[100],
+      backgroundColor: palette.grey[100],
       borderColor: palette.grey[300],
       boxShadow: 'none',
     },

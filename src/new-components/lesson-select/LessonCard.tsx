@@ -27,16 +27,24 @@ export default function LessonCard({
 }) {
   const isCurrentLesson = lessonNumber === currentLessonNumber
 
-  const { borderColor, background, boxShadow } =
+  const isLessonLocked = isLocked(tierStatuses)
+
+  const { borderColor, backgroundColor, boxShadow } =
     useLessonCardStyling(tierStatuses)!
+
+  function handleLessonCardClick() {
+    if (isLessonLocked) {
+      return
+    }
+
+    setSelectedLessonNumber(lessonNumber)
+    setIsLessonDetailsVisible(true)
+  }
 
   return (
     <Grid
       item
-      display='flex'
-      flexDirection='column'
-      alignItems='center'
-      xs={12 / 1}
+      xs={12 / 1} // The number on the right hand side is the desired number of cards in a row.
       sm={12 / 2}
       md={12 / 3}
       position='relative'
@@ -44,14 +52,11 @@ export default function LessonCard({
         p: 2,
         transition: 'transform 0.15s ease-in-out',
         '&:hover': {
-          transform: 'translate(0%, -8%)',
-          cursor: 'pointer',
+          transform: isLessonLocked ? 'none' : 'translate(0%, -8%)',
+          cursor: isLessonLocked ? 'inherit' : 'pointer',
         },
       }}
-      onClick={() => {
-        setSelectedLessonNumber(lessonNumber)
-        setIsLessonDetailsVisible(true)
-      }}
+      onClick={handleLessonCardClick}
     >
       {isCurrentLesson && <UpcomingLessonLabel />}
 
@@ -66,7 +71,7 @@ export default function LessonCard({
           alignItems: 'center',
           borderRadius: isCurrentLesson ? '0 16px' : '16px',
           px: 1,
-          backgroundColor: background,
+          backgroundColor,
           ...(boxShadow ? { boxShadow } : {}),
           ...(borderColor ? { borderColor } : {}),
         }}

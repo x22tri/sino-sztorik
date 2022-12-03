@@ -40,21 +40,31 @@ export default function LessonDetails({
         {preface}
       </Typography>
 
-      <LearnReviewButtons {...{ isCurrentLesson }} />
-
-      <Divider sx={{ my: 4 }} />
-
-      <Typography>
+      <Typography
+        display='block'
+        textAlign='center'
+        variant='overline'
+        fontWeight='bold'
+        sx={{ mx: 'auto' }}
+      >
         {characters.length} {CHARACTER_AMOUNT_LABEL}
       </Typography>
 
-      <Box display='flex' gap='4px' justifyContent='center'>
+      <Box display='flex' gap={2} justifyContent='center'>
         {characters.map(char => (
-          <Typography component='span' key={char}>
-            {char}
-          </Typography>
+          <Card
+            key={char}
+            variant='outlined'
+            sx={{ borderWidth: '2px', px: 0.5 }}
+          >
+            <Typography component='span' fontSize='1.5em'>
+              {char}
+            </Typography>
+          </Card>
         ))}
       </Box>
+
+      <LearnReviewButtons {...{ isCurrentLesson }} />
     </RoundedCard>
   )
 }
@@ -65,7 +75,7 @@ function LearnReviewButtons({ isCurrentLesson }: { isCurrentLesson: boolean }) {
       display='flex'
       gap='20px'
       justifyContent='center'
-      sx={{ flexDirection: { xs: 'column', md: 'row' } }}
+      sx={{ flexDirection: { xs: 'column', md: 'row' }, mt: 4, mb: 1 }}
     >
       {isCurrentLesson && <MajorActionButton text={LEARN_BUTTON} />}
 
