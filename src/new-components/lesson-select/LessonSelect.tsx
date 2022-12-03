@@ -4,13 +4,18 @@ import { useState } from 'react'
 import LessonCard from './LessonCard'
 import LessonDetails from './LessonDetails'
 import { LESSONS } from '../shared/MOCK_LESSONS'
-import { Button, Card, Grow, useTheme } from '@mui/material'
+import { Grow, useTheme } from '@mui/material'
 import { LessonStatuses, SideNavigationItem } from '../shared/interfaces'
-import { BACK_TO_LESSONS_BUTTON, LESSON_SELECT_TITLE } from '../shared/strings'
+import { LESSON_SELECT_TITLE } from '../shared/strings'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import WestIcon from '@mui/icons-material/West'
 import { LightenOnHoverButton } from '../shared/basic-components'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+
+const maxContentWidth = '48rem'
+const lessonDetailsTimeout = 150
 
 export default function LessonSelect() {
   const { palette } = useTheme()
@@ -45,10 +50,6 @@ export default function LessonSelect() {
     }, lessonDetailsTimeout)
   }
 
-  const toolbarHeight = '48px'
-  const maxContentWidth = '48rem'
-  const lessonDetailsTimeout = 150
-
   return (
     <Container component='main' maxWidth='lg' sx={{ pt: '2em' }}>
       {selectedLesson === undefined ? (
@@ -71,16 +72,17 @@ export default function LessonSelect() {
           ))}
         </Grid>
       ) : null}
+
       <Grow in={isLessonDetailsVisible} timeout={lessonDetailsTimeout}>
         {selectedLesson !== undefined ? (
-          <Box maxWidth={maxContentWidth}>
+          <Box maxWidth={maxContentWidth} position='relative'>
             <LightenOnHoverButton
               onClick={() => handleCloseLessonDetails()}
               startIcon={<WestIcon fontSize='small' />}
               sx={{ color: palette.grey[600] }}
             >
               <Typography component='span' textTransform='none'>
-                {BACK_TO_LESSONS_BUTTON}
+                {LESSON_SELECT_TITLE}
               </Typography>
             </LightenOnHoverButton>
 

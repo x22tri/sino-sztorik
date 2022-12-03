@@ -1,7 +1,6 @@
 import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
-import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 import {
   MajorActionButton,
@@ -26,7 +25,7 @@ export default function LessonDetails({
   const { title, preface, characters } = lesson
 
   return (
-    <RoundedCard>
+    <RoundedCard sx={{ width: '100%' }}>
       <Typography
         component='header'
         variant='h5'

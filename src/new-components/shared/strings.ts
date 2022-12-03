@@ -25,5 +25,3 @@ export const USER_SETTINGS_ARIA_LABEL = 'Beállítások'
 
 export const USER_SETTING_ACCOUNT = 'Fiókbeállítások'
 export const USER_SETTING_LOGOUT = 'Kijelentkezés'
-
-export const BACK_TO_LESSONS_BUTTON = 'Leckék'
