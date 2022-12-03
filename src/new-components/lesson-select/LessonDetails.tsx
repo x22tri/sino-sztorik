@@ -25,7 +25,8 @@ export default function LessonDetails({
   const { title, preface, characters } = lesson
 
   return (
-    <RoundedCard>
+    // <RoundedCard>
+    <>
       <Typography
         component='header'
         variant='h5'
@@ -54,7 +55,8 @@ export default function LessonDetails({
           </Typography>
         ))}
       </Box>
-    </RoundedCard>
+    </>
+    // </RoundedCard>
   )
 }
 

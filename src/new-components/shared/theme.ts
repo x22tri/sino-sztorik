@@ -42,7 +42,6 @@ const theme = responsiveFontSizes(
       },
       secondary: {
         main: deepOrange[500],
-        dark: deepOrange[700],
       },
       background: {
         default: grey[50],

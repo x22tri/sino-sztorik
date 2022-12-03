@@ -1,5 +1,9 @@
 import { useTheme } from '@mui/material'
-import { LessonStatuses, TierStatuses } from '../shared/interfaces'
+import {
+  LessonStatus,
+  LessonStatuses,
+  TierStatuses,
+} from '../shared/interfaces'
 const { UPCOMING, COMPLETED, LOCKED } = LessonStatuses
 
 export function findLastEligibleTier(tierStatuses: TierStatuses): number {
@@ -30,24 +34,34 @@ export function findLastEligibleTier(tierStatuses: TierStatuses): number {
   return 0
 }
 
+interface LessonCardStyling {
+  background: string
+  outline: string
+  boxShadow: string
+  variant: 'outlined' | 'elevation'
+}
+
 export function useLessonCardStyling(tierStatuses: TierStatuses) {
   const { palette } = useTheme()
 
-  const colorDictionary = {
+  const colorDictionary: { [key in LessonStatus]?: LessonCardStyling } = {
     [LOCKED]: {
       background: palette.grey[100],
-      outline: palette.primary.main,
+      outline: 'none',
       boxShadow: 'none',
+      variant: 'outlined',
     },
     [UPCOMING]: {
       background: palette.background.paper,
-      outline: palette.primary.main,
-      boxShadow: `4px 6px ${palette.secondary.dark}`,
+      outline: palette.secondary.main,
+      boxShadow: `3px 5px ${palette.secondary.main}`,
+      variant: 'elevation',
     },
     [COMPLETED]: {
       background: palette.background.paper,
-      outline: palette.primary.light,
+      outline: palette.grey[200],
       boxShadow: `3px 5px ${palette.grey[400]}`,
+      variant: 'elevation',
     },
   }
 

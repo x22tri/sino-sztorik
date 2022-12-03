@@ -25,15 +25,10 @@ export default function LessonCard({
   currentLessonNumber: number
   setIsLessonDetailsVisible: Dispatch<SetStateAction<boolean>>
 }) {
-  const { palette } = useTheme()
-
   const isCurrentLesson = lessonNumber === currentLessonNumber
 
-  const lessonCardStyling = useLessonCardStyling(tierStatuses)
-
-  const isLessonLocked = isLocked(tierStatuses)
-
-  const borderColor = isCurrentLesson ? palette.secondary.main : 'inherit'
+  const { outline, background, boxShadow, variant } =
+    useLessonCardStyling(tierStatuses)!
 
   return (
     <Grid
@@ -62,7 +57,7 @@ export default function LessonCard({
       {isCurrentLesson && <UpcomingLessonLabel />}
 
       <RoundedCard
-        variant={isLessonLocked ? 'outlined' : 'elevation'}
+        {...{ variant }}
         sx={{
           position: 'relative',
           width: '100%',
@@ -72,12 +67,10 @@ export default function LessonCard({
           flexDirection: 'column',
           alignItems: 'center',
           borderRadius: isCurrentLesson ? '0 16px' : '16px',
-          border: `2px solid ${borderColor}`,
+          border: `2px solid ${outline}`,
           px: 1,
-          backgroundColor: isLocked(tierStatuses)
-            ? palette.grey[100]
-            : palette.background.paper,
-          boxShadow: lessonCardStyling.boxShadow,
+          backgroundColor: background,
+          boxShadow,
         }}
       >
         <TierStatusBlips {...{ tierStatuses }} />
