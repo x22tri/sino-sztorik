@@ -4,11 +4,13 @@ import { useState } from 'react'
 import LessonCard from './LessonCard'
 import LessonDetails from './LessonDetails'
 import { LESSONS } from '../shared/MOCK_LESSONS'
-import { Card, Grow, useTheme } from '@mui/material'
+import { Button, Card, Grow, useTheme } from '@mui/material'
 import { LessonStatuses, SideNavigationItem } from '../shared/interfaces'
-import { LESSON_SELECT_TITLE } from '../shared/strings'
+import { BACK_TO_LESSONS_BUTTON, LESSON_SELECT_TITLE } from '../shared/strings'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
+import WestIcon from '@mui/icons-material/West'
+import { LightenOnHoverButton } from '../shared/basic-components'
 
 export default function LessonSelect() {
   const { palette } = useTheme()
@@ -43,25 +45,16 @@ export default function LessonSelect() {
     }, lessonDetailsTimeout)
   }
 
-  const toolbarHeight = '64px'
+  const toolbarHeight = '48px'
+  const maxContentWidth = '48rem'
   const lessonDetailsTimeout = 150
 
   return (
-    <Container
-      component='main'
-      maxWidth='lg'
-      sx={{
-        height: `calc(100vh - ${toolbarHeight})`,
-        pt: '2em',
-        // pr: 6,
-      }}
-    >
+    <Container component='main' maxWidth='lg' sx={{ pt: '2em' }}>
       {selectedLesson === undefined ? (
         <Grid
           container
-          // rowSpacing={3}
-          // columnSpacing={2}
-          sx={{ margin: 'auto', height: 'fit-content' }}
+          sx={{ height: 'fit-content', maxWidth: maxContentWidth }}
         >
           {LESSONS.map(({ lessonNumber, title, tierStatuses }) => (
             <LessonCard
@@ -78,27 +71,18 @@ export default function LessonSelect() {
           ))}
         </Grid>
       ) : null}
-
       <Grow in={isLessonDetailsVisible} timeout={lessonDetailsTimeout}>
         {selectedLesson !== undefined ? (
-          <Card
-            sx={{
-              margin: 'auto',
-              display: 'flex',
-              flexDirection: 'column',
-              height: 'fit-content',
-              maxWidth: { xs: 'auto', md: '800px' },
-            }}
-          >
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-              }}
+          <Box maxWidth={maxContentWidth}>
+            <LightenOnHoverButton
               onClick={() => handleCloseLessonDetails()}
+              startIcon={<WestIcon fontSize='small' />}
+              sx={{ color: palette.grey[600] }}
             >
-              X
-            </Box>
+              <Typography component='span' textTransform='none'>
+                {BACK_TO_LESSONS_BUTTON}
+              </Typography>
+            </LightenOnHoverButton>
 
             <LessonDetails
               lesson={selectedLesson}
@@ -106,7 +90,7 @@ export default function LessonSelect() {
                 selectedLesson.lessonNumber === currentLessonNumber
               }
             />
-          </Card>
+          </Box>
         ) : (
           <></>
         )}

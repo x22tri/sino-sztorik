@@ -11,7 +11,7 @@ export const LESSONS: AssembledLesson[] = [
       LessonStatuses.NOT_IN_TIER,
       LessonStatuses.NOT_IN_TIER,
     ],
-    characters: ['x', 'y'],
+    characters: ['一', '二', '三', '四', '五'],
   },
   {
     lessonNumber: 2,
@@ -23,7 +23,7 @@ export const LESSONS: AssembledLesson[] = [
       LessonStatuses.NOT_IN_TIER,
       LessonStatuses.NOT_IN_TIER,
     ],
-    characters: ['x', 'y'],
+    characters: ['朋', '明', '昌', '唱', '晶', '品'],
   },
   {
     lessonNumber: 3,

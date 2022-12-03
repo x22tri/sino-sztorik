@@ -27,7 +27,7 @@ export default function LessonCard({
 }) {
   const isCurrentLesson = lessonNumber === currentLessonNumber
 
-  const { outline, background, boxShadow, variant } =
+  const { borderColor, background, boxShadow } =
     useLessonCardStyling(tierStatuses)!
 
   return (
@@ -39,7 +39,6 @@ export default function LessonCard({
       xs={12 / 1}
       sm={12 / 2}
       md={12 / 3}
-      lg={12 / 4}
       position='relative'
       sx={{
         p: 2,
@@ -57,7 +56,6 @@ export default function LessonCard({
       {isCurrentLesson && <UpcomingLessonLabel />}
 
       <RoundedCard
-        {...{ variant }}
         sx={{
           position: 'relative',
           width: '100%',
@@ -67,10 +65,10 @@ export default function LessonCard({
           flexDirection: 'column',
           alignItems: 'center',
           borderRadius: isCurrentLesson ? '0 16px' : '16px',
-          border: `2px solid ${outline}`,
           px: 1,
           backgroundColor: background,
-          boxShadow,
+          ...(boxShadow ? { boxShadow } : {}),
+          ...(borderColor ? { borderColor } : {}),
         }}
       >
         <TierStatusBlips {...{ tierStatuses }} />

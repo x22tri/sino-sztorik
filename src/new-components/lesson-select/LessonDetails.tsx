@@ -22,11 +22,11 @@ export default function LessonDetails({
   lesson: AssembledLesson
   isCurrentLesson: boolean
 }) {
+  const { palette } = useTheme()
   const { title, preface, characters } = lesson
 
   return (
-    // <RoundedCard>
-    <>
+    <RoundedCard>
       <Typography
         component='header'
         variant='h5'
@@ -36,13 +36,13 @@ export default function LessonDetails({
         {title}
       </Typography>
 
-      <Typography component='p' variant='body1' sx={{ my: 3 }}>
+      <Typography component='p' variant='body1' sx={{ my: 4 }}>
         {preface}
       </Typography>
 
       <LearnReviewButtons {...{ isCurrentLesson }} />
 
-      <Divider sx={{ my: 3 }} />
+      <Divider sx={{ my: 4 }} />
 
       <Typography>
         {characters.length} {CHARACTER_AMOUNT_LABEL}
@@ -55,8 +55,7 @@ export default function LessonDetails({
           </Typography>
         ))}
       </Box>
-    </>
-    // </RoundedCard>
+    </RoundedCard>
   )
 }
 

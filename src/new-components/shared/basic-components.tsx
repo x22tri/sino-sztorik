@@ -1,5 +1,5 @@
 import { useTheme } from '@mui/material'
-import Button from '@mui/material/Button'
+import Button, { ButtonProps } from '@mui/material/Button'
 import Card, { CardProps } from '@mui/material/Card'
 import { ElementType } from 'react'
 
@@ -19,6 +19,25 @@ export function MinorActionButton({ text }: { text: string }) {
   )
 }
 
+export function LightenOnHoverButton<B extends ElementType>(
+  props: ButtonProps<B, { component?: B }>
+) {
+  return (
+    <Button
+      {...props}
+      sx={{
+        '&:hover': {
+          backgroundColor: 'inherit',
+          filter: 'brightness(1.3)',
+        },
+        ...props.sx,
+      }}
+    >
+      {props.children}
+    </Button>
+  )
+}
+
 export function RoundedCard<C extends ElementType>(
   props: CardProps<C, { component?: C }>
 ) {
@@ -27,13 +46,14 @@ export function RoundedCard<C extends ElementType>(
   return (
     <Card
       {...props}
-      variant='outlined'
       sx={{
-        backgroundColor: palette.background.paper,
+        borderWidth: '2px',
+        borderStyle: 'solid',
+        borderColor: palette.grey[200],
         borderRadius: '16px',
-        py: 2,
-        px: 2,
-        height: 'fit-content',
+        backgroundColor: palette.background.paper,
+        boxShadow: `3px 5px ${palette.grey[400]}`,
+        p: 2,
         ...props.sx,
       }}
     >

@@ -25,6 +25,7 @@ const theme = responsiveFontSizes(
       h5: {
         fontFamily: emphasisFont,
         fontWeight: 600,
+        fontSize: 28,
       },
       h6: {
         fontFamily: emphasisFont,
@@ -42,6 +43,7 @@ const theme = responsiveFontSizes(
       },
       secondary: {
         main: deepOrange[500],
+        dark: deepOrange[700],
       },
       background: {
         default: grey[50],
