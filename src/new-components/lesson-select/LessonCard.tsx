@@ -8,7 +8,7 @@ import { RoundedCard } from '../shared/basic-components'
 import { TierStatuses } from '../shared/interfaces'
 import { UPCOMING_LESSON_LABEL } from '../shared/strings'
 import TierStatusBlips from './TierStatusBlips'
-import { useLessonCardStyling, isLocked } from './getCardColor'
+import { useLessonCardStyling, isLocked } from './useLessonCardStyling'
 
 export default function LessonCard({
   lessonNumber,

@@ -35,6 +35,9 @@ const theme = responsiveFontSizes(
       button: {
         fontFamily: emphasisFont,
       },
+      body1: {
+        lineHeight: 2,
+      },
     },
     palette: {
       primary: {

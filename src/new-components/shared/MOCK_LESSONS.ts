@@ -4,7 +4,8 @@ export const LESSONS: AssembledLesson[] = [
   {
     lessonNumber: 1,
     title: 'Első lépések',
-    preface: 'teszt',
+    preface:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut tristique ex. Nullam commodo mollis libero, eget sodales ex fringilla eget. Fusce eu odio sit amet ex condimentum rutrum id quis lectus. Cras mattis dui ac finibus gravida. Nam eget tempus tortor. In non bibendum ligula. Quisque eget nunc vitae nisl ultrices fringilla. Curabitur id tempor nisi. Aliquam ac ante scelerisque odio porta pretium et et massa. Vivamus rutrum, neque pellentesque sollicitudin facilisis, tortor nisl semper dolor, eu efficitur nunc turpis dignissim urna. Integer eleifend consectetur dui a laoreet. ',
     tierStatuses: [
       LessonStatuses.COMPLETED,
       LessonStatuses.COMPLETED,
@@ -16,7 +17,8 @@ export const LESSONS: AssembledLesson[] = [
   {
     lessonNumber: 2,
     title: 'Több, mint a részek összege',
-    preface: 'teszt2',
+    preface:
+      'Aliquam erat volutpat. Integer tellus sem, maximus sit amet ullamcorper vehicula, mattis egestas lectus. Duis vitae congue neque. Fusce vulputate mauris quis nisl aliquet convallis. Nunc placerat nunc non suscipit aliquet. Aenean vel tellus non ipsum fermentum molestie. Vivamus egestas dictum enim eget dignissim. Vivamus lacinia facilisis odio, sed fermentum est. Proin aliquet eleifend arcu. Aenean efficitur eros sit amet neque ornare tincidunt. ',
     tierStatuses: [
       LessonStatuses.COMPLETED,
       LessonStatuses.COMPLETED,
@@ -28,7 +30,8 @@ export const LESSONS: AssembledLesson[] = [
   {
     lessonNumber: 3,
     title: 'lesson3',
-    preface: 'teszt2',
+    preface:
+      'Sed molestie facilisis velit, id feugiat lacus. Pellentesque eget leo in turpis dapibus volutpat a sed nisl. Aliquam a nibh faucibus, semper turpis quis, iaculis purus. Nam posuere vitae nulla et egestas. Proin tincidunt ex non volutpat tempus. Fusce hendrerit ex id diam placerat maximus. Sed pretium diam non metus pulvinar, et tempus diam tempus. Nam molestie risus in pellentesque facilisis. Quisque nulla mi, congue quis elementum vitae, tempus at elit. Nam enim ipsum, pharetra id metus nec, porttitor varius nibh. Etiam scelerisque pretium odio, vitae consectetur augue interdum et. In sit amet justo egestas ligula mattis lobortis ac vel velit. Etiam hendrerit massa venenatis, ornare urna quis, congue ipsum. ',
     tierStatuses: [
       LessonStatuses.COMPLETED,
       LessonStatuses.UPCOMING,

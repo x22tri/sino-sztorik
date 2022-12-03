@@ -2,6 +2,7 @@ import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
+import { useState } from 'react'
 import {
   MajorActionButton,
   MinorActionButton,
@@ -21,11 +22,10 @@ export default function LessonDetails({
   lesson: AssembledLesson
   isCurrentLesson: boolean
 }) {
-  const { palette } = useTheme()
   const { title, preface, characters } = lesson
 
   return (
-    <RoundedCard sx={{ width: '100%' }}>
+    <RoundedCard sx={{ my: 2 }}>
       <Typography
         component='header'
         variant='h5'
@@ -35,7 +35,7 @@ export default function LessonDetails({
         {title}
       </Typography>
 
-      <Typography component='p' variant='body1' sx={{ my: 4 }}>
+      <Typography component='p' variant='body1' sx={{ my: 3 }}>
         {preface}
       </Typography>
 
@@ -49,19 +49,7 @@ export default function LessonDetails({
         {characters.length} {CHARACTER_AMOUNT_LABEL}
       </Typography>
 
-      <Box display='flex' gap={2} justifyContent='center'>
-        {characters.map(char => (
-          <Card
-            key={char}
-            variant='outlined'
-            sx={{ borderWidth: '2px', px: 0.5 }}
-          >
-            <Typography component='span' fontSize='1.5em'>
-              {char}
-            </Typography>
-          </Card>
-        ))}
-      </Box>
+      <CharacterPreviews {...{ characters }} />
 
       <LearnReviewButtons {...{ isCurrentLesson }} />
     </RoundedCard>
@@ -79,6 +67,20 @@ function LearnReviewButtons({ isCurrentLesson }: { isCurrentLesson: boolean }) {
       {isCurrentLesson && <MajorActionButton text={LEARN_BUTTON} />}
 
       <MinorActionButton text={REVIEW_BUTTON} />
+    </Box>
+  )
+}
+
+function CharacterPreviews({ characters }: { characters: string[] }) {
+  return (
+    <Box display='flex' gap={2} justifyContent='center' flexWrap='wrap'>
+      {characters.map(char => (
+        <Card key={char} variant='outlined' sx={{ borderWidth: '2px', px: 1 }}>
+          <Typography component='span' fontSize='1.5em'>
+            {char}
+          </Typography>
+        </Card>
+      ))}
     </Box>
   )
 }

@@ -12,7 +12,7 @@ export const CHARACTER_SEARCH_TITLE = 'Karakterkereső'
 export const LESSON_SELECT_TOOLTIP =
   'Tanulj új karaktereket vagy nézd át az eddigieket'
 export const CHARACTER_SEARCH_TOOLTIP =
-  'Keress rá egy konkrét karakterre vagy kulcsszóra'
+  'Keress karakterre, kulcsszóra vagy alapelemre'
 
 export const UPCOMING_LESSON_LABEL = 'KÖVETKEZŐ'
 export const CHARACTER_AMOUNT_LABEL = 'karakter'

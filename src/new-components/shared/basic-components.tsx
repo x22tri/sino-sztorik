@@ -4,8 +4,22 @@ import Card, { CardProps } from '@mui/material/Card'
 import { ElementType } from 'react'
 
 export function MajorActionButton({ text }: { text: string }) {
+  const { palette } = useTheme()
+
   return (
-    <Button variant='contained' color='secondary'>
+    <Button
+      variant='contained'
+      color='secondary'
+      sx={{
+        border: '2px solid transparent',
+        borderRadius: '0 8px',
+        boxShadow: 'none',
+        '&:hover': {
+          border: `2px solid ${palette.secondary.dark}`,
+          boxShadow: 'none',
+        },
+      }}
+    >
       {text}
     </Button>
   )
@@ -13,7 +27,16 @@ export function MajorActionButton({ text }: { text: string }) {
 
 export function MinorActionButton({ text }: { text: string }) {
   return (
-    <Button variant='outlined' color='primary'>
+    <Button
+      variant='outlined'
+      color='primary'
+      sx={{
+        borderWidth: '2px',
+        '&:hover': {
+          borderWidth: '2px',
+        },
+      }}
+    >
       {text}
     </Button>
   )
