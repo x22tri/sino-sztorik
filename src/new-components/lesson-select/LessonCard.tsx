@@ -47,6 +47,7 @@ export default function LessonCard({
       lg={12 / 4}
       position='relative'
       sx={{
+        p: 2,
         transition: 'transform 0.15s ease-in-out',
         '&:hover': {
           transform: 'translate(0%, -8%)',
@@ -107,7 +108,7 @@ function UpcomingLessonLabel() {
       variant='overline'
       alignSelf='flex-start'
       position='absolute'
-      top='0'
+      top='-8px'
       left='15px'
       fontWeight='bold'
       sx={{ color: palette.secondary.main }}

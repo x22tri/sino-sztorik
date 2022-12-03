@@ -53,13 +53,14 @@ export default function LessonSelect() {
       sx={{
         height: `calc(100vh - ${toolbarHeight})`,
         pt: '2em',
+        // pr: 6,
       }}
     >
       {selectedLesson === undefined ? (
         <Grid
           container
-          rowSpacing={3}
-          columnSpacing={2}
+          // rowSpacing={3}
+          // columnSpacing={2}
           sx={{ margin: 'auto', height: 'fit-content' }}
         >
           {LESSONS.map(({ lessonNumber, title, tierStatuses }) => (
