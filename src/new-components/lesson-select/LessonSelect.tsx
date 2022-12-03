@@ -5,7 +5,7 @@ import LessonCard from './LessonCard'
 import LessonDetails from './LessonDetails'
 import { LESSONS } from '../shared/MOCK_LESSONS'
 import { Card, Grow, useTheme } from '@mui/material'
-import { SideNavigationItem } from '../shared/interfaces'
+import { LessonStatuses, SideNavigationItem } from '../shared/interfaces'
 import { LESSON_SELECT_TITLE } from '../shared/strings'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
@@ -13,13 +13,22 @@ import Container from '@mui/material/Container'
 export default function LessonSelect() {
   const { palette } = useTheme()
 
+  const hasUpcomingTier = LESSONS.find(({ tierStatuses }) =>
+    tierStatuses.includes(LessonStatuses.UPCOMING)
+  )?.lessonNumber
+
+  if (!hasUpcomingTier) {
+    throw new Error('Current lesson is undefined.')
+  }
+
   const [selectedNavigationItem, setSelectedNavigationItem] =
     useState<SideNavigationItem>(LESSON_SELECT_TITLE)
 
   const [selectedLessonNumber, setSelectedLessonNumber] = useState<
     number | null
   >(null)
-  const [currentLessonNumber] = useState<number>(1)
+
+  const [currentLessonNumber] = useState<number>(hasUpcomingTier)
 
   const selectedLesson = LESSONS.find(
     ({ lessonNumber }) => lessonNumber === selectedLessonNumber
@@ -49,8 +58,8 @@ export default function LessonSelect() {
       {selectedLesson === undefined ? (
         <Grid
           container
-          rowSpacing={2}
-          columnSpacing={1}
+          rowSpacing={3}
+          columnSpacing={2}
           sx={{ margin: 'auto', height: 'fit-content' }}
         >
           {LESSONS.map(({ lessonNumber, title, tierStatuses }) => (

@@ -7,7 +7,7 @@ export const LESSONS: AssembledLesson[] = [
     preface: 'teszt',
     tierStatuses: [
       LessonStatuses.COMPLETED,
-      LessonStatuses.UPCOMING,
+      LessonStatuses.COMPLETED,
       LessonStatuses.NOT_IN_TIER,
       LessonStatuses.NOT_IN_TIER,
     ],
@@ -19,11 +19,11 @@ export const LESSONS: AssembledLesson[] = [
     preface: 'teszt2',
     tierStatuses: [
       LessonStatuses.COMPLETED,
-      LessonStatuses.LOCKED,
+      LessonStatuses.COMPLETED,
       LessonStatuses.NOT_IN_TIER,
       LessonStatuses.NOT_IN_TIER,
     ],
-    characters: [],
+    characters: ['x', 'y'],
   },
   {
     lessonNumber: 3,
@@ -31,7 +31,7 @@ export const LESSONS: AssembledLesson[] = [
     preface: 'teszt2',
     tierStatuses: [
       LessonStatuses.COMPLETED,
-      LessonStatuses.LOCKED,
+      LessonStatuses.UPCOMING,
       LessonStatuses.NOT_IN_TIER,
       LessonStatuses.NOT_IN_TIER,
     ],
@@ -70,6 +70,18 @@ export const LESSONS: AssembledLesson[] = [
       LessonStatuses.LOCKED,
       LessonStatuses.NOT_IN_TIER,
       LessonStatuses.NOT_IN_TIER,
+    ],
+    characters: [],
+  },
+  {
+    lessonNumber: 7,
+    title: 'lesson7',
+    preface: 'teszt2',
+    tierStatuses: [
+      LessonStatuses.LOCKED,
+      LessonStatuses.LOCKED,
+      LessonStatuses.LOCKED,
+      LessonStatuses.LOCKED,
     ],
     characters: [],
   },

@@ -27,6 +27,7 @@ export function RoundedCard<C extends ElementType>(
   return (
     <Card
       {...props}
+      variant='outlined'
       sx={{
         backgroundColor: palette.background.paper,
         borderRadius: '16px',

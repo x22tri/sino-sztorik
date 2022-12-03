@@ -8,6 +8,7 @@ import { RoundedCard } from '../shared/basic-components'
 import { TierStatuses } from '../shared/interfaces'
 import { UPCOMING_LESSON_LABEL } from '../shared/strings'
 import TierStatusBlips from './TierStatusBlips'
+import { useLessonCardStyling, isLocked } from './getCardColor'
 
 export default function LessonCard({
   lessonNumber,
@@ -28,6 +29,10 @@ export default function LessonCard({
 
   const isCurrentLesson = lessonNumber === currentLessonNumber
 
+  const lessonCardStyling = useLessonCardStyling(tierStatuses)
+
+  const isLessonLocked = isLocked(tierStatuses)
+
   const borderColor = isCurrentLesson ? palette.secondary.main : 'inherit'
 
   return (
@@ -36,10 +41,10 @@ export default function LessonCard({
       display='flex'
       flexDirection='column'
       alignItems='center'
-      xs={12 / 3}
-      sm={12 / 4}
-      md={12 / 6}
-      lg={12 / 8}
+      xs={12 / 1}
+      sm={12 / 2}
+      md={12 / 3}
+      lg={12 / 4}
       position='relative'
       sx={{
         transition: 'transform 0.15s ease-in-out',
@@ -56,6 +61,7 @@ export default function LessonCard({
       {isCurrentLesson && <UpcomingLessonLabel />}
 
       <RoundedCard
+        variant={isLessonLocked ? 'outlined' : 'elevation'}
         sx={{
           position: 'relative',
           width: '100%',
@@ -67,12 +73,16 @@ export default function LessonCard({
           borderRadius: isCurrentLesson ? '0 16px' : '16px',
           border: `2px solid ${borderColor}`,
           px: 1,
+          backgroundColor: isLocked(tierStatuses)
+            ? palette.grey[100]
+            : palette.background.paper,
+          boxShadow: lessonCardStyling.boxShadow,
         }}
       >
         <TierStatusBlips {...{ tierStatuses }} />
 
         <Typography
-          variant='body2'
+          variant='body1'
           display='flex'
           height='100%'
           alignItems='center'
@@ -97,8 +107,8 @@ function UpcomingLessonLabel() {
       variant='overline'
       alignSelf='flex-start'
       position='absolute'
-      top='-8px'
-      left='8px'
+      top='0'
+      left='15px'
       fontWeight='bold'
       sx={{ color: palette.secondary.main }}
     >
