@@ -15,6 +15,7 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import WestIcon from '@mui/icons-material/West'
 import { LightenOnHoverButton } from '../shared/basic-components'
+import { Keyboard } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 
@@ -160,18 +161,20 @@ function LessonDetailsSwiper({
 }) {
   return (
     <Swiper
-      spaceBetween={10}
-      slidesPerView={1.2}
       centeredSlides={true}
       initialSlide={selectedLessonNumber - 1}
+      keyboard={true}
+      modules={[Keyboard]}
       onTouchStart={swiper => swiper.setGrabCursor()}
       onTouchEnd={swiper => swiper.unsetGrabCursor()}
+      slidesPerView={1.2}
+      spaceBetween={10}
     >
       {lessons.map(({ lessonNumber }) => (
         <SwiperSlide key={lessonNumber}>
           <LessonDetails
-            lesson={lessons[lessonNumber - 1]}
             isCurrentLesson={lessonNumber === currentLessonNumber}
+            lesson={lessons[lessonNumber - 1]}
           />
         </SwiperSlide>
       ))}
