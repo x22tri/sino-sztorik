@@ -1,8 +1,6 @@
-import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
-import { useState } from 'react'
 import {
   MajorActionButton,
   MinorActionButton,
@@ -25,7 +23,7 @@ export default function LessonDetails({
   const { title, preface, characters } = lesson
 
   return (
-    <RoundedCard sx={{ my: 2 }}>
+    <RoundedCard sx={{ my: 2 }} className='disable-select'>
       <Typography
         component='header'
         variant='h5'

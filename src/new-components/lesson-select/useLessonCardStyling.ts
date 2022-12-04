@@ -38,7 +38,3 @@ export function useLessonCardStyling(tierStatuses: TierStatuses) {
 
   return colorDictionary[LOCKED]
 }
-
-export function isLocked(tierStatuses: TierStatuses): boolean {
-  return !tierStatuses.includes(UPCOMING) && !tierStatuses.includes(COMPLETED)
-}

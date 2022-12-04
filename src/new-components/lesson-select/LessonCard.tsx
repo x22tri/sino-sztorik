@@ -1,38 +1,40 @@
 import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
-import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import { Dispatch, SetStateAction } from 'react'
 import { RoundedCard } from '../shared/basic-components'
-import { TierStatuses } from '../shared/interfaces'
+import { LessonStatuses, TierStatuses } from '../shared/interfaces'
 import { UPCOMING_LESSON_LABEL } from '../shared/strings'
 import TierStatusBlips from './TierStatusBlips'
-import { useLessonCardStyling, isLocked } from './useLessonCardStyling'
+import { useLessonCardStyling } from './useLessonCardStyling'
+
+const { UPCOMING, COMPLETED, LOCKED } = LessonStatuses
 
 export default function LessonCard({
-  lessonNumber,
-  title,
-  tierStatuses,
-  setSelectedLessonNumber,
   currentLessonNumber,
+  lessonNumber,
   setIsLessonDetailsVisible,
+  setSelectedLessonNumber,
+  tierStatuses,
+  title,
 }: {
-  lessonNumber: number
-  title: string
-  tierStatuses: TierStatuses
-  setSelectedLessonNumber: Dispatch<SetStateAction<number | null>>
   currentLessonNumber: number
+  lessonNumber: number
   setIsLessonDetailsVisible: Dispatch<SetStateAction<boolean>>
+  setSelectedLessonNumber: Dispatch<SetStateAction<number | null>>
+  tierStatuses: TierStatuses
+  title: string
 }) {
   const isCurrentLesson = lessonNumber === currentLessonNumber
 
-  const isLessonLocked = isLocked(tierStatuses)
+  const isLessonLocked =
+    !tierStatuses.includes(UPCOMING) && !tierStatuses.includes(COMPLETED)
 
   const { borderColor, backgroundColor, boxShadow } =
     useLessonCardStyling(tierStatuses)!
 
-  function handleLessonCardClick() {
+  function openLessonDetails() {
     if (isLessonLocked) {
       return
     }
@@ -56,7 +58,7 @@ export default function LessonCard({
           cursor: isLessonLocked ? 'inherit' : 'pointer',
         },
       }}
-      onClick={handleLessonCardClick}
+      onClick={openLessonDetails}
     >
       {isCurrentLesson && <UpcomingLessonLabel />}
 
@@ -78,16 +80,7 @@ export default function LessonCard({
       >
         <TierStatusBlips {...{ tierStatuses }} />
 
-        <Typography
-          variant='body1'
-          display='flex'
-          height='100%'
-          alignItems='center'
-          textAlign='center'
-          sx={{ my: 1 }}
-        >
-          {title}
-        </Typography>
+        <LessonSelectCardTitle {...{ title }} />
 
         <LessonNumberFooter {...{ lessonNumber }} />
       </RoundedCard>
@@ -126,5 +119,20 @@ function LessonNumberFooter({ lessonNumber }: { lessonNumber: number }) {
     >
       {lessonNumber}
     </Box>
+  )
+}
+
+function LessonSelectCardTitle({ title }: { title: string }) {
+  return (
+    <Typography
+      variant='body1'
+      display='flex'
+      height='100%'
+      alignItems='center'
+      textAlign='center'
+      sx={{ my: 1, lineHeight: 'initial' }}
+    >
+      {title}
+    </Typography>
   )
 }

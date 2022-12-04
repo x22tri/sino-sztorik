@@ -6,11 +6,11 @@ import LessonDetails from './LessonDetails'
 import { LESSONS } from '../shared/MOCK_LESSONS'
 import { Grow, useTheme } from '@mui/material'
 import { LessonStatuses, SideNavigationItem } from '../shared/interfaces'
-import { CHARACTER_SEARCH_TITLE, LESSON_SELECT_TITLE } from '../shared/strings'
+import { LESSON_SELECT_TITLE } from '../shared/strings'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import WestIcon from '@mui/icons-material/West'
-import { LightenOnHoverButton, RoundedCard } from '../shared/basic-components'
+import { LightenOnHoverButton } from '../shared/basic-components'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 
@@ -19,8 +19,6 @@ const lessonDetailsTimeout = 150
 const fadeOverlayZIndex = 9000
 
 export default function LessonSelect() {
-  const { palette } = useTheme()
-
   const hasUpcomingTier = LESSONS.find(({ tierStatuses }) =>
     tierStatuses.includes(LessonStatuses.UPCOMING)
   )?.lessonNumber
@@ -40,7 +38,7 @@ export default function LessonSelect() {
 
   const [isLessonDetailsVisible, setIsLessonDetailsVisible] = useState(false)
 
-  function handleCloseLessonDetails() {
+  function closeLessonDetails() {
     setIsLessonDetailsVisible(false)
     setTimeout(() => {
       setSelectedLessonNumber(null)
@@ -73,7 +71,7 @@ export default function LessonSelect() {
       <Grow in={isLessonDetailsVisible} timeout={lessonDetailsTimeout}>
         {selectedLessonNumber !== null ? (
           <Box maxWidth={maxContentWidth} position='relative'>
-            <BackToLessonSelectButton onClick={handleCloseLessonDetails} />
+            <BackToLessonSelectButton onClick={closeLessonDetails} />
 
             <div>
               <FadeOverlay />
