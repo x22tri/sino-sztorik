@@ -5,6 +5,8 @@ import LessonCard from './LessonCard'
 import LessonDetails from './LessonDetails'
 import { LESSONS } from '../shared/MOCK_LESSONS'
 import { Grow, useTheme } from '@mui/material'
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
+import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import {
   AssembledLesson,
   LessonStatuses,
@@ -69,7 +71,7 @@ export default function LessonSelect() {
             <BackToLessonSelectButton onClick={closeLessonDetails} />
 
             <div>
-              <FadeOverlay />
+              {/* <FadeOverlay /> */}
 
               <LessonDetailsSwiper
                 lessons={LESSONS}
@@ -159,6 +161,8 @@ function LessonDetailsSwiper({
   lessons: AssembledLesson[]
   selectedLessonNumber: number
 }) {
+  const { palette } = useTheme()
+
   return (
     <Swiper
       centeredSlides={true}
@@ -167,15 +171,35 @@ function LessonDetailsSwiper({
       modules={[Keyboard]}
       onTouchStart={swiper => swiper.setGrabCursor()}
       onTouchEnd={swiper => swiper.unsetGrabCursor()}
-      slidesPerView={1.2}
+      slidesPerView={1}
       spaceBetween={10}
     >
       {lessons.map(({ lessonNumber }) => (
         <SwiperSlide key={lessonNumber}>
-          <LessonDetails
-            isCurrentLesson={lessonNumber === currentLessonNumber}
-            lesson={lessons[lessonNumber - 1]}
-          />
+          <Box position='relative'>
+            <ArrowLeftIcon
+              sx={{
+                position: 'absolute',
+                top: '50%',
+                left: '-3px',
+                transform: 'translateY(-50%)',
+                color: palette.grey[400],
+              }}
+            />
+            <LessonDetails
+              isCurrentLesson={lessonNumber === currentLessonNumber}
+              lesson={lessons[lessonNumber - 1]}
+            />
+            <ArrowRightIcon
+              sx={{
+                position: 'absolute',
+                top: '50%',
+                right: '-3px',
+                transform: 'translateY(-50%)',
+                color: palette.grey[400],
+              }}
+            />
+          </Box>
         </SwiperSlide>
       ))}
     </Swiper>

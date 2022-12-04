@@ -1,6 +1,8 @@
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
+import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import {
   MajorActionButton,
   MinorActionButton,
@@ -23,7 +25,14 @@ export default function LessonDetails({
   const { title, preface, characters } = lesson
 
   return (
-    <RoundedCard sx={{ my: 2 }} className='disable-select'>
+    <RoundedCard sx={{ m: 2 }} className='disable-select'>
+      {/* <Box
+        display='flex'
+        flexDirection='row'
+        justifyContent='space-between'
+        alignItems='center'
+      > */}
+      {/* <ArrowLeftIcon /> */}
       <Typography
         component='header'
         variant='h5'
@@ -32,6 +41,8 @@ export default function LessonDetails({
       >
         {title}
       </Typography>
+      {/* <ArrowRightIcon /> */}
+      {/* </Box> */}
 
       <Typography component='p' variant='body1' sx={{ my: 3 }}>
         {preface}
