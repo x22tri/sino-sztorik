@@ -4,9 +4,7 @@ import { useState, MouseEvent, Dispatch, SetStateAction } from 'react'
 import LessonCard from './LessonCard'
 import LessonDetails from './LessonDetails'
 import { LESSONS } from '../shared/MOCK_LESSONS'
-import { Grow, useTheme } from '@mui/material'
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
-import ArrowRightIcon from '@mui/icons-material/ArrowRight'
+import { Grow } from '@mui/material'
 import {
   AssembledLesson,
   LessonStatuses,
@@ -21,8 +19,7 @@ import {
   CardSwiperContent,
   LightenOnHoverButton,
 } from '../shared/basic-components'
-import { Keyboard } from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/react'
+import { SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 
 const maxContentWidth = '48rem'

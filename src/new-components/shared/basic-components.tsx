@@ -1,4 +1,4 @@
-import { ElementType, Key, ReactNode } from 'react'
+import { ElementType, ReactNode } from 'react'
 import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import Button, { ButtonProps } from '@mui/material/Button'
@@ -7,7 +7,6 @@ import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import { Keyboard } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import LessonDetails from '../lesson-select/LessonDetails'
 
 export function MajorActionButton({ text }: { text: string }) {
   const { palette } = useTheme()
@@ -139,7 +138,9 @@ export function CardSwiperContent({ children }: { children: ReactNode }) {
           }}
         />
 
-        {children}
+        <RoundedCard sx={{ m: 2 }} className='disable-select'>
+          {children}
+        </RoundedCard>
 
         <ArrowRightIcon
           sx={{
