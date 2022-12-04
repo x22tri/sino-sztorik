@@ -125,13 +125,11 @@ function BackToLessonSelectButton({
 }: {
   onClick: (event: MouseEvent<HTMLElement>) => void
 }) {
-  const { palette } = useTheme()
-
   return (
     <LightenOnHoverButton
       {...{ onClick }}
       startIcon={<WestIcon fontSize='small' />}
-      sx={{ color: palette.grey[600], ml: 1.5 }}
+      sx={{ ml: 1.5 }}
     >
       <Typography component='span' textTransform='none'>
         {LESSON_SELECT_TITLE}

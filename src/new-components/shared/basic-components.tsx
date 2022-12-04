@@ -45,13 +45,22 @@ export function MinorActionButton({ text }: { text: string }) {
 export function LightenOnHoverButton<B extends ElementType>(
   props: ButtonProps<B, { component?: B }>
 ) {
+  const { palette } = useTheme()
+
   return (
     <Button
       {...props}
       sx={{
+        color: palette.grey[600],
+        pb: 0,
+        borderRadius: 0,
+        borderBottom: '2px solid transparent',
         '&:hover': {
           backgroundColor: 'inherit',
           filter: 'brightness(1.3)',
+        },
+        '&:focus': {
+          borderBottom: '2px solid', // The border will take the text's color.
         },
         ...props.sx,
       }}
