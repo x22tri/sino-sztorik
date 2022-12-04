@@ -111,7 +111,7 @@ function KeywordPrimitiveBox({
   primitiveMeaning: string | undefined
 }) {
   return (
-    <Box display='flex' flexDirection='column' minHeight='56px'>
+    <Box display='flex' flexDirection='column' minHeight='64px'>
       {keyword ? (
         <Typography
           variant='h4'
