@@ -1,7 +1,9 @@
 import {
+  Dispatch,
   ElementType,
   MouseEvent,
   ReactNode,
+  SetStateAction,
   useEffect,
   useReducer,
 } from 'react'
@@ -13,7 +15,8 @@ import Typography from '@mui/material/Typography'
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import WestIcon from '@mui/icons-material/West'
-import { Keyboard } from 'swiper'
+import SwiperInstance, { Keyboard } from 'swiper'
+// import Swiper as SwiperInstance from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 export function MajorActionButton({ text }: { text: string }) {
@@ -128,20 +131,14 @@ export function RoundedCard<C extends ElementType>(
 }
 
 export function CardSwiperWrapper({
-  enabled = true,
   initialSlide = 0,
   children,
+  setSwiperInstance,
 }: {
-  enabled?: boolean
   initialSlide?: number
   children: ReactNode
+  setSwiperInstance?: Dispatch<SetStateAction<SwiperInstance | null>>
 }) {
-  const [key, forceUpdateSwiper] = useReducer(x => x + 1, 0)
-
-  useEffect(() => {
-    forceUpdateSwiper()
-  }, [enabled])
-
   return (
     <Swiper
       centeredSlides={true}
@@ -149,9 +146,10 @@ export function CardSwiperWrapper({
       modules={[Keyboard]}
       onTouchStart={swiper => swiper.setGrabCursor()}
       onTouchEnd={swiper => swiper.unsetGrabCursor()}
+      onSwiper={swiper => (setSwiperInstance ? setSwiperInstance(swiper) : {})}
       slidesPerView={1}
       spaceBetween={10}
-      {...{ key, enabled, initialSlide }}
+      {...{ initialSlide }}
     >
       {children}
     </Swiper>

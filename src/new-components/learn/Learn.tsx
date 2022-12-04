@@ -1,10 +1,10 @@
-import { Dispatch, Fragment, SetStateAction, useReducer, useState } from 'react'
+import { Dispatch, Fragment, SetStateAction, useEffect, useState } from 'react'
 import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
-import { SwiperSlide } from 'swiper/react'
+import { SwiperSlide, useSwiper } from 'swiper/react'
 import {
   CardSwiperWrapper,
   CardSwiperContent,
@@ -14,22 +14,49 @@ import {
 import { Character } from '../shared/interfaces'
 import { CHARS } from './MOCK_CHARS'
 import 'swiper/css'
+import Swiper from 'swiper'
 
 export default function Learn() {
   const { constants } = useTheme()
 
-  const [isFlashback, setIsFlashback] = useState(false)
+  const [currentlyViewedChar, setCurrentlyViewedChar] =
+    useState<Character | null>(null)
+
+  const [charToReturnToFromFlashback, setCharToReturnToFromFlashback] =
+    useState<Character | null>(null)
+
+  const [swiperInstance, setSwiperInstance] = useState<Swiper | null>(null)
+
+  // const swiper = useSwiper()
+
+  function returnFromFlashback() {
+    setCurrentlyViewedChar(charToReturnToFromFlashback!)
+    setCharToReturnToFromFlashback(null)
+    swiperInstance!.enable()
+  }
 
   return (
     <Container component='main' maxWidth='lg' sx={{ pt: '2em', px: 0 }}>
       <Box maxWidth={constants.maxContentWidth} position='relative'>
-        {isFlashback ? (
-          <BackButton onClick={() => setIsFlashback(false)} text={'aaa'} />
+        {charToReturnToFromFlashback !== null ? (
+          <BackButton
+            onClick={() => returnFromFlashback()}
+            text={`Vissza a leckébe (${
+              charToReturnToFromFlashback!.charChinese
+            })`}
+          />
         ) : null}
 
         <LearnCharCardSwiper
           chars={CHARS}
-          {...{ isFlashback, setIsFlashback }}
+          {...{
+            currentlyViewedChar,
+            setCurrentlyViewedChar,
+            charToReturnToFromFlashback,
+            setCharToReturnToFromFlashback,
+            swiperInstance,
+            setSwiperInstance,
+          }}
         />
       </Box>
     </Container>
@@ -38,35 +65,83 @@ export default function Learn() {
 
 function LearnCharCardSwiper({
   chars,
-  isFlashback,
-  setIsFlashback,
+  currentlyViewedChar,
+  setCurrentlyViewedChar,
+  charToReturnToFromFlashback,
+  setCharToReturnToFromFlashback,
+  swiperInstance,
+  setSwiperInstance,
 }: {
   chars: Character[]
-  isFlashback: boolean
-  setIsFlashback: Dispatch<SetStateAction<boolean>>
+  currentlyViewedChar: Character | null
+  setCurrentlyViewedChar: Dispatch<SetStateAction<Character | null>>
+  charToReturnToFromFlashback: Character | null
+  setCharToReturnToFromFlashback: Dispatch<SetStateAction<Character | null>>
+  swiperInstance: Swiper | null
+  setSwiperInstance: Dispatch<SetStateAction<Swiper | null>>
 }) {
   return (
-    <CardSwiperWrapper enabled={!isFlashback}>
-      {chars.map(char => (
-        <SwiperSlide key={char.id}>
-          <CardSwiperContent noArrows={isFlashback}>
-            <LearnCharCardDetails {...{ char, isFlashback, setIsFlashback }} />
-          </CardSwiperContent>
-        </SwiperSlide>
-      ))}
+    <CardSwiperWrapper {...{ setSwiperInstance }}>
+      {chars.map(char => {
+        // useEffect(() => {
+        // setCurrentlyViewedChar(char)
+        // }, [])
+
+        return (
+          <SwiperSlide key={char.id}>
+            <CardSwiperContent noArrows={charToReturnToFromFlashback !== null}>
+              <LearnCharCardDetails
+                currentlyViewedChar={char}
+                // currentlyViewedChar={char}
+                // char={char}
+                {...{
+                  //   char,
+                  //   currentlyViewedChar,
+                  setCurrentlyViewedChar,
+                  charToReturnToFromFlashback,
+                  setCharToReturnToFromFlashback,
+                  // swiper,
+                  swiperInstance,
+                }}
+              />
+            </CardSwiperContent>
+          </SwiperSlide>
+        )
+      })}
     </CardSwiperWrapper>
   )
 }
 
 function LearnCharCardDetails({
-  char,
-  isFlashback,
-  setIsFlashback,
-}: {
-  char: Character
-  isFlashback: boolean
-  setIsFlashback: Dispatch<SetStateAction<boolean>>
+  //   char,
+  currentlyViewedChar,
+  setCurrentlyViewedChar,
+  charToReturnToFromFlashback,
+  setCharToReturnToFromFlashback,
+  swiperInstance,
+}: //   swiper,
+{
+  //   char: Character
+  currentlyViewedChar: Character
+  setCurrentlyViewedChar: Dispatch<SetStateAction<Character | null>>
+  charToReturnToFromFlashback: Character | null
+  setCharToReturnToFromFlashback: Dispatch<SetStateAction<Character | null>>
+  swiperInstance: Swiper | null
+  //   swiper: Swiper
 }) {
+  //   const [displayedChar, setDisplayedChar] = useState(char)
+
+  useEffect(() => {
+    console.log(currentlyViewedChar)
+  }, [currentlyViewedChar])
+
+  function startFlashback(constituent: string) {
+    const activeIndex = swiperInstance!.activeIndex
+    setCharToReturnToFromFlashback(CHARS[activeIndex])
+    setCurrentlyViewedChar(CHARS[0])
+    swiperInstance!.disable()
+  }
+
   const {
     charChinese,
     keyword,
@@ -76,14 +151,26 @@ function LearnCharCardDetails({
     pinyin,
     frequency,
     otherUses,
-  } = char
+  } = currentlyViewedChar
 
   return (
     <RoundedCard
-      sx={{ m: 2, ...(isFlashback ? { borderColor: 'red' } : {}) }}
+      sx={{
+        m: 2,
+        ...(charToReturnToFromFlashback !== null
+          ? { borderColor: 'black' }
+          : {}),
+      }}
       className='disable-select'
     >
-      {constituents ? <ConstituentList {...{ constituents }} /> : null}
+      {constituents ? (
+        <ConstituentList
+          {...{
+            constituents,
+            startFlashback,
+          }}
+        />
+      ) : null}
 
       <Typography
         variant='charChinese'
@@ -154,7 +241,13 @@ function Story({ story }: { story: string }) {
   )
 }
 
-function ConstituentList({ constituents }: { constituents: string[] }) {
+function ConstituentList({
+  constituents,
+  startFlashback,
+}: {
+  constituents: string[]
+  startFlashback: (constituent: string) => void
+}) {
   return (
     <Box display='flex' justifyContent='center'>
       {constituents.map((constituent, index) => (
@@ -167,7 +260,11 @@ function ConstituentList({ constituents }: { constituents: string[] }) {
               sx={{ mx: 1 }}
             />
           )}
-          <Typography component='span' variant='constituent'>
+          <Typography
+            component='span'
+            variant='constituent'
+            onClick={() => startFlashback(constituent)}
+          >
             {constituent}
           </Typography>
         </Fragment>
