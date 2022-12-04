@@ -1,19 +1,19 @@
-import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
 import { useState, MouseEvent, Dispatch, SetStateAction } from 'react'
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
+import Grid from '@mui/material/Grid'
+import Grow from '@mui/material/Grow'
+import Typography from '@mui/material/Typography'
+import WestIcon from '@mui/icons-material/West'
 import LessonCard from './LessonCard'
 import LessonDetails from './LessonDetails'
 import { LESSONS } from '../shared/MOCK_LESSONS'
-import { Grow } from '@mui/material'
 import {
   AssembledLesson,
   LessonStatuses,
   SideNavigationItem,
 } from '../shared/interfaces'
 import { LESSON_SELECT_TITLE } from '../shared/strings'
-import Typography from '@mui/material/Typography'
-import Container from '@mui/material/Container'
-import WestIcon from '@mui/icons-material/West'
 import {
   CardSwiperWrapper,
   CardSwiperContent,
@@ -34,14 +34,11 @@ export default function LessonSelect() {
     throw new Error('Current lesson is undefined.')
   }
 
-  const [selectedNavigationItem, setSelectedNavigationItem] =
-    useState<SideNavigationItem>(LESSON_SELECT_TITLE)
-
   const [selectedLessonNumber, setSelectedLessonNumber] = useState<
     number | null
   >(null)
 
-  const [currentLessonNumber] = useState<number>(hasUpcomingTier)
+  const [upcomingLessonNumber] = useState<number>(hasUpcomingTier)
 
   const [isLessonDetailsVisible, setIsLessonDetailsVisible] = useState(false)
 
@@ -58,7 +55,7 @@ export default function LessonSelect() {
         <LessonPreviewGrid
           lessons={LESSONS}
           {...{
-            currentLessonNumber,
+            upcomingLessonNumber,
             setIsLessonDetailsVisible,
             setSelectedLessonNumber,
           }}
@@ -72,7 +69,7 @@ export default function LessonSelect() {
 
             <LessonDetailsSwiper
               lessons={LESSONS}
-              {...{ currentLessonNumber, selectedLessonNumber }}
+              {...{ upcomingLessonNumber, selectedLessonNumber }}
             />
           </Box>
         ) : (
@@ -84,12 +81,12 @@ export default function LessonSelect() {
 }
 
 function LessonPreviewGrid({
-  currentLessonNumber,
+  upcomingLessonNumber,
   lessons,
   setIsLessonDetailsVisible,
   setSelectedLessonNumber,
 }: {
-  currentLessonNumber: number
+  upcomingLessonNumber: number
   lessons: AssembledLesson[]
   setIsLessonDetailsVisible: Dispatch<SetStateAction<boolean>>
   setSelectedLessonNumber: Dispatch<SetStateAction<number | null>>
@@ -104,7 +101,7 @@ function LessonPreviewGrid({
             title,
             tierStatuses,
             setSelectedLessonNumber,
-            currentLessonNumber,
+            upcomingLessonNumber,
             setIsLessonDetailsVisible,
           }}
         />
@@ -132,11 +129,11 @@ function BackToLessonSelectButton({
 }
 
 function LessonDetailsSwiper({
-  currentLessonNumber,
+  upcomingLessonNumber,
   lessons,
   selectedLessonNumber,
 }: {
-  currentLessonNumber: number
+  upcomingLessonNumber: number
   lessons: AssembledLesson[]
   selectedLessonNumber: number
 }) {
@@ -147,7 +144,7 @@ function LessonDetailsSwiper({
         <SwiperSlide key={lessonNumber}>
           <CardSwiperContent>
             <LessonDetails
-              isCurrentLesson={lessonNumber === currentLessonNumber}
+              isCurrentLesson={lessonNumber === upcomingLessonNumber}
               lesson={lessons[lessonNumber - 1]}
             />
           </CardSwiperContent>

@@ -5,6 +5,7 @@ import LessonSelect from './lesson-select/LessonSelect'
 import { ThemeProvider } from '@mui/material/styles'
 import theme from './shared/theme'
 import AppbarWrapper from './toolbar/AppbarWrapper'
+import Learn from './learn/Learn'
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
       <ThemeProvider {...{ theme }}>
         <CssBaseline />
         <AppbarWrapper />
-        <LessonSelect />
+        {/* <LessonSelect /> */}
+        <Learn />
       </ThemeProvider>
     </>
   )

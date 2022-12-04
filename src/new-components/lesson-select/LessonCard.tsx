@@ -12,21 +12,21 @@ import { useLessonCardStyling } from './useLessonCardStyling'
 const { UPCOMING, COMPLETED } = LessonStatuses
 
 export default function LessonCard({
-  currentLessonNumber,
   lessonNumber,
   setIsLessonDetailsVisible,
   setSelectedLessonNumber,
   tierStatuses,
   title,
+  upcomingLessonNumber,
 }: {
-  currentLessonNumber: number
   lessonNumber: number
   setIsLessonDetailsVisible: Dispatch<SetStateAction<boolean>>
   setSelectedLessonNumber: Dispatch<SetStateAction<number | null>>
   tierStatuses: TierStatuses
   title: string
+  upcomingLessonNumber: number
 }) {
-  const isCurrentLesson = lessonNumber === currentLessonNumber
+  const isCurrentLesson = lessonNumber === upcomingLessonNumber
 
   const isLessonLocked =
     !tierStatuses.includes(UPCOMING) && !tierStatuses.includes(COMPLETED)

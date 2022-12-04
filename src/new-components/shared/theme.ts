@@ -2,11 +2,37 @@ import { createTheme } from '@mui/material/styles'
 import { blue, deepOrange, grey } from '@mui/material/colors'
 import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
 import { indigo } from '@material-ui/core/colors'
+import { CSSProperties } from 'react'
 
+const chineseFont = "'Noto Sans', sans-serif" // To-Do: Create font with custom chars
 const genericFont = "'Noto Sans', sans-serif"
 const emphasisFont = "'Montserrat', sans-serif"
 
-const theme = responsiveFontSizes(
+declare module '@mui/material/styles' {
+  interface TypographyVariants {
+    charChinese: CSSProperties
+    keyword: CSSProperties
+    primitiveMeaning: CSSProperties
+  }
+
+  // Allows configuration using `createTheme`.
+  interface TypographyVariantsOptions {
+    charChinese?: CSSProperties
+    keyword?: CSSProperties
+    primitiveMeaning?: CSSProperties
+  }
+}
+
+// Updates the Typography's variant prop options.
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    charChinese: true
+    keyword: true
+    primitiveMeaning: true
+  }
+}
+
+let theme = responsiveFontSizes(
   createTheme({
     components: {
       MuiButtonBase: {
@@ -38,6 +64,19 @@ const theme = responsiveFontSizes(
       body1: {
         lineHeight: 2,
       },
+      charChinese: {
+        fontFamily: chineseFont,
+        fontSize: 96,
+        lineHeight: 1,
+      },
+      keyword: {
+        fontSize: 24,
+      },
+      primitiveMeaning: {
+        fontSize: 20,
+        fontFamily: emphasisFont,
+        fontStyle: 'italic',
+      },
     },
     palette: {
       primary: {
@@ -47,6 +86,7 @@ const theme = responsiveFontSizes(
       secondary: {
         main: deepOrange[500],
         dark: deepOrange[700],
+        light: deepOrange[200],
       },
       background: {
         default: grey[50],
@@ -54,5 +94,13 @@ const theme = responsiveFontSizes(
     },
   })
 )
+
+theme = createTheme(theme, {
+  typography: {
+    primitiveMeaning: {
+      color: theme.palette.secondary.main,
+    },
+  },
+})
 
 export default theme
