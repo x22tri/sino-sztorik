@@ -23,7 +23,6 @@ import 'swiper/css'
 
 const maxContentWidth = '48rem'
 const lessonDetailsTimeout = 150
-const fadeOverlayZIndex = 9000
 
 export default function LessonSelect() {
   const hasUpcomingTier = LESSONS.find(({ tierStatuses }) =>
@@ -70,14 +69,10 @@ export default function LessonSelect() {
           <Box maxWidth={maxContentWidth} position='relative'>
             <BackToLessonSelectButton onClick={closeLessonDetails} />
 
-            <div>
-              {/* <FadeOverlay /> */}
-
-              <LessonDetailsSwiper
-                lessons={LESSONS}
-                {...{ currentLessonNumber, selectedLessonNumber }}
-              />
-            </div>
+            <LessonDetailsSwiper
+              lessons={LESSONS}
+              {...{ currentLessonNumber, selectedLessonNumber }}
+            />
           </Box>
         ) : (
           <></>
@@ -114,23 +109,6 @@ function LessonPreviewGrid({
         />
       ))}
     </Grid>
-  )
-}
-
-function FadeOverlay() {
-  const { palette } = useTheme()
-
-  return (
-    <Box
-      position='absolute'
-      width='100%'
-      height='100%'
-      zIndex={fadeOverlayZIndex}
-      sx={{
-        pointerEvents: 'none',
-        background: `linear-gradient(to right, ${palette.background.default}ff 0%, ${palette.background.default}00 10%, ${palette.background.default}00 90%, ${palette.background.default}ff 100%)`,
-      }}
-    />
   )
 }
 
