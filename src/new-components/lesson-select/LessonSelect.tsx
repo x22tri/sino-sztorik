@@ -1,31 +1,25 @@
-import { useState, MouseEvent, Dispatch, SetStateAction } from 'react'
+import { useState, Dispatch, SetStateAction } from 'react'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import Grow from '@mui/material/Grow'
-import Typography from '@mui/material/Typography'
-import WestIcon from '@mui/icons-material/West'
 import LessonCard from './LessonCard'
 import LessonDetails from './LessonDetails'
 import { LESSONS } from '../shared/MOCK_LESSONS'
-import {
-  AssembledLesson,
-  LessonStatuses,
-  SideNavigationItem,
-} from '../shared/interfaces'
+import { AssembledLesson, LessonStatuses } from '../shared/interfaces'
 import { LESSON_SELECT_TITLE } from '../shared/strings'
 import {
   CardSwiperWrapper,
   CardSwiperContent,
-  LightenOnHoverButton,
+  BackButton,
 } from '../shared/basic-components'
 import { SwiperSlide } from 'swiper/react'
 import 'swiper/css'
-
-const maxContentWidth = '48rem'
-const lessonDetailsTimeout = 150
+import { useTheme } from '@mui/material'
 
 export default function LessonSelect() {
+  const { constants } = useTheme()
+
   const hasUpcomingTier = LESSONS.find(({ tierStatuses }) =>
     tierStatuses.includes(LessonStatuses.UPCOMING)
   )?.lessonNumber
@@ -46,7 +40,7 @@ export default function LessonSelect() {
     setIsLessonDetailsVisible(false)
     setTimeout(() => {
       setSelectedLessonNumber(null)
-    }, lessonDetailsTimeout)
+    }, constants.animationDuration)
   }
 
   return (
@@ -62,10 +56,13 @@ export default function LessonSelect() {
         />
       ) : null}
 
-      <Grow in={isLessonDetailsVisible} timeout={lessonDetailsTimeout}>
+      <Grow in={isLessonDetailsVisible} timeout={constants.animationDuration}>
         {selectedLessonNumber !== null ? (
-          <Box maxWidth={maxContentWidth} position='relative'>
-            <BackToLessonSelectButton onClick={closeLessonDetails} />
+          <Box maxWidth={constants.maxContentWidth} position='relative'>
+            <BackButton
+              onClick={closeLessonDetails}
+              text={LESSON_SELECT_TITLE}
+            />
 
             <LessonDetailsSwiper
               lessons={LESSONS}
@@ -91,8 +88,13 @@ function LessonPreviewGrid({
   setIsLessonDetailsVisible: Dispatch<SetStateAction<boolean>>
   setSelectedLessonNumber: Dispatch<SetStateAction<number | null>>
 }) {
+  const { constants } = useTheme()
+
   return (
-    <Grid container sx={{ height: 'fit-content', maxWidth: maxContentWidth }}>
+    <Grid
+      container
+      sx={{ height: 'fit-content', maxWidth: constants.maxContentWidth }}
+    >
       {lessons.map(({ lessonNumber, title, tierStatuses }) => (
         <LessonCard
           key={lessonNumber}
@@ -107,24 +109,6 @@ function LessonPreviewGrid({
         />
       ))}
     </Grid>
-  )
-}
-
-function BackToLessonSelectButton({
-  onClick,
-}: {
-  onClick: (event: MouseEvent<HTMLElement>) => void
-}) {
-  return (
-    <LightenOnHoverButton
-      {...{ onClick }}
-      startIcon={<WestIcon fontSize='small' />}
-      sx={{ ml: 1.5 }}
-    >
-      <Typography component='span' textTransform='none'>
-        {LESSON_SELECT_TITLE}
-      </Typography>
-    </LightenOnHoverButton>
   )
 }
 

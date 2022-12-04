@@ -9,6 +9,20 @@ const genericFont = "'Noto Sans', sans-serif"
 const emphasisFont = "'Montserrat', sans-serif"
 
 declare module '@mui/material/styles' {
+  interface Theme {
+    constants: {
+      animationDuration: number
+      maxContentWidth: string
+    }
+  }
+
+  interface ThemeOptions {
+    constants?: {
+      animationDuration?: number
+      maxContentWidth?: string
+    }
+  }
+
   interface TypographyVariants {
     charChinese: CSSProperties
     keyword: CSSProperties
@@ -40,6 +54,10 @@ let theme = responsiveFontSizes(
           disableRipple: true,
         },
       },
+    },
+    constants: {
+      animationDuration: 150,
+      maxContentWidth: '48rem',
     },
     typography: {
       fontFamily: genericFont,

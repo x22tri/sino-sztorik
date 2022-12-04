@@ -1,12 +1,23 @@
-import { ElementType, ReactNode } from 'react'
+import {
+  ElementType,
+  MouseEvent,
+  ReactNode,
+  Ref,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from 'react'
 import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import Button, { ButtonProps } from '@mui/material/Button'
 import Card, { CardProps } from '@mui/material/Card'
+import Typography from '@mui/material/Typography'
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
+import WestIcon from '@mui/icons-material/West'
 import { Keyboard } from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/react'
+import { Swiper, SwiperRef, SwiperSlide, useSwiper } from 'swiper/react'
 
 export function MajorActionButton({ text }: { text: string }) {
   const { palette } = useTheme()
@@ -75,6 +86,26 @@ export function LightenOnHoverButton<B extends ElementType>(
   )
 }
 
+export function BackButton({
+  onClick,
+  text,
+}: {
+  onClick: (event: MouseEvent<HTMLElement>) => void
+  text: string
+}) {
+  return (
+    <LightenOnHoverButton
+      {...{ onClick }}
+      startIcon={<WestIcon fontSize='small' />}
+      sx={{ ml: 1.5 }}
+    >
+      <Typography component='span' textTransform='none'>
+        {text}
+      </Typography>
+    </LightenOnHoverButton>
+  )
+}
+
 export function RoundedCard<C extends ElementType>(
   props: CardProps<C, { component?: C }>
 ) {
@@ -100,12 +131,20 @@ export function RoundedCard<C extends ElementType>(
 }
 
 export function CardSwiperWrapper({
-  initialSlide,
+  enabled = true,
+  initialSlide = 0,
   children,
 }: {
+  enabled?: boolean
   initialSlide?: number
   children: ReactNode
 }) {
+  const [key, forceUpdateSwiper] = useReducer(x => x + 1, 0)
+
+  useEffect(() => {
+    forceUpdateSwiper()
+  }, [enabled])
+
   return (
     <Swiper
       centeredSlides={true}
@@ -115,42 +154,50 @@ export function CardSwiperWrapper({
       onTouchEnd={swiper => swiper.unsetGrabCursor()}
       slidesPerView={1}
       spaceBetween={10}
-      {...{ initialSlide }}
+      {...{ key, enabled, initialSlide }}
     >
       {children}
     </Swiper>
   )
 }
 
-export function CardSwiperContent({ children }: { children: ReactNode }) {
+export function CardSwiperContent({
+  children,
+  noArrows,
+}: {
+  children: ReactNode
+  noArrows?: boolean
+}) {
   const { palette } = useTheme()
 
   return (
     <SwiperSlide>
       <Box position='relative'>
-        <ArrowLeftIcon
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '-3px',
-            transform: 'translateY(-50%)',
-            color: palette.grey[400],
-          }}
-        />
+        {noArrows ? null : (
+          <ArrowLeftIcon
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '-3px',
+              transform: 'translateY(-50%)',
+              color: palette.grey[400],
+            }}
+          />
+        )}
 
-        <RoundedCard sx={{ m: 2 }} className='disable-select'>
-          {children}
-        </RoundedCard>
+        {children}
 
-        <ArrowRightIcon
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            right: '-3px',
-            transform: 'translateY(-50%)',
-            color: palette.grey[400],
-          }}
-        />
+        {noArrows ? null : (
+          <ArrowRightIcon
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              right: '-3px',
+              transform: 'translateY(-50%)',
+              color: palette.grey[400],
+            }}
+          />
+        )}
       </Box>
     </SwiperSlide>
   )
