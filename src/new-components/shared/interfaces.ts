@@ -42,7 +42,7 @@ export interface AssembledLesson {
 export interface Character {
   id: number
   charChinese: string
-  keyword: string
+  keyword?: string
   primitiveMeaning?: string
   constituents?: string[]
   story: string

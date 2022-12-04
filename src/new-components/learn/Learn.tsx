@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useReducer, useState } from 'react'
+import { Dispatch, Fragment, SetStateAction, useReducer, useState } from 'react'
 import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
@@ -18,7 +18,7 @@ import 'swiper/css'
 export default function Learn() {
   const { constants } = useTheme()
 
-  const [isFlashback, setIsFlashback] = useState(true)
+  const [isFlashback, setIsFlashback] = useState(false)
 
   return (
     <Container component='main' maxWidth='lg' sx={{ pt: '2em', px: 0 }}>
@@ -83,13 +83,18 @@ function LearnCharCardDetails({
       sx={{ m: 2, ...(isFlashback ? { borderColor: 'red' } : {}) }}
       className='disable-select'
     >
-      <Typography variant='charChinese' component='div' textAlign='center'>
+      {constituents ? <ConstituentList {...{ constituents }} /> : null}
+
+      <Typography
+        variant='charChinese'
+        component='h2'
+        textAlign='center'
+        sx={{ mt: constituents ? 1 : 7, mb: 2 }}
+      >
         {charChinese}
       </Typography>
 
-      {keyword ? <Keyword {...{ keyword }} /> : null}
-
-      {primitiveMeaning ? <PrimitiveMeaning {...{ primitiveMeaning }} /> : null}
+      <KeywordPrimitiveBox {...{ keyword, primitiveMeaning }} />
 
       <Divider sx={{ my: 2 }} />
 
@@ -98,30 +103,37 @@ function LearnCharCardDetails({
   )
 }
 
-function Keyword({ keyword }: { keyword: string }) {
+function KeywordPrimitiveBox({
+  keyword,
+  primitiveMeaning,
+}: {
+  keyword: string | undefined
+  primitiveMeaning: string | undefined
+}) {
   return (
-    <Typography
-      component='div'
-      variant='h4'
-      display='flex'
-      justifyContent='center'
-      sx={{ mt: 3 }}
-    >
-      {keyword}
-    </Typography>
-  )
-}
+    <Box display='flex' flexDirection='column' minHeight='56px'>
+      {keyword ? (
+        <Typography
+          variant='h4'
+          display='flex'
+          justifyContent='center'
+          sx={{ mb: 1 }}
+        >
+          {keyword}
+        </Typography>
+      ) : null}
 
-function PrimitiveMeaning({ primitiveMeaning }: { primitiveMeaning: string }) {
-  return (
-    <Typography
-      component='div'
-      variant='primitiveMeaning'
-      display='flex'
-      justifyContent='center'
-    >
-      {primitiveMeaning}
-    </Typography>
+      {primitiveMeaning ? (
+        <Typography
+          component='h4'
+          variant='primitiveMeaning'
+          display='flex'
+          justifyContent='center'
+        >
+          {primitiveMeaning}
+        </Typography>
+      ) : null}
+    </Box>
   )
 }
 
@@ -139,5 +151,27 @@ function Story({ story }: { story: string }) {
         </Typography>
       ))}
     </>
+  )
+}
+
+function ConstituentList({ constituents }: { constituents: string[] }) {
+  return (
+    <Box display='flex' justifyContent='center'>
+      {constituents.map((constituent, index) => (
+        <Fragment key={index}>
+          {index === 0 ? null : (
+            <Divider
+              orientation='vertical'
+              variant='middle'
+              flexItem
+              sx={{ mx: 1 }}
+            />
+          )}
+          <Typography component='span' variant='constituent'>
+            {constituent}
+          </Typography>
+        </Fragment>
+      ))}
+    </Box>
   )
 }

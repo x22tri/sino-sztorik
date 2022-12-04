@@ -16,7 +16,7 @@ Néha nem lesz más választásunk, mint hogy megtartsuk a karakter tényleges j
   {
     id: 2,
     charChinese: '止',
-    keyword: 'megáll',
+    // keyword: 'megáll',
     primitiveMeaning: 'lábnyom',
     story: `Egy bal láb képe, ami azt jelképezi, hogy valaki itt elég sokáig megállt ahhoz, hogy a lábnyoma ott maradjon.`,
     frequency: 596,

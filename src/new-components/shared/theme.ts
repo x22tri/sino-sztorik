@@ -25,14 +25,14 @@ declare module '@mui/material/styles' {
 
   interface TypographyVariants {
     charChinese: CSSProperties
-    keyword: CSSProperties
+    constituent: CSSProperties
     primitiveMeaning: CSSProperties
   }
 
   // Allows configuration using `createTheme`.
   interface TypographyVariantsOptions {
     charChinese?: CSSProperties
-    keyword?: CSSProperties
+    constituent?: CSSProperties
     primitiveMeaning?: CSSProperties
   }
 }
@@ -41,7 +41,7 @@ declare module '@mui/material/styles' {
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
     charChinese: true
-    keyword: true
+    constituent: true
     primitiveMeaning: true
   }
 }
@@ -65,6 +65,7 @@ let theme = responsiveFontSizes(
         fontFamily: emphasisFont,
         fontWeight: 800,
         fontSize: 24,
+        lineHeight: 1.2,
       },
       h5: {
         fontFamily: emphasisFont,
@@ -85,15 +86,18 @@ let theme = responsiveFontSizes(
       charChinese: {
         fontFamily: chineseFont,
         fontSize: 96,
+        fontWeight: 400,
         lineHeight: 1,
       },
-      keyword: {
+      constituent: {
         fontSize: 24,
       },
       primitiveMeaning: {
         fontSize: 20,
         fontFamily: emphasisFont,
+        fontWeight: 'normal',
         fontStyle: 'italic',
+        lineHeight: 1.2,
       },
     },
     palette: {

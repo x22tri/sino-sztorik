@@ -2,11 +2,8 @@ import {
   ElementType,
   MouseEvent,
   ReactNode,
-  Ref,
   useEffect,
   useReducer,
-  useRef,
-  useState,
 } from 'react'
 import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
@@ -17,7 +14,7 @@ import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import WestIcon from '@mui/icons-material/West'
 import { Keyboard } from 'swiper'
-import { Swiper, SwiperRef, SwiperSlide, useSwiper } from 'swiper/react'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
 export function MajorActionButton({ text }: { text: string }) {
   const { palette } = useTheme()
