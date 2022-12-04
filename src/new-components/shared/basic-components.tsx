@@ -1,7 +1,13 @@
+import { ElementType, Key, ReactNode } from 'react'
 import { useTheme } from '@mui/material'
+import Box from '@mui/material/Box'
 import Button, { ButtonProps } from '@mui/material/Button'
 import Card, { CardProps } from '@mui/material/Card'
-import { ElementType } from 'react'
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
+import ArrowRightIcon from '@mui/icons-material/ArrowRight'
+import { Keyboard } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import LessonDetails from '../lesson-select/LessonDetails'
 
 export function MajorActionButton({ text }: { text: string }) {
   const { palette } = useTheme()
@@ -91,5 +97,60 @@ export function RoundedCard<C extends ElementType>(
     >
       {props.children}
     </Card>
+  )
+}
+
+export function CardSwiperWrapper({
+  initialSlide,
+  children,
+}: {
+  initialSlide?: number
+  children: ReactNode
+}) {
+  return (
+    <Swiper
+      centeredSlides={true}
+      keyboard={true}
+      modules={[Keyboard]}
+      onTouchStart={swiper => swiper.setGrabCursor()}
+      onTouchEnd={swiper => swiper.unsetGrabCursor()}
+      slidesPerView={1}
+      spaceBetween={10}
+      {...{ initialSlide }}
+    >
+      {children}
+    </Swiper>
+  )
+}
+
+export function CardSwiperContent({ children }: { children: ReactNode }) {
+  const { palette } = useTheme()
+
+  return (
+    <SwiperSlide>
+      <Box position='relative'>
+        <ArrowLeftIcon
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '-3px',
+            transform: 'translateY(-50%)',
+            color: palette.grey[400],
+          }}
+        />
+
+        {children}
+
+        <ArrowRightIcon
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            right: '-3px',
+            transform: 'translateY(-50%)',
+            color: palette.grey[400],
+          }}
+        />
+      </Box>
+    </SwiperSlide>
   )
 }

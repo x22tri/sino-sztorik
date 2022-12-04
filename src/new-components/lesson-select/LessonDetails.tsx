@@ -26,13 +26,6 @@ export default function LessonDetails({
 
   return (
     <RoundedCard sx={{ m: 2 }} className='disable-select'>
-      {/* <Box
-        display='flex'
-        flexDirection='row'
-        justifyContent='space-between'
-        alignItems='center'
-      > */}
-      {/* <ArrowLeftIcon /> */}
       <Typography
         component='header'
         variant='h5'
@@ -41,8 +34,6 @@ export default function LessonDetails({
       >
         {title}
       </Typography>
-      {/* <ArrowRightIcon /> */}
-      {/* </Box> */}
 
       <Typography component='p' variant='body1' sx={{ my: 3 }}>
         {preface}

@@ -16,7 +16,11 @@ import { LESSON_SELECT_TITLE } from '../shared/strings'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import WestIcon from '@mui/icons-material/West'
-import { LightenOnHoverButton } from '../shared/basic-components'
+import {
+  CardSwiperWrapper,
+  CardSwiperContent,
+  LightenOnHoverButton,
+} from '../shared/basic-components'
 import { Keyboard } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
@@ -139,47 +143,19 @@ function LessonDetailsSwiper({
   lessons: AssembledLesson[]
   selectedLessonNumber: number
 }) {
-  const { palette } = useTheme()
-
   return (
-    <Swiper
-      centeredSlides={true}
-      initialSlide={selectedLessonNumber - 1}
-      keyboard={true}
-      modules={[Keyboard]}
-      onTouchStart={swiper => swiper.setGrabCursor()}
-      onTouchEnd={swiper => swiper.unsetGrabCursor()}
-      slidesPerView={1}
-      spaceBetween={10}
-    >
+    // initialSlide is zero-indexed.
+    <CardSwiperWrapper initialSlide={selectedLessonNumber - 1}>
       {lessons.map(({ lessonNumber }) => (
         <SwiperSlide key={lessonNumber}>
-          <Box position='relative'>
-            <ArrowLeftIcon
-              sx={{
-                position: 'absolute',
-                top: '50%',
-                left: '-3px',
-                transform: 'translateY(-50%)',
-                color: palette.grey[400],
-              }}
-            />
+          <CardSwiperContent>
             <LessonDetails
               isCurrentLesson={lessonNumber === currentLessonNumber}
               lesson={lessons[lessonNumber - 1]}
             />
-            <ArrowRightIcon
-              sx={{
-                position: 'absolute',
-                top: '50%',
-                right: '-3px',
-                transform: 'translateY(-50%)',
-                color: palette.grey[400],
-              }}
-            />
-          </Box>
+          </CardSwiperContent>
         </SwiperSlide>
       ))}
-    </Swiper>
+    </CardSwiperWrapper>
   )
 }

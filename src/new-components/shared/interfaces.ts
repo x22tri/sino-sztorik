@@ -38,3 +38,15 @@ export interface AssembledLesson {
   tierStatuses: TierStatuses
   characters: string[]
 }
+
+export interface Character {
+  id: number
+  charChinese: string
+  keyword: string
+  primitiveMeaning?: string
+  constituents?: string[]
+  story: string
+  pinyin?: string
+  frequency?: number
+  otherUses?: string[]
+}
