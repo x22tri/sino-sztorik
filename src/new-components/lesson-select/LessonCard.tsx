@@ -9,7 +9,7 @@ import { UPCOMING_LESSON_LABEL } from '../shared/strings'
 import TierStatusBlips from './TierStatusBlips'
 import { useLessonCardStyling } from './useLessonCardStyling'
 
-const { UPCOMING, COMPLETED, LOCKED } = LessonStatuses
+const { UPCOMING, COMPLETED } = LessonStatuses
 
 export default function LessonCard({
   currentLessonNumber,

@@ -1,11 +1,15 @@
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
-import { useState, MouseEvent } from 'react'
+import { useState, MouseEvent, Dispatch, SetStateAction } from 'react'
 import LessonCard from './LessonCard'
 import LessonDetails from './LessonDetails'
 import { LESSONS } from '../shared/MOCK_LESSONS'
 import { Grow, useTheme } from '@mui/material'
-import { LessonStatuses, SideNavigationItem } from '../shared/interfaces'
+import {
+  AssembledLesson,
+  LessonStatuses,
+  SideNavigationItem,
+} from '../shared/interfaces'
 import { LESSON_SELECT_TITLE } from '../shared/strings'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
@@ -48,24 +52,14 @@ export default function LessonSelect() {
   return (
     <Container component='main' maxWidth='lg' sx={{ pt: '2em', px: 0 }}>
       {selectedLessonNumber === null ? (
-        <Grid
-          container
-          sx={{ height: 'fit-content', maxWidth: maxContentWidth }}
-        >
-          {LESSONS.map(({ lessonNumber, title, tierStatuses }) => (
-            <LessonCard
-              key={lessonNumber}
-              {...{
-                lessonNumber,
-                title,
-                tierStatuses,
-                setSelectedLessonNumber,
-                currentLessonNumber,
-                setIsLessonDetailsVisible,
-              }}
-            />
-          ))}
-        </Grid>
+        <LessonPreviewGrid
+          lessons={LESSONS}
+          {...{
+            currentLessonNumber,
+            setIsLessonDetailsVisible,
+            setSelectedLessonNumber,
+          }}
+        />
       ) : null}
 
       <Grow in={isLessonDetailsVisible} timeout={lessonDetailsTimeout}>
@@ -76,23 +70,10 @@ export default function LessonSelect() {
             <div>
               <FadeOverlay />
 
-              <Swiper
-                spaceBetween={10}
-                slidesPerView={1.2}
-                centeredSlides={true}
-                initialSlide={selectedLessonNumber - 1}
-                onTouchStart={swiper => swiper.setGrabCursor()}
-                onTouchEnd={swiper => swiper.unsetGrabCursor()}
-              >
-                {LESSONS.map(({ lessonNumber }) => (
-                  <SwiperSlide key={lessonNumber}>
-                    <LessonDetails
-                      lesson={LESSONS[lessonNumber - 1]}
-                      isCurrentLesson={lessonNumber === currentLessonNumber}
-                    />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+              <LessonDetailsSwiper
+                lessons={LESSONS}
+                {...{ currentLessonNumber, selectedLessonNumber }}
+              />
             </div>
           </Box>
         ) : (
@@ -100,6 +81,36 @@ export default function LessonSelect() {
         )}
       </Grow>
     </Container>
+  )
+}
+
+function LessonPreviewGrid({
+  currentLessonNumber,
+  lessons,
+  setIsLessonDetailsVisible,
+  setSelectedLessonNumber,
+}: {
+  currentLessonNumber: number
+  lessons: AssembledLesson[]
+  setIsLessonDetailsVisible: Dispatch<SetStateAction<boolean>>
+  setSelectedLessonNumber: Dispatch<SetStateAction<number | null>>
+}) {
+  return (
+    <Grid container sx={{ height: 'fit-content', maxWidth: maxContentWidth }}>
+      {lessons.map(({ lessonNumber, title, tierStatuses }) => (
+        <LessonCard
+          key={lessonNumber}
+          {...{
+            lessonNumber,
+            title,
+            tierStatuses,
+            setSelectedLessonNumber,
+            currentLessonNumber,
+            setIsLessonDetailsVisible,
+          }}
+        />
+      ))}
+    </Grid>
   )
 }
 
@@ -135,5 +146,35 @@ function BackToLessonSelectButton({
         {LESSON_SELECT_TITLE}
       </Typography>
     </LightenOnHoverButton>
+  )
+}
+
+function LessonDetailsSwiper({
+  currentLessonNumber,
+  lessons,
+  selectedLessonNumber,
+}: {
+  currentLessonNumber: number
+  lessons: AssembledLesson[]
+  selectedLessonNumber: number
+}) {
+  return (
+    <Swiper
+      spaceBetween={10}
+      slidesPerView={1.2}
+      centeredSlides={true}
+      initialSlide={selectedLessonNumber - 1}
+      onTouchStart={swiper => swiper.setGrabCursor()}
+      onTouchEnd={swiper => swiper.unsetGrabCursor()}
+    >
+      {lessons.map(({ lessonNumber }) => (
+        <SwiperSlide key={lessonNumber}>
+          <LessonDetails
+            lesson={lessons[lessonNumber - 1]}
+            isCurrentLesson={lessonNumber === currentLessonNumber}
+          />
+        </SwiperSlide>
+      ))}
+    </Swiper>
   )
 }
