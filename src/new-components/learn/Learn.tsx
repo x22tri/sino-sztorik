@@ -19,18 +19,12 @@ import Swiper from 'swiper'
 export default function Learn() {
   const { constants } = useTheme()
 
-  const [currentlyViewedChar, setCurrentlyViewedChar] =
-    useState<Character | null>(null)
-
   const [charToReturnToFromFlashback, setCharToReturnToFromFlashback] =
     useState<Character | null>(null)
 
   const [swiperInstance, setSwiperInstance] = useState<Swiper | null>(null)
 
-  // const swiper = useSwiper()
-
   function returnFromFlashback() {
-    setCurrentlyViewedChar(charToReturnToFromFlashback!)
     setCharToReturnToFromFlashback(null)
     swiperInstance!.enable()
   }
@@ -50,8 +44,6 @@ export default function Learn() {
         <LearnCharCardSwiper
           chars={CHARS}
           {...{
-            currentlyViewedChar,
-            setCurrentlyViewedChar,
             charToReturnToFromFlashback,
             setCharToReturnToFromFlashback,
             swiperInstance,
@@ -65,16 +57,12 @@ export default function Learn() {
 
 function LearnCharCardSwiper({
   chars,
-  currentlyViewedChar,
-  setCurrentlyViewedChar,
   charToReturnToFromFlashback,
   setCharToReturnToFromFlashback,
   swiperInstance,
   setSwiperInstance,
 }: {
   chars: Character[]
-  currentlyViewedChar: Character | null
-  setCurrentlyViewedChar: Dispatch<SetStateAction<Character | null>>
   charToReturnToFromFlashback: Character | null
   setCharToReturnToFromFlashback: Dispatch<SetStateAction<Character | null>>
   swiperInstance: Swiper | null
@@ -82,65 +70,58 @@ function LearnCharCardSwiper({
 }) {
   return (
     <CardSwiperWrapper {...{ setSwiperInstance }}>
-      {chars.map(char => {
-        // useEffect(() => {
-        // setCurrentlyViewedChar(char)
-        // }, [])
-
-        return (
-          <SwiperSlide key={char.id}>
-            <CardSwiperContent noArrows={charToReturnToFromFlashback !== null}>
-              <LearnCharCardDetails
-                currentlyViewedChar={char}
-                // currentlyViewedChar={char}
-                // char={char}
-                {...{
-                  //   char,
-                  //   currentlyViewedChar,
-                  setCurrentlyViewedChar,
-                  charToReturnToFromFlashback,
-                  setCharToReturnToFromFlashback,
-                  // swiper,
-                  swiperInstance,
-                }}
-              />
-            </CardSwiperContent>
-          </SwiperSlide>
-        )
-      })}
+      {chars.map(char => (
+        <SwiperSlide key={char.id}>
+          <CardSwiperContent noArrows={charToReturnToFromFlashback !== null}>
+            <LearnCharCardDetails
+              {...{
+                char,
+                charToReturnToFromFlashback,
+                setCharToReturnToFromFlashback,
+                swiperInstance,
+              }}
+            />
+          </CardSwiperContent>
+        </SwiperSlide>
+      ))}
     </CardSwiperWrapper>
   )
 }
 
 function LearnCharCardDetails({
-  //   char,
-  currentlyViewedChar,
-  setCurrentlyViewedChar,
+  char,
   charToReturnToFromFlashback,
   setCharToReturnToFromFlashback,
   swiperInstance,
-}: //   swiper,
-{
-  //   char: Character
-  currentlyViewedChar: Character
-  setCurrentlyViewedChar: Dispatch<SetStateAction<Character | null>>
+}: {
+  char: Character
   charToReturnToFromFlashback: Character | null
   setCharToReturnToFromFlashback: Dispatch<SetStateAction<Character | null>>
   swiperInstance: Swiper | null
-  //   swiper: Swiper
 }) {
-  //   const [displayedChar, setDisplayedChar] = useState(currentlyViewedChar)
+  const [charOverride, setCharOverride] = useState<Character | null>(null)
 
-  //   useEffect(() => {
-  //     console.log(currentlyViewedChar)
-  //   }, [currentlyViewedChar])
+  useEffect(() => {
+    if (charToReturnToFromFlashback === null) {
+      setCharOverride(null)
+    }
+  }, [charToReturnToFromFlashback])
 
   function startFlashback(constituent: string) {
-    const activeIndex = swiperInstance!.activeIndex
-    setCharToReturnToFromFlashback(CHARS[activeIndex])
-    setCurrentlyViewedChar(CHARS[0])
+    setCharToReturnToFromFlashback(char)
+
+    const charToFlashbackTo = findCharToFlashbackTo(constituent)
+
+    setCharOverride(charToFlashbackTo)
+
     swiperInstance!.disable()
   }
+
+  function findCharToFlashbackTo(constituent: string) {
+    return CHARS[0]
+  }
+
+  const currentlyViewedChar = charOverride ?? char
 
   const {
     charChinese,
