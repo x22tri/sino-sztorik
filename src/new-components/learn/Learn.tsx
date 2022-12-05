@@ -26,7 +26,7 @@ export default function Learn() {
 
   function returnFromFlashback() {
     setCharToReturnToFromFlashback(null)
-    swiperInstance!.enable()
+    swiperInstance!.enable() // useSwiper() cannot be used as we are outside of the Swiper.
   }
 
   return (
@@ -59,13 +59,11 @@ function LearnCharCardSwiper({
   chars,
   charToReturnToFromFlashback,
   setCharToReturnToFromFlashback,
-  swiperInstance,
   setSwiperInstance,
 }: {
   chars: Character[]
   charToReturnToFromFlashback: Character | null
   setCharToReturnToFromFlashback: Dispatch<SetStateAction<Character | null>>
-  swiperInstance: Swiper | null
   setSwiperInstance: Dispatch<SetStateAction<Swiper | null>>
 }) {
   return (
@@ -78,7 +76,6 @@ function LearnCharCardSwiper({
                 char,
                 charToReturnToFromFlashback,
                 setCharToReturnToFromFlashback,
-                swiperInstance,
               }}
             />
           </CardSwiperContent>
@@ -92,13 +89,13 @@ function LearnCharCardDetails({
   char,
   charToReturnToFromFlashback,
   setCharToReturnToFromFlashback,
-  swiperInstance,
 }: {
   char: Character
   charToReturnToFromFlashback: Character | null
   setCharToReturnToFromFlashback: Dispatch<SetStateAction<Character | null>>
-  swiperInstance: Swiper | null
 }) {
+  const swiper = useSwiper()
+
   const [charOverride, setCharOverride] = useState<Character | null>(null)
 
   useEffect(() => {
@@ -114,10 +111,10 @@ function LearnCharCardDetails({
 
     setCharOverride(charToFlashbackTo)
 
-    swiperInstance!.disable()
+    swiper.disable()
   }
 
-  function findCharToFlashbackTo(constituent: string) {
+  function findCharToFlashbackTo(constituent: string): Character {
     return CHARS[0]
   }
 
