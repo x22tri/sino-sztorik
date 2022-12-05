@@ -18,6 +18,12 @@ import { CHARS } from './MOCK_CHARS'
 import Swiper from 'swiper'
 import 'swiper/css'
 import { BACK_TO_LESSON_FROM_FLASHBACK } from '../shared/strings'
+import {
+  mockStory,
+  SpecialParagraphType,
+  SpecialParagraphKey,
+  StoryType,
+} from './MOCK_STORY'
 
 export default function Learn() {
   const { constants } = useTheme()
@@ -233,7 +239,7 @@ function KeywordPrimitiveBox({
 function Story({ story }: { story: string }) {
   return (
     <>
-      {story.split('\n').map((storySegment, index) => (
+      {/* {story.split('\n').map((storySegment, index) => (
         <Typography
           key={index}
           component='p'
@@ -242,9 +248,58 @@ function Story({ story }: { story: string }) {
         >
           {storySegment}
         </Typography>
-      ))}
+      ))} */}
+      {parseStory(mockStory)}
     </>
   )
+}
+
+function SpecialParagraph({ paragraph }: { paragraph: SpecialParagraphType }) {
+  interface SpecialParagraphStyles {
+    backgroundColor: string
+    icon?: string
+    title: string
+  }
+
+  const dictionary: Record<SpecialParagraphKey, SpecialParagraphStyles> = {
+    explanation: {
+      backgroundColor: 'blue',
+      title: 'Mit jelent?',
+    },
+    notes: {
+      backgroundColor: 'gray',
+      title: 'Megjegyzés',
+    },
+    tip: {
+      backgroundColor: 'yellow',
+      title: 'Tipp',
+    },
+    whenPrimitive: {
+      backgroundColor: 'orange',
+      title: 'Alapelemként...',
+    },
+  }
+
+  const paragraphKey = Object.keys(paragraph)[0] as SpecialParagraphKey
+
+  const { backgroundColor, title } = dictionary[paragraphKey]
+
+  return (
+    <Box sx={{ backgroundColor }}>
+      {title}
+      <p>{JSON.stringify(paragraph)}</p>
+    </Box>
+  )
+}
+
+function parseStory(story: StoryType) {
+  return story.map(paragraph => {
+    if (Array.isArray(paragraph)) {
+      return <p>{JSON.stringify(paragraph)}</p>
+    } else {
+      return <SpecialParagraph {...{ paragraph }} />
+    }
+  })
 }
 
 function ConstituentList({
