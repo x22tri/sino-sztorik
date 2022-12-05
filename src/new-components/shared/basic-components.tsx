@@ -4,19 +4,17 @@ import {
   MouseEvent,
   ReactNode,
   SetStateAction,
-  useEffect,
-  useReducer,
 } from 'react'
 import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import Button, { ButtonProps } from '@mui/material/Button'
 import Card, { CardProps } from '@mui/material/Card'
+import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import WestIcon from '@mui/icons-material/West'
 import SwiperInstance, { Keyboard } from 'swiper'
-// import Swiper as SwiperInstance from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 export function MajorActionButton({ text }: { text: string }) {
@@ -167,13 +165,13 @@ export function CardSwiperContent({
 
   return (
     <SwiperSlide>
-      <Box position='relative'>
+      <Box position='relative' sx={{ mx: 2, mb: 1 }}>
         {noArrows ? null : (
           <ArrowLeftIcon
             sx={{
               position: 'absolute',
               top: '50%',
-              left: '-3px',
+              left: '-16px',
               transform: 'translateY(-50%)',
               color: palette.grey[400],
             }}
@@ -187,7 +185,7 @@ export function CardSwiperContent({
             sx={{
               position: 'absolute',
               top: '50%',
-              right: '-3px',
+              right: '-18px',
               transform: 'translateY(-50%)',
               color: palette.grey[400],
             }}
@@ -195,5 +193,13 @@ export function CardSwiperContent({
         )}
       </Box>
     </SwiperSlide>
+  )
+}
+
+export function ContentContainer({ children }: { children: ReactNode }) {
+  return (
+    <Container component='main' maxWidth='lg' sx={{ mt: 2 }}>
+      {children}
+    </Container>
   )
 }

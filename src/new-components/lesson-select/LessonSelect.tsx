@@ -12,6 +12,7 @@ import {
   CardSwiperWrapper,
   CardSwiperContent,
   BackButton,
+  ContentContainer,
 } from '../shared/basic-components'
 import { SwiperSlide } from 'swiper/react'
 import 'swiper/css'
@@ -44,7 +45,7 @@ export default function LessonSelect() {
   }
 
   return (
-    <Container component='main' maxWidth='lg' sx={{ pt: '2em', px: 0 }}>
+    <ContentContainer>
       {selectedLessonNumber === null ? (
         <LessonPreviewGrid
           lessons={LESSONS}
@@ -73,7 +74,7 @@ export default function LessonSelect() {
           <></>
         )}
       </Grow>
-    </Container>
+    </ContentContainer>
   )
 }
 

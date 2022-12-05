@@ -2,7 +2,7 @@ import { Dispatch, Fragment, SetStateAction, useEffect, useState } from 'react'
 import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
-import Container from '@mui/material/Container'
+import Snackbar from '@mui/material/Snackbar'
 import Typography from '@mui/material/Typography'
 import { SwiperSlide, useSwiper } from 'swiper/react'
 import {
@@ -10,11 +10,12 @@ import {
   CardSwiperContent,
   RoundedCard,
   BackButton,
+  ContentContainer,
 } from '../shared/basic-components'
 import { Character } from '../shared/interfaces'
 import { CHARS } from './MOCK_CHARS'
-import 'swiper/css'
 import Swiper from 'swiper'
+import 'swiper/css'
 
 export default function Learn() {
   const { constants } = useTheme()
@@ -22,24 +23,26 @@ export default function Learn() {
   const [charToReturnToFromFlashback, setCharToReturnToFromFlashback] =
     useState<Character | null>(null)
 
-  const [swiperInstance, setSwiperInstance] = useState<Swiper | null>(null)
+  const [swiperInstance, setSwiperInstance] = useState<Swiper | null>(null) // Outside of Swiper, useSwiper() can't be used.
 
   function returnFromFlashback() {
     setCharToReturnToFromFlashback(null)
-    swiperInstance!.enable() // useSwiper() cannot be used as we are outside of the Swiper.
+    swiperInstance!.enable()
   }
 
   return (
-    <Container component='main' maxWidth='lg' sx={{ pt: '2em', px: 0 }}>
+    <ContentContainer>
       <Box maxWidth={constants.maxContentWidth} position='relative'>
-        {charToReturnToFromFlashback !== null ? (
-          <BackButton
-            onClick={() => returnFromFlashback()}
-            text={`Vissza a leckébe (${
-              charToReturnToFromFlashback!.charChinese
-            })`}
-          />
-        ) : null}
+        <Box sx={{ minHeight: '40px' }}>
+          {charToReturnToFromFlashback !== null ? (
+            <BackButton
+              onClick={() => returnFromFlashback()}
+              text={`Vissza a leckébe (${
+                charToReturnToFromFlashback!.charChinese
+              })`}
+            />
+          ) : null}
+        </Box>
 
         <LearnCharCardSwiper
           chars={CHARS}
@@ -51,7 +54,7 @@ export default function Learn() {
           }}
         />
       </Box>
-    </Container>
+    </ContentContainer>
   )
 }
 
@@ -72,8 +75,8 @@ function LearnCharCardSwiper({
         <SwiperSlide key={char.id}>
           <CardSwiperContent noArrows={charToReturnToFromFlashback !== null}>
             <LearnCharCardDetails
+              lessonChar={char}
               {...{
-                char,
                 charToReturnToFromFlashback,
                 setCharToReturnToFromFlashback,
               }}
@@ -86,17 +89,19 @@ function LearnCharCardSwiper({
 }
 
 function LearnCharCardDetails({
-  char,
+  lessonChar,
   charToReturnToFromFlashback,
   setCharToReturnToFromFlashback,
 }: {
-  char: Character
+  lessonChar: Character
   charToReturnToFromFlashback: Character | null
   setCharToReturnToFromFlashback: Dispatch<SetStateAction<Character | null>>
 }) {
   const swiper = useSwiper()
 
   const [charOverride, setCharOverride] = useState<Character | null>(null)
+
+  const [isErrorSnackbarOpen, setIsErrorSnackbarOpen] = useState(false)
 
   useEffect(() => {
     if (charToReturnToFromFlashback === null) {
@@ -105,20 +110,31 @@ function LearnCharCardDetails({
   }, [charToReturnToFromFlashback])
 
   function startFlashback(constituent: string) {
-    setCharToReturnToFromFlashback(char)
-
     const charToFlashbackTo = findCharToFlashbackTo(constituent)
+
+    if (charToFlashbackTo === null) {
+      setIsErrorSnackbarOpen(true)
+      return
+    }
+
+    setCharToReturnToFromFlashback(lessonChar)
 
     setCharOverride(charToFlashbackTo)
 
     swiper.disable()
   }
 
-  function findCharToFlashbackTo(constituent: string): Character {
-    return CHARS[0]
+  function findCharToFlashbackTo(constituent: string): Character | null {
+    const charInLesson = CHARS.find(char => char.charChinese === constituent)
+
+    if (charInLesson) {
+      return charInLesson
+    }
+
+    return null
   }
 
-  const currentlyViewedChar = charOverride ?? char
+  const currentlyViewedChar = charOverride ?? lessonChar
 
   const {
     charChinese,
@@ -134,13 +150,17 @@ function LearnCharCardDetails({
   return (
     <RoundedCard
       sx={{
-        m: 2,
         ...(charToReturnToFromFlashback !== null
           ? { borderColor: 'black' }
           : {}),
       }}
       className='disable-select'
     >
+      <Snackbar
+        open={isErrorSnackbarOpen}
+        autoHideDuration={6000}
+        message='Constituent not found.'
+      />
       {constituents ? (
         <ConstituentList
           {...{

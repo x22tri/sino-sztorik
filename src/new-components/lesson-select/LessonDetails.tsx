@@ -25,7 +25,7 @@ export default function LessonDetails({
   const { title, preface, characters } = lesson
 
   return (
-    <RoundedCard sx={{ m: 2 }} className='disable-select'>
+    <RoundedCard className='disable-select'>
       <Typography
         component='header'
         variant='h5'
