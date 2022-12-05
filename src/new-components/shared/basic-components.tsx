@@ -107,12 +107,13 @@ export function BackButton({
 export function RoundedCard<C extends ElementType>(
   props: CardProps<C, { component?: C }>
 ) {
-  const { palette } = useTheme()
+  const { palette, constants } = useTheme()
 
   return (
     <Card
       {...props}
       sx={{
+        transition: `border ${constants.animationDuration * 2}ms ease-out`,
         borderWidth: '2px',
         borderStyle: 'solid',
         borderColor: palette.grey[200],
@@ -164,7 +165,9 @@ export function CardSwiperContent({
   const { palette } = useTheme()
 
   return (
-    <SwiperSlide>
+    <SwiperSlide
+    // style={{ height: 'fit-content' }}
+    >
       <Box position='relative' sx={{ mx: 2, mb: 1 }}>
         {noArrows ? null : (
           <ArrowLeftIcon
