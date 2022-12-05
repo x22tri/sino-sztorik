@@ -1,6 +1,7 @@
 import { Dispatch, Fragment, SetStateAction, useEffect, useState } from 'react'
 import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import Snackbar from '@mui/material/Snackbar'
 import Typography from '@mui/material/Typography'
@@ -16,6 +17,7 @@ import { Character } from '../shared/interfaces'
 import { CHARS } from './MOCK_CHARS'
 import Swiper from 'swiper'
 import 'swiper/css'
+import { BACK_TO_LESSON_FROM_FLASHBACK } from '../shared/strings'
 
 export default function Learn() {
   const { constants } = useTheme()
@@ -37,9 +39,9 @@ export default function Learn() {
           {charToReturnToFromFlashback !== null ? (
             <BackButton
               onClick={() => returnFromFlashback()}
-              text={`Vissza a leckébe (${
-                charToReturnToFromFlashback!.charChinese
-              })`}
+              text={`${BACK_TO_LESSON_FROM_FLASHBACK} 
+              (${charToReturnToFromFlashback!.charChinese})
+              `}
             />
           ) : null}
         </Box>
@@ -73,15 +75,18 @@ function LearnCharCardSwiper({
     <CardSwiperWrapper {...{ setSwiperInstance }}>
       {chars.map(char => (
         <SwiperSlide key={char.id}>
-          <CardSwiperContent noArrows={charToReturnToFromFlashback !== null}>
-            <LearnCharCardDetails
-              lessonChar={char}
-              {...{
-                charToReturnToFromFlashback,
-                setCharToReturnToFromFlashback,
-              }}
-            />
-          </CardSwiperContent>
+          {({ isActive }) => (
+            <CardSwiperContent noArrows={charToReturnToFromFlashback !== null}>
+              <LearnCharCardDetails
+                lessonChar={char}
+                isActiveSlide={isActive}
+                {...{
+                  charToReturnToFromFlashback,
+                  setCharToReturnToFromFlashback,
+                }}
+              />
+            </CardSwiperContent>
+          )}
         </SwiperSlide>
       ))}
     </CardSwiperWrapper>
@@ -91,10 +96,12 @@ function LearnCharCardSwiper({
 function LearnCharCardDetails({
   lessonChar,
   charToReturnToFromFlashback,
+  isActiveSlide,
   setCharToReturnToFromFlashback,
 }: {
   lessonChar: Character
   charToReturnToFromFlashback: Character | null
+  isActiveSlide: boolean
   setCharToReturnToFromFlashback: Dispatch<SetStateAction<Character | null>>
 }) {
   const swiper = useSwiper()
@@ -165,6 +172,7 @@ function LearnCharCardDetails({
         <ConstituentList
           {...{
             constituents,
+            isActiveSlide,
             startFlashback,
           }}
         />
@@ -241,30 +249,42 @@ function Story({ story }: { story: string }) {
 
 function ConstituentList({
   constituents,
+  isActiveSlide,
   startFlashback,
 }: {
   constituents: string[]
+  isActiveSlide: boolean
   startFlashback: (constituent: string) => void
 }) {
+  const { palette } = useTheme()
+
   return (
     <Box display='flex' justifyContent='center'>
       {constituents.map((constituent, index) => (
         <Fragment key={index}>
           {index === 0 ? null : (
-            <Divider
-              orientation='vertical'
-              variant='middle'
-              flexItem
-              sx={{ mx: 1 }}
-            />
+            <Divider orientation='vertical' variant='middle' flexItem />
           )}
-          <Typography
-            component='span'
-            variant='chineseNormal'
+
+          <Button
             onClick={() => startFlashback(constituent)}
+            tabIndex={isActiveSlide ? index + 1 : -1}
+            sx={{
+              p: 0,
+              color: 'inherit',
+              typography: 'chineseNormal',
+              '&:hover': {
+                backgroundColor: 'inherit',
+                color: palette.grey[700],
+                cursor: 'pointer',
+              },
+              '&:focus': {
+                color: palette.grey[700],
+              },
+            }}
           >
             {constituent}
-          </Typography>
+          </Button>
         </Fragment>
       ))}
     </Box>

@@ -74,7 +74,7 @@ export function LightenOnHoverButton<B extends ElementType>(
           filter: 'brightness(1.3)',
         },
         '&:focus': {
-          borderBottom: '2px solid', // The border will take the text's color.
+          filter: 'brightness(1.3)',
         },
         ...props.sx,
       }}
