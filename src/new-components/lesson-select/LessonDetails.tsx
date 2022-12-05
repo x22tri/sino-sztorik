@@ -75,10 +75,13 @@ function CharacterPreviews({ characters }: { characters: string[] }) {
   return (
     <Box display='flex' gap={2} justifyContent='center' flexWrap='wrap'>
       {characters.map(char => (
-        <Card key={char} variant='outlined' sx={{ borderWidth: '2px', px: 1 }}>
-          <Typography component='span' fontSize='1.5em'>
-            {char}
-          </Typography>
+        <Card
+          key={char}
+          variant='outlined'
+          component='span'
+          sx={{ borderWidth: '2px', px: 1, typography: 'chineseNormal' }}
+        >
+          {char}
         </Card>
       ))}
     </Box>

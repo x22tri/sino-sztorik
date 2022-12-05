@@ -129,11 +129,11 @@ function LearnCharCardDetails({
   swiperInstance: Swiper | null
   //   swiper: Swiper
 }) {
-  //   const [displayedChar, setDisplayedChar] = useState(char)
+  //   const [displayedChar, setDisplayedChar] = useState(currentlyViewedChar)
 
-  useEffect(() => {
-    console.log(currentlyViewedChar)
-  }, [currentlyViewedChar])
+  //   useEffect(() => {
+  //     console.log(currentlyViewedChar)
+  //   }, [currentlyViewedChar])
 
   function startFlashback(constituent: string) {
     const activeIndex = swiperInstance!.activeIndex
@@ -173,7 +173,7 @@ function LearnCharCardDetails({
       ) : null}
 
       <Typography
-        variant='charChinese'
+        variant='chineseHeading'
         component='h2'
         textAlign='center'
         sx={{ mt: constituents ? 1 : 7, mb: 2 }}
@@ -262,7 +262,7 @@ function ConstituentList({
           )}
           <Typography
             component='span'
-            variant='constituent'
+            variant='chineseNormal'
             onClick={() => startFlashback(constituent)}
           >
             {constituent}
