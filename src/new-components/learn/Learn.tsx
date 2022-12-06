@@ -36,6 +36,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faCircle,
   faCube,
+  faCubesStacked,
   faInfo,
   faLightbulb,
   faQuestion,
@@ -307,7 +308,7 @@ function SpecialParagraph({ paragraph }: { paragraph: SpecialParagraphType }) {
     [WHENPRIMITIVE]: {
       colors: palette.specialParagraphs.whenPrimitive,
       title: SPECIAL_PARAGRAPH_WHENPRIMITIVE,
-      icon: faCube,
+      icon: faCubesStacked,
     },
   }
 
