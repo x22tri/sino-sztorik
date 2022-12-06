@@ -31,6 +31,12 @@ export type TierStatuses = [
   LessonStatus
 ]
 
+export type SpecialParagraphStyles = {
+  backgroundColor: string
+  icon?: string
+  title: string
+}
+
 export interface AssembledLesson {
   lessonNumber: number
   title: string

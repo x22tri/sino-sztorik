@@ -13,16 +13,22 @@ import {
   BackButton,
   ContentContainer,
 } from '../shared/basic-components'
-import { Character } from '../shared/interfaces'
+import { Character, SpecialParagraphStyles } from '../shared/interfaces'
 import { CHARS } from './MOCK_CHARS'
 import Swiper from 'swiper'
 import 'swiper/css'
 import { BACK_TO_LESSON_FROM_FLASHBACK } from '../shared/strings'
 import {
+  ExplanationParagraph,
   mockStory,
-  SpecialParagraphType,
-  SpecialParagraphKey,
+  NotesParagraph,
+  PrimitiveNotesParagraph,
+  SpecialParagraph as SpecialParagraphType,
   StoryType,
+  TipParagraph,
+  Segment,
+  SpecialParagraphKeys,
+  SpecialParagraphKey,
 } from './MOCK_STORY'
 
 export default function Learn() {
@@ -254,40 +260,50 @@ function Story({ story }: { story: string }) {
   )
 }
 
+function getParagraphKey(
+  paragraph: SpecialParagraphType
+): [SpecialParagraphKey, string | Segment[]] {
+  const { EXPLANATION, TIP, NOTES, WHENPRIMITIVE } = SpecialParagraphKeys
+
+  return EXPLANATION in paragraph
+    ? [EXPLANATION, paragraph[EXPLANATION]]
+    : TIP in paragraph
+    ? [TIP, paragraph[TIP]]
+    : NOTES in paragraph
+    ? [NOTES, paragraph[NOTES]]
+    : [WHENPRIMITIVE, paragraph[WHENPRIMITIVE]]
+}
+
 function SpecialParagraph({ paragraph }: { paragraph: SpecialParagraphType }) {
-  interface SpecialParagraphStyles {
-    backgroundColor: string
-    icon?: string
-    title: string
-  }
+  const { EXPLANATION, TIP, NOTES, WHENPRIMITIVE } = SpecialParagraphKeys
 
   const dictionary: Record<SpecialParagraphKey, SpecialParagraphStyles> = {
-    explanation: {
+    [EXPLANATION]: {
       backgroundColor: 'blue',
       title: 'Mit jelent?',
     },
-    notes: {
+    [NOTES]: {
       backgroundColor: 'gray',
       title: 'Megjegyzés',
     },
-    tip: {
+    [TIP]: {
       backgroundColor: 'yellow',
       title: 'Tipp',
     },
-    whenPrimitive: {
+    [WHENPRIMITIVE]: {
       backgroundColor: 'orange',
       title: 'Alapelemként...',
     },
   }
 
-  const paragraphKey = Object.keys(paragraph)[0] as SpecialParagraphKey
+  const [paragraphKey, paragraphContent] = getParagraphKey(paragraph)
 
   const { backgroundColor, title } = dictionary[paragraphKey]
 
   return (
     <Box sx={{ backgroundColor }}>
       {title}
-      <p>{JSON.stringify(paragraph)}</p>
+      <p>{JSON.stringify(paragraphContent)}</p>
     </Box>
   )
 }

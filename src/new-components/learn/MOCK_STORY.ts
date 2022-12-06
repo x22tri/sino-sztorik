@@ -8,7 +8,7 @@ type PrimitiveMeaningSegment = { primitive: string }
 
 type ConstituentSegment = { constituent: string; references: string }
 
-type Segment =
+export type Segment =
   | string
   | KeywordSegment
   | PrimitiveMeaningSegment
@@ -19,65 +19,45 @@ export type TipParagraphKey = 'explanation'
 export type NotesParagraphKey = 'explanation'
 export type PrimitiveNotesParagraphKey = 'explanation'
 
-// const SpecialParagraphKeys = {
-//   EXPLANATION: 'explanation',
-//   TIP: 'tip',
-//   NOTES: 'notes',
-//   WHENPRIMITIVE: 'whenPrimitive',
-// } as const
-
-type OneKeyIn<K extends keyof any, V, KK extends keyof any = K> = {
-  [P in K]: { [Q in P]: V } & { [Q in Exclude<KK, P>]?: never } extends infer O
-    ? { [Q in keyof O]: O[Q] }
-    : never
-}[K]
+export const SpecialParagraphKeys = {
+  EXPLANATION: 'explanation',
+  TIP: 'tip',
+  NOTES: 'notes',
+  WHENPRIMITIVE: 'whenPrimitive',
+} as const
 
 export type SpecialParagraphKey =
-  | 'explanation'
-  | 'tip'
-  | 'notes'
-  | 'whenPrimitive'
+  typeof SpecialParagraphKeys[keyof typeof SpecialParagraphKeys]
 
-type SingletonUnion<K extends PropertyKey, T> = K extends any
-  ? { [Key in K]: T }
-  : never
-
-export type SpecialParagraphType = SingletonUnion<
-  SpecialParagraphKey,
-  string | Segment[]
->
-
-export type ExplanationParagraph = SpecialParagraphType & {
-  explanation: string | Segment[]
+export type ExplanationParagraph = {
+  [SpecialParagraphKeys.EXPLANATION]: string | Segment[]
 }
 
-export type TipParagraph = SpecialParagraphType & {
-  tip: string | Segment[]
+export type TipParagraph = {
+  [SpecialParagraphKeys.TIP]: string | Segment[]
 }
 
-export type NotesParagraph = SpecialParagraphType & {
-  notes: string | Segment[]
+export type NotesParagraph = {
+  [SpecialParagraphKeys.NOTES]: string | Segment[]
 }
 
-export type PrimitiveNotesParagraph = SpecialParagraphType & {
-  whenPrimitive: string | Segment[]
+export type PrimitiveNotesParagraph = {
+  [SpecialParagraphKeys.WHENPRIMITIVE]: string | Segment[]
 }
 
-// export type SpecialParagraph =
-//   | ExplanationParagraph
-//   | TipParagraph
-//   | NotesParagraph
-//   | PrimitiveNotesParagraph
-
-// export type SpecialParagraph = {
-//   [key in keyof typeof SpecialParagraphKeys]: string | Segment[]
-// }
-
-// export type SpecialParagraph = OneKeyIn<SpecialParagraphKey, string | Segment[]>
+export type SpecialParagraph =
+  | ExplanationParagraph
+  | TipParagraph
+  | NotesParagraph
+  | PrimitiveNotesParagraph
 
 type StoryParagraph = Segment[]
 
-type Paragraph = StoryParagraph | SpecialParagraphType
+type Paragraph = StoryParagraph | SpecialParagraph
+// | ExplanationParagraph
+// | NotesParagraph
+// | TipParagraph
+// | PrimitiveNotesParagraph
 
 export type StoryType = Paragraph[]
 
@@ -87,7 +67,7 @@ export const mockStory: StoryType = [
       'A magyarhoz hasonlóan jelentheti azt is, hogy „igaz, helytálló”, és azt is, hogy „csinos”.',
   },
   [
-    { constituent: 'Plafont', references: '‾' },
+    { constituent: 'Plafont', references: '一' },
     ' szab a ',
     { constituent: 'lábnyomnak', references: '止' },
     ' egy vonás – ez egy zárt, lyukacsos gyógypapucsot, azaz egy ',
