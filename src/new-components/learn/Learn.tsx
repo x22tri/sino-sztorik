@@ -17,19 +17,29 @@ import { Character, SpecialParagraphStyles } from '../shared/interfaces'
 import { CHARS } from './MOCK_CHARS'
 import Swiper from 'swiper'
 import 'swiper/css'
-import { BACK_TO_LESSON_FROM_FLASHBACK } from '../shared/strings'
 import {
-  ExplanationParagraph,
+  BACK_TO_LESSON_FROM_FLASHBACK,
+  SPECIAL_PARAGRAPH_EXPLANATION,
+  SPECIAL_PARAGRAPH_NOTES,
+  SPECIAL_PARAGRAPH_TIP,
+  SPECIAL_PARAGRAPH_WHENPRIMITIVE,
+} from '../shared/strings'
+import {
   mockStory,
-  NotesParagraph,
-  PrimitiveNotesParagraph,
   SpecialParagraph as SpecialParagraphType,
   StoryType,
-  TipParagraph,
   Segment,
   SpecialParagraphKeys,
   SpecialParagraphKey,
 } from './MOCK_STORY'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faCircle,
+  faCube,
+  faInfo,
+  faLightbulb,
+  faQuestion,
+} from '@fortawesome/free-solid-svg-icons'
 
 export default function Learn() {
   const { constants } = useTheme()
@@ -276,34 +286,68 @@ function getParagraphKey(
 
 function SpecialParagraph({ paragraph }: { paragraph: SpecialParagraphType }) {
   const { EXPLANATION, TIP, NOTES, WHENPRIMITIVE } = SpecialParagraphKeys
+  const { palette } = useTheme()
 
   const dictionary: Record<SpecialParagraphKey, SpecialParagraphStyles> = {
     [EXPLANATION]: {
-      backgroundColor: 'blue',
-      title: 'Mit jelent?',
+      colors: palette.specialParagraphs.explanation,
+      title: SPECIAL_PARAGRAPH_EXPLANATION,
+      icon: faQuestion,
     },
     [NOTES]: {
-      backgroundColor: 'gray',
-      title: 'Megjegyzés',
+      colors: palette.specialParagraphs.notes,
+      title: SPECIAL_PARAGRAPH_NOTES,
+      icon: faInfo,
     },
     [TIP]: {
-      backgroundColor: 'yellow',
-      title: 'Tipp',
+      colors: palette.specialParagraphs.tip,
+      title: SPECIAL_PARAGRAPH_TIP,
+      icon: faLightbulb,
     },
     [WHENPRIMITIVE]: {
-      backgroundColor: 'orange',
-      title: 'Alapelemként...',
+      colors: palette.specialParagraphs.whenPrimitive,
+      title: SPECIAL_PARAGRAPH_WHENPRIMITIVE,
+      icon: faCube,
     },
   }
 
   const [paragraphKey, paragraphContent] = getParagraphKey(paragraph)
 
-  const { backgroundColor, title } = dictionary[paragraphKey]
+  const { colors, icon, title } = dictionary[paragraphKey]
 
   return (
-    <Box sx={{ backgroundColor }}>
-      {title}
-      <p>{JSON.stringify(paragraphContent)}</p>
+    <Box
+      display='flex'
+      gap={2}
+      borderRadius={1}
+      padding={2}
+      margin={1}
+      sx={{ backgroundColor: colors.background }}
+    >
+      <Box display='flex' alignItems='center'>
+        <FontAwesomeIcon
+          mask={faCircle}
+          size='3x'
+          color={colors.main}
+          transform='shrink-4'
+          {...{ icon }}
+        />
+      </Box>
+
+      <Box display='flex' flexDirection='column'>
+        <Typography
+          variant='overline'
+          component='div'
+          lineHeight={2}
+          color={colors.main}
+        >
+          {title}
+        </Typography>
+
+        <Typography color={colors.text} variant='body2'>
+          {JSON.stringify(paragraphContent)}
+        </Typography>
+      </Box>
     </Box>
   )
 }

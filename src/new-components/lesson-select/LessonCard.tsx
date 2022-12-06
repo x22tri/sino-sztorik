@@ -99,7 +99,6 @@ function UpcomingLessonLabel() {
       position='absolute'
       top='-8px'
       left='15px'
-      fontWeight='bold'
       sx={{ color: palette.secondary.main }}
     >
       {UPCOMING_LESSON_LABEL}

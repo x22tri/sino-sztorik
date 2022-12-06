@@ -54,17 +54,13 @@ export type SpecialParagraph =
 type StoryParagraph = Segment[]
 
 type Paragraph = StoryParagraph | SpecialParagraph
-// | ExplanationParagraph
-// | NotesParagraph
-// | TipParagraph
-// | PrimitiveNotesParagraph
 
 export type StoryType = Paragraph[]
 
 export const mockStory: StoryType = [
   {
     explanation:
-      'A magyarhoz hasonlóan jelentheti azt is, hogy „igaz, helytálló”, és azt is, hogy „csinos”.',
+      'A magyarhoz hasonlóan jelentheti azt, hogy „igaz, helytálló”, és azt is, hogy „csinos”.',
   },
   [
     { constituent: 'Plafont', references: '一' },

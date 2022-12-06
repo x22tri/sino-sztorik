@@ -1,8 +1,9 @@
 import { createTheme } from '@mui/material/styles'
-import { blue, deepOrange, grey } from '@mui/material/colors'
+import { blue, deepOrange, grey, yellow } from '@mui/material/colors'
 import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
 import { indigo } from '@material-ui/core/colors'
 import { CSSProperties } from 'react'
+import { SpecialParagraphPalette } from './interfaces'
 
 const chineseFont = "'Noto Sans', sans-serif" // To-Do: Create font with custom chars
 const genericFont = "'Noto Sans', sans-serif"
@@ -20,6 +21,23 @@ declare module '@mui/material/styles' {
     constants?: {
       animationDuration?: number
       maxContentWidth?: string
+    }
+  }
+
+  interface Palette {
+    specialParagraphs: {
+      explanation: SpecialParagraphPalette
+      tip: SpecialParagraphPalette
+      notes: SpecialParagraphPalette
+      whenPrimitive: SpecialParagraphPalette
+    }
+  }
+  interface PaletteOptions {
+    specialParagraphs: {
+      explanation: SpecialParagraphPalette
+      tip: SpecialParagraphPalette
+      notes: SpecialParagraphPalette
+      whenPrimitive: SpecialParagraphPalette
     }
   }
 
@@ -83,6 +101,12 @@ let theme = responsiveFontSizes(
       body1: {
         lineHeight: 2,
       },
+      body2: {
+        fontSize: 16,
+      },
+      overline: {
+        fontWeight: 'bold',
+      },
       chineseHeading: {
         fontFamily: chineseFont,
         fontSize: 96,
@@ -113,6 +137,28 @@ let theme = responsiveFontSizes(
       },
       background: {
         default: grey[50],
+      },
+      specialParagraphs: {
+        explanation: {
+          background: blue[100],
+          main: blue[700],
+          text: '#2062A5',
+        },
+        tip: {
+          background: yellow[100],
+          main: '#F1B100',
+          text: '#906F12',
+        },
+        notes: {
+          background: grey[200],
+          main: grey[500],
+          text: grey[800],
+        },
+        whenPrimitive: {
+          background: '#FFD5C8',
+          main: deepOrange[400],
+          text: '#993617',
+        },
       },
     },
   })

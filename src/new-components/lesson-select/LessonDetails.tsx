@@ -43,7 +43,6 @@ export default function LessonDetails({
         display='block'
         textAlign='center'
         variant='overline'
-        fontWeight='bold'
         sx={{ mx: 'auto' }}
       >
         {characters.length} {CHARACTER_AMOUNT_LABEL}

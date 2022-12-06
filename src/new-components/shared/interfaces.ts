@@ -1,3 +1,4 @@
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import {
   LESSON_NOT_IN_TIER,
   LESSON_LOCKED,
@@ -31,9 +32,15 @@ export type TierStatuses = [
   LessonStatus
 ]
 
+export interface SpecialParagraphPalette {
+  main: string
+  text: string
+  background: string
+}
+
 export type SpecialParagraphStyles = {
-  backgroundColor: string
-  icon?: string
+  colors: SpecialParagraphPalette
+  icon: IconDefinition
   title: string
 }
 

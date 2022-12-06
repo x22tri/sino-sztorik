@@ -27,3 +27,8 @@ export const USER_SETTING_ACCOUNT = 'Fiókbeállítások'
 export const USER_SETTING_LOGOUT = 'Kijelentkezés'
 
 export const BACK_TO_LESSON_FROM_FLASHBACK = 'Vissza a leckéhez'
+
+export const SPECIAL_PARAGRAPH_EXPLANATION = 'Mit jelent?'
+export const SPECIAL_PARAGRAPH_NOTES = 'Megjegyzés'
+export const SPECIAL_PARAGRAPH_TIP = 'Tipp'
+export const SPECIAL_PARAGRAPH_WHENPRIMITIVE = 'Alapelemként...'
