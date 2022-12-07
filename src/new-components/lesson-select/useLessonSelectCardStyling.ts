@@ -12,7 +12,7 @@ interface LessonCardStyling {
   boxShadow?: string
 }
 
-export function useLessonCardStyling(tierStatuses: TierStatuses) {
+export function useLessonSelectCardStyling(tierStatuses: TierStatuses) {
   const { palette } = useTheme()
 
   const colorDictionary: { [key in LessonStatus]?: LessonCardStyling } = {

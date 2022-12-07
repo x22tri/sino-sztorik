@@ -7,11 +7,11 @@ import { RoundedCard } from '../shared/basic-components'
 import { LessonStatuses, TierStatuses } from '../shared/interfaces'
 import { UPCOMING_LESSON_LABEL } from '../shared/strings'
 import TierStatusBlips from './TierStatusBlips'
-import { useLessonCardStyling } from './useLessonCardStyling'
+import { useLessonSelectCardStyling } from './useLessonSelectCardStyling'
 
 const { UPCOMING, COMPLETED } = LessonStatuses
 
-export default function LessonCard({
+export default function LessonSelectCard({
   lessonNumber,
   setIsLessonDetailsVisible,
   setSelectedLessonNumber,
@@ -32,7 +32,7 @@ export default function LessonCard({
     !tierStatuses.includes(UPCOMING) && !tierStatuses.includes(COMPLETED)
 
   const { borderColor, backgroundColor, boxShadow } =
-    useLessonCardStyling(tierStatuses)!
+    useLessonSelectCardStyling(tierStatuses)!
 
   function openLessonDetails() {
     if (isLessonLocked) {

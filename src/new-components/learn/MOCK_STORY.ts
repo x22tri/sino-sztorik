@@ -1,23 +1,24 @@
+import { valueof } from '../shared/interfaces'
+
 function isValidCharacterKey(string: string) {
   return /\p{Script=Han}/u.test(string)
 }
 
-type KeywordSegment = { keyword: string }
+export const StoryParagraphKeys = {
+  KEYWORD: 'keyword',
+  PRIMITIVE: 'primitive',
+  CONSTITUENT: 'constituent',
+} as const
 
-type PrimitiveMeaningSegment = { primitive: string }
-
-type ConstituentSegment = { constituent: string; references: string }
+const { KEYWORD, PRIMITIVE, CONSTITUENT } = StoryParagraphKeys
 
 export type Segment =
   | string
-  | KeywordSegment
-  | PrimitiveMeaningSegment
-  | ConstituentSegment
+  | { [KEYWORD]: string }
+  | { [PRIMITIVE]: string }
+  | { [CONSTITUENT]: string; references: string }
 
-export type ExplanationParagraphKey = 'explanation'
-export type TipParagraphKey = 'explanation'
-export type NotesParagraphKey = 'explanation'
-export type PrimitiveNotesParagraphKey = 'explanation'
+export type SegmentKey = valueof<typeof StoryParagraphKeys>
 
 export const SpecialParagraphKeys = {
   EXPLANATION: 'explanation',
@@ -26,34 +27,17 @@ export const SpecialParagraphKeys = {
   WHENPRIMITIVE: 'whenPrimitive',
 } as const
 
-export type SpecialParagraphKey =
-  typeof SpecialParagraphKeys[keyof typeof SpecialParagraphKeys]
+const { EXPLANATION, TIP, NOTES, WHENPRIMITIVE } = SpecialParagraphKeys
 
-export type ExplanationParagraph = {
-  [SpecialParagraphKeys.EXPLANATION]: string | Segment[]
-}
-
-export type TipParagraph = {
-  [SpecialParagraphKeys.TIP]: string | Segment[]
-}
-
-export type NotesParagraph = {
-  [SpecialParagraphKeys.NOTES]: string | Segment[]
-}
-
-export type PrimitiveNotesParagraph = {
-  [SpecialParagraphKeys.WHENPRIMITIVE]: string | Segment[]
-}
+export type SpecialParagraphKey = valueof<typeof SpecialParagraphKeys>
 
 export type SpecialParagraph =
-  | ExplanationParagraph
-  | TipParagraph
-  | NotesParagraph
-  | PrimitiveNotesParagraph
+  | { [EXPLANATION]: string | Segment[] }
+  | { [TIP]: string | Segment[] }
+  | { [NOTES]: string | Segment[] }
+  | { [WHENPRIMITIVE]: string | Segment[] }
 
-type StoryParagraph = Segment[]
-
-type Paragraph = StoryParagraph | SpecialParagraph
+export type Paragraph = Segment[] | SpecialParagraph
 
 export type StoryType = Paragraph[]
 
@@ -73,14 +57,14 @@ export const mockStory: StoryType = [
   [
     'Az ilyeneket lúdtalp ellen szokták hordani, hogy a láb ',
     { keyword: 'helyes' },
-    'formáját megőrizze.',
+    ' formáját megőrizze.',
   ],
   [
     'Könnyen megjegyezhető, ha csak arra gondolunk: az „ortopéd” szó jelentése „',
     { keyword: 'helyes' },
-    'láb”, mint ahogy az „ortográfia” a „',
+    ' láb”, mint ahogy az „ortográfia” a „',
     { keyword: 'helyes' },
-    'írás”.',
+    ' írás”.',
   ],
 ]
 

@@ -1,4 +1,5 @@
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
+import { CSSProperties } from 'react'
 import {
   LESSON_NOT_IN_TIER,
   LESSON_LOCKED,
@@ -14,6 +15,8 @@ export const LessonStatuses = {
   UPCOMING: LESSON_UPCOMING,
   COMPLETED: LESSON_COMPLETED,
 } as const
+
+export type valueof<T> = T[keyof T]
 
 export type LessonStatus = typeof LessonStatuses[keyof typeof LessonStatuses]
 
@@ -42,6 +45,11 @@ export type SpecialParagraphStyles = {
   colors: SpecialParagraphPalette
   icon: IconDefinition
   title: string
+}
+
+export type SegmentStyles = {
+  fontStyle: CSSProperties
+  tooltip?: string
 }
 
 export interface AssembledLesson {

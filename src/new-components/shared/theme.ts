@@ -41,10 +41,17 @@ declare module '@mui/material/styles' {
     }
   }
 
+  interface StorySegmentVariants {
+    keyword: CSSProperties
+    primitive: CSSProperties
+    constituent: CSSProperties
+  }
+
   interface TypographyVariants {
     chineseHeading: CSSProperties
     chineseNormal: CSSProperties
     primitiveMeaning: CSSProperties
+    storySegments: StorySegmentVariants
   }
 
   // Allows configuration using `createTheme`.
@@ -52,6 +59,7 @@ declare module '@mui/material/styles' {
     chineseHeading?: CSSProperties
     chineseNormal?: CSSProperties
     primitiveMeaning?: CSSProperties
+    storySegments?: StorySegmentVariants
   }
 }
 
@@ -70,6 +78,14 @@ let theme = responsiveFontSizes(
       MuiButtonBase: {
         defaultProps: {
           disableRipple: true,
+        },
+      },
+      MuiContainer: {
+        styleOverrides: {
+          root: {
+            paddingLeft: 0,
+            paddingRight: 0,
+          },
         },
       },
     },
@@ -123,6 +139,19 @@ let theme = responsiveFontSizes(
         fontWeight: 'normal',
         fontStyle: 'italic',
         lineHeight: 1.2,
+      },
+      storySegments: {
+        keyword: {
+          fontWeight: 'bold',
+        },
+        primitive: {
+          fontWeight: 'bold',
+          fontStyle: 'italic',
+          color: deepOrange[400],
+        },
+        constituent: {
+          textDecoration: '1px dotted underline',
+        },
       },
     },
     palette: {

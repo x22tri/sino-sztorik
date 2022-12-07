@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import Grow from '@mui/material/Grow'
-import LessonCard from './LessonCard'
+import LessonSelectCard from './LessonSelectCard'
 import LessonDetails from './LessonDetails'
 import { LESSONS } from '../shared/MOCK_LESSONS'
 import { AssembledLesson, LessonStatuses } from '../shared/interfaces'
@@ -97,7 +97,7 @@ function LessonPreviewGrid({
       sx={{ height: 'fit-content', maxWidth: constants.maxContentWidth }}
     >
       {lessons.map(({ lessonNumber, title, tierStatuses }) => (
-        <LessonCard
+        <LessonSelectCard
           key={lessonNumber}
           {...{
             lessonNumber,

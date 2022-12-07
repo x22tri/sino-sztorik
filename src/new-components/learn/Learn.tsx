@@ -41,6 +41,7 @@ import {
   faLightbulb,
   faQuestion,
 } from '@fortawesome/free-solid-svg-icons'
+import Story from './Story'
 
 export default function Learn() {
   const { constants } = useTheme()
@@ -214,7 +215,8 @@ function LearnCharCardDetails({
 
       <Divider sx={{ my: 2 }} />
 
-      <Story {...{ story }} />
+      {/* <Story {...{ story }} /> */}
+      <Story story={mockStory} />
     </RoundedCard>
   )
 }
@@ -251,116 +253,6 @@ function KeywordPrimitiveBox({
       ) : null}
     </Box>
   )
-}
-
-function Story({ story }: { story: string }) {
-  return (
-    <>
-      {/* {story.split('\n').map((storySegment, index) => (
-        <Typography
-          key={index}
-          component='p'
-          variant='body1'
-          sx={{ mx: 1, mb: 1 }}
-        >
-          {storySegment}
-        </Typography>
-      ))} */}
-      {parseStory(mockStory)}
-    </>
-  )
-}
-
-function getParagraphKey(
-  paragraph: SpecialParagraphType
-): [SpecialParagraphKey, string | Segment[]] {
-  const { EXPLANATION, TIP, NOTES, WHENPRIMITIVE } = SpecialParagraphKeys
-
-  return EXPLANATION in paragraph
-    ? [EXPLANATION, paragraph[EXPLANATION]]
-    : TIP in paragraph
-    ? [TIP, paragraph[TIP]]
-    : NOTES in paragraph
-    ? [NOTES, paragraph[NOTES]]
-    : [WHENPRIMITIVE, paragraph[WHENPRIMITIVE]]
-}
-
-function SpecialParagraph({ paragraph }: { paragraph: SpecialParagraphType }) {
-  const { EXPLANATION, TIP, NOTES, WHENPRIMITIVE } = SpecialParagraphKeys
-  const { palette } = useTheme()
-
-  const dictionary: Record<SpecialParagraphKey, SpecialParagraphStyles> = {
-    [EXPLANATION]: {
-      colors: palette.specialParagraphs.explanation,
-      title: SPECIAL_PARAGRAPH_EXPLANATION,
-      icon: faQuestion,
-    },
-    [NOTES]: {
-      colors: palette.specialParagraphs.notes,
-      title: SPECIAL_PARAGRAPH_NOTES,
-      icon: faInfo,
-    },
-    [TIP]: {
-      colors: palette.specialParagraphs.tip,
-      title: SPECIAL_PARAGRAPH_TIP,
-      icon: faLightbulb,
-    },
-    [WHENPRIMITIVE]: {
-      colors: palette.specialParagraphs.whenPrimitive,
-      title: SPECIAL_PARAGRAPH_WHENPRIMITIVE,
-      icon: faCubesStacked,
-    },
-  }
-
-  const [paragraphKey, paragraphContent] = getParagraphKey(paragraph)
-
-  const { colors, icon, title } = dictionary[paragraphKey]
-
-  return (
-    <Box
-      display='flex'
-      gap={2}
-      borderRadius={1}
-      padding={2}
-      margin={1}
-      sx={{ backgroundColor: colors.background }}
-    >
-      <Box display='flex' alignItems='center'>
-        <FontAwesomeIcon
-          mask={faCircle}
-          size='3x'
-          color={colors.main}
-          transform='shrink-4'
-          {...{ icon }}
-        />
-      </Box>
-
-      <Box display='flex' flexDirection='column'>
-        <Typography
-          variant='overline'
-          component='div'
-          lineHeight={2}
-          color={colors.main}
-        >
-          {title}
-        </Typography>
-
-        <Typography color={colors.text} variant='body2'>
-          {JSON.stringify(paragraphContent)}
-        </Typography>
-      </Box>
-    </Box>
-  )
-}
-
-function parseStory(story: StoryType) {
-  return story.map(paragraph => {
-    if (Array.isArray(paragraph)) {
-      return <p>{JSON.stringify(paragraph)}</p>
-    } else {
-      return <SpecialParagraph {...{ paragraph }} />
-    }
-  })
 }
 
 function ConstituentList({
