@@ -31,7 +31,7 @@ export default function LessonSelectCard({
   const isLessonLocked =
     !tierStatuses.includes(UPCOMING) && !tierStatuses.includes(COMPLETED)
 
-  const { borderColor, backgroundColor, boxShadow } =
+  const { borderColor, borderWidth, backgroundColor, boxShadow } =
     useLessonSelectCardStyling(tierStatuses)!
 
   function openLessonDetails() {
@@ -71,11 +71,12 @@ export default function LessonSelectCard({
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          borderRadius: isCurrentLesson ? '0 16px' : '16px',
           px: 1,
           backgroundColor,
           ...(boxShadow ? { boxShadow } : {}),
           ...(borderColor ? { borderColor } : {}),
+          ...(borderWidth ? { borderWidth } : {}),
+          // ...(isCurrentLesson ? { borderRadius: '0 16px' } : {}),
         }}
       >
         <TierStatusBlips {...{ tierStatuses }} />

@@ -88,6 +88,11 @@ let theme = responsiveFontSizes(
           },
         },
       },
+      MuiCssBaseline: {
+        styleOverrides: `.swiper-slide {
+          height: auto;
+        }`,
+      },
     },
     constants: {
       animationDuration: 150,

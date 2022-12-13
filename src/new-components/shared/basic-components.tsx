@@ -4,6 +4,7 @@ import {
   MouseEvent,
   ReactNode,
   SetStateAction,
+  useState,
 } from 'react'
 import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
@@ -95,7 +96,6 @@ export function BackButton({
     <LightenOnHoverButton
       {...{ onClick }}
       startIcon={<WestIcon fontSize='small' />}
-      sx={{ ml: 1.5 }}
     >
       <Typography component='span' textTransform='none'>
         {text}
@@ -114,13 +114,16 @@ export function RoundedCard<C extends ElementType>(
       {...props}
       sx={{
         transition: `border ${constants.animationDuration * 2}ms ease-out`,
-        borderWidth: '2px',
+        borderWidth: '10px 0 0',
+        // borderWidth: '2px',
         borderStyle: 'solid',
         borderColor: palette.grey[200],
-        borderRadius: '16px',
+        // borderRadius: '16px',
         backgroundColor: palette.background.paper,
-        boxShadow: `3px 5px ${palette.grey[400]}`,
-        p: 2,
+        boxShadow: 'none',
+        // boxShadow: `3px 5px ${palette.grey[400]}`,
+        p: 1,
+        height: '100%',
         ...props.sx,
       }}
     >
@@ -132,69 +135,79 @@ export function RoundedCard<C extends ElementType>(
 export function CardSwiperWrapper({
   initialSlide = 0,
   children,
+  noArrows,
   setSwiperInstance,
 }: {
   initialSlide?: number
   children: ReactNode
-  setSwiperInstance?: Dispatch<SetStateAction<SwiperInstance | null>>
-}) {
-  return (
-    <Swiper
-      centeredSlides={true}
-      keyboard={true}
-      modules={[Keyboard]}
-      onTouchStart={swiper => swiper.setGrabCursor()}
-      onTouchEnd={swiper => swiper.unsetGrabCursor()}
-      onSwiper={swiper => (setSwiperInstance ? setSwiperInstance(swiper) : {})}
-      slidesPerView={1}
-      spaceBetween={10}
-      {...{ initialSlide }}
-    >
-      {children}
-    </Swiper>
-  )
-}
-
-export function CardSwiperContent({
-  children,
-  noArrows,
-}: {
-  children: ReactNode
   noArrows?: boolean
+  setSwiperInstance?: Dispatch<SetStateAction<SwiperInstance | null>>
 }) {
   const { palette } = useTheme()
 
+  const [grabbed, setGrabbed] = useState(false)
+  const [isBeginning, setIsBeginning] = useState(true)
+  const [isEnd, setIsEnd] = useState(false)
+
   return (
-    <SwiperSlide
-    // style={{ height: 'fit-content' }}
-    >
-      <Box position='relative' sx={{ mx: 2, mb: 1 }}>
-        {noArrows ? null : (
-          <ArrowLeftIcon
-            sx={{
-              position: 'absolute',
-              top: '50%',
-              left: '-16px',
-              transform: 'translateY(-50%)',
-              color: palette.grey[400],
-            }}
-          />
-        )}
+    <>
+      {grabbed || isBeginning || noArrows ? null : (
+        <ArrowLeftIcon
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '-20px',
+            transform: 'translateY(-50%)',
+            color: palette.grey[400],
+          }}
+        />
+      )}
 
+      <Swiper
+        centeredSlides={true}
+        keyboard={true}
+        modules={[Keyboard]}
+        onTouchStart={swiper => {
+          setGrabbed(true)
+          swiper.setGrabCursor()
+        }}
+        onTouchEnd={swiper => {
+          setGrabbed(false)
+          swiper.unsetGrabCursor()
+        }}
+        onSwiper={swiper =>
+          setSwiperInstance ? setSwiperInstance(swiper) : {}
+        }
+        onActiveIndexChange={({ isBeginning, isEnd }) => {
+          setIsBeginning(isBeginning)
+          setIsEnd(isEnd)
+        }}
+        slidesPerView={1}
+        spaceBetween={10}
+        {...{ initialSlide }}
+      >
         {children}
+      </Swiper>
 
-        {noArrows ? null : (
-          <ArrowRightIcon
-            sx={{
-              position: 'absolute',
-              top: '50%',
-              right: '-18px',
-              transform: 'translateY(-50%)',
-              color: palette.grey[400],
-            }}
-          />
-        )}
-      </Box>
+      {grabbed || isEnd || noArrows ? null : (
+        <ArrowRightIcon
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            right: '-20px',
+            transform: 'translateY(-50%)',
+            color: palette.grey[400],
+          }}
+        />
+      )}
+    </>
+  )
+}
+
+export function CardSwiperContent({ children }: { children: ReactNode }) {
+  return (
+    <SwiperSlide style={{ height: '100%' }}>
+      <Box sx={{ mb: 1, height: '100%' }}>{children}</Box>
     </SwiperSlide>
   )
 }

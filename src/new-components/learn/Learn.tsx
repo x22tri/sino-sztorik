@@ -58,7 +58,11 @@ export default function Learn() {
 
   return (
     <ContentContainer>
-      <Box maxWidth={constants.maxContentWidth} position='relative'>
+      <Box
+        maxWidth={constants.maxContentWidth}
+        position='relative'
+        margin='auto'
+      >
         <Box sx={{ minHeight: '40px' }}>
           {charToReturnToFromFlashback !== null ? (
             <BackButton
@@ -96,11 +100,14 @@ function LearnCharCardSwiper({
   setSwiperInstance: Dispatch<SetStateAction<Swiper | null>>
 }) {
   return (
-    <CardSwiperWrapper {...{ setSwiperInstance }}>
+    <CardSwiperWrapper
+      noArrows={charToReturnToFromFlashback !== null}
+      {...{ setSwiperInstance }}
+    >
       {chars.map(char => (
         <SwiperSlide key={char.id}>
           {({ isActive }) => (
-            <CardSwiperContent noArrows={charToReturnToFromFlashback !== null}>
+            <CardSwiperContent>
               <LearnCharCardDetails
                 lessonChar={char}
                 isActiveSlide={isActive}

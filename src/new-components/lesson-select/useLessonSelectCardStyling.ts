@@ -10,6 +10,7 @@ interface LessonCardStyling {
   backgroundColor?: string
   borderColor?: string
   boxShadow?: string
+  borderWidth?: string
 }
 
 export function useLessonSelectCardStyling(tierStatuses: TierStatuses) {
@@ -23,7 +24,8 @@ export function useLessonSelectCardStyling(tierStatuses: TierStatuses) {
     },
     [UPCOMING]: {
       borderColor: palette.secondary.main,
-      boxShadow: `3px 5px ${palette.secondary.dark}`,
+      // borderWidth: '2px',
+      // boxShadow: `3px 5px ${palette.secondary.dark}`,
     },
     [COMPLETED]: {}, // Default styles apply.
   }

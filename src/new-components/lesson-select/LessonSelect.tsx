@@ -59,7 +59,11 @@ export default function LessonSelect() {
 
       <Grow in={isLessonDetailsVisible} timeout={constants.animationDuration}>
         {selectedLessonNumber !== null ? (
-          <Box maxWidth={constants.maxContentWidth} position='relative'>
+          <Box
+            maxWidth={constants.maxContentWidth}
+            position='relative'
+            margin='auto'
+          >
             <BackButton
               onClick={closeLessonDetails}
               text={LESSON_SELECT_TITLE}
@@ -94,7 +98,11 @@ function LessonPreviewGrid({
   return (
     <Grid
       container
-      sx={{ height: 'fit-content', maxWidth: constants.maxContentWidth }}
+      sx={{
+        height: 'fit-content',
+        maxWidth: constants.maxContentWidth,
+        margin: 'auto',
+      }}
     >
       {lessons.map(({ lessonNumber, title, tierStatuses }) => (
         <LessonSelectCard
