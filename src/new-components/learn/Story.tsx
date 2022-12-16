@@ -10,22 +10,24 @@ import {
   faCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { SegmentStyles, SpecialParagraphStyles } from '../shared/interfaces'
+import {
+  Paragraph as ParagraphType,
+  Segment as SegmentType,
+  SegmentKey,
+  SegmentStyles,
+  StoryParagraphKeys,
+  SpecialParagraph as SpecialParagraphType,
+  SpecialParagraphKey,
+  SpecialParagraphKeys,
+  SpecialParagraphStyles,
+} from '../shared/interfaces'
 import {
   SPECIAL_PARAGRAPH_EXPLANATION,
   SPECIAL_PARAGRAPH_NOTES,
   SPECIAL_PARAGRAPH_TIP,
   SPECIAL_PARAGRAPH_WHENPRIMITIVE,
 } from '../shared/strings'
-import {
-  Segment as SegmentType,
-  SpecialParagraphKey,
-  SpecialParagraph as SpecialParagraphType,
-  Paragraph as ParagraphType,
-  SpecialParagraphKeys,
-  StoryParagraphKeys,
-  SegmentKey,
-} from './MOCK_STORY'
+
 import { Fragment, ReactNode } from 'react'
 
 function isSpecialParagraph(

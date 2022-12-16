@@ -1,6 +1,5 @@
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { CSSProperties } from 'react'
-import { Paragraph } from '../learn/MOCK_STORY'
 import {
   LESSON_NOT_IN_TIER,
   LESSON_LOCKED,
@@ -70,3 +69,44 @@ export interface Character {
   frequency?: number
   otherUses?: string[]
 }
+
+/* Story interfaces */
+
+function isValidCharacterKey(string: string) {
+  return /\p{Script=Han}/u.test(string)
+}
+
+export const StoryParagraphKeys = {
+  KEYWORD: 'keyword',
+  PRIMITIVE: 'primitive',
+  CONSTITUENT: 'constituent',
+} as const
+
+const { KEYWORD, PRIMITIVE, CONSTITUENT } = StoryParagraphKeys
+
+export type Segment =
+  | string
+  | { [KEYWORD]: string }
+  | { [PRIMITIVE]: string }
+  | { [CONSTITUENT]: string; references: string }
+
+export type SegmentKey = valueof<typeof StoryParagraphKeys>
+
+export const SpecialParagraphKeys = {
+  EXPLANATION: 'explanation',
+  TIP: 'tip',
+  NOTES: 'notes',
+  WHENPRIMITIVE: 'whenPrimitive',
+} as const
+
+const { EXPLANATION, TIP, NOTES, WHENPRIMITIVE } = SpecialParagraphKeys
+
+export type SpecialParagraphKey = valueof<typeof SpecialParagraphKeys>
+
+export type SpecialParagraph =
+  | { [EXPLANATION]: string | Segment[] }
+  | { [TIP]: string | Segment[] }
+  | { [NOTES]: string | Segment[] }
+  | { [WHENPRIMITIVE]: string | Segment[] }
+
+export type Paragraph = Segment[] | SpecialParagraph

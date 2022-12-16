@@ -5,7 +5,6 @@ import Divider from '@mui/material/Divider'
 import Link from '@mui/material/Link'
 import Snackbar from '@mui/material/Snackbar'
 import Typography from '@mui/material/Typography'
-import { SwiperSlide, useSwiper } from 'swiper/react'
 import {
   CardSwiperWrapper,
   CardSwiperContent,
@@ -14,12 +13,12 @@ import {
   ContentContainer,
 } from '../shared/basic-components'
 import { Character } from '../shared/interfaces'
-import { CHARS } from './MOCK_CHARS'
-import Swiper from 'swiper'
-import 'swiper/css'
 import { BACK_TO_LESSON_FROM_FLASHBACK } from '../shared/strings'
-import { mockStory } from './MOCK_STORY'
+import { CHARS } from './MOCK_CHARS'
 import Story from './Story'
+import Swiper from 'swiper'
+import { SwiperSlide, useSwiper } from 'swiper/react'
+import 'swiper/css'
 
 export default function Learn() {
   const { constants } = useTheme()
