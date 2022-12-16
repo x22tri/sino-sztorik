@@ -1,9 +1,19 @@
-import { Dispatch, Fragment, SetStateAction, useEffect, useState } from 'react'
+import {
+  Dispatch,
+  forwardRef,
+  Fragment,
+  SetStateAction,
+  useEffect,
+  useState,
+  useRef,
+  ReactNode,
+} from 'react'
 import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import Link from '@mui/material/Link'
 import Snackbar from '@mui/material/Snackbar'
+import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import {
   CardSwiperWrapper,
@@ -13,12 +23,29 @@ import {
   ContentContainer,
 } from '../shared/basic-components'
 import { Character } from '../shared/interfaces'
-import { BACK_TO_LESSON_FROM_FLASHBACK } from '../shared/strings'
+import {
+  BACK_TO_LESSON_FROM_FLASHBACK,
+  FREQUENCY_COMMON,
+  FREQUENCY_QUITE_COMMON,
+  FREQUENCY_UNCOMMON,
+  FREQUENCY_UNKNOWN,
+  FREQUENCY_VERY_COMMON,
+  FREQUENCY_VERY_RARE,
+} from '../shared/strings'
 import { CHARS } from './MOCK_CHARS'
 import Story from './Story'
 import Swiper from 'swiper'
 import { SwiperSlide, useSwiper } from 'swiper/react'
 import 'swiper/css'
+import {
+  FontAwesomeIcon,
+  FontAwesomeIconProps,
+} from '@fortawesome/react-fontawesome'
+import {
+  faChartColumn,
+  IconDefinition,
+} from '@fortawesome/free-solid-svg-icons'
+import Frequency from './Frequency'
 
 export default function Learn() {
   const { constants } = useTheme()
@@ -156,10 +183,8 @@ function LearnCharCardDetails({
     keyword,
     primitiveMeaning,
     constituents,
-    story,
-    pinyin,
     frequency,
-    otherUses,
+    story,
   } = currentlyViewedChar
 
   return (
@@ -176,15 +201,19 @@ function LearnCharCardDetails({
         autoHideDuration={6000}
         message='Constituent not found.'
       />
-      {constituents ? (
-        <ConstituentList
-          {...{
-            constituents,
-            isActiveSlide,
-            startFlashback,
-          }}
-        />
-      ) : null}
+
+      <Box position='relative'>
+        <Frequency {...{ frequency }} />
+        {constituents ? (
+          <ConstituentList
+            {...{
+              constituents,
+              isActiveSlide,
+              startFlashback,
+            }}
+          />
+        ) : null}
+      </Box>
 
       <Typography
         variant='chineseHeading'
@@ -247,19 +276,12 @@ function ConstituentList({
   isActiveSlide: boolean
   startFlashback: (constituent: string) => void
 }) {
-  const { palette } = useTheme()
-
   return (
-    <Box display='flex' justifyContent='center'>
+    <Box display='flex' justifyContent='center' alignItems='center'>
       {constituents.map((constituent, index) => (
         <Fragment key={index}>
           {index === 0 ? null : (
-            <Divider
-              orientation='vertical'
-              variant='middle'
-              flexItem
-              sx={{ mx: 2 }}
-            />
+            <Divider orientation='vertical' flexItem sx={{ mx: 2 }} />
           )}
 
           <Link

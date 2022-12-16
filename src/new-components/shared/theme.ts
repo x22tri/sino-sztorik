@@ -25,6 +25,15 @@ declare module '@mui/material/styles' {
   }
 
   interface Palette {
+    frequency: {
+      unknown: string
+      veryCommon: string
+      quiteCommon: string
+      common: string
+      uncommon: string
+      rare: string
+      veryRare: string
+    }
     specialParagraphs: {
       explanation: string
       tip: string
@@ -33,6 +42,15 @@ declare module '@mui/material/styles' {
     }
   }
   interface PaletteOptions {
+    frequency: {
+      unknown: string
+      veryCommon: string
+      quiteCommon: string
+      common: string
+      uncommon: string
+      rare: string
+      veryRare: string
+    }
     specialParagraphs: {
       explanation: string
       tip: string
@@ -172,6 +190,15 @@ let theme = responsiveFontSizes(
       },
       background: {
         default: grey[50],
+      },
+      frequency: {
+        unknown: grey[500],
+        veryCommon: '#d03738',
+        quiteCommon: '#D26836',
+        common: '#D17F36',
+        uncommon: '#D7AF1F',
+        rare: grey[700],
+        veryRare: grey[500],
       },
       specialParagraphs: {
         explanation: blue[800],
