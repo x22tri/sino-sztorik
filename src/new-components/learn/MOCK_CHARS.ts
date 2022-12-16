@@ -15,7 +15,15 @@ export const CHARS: Character[] = [
         ' (I), de 90 fokkal elforgatva.',
       ],
       {
-        whenPrimitive: `Mivel az „egy” fogalmát nehéz történetbe építeni, gyakran „plafonnak” vagy „padlónak” hívjuk majd, attól függően, másik alapelem felett vagy alatt áll-e.`,
+        whenPrimitive: [
+          'Mivel az ',
+          { keyword: '„egy”' },
+          ' fogalmát nehéz történetbe építeni, gyakran ',
+          { primitive: 'plafonnak' },
+          ' vagy ',
+          { primitive: 'padlónak' },
+          ' hívjuk majd, attól függően, másik alapelem felett vagy alatt áll-e.',
+        ],
       },
     ],
     frequency: 2,

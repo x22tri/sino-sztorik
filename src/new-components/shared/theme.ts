@@ -26,18 +26,18 @@ declare module '@mui/material/styles' {
 
   interface Palette {
     specialParagraphs: {
-      explanation: SpecialParagraphPalette
-      tip: SpecialParagraphPalette
-      notes: SpecialParagraphPalette
-      whenPrimitive: SpecialParagraphPalette
+      explanation: string
+      tip: string
+      notes: string
+      whenPrimitive: string
     }
   }
   interface PaletteOptions {
     specialParagraphs: {
-      explanation: SpecialParagraphPalette
-      tip: SpecialParagraphPalette
-      notes: SpecialParagraphPalette
-      whenPrimitive: SpecialParagraphPalette
+      explanation: string
+      tip: string
+      notes: string
+      whenPrimitive: string
     }
   }
 
@@ -174,26 +174,10 @@ let theme = responsiveFontSizes(
         default: grey[50],
       },
       specialParagraphs: {
-        explanation: {
-          background: blue[100],
-          main: blue[700],
-          text: '#2062A5',
-        },
-        tip: {
-          background: yellow[100],
-          main: '#F1B100',
-          text: '#906F12',
-        },
-        notes: {
-          background: grey[200],
-          main: grey[500],
-          text: grey[800],
-        },
-        whenPrimitive: {
-          background: '#FFD5C8',
-          main: deepOrange[400],
-          text: '#993617',
-        },
+        explanation: blue[800],
+        tip: '#F1B100',
+        notes: grey[500],
+        whenPrimitive: deepOrange[400],
       },
     },
   })

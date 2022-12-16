@@ -38,12 +38,10 @@ export type TierStatuses = [
 
 export interface SpecialParagraphPalette {
   main: string
-  text: string
-  background: string
 }
 
 export type SpecialParagraphStyles = {
-  colors: SpecialParagraphPalette
+  color: string
   icon: IconDefinition
   title: string
 }

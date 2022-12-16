@@ -60,22 +60,22 @@ function SpecialParagraphResolver({
 
   const styles: Record<SpecialParagraphKey, SpecialParagraphStyles> = {
     [EXPLANATION]: {
-      colors: palette.specialParagraphs.explanation,
+      color: palette.specialParagraphs.explanation,
       title: SPECIAL_PARAGRAPH_EXPLANATION,
       icon: faQuestion,
     },
     [NOTES]: {
-      colors: palette.specialParagraphs.notes,
+      color: palette.specialParagraphs.notes,
       title: SPECIAL_PARAGRAPH_NOTES,
       icon: faInfo,
     },
     [TIP]: {
-      colors: palette.specialParagraphs.tip,
+      color: palette.specialParagraphs.tip,
       title: SPECIAL_PARAGRAPH_TIP,
       icon: faLightbulb,
     },
     [WHENPRIMITIVE]: {
-      colors: palette.specialParagraphs.whenPrimitive,
+      color: palette.specialParagraphs.whenPrimitive,
       title: SPECIAL_PARAGRAPH_WHENPRIMITIVE,
       icon: faCubesStacked,
     },
@@ -117,24 +117,18 @@ function SpecialParagraph({
   styles: SpecialParagraphStyles
   text: string | SegmentType[]
 }) {
-  const { colors, icon, title } = styles
+  const { color, icon, title } = styles
+
+  const { palette } = useTheme()
 
   return (
-    <Box
-      display='flex'
-      gap={2}
-      borderRadius={1}
-      padding={2}
-      margin={1}
-      sx={{ backgroundColor: colors.background }}
-    >
+    <Box display='flex' gap={2} borderRadius={1} padding={2} margin={1}>
       <Box display='flex' alignItems='center'>
         <FontAwesomeIcon
           mask={faCircle}
           size='3x'
-          color={colors.main}
           transform='shrink-4'
-          {...{ icon }}
+          {...{ color, icon }}
         />
       </Box>
 
@@ -143,12 +137,12 @@ function SpecialParagraph({
           variant='overline'
           component='div'
           lineHeight={2}
-          color={colors.main}
+          {...{ color }}
         >
           {title}
         </Typography>
 
-        <Typography color={colors.text} variant='body2'>
+        <Typography color={palette.grey[600]} variant='body2'>
           {typeof text === 'string' ? (
             <>{text}</>
           ) : (
