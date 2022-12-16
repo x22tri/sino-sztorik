@@ -1,5 +1,6 @@
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { CSSProperties } from 'react'
+import { Paragraph } from '../learn/MOCK_STORY'
 import {
   LESSON_NOT_IN_TIER,
   LESSON_LOCKED,
@@ -66,7 +67,7 @@ export interface Character {
   keyword?: string
   primitiveMeaning?: string
   constituents?: string[]
-  story: string
+  story: Paragraph[]
   pinyin?: string
   frequency?: number
   otherUses?: string[]

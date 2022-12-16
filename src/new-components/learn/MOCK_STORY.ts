@@ -39,9 +39,7 @@ export type SpecialParagraph =
 
 export type Paragraph = Segment[] | SpecialParagraph
 
-export type StoryType = Paragraph[]
-
-export const mockStory: StoryType = [
+export const mockStory: Paragraph[] = [
   {
     explanation:
       'A magyarhoz hasonlóan jelentheti azt, hogy „igaz, helytálló”, és azt is, hogy „csinos”.',

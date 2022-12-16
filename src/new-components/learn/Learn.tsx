@@ -1,7 +1,6 @@
 import { Dispatch, Fragment, SetStateAction, useEffect, useState } from 'react'
 import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import Link from '@mui/material/Link'
 import Snackbar from '@mui/material/Snackbar'
@@ -14,34 +13,12 @@ import {
   BackButton,
   ContentContainer,
 } from '../shared/basic-components'
-import { Character, SpecialParagraphStyles } from '../shared/interfaces'
+import { Character } from '../shared/interfaces'
 import { CHARS } from './MOCK_CHARS'
 import Swiper from 'swiper'
 import 'swiper/css'
-import {
-  BACK_TO_LESSON_FROM_FLASHBACK,
-  SPECIAL_PARAGRAPH_EXPLANATION,
-  SPECIAL_PARAGRAPH_NOTES,
-  SPECIAL_PARAGRAPH_TIP,
-  SPECIAL_PARAGRAPH_WHENPRIMITIVE,
-} from '../shared/strings'
-import {
-  mockStory,
-  SpecialParagraph as SpecialParagraphType,
-  StoryType,
-  Segment,
-  SpecialParagraphKeys,
-  SpecialParagraphKey,
-} from './MOCK_STORY'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faCircle,
-  faCube,
-  faCubesStacked,
-  faInfo,
-  faLightbulb,
-  faQuestion,
-} from '@fortawesome/free-solid-svg-icons'
+import { BACK_TO_LESSON_FROM_FLASHBACK } from '../shared/strings'
+import { mockStory } from './MOCK_STORY'
 import Story from './Story'
 
 export default function Learn() {
@@ -223,8 +200,7 @@ function LearnCharCardDetails({
 
       <Divider sx={{ my: 2 }} />
 
-      {/* <Story {...{ story }} /> */}
-      <Story story={mockStory} />
+      <Story {...{ story }} />
     </RoundedCard>
   )
 }

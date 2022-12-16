@@ -23,7 +23,6 @@ import {
   SpecialParagraph as SpecialParagraphType,
   Paragraph as ParagraphType,
   SpecialParagraphKeys,
-  StoryType,
   StoryParagraphKeys,
   SegmentKey,
 } from './MOCK_STORY'
@@ -35,7 +34,7 @@ function isSpecialParagraph(
   return !Array.isArray(paragraph)
 }
 
-export default function Story({ story }: { story: StoryType }) {
+export default function Story({ story }: { story: ParagraphType[] }) {
   return (
     <>
       {story.map((paragraph, index) =>

@@ -6,10 +6,18 @@ export const CHARS: Character[] = [
     charChinese: '一',
     keyword: 'egy',
     primitiveMeaning: 'plafon, padló',
-    story: `Az egy kínai jele épp olyan, mint a római egy (I), de 90 fokkal elforgatva.
-(Ha alapelemként használjuk, gyakran nem „egy” jelentésben használjuk, hiszen ez túlságosan elvont.
-Ehelyett – mivel egy vízszintes vonás – leginkább „plafonnak” vagy „padlónak” hívjuk majd: ha egy másik alapelem fölött áll, akkor plafonnak, ha alatta, padlónak.
-Néha nem lesz más választásunk, mint hogy megtartsuk a karakter tényleges jelentését. Ilyenkor ki fogjuk hangsúlyozni, hogy „egyetlen” dologról van szó.)`,
+    story: [
+      [
+        'Az ',
+        { keyword: 'egy' },
+        ' kínai jele épp olyan, mint a római ',
+        { keyword: 'egy' },
+        ' (I), de 90 fokkal elforgatva.',
+      ],
+      {
+        whenPrimitive: `Mivel az „egy” fogalmát nehéz történetbe építeni, gyakran „plafonnak” vagy „padlónak” hívjuk majd, attól függően, másik alapelem felett vagy alatt áll-e.`,
+      },
+    ],
     frequency: 2,
     pinyin: 'yī',
   },
@@ -18,7 +26,15 @@ Néha nem lesz más választásunk, mint hogy megtartsuk a karakter tényleges j
     charChinese: '止',
     keyword: 'megáll',
     primitiveMeaning: 'lábnyom',
-    story: `Egy bal láb képe, ami azt jelképezi, hogy valaki itt elég sokáig megállt ahhoz, hogy a lábnyoma ott maradjon.`,
+    story: [
+      [
+        'Egy bal láb képe, ami azt jelképezi, hogy valaki itt elég sokáig ',
+        { keyword: 'megállt' },
+        ' ahhoz, hogy a ',
+        { primitive: 'lábnyoma' },
+        ' ott maradjon.',
+      ],
+    ],
     frequency: 596,
     pinyin: 'zhǐ',
   },
@@ -27,9 +43,32 @@ Néha nem lesz más választásunk, mint hogy megtartsuk a karakter tényleges j
     constituents: ['一', '止'],
     charChinese: '正',
     keyword: 'helyes',
-    story: `Plafont szab a lábnyomnak egy vonás – ez egy zárt, lyukacsos gyógypapucsot, azaz egy ortopéd cipőt jelképez. 
-Az ilyeneket lúdtalp ellen szokták hordani, hogy a láb helyes formáját megőrizze. 
-Könnyen megjegyezhető, ha csak arra gondolunk: az „ortopéd” szó jelentése „helyes láb”, mint ahogy az „ortográfia” a „helyes írás”.`,
+    story: [
+      {
+        explanation:
+          'A magyarhoz hasonlóan jelentheti azt, hogy „igaz, helytálló”, és azt is, hogy „csinos”.',
+      },
+      [
+        { constituent: 'Plafont', references: '一' },
+        ' szab a ',
+        { constituent: 'lábnyomnak', references: '止' },
+        ' egy vonás – ez egy zárt, lyukacsos gyógypapucsot, azaz egy ',
+        { primitive: 'ortopéd cipőt' },
+        ' jelképez.',
+      ],
+      [
+        'Az ilyeneket lúdtalp ellen szokták hordani, hogy a láb ',
+        { keyword: 'helyes' },
+        ' formáját megőrizze.',
+      ],
+      [
+        'Könnyen megjegyezhető, ha csak arra gondolunk: az „ortopéd” szó jelentése „',
+        { keyword: 'helyes' },
+        ' láb”, mint ahogy az „ortográfia” a „',
+        { keyword: 'helyes' },
+        ' írás”.',
+      ],
+    ],
     primitiveMeaning: 'ortopéd cipő',
     frequency: 129,
     pinyin: 'zhèng',
@@ -40,10 +79,28 @@ Könnyen megjegyezhető, ha csak arra gondolunk: az „ortopéd” szó jelenté
     constituents: ['讠', '正'],
     charChinese: '证',
     keyword: 'bizonyíték',
-    story: `Az 1990-es években Amerikában nagy port kavart OJ Simpson pere, akit azzal vádoltak, hogy megölte feleségét és annak egy barátját. 
-Végül felmentették, ebben pedig nagy szerepe volt ügyvédje záróbeszédének, amelyben azok a híressé vált szavak hangzottak el bizonyíték gyanánt, hogy „Ha nem megy fel, mentsed fel!" 
-Ezzel arra utalt, hogy Simpson alig tudta belepasszírozni a kezét abba a kesztyűbe, amelyet elvileg a gyilkos viselt.
-Ezen a karakteren hasonló dolog történik: az ügyvéd szavai, miszerint „ha nem megy védencemre az ortopéd cipő, ártatlan”, egyértelmű bizonyítékot szolgáltatnak a bíróságon.`,
+    story: [
+      [
+        'Az 1990-es években Amerikában nagy port kavart OJ Simpson pere, akit azzal vádoltak, hogy megölte feleségét és annak egy barátját.',
+      ],
+      [
+        'Végül felmentették, ebben pedig nagy szerepe volt ügyvédje záróbeszédének, amelyben azok a híressé vált szavak hangzottak el ',
+        { keyword: 'bizonyíték' },
+        ' gyanánt, hogy „Ha nem megy fel, mentsed fel!"',
+      ],
+      [
+        'Ezzel arra utalt, hogy Simpson alig tudta belepasszírozni a kezét abba a kesztyűbe, amelyet elvileg a gyilkos viselt.',
+      ],
+      [
+        'Ezen a karakteren hasonló dolog történik: az ügyvéd ',
+        { constituent: 'szavai', references: '讠' },
+        ', miszerint „ha nem megy védencemre az ',
+        { constituent: 'ortopéd cipő', references: '正' },
+        ', ártatlan”, egyértelmű ',
+        { keyword: 'bizonyítékot' },
+        ' szolgáltatnak a bíróságon.',
+      ],
+    ],
     frequency: 373,
     pinyin: 'zhèng',
   },
