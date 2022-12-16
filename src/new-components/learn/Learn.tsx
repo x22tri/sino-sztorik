@@ -3,6 +3,7 @@ import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
+import Link from '@mui/material/Link'
 import Snackbar from '@mui/material/Snackbar'
 import Typography from '@mui/material/Typography'
 import { SwiperSlide, useSwiper } from 'swiper/react'
@@ -278,28 +279,28 @@ function ConstituentList({
       {constituents.map((constituent, index) => (
         <Fragment key={index}>
           {index === 0 ? null : (
-            <Divider orientation='vertical' variant='middle' flexItem />
+            <Divider
+              orientation='vertical'
+              variant='middle'
+              flexItem
+              sx={{ mx: 2 }}
+            />
           )}
 
-          <Button
+          <Link
             onClick={() => startFlashback(constituent)}
             tabIndex={isActiveSlide ? index + 1 : -1}
+            underline='hover'
             sx={{
               p: 0,
-              color: 'inherit',
               typography: 'chineseNormal',
               '&:hover': {
-                backgroundColor: 'inherit',
-                color: palette.grey[700],
                 cursor: 'pointer',
-              },
-              '&:focus': {
-                color: palette.grey[700],
               },
             }}
           >
             {constituent}
-          </Button>
+          </Link>
         </Fragment>
       ))}
     </Box>

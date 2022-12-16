@@ -1,5 +1,6 @@
 import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
+import Link from '@mui/material/Link'
 import Typography from '@mui/material/Typography'
 import {
   faQuestion,
@@ -26,7 +27,7 @@ import {
   StoryParagraphKeys,
   SegmentKey,
 } from './MOCK_STORY'
-import { Fragment } from 'react'
+import { Fragment, ReactNode } from 'react'
 
 function isSpecialParagraph(
   paragraph: ParagraphType
@@ -208,7 +209,18 @@ function Segments({ segments }: { segments: SegmentType[] }) {
             <Segment
               key={index}
               styles={styles[CONSTITUENT]}
-              text={segment[CONSTITUENT]}
+              text={
+                <Link
+                  underline='hover'
+                  sx={{
+                    '&:hover': {
+                      cursor: 'pointer',
+                    },
+                  }}
+                >
+                  {segment[CONSTITUENT]}
+                </Link>
+              }
             />
           )
         }
@@ -219,7 +231,13 @@ function Segments({ segments }: { segments: SegmentType[] }) {
   )
 }
 
-function Segment({ styles, text }: { styles: SegmentStyles; text: string }) {
+function Segment({
+  styles,
+  text,
+}: {
+  styles: SegmentStyles
+  text: string | ReactNode
+}) {
   return (
     <Typography component='span' sx={styles.fontStyle}>
       {text}

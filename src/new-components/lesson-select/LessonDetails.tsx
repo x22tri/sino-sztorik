@@ -78,7 +78,11 @@ function CharacterPreviews({ characters }: { characters: string[] }) {
           key={char}
           variant='outlined'
           component='span'
-          sx={{ borderWidth: '2px', px: 1, typography: 'chineseNormal' }}
+          sx={{
+            borderWidth: '2px',
+            p: 1,
+            typography: 'chineseNormal',
+          }}
         >
           {char}
         </Card>

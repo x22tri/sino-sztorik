@@ -137,6 +137,7 @@ let theme = responsiveFontSizes(
       chineseNormal: {
         fontFamily: chineseFont,
         fontSize: 24,
+        lineHeight: 1.2,
       },
       primitiveMeaning: {
         fontSize: 20,
@@ -155,7 +156,7 @@ let theme = responsiveFontSizes(
           color: deepOrange[400],
         },
         constituent: {
-          textDecoration: '1px dotted underline',
+          color: blue[400],
         },
       },
     },
