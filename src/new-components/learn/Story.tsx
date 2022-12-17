@@ -43,7 +43,7 @@ export default function Story({ story }: { story: ParagraphType[] }) {
         isSpecialParagraph(paragraph) ? (
           <SpecialParagraphResolver {...{ paragraph }} key={index} />
         ) : (
-          <Box component='p' sx={{ px: 1, my: 1 }} key={index}>
+          <Box component='p' sx={{ px: 1, my: 2 }} key={index}>
             <Segments segments={paragraph} />
           </Box>
         )
@@ -124,7 +124,7 @@ function SpecialParagraph({
   const { palette } = useTheme()
 
   return (
-    <Box display='flex' gap={2} borderRadius={1} padding={2} margin={1}>
+    <Box display='flex' gap={2} borderRadius={1} margin={3}>
       <Box display='flex' alignItems='center'>
         <FontAwesomeIcon
           mask={faCircle}
