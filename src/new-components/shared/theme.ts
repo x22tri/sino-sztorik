@@ -1,9 +1,8 @@
 import { createTheme } from '@mui/material/styles'
-import { blue, deepOrange, grey, yellow } from '@mui/material/colors'
+import { blue, deepOrange, grey } from '@mui/material/colors'
 import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
 import { indigo } from '@material-ui/core/colors'
 import { CSSProperties } from 'react'
-import { SpecialParagraphPalette } from './interfaces'
 
 const chineseFont = "'Noto Sans', sans-serif" // To-Do: Create font with custom chars
 const genericFont = "'Noto Sans', sans-serif"
@@ -13,14 +12,18 @@ declare module '@mui/material/styles' {
   interface Theme {
     constants: {
       animationDuration: number
+      backButtonStripHeight: string
       maxContentWidth: string
+      toolbarHeight: string
     }
   }
 
   interface ThemeOptions {
     constants?: {
       animationDuration?: number
+      backButtonStripHeight?: string
       maxContentWidth?: string
+      toolbarHeight?: string
     }
   }
 
@@ -109,12 +112,18 @@ let theme = responsiveFontSizes(
       MuiCssBaseline: {
         styleOverrides: `.swiper-slide {
           height: auto;
+        }
+        
+        #root {
+          height: 100vh
         }`,
       },
     },
     constants: {
       animationDuration: 150,
+      backButtonStripHeight: '40px',
       maxContentWidth: '48rem',
+      toolbarHeight: '48px',
     },
     typography: {
       fontFamily: genericFont,

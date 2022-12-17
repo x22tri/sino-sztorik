@@ -32,10 +32,11 @@ export default function Learn() {
     <ContentContainer>
       <Box
         maxWidth={constants.maxContentWidth}
+        height='100%'
         position='relative'
         margin='auto'
       >
-        <Box sx={{ minHeight: '40px' }}>
+        <Box sx={{ minHeight: constants.backButtonStripHeight }}>
           {charToReturnToFromFlashback !== null ? (
             <BackButton
               onClick={() => returnFromFlashback()}

@@ -107,7 +107,7 @@ export default function LearnCharCardDetails({
         variant='chineseHeading'
         component='h2'
         textAlign='center'
-        sx={{ mt: constituents ? 1 : 7, mb: 2 }}
+        sx={{ mt: 1, mb: 2 }}
       >
         {charChinese}
       </Typography>

@@ -30,20 +30,20 @@ import {
 
 import { Fragment, ReactNode } from 'react'
 
-function isSpecialParagraph(
-  paragraph: ParagraphType
-): paragraph is SpecialParagraphType {
-  return !Array.isArray(paragraph)
-}
-
 export default function Story({ story }: { story: ParagraphType[] }) {
+  const isLast = (index: number) => index === story.length - 1
+
   return (
     <>
       {story.map((paragraph, index) =>
         isSpecialParagraph(paragraph) ? (
           <SpecialParagraphResolver {...{ paragraph }} key={index} />
         ) : (
-          <Box component='p' sx={{ px: 1, my: 2 }} key={index}>
+          <Box
+            component='p'
+            sx={{ px: 1, my: 2, pb: isLast(index) ? 4 : 0 }}
+            key={index}
+          >
             <Segments segments={paragraph} />
           </Box>
         )
@@ -238,4 +238,10 @@ function Segment({
       {text}
     </Typography>
   )
+}
+
+function isSpecialParagraph(
+  paragraph: ParagraphType
+): paragraph is SpecialParagraphType {
+  return !Array.isArray(paragraph)
 }

@@ -122,8 +122,9 @@ export function RoundedCard<C extends ElementType>(
         backgroundColor: palette.background.paper,
         boxShadow: 'none',
         // boxShadow: `3px 5px ${palette.grey[400]}`,
-        p: 1,
+        p: 2,
         height: '100%',
+        overflowY: 'auto',
         ...props.sx,
       }}
     >
@@ -143,7 +144,7 @@ export function CardSwiperWrapper({
   noArrows?: boolean
   setSwiperInstance?: Dispatch<SetStateAction<SwiperInstance | null>>
 }) {
-  const { palette } = useTheme()
+  const { constants, palette } = useTheme()
 
   const [grabbed, setGrabbed] = useState(false)
   const [isBeginning, setIsBeginning] = useState(true)
@@ -185,6 +186,7 @@ export function CardSwiperWrapper({
         slidesPerView={1}
         spaceBetween={10}
         {...{ initialSlide }}
+        style={{ height: `calc(100% - ${constants.backButtonStripHeight})` }}
       >
         {children}
       </Swiper>
@@ -213,8 +215,14 @@ export function CardSwiperContent({ children }: { children: ReactNode }) {
 }
 
 export function ContentContainer({ children }: { children: ReactNode }) {
+  const { constants } = useTheme()
+
   return (
-    <Container component='main' maxWidth='lg' sx={{ mt: 2 }}>
+    <Container
+      component='main'
+      maxWidth='lg'
+      sx={{ height: `calc(100% - ${constants.toolbarHeight})` }}
+    >
       {children}
     </Container>
   )
