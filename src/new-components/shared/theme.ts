@@ -113,6 +113,10 @@ let theme = responsiveFontSizes(
         styleOverrides: `.swiper-slide {
           height: auto;
         }
+
+        .swiper-slide:not(.swiper-slide-active) > .swiper-slide {
+          filter: blur(4px);
+        } 
         
         #root {
           height: 100vh
