@@ -109,6 +109,16 @@ let theme = responsiveFontSizes(
           },
         },
       },
+      MuiLink: {
+        styleOverrides: {
+          root: {
+            color: 'initial',
+            backgroundColor: grey[200],
+            padding: '2px 4px',
+            borderRadius: '8px',
+          },
+        },
+      },
       MuiCssBaseline: {
         styleOverrides: `.swiper-slide {
           height: auto;
@@ -198,8 +208,8 @@ let theme = responsiveFontSizes(
       },
       secondary: {
         main: deepOrange[500],
-        dark: deepOrange[700],
-        light: deepOrange[200],
+        dark: deepOrange[800],
+        light: deepOrange[100],
       },
       background: {
         default: grey[50],

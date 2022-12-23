@@ -124,34 +124,37 @@ function SpecialParagraph({
   const { palette } = useTheme()
 
   return (
-    <Box display='flex' gap={2} borderRadius={1} margin={3}>
-      <Box display='flex' alignItems='center'>
+    <Box
+      display='flex'
+      flexDirection='column'
+      gap={2}
+      sx={{ background: palette.grey[200], borderRadius: 2, m: 3, p: 2 }}
+      color={palette.grey[600]}
+    >
+      <Box display='flex' alignItems='center' gap='8px'>
         <FontAwesomeIcon
           mask={faCircle}
-          size='3x'
+          size='2x'
           transform='shrink-4'
-          {...{ color, icon }}
+          color={palette.grey[600]}
+          {...{ icon }}
         />
-      </Box>
 
-      <Box display='flex' flexDirection='column'>
+        {/* <Box display='flex' flexDirection='column'> */}
         <Typography
           variant='overline'
           component='div'
           lineHeight={2}
-          {...{ color }}
+          // {...{ color }}
         >
           {title}
         </Typography>
-
-        <Typography color={palette.grey[600]} variant='body2'>
-          {typeof text === 'string' ? (
-            <>{text}</>
-          ) : (
-            <Segments segments={text} />
-          )}
-        </Typography>
       </Box>
+
+      <Typography color={palette.grey[600]} variant='body2'>
+        {typeof text === 'string' ? <>{text}</> : <Segments segments={text} />}
+      </Typography>
+      {/* </Box> */}
     </Box>
   )
 }

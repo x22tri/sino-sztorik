@@ -189,11 +189,7 @@ export function CardSwiperWrapper({
         slidesPerView={1}
         spaceBetween={10}
         {...{ initialSlide }}
-        style={{
-          height: `calc(100% - ${constants.backButtonStripHeight})`,
-          overflow: 'visible',
-          // backdropFilter: 'blur(100px)',
-        }}
+        style={{ height: `calc(100% - ${constants.backButtonStripHeight})` }}
       >
         {children}
       </Swiper>

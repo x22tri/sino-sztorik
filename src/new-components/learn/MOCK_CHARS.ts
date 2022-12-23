@@ -54,7 +54,7 @@ export const CHARS: Character[] = [
     story: [
       {
         explanation:
-          'A magyarhoz hasonlóan jelentheti azt, hogy „igaz, helytálló”, és azt is, hogy „csinos”.',
+          'A magyarhoz hasonlóan jelentheti azt, hogy „igaz, helytálló”, de azt is, hogy „csinos”.',
       },
       [
         { constituent: 'Plafont', references: '一' },

@@ -11,6 +11,8 @@ import Frequency from './Frequency'
 import { CHARS } from './MOCK_CHARS'
 import Story from './Story'
 import SupplementsOverview from './SupplementsOverview'
+import { blue, teal } from '@mui/material/colors'
+import { useTheme } from '@mui/material'
 
 export default function LearnCharCardDetails({
   lessonChar,
@@ -23,6 +25,8 @@ export default function LearnCharCardDetails({
   isActiveSlide: boolean
   setCharToReturnToFromFlashback: Dispatch<SetStateAction<Character | null>>
 }) {
+  const { palette, spacing } = useTheme()
+
   const swiper = useSwiper()
 
   const [charOverride, setCharOverride] = useState<Character | null>(null)
@@ -73,8 +77,9 @@ export default function LearnCharCardDetails({
   } = currentlyViewedChar
 
   return (
-    <RoundedCard
+    <Box
       sx={{
+        mx: 1,
         ...(charToReturnToFromFlashback !== null
           ? { borderColor: 'black' }
           : {}),
@@ -86,7 +91,6 @@ export default function LearnCharCardDetails({
         autoHideDuration={6000}
         message='Constituent not found.'
       />
-
       <Box position='relative' minHeight='32px'>
         <Frequency {...{ frequency }} />
 
@@ -102,55 +106,57 @@ export default function LearnCharCardDetails({
 
         <SupplementsOverview {...{ otherUses }} />
       </Box>
-
-      <Typography
-        variant='chineseHeading'
-        component='h2'
-        textAlign='center'
-        sx={{ mt: 1, mb: 2 }}
+      <Box
+        position='relative'
+        zIndex={2}
+        sx={{
+          borderRadius: '12px',
+          border: `2px solid`,
+          boxShadow: `3px 5px ${palette.grey[400]}`,
+          py: 2,
+          my: 1,
+        }}
       >
-        {charChinese}
-      </Typography>
+        <Typography
+          variant='chineseHeading'
+          component='h2'
+          textAlign='center'
+          sx={{ my: 1 }}
+        >
+          {charChinese}
+        </Typography>
 
-      <KeywordPrimitiveBox {...{ keyword, primitiveMeaning }} />
+        {!keyword ? null : (
+          <Typography variant='h4' display='flex' justifyContent='center'>
+            {keyword}
+          </Typography>
+        )}
+      </Box>
 
-      <Divider sx={{ my: 2 }} />
+      {!primitiveMeaning ? null : (
+        <Box
+          sx={{
+            borderRadius: '0 8px',
+            border: `2px solid ${palette.secondary.main}`,
+            boxShadow: `3px 5px ${palette.secondary.main}`,
+            backgroundColor: `${palette.background.default}`,
+            py: 0.5,
+          }}
+        >
+          <Typography
+            component='h4'
+            variant='primitiveMeaning'
+            display='flex'
+            justifyContent='center'
+          >
+            {primitiveMeaning}
+          </Typography>
+        </Box>
+      )}
+
+      <Box sx={{ height: spacing(2) }} />
 
       <Story {...{ story }} />
-    </RoundedCard>
-  )
-}
-
-function KeywordPrimitiveBox({
-  keyword,
-  primitiveMeaning,
-}: {
-  keyword: string | undefined
-  primitiveMeaning: string | undefined
-}) {
-  return (
-    <Box display='flex' flexDirection='column' minHeight='64px'>
-      {keyword ? (
-        <Typography
-          variant='h4'
-          display='flex'
-          justifyContent='center'
-          sx={{ mb: 1 }}
-        >
-          {keyword}
-        </Typography>
-      ) : null}
-
-      {primitiveMeaning ? (
-        <Typography
-          component='h4'
-          variant='primitiveMeaning'
-          display='flex'
-          justifyContent='center'
-        >
-          {primitiveMeaning}
-        </Typography>
-      ) : null}
     </Box>
   )
 }
@@ -168,16 +174,12 @@ function ConstituentList({
     <Box display='flex' justifyContent='center' alignItems='center'>
       {constituents.map((constituent, index) => (
         <Fragment key={index}>
-          {index === 0 ? null : (
-            <Divider orientation='vertical' flexItem sx={{ mx: 2 }} />
-          )}
-
           <Link
             onClick={() => startFlashback(constituent)}
             tabIndex={isActiveSlide ? index + 1 : -1}
             underline='hover'
             sx={{
-              p: 0,
+              mx: 1,
               typography: 'chineseNormal',
               '&:hover': {
                 cursor: 'pointer',

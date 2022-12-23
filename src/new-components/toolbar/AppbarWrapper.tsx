@@ -77,7 +77,6 @@ export function LearnAppbar({
         <LinearProgress
           variant='determinate'
           value={lessonProgress}
-          color='secondary'
           sx={{
             borderRadius: '8px',
             p: 0.5,
@@ -107,7 +106,11 @@ export function LearnAppbar({
 function AppbarWrapper({ children }: { children: ReactNode }) {
   const { breakpoints, palette } = useTheme()
   return (
-    <AppBar position='static' sx={{ backgroundColor: palette.primary.dark }}>
+    <AppBar
+      position='static'
+      elevation={0}
+      sx={{ backgroundColor: palette.background.default, color: 'black' }}
+    >
       <Container disableGutters maxWidth='lg'>
         <Toolbar
           variant='dense'
