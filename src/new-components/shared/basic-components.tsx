@@ -138,11 +138,13 @@ export function CardSwiperWrapper({
   children,
   noArrows,
   setSwiperInstance,
+  setActiveIndex,
 }: {
   initialSlide?: number
   children: ReactNode
   noArrows?: boolean
   setSwiperInstance?: Dispatch<SetStateAction<SwiperInstance | null>>
+  setActiveIndex?: Dispatch<SetStateAction<number>>
 }) {
   const { constants, palette } = useTheme()
 
@@ -179,7 +181,8 @@ export function CardSwiperWrapper({
         onSwiper={swiper =>
           setSwiperInstance ? setSwiperInstance(swiper) : {}
         }
-        onActiveIndexChange={({ isBeginning, isEnd }) => {
+        onActiveIndexChange={({ activeIndex, isBeginning, isEnd }) => {
+          setActiveIndex && setActiveIndex(activeIndex)
           setIsBeginning(isBeginning)
           setIsEnd(isEnd)
         }}

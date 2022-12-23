@@ -14,14 +14,19 @@ import Swiper from 'swiper'
 import { SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import LearnCharCardDetails from './LearnCharCardDetails'
+import { LearnAppbar } from '../toolbar/AppbarWrapper'
 
 export default function Learn() {
   const { constants } = useTheme()
+
+  const lessonDataSource = CHARS
 
   const [charToReturnToFromFlashback, setCharToReturnToFromFlashback] =
     useState<Character | null>(null)
 
   const [swiperInstance, setSwiperInstance] = useState<Swiper | null>(null) // Outside of Swiper, useSwiper() can't be used.
+
+  const [activeIndex, setActiveIndex] = useState(0)
 
   function returnFromFlashback() {
     setCharToReturnToFromFlashback(null)
@@ -29,35 +34,39 @@ export default function Learn() {
   }
 
   return (
-    <ContentContainer>
-      <Box
-        maxWidth={constants.maxContentWidth}
-        height='100%'
-        position='relative'
-        margin='auto'
-      >
-        <Box sx={{ minHeight: constants.backButtonStripHeight }}>
-          {charToReturnToFromFlashback !== null ? (
-            <BackButton
-              onClick={() => returnFromFlashback()}
-              text={`${BACK_TO_LESSON_FROM_FLASHBACK} 
+    <>
+      <LearnAppbar lessonLength={CHARS.length} {...{ activeIndex }} />
+      <ContentContainer>
+        <Box
+          maxWidth={constants.maxContentWidth}
+          height='100%'
+          position='relative'
+          margin='auto'
+        >
+          <Box sx={{ minHeight: constants.backButtonStripHeight }}>
+            {charToReturnToFromFlashback !== null ? (
+              <BackButton
+                onClick={() => returnFromFlashback()}
+                text={`${BACK_TO_LESSON_FROM_FLASHBACK} 
               (${charToReturnToFromFlashback!.charChinese})
               `}
-            />
-          ) : null}
-        </Box>
+              />
+            ) : null}
+          </Box>
 
-        <LearnCharCardSwiper
-          chars={CHARS}
-          {...{
-            charToReturnToFromFlashback,
-            setCharToReturnToFromFlashback,
-            swiperInstance,
-            setSwiperInstance,
-          }}
-        />
-      </Box>
-    </ContentContainer>
+          <LearnCharCardSwiper
+            chars={lessonDataSource}
+            {...{
+              charToReturnToFromFlashback,
+              setCharToReturnToFromFlashback,
+              swiperInstance,
+              setSwiperInstance,
+              setActiveIndex,
+            }}
+          />
+        </Box>
+      </ContentContainer>
+    </>
   )
 }
 
@@ -66,16 +75,18 @@ function LearnCharCardSwiper({
   charToReturnToFromFlashback,
   setCharToReturnToFromFlashback,
   setSwiperInstance,
+  setActiveIndex,
 }: {
   chars: Character[]
   charToReturnToFromFlashback: Character | null
   setCharToReturnToFromFlashback: Dispatch<SetStateAction<Character | null>>
   setSwiperInstance: Dispatch<SetStateAction<Swiper | null>>
+  setActiveIndex: Dispatch<SetStateAction<number>>
 }) {
   return (
     <CardSwiperWrapper
       noArrows={charToReturnToFromFlashback !== null}
-      {...{ setSwiperInstance }}
+      {...{ setSwiperInstance, setActiveIndex }}
     >
       {chars.map(char => (
         <SwiperSlide key={char.id}>
