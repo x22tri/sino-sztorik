@@ -10,6 +10,8 @@ import Logo from './Logo'
 import MobileNavigationMenu from './MobileNavigationMenu'
 import DesktopNavigationMenu from './DesktopNavigationMenu'
 import ProfileMenu from './ProfileMenu'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLock } from '@fortawesome/free-solid-svg-icons'
 
 export function LessonSelectAppbar() {
   const { breakpoints, palette } = useTheme()
@@ -58,11 +60,14 @@ export function LessonSelectAppbar() {
 
 export function LearnAppbar({
   activeIndex,
+  isLocked,
   lessonLength,
 }: {
   activeIndex: number
+  isLocked: boolean
   lessonLength: number
 }) {
+  const { constants } = useTheme()
   const lessonProgress = (activeIndex / (lessonLength - 1)) * 100
 
   return (
@@ -77,9 +82,22 @@ export function LearnAppbar({
             borderRadius: '8px',
             p: 0.5,
             mx: 'auto',
-            maxWidth: ({ constants }) => constants.maxContentWidth,
+            maxWidth: constants.maxContentWidth,
           }}
         />
+        {isLocked ? (
+          <FontAwesomeIcon
+            icon={faLock}
+            size='2x'
+            style={{
+              position: 'absolute',
+              top: '6px',
+              left: 0,
+              right: 0,
+              margin: '0 auto',
+            }}
+          />
+        ) : null}
       </Box>
       <Box>{'x'}</Box>
     </AppbarWrapper>

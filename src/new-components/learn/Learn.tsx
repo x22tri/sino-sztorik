@@ -35,7 +35,11 @@ export default function Learn() {
 
   return (
     <>
-      <LearnAppbar lessonLength={CHARS.length} {...{ activeIndex }} />
+      <LearnAppbar
+        lessonLength={CHARS.length}
+        isLocked={!!charToReturnToFromFlashback}
+        {...{ activeIndex }}
+      />
       <ContentContainer>
         <Box
           maxWidth={constants.maxContentWidth}
