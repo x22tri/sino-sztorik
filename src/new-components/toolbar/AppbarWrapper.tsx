@@ -109,7 +109,11 @@ function AppbarWrapper({ children }: { children: ReactNode }) {
     <AppBar
       position='static'
       elevation={0}
-      sx={{ backgroundColor: palette.background.default, color: 'black' }}
+      sx={{
+        backgroundColor: palette.background.default,
+        color: 'black',
+        borderBottom: `2px solid ${palette.grey[300]}`,
+      }}
     >
       <Container disableGutters maxWidth='lg'>
         <Toolbar

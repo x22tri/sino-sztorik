@@ -62,6 +62,7 @@ export interface Character {
   id: number
   charChinese: string
   keyword?: string
+  explanation?: string
   primitiveMeaning?: string
   constituents?: string[]
   story: Paragraph[]

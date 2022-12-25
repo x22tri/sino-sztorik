@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles'
-import { blue, deepOrange, grey } from '@mui/material/colors'
+import { blue, deepOrange, grey, teal } from '@mui/material/colors'
 import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
 import { indigo } from '@material-ui/core/colors'
 import { CSSProperties } from 'react'
@@ -44,6 +44,7 @@ declare module '@mui/material/styles' {
       whenPrimitive: string
     }
   }
+
   interface PaletteOptions {
     frequency: {
       unknown: string
@@ -60,6 +61,14 @@ declare module '@mui/material/styles' {
       notes: string
       whenPrimitive: string
     }
+  }
+
+  interface PaletteColor {
+    lightHovered?: string
+  }
+
+  interface SimplePaletteColorOptions {
+    lightHovered?: string
   }
 
   interface StorySegmentVariants {
@@ -114,23 +123,11 @@ let theme = responsiveFontSizes(
           root: {
             color: 'initial',
             backgroundColor: grey[200],
-            padding: '2px 4px',
-            borderRadius: '8px',
+            // padding: '2px 4px',
+            // borderRadius: '8px',
+            // color: '#73d2de',
           },
         },
-      },
-      MuiCssBaseline: {
-        styleOverrides: `.swiper-slide {
-          height: auto;
-        }
-
-        .swiper-slide:not(.swiper-slide-active) > .swiper-slide {
-          filter: blur(4px);
-        } 
-        
-        #root {
-          height: 100vh
-        }`,
       },
     },
     constants: {
@@ -144,8 +141,9 @@ let theme = responsiveFontSizes(
       h4: {
         fontFamily: emphasisFont,
         fontWeight: 800,
-        fontSize: 24,
-        lineHeight: 1.2,
+        fontSize: 32,
+        color: teal[600],
+        // lineHeight: 1.2,
       },
       h5: {
         fontFamily: emphasisFont,
@@ -161,7 +159,7 @@ let theme = responsiveFontSizes(
         fontFamily: emphasisFont,
       },
       body1: {
-        lineHeight: 2,
+        lineHeight: 1.5,
       },
       body2: {
         fontSize: 16,
@@ -171,9 +169,10 @@ let theme = responsiveFontSizes(
       },
       chineseHeading: {
         fontFamily: chineseFont,
-        fontSize: 96,
+        fontSize: 120,
         fontWeight: 400,
         lineHeight: 1,
+        // color: teal[700],
       },
       chineseNormal: {
         fontFamily: chineseFont,
@@ -186,15 +185,19 @@ let theme = responsiveFontSizes(
         fontWeight: 'normal',
         fontStyle: 'italic',
         lineHeight: 1.2,
+        color: '#d81159',
       },
       storySegments: {
         keyword: {
-          fontWeight: 'bold',
+          fontWeight: 900,
+          // fontWeight: 'bold',
+          color: teal[600],
         },
         primitive: {
           fontWeight: 'bold',
           fontStyle: 'italic',
-          color: deepOrange[400],
+          // color: deepOrange[400],
+          color: '#d81159',
         },
         constituent: {
           color: blue[400],
@@ -203,8 +206,10 @@ let theme = responsiveFontSizes(
     },
     palette: {
       primary: {
-        main: blue[800],
+        main: teal[500],
         dark: indigo[900],
+        light: teal[200],
+        lightHovered: teal[300],
       },
       secondary: {
         main: deepOrange[500],
@@ -236,7 +241,7 @@ let theme = responsiveFontSizes(
 theme = createTheme(theme, {
   typography: {
     primitiveMeaning: {
-      color: theme.palette.secondary.main,
+      // color: theme.palette.secondary.main,
     },
   },
 })

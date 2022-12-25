@@ -27,11 +27,14 @@ import {
   SPECIAL_PARAGRAPH_TIP,
   SPECIAL_PARAGRAPH_WHENPRIMITIVE,
 } from '../shared/strings'
+import { useStoryHorizontalPadding } from './LearnCharCardDetails'
 
 import { Fragment, ReactNode } from 'react'
 
 export default function Story({ story }: { story: ParagraphType[] }) {
   const isLast = (index: number) => index === story.length - 1
+
+  const horizontalPadding = useStoryHorizontalPadding()
 
   return (
     <>
@@ -41,7 +44,11 @@ export default function Story({ story }: { story: ParagraphType[] }) {
         ) : (
           <Box
             component='p'
-            sx={{ px: 1, my: 2, pb: isLast(index) ? 4 : 0 }}
+            sx={{
+              px: horizontalPadding,
+              my: 4,
+              pb: isLast(index) ? 4 : 0,
+            }}
             key={index}
           >
             <Segments segments={paragraph} />
@@ -123,35 +130,61 @@ function SpecialParagraph({
 
   const { palette } = useTheme()
 
+  const horizontalPadding = useStoryHorizontalPadding()
+
   return (
     <Box
       display='flex'
       flexDirection='column'
       gap={2}
-      sx={{ background: palette.grey[200], borderRadius: 2, m: 3, p: 2 }}
-      color={palette.grey[600]}
+      sx={{
+        // background: palette.grey[200],
+        // background: '#F6F0E9',
+        background: '#FDEDED',
+        borderRadius: '0 16px',
+        my: 3,
+        py: 2,
+        px: horizontalPadding,
+      }}
+      // color={palette.grey[600]}
     >
-      <Box display='flex' alignItems='center' gap='8px'>
-        <FontAwesomeIcon
+      <Box
+        display='flex'
+        alignItems='center'
+        // justifyContent='space-between'
+        gap='8px'
+      >
+        {/* <FontAwesomeIcon
           mask={faCircle}
-          size='2x'
+          size='lg'
           transform='shrink-4'
-          color={palette.grey[600]}
+          // color={palette.grey[600]}
           {...{ icon }}
-        />
-
+        /> */}
         {/* <Box display='flex' flexDirection='column'> */}
         <Typography
-          variant='overline'
+          variant='h6'
           component='div'
           lineHeight={2}
           // {...{ color }}
         >
           {title}
         </Typography>
+
+        {/* <FontAwesomeIcon
+          mask={faCircle}
+          size='lg'
+          transform='shrink-4'
+          // color='#BDA07C'
+          {...{ icon }}
+        /> */}
       </Box>
 
-      <Typography color={palette.grey[600]} variant='body2'>
+      <Typography
+        // color={palette.grey[600]}
+        // color='#231f20'
+        variant='body2'
+      >
         {typeof text === 'string' ? <>{text}</> : <Segments segments={text} />}
       </Typography>
       {/* </Box> */}
@@ -210,11 +243,7 @@ function Segments({ segments }: { segments: SegmentType[] }) {
               text={
                 <Link
                   underline='hover'
-                  sx={{
-                    '&:hover': {
-                      cursor: 'pointer',
-                    },
-                  }}
+                  sx={{ '&:hover': { cursor: 'pointer' } }}
                 >
                   {segment[CONSTITUENT]}
                 </Link>

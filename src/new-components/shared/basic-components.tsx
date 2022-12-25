@@ -123,8 +123,8 @@ export function RoundedCard<C extends ElementType>(
         boxShadow: 'none',
         // boxShadow: `3px 5px ${palette.grey[400]}`,
         p: 2,
-        height: '100%',
-        overflowY: 'auto',
+        // height: '100%',
+        // overflowY: 'auto',
         ...props.sx,
       }}
     >
@@ -211,8 +211,17 @@ export function CardSwiperWrapper({
 
 export function CardSwiperContent({ children }: { children: ReactNode }) {
   return (
-    <SwiperSlide style={{ height: '100%' }}>
-      <Box sx={{ mb: 1, height: '100%' }}>{children}</Box>
+    <SwiperSlide
+    // style={{ height: '100%' }}
+    >
+      <Box
+        sx={{
+          mb: 1,
+          // height: '100%'
+        }}
+      >
+        {children}
+      </Box>
     </SwiperSlide>
   )
 }

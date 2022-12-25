@@ -51,11 +51,9 @@ export const CHARS: Character[] = [
     constituents: ['一', '止'],
     charChinese: '正',
     keyword: 'helyes',
+    explanation:
+      'A magyarhoz hasonlóan jelentheti azt, hogy „igaz, helytálló”, de azt is, hogy „csinos”.',
     story: [
-      {
-        explanation:
-          'A magyarhoz hasonlóan jelentheti azt, hogy „igaz, helytálló”, de azt is, hogy „csinos”.',
-      },
       [
         { constituent: 'Plafont', references: '一' },
         ' szab a ',

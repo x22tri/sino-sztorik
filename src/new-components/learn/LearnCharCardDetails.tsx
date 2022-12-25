@@ -12,7 +12,15 @@ import { CHARS } from './MOCK_CHARS'
 import Story from './Story'
 import SupplementsOverview from './SupplementsOverview'
 import { blue, teal } from '@mui/material/colors'
-import { useTheme } from '@mui/material'
+import { Tooltip, useMediaQuery, useTheme } from '@mui/material'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircle, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
+import { yellow } from '@material-ui/core/colors'
+import { Theme } from '@material-ui/core'
+
+export function useStoryHorizontalPadding() {
+  return useMediaQuery((theme: Theme) => theme.breakpoints.down('md')) ? 1 : 2
+}
 
 export default function LearnCharCardDetails({
   lessonChar,
@@ -68,12 +76,13 @@ export default function LearnCharCardDetails({
 
   const {
     charChinese,
-    keyword,
-    primitiveMeaning,
     constituents,
+    explanation,
     frequency,
-    story,
+    keyword,
     otherUses,
+    primitiveMeaning,
+    story,
   } = currentlyViewedChar
 
   return (
@@ -91,32 +100,22 @@ export default function LearnCharCardDetails({
         autoHideDuration={6000}
         message='Constituent not found.'
       />
-      <Box position='relative' minHeight='32px'>
-        <Frequency {...{ frequency }} />
-
-        {constituents ? (
-          <ConstituentList
-            {...{
-              constituents,
-              isActiveSlide,
-              startFlashback,
-            }}
-          />
-        ) : null}
-
-        <SupplementsOverview {...{ otherUses }} />
-      </Box>
-      <Box
-        position='relative'
-        zIndex={2}
-        sx={{
-          borderRadius: '12px',
-          border: `2px solid`,
-          boxShadow: `3px 5px ${palette.grey[400]}`,
-          py: 2,
-          my: 1,
-        }}
-      >
+      {/* <Box position='relative' minHeight='32px'> */}
+      {/* <Frequency {...{ frequency }} /> */}
+      {/* {constituents ? (
+        <ConstituentList
+          {...{
+            constituents,
+            isActiveSlide,
+            startFlashback,
+          }}
+        />
+      ) : null} */}
+      {/* <SupplementsOverview {...{ otherUses }} /> */}
+      {/* </Box> */}
+      <Subheading title='Karakter' />
+      <Box sx={{ height: spacing(3) }} />
+      <Box>
         <Typography
           variant='chineseHeading'
           component='h2'
@@ -127,36 +126,61 @@ export default function LearnCharCardDetails({
         </Typography>
 
         {!keyword ? null : (
-          <Typography variant='h4' display='flex' justifyContent='center'>
-            {keyword}
-          </Typography>
-        )}
-      </Box>
-
-      {!primitiveMeaning ? null : (
-        <Box
-          sx={{
-            borderRadius: '0 8px',
-            border: `2px solid ${palette.secondary.main}`,
-            boxShadow: `3px 5px ${palette.secondary.main}`,
-            backgroundColor: `${palette.background.default}`,
-            py: 0.5,
-          }}
-        >
-          <Typography
-            component='h4'
-            variant='primitiveMeaning'
+          <Box
             display='flex'
             justifyContent='center'
+            position='relative'
+            typography='h4'
           >
-            {primitiveMeaning}
-          </Typography>
-        </Box>
+            <Typography variant='h4' position='relative'>
+              {keyword}
+
+              {!explanation ? null : (
+                <Tooltip title={explanation}>
+                  <Box
+                    display='flex'
+                    component='span'
+                    position='absolute'
+                    right='-22px'
+                    top={0}
+                    color={palette.primary.light}
+                    sx={{ '&:hover': { color: palette.primary.lightHovered } }}
+                  >
+                    <FontAwesomeIcon
+                      size='xs'
+                      transform='shrink-7'
+                      icon={faQuestionCircle}
+                    />
+                  </Box>
+                </Tooltip>
+              )}
+            </Typography>
+          </Box>
+        )}
+      </Box>
+      {!primitiveMeaning ? null : (
+        <Typography
+          component='h4'
+          variant='primitiveMeaning'
+          display='flex'
+          justifyContent='center'
+        >
+          {primitiveMeaning}
+        </Typography>
       )}
-
-      <Box sx={{ height: spacing(2) }} />
-
+      <Box sx={{ height: spacing(5) }} />
+      <Subheading title='Sztori' />
       <Story {...{ story }} />
+    </Box>
+  )
+}
+
+function Subheading({ title }: { title: string }) {
+  const { palette } = useTheme()
+  return (
+    <Box sx={{ px: useStoryHorizontalPadding(), color: palette.grey[500] }}>
+      <Typography variant='h6'>{title}</Typography>
+      <Divider sx={{ mb: 2 }} />
     </Box>
   )
 }
