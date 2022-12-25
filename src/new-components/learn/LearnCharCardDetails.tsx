@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography'
 import { useSwiper } from 'swiper/react'
 import { RoundedCard } from '../shared/basic-components'
 import { Character } from '../shared/interfaces'
-import Frequency from './Frequency'
 import { CHARS } from './MOCK_CHARS'
 import Story from './Story'
 import SupplementsOverview from './SupplementsOverview'
@@ -15,8 +14,8 @@ import { blue, teal } from '@mui/material/colors'
 import { Tooltip, useMediaQuery, useTheme } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
-import { yellow } from '@material-ui/core/colors'
 import { Theme } from '@material-ui/core'
+import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 
 export function useStoryHorizontalPadding() {
   return useMediaQuery((theme: Theme) => theme.breakpoints.down('md')) ? 1 : 2
@@ -89,11 +88,11 @@ export default function LearnCharCardDetails({
     <Box
       sx={{
         mx: 1,
-        ...(charToReturnToFromFlashback !== null
-          ? { borderColor: 'black' }
-          : {}),
+        // ...(charToReturnToFromFlashback !== null
+        //   ? { borderColor: 'black' }
+        //   : {}),
       }}
-      className='disable-select'
+      // className='disable-select'
     >
       <Snackbar
         open={isErrorSnackbarOpen}
@@ -113,7 +112,7 @@ export default function LearnCharCardDetails({
       ) : null} */}
       {/* <SupplementsOverview {...{ otherUses }} /> */}
       {/* </Box> */}
-      <Subheading title='Karakter' />
+      {/* <Subheading title='Karakter' /> */}
       <Box sx={{ height: spacing(3) }} />
       <Box>
         <Typography
@@ -132,7 +131,11 @@ export default function LearnCharCardDetails({
             position='relative'
             typography='h4'
           >
-            <Typography variant='h4' position='relative'>
+            <Typography
+              variant='h4'
+              position='relative'
+              color={palette.primary.main}
+            >
               {keyword}
 
               {!explanation ? null : (
@@ -141,10 +144,13 @@ export default function LearnCharCardDetails({
                     display='flex'
                     component='span'
                     position='absolute'
-                    right='-22px'
+                    right={0}
                     top={0}
                     color={palette.primary.light}
-                    sx={{ '&:hover': { color: palette.primary.lightHovered } }}
+                    sx={{
+                      transform: 'translate(80%)',
+                      '&:hover': { color: palette.primary.lightHovered },
+                    }}
                   >
                     <FontAwesomeIcon
                       size='xs'
@@ -168,7 +174,7 @@ export default function LearnCharCardDetails({
           {primitiveMeaning}
         </Typography>
       )}
-      <Box sx={{ height: spacing(5) }} />
+      <Box sx={{ height: spacing(4) }} />
       <Subheading title='Sztori' />
       <Story {...{ story }} />
     </Box>

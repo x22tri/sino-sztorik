@@ -28,8 +28,7 @@ export const USER_SETTING_LOGOUT = 'Kijelentkezés'
 
 export const BACK_TO_LESSON_FROM_FLASHBACK = 'Vissza a leckéhez'
 
-export const SPECIAL_PARAGRAPH_EXPLANATION = 'Mit jelent?'
-export const SPECIAL_PARAGRAPH_NOTES = 'Megjegyzés'
+export const SPECIAL_PARAGRAPH_GENERIC = 'Megjegyzés'
 export const SPECIAL_PARAGRAPH_TIP = 'Tipp'
 export const SPECIAL_PARAGRAPH_WHENPRIMITIVE = 'Alapelemként...'
 
@@ -40,3 +39,8 @@ export const FREQUENCY_COMMON = 'Gyakori'
 export const FREQUENCY_UNCOMMON = 'Nem gyakori'
 export const FREQUENCY_RARE = 'Ritka'
 export const FREQUENCY_VERY_RARE = 'Nagyon ritka'
+
+export const BOTTOM_NAVIGATION_PREVIOUS_CHARACTER = 'Előző karakter'
+export const BOTTOM_NAVIGATION_FREQUENCY = 'Gyakoriság'
+export const BOTTOM_NAVIGATION_SUPPLEMENTS = 'Kiegészítő információk'
+export const BOTTOM_NAVIGATION_NEXT_CHARACTER = 'Következő karakter'

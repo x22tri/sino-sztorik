@@ -28,37 +28,17 @@ declare module '@mui/material/styles' {
   }
 
   interface Palette {
-    frequency: {
-      unknown: string
-      veryCommon: string
-      quiteCommon: string
-      common: string
-      uncommon: string
-      rare: string
-      veryRare: string
-    }
     specialParagraphs: {
-      explanation: string
+      generic: string
       tip: string
-      notes: string
       whenPrimitive: string
     }
   }
 
   interface PaletteOptions {
-    frequency: {
-      unknown: string
-      veryCommon: string
-      quiteCommon: string
-      common: string
-      uncommon: string
-      rare: string
-      veryRare: string
-    }
     specialParagraphs: {
-      explanation: string
+      generic: string
       tip: string
-      notes: string
       whenPrimitive: string
     }
   }
@@ -142,8 +122,6 @@ let theme = responsiveFontSizes(
         fontFamily: emphasisFont,
         fontWeight: 800,
         fontSize: 32,
-        color: teal[600],
-        // lineHeight: 1.2,
       },
       h5: {
         fontFamily: emphasisFont,
@@ -172,7 +150,6 @@ let theme = responsiveFontSizes(
         fontSize: 120,
         fontWeight: 400,
         lineHeight: 1,
-        // color: teal[700],
       },
       chineseNormal: {
         fontFamily: chineseFont,
@@ -185,19 +162,16 @@ let theme = responsiveFontSizes(
         fontWeight: 'normal',
         fontStyle: 'italic',
         lineHeight: 1.2,
-        color: '#d81159',
+        color: '#C93070',
       },
       storySegments: {
         keyword: {
           fontWeight: 900,
-          // fontWeight: 'bold',
           color: teal[600],
         },
         primitive: {
           fontWeight: 'bold',
           fontStyle: 'italic',
-          // color: deepOrange[400],
-          color: '#d81159',
         },
         constituent: {
           color: blue[400],
@@ -206,42 +180,43 @@ let theme = responsiveFontSizes(
     },
     palette: {
       primary: {
-        main: teal[500],
-        dark: indigo[900],
+        main: teal[600],
         light: teal[200],
         lightHovered: teal[300],
       },
       secondary: {
-        main: deepOrange[500],
-        dark: deepOrange[800],
-        light: deepOrange[100],
+        main: '#C93070',
       },
       background: {
         default: grey[50],
       },
-      frequency: {
-        unknown: grey[500],
-        veryCommon: '#d03738',
-        quiteCommon: '#D26836',
-        common: '#D17F36',
-        uncommon: '#D7AF1F',
-        rare: grey[700],
-        veryRare: grey[500],
-      },
       specialParagraphs: {
-        explanation: blue[800],
-        tip: '#F1B100',
-        notes: grey[500],
-        whenPrimitive: deepOrange[400],
+        generic: grey[200],
+        tip: '#F8F2E9',
+        whenPrimitive: '#FDEDED',
       },
     },
   })
 )
 
 theme = createTheme(theme, {
+  components: {
+    MuiBadge: {
+      styleOverrides: {
+        badge: {
+          fontFamily: emphasisFont,
+        },
+      },
+    },
+  },
   typography: {
     primitiveMeaning: {
-      // color: theme.palette.secondary.main,
+      color: theme.palette.secondary.main,
+    },
+    storySegments: {
+      primitive: {
+        color: theme.palette.secondary.main,
+      },
     },
   },
 })

@@ -35,13 +35,8 @@ export type TierStatuses = [
   LessonStatus
 ]
 
-export interface SpecialParagraphPalette {
-  main: string
-}
-
-export type SpecialParagraphStyles = {
+export type NoteStyles = {
   color: string
-  icon: IconDefinition
   title: string
 }
 
@@ -93,21 +88,18 @@ export type Segment =
 
 export type SegmentKey = valueof<typeof StoryParagraphKeys>
 
-export const SpecialParagraphKeys = {
-  EXPLANATION: 'explanation',
+export const NoteKeys = {
+  GENERIC: 'generic',
   TIP: 'tip',
-  NOTES: 'notes',
   WHENPRIMITIVE: 'whenPrimitive',
 } as const
 
-const { EXPLANATION, TIP, NOTES, WHENPRIMITIVE } = SpecialParagraphKeys
+export type NoteKey = valueof<typeof NoteKeys>
 
-export type SpecialParagraphKey = valueof<typeof SpecialParagraphKeys>
+export interface Note {
+  noteTitle?: string
+  noteText: string | Segment[]
+  noteType?: NoteKey
+}
 
-export type SpecialParagraph =
-  | { [EXPLANATION]: string | Segment[] }
-  | { [TIP]: string | Segment[] }
-  | { [NOTES]: string | Segment[] }
-  | { [WHENPRIMITIVE]: string | Segment[] }
-
-export type Paragraph = Segment[] | SpecialParagraph
+export type Paragraph = Segment[] | Note

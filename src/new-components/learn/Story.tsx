@@ -12,18 +12,17 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   Paragraph as ParagraphType,
+  NoteKey,
+  NoteKeys,
+  NoteStyles,
   Segment as SegmentType,
   SegmentKey,
   SegmentStyles,
   StoryParagraphKeys,
-  SpecialParagraph as SpecialParagraphType,
-  SpecialParagraphKey,
-  SpecialParagraphKeys,
-  SpecialParagraphStyles,
+  Note,
 } from '../shared/interfaces'
 import {
-  SPECIAL_PARAGRAPH_EXPLANATION,
-  SPECIAL_PARAGRAPH_NOTES,
+  SPECIAL_PARAGRAPH_GENERIC,
   SPECIAL_PARAGRAPH_TIP,
   SPECIAL_PARAGRAPH_WHENPRIMITIVE,
 } from '../shared/strings'
@@ -40,7 +39,7 @@ export default function Story({ story }: { story: ParagraphType[] }) {
     <>
       {story.map((paragraph, index) =>
         isSpecialParagraph(paragraph) ? (
-          <SpecialParagraphResolver {...{ paragraph }} key={index} />
+          <NoteResolver note={paragraph} key={index} />
         ) : (
           <Box
             component='p'
@@ -59,77 +58,46 @@ export default function Story({ story }: { story: ParagraphType[] }) {
   )
 }
 
-function SpecialParagraphResolver({
-  paragraph,
-}: {
-  paragraph: SpecialParagraphType
-}) {
-  const { EXPLANATION, TIP, NOTES, WHENPRIMITIVE } = SpecialParagraphKeys
+function NoteResolver({ note }: { note: Note }) {
+  const { GENERIC, TIP, WHENPRIMITIVE } = NoteKeys
+  const { noteType, noteText, noteTitle } = note
+  const type = noteType ?? GENERIC
+
   const { palette } = useTheme()
 
-  const styles: Record<SpecialParagraphKey, SpecialParagraphStyles> = {
-    [EXPLANATION]: {
-      color: palette.specialParagraphs.explanation,
-      title: SPECIAL_PARAGRAPH_EXPLANATION,
-      icon: faQuestion,
-    },
-    [NOTES]: {
-      color: palette.specialParagraphs.notes,
-      title: SPECIAL_PARAGRAPH_NOTES,
-      icon: faInfo,
+  const styles: Record<NoteKey, NoteStyles> = {
+    [GENERIC]: {
+      color: palette.specialParagraphs.generic,
+      title: SPECIAL_PARAGRAPH_GENERIC,
     },
     [TIP]: {
       color: palette.specialParagraphs.tip,
       title: SPECIAL_PARAGRAPH_TIP,
-      icon: faLightbulb,
     },
     [WHENPRIMITIVE]: {
       color: palette.specialParagraphs.whenPrimitive,
       title: SPECIAL_PARAGRAPH_WHENPRIMITIVE,
-      icon: faCubesStacked,
     },
   }
 
-  if (EXPLANATION in paragraph) {
-    return (
-      <SpecialParagraph
-        styles={styles[EXPLANATION]}
-        text={paragraph[EXPLANATION]}
-      />
-    )
-  }
-
-  if (NOTES in paragraph) {
-    return <SpecialParagraph styles={styles[NOTES]} text={paragraph[NOTES]} />
-  }
-
-  if (TIP in paragraph) {
-    return <SpecialParagraph styles={styles[TIP]} text={paragraph[TIP]} />
-  }
-
-  if (WHENPRIMITIVE in paragraph) {
-    return (
-      <SpecialParagraph
-        styles={styles[WHENPRIMITIVE]}
-        text={paragraph[WHENPRIMITIVE]}
-      />
-    )
-  }
-
-  return null
+  return (
+    <NoteElement
+      color={styles[type].color}
+      text={noteText}
+      title={noteTitle ?? styles[type].title} // Allows for title overrides.
+    />
+  )
 }
 
-function SpecialParagraph({
-  styles,
+function NoteElement({
+  color,
   text,
+  title,
 }: {
-  styles: SpecialParagraphStyles
+  color: string
   text: string | SegmentType[]
+  title: string
 }) {
-  const { color, icon, title } = styles
-
-  const { palette } = useTheme()
-
   const horizontalPadding = useStoryHorizontalPadding()
 
   return (
@@ -138,56 +106,22 @@ function SpecialParagraph({
       flexDirection='column'
       gap={2}
       sx={{
-        // background: palette.grey[200],
-        // background: '#F6F0E9',
-        background: '#FDEDED',
+        background: color,
         borderRadius: '0 16px',
         my: 3,
         py: 2,
         px: horizontalPadding,
       }}
-      // color={palette.grey[600]}
     >
-      <Box
-        display='flex'
-        alignItems='center'
-        // justifyContent='space-between'
-        gap='8px'
-      >
-        {/* <FontAwesomeIcon
-          mask={faCircle}
-          size='lg'
-          transform='shrink-4'
-          // color={palette.grey[600]}
-          {...{ icon }}
-        /> */}
-        {/* <Box display='flex' flexDirection='column'> */}
-        <Typography
-          variant='h6'
-          component='div'
-          lineHeight={2}
-          // {...{ color }}
-        >
+      <Box display='flex' alignItems='center' gap='8px'>
+        <Typography variant='h6' component='div' lineHeight={2}>
           {title}
         </Typography>
-
-        {/* <FontAwesomeIcon
-          mask={faCircle}
-          size='lg'
-          transform='shrink-4'
-          // color='#BDA07C'
-          {...{ icon }}
-        /> */}
       </Box>
 
-      <Typography
-        // color={palette.grey[600]}
-        // color='#231f20'
-        variant='body2'
-      >
+      <Typography variant='body2'>
         {typeof text === 'string' ? <>{text}</> : <Segments segments={text} />}
       </Typography>
-      {/* </Box> */}
     </Box>
   )
 }
@@ -272,8 +206,6 @@ function Segment({
   )
 }
 
-function isSpecialParagraph(
-  paragraph: ParagraphType
-): paragraph is SpecialParagraphType {
+function isSpecialParagraph(paragraph: ParagraphType): paragraph is Note {
   return !Array.isArray(paragraph)
 }

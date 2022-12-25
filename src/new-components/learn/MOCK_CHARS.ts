@@ -15,7 +15,8 @@ export const CHARS: Character[] = [
         ' (I), de 90 fokkal elforgatva.',
       ],
       {
-        whenPrimitive: [
+        noteType: 'whenPrimitive',
+        noteText: [
           'Mivel az ',
           { keyword: '„egy”' },
           ' fogalmát nehéz történetbe építeni, gyakran ',
