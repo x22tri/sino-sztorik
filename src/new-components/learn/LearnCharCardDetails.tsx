@@ -16,6 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import { Theme } from '@material-ui/core'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer'
+import { KEYWORD_EXPLANATION_TOOLTIP } from '../shared/strings'
 
 export function useStoryHorizontalPadding() {
   return useMediaQuery((theme: Theme) => theme.breakpoints.down('md')) ? 1 : 2
@@ -24,12 +25,10 @@ export function useStoryHorizontalPadding() {
 export default function LearnCharCardDetails({
   lessonChar,
   charToReturnToFromFlashback,
-  isActiveSlide,
   setCharToReturnToFromFlashback,
 }: {
   lessonChar: Character
   charToReturnToFromFlashback: Character | null
-  isActiveSlide: boolean
   setCharToReturnToFromFlashback: Dispatch<SetStateAction<Character | null>>
 }) {
   const { palette, spacing } = useTheme()
@@ -139,7 +138,7 @@ export default function LearnCharCardDetails({
               {keyword}
 
               {!explanation ? null : (
-                <Tooltip title={explanation}>
+                <Tooltip title={KEYWORD_EXPLANATION_TOOLTIP}>
                   <Box
                     display='flex'
                     component='span'
@@ -148,7 +147,7 @@ export default function LearnCharCardDetails({
                     top={0}
                     color={palette.primary.light}
                     sx={{
-                      transform: 'translate(80%)',
+                      transform: 'translate(85%)',
                       '&:hover': { color: palette.primary.lightHovered },
                     }}
                   >
@@ -177,6 +176,7 @@ export default function LearnCharCardDetails({
       <Box sx={{ height: spacing(4) }} />
       <Subheading title='Sztori' />
       <Story {...{ story }} />
+      {/* <Box sx={{ height: spacing(1) }} /> */}
     </Box>
   )
 }

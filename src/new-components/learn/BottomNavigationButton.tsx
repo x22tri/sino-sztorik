@@ -9,6 +9,7 @@ import {
   useTheme,
   Tooltip,
 } from '@mui/material'
+import { useNavButtonStyling } from './useNavButtonStyling'
 
 export function BottomNavigationButton({
   badgeContent,
@@ -25,22 +26,7 @@ export function BottomNavigationButton({
   onClick: (event: MouseEvent<HTMLElement>) => void
   tooltipText?: string
 }) {
-  const { palette } = useTheme()
-
-  const fontColor = {
-    color: palette.grey[700],
-    '@media (hover: hover)': {
-      '&:hover': {
-        backgroundColor: 'transparent',
-        color: palette.grey[500],
-        cursor: 'pointer',
-      },
-    },
-    '&:active': {
-      backgroundColor: 'transparent',
-      color: palette.primary.main,
-    },
-  }
+  const navButtonStyling = useNavButtonStyling()
 
   return (
     <Box
@@ -48,7 +34,7 @@ export function BottomNavigationButton({
       display='flex'
       flexDirection='column'
       alignItems='center'
-      sx={{ ...fontColor }}
+      sx={{ ...navButtonStyling }}
     >
       <Tooltip
         disableTouchListener
@@ -56,23 +42,25 @@ export function BottomNavigationButton({
         enterTouchDelay={50}
         title={tooltipText ?? ''}
       >
-        <IconButton
-          size='large'
-          sx={{ ...fontColor, color: 'inherit' }}
-          {...{ disabled, onClick }}
-        >
-          {badgeContent === null ? (
-            <FontAwesomeIcon {...{ icon }} />
-          ) : (
-            <Badge {...{ badgeContent }} color='primary'>
-              <FontAwesomeIcon {...{ icon }} />
-            </Badge>
-          )}
-        </IconButton>
+        <span>
+          <IconButton
+            // size='large'
+            sx={{ ...navButtonStyling, color: 'inherit' }}
+            {...{ disabled, onClick }}
+          >
+            {badgeContent === null ? (
+              <FontAwesomeIcon {...{ icon }} transform='grow-4' />
+            ) : (
+              <Badge {...{ badgeContent }} color='primary'>
+                <FontAwesomeIcon {...{ icon }} transform='grow-4' />
+              </Badge>
+            )}
+          </IconButton>
+        </span>
       </Tooltip>
 
       {!bottomText ? null : (
-        <Typography variant='overline' sx={{ mt: -2.5 }}>
+        <Typography variant='overline' sx={{ mt: -1, lineHeight: 1.5 }}>
           {bottomText}
         </Typography>
       )}

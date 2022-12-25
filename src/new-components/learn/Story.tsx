@@ -31,8 +31,6 @@ import { useStoryHorizontalPadding } from './LearnCharCardDetails'
 import { Fragment, ReactNode } from 'react'
 
 export default function Story({ story }: { story: ParagraphType[] }) {
-  const isLast = (index: number) => index === story.length - 1
-
   const horizontalPadding = useStoryHorizontalPadding()
 
   return (
@@ -46,7 +44,6 @@ export default function Story({ story }: { story: ParagraphType[] }) {
             sx={{
               px: horizontalPadding,
               my: 4,
-              pb: isLast(index) ? 4 : 0,
             }}
             key={index}
           >

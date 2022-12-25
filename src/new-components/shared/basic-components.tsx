@@ -233,7 +233,12 @@ export function ContentContainer({ children }: { children: ReactNode }) {
     <Container
       component='main'
       maxWidth='lg'
-      sx={{ height: `calc(100% - ${constants.toolbarHeight})` }}
+      sx={{
+        display: 'flex',
+        position: 'relative',
+        // // justifyContent: 'space-between',
+        // height: `calc(100% - ${constants.toolbarHeight})`,
+      }}
     >
       {children}
     </Container>

@@ -3,7 +3,7 @@ import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import LinearProgress from '@mui/material/LinearProgress'
 import Toolbar from '@mui/material/Toolbar'
-import { useMediaQuery, useTheme } from '@mui/material'
+import { IconButton, useMediaQuery, useTheme } from '@mui/material'
 import Container from '@mui/material/Container'
 import { CHARACTER_SEARCH_TITLE, LESSON_SELECT_TITLE } from '../shared/strings'
 import Logo from './Logo'
@@ -11,7 +11,8 @@ import MobileNavigationMenu from './MobileNavigationMenu'
 import DesktopNavigationMenu from './DesktopNavigationMenu'
 import ProfileMenu from './ProfileMenu'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLock } from '@fortawesome/free-solid-svg-icons'
+import { faClose, faLock } from '@fortawesome/free-solid-svg-icons'
+import { useNavButtonStyling } from '../learn/useNavButtonStyling'
 
 export function LessonSelectAppbar() {
   const { breakpoints, palette } = useTheme()
@@ -68,11 +69,14 @@ export function LearnAppbar({
   lessonLength: number
 }) {
   const { constants } = useTheme()
+
+  const navButtonStyling = useNavButtonStyling()
+
   const lessonProgress = (activeIndex / (lessonLength - 1)) * 100
 
   return (
     <AppbarWrapper>
-      <Box>{'<-'}</Box>
+      <Box whiteSpace='nowrap'>{'1. lecke'}</Box>
       <Box width='100%' sx={{ m: 1 }}>
         <LinearProgress
           variant='determinate'
@@ -98,13 +102,17 @@ export function LearnAppbar({
           />
         ) : null}
       </Box>
-      <Box>{'x'}</Box>
+      {/* <Box>{'x'}</Box> */}
+      <IconButton size='large' sx={{ ...navButtonStyling }}>
+        <FontAwesomeIcon icon={faClose} />
+      </IconButton>
     </AppbarWrapper>
   )
 }
 
 function AppbarWrapper({ children }: { children: ReactNode }) {
-  const { breakpoints, palette } = useTheme()
+  const { breakpoints, constants, palette } = useTheme()
+
   return (
     <AppBar
       position='static'
@@ -119,6 +127,7 @@ function AppbarWrapper({ children }: { children: ReactNode }) {
         <Toolbar
           variant='dense'
           disableGutters={useMediaQuery(breakpoints.down('md'))}
+          // sx={{ maxWidth: constants.maxContentWidth }}
         >
           {children}
         </Toolbar>

@@ -103,9 +103,6 @@ let theme = responsiveFontSizes(
           root: {
             color: 'initial',
             backgroundColor: grey[200],
-            // padding: '2px 4px',
-            // borderRadius: '8px',
-            // color: '#73d2de',
           },
         },
       },
