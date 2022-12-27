@@ -117,7 +117,7 @@ export default function Learn() {
         {...{ activeIndex }}
       />
       <ContentContainer>
-        {useMediaQuery(breakpoints.down('md')) ? null : (
+        {/* {useMediaQuery(breakpoints.down('md')) ? null : (
           <Box
             display='flex'
             alignItems='center'
@@ -148,15 +148,17 @@ export default function Learn() {
               </Box>
             </Tooltip>
           </Box>
-        )}
+        )} */}
 
-        <Box margin='auto' display='flex'>
-          <Box
-            maxWidth={constants.maxContentWidth}
-            height='100%'
-            position='relative'
-          >
-            {/* <Box sx={{ minHeight: constants.backButtonStripHeight }}>
+        {/* <Box margin='auto' display='flex'> */}
+        <Box
+          maxWidth={constants.maxContentWidth}
+          height='100%'
+          position='relative'
+          margin='auto'
+          display='flex'
+        >
+          {/* <Box sx={{ minHeight: constants.backButtonStripHeight }}>
             {charToReturnToFromFlashback !== null ? (
               <BackButton
                 onClick={() => returnFromFlashback()}
@@ -167,7 +169,7 @@ export default function Learn() {
             ) : null}
           </Box> */}
 
-            {/* <LearnCharCardSwiper
+          {/* <LearnCharCardSwiper
             chars={lessonDataSource}
             {...{
               charToReturnToFromFlashback,
@@ -177,17 +179,17 @@ export default function Learn() {
               setActiveIndex,
             }}
           /> */}
-            {/* {lessonDataSource.map(char => ( */}
-            <LearnCharCardDetails
-              lessonChar={currentChar}
-              {...{
-                charToReturnToFromFlashback,
-                setCharToReturnToFromFlashback,
-              }}
-            />
-            {/* ))} */}
+          {/* {lessonDataSource.map(char => ( */}
+          <LearnCharCardDetails
+            lessonChar={currentChar}
+            {...{
+              charToReturnToFromFlashback,
+              setCharToReturnToFromFlashback,
+            }}
+          />
+          {/* ))} */}
 
-            <Drawer
+          {/* <Drawer
               anchor='bottom'
               variant='permanent'
               sx={{
@@ -205,7 +207,7 @@ export default function Learn() {
               }}
             >
               <Box
-                maxWidth='lg'
+                maxWidth={constants.maxContentWidth}
                 display='flex'
                 width='100%'
                 justifyContent='space-between'
@@ -242,39 +244,40 @@ export default function Learn() {
               </Box>
             </Drawer>
           </Box>
-        </Box>
+        </Box> */}
 
-        {useMediaQuery(breakpoints.down('md')) ? null : (
-          // <Box
-          //   display='flex'
-          //   alignItems='center'
-          //   // height='calc(100vh - 102px)'
-          // >
-          //   <Tooltip
-          //     disableTouchListener
-          //     leaveTouchDelay={3000}
-          //     enterTouchDelay={50}
-          //     title={BOTTOM_NAVIGATION_NEXT_CHARACTER}
-          //   >
-          //     <Box component='div' width='fit-content'>
-          //       <IconButton
-          //         sx={{
-          //           ...navButtonStyling,
-          //           position: 'fixed',
-          //           top: '50%',
-          //           ml: -7.5,
-          //         }}
-          //         disabled={activeIndex === lessonDataSource.length - 1}
-          //         onClick={moveToNextCharacter}
-          //       >
-          //         <FontAwesomeIcon icon={faSquareCaretRight} size='2x' />
-          //       </IconButton>
-          //     </Box>
-          //     {/* <FrequencyIcon onClick={moveToNextCharacter} /> */}
-          //   </Tooltip>
-          // </Box>
+          {/* {useMediaQuery(breakpoints.down('md')) ? null : (
+          <Box
+            display='flex'
+            alignItems='center'
+            // height='calc(100vh - 102px)'
+          >
+            <Tooltip
+              disableTouchListener
+              leaveTouchDelay={3000}
+              enterTouchDelay={50}
+              title={BOTTOM_NAVIGATION_NEXT_CHARACTER}
+            >
+              <Box component='div' width='fit-content'>
+                <IconButton
+                  sx={{
+                    ...navButtonStyling,
+                    position: 'fixed',
+                    top: '50%',
+                    ml: -7.5,
+                  }}
+                  disabled={activeIndex === lessonDataSource.length - 1}
+                  onClick={moveToNextCharacter}
+                >
+                  <FontAwesomeIcon icon={faSquareCaretRight} size='2x' />
+                </IconButton>
+              </Box>
+              <FrequencyIcon onClick={moveToNextCharacter} />
+            </Tooltip>
+          
           <></>
-        )}
+        )} */}
+        </Box>
       </ContentContainer>
     </>
   )

@@ -11,9 +11,14 @@ import { CHARS } from './MOCK_CHARS'
 import Story from './Story'
 import SupplementsOverview from './SupplementsOverview'
 import { blue, teal } from '@mui/material/colors'
-import { Tooltip, useMediaQuery, useTheme } from '@mui/material'
+import { Chip, Stack, Tooltip, useMediaQuery, useTheme } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircle, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
+import {
+  IconDefinition,
+  faChartColumn,
+  faCircle,
+  faQuestionCircle,
+} from '@fortawesome/free-solid-svg-icons'
 import { Theme } from '@material-ui/core'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 import { KEYWORD_EXPLANATION_TOOLTIP } from '../shared/strings'
@@ -112,7 +117,9 @@ export default function LearnCharCardDetails({
       {/* <SupplementsOverview {...{ otherUses }} /> */}
       {/* </Box> */}
       {/* <Subheading title='Karakter' /> */}
+
       <Box sx={{ height: spacing(3) }} />
+
       <Box>
         <Typography
           variant='chineseHeading'
@@ -173,11 +180,52 @@ export default function LearnCharCardDetails({
           {primitiveMeaning}
         </Typography>
       )}
-      <Box sx={{ height: spacing(4) }} />
-      <Subheading title='Sztori' />
+      <Box sx={{ height: spacing(5) }} />
+      <Chips />
+      <Box sx={{ height: spacing(1) }} />
+
+      <Subheading title='' />
       <Story {...{ story }} />
       {/* <Box sx={{ height: spacing(1) }} /> */}
     </Box>
+  )
+}
+
+function Chips() {
+  const { breakpoints, palette } = useTheme()
+
+  const isSmallScreen = useMediaQuery(breakpoints.down('md'))
+
+  return (
+    <Stack
+      direction={isSmallScreen ? 'column' : 'row'}
+      // display='flex'
+      // spacing={1}
+      flexWrap='wrap'
+      gap={isSmallScreen ? 0.5 : 1}
+      divider={<Divider orientation='vertical' flexItem />}
+      sx={{
+        px: useStoryHorizontalPadding(),
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+      }}
+    >
+      <InfoChip icon={faChartColumn} label='Fonetikus elem' />
+      <InfoChip icon={faChartColumn} label='Fonetikus elem' />
+      <InfoChip icon={faChartColumn} label='Igen gyakori' />
+    </Stack>
+  )
+}
+
+function InfoChip({ label, icon }: { label: string; icon: IconDefinition }) {
+  return (
+    <Chip
+      icon={<FontAwesomeIcon {...{ icon }} />}
+      variant='outlined'
+      size='small'
+      sx={{ borderWidth: 0, '.MuiChip-label': { paddingRight: 0 } }}
+      {...{ label }}
+    />
   )
 }
 

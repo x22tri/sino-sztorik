@@ -185,7 +185,7 @@ let theme = responsiveFontSizes(
         main: '#C93070',
       },
       background: {
-        default: grey[50],
+        // default: grey[50],
       },
       specialParagraphs: {
         generic: grey[200],
