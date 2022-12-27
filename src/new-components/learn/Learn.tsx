@@ -157,6 +157,7 @@ export default function Learn() {
           position='relative'
           margin='auto'
           display='flex'
+          minWidth={0}
         >
           {/* <Box sx={{ minHeight: constants.backButtonStripHeight }}>
             {charToReturnToFromFlashback !== null ? (
