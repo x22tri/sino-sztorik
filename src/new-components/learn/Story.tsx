@@ -36,7 +36,7 @@ export default function Story({ story }: { story: ParagraphType[] }) {
   return (
     <>
       {story.map((paragraph, index) =>
-        isSpecialParagraph(paragraph) ? (
+        isNote(paragraph) ? (
           <NoteResolver note={paragraph} key={index} />
         ) : (
           <Box
@@ -174,7 +174,11 @@ function Segments({ segments }: { segments: SegmentType[] }) {
               text={
                 <Link
                   underline='hover'
-                  sx={{ '&:hover': { cursor: 'pointer' } }}
+                  sx={{
+                    borderRadius: 1,
+                    px: 0.5,
+                    '&:hover': { cursor: 'pointer' },
+                  }}
                 >
                   {segment[CONSTITUENT]}
                 </Link>
@@ -203,6 +207,6 @@ function Segment({
   )
 }
 
-function isSpecialParagraph(paragraph: ParagraphType): paragraph is Note {
+function isNote(paragraph: ParagraphType): paragraph is Note {
   return !Array.isArray(paragraph)
 }
