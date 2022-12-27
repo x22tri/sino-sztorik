@@ -45,3 +45,8 @@ export const BOTTOM_NAVIGATION_FREQUENCY = 'Gyakoriság'
 export const BOTTOM_NAVIGATION_SUPPLEMENTS = 'Kiegészítő információk'
 export const BOTTOM_NAVIGATION_NEXT_CHARACTER = 'Következő karakter'
 export const KEYWORD_EXPLANATION_TOOLTIP = 'Kattints a kulcsszó magyarázatához'
+
+export const INFO_CHIP_NEW_PRIMITIVE_LABEL = 'Új jelentés alapelemként!'
+export const INFO_CHIP_PREQUEL_LABEL = 'Előzmény:'
+export const INFO_CHIP_PRODUCTIVE_PINYIN_LABEL = 'Sokszor hangjelölő'
+export const INFO_CHIP_REMINDER_LABEL = 'Emlékeztető'

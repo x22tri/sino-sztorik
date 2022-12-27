@@ -244,3 +244,11 @@ export function ContentContainer({ children }: { children: ReactNode }) {
     </Container>
   )
 }
+
+function Scrollable({ children }: { children: ReactNode }) {
+  return (
+    <Box display='flex' minWidth={0} sx={{ overflowY: 'scroll' }}>
+      {children}
+    </Box>
+  )
+}

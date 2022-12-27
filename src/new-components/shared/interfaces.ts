@@ -66,6 +66,26 @@ export interface Character {
   otherUses?: string[]
 }
 
+/* Chips interfaces */
+
+export const ChipIds = {
+  FREQUENCY: 'frequency',
+  NEW_PRIMITIVE: 'newPrimitive',
+  REMINDER: 'reminder',
+  PRODUCTIVE_PINYIN: 'productivePinyin',
+  PREQUEL: 'prequel',
+} as const
+
+export type ChipId = valueof<typeof ChipIds>
+
+export interface ChipType {
+  id: ChipId
+  icon: IconDefinition
+  label: string
+  labelAlwaysVisible?: boolean
+  explanation: string
+}
+
 /* Story interfaces */
 
 function isValidCharacterKey(string: string) {
