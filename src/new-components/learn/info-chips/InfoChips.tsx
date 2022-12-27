@@ -1,79 +1,47 @@
-import {
-  faCubesStacked,
-  faBell,
-  faVolumeDown,
-  faClockRotateLeft,
-  faChartColumn,
-} from '@fortawesome/free-solid-svg-icons'
 import { useTheme, Stack, Divider, Popover, Typography } from '@mui/material'
-import { MouseEvent, useState } from 'react'
+import { MouseEvent, useEffect, useState } from 'react'
 import { Character, ChipId, ChipIds, ChipType } from '../../shared/interfaces'
 import { useStoryHorizontalPadding } from '../LearnCharCardDetails'
 import { getFrequencyText } from '../getFrequencyText'
 import InfoChip from './InfoChip'
-import {
-  INFO_CHIP_NEW_PRIMITIVE_LABEL,
-  INFO_CHIP_PREQUEL_LABEL,
-  INFO_CHIP_PRODUCTIVE_PINYIN_LABEL,
-  INFO_CHIP_REMINDER_LABEL,
-} from '../../shared/strings'
+import { INFO_CHIP_UNKNOWN_FREQUENCY_EXPLANATION } from '../../shared/strings'
+import { chipConfig } from './chipConfig'
 
 export default function InfoChips({ char }: { char: Character }) {
   const { palette } = useTheme()
 
-  const { FREQUENCY, NEW_PRIMITIVE, PREQUEL, PRODUCTIVE_PINYIN, REMINDER } =
-    ChipIds
-
-  // The order of the chips matters.
-  const chips: ChipType[] = [
-    {
-      id: NEW_PRIMITIVE,
-      icon: faCubesStacked,
-      label: INFO_CHIP_NEW_PRIMITIVE_LABEL,
-      explanation: '',
-    },
-    {
-      id: REMINDER,
-      icon: faBell,
-      label: INFO_CHIP_REMINDER_LABEL,
-      explanation: '',
-    },
-    {
-      id: PRODUCTIVE_PINYIN,
-      icon: faVolumeDown,
-      label: INFO_CHIP_PRODUCTIVE_PINYIN_LABEL,
-      explanation: '',
-    },
-    {
-      id: PREQUEL,
-      icon: faClockRotateLeft,
-      label: `${INFO_CHIP_PREQUEL_LABEL} []`,
-      explanation: '',
-    },
-    {
-      id: FREQUENCY,
-      icon: faChartColumn,
-      label: getFrequencyText(char.frequency),
-      labelAlwaysVisible: true,
-      explanation: `Ez a ${char.frequency}. 
-      leggyakoribb írásjel a kínaiban, ezáltal 
-      ${getFrequencyText(char.frequency).toLowerCase()} 
-      karakternek számít.`,
-    },
-  ]
+  const storyHorizontalPadding = useStoryHorizontalPadding()
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
+
+  const [chipsContent, setChipsContent] = useState<ChipType[]>()
+
   const [selectedChip, setSelectedChip] = useState<ChipType | null>(null)
+
   const [popoverExplanation, setPopoverExplanation] = useState('')
 
+  useEffect(() => {
+    setChipsContent(getChips())
+  }, [char])
+
   function getChips() {
-    // return chips.filter(({ id }) => id in char)
-    return chips
+    return chipConfig
+      .filter(({ id }) => id in char)
+      .map(chip => {
+        if (chip.id === ChipIds.FREQUENCY) {
+          return {
+            ...chip,
+            ...replaceFrequencyPlaceholders(chip.explanation, char.frequency),
+          }
+        }
+
+        return chip
+      })
   }
 
   function selectChip(event: MouseEvent<HTMLButtonElement>, chipId: ChipId) {
     setAnchorEl(event.currentTarget)
-    const foundChip = chips.find(({ id }) => id === chipId)!
+    const foundChip = chipsContent!.find(({ id }) => id === chipId)!
 
     setSelectedChip(foundChip)
     setPopoverExplanation(foundChip.explanation)
@@ -85,11 +53,10 @@ export default function InfoChips({ char }: { char: Character }) {
     // Popover explanation cannot be set to null here so as to not break the popover exit animation.
   }
 
-  return (
+  return !chipsContent ? null : (
     <>
       <Stack
-        direction='row'
-        gap={1}
+        direction='row-reverse'
         divider={
           <Divider
             orientation='vertical'
@@ -98,15 +65,10 @@ export default function InfoChips({ char }: { char: Character }) {
           />
         }
         marginY={5}
-        paddingX={useStoryHorizontalPadding()}
-        justifyContent='flex-end'
-        // sx={{
-        //   my: 5,
-        //   px: useStoryHorizontalPadding(),
-        //   justifyContent: 'flex-end',
-        // }}
+        gap={1}
+        paddingX={storyHorizontalPadding}
       >
-        {getChips().map(({ icon, id, label, labelAlwaysVisible }) => (
+        {chipsContent.map(({ icon, id, label, labelAlwaysVisible }) => (
           <InfoChip
             key={id}
             {...{
@@ -120,18 +82,15 @@ export default function InfoChips({ char }: { char: Character }) {
           />
         ))}
       </Stack>
+
       <Popover
-        onClose={deselectChip}
-        open={Boolean(anchorEl)}
+        {...{ anchorEl }}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'right',
         }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        {...{ anchorEl }}
+        onClose={deselectChip}
+        open={Boolean(anchorEl)}
         sx={{
           mt: 0.5,
           '.MuiPopover-paper': {
@@ -139,11 +98,47 @@ export default function InfoChips({ char }: { char: Character }) {
             border: `2px solid ${palette.grey[200]}`,
           },
         }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
       >
-        <Typography variant='subtitle2' sx={{ p: 1 }}>
+        <Typography variant='subtitle2' padding={1}>
           {popoverExplanation}
         </Typography>
       </Popover>
     </>
   )
+}
+
+function replacePlaceholders(text: string, map: { [key: string]: string }) {
+  for (const key in map) {
+    text = text.replace(new RegExp('\\{' + key + '\\}', 'gm'), map[key])
+  }
+
+  return text
+}
+
+function replaceFrequencyPlaceholders(
+  text: string,
+  frequency: number | undefined
+) {
+  const frequencyText = getFrequencyText(frequency)
+
+  if (frequency === undefined) {
+    return {
+      label: frequencyText,
+      explanation: INFO_CHIP_UNKNOWN_FREQUENCY_EXPLANATION,
+    }
+  }
+
+  const frequencyTextMap = {
+    frequency: frequency.toString(),
+    frequencyTextLowerCase: frequencyText.toLowerCase(),
+  }
+
+  return {
+    label: frequencyText,
+    explanation: replacePlaceholders(text, frequencyTextMap),
+  }
 }

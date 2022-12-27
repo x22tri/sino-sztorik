@@ -55,7 +55,7 @@ export default function InfoChip({
         '&:hover': {
           boxShadow: 'none',
           backgroundColor: isSelected
-            ? `${palette.primary.main} !important`
+            ? `${palette.primary.main} !important` // Mobile touch is considered hover.
             : 'inherit',
         },
         '.MuiChip-label': {

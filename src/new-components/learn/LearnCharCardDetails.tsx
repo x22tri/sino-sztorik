@@ -1,52 +1,18 @@
-import {
-  Dispatch,
-  SetStateAction,
-  useState,
-  useEffect,
-  MouseEvent,
-  Fragment,
-  ReactNode,
-} from 'react'
+import { Dispatch, SetStateAction, useState, useEffect, Fragment } from 'react'
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import Link from '@mui/material/Link'
 import Snackbar from '@mui/material/Snackbar'
 import Typography from '@mui/material/Typography'
 import { useSwiper } from 'swiper/react'
-import { RoundedCard } from '../shared/basic-components'
 import { Character } from '../shared/interfaces'
 import { CHARS } from './MOCK_CHARS'
 import Story from './Story'
-import SupplementsOverview from './SupplementsOverview'
-import { blue, teal } from '@mui/material/colors'
-import {
-  Badge,
-  Button,
-  Chip,
-  Popover,
-  Stack,
-  Tooltip,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material'
+import { Tooltip, useMediaQuery, useTheme } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  IconDefinition,
-  faBell,
-  faBroadcastTower,
-  faChartColumn,
-  faCircle,
-  faClockRotateLeft,
-  faCubesStacked,
-  faQuestionCircle,
-  faVolumeDown,
-  faVolumeHigh,
-  faVolumeUp,
-} from '@fortawesome/free-solid-svg-icons'
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import { Theme } from '@material-ui/core'
-import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 import { KEYWORD_EXPLANATION_TOOLTIP } from '../shared/strings'
-import { getFrequencyText } from './getFrequencyText'
 import InfoChips from './info-chips/InfoChips'
 
 export function useStoryHorizontalPadding() {
