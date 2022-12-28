@@ -18,9 +18,7 @@ export default function Learn() {
   const [charToReturnToFromFlashback, setCharToReturnToFromFlashback] =
     useState<Character | null>(null)
 
-  const [swiperInstance, setSwiperInstance] = useState<Swiper | null>(null) // Outside of Swiper, useSwiper() can't be used.
-
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [activeIndex, setActiveIndex] = useState(2)
 
   const currentChar = lessonDataSource[activeIndex]
 

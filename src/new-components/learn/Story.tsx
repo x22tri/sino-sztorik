@@ -173,12 +173,14 @@ function Segments({ segments }: { segments: SegmentType[] }) {
               styles={styles[CONSTITUENT]}
               text={
                 <Link
-                  underline='hover'
-                  sx={{
-                    borderRadius: 1,
-                    px: 0.5,
-                    '&:hover': { cursor: 'pointer' },
-                  }}
+                  // underline='hover'
+                  sx={
+                    {
+                      // borderRadius: 1,
+                      // px: 0.5,
+                      // '&:hover': { cursor: 'pointer' },
+                    }
+                  }
                 >
                   {segment[CONSTITUENT]}
                 </Link>

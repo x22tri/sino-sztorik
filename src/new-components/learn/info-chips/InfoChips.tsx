@@ -6,7 +6,6 @@ import { getFrequencyText } from '../getFrequencyText'
 import InfoChip from './InfoChip'
 import { INFO_CHIP_UNKNOWN_FREQUENCY_EXPLANATION } from '../../shared/strings'
 import { chipConfig } from './chipConfig'
-import { Conditional } from '../../shared/utility-components'
 
 export default function InfoChips({ char }: { char: Character }) {
   const { palette } = useTheme()
@@ -55,9 +54,12 @@ export default function InfoChips({ char }: { char: Character }) {
             sx={{ borderRightWidth: '2px' }}
           />
         }
-        marginY={5}
+        marginY={1}
         gap={1}
         paddingX={storyHorizontalPadding}
+        // position='absolute'
+        // right={0}
+        // sx={{ float: 'right' }}
       >
         {chipsContent.map(({ icon, id, label, labelAlwaysVisible }) => (
           <InfoChip

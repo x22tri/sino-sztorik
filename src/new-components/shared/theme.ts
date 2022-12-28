@@ -99,10 +99,16 @@ let theme = responsiveFontSizes(
         },
       },
       MuiLink: {
+        defaultProps: {
+          underline: 'none',
+        },
         styleOverrides: {
           root: {
             color: 'initial',
-            backgroundColor: grey[200],
+            borderRadius: '4px',
+            padding: '0 2px',
+            transition: '200ms',
+            '&:hover': { cursor: 'pointer' },
           },
         },
       },
@@ -202,6 +208,17 @@ theme = createTheme(theme, {
       styleOverrides: {
         badge: {
           fontFamily: emphasisFont,
+        },
+      },
+    },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          backgroundColor: theme.palette.specialParagraphs.whenPrimitive,
+          '&:hover': {
+            backgroundColor: theme.palette.secondary.main,
+            color: theme.palette.secondary.contrastText,
+          },
         },
       },
     },

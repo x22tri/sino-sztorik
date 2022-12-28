@@ -4,11 +4,10 @@ import Divider from '@mui/material/Divider'
 import Link from '@mui/material/Link'
 import Snackbar from '@mui/material/Snackbar'
 import Typography from '@mui/material/Typography'
-import { useSwiper } from 'swiper/react'
 import { Character } from '../shared/interfaces'
 import { CHARS } from './MOCK_CHARS'
 import Story from './Story'
-import { Tooltip, useMediaQuery, useTheme } from '@mui/material'
+import { Button, Card, Tooltip, useMediaQuery, useTheme } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import { Theme } from '@material-ui/core'
@@ -29,9 +28,7 @@ export default function LearnCharCardDetails({
   charToReturnToFromFlashback: Character | null
   setCharToReturnToFromFlashback: Dispatch<SetStateAction<Character | null>>
 }) {
-  const { palette, spacing } = useTheme()
-
-  const swiper = useSwiper()
+  const { spacing } = useTheme()
 
   const [charOverride, setCharOverride] = useState<Character | null>(null)
 
@@ -54,8 +51,6 @@ export default function LearnCharCardDetails({
     setCharToReturnToFromFlashback(lessonChar)
 
     setCharOverride(charToFlashbackTo)
-
-    swiper.disable()
   }
 
   function findCharToFlashbackTo(constituent: string): Character | null {
@@ -64,6 +59,8 @@ export default function LearnCharCardDetails({
     if (charInLesson) {
       return charInLesson
     }
+
+    // To-Do: if the char is not in the lesson, fetch it from the server.
 
     return null
   }
@@ -74,9 +71,8 @@ export default function LearnCharCardDetails({
     charChinese,
     constituents,
     explanation,
-    frequency,
     keyword,
-    otherUses,
+    pinyin,
     primitiveMeaning,
     story,
   } = currentlyViewedChar
@@ -88,68 +84,57 @@ export default function LearnCharCardDetails({
         autoHideDuration={6000}
         message='Constituent not found.'
       />
-      {/* <Box position='relative' minHeight='32px'> */}
-      {/* <Frequency {...{ frequency }} /> */}
-      {/* {constituents ? (
-        <ConstituentList
-          {...{
-            constituents,
-            isActiveSlide,
-            startFlashback,
-          }}
-        />
-      ) : null} */}
-      {/* <SupplementsOverview {...{ otherUses }} /> */}
-      {/* </Box> */}
+      <InfoChips char={currentlyViewedChar} />
+
       {/* <Subheading title='Karakter' /> */}
 
-      <Box sx={{ height: spacing(3) }} />
+      {/* <Box sx={{ height: spacing(3) }} /> */}
 
-      <Box>
+      {/* <Box display='flex' flexDirection='row'> */}
+      <Box display='flex' flexDirection='column' alignItems='center' flex={1}>
+        <Display if={constituents}>
+          <ConstituentList
+            constituents={constituents!}
+            {...{ startFlashback }}
+          />
+        </Display>
+
+        <Box sx={{ height: spacing(3) }} />
+
         <Typography
           variant='chineseHeading'
-          component='h2'
-          textAlign='center'
-          sx={{ my: 1 }}
+          component='ruby'
+          marginBottom={1}
+          display='flex'
+          flexDirection='column-reverse'
+          alignItems='center'
         >
           {charChinese}
+          <Typography component='rt' fontStyle='italic'>
+            {pinyin}
+          </Typography>
         </Typography>
 
         <Display if={keyword}>
-          <Box
-            display='flex'
-            justifyContent='center'
-            position='relative'
-            typography='h4'
-          >
-            <Typography
-              variant='h4'
-              position='relative'
-              color={palette.primary.main}
-            >
-              {keyword}
+          <Typography variant='h4' position='relative' color='primary.main'>
+            {keyword}
 
-              <Display if={explanation}>
-                <KeywordExplanation />
-              </Display>
-            </Typography>
-          </Box>
+            <Display if={explanation}>
+              <KeywordExplanation />
+            </Display>
+          </Typography>
+        </Display>
+
+        <Display if={primitiveMeaning}>
+          <Typography component='h4' variant='primitiveMeaning'>
+            {primitiveMeaning}
+          </Typography>
         </Display>
       </Box>
 
-      <Display if={primitiveMeaning}>
-        <Typography
-          component='h4'
-          variant='primitiveMeaning'
-          display='flex'
-          justifyContent='center'
-        >
-          {primitiveMeaning}
-        </Typography>
-      </Display>
+      {/* </Box> */}
 
-      <InfoChips char={currentlyViewedChar} />
-
+      <Box sx={{ height: spacing(3) }} />
       <Subheading title='Sztori' />
 
       <Story {...{ story }} />
@@ -161,40 +146,101 @@ function Subheading({ title }: { title: string }) {
   const { palette } = useTheme()
   return (
     <Box sx={{ px: useStoryHorizontalPadding(), color: palette.grey[500] }}>
-      <Typography variant='h6'>{title}</Typography>
-      <Divider sx={{ mb: 2, borderBottomWidth: '2px' }} />
+      {/* <Typography variant='h6'>{title}</Typography> */}
+      <Divider sx={{ borderBottomWidth: '2px' }} />
     </Box>
   )
 }
 
 function ConstituentList({
   constituents,
-  isActiveSlide,
   startFlashback,
 }: {
   constituents: string[]
-  isActiveSlide: boolean
   startFlashback: (constituent: string) => void
 }) {
+  const { palette, typography } = useTheme()
+
+  const [isHovered, setIsHovered] = useState<number | null>(null)
+
   return (
-    <Box display='flex' justifyContent='center' alignItems='center'>
+    <Box display='flex' justifyContent='center' alignItems='center' gap={2}>
       {constituents.map((constituent, index) => (
-        <Fragment key={index}>
-          <Link
-            onClick={() => startFlashback(constituent)}
-            tabIndex={isActiveSlide ? index + 1 : -1}
-            underline='hover'
-            sx={{
-              mx: 1,
-              typography: 'chineseNormal',
+        <Button
+          key={index}
+          onClick={() => startFlashback(constituent)}
+          onMouseEnter={() => setIsHovered(index)}
+          onMouseLeave={() => setIsHovered(null)}
+          variant='contained'
+          sx={{
+            backgroundColor: palette.specialParagraphs.whenPrimitive,
+            boxShadow: 'none',
+            display: 'flex',
+            textTransform: 'none',
+            borderRadius: 6,
+            px: 1.5,
+            gap: 1,
+            '&.MuiButtonBase-root': {
               '&:hover': {
-                cursor: 'pointer',
+                boxShadow: 'none',
+                backgroundColor: palette.secondary.main,
               },
+            },
+          }}
+        >
+          <Typography
+            variant='chineseNormal'
+            // paddingX={1}
+            // paddingY={0.5}
+            sx={{
+              color: isHovered === index ? 'primary.contrastText' : 'initial',
+              // color: 'initial',
             }}
           >
             {constituent}
-          </Link>
-        </Fragment>
+          </Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              // px: 1,
+              // py: 0.5,
+              // mr: '1px',
+              // backgroundColor:
+              //   isHovered === index
+              //     ? palette.specialParagraphs.whenPrimitive
+              //     : 'background.default',
+              // borderRadius: '0 7px 7px 0',
+            }}
+          >
+            <Typography
+              component='span'
+              sx={{
+                ...typography.storySegments.keyword,
+                ...(isHovered === index
+                  ? { color: 'primary.contrastText' }
+                  : {}),
+                fontSize: '80%',
+              }}
+              lineHeight={1}
+            >
+              keyword
+            </Typography>
+            <Typography
+              component='span'
+              sx={{
+                ...typography.storySegments.primitive,
+                ...(isHovered === index
+                  ? { color: 'primary.contrastText' }
+                  : {}),
+              }}
+              lineHeight={1}
+            >
+              primitive
+            </Typography>
+          </Box>
+        </Button>
       ))}
     </Box>
   )

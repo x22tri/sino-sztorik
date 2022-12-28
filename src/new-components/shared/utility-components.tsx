@@ -1,6 +1,7 @@
 import { ReactNode, FC } from 'react'
 
 // Conditionally renders children based on the truthiness of the 'if' prop.
+// Note that TypeScript cannot infer the truthiness of the 'if' prop when the 'children' element is shown.
 interface DisplayProps {
   if: any
   children: JSX.Element
