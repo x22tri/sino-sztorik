@@ -14,7 +14,7 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import { Theme } from '@material-ui/core'
 import { KEYWORD_EXPLANATION_TOOLTIP } from '../shared/strings'
 import InfoChips from './info-chips/InfoChips'
-import { Conditional } from '../shared/utility-components'
+import { Display } from '../shared/utility-components'
 
 export function useStoryHorizontalPadding() {
   return useMediaQuery((theme: Theme) => theme.breakpoints.down('md')) ? 1 : 2
@@ -115,7 +115,7 @@ export default function LearnCharCardDetails({
           {charChinese}
         </Typography>
 
-        <Conditional when={keyword}>
+        <Display if={keyword}>
           <Box
             display='flex'
             justifyContent='center'
@@ -129,15 +129,15 @@ export default function LearnCharCardDetails({
             >
               {keyword}
 
-              <Conditional when={explanation}>
+              <Display if={explanation}>
                 <KeywordExplanation />
-              </Conditional>
+              </Display>
             </Typography>
           </Box>
-        </Conditional>
+        </Display>
       </Box>
 
-      <Conditional when={primitiveMeaning}>
+      <Display if={primitiveMeaning}>
         <Typography
           component='h4'
           variant='primitiveMeaning'
@@ -146,7 +146,7 @@ export default function LearnCharCardDetails({
         >
           {primitiveMeaning}
         </Typography>
-      </Conditional>
+      </Display>
 
       <InfoChips char={currentlyViewedChar} />
 
@@ -202,6 +202,7 @@ function ConstituentList({
 
 function KeywordExplanation() {
   const { palette } = useTheme()
+
   return (
     <Tooltip title={KEYWORD_EXPLANATION_TOOLTIP}>
       <Box
