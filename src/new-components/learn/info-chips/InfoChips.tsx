@@ -1,11 +1,12 @@
 import { useTheme, Stack, Divider, Popover, Typography } from '@mui/material'
-import { MouseEvent, useEffect, useState } from 'react'
+import { MouseEvent, useState } from 'react'
 import { Character, ChipId, ChipIds, ChipType } from '../../shared/interfaces'
 import { useStoryHorizontalPadding } from '../LearnCharCardDetails'
 import { getFrequencyText } from '../getFrequencyText'
 import InfoChip from './InfoChip'
 import { INFO_CHIP_UNKNOWN_FREQUENCY_EXPLANATION } from '../../shared/strings'
 import { chipConfig } from './chipConfig'
+import { Conditional } from '../../shared/utility-components'
 
 export default function InfoChips({ char }: { char: Character }) {
   const { palette } = useTheme()
@@ -14,15 +15,9 @@ export default function InfoChips({ char }: { char: Character }) {
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
-  const [chipsContent, setChipsContent] = useState<ChipType[]>()
-
   const [selectedChip, setSelectedChip] = useState<ChipType | null>(null)
 
-  const [popoverExplanation, setPopoverExplanation] = useState('')
-
-  useEffect(() => {
-    setChipsContent(getChips())
-  }, [char])
+  const chipsContent = getChips()
 
   function getChips() {
     return chipConfig
@@ -41,19 +36,15 @@ export default function InfoChips({ char }: { char: Character }) {
 
   function selectChip(event: MouseEvent<HTMLButtonElement>, chipId: ChipId) {
     setAnchorEl(event.currentTarget)
-    const foundChip = chipsContent!.find(({ id }) => id === chipId)!
-
-    setSelectedChip(foundChip)
-    setPopoverExplanation(foundChip.explanation)
+    setSelectedChip(chipsContent.find(({ id }) => id === chipId)!)
   }
 
   function deselectChip() {
     setAnchorEl(null)
     setSelectedChip(null)
-    // Popover explanation cannot be set to null here so as to not break the popover exit animation.
   }
 
-  return !chipsContent ? null : (
+  return (
     <>
       <Stack
         direction='row-reverse'
@@ -71,13 +62,13 @@ export default function InfoChips({ char }: { char: Character }) {
         {chipsContent.map(({ icon, id, label, labelAlwaysVisible }) => (
           <InfoChip
             key={id}
+            isSelected={selectedChip?.id === id}
             {...{
               icon,
               id,
               label,
               labelAlwaysVisible,
               selectChip,
-              selectedChip,
             }}
           />
         ))}
@@ -90,7 +81,7 @@ export default function InfoChips({ char }: { char: Character }) {
           horizontal: 'right',
         }}
         onClose={deselectChip}
-        open={Boolean(anchorEl)}
+        open={!!anchorEl}
         sx={{
           mt: 0.5,
           '.MuiPopover-paper': {
@@ -104,7 +95,7 @@ export default function InfoChips({ char }: { char: Character }) {
         }}
       >
         <Typography variant='subtitle2' padding={1}>
-          {popoverExplanation}
+          {selectedChip?.explanation}
         </Typography>
       </Popover>
     </>

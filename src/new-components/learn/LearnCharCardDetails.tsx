@@ -14,6 +14,7 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import { Theme } from '@material-ui/core'
 import { KEYWORD_EXPLANATION_TOOLTIP } from '../shared/strings'
 import InfoChips from './info-chips/InfoChips'
+import { Conditional } from '../shared/utility-components'
 
 export function useStoryHorizontalPadding() {
   return useMediaQuery((theme: Theme) => theme.breakpoints.down('md')) ? 1 : 2
@@ -81,17 +82,7 @@ export default function LearnCharCardDetails({
   } = currentlyViewedChar
 
   return (
-    <Box
-      minWidth={0}
-      sx={{
-        mx: 1,
-
-        // ...(charToReturnToFromFlashback !== null
-        //   ? { borderColor: 'black' }
-        //   : {}),
-      }}
-      // className='disable-select'
-    >
+    <Box minWidth={0} marginX={1}>
       <Snackbar
         open={isErrorSnackbarOpen}
         autoHideDuration={6000}
@@ -124,7 +115,7 @@ export default function LearnCharCardDetails({
           {charChinese}
         </Typography>
 
-        {!keyword ? null : (
+        <Conditional when={keyword}>
           <Box
             display='flex'
             justifyContent='center'
@@ -138,33 +129,15 @@ export default function LearnCharCardDetails({
             >
               {keyword}
 
-              {!explanation ? null : (
-                <Tooltip title={KEYWORD_EXPLANATION_TOOLTIP}>
-                  <Box
-                    display='flex'
-                    component='span'
-                    position='absolute'
-                    right={0}
-                    top={0}
-                    color={palette.primary.light}
-                    sx={{
-                      transform: 'translate(85%)',
-                      '&:hover': { color: palette.primary.lightHovered },
-                    }}
-                  >
-                    <FontAwesomeIcon
-                      size='xs'
-                      transform='shrink-7'
-                      icon={faQuestionCircle}
-                    />
-                  </Box>
-                </Tooltip>
-              )}
+              <Conditional when={explanation}>
+                <KeywordExplanation />
+              </Conditional>
             </Typography>
           </Box>
-        )}
+        </Conditional>
       </Box>
-      {!primitiveMeaning ? null : (
+
+      <Conditional when={primitiveMeaning}>
         <Typography
           component='h4'
           variant='primitiveMeaning'
@@ -173,15 +146,13 @@ export default function LearnCharCardDetails({
         >
           {primitiveMeaning}
         </Typography>
-      )}
+      </Conditional>
 
-      {/* <Box sx={{ height: spacing(5) }} /> */}
       <InfoChips char={currentlyViewedChar} />
-      {/* <Box sx={{ height: spacing(1) }} /> */}
 
       <Subheading title='Sztori' />
+
       <Story {...{ story }} />
-      {/* <Box sx={{ height: spacing(1) }} /> */}
     </Box>
   )
 }
@@ -226,5 +197,31 @@ function ConstituentList({
         </Fragment>
       ))}
     </Box>
+  )
+}
+
+function KeywordExplanation() {
+  const { palette } = useTheme()
+  return (
+    <Tooltip title={KEYWORD_EXPLANATION_TOOLTIP}>
+      <Box
+        display='flex'
+        component='span'
+        position='absolute'
+        right={0}
+        top={0}
+        color={palette.primary.light}
+        sx={{
+          transform: 'translate(85%)',
+          '&:hover': { color: palette.primary.lightHovered },
+        }}
+      >
+        <FontAwesomeIcon
+          size='xs'
+          transform='shrink-7'
+          icon={faQuestionCircle}
+        />
+      </Box>
+    </Tooltip>
   )
 }

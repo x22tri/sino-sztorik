@@ -2,28 +2,26 @@ import { MouseEvent } from 'react'
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useMediaQuery, useTheme, Chip } from '@mui/material'
-import { ChipId, ChipType } from '../../shared/interfaces'
+import { ChipId } from '../../shared/interfaces'
 
 export default function InfoChip({
   icon,
   id,
+  isSelected,
   label,
   labelAlwaysVisible,
   selectChip,
-  selectedChip,
 }: {
   icon: IconDefinition
   id: ChipId
+  isSelected: boolean
   label: string
   labelAlwaysVisible?: boolean
   selectChip: (event: MouseEvent<HTMLButtonElement>, chipId: ChipId) => void
-  selectedChip: ChipType | null
 }) {
   const { breakpoints, palette } = useTheme()
 
   const hideLabel = useMediaQuery(breakpoints.down('sm')) && !labelAlwaysVisible
-
-  const isSelected = selectedChip?.id === id
 
   return (
     <Chip
