@@ -95,6 +95,16 @@ let theme = responsiveFontSizes(
       MuiButtonBase: {
         defaultProps: { disableRipple: true },
       },
+      MuiIconButton: {
+        styleOverrides: {
+          root: {
+            '&:hover': {
+              backgroundColor: 'transparent',
+              opacity: 0.8,
+            },
+          },
+        },
+      },
       MuiContainer: {
         styleOverrides: {
           root: { paddingLeft: 0, paddingRight: 0 },

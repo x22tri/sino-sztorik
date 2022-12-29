@@ -18,7 +18,7 @@ export default function Learn() {
   const [charToReturnToFromFlashback, setCharToReturnToFromFlashback] =
     useState<Character | null>(null)
 
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [activeIndex, setActiveIndex] = useState(2)
 
   const currentChar = lessonDataSource[activeIndex]
 

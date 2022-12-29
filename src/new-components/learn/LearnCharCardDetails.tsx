@@ -1,4 +1,11 @@
-import { Dispatch, SetStateAction, useState, useEffect, Fragment } from 'react'
+import {
+  Dispatch,
+  SetStateAction,
+  useState,
+  useEffect,
+  Fragment,
+  ReactNode,
+} from 'react'
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import Link from '@mui/material/Link'
@@ -7,9 +14,19 @@ import Typography from '@mui/material/Typography'
 import { Character } from '../shared/interfaces'
 import { CHARS } from './MOCK_CHARS'
 import Story from './Story'
-import { Card, Tooltip, useMediaQuery, useTheme } from '@mui/material'
+import {
+  Card,
+  IconButton,
+  Tooltip,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
+import {
+  faFileLines,
+  faQuestionCircle,
+  faVideo,
+} from '@fortawesome/free-solid-svg-icons'
 import { Theme } from '@material-ui/core'
 import { KEYWORD_EXPLANATION_TOOLTIP } from '../shared/strings'
 import InfoChips from './info-chips/InfoChips'
@@ -127,25 +144,44 @@ export default function LearnCharCardDetails({
         </Box>
         {/* <InfoChips char={currentlyViewedChar} /> */}
         <Spacer height={3} />
-        <Subheading title='Történet' />
+        <Subheading title='Történet' endContent={<StoryTypeSwitch />} />
       </Box>
       <Story {...{ story }} />
     </Box>
   )
 }
 
-function Subheading({ title }: { title: string }) {
+function StoryTypeSwitch() {
+  return (
+    <Box>
+      <IconButton size='small'>
+        <FontAwesomeIcon icon={faFileLines} fixedWidth />
+      </IconButton>
+      <IconButton size='small'>
+        <FontAwesomeIcon icon={faVideo} fixedWidth />
+      </IconButton>
+    </Box>
+  )
+}
+
+function Subheading({
+  endContent,
+  title,
+}: {
+  endContent?: ReactNode
+  title: string
+}) {
   return (
     <Box
       display='flex'
       justifyContent='space-between'
-      // paddingX={useStoryHorizontalPadding()}
+      alignItems='center'
       paddingY={1}
     >
       <Typography variant='h6' fontWeight={700}>
         {title}
       </Typography>
-      aa bb
+      {endContent}
     </Box>
   )
 }
