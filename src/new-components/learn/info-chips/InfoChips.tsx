@@ -46,7 +46,7 @@ export default function InfoChips({ char }: { char: Character }) {
   return (
     <>
       <Stack
-        direction='row-reverse'
+        direction='row'
         divider={
           <Divider
             orientation='vertical'

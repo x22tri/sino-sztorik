@@ -7,13 +7,14 @@ import Typography from '@mui/material/Typography'
 import { Character } from '../shared/interfaces'
 import { CHARS } from './MOCK_CHARS'
 import Story from './Story'
-import { Button, Card, Tooltip, useMediaQuery, useTheme } from '@mui/material'
+import { Card, Tooltip, useMediaQuery, useTheme } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import { Theme } from '@material-ui/core'
 import { KEYWORD_EXPLANATION_TOOLTIP } from '../shared/strings'
 import InfoChips from './info-chips/InfoChips'
 import { Display } from '../shared/utility-components'
+import { ConstituentList } from './ConstituentList'
 
 export function useStoryHorizontalPadding() {
   return useMediaQuery((theme: Theme) => theme.breakpoints.down('md')) ? 1 : 2
@@ -84,7 +85,6 @@ export default function LearnCharCardDetails({
         autoHideDuration={6000}
         message='Constituent not found.'
       />
-      {/* <InfoChips char={currentlyViewedChar} /> */}
 
       {/* <Divider flexItem /> */}
       {/*<Box sx={{ height: spacing(1) }} /> 
@@ -94,22 +94,24 @@ export default function LearnCharCardDetails({
       {/* <Box sx={{ height: spacing(3) }} /> */}
 
       {/* <Box display='flex' flexDirection='row'> */}
-      <Box display='flex' flexDirection='column' alignItems='center'>
-        <Display if={constituents}>
-          <ConstituentList
-            constituents={constituents!}
-            {...{ startFlashback }}
-          />
-        </Display>
+      <Display if={constituents}>
+        <ConstituentList constituents={constituents!} {...{ startFlashback }} />
+      </Display>
 
+      {/* <Divider sx={{ borderBottomWidth: '2px' }} /> */}
+
+      <Box
+        display='flex'
+        flexDirection='column'
+        alignItems='center'
+        marginTop={constituents ? 0 : 8}
+      >
         {/* <Subheading title='Sztori' /> */}
         {/* <Box sx={{ height: spacing(1) }} /> */}
 
         {/* <Subheading title={''}  /> */}
 
-        <Divider flexItem sx={{ borderBottomWidth: '2px' }} />
-
-        <Box sx={{ height: spacing(1) }} />
+        {/* <Box sx={{ height: spacing(3) }} /> */}
 
         <Typography
           variant='chineseHeading'
@@ -142,10 +144,12 @@ export default function LearnCharCardDetails({
         </Display>
       </Box>
 
+      <InfoChips char={currentlyViewedChar} />
+
       {/* </Box> */}
 
-      <Box sx={{ height: spacing(3) }} />
-      <Subheading title='Sztori' />
+      <Box sx={{ height: spacing(5) }} />
+      {/* <Subheading title='Sztori' /> */}
 
       <Story {...{ story }} />
     </Box>
@@ -158,110 +162,6 @@ function Subheading({ title }: { title: string }) {
     <Box sx={{ px: useStoryHorizontalPadding(), color: palette.grey[500] }}>
       {/* <Typography variant='h6'>{title}</Typography> */}
       <Divider sx={{ borderBottomWidth: '2px' }} />
-    </Box>
-  )
-}
-
-function ConstituentList({
-  constituents,
-  startFlashback,
-}: {
-  constituents: string[]
-  startFlashback: (constituent: string) => void
-}) {
-  const { constants, palette, typography } = useTheme()
-
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-
-  return (
-    <Box
-      display='flex'
-      // justifyContent='center'
-      alignItems='center'
-      width='100%'
-      gap={2}
-      sx={{ p: 1 }}
-    >
-      {constituents.map((constituent, index) => {
-        const isHovered = hoveredIndex === index
-
-        return (
-          <Button
-            key={index}
-            onClick={() => startFlashback(constituent)}
-            onMouseEnter={() => setHoveredIndex(index)}
-            onMouseLeave={() => setHoveredIndex(null)}
-            startIcon={
-              <Typography
-                variant='chineseNormal'
-                sx={{
-                  color: isHovered
-                    ? palette.secondary.contrastText
-                    : palette.text.primary,
-                  backgroundColor: isHovered
-                    ? palette.secondary.main
-                    : palette.secondary.light,
-                  borderRadius: 6,
-                  p: 1,
-                  lineHeight: 1,
-                  transition: `${constants.animationDuration}ms`,
-                }}
-              >
-                {constituent}
-              </Typography>
-            }
-            variant='text'
-            sx={{
-              boxShadow: 'none',
-              display: 'flex',
-              textTransform: 'none',
-              px: 1.5,
-              '&.MuiButtonBase-root': {
-                '&:hover': {
-                  boxShadow: 'none',
-                  backgroundColor: 'initial',
-                },
-              },
-            }}
-          >
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-              }}
-            >
-              <Typography
-                component='span'
-                sx={{
-                  ...typography.storySegments.keyword,
-                  color: isHovered
-                    ? palette.primary.main
-                    : palette.text.disabled,
-                  fontSize: '80%',
-                  transition: `${constants.animationDuration}ms`,
-                }}
-                lineHeight={1}
-              >
-                keyword
-              </Typography>
-              <Typography
-                component='span'
-                sx={{
-                  ...typography.storySegments.primitive,
-                  color: isHovered
-                    ? palette.secondary.main
-                    : palette.text.primary,
-                  transition: `${constants.animationDuration}ms`,
-                }}
-                lineHeight={1}
-              >
-                primitive
-              </Typography>
-            </Box>
-          </Button>
-        )
-      })}
     </Box>
   )
 }
