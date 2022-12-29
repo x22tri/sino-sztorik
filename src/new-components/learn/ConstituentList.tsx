@@ -14,7 +14,7 @@ export function ConstituentList({
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   return (
-    <Box display='flex' alignItems='center' gap={1} padding={1}>
+    <Box display='flex' alignItems='center' gap={3} paddingY={1}>
       {constituents.map((constituent, index) => {
         const isHovered = hoveredIndex === index
 
@@ -29,7 +29,7 @@ export function ConstituentList({
             sx={{
               boxShadow: 'none',
               textTransform: 'none',
-              px: 1.5,
+              p: 0,
               '&.MuiButtonBase-root': {
                 '&:hover': { boxShadow: 'none', backgroundColor: 'initial' },
               },

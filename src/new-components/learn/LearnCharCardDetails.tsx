@@ -29,10 +29,6 @@ export default function LearnCharCardDetails({
   charToReturnToFromFlashback: Character | null
   setCharToReturnToFromFlashback: Dispatch<SetStateAction<Character | null>>
 }) {
-  const { spacing } = useTheme()
-
-  const learnHorizontalPadding = useStoryHorizontalPadding()
-
   const [charOverride, setCharOverride] = useState<Character | null>(null)
 
   const [isErrorSnackbarOpen, setIsErrorSnackbarOpen] = useState(false)
@@ -87,48 +83,52 @@ export default function LearnCharCardDetails({
         autoHideDuration={6000}
         message='Constituent not found.'
       />
-
-      <Display if={constituents}>
-        <ConstituentList constituents={constituents!} {...{ startFlashback }} />
-      </Display>
-
-      <Subheading title='Karakter' />
-
-      <Box display='flex' flexDirection='column' alignItems='center'>
-        <Typography
-          variant='chineseHeading'
-          component='ruby'
-          marginBottom={1}
-          display='flex'
-          flexDirection='column-reverse'
-          alignItems='center'
-        >
-          {charChinese}
-
-          <Typography component='rt' fontStyle='italic'>
-            {pinyin}
-          </Typography>
-        </Typography>
-
-        <Display if={keyword}>
-          <Typography variant='h4' position='relative' color='primary.main'>
-            {keyword}
-
-            <Display if={explanation}>
-              <KeywordExplanation />
-            </Display>
-          </Typography>
+      <Box paddingX={useStoryHorizontalPadding()}>
+        <Display if={constituents}>
+          <ConstituentList
+            constituents={constituents!}
+            {...{ startFlashback }}
+          />
         </Display>
 
-        <Display if={primitiveMeaning}>
-          <Typography component='h4' variant='primitiveMeaning'>
-            {primitiveMeaning}
+        <Subheading title='Karakter' />
+
+        <Box display='flex' flexDirection='column' alignItems='center'>
+          <Typography
+            variant='chineseHeading'
+            component='ruby'
+            marginBottom={1}
+            display='flex'
+            flexDirection='column-reverse'
+            alignItems='center'
+          >
+            {charChinese}
+
+            <Typography component='rt' fontStyle='italic'>
+              {pinyin}
+            </Typography>
           </Typography>
-        </Display>
+
+          <Display if={keyword}>
+            <Typography variant='h4' position='relative' color='primary.main'>
+              {keyword}
+
+              <Display if={explanation}>
+                <KeywordExplanation />
+              </Display>
+            </Typography>
+          </Display>
+
+          <Display if={primitiveMeaning}>
+            <Typography component='h4' variant='primitiveMeaning'>
+              {primitiveMeaning}
+            </Typography>
+          </Display>
+        </Box>
+        {/* <InfoChips char={currentlyViewedChar} /> */}
+        <Spacer height={3} />
+        <Subheading title='Történet' />
       </Box>
-      {/* <InfoChips char={currentlyViewedChar} /> */}
-      <Spacer height={3} />
-      <Subheading title='Történet' />
       <Story {...{ story }} />
     </Box>
   )
@@ -136,14 +136,17 @@ export default function LearnCharCardDetails({
 
 function Subheading({ title }: { title: string }) {
   return (
-    <Typography
-      variant='h6'
-      fontWeight={700}
-      paddingX={useStoryHorizontalPadding()}
+    <Box
+      display='flex'
+      justifyContent='space-between'
+      // paddingX={useStoryHorizontalPadding()}
       paddingY={1}
     >
-      {title}
-    </Typography>
+      <Typography variant='h6' fontWeight={700}>
+        {title}
+      </Typography>
+      aa bb
+    </Box>
   )
 }
 
