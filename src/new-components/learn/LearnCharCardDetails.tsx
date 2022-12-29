@@ -84,14 +84,17 @@ export default function LearnCharCardDetails({
         autoHideDuration={6000}
         message='Constituent not found.'
       />
-      <InfoChips char={currentlyViewedChar} />
+      {/* <InfoChips char={currentlyViewedChar} /> */}
+
+      {/* <Divider flexItem /> */}
+      {/*<Box sx={{ height: spacing(1) }} /> 
 
       {/* <Subheading title='Karakter' /> */}
 
       {/* <Box sx={{ height: spacing(3) }} /> */}
 
       {/* <Box display='flex' flexDirection='row'> */}
-      <Box display='flex' flexDirection='column' alignItems='center' flex={1}>
+      <Box display='flex' flexDirection='column' alignItems='center'>
         <Display if={constituents}>
           <ConstituentList
             constituents={constituents!}
@@ -99,7 +102,14 @@ export default function LearnCharCardDetails({
           />
         </Display>
 
-        <Box sx={{ height: spacing(3) }} />
+        {/* <Subheading title='Sztori' /> */}
+        {/* <Box sx={{ height: spacing(1) }} /> */}
+
+        {/* <Subheading title={''}  /> */}
+
+        <Divider flexItem sx={{ borderBottomWidth: '2px' }} />
+
+        <Box sx={{ height: spacing(1) }} />
 
         <Typography
           variant='chineseHeading'
@@ -159,89 +169,99 @@ function ConstituentList({
   constituents: string[]
   startFlashback: (constituent: string) => void
 }) {
-  const { palette, typography } = useTheme()
+  const { constants, palette, typography } = useTheme()
 
-  const [isHovered, setIsHovered] = useState<number | null>(null)
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   return (
-    <Box display='flex' justifyContent='center' alignItems='center' gap={2}>
-      {constituents.map((constituent, index) => (
-        <Button
-          key={index}
-          onClick={() => startFlashback(constituent)}
-          onMouseEnter={() => setIsHovered(index)}
-          onMouseLeave={() => setIsHovered(null)}
-          variant='contained'
-          sx={{
-            backgroundColor: palette.specialParagraphs.whenPrimitive,
-            boxShadow: 'none',
-            display: 'flex',
-            textTransform: 'none',
-            borderRadius: 6,
-            px: 1.5,
-            gap: 1,
-            '&.MuiButtonBase-root': {
-              '&:hover': {
-                boxShadow: 'none',
-                backgroundColor: palette.secondary.main,
-              },
-            },
-          }}
-        >
-          <Typography
-            variant='chineseNormal'
-            // paddingX={1}
-            // paddingY={0.5}
+    <Box
+      display='flex'
+      // justifyContent='center'
+      alignItems='center'
+      width='100%'
+      gap={2}
+      sx={{ p: 1 }}
+    >
+      {constituents.map((constituent, index) => {
+        const isHovered = hoveredIndex === index
+
+        return (
+          <Button
+            key={index}
+            onClick={() => startFlashback(constituent)}
+            onMouseEnter={() => setHoveredIndex(index)}
+            onMouseLeave={() => setHoveredIndex(null)}
+            startIcon={
+              <Typography
+                variant='chineseNormal'
+                sx={{
+                  color: isHovered
+                    ? palette.secondary.contrastText
+                    : palette.text.primary,
+                  backgroundColor: isHovered
+                    ? palette.secondary.main
+                    : palette.secondary.light,
+                  borderRadius: 6,
+                  p: 1,
+                  lineHeight: 1,
+                  transition: `${constants.animationDuration}ms`,
+                }}
+              >
+                {constituent}
+              </Typography>
+            }
+            variant='text'
             sx={{
-              color: isHovered === index ? 'primary.contrastText' : 'initial',
-              // color: 'initial',
-            }}
-          >
-            {constituent}
-          </Typography>
-          <Box
-            sx={{
+              boxShadow: 'none',
               display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              // px: 1,
-              // py: 0.5,
-              // mr: '1px',
-              // backgroundColor:
-              //   isHovered === index
-              //     ? palette.specialParagraphs.whenPrimitive
-              //     : 'background.default',
-              // borderRadius: '0 7px 7px 0',
+              textTransform: 'none',
+              px: 1.5,
+              '&.MuiButtonBase-root': {
+                '&:hover': {
+                  boxShadow: 'none',
+                  backgroundColor: 'initial',
+                },
+              },
             }}
           >
-            <Typography
-              component='span'
+            <Box
               sx={{
-                ...typography.storySegments.keyword,
-                ...(isHovered === index
-                  ? { color: 'primary.contrastText' }
-                  : {}),
-                fontSize: '80%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
               }}
-              lineHeight={1}
             >
-              keyword
-            </Typography>
-            <Typography
-              component='span'
-              sx={{
-                ...typography.storySegments.primitive,
-                ...(isHovered === index
-                  ? { color: 'primary.contrastText' }
-                  : {}),
-              }}
-              lineHeight={1}
-            >
-              primitive
-            </Typography>
-          </Box>
-        </Button>
-      ))}
+              <Typography
+                component='span'
+                sx={{
+                  ...typography.storySegments.keyword,
+                  color: isHovered
+                    ? palette.primary.main
+                    : palette.text.disabled,
+                  fontSize: '80%',
+                  transition: `${constants.animationDuration}ms`,
+                }}
+                lineHeight={1}
+              >
+                keyword
+              </Typography>
+              <Typography
+                component='span'
+                sx={{
+                  ...typography.storySegments.primitive,
+                  color: isHovered
+                    ? palette.secondary.main
+                    : palette.text.primary,
+                  transition: `${constants.animationDuration}ms`,
+                }}
+                lineHeight={1}
+              >
+                primitive
+              </Typography>
+            </Box>
+          </Button>
+        )
+      })}
     </Box>
   )
 }

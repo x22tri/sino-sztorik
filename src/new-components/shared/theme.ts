@@ -1,8 +1,7 @@
-import { createTheme } from '@mui/material/styles'
-import { blue, deepOrange, grey, teal } from '@mui/material/colors'
-import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
-import { indigo } from '@material-ui/core/colors'
 import { CSSProperties } from 'react'
+import { createTheme } from '@mui/material/styles'
+import { grey, teal } from '@mui/material/colors'
+import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
 
 const chineseFont = "'Noto Sans', sans-serif" // To-Do: Create font with custom chars
 const genericFont = "'Noto Sans', sans-serif"
@@ -86,25 +85,19 @@ let theme = responsiveFontSizes(
   createTheme({
     components: {
       MuiButtonBase: {
-        defaultProps: {
-          disableRipple: true,
-        },
+        defaultProps: { disableRipple: true },
       },
       MuiContainer: {
         styleOverrides: {
-          root: {
-            paddingLeft: 0,
-            paddingRight: 0,
-          },
+          root: { paddingLeft: 0, paddingRight: 0 },
         },
       },
       MuiLink: {
-        defaultProps: {
-          underline: 'none',
-        },
+        defaultProps: { underline: 'none' },
         styleOverrides: {
           root: {
             color: 'initial',
+            fontStyle: 'italic',
             borderRadius: '4px',
             padding: '0 2px',
             transition: '200ms',
@@ -121,82 +114,40 @@ let theme = responsiveFontSizes(
     },
     typography: {
       fontFamily: genericFont,
-      h4: {
-        fontFamily: emphasisFont,
-        fontWeight: 800,
-        fontSize: 32,
-      },
-      h5: {
-        fontFamily: emphasisFont,
-        fontWeight: 600,
-        fontSize: 28,
-      },
-      h6: {
-        fontFamily: emphasisFont,
-        fontWeight: 600,
-        fontSize: 18,
-      },
-      button: {
-        fontFamily: emphasisFont,
-      },
-      body1: {
-        lineHeight: 1.5,
-      },
-      body2: {
-        fontSize: 16,
-      },
-      overline: {
-        fontWeight: 'bold',
-      },
+      h4: { fontFamily: emphasisFont, fontWeight: 800, fontSize: 32 },
+      h5: { fontFamily: emphasisFont, fontWeight: 600, fontSize: 28 },
+      h6: { fontFamily: emphasisFont, fontWeight: 600, fontSize: 18 },
+      button: { fontFamily: emphasisFont },
+      body1: { lineHeight: 1.5 },
+      body2: { fontSize: 16 },
+      overline: { fontWeight: 'bold' },
       chineseHeading: {
         fontFamily: chineseFont,
         fontSize: 120,
         fontWeight: 400,
         lineHeight: 1,
       },
-      chineseNormal: {
-        fontFamily: chineseFont,
-        fontSize: 24,
-        lineHeight: 1.2,
-      },
+      chineseNormal: { fontFamily: chineseFont, fontSize: 24, lineHeight: 1.2 },
       primitiveMeaning: {
         fontSize: 20,
         fontFamily: emphasisFont,
         fontWeight: 'normal',
         fontStyle: 'italic',
         lineHeight: 1.2,
-        color: '#C93070',
       },
       storySegments: {
-        keyword: {
-          fontWeight: 900,
-          color: teal[600],
-        },
-        primitive: {
-          fontWeight: 'bold',
-          fontStyle: 'italic',
-        },
-        constituent: {
-          color: blue[400],
-        },
+        keyword: { fontWeight: 900 },
+        primitive: { fontWeight: 'bold', fontStyle: 'italic' },
+        constituent: {},
       },
     },
     palette: {
-      primary: {
-        main: teal[600],
-        light: teal[200],
-        lightHovered: teal[300],
-      },
-      secondary: {
-        main: '#C93070',
-      },
-      background: {
-        // default: grey[50],
-      },
+      primary: { main: teal[600], light: teal[200], lightHovered: teal[300] },
+      secondary: { light: '#FFEFF3', main: '#D91147' },
       specialParagraphs: {
         generic: grey[200],
         tip: '#F8F2E9',
-        whenPrimitive: '#FDEDED',
+        whenPrimitive: '', // Fallback. Overridden later to be in line with 'secondary.light'.
       },
     },
   })
@@ -214,7 +165,8 @@ theme = createTheme(theme, {
     MuiLink: {
       styleOverrides: {
         root: {
-          backgroundColor: theme.palette.specialParagraphs.whenPrimitive,
+          backgroundColor: theme.palette.secondary.light,
+          // color: theme.palette.secondary.dark,
           '&:hover': {
             backgroundColor: theme.palette.secondary.main,
             color: theme.palette.secondary.contrastText,
@@ -223,11 +175,19 @@ theme = createTheme(theme, {
       },
     },
   },
+  palette: {
+    specialParagraphs: {
+      whenPrimitive: theme.palette.secondary.light,
+    },
+  },
   typography: {
     primitiveMeaning: {
       color: theme.palette.secondary.main,
     },
     storySegments: {
+      keyword: {
+        color: theme.palette.primary.main,
+      },
       primitive: {
         color: theme.palette.secondary.main,
       },
