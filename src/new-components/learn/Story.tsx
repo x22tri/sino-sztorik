@@ -34,24 +34,17 @@ export default function Story({ story }: { story: ParagraphType[] }) {
   const horizontalPadding = useStoryHorizontalPadding()
 
   return (
-    <>
+    <Box display='flex' flexDirection='column' gap={3}>
       {story.map((paragraph, index) =>
         isNote(paragraph) ? (
           <NoteResolver note={paragraph} key={index} />
         ) : (
-          <Box
-            component='p'
-            sx={{
-              px: horizontalPadding,
-              my: 4,
-            }}
-            key={index}
-          >
+          <Box component='p' sx={{ px: horizontalPadding, my: 0 }} key={index}>
             <Segments segments={paragraph} />
           </Box>
         )
       )}
-    </>
+    </Box>
   )
 }
 
@@ -105,7 +98,6 @@ function NoteElement({
       sx={{
         background: color,
         borderRadius: '0 16px',
-        my: 3,
         py: 2,
         px: horizontalPadding,
       }}
@@ -171,20 +163,7 @@ function Segments({ segments }: { segments: SegmentType[] }) {
             <Segment
               key={index}
               styles={styles[CONSTITUENT]}
-              text={
-                <Link
-                  // underline='hover'
-                  sx={
-                    {
-                      // borderRadius: 1,
-                      // px: 0.5,
-                      // '&:hover': { cursor: 'pointer' },
-                    }
-                  }
-                >
-                  {segment[CONSTITUENT]}
-                </Link>
-              }
+              text={<Link>{segment[CONSTITUENT]}</Link>}
             />
           )
         }
