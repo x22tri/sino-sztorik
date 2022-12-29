@@ -34,7 +34,7 @@ export default function Story({ story }: { story: ParagraphType[] }) {
   const horizontalPadding = useStoryHorizontalPadding()
 
   return (
-    <Box display='flex' flexDirection='column' gap={3}>
+    <Box display='flex' flexDirection='column' gap={3} marginBottom={1}>
       {story.map((paragraph, index) =>
         isNote(paragraph) ? (
           <NoteResolver note={paragraph} key={index} />

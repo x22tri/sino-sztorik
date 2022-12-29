@@ -14,7 +14,7 @@ export function ConstituentList({
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   return (
-    <Box display='flex' alignItems='center' gap={3} paddingY={1}>
+    <Box display='flex' alignItems='center' gap={3}>
       {constituents.map((constituent, index) => {
         const isHovered = hoveredIndex === index
 

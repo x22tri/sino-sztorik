@@ -101,12 +101,7 @@ export default function LearnCharCardDetails({
         message='Constituent not found.'
       />
       <Box paddingX={useStoryHorizontalPadding()}>
-        <Display if={constituents}>
-          <ConstituentList
-            constituents={constituents!}
-            {...{ startFlashback }}
-          />
-        </Display>
+        {/* <Spacer height={1} /> */}
 
         <Subheading title='Karakter' />
 
@@ -142,6 +137,16 @@ export default function LearnCharCardDetails({
             </Typography>
           </Display>
         </Box>
+        <Display if={constituents}>
+          <>
+            <Spacer height={3} />
+            <Subheading title='Összetétel' />
+            <ConstituentList
+              constituents={constituents!}
+              {...{ startFlashback }}
+            />
+          </>
+        </Display>
         {/* <InfoChips char={currentlyViewedChar} /> */}
         <Spacer height={3} />
         <Subheading title='Történet' endContent={<StoryTypeSwitch />} />
@@ -171,17 +176,31 @@ function Subheading({
   endContent?: ReactNode
   title: string
 }) {
+  const { palette } = useTheme()
   return (
     <Box
-      display='flex'
-      justifyContent='space-between'
-      alignItems='center'
-      paddingY={1}
+      marginY={1}
+      // marginBottom={3}
     >
-      <Typography variant='h6' fontWeight={700}>
-        {title}
-      </Typography>
-      {endContent}
+      <Box
+        display='flex'
+        justifyContent='space-between'
+        alignItems='center'
+        // paddingY={1}
+      >
+        <Typography variant='h6' fontWeight={700}>
+          {title}
+        </Typography>
+        {endContent}
+      </Box>
+      {/* <Typography
+        variant='subtitle2'
+        color={palette.text.secondary}
+        lineHeight={1}
+        marginBottom={3}
+      >
+        Előzmény: []
+      </Typography> */}
     </Box>
   )
 }
