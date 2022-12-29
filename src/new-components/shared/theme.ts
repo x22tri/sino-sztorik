@@ -80,6 +80,12 @@ declare module '@mui/material/LinearProgress' {
   }
 }
 
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    neutral: true
+  }
+}
+
 // Updates the Typography's variant prop options.
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
@@ -94,6 +100,7 @@ let theme = responsiveFontSizes(
     components: {
       MuiButtonBase: {
         defaultProps: { disableRipple: true },
+        // styleOverrides: { root: { textTransform: 'none' } },
       },
       MuiIconButton: {
         styleOverrides: {
@@ -135,7 +142,7 @@ let theme = responsiveFontSizes(
       h4: { fontFamily: emphasisFont, fontWeight: 800, fontSize: 32 },
       h5: { fontFamily: emphasisFont, fontWeight: 600, fontSize: 28 },
       h6: { fontFamily: emphasisFont, fontWeight: 600, fontSize: 18 },
-      button: { fontFamily: emphasisFont },
+      button: { fontFamily: emphasisFont, textTransform: 'none' },
       body1: { lineHeight: 1.5 },
       body2: { fontSize: 16 },
       overline: { fontWeight: 'bold' },
@@ -162,7 +169,7 @@ let theme = responsiveFontSizes(
     palette: {
       primary: { main: teal[600], light: teal[200], lightHovered: teal[300] },
       secondary: { light: '#FFEFF3', main: '#D91147' },
-      neutral: { main: grey[400], contrastText: grey[50], light: grey[200] },
+      neutral: { main: grey[600], contrastText: grey[50], light: grey[200] },
       specialParagraphs: {
         generic: grey[200],
         tip: '#F8F2E9',

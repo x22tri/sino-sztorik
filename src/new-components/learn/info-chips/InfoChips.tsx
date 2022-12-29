@@ -1,7 +1,7 @@
 import { useTheme, Stack, Divider, Popover, Typography } from '@mui/material'
 import { MouseEvent, useState } from 'react'
 import { Character, ChipId, ChipIds, ChipType } from '../../shared/interfaces'
-import { useStoryHorizontalPadding } from '../LearnCharCardDetails'
+import { useStoryHorizontalPadding } from '../useStoryHorizontalPadding'
 import { getFrequencyText } from '../getFrequencyText'
 import InfoChip from './InfoChip'
 import { INFO_CHIP_UNKNOWN_FREQUENCY_EXPLANATION } from '../../shared/strings'

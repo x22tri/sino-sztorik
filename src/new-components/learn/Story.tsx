@@ -26,7 +26,7 @@ import {
   SPECIAL_PARAGRAPH_TIP,
   SPECIAL_PARAGRAPH_WHENPRIMITIVE,
 } from '../shared/strings'
-import { useStoryHorizontalPadding } from './LearnCharCardDetails'
+import { useStoryHorizontalPadding } from './useStoryHorizontalPadding'
 
 import { Fragment, ReactNode } from 'react'
 
@@ -34,7 +34,7 @@ export default function Story({ story }: { story: ParagraphType[] }) {
   const horizontalPadding = useStoryHorizontalPadding()
 
   return (
-    <Box display='flex' flexDirection='column' gap={3} marginBottom={1}>
+    <Box display='flex' flexDirection='column' gap={3} marginBottom={3}>
       {story.map((paragraph, index) =>
         isNote(paragraph) ? (
           <NoteResolver note={paragraph} key={index} />
