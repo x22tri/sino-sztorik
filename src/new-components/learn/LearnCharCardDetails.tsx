@@ -37,6 +37,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LearnActionButton } from '../shared/basic-components'
+import { Presentation } from './Presentation'
 
 export default function LearnCharCardDetails({
   lessonChar,
@@ -141,75 +142,6 @@ export default function LearnCharCardDetails({
   )
 }
 
-interface PresentationRowProps {
-  for?: string
-  // font?: CSSProperties
-  // typography: TypographyProps
-  children: ReactNode
-}
-
-const PresentationRow: FC<PresentationRowProps> = ({
-  for: element,
-  children,
-}) => {
-  return (
-    <Display if={element}>
-      <>
-        <span></span>
-
-        {children}
-
-        <Box display='flex' justifySelf='flex-end' gap={1}>
-          aa
-        </Box>
-      </>
-    </Display>
-  )
-}
-
-function Presentation({
-  charChinese,
-  explanation,
-  keyword,
-  pinyin,
-  primitiveMeaning,
-}: {
-  charChinese: string
-  explanation?: string
-  keyword?: string
-  pinyin?: string
-  primitiveMeaning?: string
-}) {
-  return (
-    <Box
-      display='grid'
-      gridTemplateColumns='minmax(0, 1fr) repeat(1, auto) 1fr'
-      justifyItems='center'
-      alignItems='center'
-    >
-      <PresentationRow for={pinyin}>
-        <Box fontStyle='italic'>{pinyin}</Box>
-      </PresentationRow>
-
-      <PresentationRow for={charChinese}>
-        <Box typography='chineseHeading' marginBottom={1}>
-          {charChinese}
-        </Box>
-      </PresentationRow>
-
-      <PresentationRow for={keyword}>
-        <Box typography='h4' color='primary.main'>
-          {keyword}
-        </Box>
-      </PresentationRow>
-
-      <PresentationRow for={primitiveMeaning}>
-        <Box typography='primitiveMeaning'>{primitiveMeaning}</Box>
-      </PresentationRow>
-    </Box>
-  )
-}
-
 function StorySubheadingEndContent() {
   return (
     <Stack
@@ -246,6 +178,7 @@ function Subheading({
         </Typography>
         {endContent}
       </Box>
+
       <Display if={!small}>
         <Divider />
       </Display>

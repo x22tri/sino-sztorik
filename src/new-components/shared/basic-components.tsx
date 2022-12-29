@@ -72,10 +72,6 @@ export function LightenOnHoverButton<B extends ElementType>(
       {...props}
       sx={{
         transition: `${constants.animationDuration}ms`,
-        // color: palette.grey[600],
-        // pb: 0,
-        // borderRadius: 0,
-        // borderBottom: '2px solid transparent',
         '&:hover': {
           backgroundColor: 'inherit',
           filter: 'brightness(1.3)',
