@@ -141,7 +141,7 @@ export default function LearnCharCardDetails({
         </Box>
         <Display if={constituents}>
           <>
-            <Subheading title='Összetétel' />
+            <Subheading title='Összetétel' small />
             {/* <Typography
               variant='h6'
               fontWeight={700}
@@ -185,21 +185,29 @@ function StorySubheadingEndContent() {
 function Subheading({
   endContent,
   isFirst = false,
+  small = false,
   title,
 }: {
   endContent?: ReactNode
   isFirst?: boolean
+  small?: boolean
   title: string
 }) {
   return (
     <Box marginBottom={1} marginTop={isFirst ? 1 : 5}>
       <Box display='flex' justifyContent='space-between' alignItems='center'>
-        <Typography variant='h6' fontWeight={700}>
+        <Typography
+          variant='h6'
+          fontWeight={700}
+          fontSize={small ? '90% !important' : '100%'}
+        >
           {title}
         </Typography>
         {endContent}
       </Box>
-      <Divider />
+      <Display if={!small}>
+        <Divider />
+      </Display>
     </Box>
   )
 }
