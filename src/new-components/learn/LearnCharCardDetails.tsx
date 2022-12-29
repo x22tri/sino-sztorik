@@ -5,6 +5,8 @@ import {
   useEffect,
   Fragment,
   ReactNode,
+  FC,
+  CSSProperties,
 } from 'react'
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
@@ -14,7 +16,14 @@ import Typography from '@mui/material/Typography'
 import { Character, valueof } from '../shared/interfaces'
 import { CHARS } from './MOCK_CHARS'
 import Story from './Story'
-import { Button, Card, IconButton, Stack, useTheme } from '@mui/material'
+import {
+  Button,
+  Card,
+  IconButton,
+  Stack,
+  TypographyProps,
+  useTheme,
+} from '@mui/material'
 import InfoChips from './info-chips/InfoChips'
 import { Display, Spacer } from '../shared/utility-components'
 import { ConstituentList } from './ConstituentList'
@@ -107,50 +116,13 @@ export default function LearnCharCardDetails({
           }
         />
 
-        <Box display='flex' flexDirection='column' alignItems='center'>
-          <Typography
-            variant='chineseHeading'
-            component='ruby'
-            marginBottom={1}
-            display='flex'
-            flexDirection='column-reverse'
-            alignItems='center'
-          >
-            {charChinese}
+        <Presentation
+          {...{ charChinese, explanation, keyword, pinyin, primitiveMeaning }}
+        />
 
-            <Typography component='rt' fontStyle='italic'>
-              {pinyin}
-            </Typography>
-          </Typography>
-
-          <Display if={keyword}>
-            <Typography variant='h4' position='relative' color='primary.main'>
-              {keyword}
-
-              <Display if={explanation}>
-                <KeywordExplanation />
-              </Display>
-            </Typography>
-          </Display>
-
-          <Display if={primitiveMeaning}>
-            <Typography component='h4' variant='primitiveMeaning'>
-              {primitiveMeaning}
-            </Typography>
-          </Display>
-        </Box>
         <Display if={constituents}>
           <>
             <Subheading title='Összetétel' small />
-            {/* <Typography
-              variant='h6'
-              fontWeight={700}
-              // color={palette.text.secondary}
-              marginTop={3}
-              marginBottom={1}
-            >
-              Összetétel
-            </Typography> */}
 
             <ConstituentList
               constituents={constituents!}
@@ -165,6 +137,75 @@ export default function LearnCharCardDetails({
         />
       </Box>
       <Story {...{ story }} />
+    </Box>
+  )
+}
+
+interface PresentationRowProps {
+  for?: string
+  // font?: CSSProperties
+  // typography: TypographyProps
+  children: ReactNode
+}
+
+const PresentationRow: FC<PresentationRowProps> = ({
+  for: element,
+  children,
+}) => {
+  return (
+    <Display if={element}>
+      <>
+        <span></span>
+
+        {children}
+
+        <Box display='flex' justifySelf='flex-end' gap={1}>
+          aa
+        </Box>
+      </>
+    </Display>
+  )
+}
+
+function Presentation({
+  charChinese,
+  explanation,
+  keyword,
+  pinyin,
+  primitiveMeaning,
+}: {
+  charChinese: string
+  explanation?: string
+  keyword?: string
+  pinyin?: string
+  primitiveMeaning?: string
+}) {
+  return (
+    <Box
+      display='grid'
+      gridTemplateColumns='minmax(0, 1fr) repeat(1, auto) 1fr'
+      justifyItems='center'
+      alignItems='center'
+    >
+      <PresentationRow for={pinyin}>
+        <Box fontStyle='italic'>{pinyin}</Box>
+      </PresentationRow>
+
+      <PresentationRow for={charChinese}>
+        <Box typography='chineseHeading' marginBottom={1}>
+          {charChinese}
+        </Box>
+      </PresentationRow>
+
+      <PresentationRow for={keyword}>
+        <Box typography='h4' color='primary.main'>
+          {keyword}
+        </Box>
+      </PresentationRow>
+
+      <PresentationRow for={primitiveMeaning}>
+        <Box typography='primitiveMeaning'>{primitiveMeaning}</Box>
+      </PresentationRow>
     </Box>
   )
 }
@@ -194,7 +235,7 @@ function Subheading({
   title: string
 }) {
   return (
-    <Box marginBottom={1} marginTop={isFirst ? 1 : 5}>
+    <Box marginBottom={small ? 1 : 4} marginTop={isFirst ? 1 : 5}>
       <Box display='flex' justifyContent='space-between' alignItems='center'>
         <Typography
           variant='h6'

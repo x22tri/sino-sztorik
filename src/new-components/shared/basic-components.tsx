@@ -62,10 +62,6 @@ export function MinorActionButton({ text }: { text: string }) {
   )
 }
 
-interface LightenOnHoverButtonProps {
-  icon?: IconDefinition
-}
-
 export function LightenOnHoverButton<B extends ElementType>(
   props: ButtonProps<B, { component?: B }>
 ) {

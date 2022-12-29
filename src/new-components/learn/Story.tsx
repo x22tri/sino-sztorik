@@ -38,7 +38,7 @@ export default function Story({ story }: { story: ParagraphType[] }) {
       display='flex'
       flexDirection='column'
       gap={3}
-      marginTop={4}
+      // marginTop={4}
       marginBottom={3}
     >
       {story.map((paragraph, index) =>
