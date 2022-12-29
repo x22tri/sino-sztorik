@@ -1,20 +1,21 @@
 import { ReactNode, FC, ElementType } from 'react'
 import Box, { BoxProps } from '@mui/material/Box'
 import { Display } from '../shared/utility-components'
+import Stack from '@mui/material/Stack'
+import { Character, valueof } from '../shared/interfaces'
+
+type PresentationType = Pick<
+  Character,
+  'pinyin' | 'charChinese' | 'keyword' | 'primitiveMeaning'
+>
 
 export function Presentation({
   charChinese,
-  explanation,
+  // explanation,
   keyword,
   pinyin,
   primitiveMeaning,
-}: {
-  charChinese: string
-  explanation?: string
-  keyword?: string
-  pinyin?: string
-  primitiveMeaning?: string
-}) {
+}: PresentationType) {
   return (
     <Box
       display='grid'
@@ -52,7 +53,7 @@ function PresentationBox<B extends ElementType>(
 }
 
 interface PresentationRowProps {
-  for?: string
+  for: PresentationType[keyof PresentationType]
   styling?: BoxProps
 }
 
@@ -65,11 +66,13 @@ const PresentationRow: FC<PresentationRowProps> = ({
       <>
         <span></span>
 
-        <PresentationBox sx={styling}>{element}</PresentationBox>
+        <PresentationBox sx={styling}>
+          <>{element}</>
+        </PresentationBox>
 
-        <Box display='flex' justifySelf='flex-end' gap={1}>
+        <Stack display='flex' justifySelf='flex-end' gap={1}>
           aa
-        </Box>
+        </Stack>
       </>
     </Display>
   )
