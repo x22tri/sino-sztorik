@@ -11,7 +11,13 @@ import MobileNavigationMenu from './MobileNavigationMenu'
 import DesktopNavigationMenu from './DesktopNavigationMenu'
 import ProfileMenu from './ProfileMenu'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClose, faLock } from '@fortawesome/free-solid-svg-icons'
+import {
+  faCircle,
+  faClose,
+  faLock,
+  faPause,
+  faPauseCircle,
+} from '@fortawesome/free-solid-svg-icons'
 import { useNavButtonStyling } from '../learn/useNavButtonStyling'
 
 export function LessonSelectAppbar() {
@@ -81,6 +87,7 @@ export function LearnAppbar({
         <LinearProgress
           variant='determinate'
           value={lessonProgress}
+          color={isLocked ? 'neutral' : 'primary'}
           sx={{
             borderRadius: '8px',
             p: 0.5,
@@ -88,19 +95,6 @@ export function LearnAppbar({
             maxWidth: constants.maxContentWidth,
           }}
         />
-        {isLocked ? (
-          <FontAwesomeIcon
-            icon={faLock}
-            size='2x'
-            style={{
-              position: 'absolute',
-              top: '6px',
-              left: 0,
-              right: 0,
-              margin: '0 auto',
-            }}
-          />
-        ) : null}
       </Box>
       {/* <Box>{'x'}</Box> */}
       <IconButton size='large' sx={{ ...navButtonStyling }}>

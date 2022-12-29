@@ -27,6 +27,7 @@ declare module '@mui/material/styles' {
   }
 
   interface Palette {
+    neutral: Palette['primary']
     specialParagraphs: {
       generic: string
       tip: string
@@ -35,6 +36,7 @@ declare module '@mui/material/styles' {
   }
 
   interface PaletteOptions {
+    neutral: PaletteOptions['primary']
     specialParagraphs: {
       generic: string
       tip: string
@@ -69,6 +71,12 @@ declare module '@mui/material/styles' {
     chineseNormal?: CSSProperties
     primitiveMeaning?: CSSProperties
     storySegments?: StorySegmentVariants
+  }
+}
+
+declare module '@mui/material/LinearProgress' {
+  interface LinearProgressPropsColorOverrides {
+    neutral: true
   }
 }
 
@@ -144,6 +152,7 @@ let theme = responsiveFontSizes(
     palette: {
       primary: { main: teal[600], light: teal[200], lightHovered: teal[300] },
       secondary: { light: '#FFEFF3', main: '#D91147' },
+      neutral: { main: grey[400], contrastText: grey[50], light: grey[200] },
       specialParagraphs: {
         generic: grey[200],
         tip: '#F8F2E9',
