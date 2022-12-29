@@ -17,6 +17,11 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import WestIcon from '@mui/icons-material/West'
 import SwiperInstance, { Keyboard } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import {
+  IconDefinition,
+  faClockRotateLeft,
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export function MajorActionButton({ text }: { text: string }) {
   const { palette } = useTheme()
@@ -57,19 +62,24 @@ export function MinorActionButton({ text }: { text: string }) {
   )
 }
 
+interface LightenOnHoverButtonProps {
+  icon?: IconDefinition
+}
+
 export function LightenOnHoverButton<B extends ElementType>(
   props: ButtonProps<B, { component?: B }>
 ) {
-  const { palette } = useTheme()
+  const { constants } = useTheme()
 
   return (
     <Button
       {...props}
       sx={{
-        color: palette.grey[600],
-        pb: 0,
-        borderRadius: 0,
-        borderBottom: '2px solid transparent',
+        transition: `${constants.animationDuration}ms`,
+        // color: palette.grey[600],
+        // pb: 0,
+        // borderRadius: 0,
+        // borderBottom: '2px solid transparent',
         '&:hover': {
           backgroundColor: 'inherit',
           filter: 'brightness(1.3)',
@@ -82,6 +92,26 @@ export function LightenOnHoverButton<B extends ElementType>(
     >
       {props.children}
     </Button>
+  )
+}
+
+export function LearnActionButton({
+  color,
+  icon,
+  label,
+}: {
+  color?: 'primary' | 'secondary' | 'neutral'
+  icon: IconDefinition
+  label: string
+}) {
+  return (
+    <LightenOnHoverButton
+      size='small'
+      startIcon={<FontAwesomeIcon {...{ icon }} />}
+      {...{ color }}
+    >
+      {label}
+    </LightenOnHoverButton>
   )
 }
 

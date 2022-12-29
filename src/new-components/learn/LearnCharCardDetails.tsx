@@ -14,13 +14,20 @@ import Typography from '@mui/material/Typography'
 import { Character, valueof } from '../shared/interfaces'
 import { CHARS } from './MOCK_CHARS'
 import Story from './Story'
-import { Card, IconButton, useTheme } from '@mui/material'
+import { Button, Card, IconButton, Stack, useTheme } from '@mui/material'
 import InfoChips from './info-chips/InfoChips'
 import { Display, Spacer } from '../shared/utility-components'
 import { ConstituentList } from './ConstituentList'
 import { StoryTypeSwitch } from './StoryTypeSwitch'
 import { KeywordExplanation } from './KeywordExplanation'
 import { useStoryHorizontalPadding } from './useStoryHorizontalPadding'
+import {
+  IconDefinition,
+  faChartColumn,
+  faClockRotateLeft,
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { LearnActionButton } from '../shared/basic-components'
 
 export default function LearnCharCardDetails({
   lessonChar,
@@ -31,6 +38,8 @@ export default function LearnCharCardDetails({
   charToReturnToFromFlashback: Character | null
   setCharToReturnToFromFlashback: Dispatch<SetStateAction<Character | null>>
 }) {
+  const { palette } = useTheme()
+
   const [charOverride, setCharOverride] = useState<Character | null>(null)
 
   const [isErrorSnackbarOpen, setIsErrorSnackbarOpen] = useState(false)
@@ -86,7 +95,17 @@ export default function LearnCharCardDetails({
         message='Constituent not found.'
       />
       <Box paddingX={useStoryHorizontalPadding()}>
-        <Subheading title='Karakter' isFirst />
+        <Subheading
+          title='Karakter'
+          isFirst
+          endContent={
+            <LearnActionButton
+              color='neutral'
+              icon={faChartColumn}
+              label='Gyakoriság'
+            />
+          }
+        />
 
         <Box display='flex' flexDirection='column' alignItems='center'>
           <Typography
@@ -123,6 +142,15 @@ export default function LearnCharCardDetails({
         <Display if={constituents}>
           <>
             <Subheading title='Összetétel' />
+            {/* <Typography
+              variant='h6'
+              fontWeight={700}
+              // color={palette.text.secondary}
+              marginTop={3}
+              marginBottom={1}
+            >
+              Összetétel
+            </Typography> */}
 
             <ConstituentList
               constituents={constituents!}
@@ -131,10 +159,26 @@ export default function LearnCharCardDetails({
           </>
         </Display>
         {/* <InfoChips char={currentlyViewedChar} /> */}
-        <Subheading title='Történet' endContent={<StoryTypeSwitch />} />
+        <Subheading
+          title='Történet'
+          endContent={<StorySubheadingEndContent />}
+        />
       </Box>
       <Story {...{ story }} />
     </Box>
+  )
+}
+
+function StorySubheadingEndContent() {
+  return (
+    <Stack
+      direction='row'
+      gap={1}
+      divider={<Divider flexItem orientation='vertical' />}
+    >
+      <LearnActionButton icon={faClockRotateLeft} label='Előzmény: []' />
+      <StoryTypeSwitch />
+    </Stack>
   )
 }
 
@@ -147,25 +191,15 @@ function Subheading({
   isFirst?: boolean
   title: string
 }) {
-  const { palette } = useTheme()
-
   return (
-    <Box marginY={1} paddingTop={isFirst ? 0 : 3}>
+    <Box marginBottom={1} marginTop={isFirst ? 1 : 5}>
       <Box display='flex' justifyContent='space-between' alignItems='center'>
         <Typography variant='h6' fontWeight={700}>
           {title}
         </Typography>
         {endContent}
       </Box>
-      <Typography
-        variant='subtitle2'
-        color={palette.text.secondary}
-        lineHeight={1}
-        marginTop={-0.5}
-        marginBottom={3}
-      >
-        Előzmény: []
-      </Typography>
+      <Divider />
     </Box>
   )
 }
