@@ -92,8 +92,12 @@ export default function LearnCharCardDetails({
     constituents,
     explanation,
     keyword,
+    newPrimitive,
+    otherUses,
     pinyin,
     primitiveMeaning,
+    productivePhonetic,
+    reminder,
     story,
   } = currentlyViewedChar
 
@@ -118,7 +122,18 @@ export default function LearnCharCardDetails({
         />
 
         <Presentation
-          {...{ charChinese, explanation, keyword, pinyin, primitiveMeaning }}
+          // {...{
+          //   charChinese,
+          //   explanation,
+          //   keyword,
+          //   newPrimitive,
+          //   otherUses,
+          //   pinyin,
+          //   primitiveMeaning,
+          //   productivePhonetic,
+          //   reminder,
+          // }}
+          char={currentlyViewedChar}
         />
 
         <Display if={constituents}>

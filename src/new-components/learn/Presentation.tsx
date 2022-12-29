@@ -2,20 +2,29 @@ import { ReactNode, FC, ElementType } from 'react'
 import Box, { BoxProps } from '@mui/material/Box'
 import { Display } from '../shared/utility-components'
 import Stack from '@mui/material/Stack'
-import { Character, valueof } from '../shared/interfaces'
+import { Character, ChipType, ChipIds, ChipId } from '../shared/interfaces'
+import { chipConfig } from './info-chips/chipConfig'
 
-type PresentationType = Pick<
-  Character,
-  'pinyin' | 'charChinese' | 'keyword' | 'primitiveMeaning'
->
+type PresentationKey = 'charChinese' | 'keyword' | 'pinyin' | 'primitiveMeaning'
 
-export function Presentation({
-  charChinese,
-  // explanation,
-  keyword,
-  pinyin,
-  primitiveMeaning,
-}: PresentationType) {
+type ChipKey = 'newPrimitive' | 'productivePhonetic' | 'reminder'
+
+type PresentationType = Pick<Character, PresentationKey>
+
+type ChipTypeX = Pick<Character, ChipKey>
+
+export function Presentation(
+  //   {
+  //   charChinese,
+  //   keyword,
+  //   pinyin,
+  //   primitiveMeaning,
+  // }: PresentationType & ChipTypeX
+  { char }: { char: Character }
+) {
+  const { FREQUENCY, NEW_PRIMITIVE, PREQUEL, PRODUCTIVE_PHONETIC, REMINDER } =
+    ChipIds
+
   return (
     <Box
       display='grid'
@@ -24,23 +33,32 @@ export function Presentation({
       alignItems='center'
     >
       <PresentationRow
-        for={pinyin}
+        // for={pinyin}
+        for='pinyin'
+        chips={[PRODUCTIVE_PHONETIC]}
+        // meh='pinyin'
         styling={{ fontStyle: 'italic', fontSize: '90%' }}
+        {...{ char }}
       />
 
       <PresentationRow
-        for={charChinese}
+        for='charChinese'
         styling={{ typography: 'chineseHeading', mb: 1 }}
+        {...{ char }}
       />
 
       <PresentationRow
-        for={keyword}
+        for='keyword'
+        chips={[REMINDER]}
         styling={{ typography: 'h4', color: 'primary.main' }}
+        {...{ char }}
       />
 
       <PresentationRow
-        for={primitiveMeaning}
+        for='primitiveMeaning'
+        chips={[NEW_PRIMITIVE]}
         styling={{ typography: 'primitiveMeaning' }}
+        {...{ char }}
       />
     </Box>
   )
@@ -53,25 +71,39 @@ function PresentationBox<B extends ElementType>(
 }
 
 interface PresentationRowProps {
-  for: PresentationType[keyof PresentationType]
+  // for: PresentationType[keyof PresentationType]
+  chips?: ChipId[]
+  char: Character
+  for: PresentationKey
   styling?: BoxProps
 }
 
 const PresentationRow: FC<PresentationRowProps> = ({
-  for: element,
+  // for: element,
+  for: presentationKey,
+  chips,
   styling,
+  char,
 }) => {
+  const element = char[presentationKey]
+
+  const chipArray = !chips?.length
+    ? []
+    : chipConfig.filter(({ id }) => chips.includes(id) && id in char)
+
+  // console.log(chips)
+
   return (
     <Display if={element}>
       <>
         <span></span>
 
-        <PresentationBox sx={styling}>
-          <>{element}</>
-        </PresentationBox>
+        <PresentationBox sx={styling}>{element}</PresentationBox>
 
         <Stack display='flex' justifySelf='flex-end' gap={1}>
-          aa
+          {chipArray.map((chip, index) => (
+            <Box key={index}>{chip.label}</Box>
+          ))}
         </Stack>
       </>
     </Display>

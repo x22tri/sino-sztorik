@@ -48,7 +48,7 @@ export const KEYWORD_EXPLANATION_TOOLTIP = 'Kattints a kulcsszó magyarázatáho
 
 export const INFO_CHIP_NEW_PRIMITIVE_LABEL = 'Új jelentés alapelemként!'
 export const INFO_CHIP_PREQUEL_LABEL = 'Előzmény:'
-export const INFO_CHIP_PRODUCTIVE_PINYIN_LABEL = 'Sokszor hangjelölő'
+export const INFO_CHIP_PRODUCTIVE_PHONETIC_LABEL = 'Sokszor hangjelölő'
 export const INFO_CHIP_REMINDER_LABEL = 'Emlékeztető'
 
 export const INFO_CHIP_NEW_PRIMITIVE_EXPLANATION = `Ezt a karaktert korábban már bevezettük, de nem használtuk fel más karakterekben.
@@ -57,7 +57,7 @@ Innentől felhasználjuk, de tényleges jelentését csak nehezen tudnánk beép
 export const INFO_CHIP_PREQUEL_EXPLANATION =
   'E karakter sztorija egy másik sztori folytatása. Ha nem emlékszel rá, [ide kattintva] felfrissítheted az emlékezeted.'
 
-export const INFO_CHIP_PRODUCTIVE_PINYIN_EXPLANATION =
+export const INFO_CHIP_PRODUCTIVE_PHONETIC_EXPLANATION =
   'Az e karaktert tartalmazó más karaktereket sokszor ugyanígy vagy hasonlóan kell kiejteni.'
 
 export const INFO_CHIP_REMINDER_EXPLANATION = `Ezt a karaktert korábban már bevezettük. Azért mutatjuk meg újra, mert hamarosan szükséged lesz rá.`

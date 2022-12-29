@@ -29,6 +29,7 @@ export const CHARS: Character[] = [
     ],
     frequency: 2,
     pinyin: 'yī',
+    reminder: true,
   },
   {
     id: 2,
@@ -46,6 +47,7 @@ export const CHARS: Character[] = [
     ],
     frequency: 596,
     pinyin: 'zhǐ',
+    newPrimitive: true,
   },
   {
     id: 3,
@@ -80,6 +82,7 @@ export const CHARS: Character[] = [
     frequency: 129,
     pinyin: 'zhèng',
     otherUses: ['kijavít', 'holdhónap első napja'],
+    prequel: true,
   },
   {
     id: 4,
@@ -110,5 +113,6 @@ export const CHARS: Character[] = [
     ],
     frequency: 373,
     pinyin: 'zhèng',
+    productivePhonetic: true,
   },
 ]

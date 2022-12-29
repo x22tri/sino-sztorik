@@ -54,16 +54,20 @@ export interface AssembledLesson {
 }
 
 export interface Character {
-  id: number
   charChinese: string
-  keyword?: string
-  explanation?: string
-  primitiveMeaning?: string
   constituents?: string[]
-  story: Paragraph[]
-  pinyin?: string
+  explanation?: string
   frequency?: number
+  keyword?: string
+  newPrimitive?: boolean
+  id: number
   otherUses?: string[]
+  pinyin?: string
+  prequel?: boolean
+  productivePhonetic?: boolean
+  primitiveMeaning?: string
+  reminder?: boolean
+  story: Paragraph[]
 }
 
 /* Chips interfaces */
@@ -72,7 +76,7 @@ export const ChipIds = {
   FREQUENCY: 'frequency',
   NEW_PRIMITIVE: 'newPrimitive',
   REMINDER: 'reminder',
-  PRODUCTIVE_PINYIN: 'productivePinyin',
+  PRODUCTIVE_PHONETIC: 'productivePhonetic',
   PREQUEL: 'prequel',
 } as const
 
