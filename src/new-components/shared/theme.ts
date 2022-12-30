@@ -170,7 +170,7 @@ let theme = responsiveFontSizes(
       primary: { main: teal[600], light: teal[200], lightHovered: teal[300] },
       secondary: { light: '#FFEFF3', main: '#D91147' },
       neutral: { main: grey[600], contrastText: grey[50], light: grey[200] },
-      background: { default: grey[200] },
+      background: { default: grey[50] },
       specialParagraphs: {
         generic: grey[200],
         tip: '#F8F2E9',

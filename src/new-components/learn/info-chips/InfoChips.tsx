@@ -1,4 +1,11 @@
-import { useTheme, Stack, Divider, Popover, Typography } from '@mui/material'
+import {
+  useTheme,
+  Stack,
+  Divider,
+  Popover,
+  Typography,
+  useMediaQuery,
+} from '@mui/material'
 import { MouseEvent, useState } from 'react'
 import { Character, ChipId, ChipIds, ChipType } from '../../shared/interfaces'
 import { useStoryHorizontalPadding } from '../useStoryHorizontalPadding'
@@ -8,7 +15,7 @@ import { INFO_CHIP_UNKNOWN_FREQUENCY_EXPLANATION } from '../../shared/strings'
 import { chipConfig } from './chipConfig'
 
 export default function InfoChips({ char }: { char: Character }) {
-  const { palette } = useTheme()
+  const { breakpoints, palette } = useTheme()
 
   const storyHorizontalPadding = useStoryHorizontalPadding()
 
@@ -54,15 +61,9 @@ export default function InfoChips({ char }: { char: Character }) {
             sx={{ borderRightWidth: '2px' }}
           />
         }
-        // marginY={1}
         gap={1}
-        // sx={{ backgroundColor: palette.grey[100] }}
-        paddingX={storyHorizontalPadding}
-        // paddingX={1}
+        marginLeft={useMediaQuery(breakpoints.down('md')) ? 0 : 1}
         marginY={1}
-        // position='absolute'
-        // right={0}
-        // sx={{ float: 'right' }}
       >
         {chipsContent.map(({ icon, id, label, labelAlwaysVisible }) => (
           <InfoChip
@@ -83,7 +84,7 @@ export default function InfoChips({ char }: { char: Character }) {
         {...{ anchorEl }}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'right',
+          horizontal: 'left',
         }}
         onClose={deselectChip}
         open={!!anchorEl}
@@ -96,7 +97,7 @@ export default function InfoChips({ char }: { char: Character }) {
         }}
         transformOrigin={{
           vertical: 'top',
-          horizontal: 'right',
+          horizontal: 'center',
         }}
       >
         <Typography variant='subtitle2' padding={1}>

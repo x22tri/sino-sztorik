@@ -7,111 +7,49 @@ import { chipConfig } from './info-chips/chipConfig'
 import { LearnActionButton } from '../shared/basic-components'
 import IconButton from '@mui/material/IconButton'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useTheme } from '@mui/material'
+import { KeywordExplanation } from './KeywordExplanation'
 
-type PresentationKey = 'charChinese' | 'keyword' | 'pinyin' | 'primitiveMeaning'
-
-type ChipKey = 'newPrimitive' | 'productivePhonetic' | 'reminder'
-
-type PresentationType = Pick<Character, PresentationKey>
-
-type ChipTypeX = Pick<Character, ChipKey>
-
-export function Presentation(
-  //   {
-  //   charChinese,
-  //   keyword,
-  //   pinyin,
-  //   primitiveMeaning,
-  // }: PresentationType & ChipTypeX
-  { char }: { char: Character }
-) {
-  const { FREQUENCY, NEW_PRIMITIVE, PREQUEL, PRODUCTIVE_PHONETIC, REMINDER } =
-    ChipIds
+export function Presentation({
+  pinyin,
+  explanation,
+  keyword,
+  charChinese,
+  primitiveMeaning,
+}: {
+  pinyin?: string
+  explanation?: string
+  keyword?: string
+  charChinese: string
+  primitiveMeaning?: string
+}) {
+  const { palette } = useTheme()
 
   return (
-    <Box
-      display='grid'
-      gridTemplateColumns='minmax(0, 1fr) repeat(1, auto) 1fr'
-      justifyItems='center'
-      alignItems='center'
-    >
-      <PresentationRow
-        // for={pinyin}
-        for='pinyin'
-        chips={[PRODUCTIVE_PHONETIC]}
-        // meh='pinyin'
-        styling={{ fontStyle: 'italic', fontSize: '90%' }}
-        {...{ char }}
-      />
+    <Box display='flex' flexDirection='column' alignItems='center'>
+      <Display if={pinyin}>
+        <Box fontStyle='italic' fontSize='90%'>
+          {pinyin}
+        </Box>
+      </Display>
 
-      <PresentationRow
-        for='charChinese'
-        styling={{ typography: 'chineseHeading', mb: 1 }}
-        {...{ char }}
-      />
+      <Box typography='chineseHeading' marginBottom={1}>
+        {charChinese}
+      </Box>
 
-      <PresentationRow
-        for='keyword'
-        chips={[REMINDER]}
-        styling={{ typography: 'h4', color: 'primary.main' }}
-        {...{ char }}
-      />
+      <Display if={keyword}>
+        <Box typography='h4' color={palette.primary.main} position='relative'>
+          {keyword}
 
-      <PresentationRow
-        for='primitiveMeaning'
-        chips={[NEW_PRIMITIVE]}
-        styling={{ typography: 'primitiveMeaning' }}
-        {...{ char }}
-      />
+          <Display if={explanation}>
+            <KeywordExplanation />
+          </Display>
+        </Box>
+      </Display>
+
+      <Display if={primitiveMeaning}>
+        <Box typography='primitiveMeaning'>{primitiveMeaning}</Box>
+      </Display>
     </Box>
-  )
-}
-
-function PresentationBox<B extends ElementType>(
-  props: BoxProps<B, { component?: B }>
-) {
-  return <Box {...props}>{props.children}</Box>
-}
-
-interface PresentationRowProps {
-  chips?: ChipId[]
-  char: Character
-  for: PresentationKey
-  styling?: BoxProps
-}
-
-const PresentationRow: FC<PresentationRowProps> = ({
-  for: presentationKey,
-  chips,
-  styling,
-  char,
-}) => {
-  const element = char[presentationKey]
-
-  const chipArray = !chips?.length
-    ? []
-    : chipConfig.filter(({ id }) => chips.includes(id) && id in char)
-
-  return (
-    <Display if={element}>
-      <>
-        <span></span>
-
-        <PresentationBox sx={styling}>{element}</PresentationBox>
-
-        <Stack display='flex' justifySelf='flex-end' gap={1}>
-          {chipArray.map(({ icon, label }, index) => (
-            // <LearnActionButton
-            //   color='neutral'
-            //   key={index}
-            //   {...{ icon, label }}
-            // />
-            <IconButton key={index} size='small'>
-              <FontAwesomeIcon {...{ icon }} />
-            </IconButton>
-          ))}
-        </Stack>
-      </>
-    </Display>
   )
 }

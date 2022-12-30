@@ -3,14 +3,6 @@ import Box from '@mui/material/Box'
 import Link from '@mui/material/Link'
 import Typography from '@mui/material/Typography'
 import {
-  faQuestion,
-  faInfo,
-  faLightbulb,
-  faCubesStacked,
-  faCircle,
-} from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
   Paragraph as ParagraphType,
   NoteKey,
   NoteKeys,
@@ -31,16 +23,8 @@ import { useStoryHorizontalPadding } from './useStoryHorizontalPadding'
 import { Fragment, ReactNode } from 'react'
 
 export default function Story({ story }: { story: ParagraphType[] }) {
-  const { palette } = useTheme()
-
   return (
-    <Box
-      display='flex'
-      flexDirection='column'
-      gap={3}
-      paddingBottom={2}
-      sx={{ backgroundColor: palette.background.paper }}
-    >
+    <>
       {story.map((paragraph, index) =>
         isNote(paragraph) ? (
           <NoteResolver note={paragraph} key={index} />
@@ -48,7 +32,7 @@ export default function Story({ story }: { story: ParagraphType[] }) {
           <Segments segments={paragraph} key={index} />
         )
       )}
-    </Box>
+    </>
   )
 }
 
@@ -92,11 +76,9 @@ function NoteElement({
   text: string | SegmentType[]
   title: string
 }) {
-  const horizontalPadding = useStoryHorizontalPadding()
+  const px = useStoryHorizontalPadding()
 
-  const horizontalMargin = useMediaQuery((theme: Theme) =>
-    theme.breakpoints.down('md')
-  )
+  const mx = useMediaQuery(({ breakpoints }: Theme) => breakpoints.down('md'))
     ? 0
     : -1
 
@@ -104,21 +86,15 @@ function NoteElement({
     <Box
       display='flex'
       flexDirection='column'
-      gap={2}
       sx={{
         background: color,
         borderRadius: '0 16px',
         py: 2,
-        px: horizontalPadding,
-        // mx: 1,
-        mx: horizontalMargin,
+        px,
+        mx,
       }}
     >
-      <Box display='flex' alignItems='center' gap='8px'>
-        <Typography variant='h6' component='div' lineHeight={2}>
-          {title}
-        </Typography>
-      </Box>
+      <Box typography='h6'>{title}</Box>
 
       <Typography variant='body2'>
         {typeof text === 'string' ? <>{text}</> : <Segments segments={text} />}
@@ -132,19 +108,13 @@ function Segments({ segments }: { segments: SegmentType[] }) {
   const { typography } = useTheme()
 
   const styles: Record<SegmentKey, SegmentStyles> = {
-    [KEYWORD]: {
-      fontStyle: typography.storySegments.keyword,
-    },
-    [PRIMITIVE]: {
-      fontStyle: typography.storySegments.primitive,
-    },
-    [CONSTITUENT]: {
-      fontStyle: typography.storySegments.constituent,
-    },
+    [KEYWORD]: { fontStyle: typography.storySegments.keyword },
+    [PRIMITIVE]: { fontStyle: typography.storySegments.primitive },
+    [CONSTITUENT]: { fontStyle: typography.storySegments.constituent },
   }
 
   return (
-    <Box component='p' sx={{ my: 0 }}>
+    <Box component='p' marginTop={3}>
       {segments.map((segment, index) => {
         if (typeof segment === 'string') {
           return <Fragment key={index}>{segment}</Fragment>

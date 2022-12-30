@@ -112,6 +112,7 @@ export default function LearnCharCardDetails({
       <Box
         borderRadius={2}
         paddingX={useStoryHorizontalPadding()}
+        paddingY={1}
         sx={{ backgroundColor: palette.background.paper }}
       >
         <Subheading
@@ -126,7 +127,9 @@ export default function LearnCharCardDetails({
           }
         />
 
-        <Presentation char={currentlyViewedChar} />
+        <Presentation
+          {...{ charChinese, explanation, keyword, pinyin, primitiveMeaning }}
+        />
 
         <Display if={constituents}>
           <>
@@ -179,7 +182,7 @@ function Subheading({
   title: string
 }) {
   return (
-    <Box paddingBottom={small ? 1 : 4} paddingTop={isFirst ? 1 : 5}>
+    <Box marginBottom={small ? 1 : 4} marginTop={isFirst ? 1 : 5}>
       <Box display='flex' justifyContent='space-between' alignItems='center'>
         <Typography
           variant='h6'
