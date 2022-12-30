@@ -18,7 +18,7 @@ export function KeywordExplanation() {
         color={palette.primary.light}
         sx={{
           transform: 'translate(85%)',
-          '&:hover': { color: palette.primary.lightHovered },
+          '&:hover': { color: palette.primary.lightHovered, cursor: 'pointer' },
         }}
       >
         <FontAwesomeIcon

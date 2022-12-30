@@ -33,8 +33,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LearnActionButton } from '../shared/basic-components'
 import { Presentation } from './presentation/Presentation'
 import { Subheading } from './subheading/Subheading'
-import { StorySubheadingEndContent } from './subheading/StorySubheadingEndContent'
-import Frequency from './subheading/Frequency'
+import { StoryTypeSwitch } from './subheading/StoryTypeSwitch'
 
 export default function LearnCharCardDetails({
   lessonChar,
@@ -93,6 +92,7 @@ export default function LearnCharCardDetails({
     newPrimitive,
     otherUses,
     pinyin,
+    prequel,
     primitiveMeaning,
     productivePhonetic,
     reminder,
@@ -113,11 +113,7 @@ export default function LearnCharCardDetails({
         paddingY={1}
         sx={{ backgroundColor: palette.background.paper }}
       >
-        <Subheading
-          title='Karakter'
-          isFirst
-          endContent={<Frequency {...{ frequency }} />}
-        />
+        <Subheading title='Karakter' isFirst />
 
         <Presentation
           {...{ charChinese, explanation, keyword, pinyin, primitiveMeaning }}
@@ -134,10 +130,7 @@ export default function LearnCharCardDetails({
           </>
         </Display>
 
-        <Subheading
-          title='Történet'
-          endContent={<StorySubheadingEndContent />}
-        />
+        <Subheading title='Történet' endContent={<StoryTypeSwitch />} />
 
         <Story {...{ story }} />
       </Box>

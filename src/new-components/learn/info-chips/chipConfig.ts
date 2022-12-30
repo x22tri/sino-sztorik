@@ -27,7 +27,6 @@ export const chipConfig: ChipType[] = [
     id: FREQUENCY,
     icon: faChartColumn,
     label: '',
-    labelAlwaysVisible: true,
     explanation: INFO_CHIP_FREQUENCY_EXPLANATION,
   },
   {

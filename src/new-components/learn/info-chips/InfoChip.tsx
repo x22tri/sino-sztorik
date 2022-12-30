@@ -9,19 +9,15 @@ export default function InfoChip({
   id,
   isSelected,
   label,
-  labelAlwaysVisible,
   selectChip,
 }: {
   icon: IconDefinition
   id: ChipId
   isSelected: boolean
   label: string
-  labelAlwaysVisible?: boolean
   selectChip: (event: MouseEvent<HTMLButtonElement>, chipId: ChipId) => void
 }) {
-  const { breakpoints, palette } = useTheme()
-
-  const hideLabel = useMediaQuery(breakpoints.down('sm')) && !labelAlwaysVisible
+  const { palette } = useTheme()
 
   return (
     <Chip
@@ -46,7 +42,6 @@ export default function InfoChip({
         borderRadius: 1,
         color: isSelected ? palette.primary.contrastText : palette.grey[700],
         px: 1,
-        width: hideLabel ? '24px' : 'auto',
         '&:focus': {
           boxShadow: 'none',
         },
@@ -58,7 +53,6 @@ export default function InfoChip({
         },
         '.MuiChip-label': {
           pr: 0,
-          display: hideLabel ? 'none' : 'block',
         },
       }}
       {...{ label }}

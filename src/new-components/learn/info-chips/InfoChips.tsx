@@ -1,23 +1,14 @@
-import {
-  useTheme,
-  Stack,
-  Divider,
-  Popover,
-  Typography,
-  useMediaQuery,
-} from '@mui/material'
+import { useTheme, Stack, Divider, useMediaQuery } from '@mui/material'
 import { MouseEvent, useState } from 'react'
 import { Character, ChipId, ChipIds, ChipType } from '../../shared/interfaces'
-import { useStoryHorizontalPadding } from '../useStoryHorizontalPadding'
 import { getFrequencyText } from '../getFrequencyText'
 import InfoChip from './InfoChip'
 import { INFO_CHIP_UNKNOWN_FREQUENCY_EXPLANATION } from '../../shared/strings'
 import { chipConfig } from './chipConfig'
+import { LearnPopover } from '../../shared/basic-components'
 
 export default function InfoChips({ char }: { char: Character }) {
-  const { breakpoints, palette } = useTheme()
-
-  const storyHorizontalPadding = useStoryHorizontalPadding()
+  const { breakpoints } = useTheme()
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
@@ -65,7 +56,7 @@ export default function InfoChips({ char }: { char: Character }) {
         marginLeft={useMediaQuery(breakpoints.down('md')) ? 0 : 1}
         marginY={1}
       >
-        {chipsContent.map(({ icon, id, label, labelAlwaysVisible }) => (
+        {chipsContent.map(({ icon, id, label }) => (
           <InfoChip
             key={id}
             isSelected={selectedChip?.id === id}
@@ -73,37 +64,17 @@ export default function InfoChips({ char }: { char: Character }) {
               icon,
               id,
               label,
-              labelAlwaysVisible,
               selectChip,
             }}
           />
         ))}
       </Stack>
 
-      <Popover
+      <LearnPopover
         {...{ anchorEl }}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
         onClose={deselectChip}
-        open={!!anchorEl}
-        sx={{
-          mt: 0.5,
-          '.MuiPopover-paper': {
-            boxShadow: 'none',
-            border: `2px solid ${palette.grey[200]}`,
-          },
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-      >
-        <Typography variant='subtitle2' padding={1}>
-          {selectedChip?.explanation}
-        </Typography>
-      </Popover>
+        text={selectedChip?.explanation}
+      />
     </>
   )
 }
