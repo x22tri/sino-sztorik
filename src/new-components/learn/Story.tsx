@@ -1,4 +1,4 @@
-import { useTheme } from '@mui/material'
+import { Theme, useMediaQuery, useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import Link from '@mui/material/Link'
 import Typography from '@mui/material/Typography'
@@ -31,23 +31,21 @@ import { useStoryHorizontalPadding } from './useStoryHorizontalPadding'
 import { Fragment, ReactNode } from 'react'
 
 export default function Story({ story }: { story: ParagraphType[] }) {
-  const horizontalPadding = useStoryHorizontalPadding()
+  const { palette } = useTheme()
 
   return (
     <Box
       display='flex'
       flexDirection='column'
       gap={3}
-      // marginTop={4}
-      marginBottom={3}
+      paddingBottom={2}
+      sx={{ backgroundColor: palette.background.paper }}
     >
       {story.map((paragraph, index) =>
         isNote(paragraph) ? (
           <NoteResolver note={paragraph} key={index} />
         ) : (
-          <Box component='p' sx={{ px: horizontalPadding, my: 0 }} key={index}>
-            <Segments segments={paragraph} />
-          </Box>
+          <Segments segments={paragraph} key={index} />
         )
       )}
     </Box>
@@ -96,6 +94,12 @@ function NoteElement({
 }) {
   const horizontalPadding = useStoryHorizontalPadding()
 
+  const horizontalMargin = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down('md')
+  )
+    ? 0
+    : -1
+
   return (
     <Box
       display='flex'
@@ -106,6 +110,8 @@ function NoteElement({
         borderRadius: '0 16px',
         py: 2,
         px: horizontalPadding,
+        // mx: 1,
+        mx: horizontalMargin,
       }}
     >
       <Box display='flex' alignItems='center' gap='8px'>
@@ -138,7 +144,7 @@ function Segments({ segments }: { segments: SegmentType[] }) {
   }
 
   return (
-    <>
+    <Box component='p' sx={{ my: 0 }}>
       {segments.map((segment, index) => {
         if (typeof segment === 'string') {
           return <Fragment key={index}>{segment}</Fragment>
@@ -176,7 +182,7 @@ function Segments({ segments }: { segments: SegmentType[] }) {
 
         return null
       })}
-    </>
+    </Box>
   )
 }
 

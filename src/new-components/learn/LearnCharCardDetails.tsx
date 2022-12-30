@@ -102,13 +102,18 @@ export default function LearnCharCardDetails({
   } = currentlyViewedChar
 
   return (
-    <Box minWidth={0} marginX={1}>
+    <Box minWidth={0}>
       <Snackbar
         open={isErrorSnackbarOpen}
         autoHideDuration={6000}
         message='Constituent not found.'
       />
-      <Box paddingX={useStoryHorizontalPadding()}>
+      <InfoChips char={currentlyViewedChar} />
+      <Box
+        borderRadius={2}
+        paddingX={useStoryHorizontalPadding()}
+        sx={{ backgroundColor: palette.background.paper }}
+      >
         <Subheading
           title='Karakter'
           isFirst
@@ -121,20 +126,7 @@ export default function LearnCharCardDetails({
           }
         />
 
-        <Presentation
-          // {...{
-          //   charChinese,
-          //   explanation,
-          //   keyword,
-          //   newPrimitive,
-          //   otherUses,
-          //   pinyin,
-          //   primitiveMeaning,
-          //   productivePhonetic,
-          //   reminder,
-          // }}
-          char={currentlyViewedChar}
-        />
+        <Presentation char={currentlyViewedChar} />
 
         <Display if={constituents}>
           <>
@@ -146,13 +138,14 @@ export default function LearnCharCardDetails({
             />
           </>
         </Display>
-        {/* <InfoChips char={currentlyViewedChar} /> */}
+
         <Subheading
           title='Történet'
           endContent={<StorySubheadingEndContent />}
         />
+
+        <Story {...{ story }} />
       </Box>
-      <Story {...{ story }} />
     </Box>
   )
 }
@@ -164,7 +157,11 @@ function StorySubheadingEndContent() {
       gap={1}
       divider={<Divider flexItem orientation='vertical' />}
     >
-      <LearnActionButton icon={faClockRotateLeft} label='Előzmény: []' />
+      <LearnActionButton
+        color='neutral'
+        icon={faClockRotateLeft}
+        label='Előzmény: []'
+      />
       <StoryTypeSwitch />
     </Stack>
   )
@@ -182,7 +179,7 @@ function Subheading({
   title: string
 }) {
   return (
-    <Box marginBottom={small ? 1 : 4} marginTop={isFirst ? 1 : 5}>
+    <Box paddingBottom={small ? 1 : 4} paddingTop={isFirst ? 1 : 5}>
       <Box display='flex' justifyContent='space-between' alignItems='center'>
         <Typography
           variant='h6'

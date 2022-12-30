@@ -54,9 +54,12 @@ export default function InfoChips({ char }: { char: Character }) {
             sx={{ borderRightWidth: '2px' }}
           />
         }
-        marginY={1}
+        // marginY={1}
         gap={1}
+        // sx={{ backgroundColor: palette.grey[100] }}
         paddingX={storyHorizontalPadding}
+        // paddingX={1}
+        marginY={1}
         // position='absolute'
         // right={0}
         // sx={{ float: 'right' }}

@@ -4,6 +4,9 @@ import { Display } from '../shared/utility-components'
 import Stack from '@mui/material/Stack'
 import { Character, ChipType, ChipIds, ChipId } from '../shared/interfaces'
 import { chipConfig } from './info-chips/chipConfig'
+import { LearnActionButton } from '../shared/basic-components'
+import IconButton from '@mui/material/IconButton'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 type PresentationKey = 'charChinese' | 'keyword' | 'pinyin' | 'primitiveMeaning'
 
@@ -71,7 +74,6 @@ function PresentationBox<B extends ElementType>(
 }
 
 interface PresentationRowProps {
-  // for: PresentationType[keyof PresentationType]
   chips?: ChipId[]
   char: Character
   for: PresentationKey
@@ -79,7 +81,6 @@ interface PresentationRowProps {
 }
 
 const PresentationRow: FC<PresentationRowProps> = ({
-  // for: element,
   for: presentationKey,
   chips,
   styling,
@@ -91,8 +92,6 @@ const PresentationRow: FC<PresentationRowProps> = ({
     ? []
     : chipConfig.filter(({ id }) => chips.includes(id) && id in char)
 
-  // console.log(chips)
-
   return (
     <Display if={element}>
       <>
@@ -101,8 +100,15 @@ const PresentationRow: FC<PresentationRowProps> = ({
         <PresentationBox sx={styling}>{element}</PresentationBox>
 
         <Stack display='flex' justifySelf='flex-end' gap={1}>
-          {chipArray.map((chip, index) => (
-            <Box key={index}>{chip.label}</Box>
+          {chipArray.map(({ icon, label }, index) => (
+            // <LearnActionButton
+            //   color='neutral'
+            //   key={index}
+            //   {...{ icon, label }}
+            // />
+            <IconButton key={index} size='small'>
+              <FontAwesomeIcon {...{ icon }} />
+            </IconButton>
           ))}
         </Stack>
       </>

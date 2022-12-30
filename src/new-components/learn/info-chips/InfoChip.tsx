@@ -45,7 +45,7 @@ export default function InfoChip({
         borderWidth: 0,
         borderRadius: 1,
         color: isSelected ? palette.primary.contrastText : palette.grey[700],
-        p: 1,
+        // p: 1,
         width: hideLabel ? '24px' : 'auto',
         '&:focus': {
           boxShadow: 'none',

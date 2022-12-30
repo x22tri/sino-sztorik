@@ -1,5 +1,5 @@
 import { KeyboardEvent, useState } from 'react'
-import { useTheme } from '@mui/material'
+import { Button, useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import { ContentContainer } from '../shared/basic-components'
 import { Character } from '../shared/interfaces'
@@ -18,7 +18,7 @@ export default function Learn() {
   const [charToReturnToFromFlashback, setCharToReturnToFromFlashback] =
     useState<Character | null>(null)
 
-  const [activeIndex, setActiveIndex] = useState(2)
+  const [activeIndex, setActiveIndex] = useState(1)
 
   const currentChar = lessonDataSource[activeIndex]
 
@@ -77,6 +77,8 @@ export default function Learn() {
           />
         </Box>
       </ContentContainer>
+      <Button onClick={() => moveToPreviousCharacter()}>prev</Button>
+      <Button onClick={() => moveToNextCharacter()}>next</Button>
     </>
   )
 }
