@@ -4,40 +4,37 @@ import {
   useState,
   useEffect,
   Fragment,
-  ReactNode,
   FC,
   CSSProperties,
 } from 'react'
 import Box from '@mui/material/Box'
-import Divider from '@mui/material/Divider'
 import Link from '@mui/material/Link'
 import Snackbar from '@mui/material/Snackbar'
-import Typography from '@mui/material/Typography'
 import { Character, valueof } from '../shared/interfaces'
 import { CHARS } from './MOCK_CHARS'
-import Story from './Story'
+import Story from './story/Story'
 import {
   Button,
   Card,
   IconButton,
-  Stack,
   TypographyProps,
   useTheme,
 } from '@mui/material'
 import InfoChips from './info-chips/InfoChips'
 import { Display, Spacer } from '../shared/utility-components'
 import { ConstituentList } from './ConstituentList'
-import { StoryTypeSwitch } from './StoryTypeSwitch'
-import { KeywordExplanation } from './KeywordExplanation'
+import { KeywordExplanation } from './presentation/KeywordExplanation'
 import { useStoryHorizontalPadding } from './useStoryHorizontalPadding'
 import {
   IconDefinition,
   faChartColumn,
-  faClockRotateLeft,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LearnActionButton } from '../shared/basic-components'
-import { Presentation } from './Presentation'
+import { Presentation } from './presentation/Presentation'
+import { Subheading } from './subheading/Subheading'
+import { StorySubheadingEndContent } from './subheading/StorySubheadingEndContent'
+import Frequency from './subheading/Frequency'
 
 export default function LearnCharCardDetails({
   lessonChar,
@@ -91,6 +88,7 @@ export default function LearnCharCardDetails({
     charChinese,
     constituents,
     explanation,
+    frequency,
     keyword,
     newPrimitive,
     otherUses,
@@ -118,13 +116,7 @@ export default function LearnCharCardDetails({
         <Subheading
           title='Karakter'
           isFirst
-          endContent={
-            <LearnActionButton
-              color='neutral'
-              icon={faChartColumn}
-              label='Gyakoriság'
-            />
-          }
+          endContent={<Frequency {...{ frequency }} />}
         />
 
         <Presentation
@@ -149,54 +141,6 @@ export default function LearnCharCardDetails({
 
         <Story {...{ story }} />
       </Box>
-    </Box>
-  )
-}
-
-function StorySubheadingEndContent() {
-  return (
-    <Stack
-      direction='row'
-      gap={1}
-      divider={<Divider flexItem orientation='vertical' />}
-    >
-      <LearnActionButton
-        color='neutral'
-        icon={faClockRotateLeft}
-        label='Előzmény: []'
-      />
-      <StoryTypeSwitch />
-    </Stack>
-  )
-}
-
-function Subheading({
-  endContent,
-  isFirst = false,
-  small = false,
-  title,
-}: {
-  endContent?: ReactNode
-  isFirst?: boolean
-  small?: boolean
-  title: string
-}) {
-  return (
-    <Box marginBottom={small ? 1 : 4} marginTop={isFirst ? 1 : 5}>
-      <Box display='flex' justifyContent='space-between' alignItems='center'>
-        <Typography
-          variant='h6'
-          fontWeight={700}
-          fontSize={small ? '90% !important' : '100%'}
-        >
-          {title}
-        </Typography>
-        {endContent}
-      </Box>
-
-      <Display if={!small}>
-        <Divider />
-      </Display>
     </Box>
   )
 }

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Button, useTheme } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileLines, faVideo } from '@fortawesome/free-solid-svg-icons'
-import { LearnActionButton } from '../shared/basic-components'
+import { LearnActionButton } from '../../shared/basic-components'
 
 export function StoryTypeSwitch() {
   const storyTypeDictionary = {

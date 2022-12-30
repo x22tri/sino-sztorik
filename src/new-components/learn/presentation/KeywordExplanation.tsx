@@ -2,7 +2,7 @@ import Box from '@mui/material/Box'
 import { Tooltip, useTheme } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
-import { KEYWORD_EXPLANATION_TOOLTIP } from '../shared/strings'
+import { KEYWORD_EXPLANATION_TOOLTIP } from '../../shared/strings'
 
 export function KeywordExplanation() {
   const { palette } = useTheme()
