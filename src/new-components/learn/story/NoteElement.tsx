@@ -34,13 +34,13 @@ export function NoteElement({
     >
       <Box typography='h6'>{title}</Box>
 
-      <Typography variant='body2'>
+      <Box typography='body2'>
         {typeof text === 'string' ? (
           <>{text}</>
         ) : (
           <SegmentResolver segments={text} />
         )}
-      </Typography>
+      </Box>
     </Box>
   )
 }

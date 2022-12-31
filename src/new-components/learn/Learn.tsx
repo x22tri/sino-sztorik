@@ -1,14 +1,15 @@
 import { KeyboardEvent, useState } from 'react'
 import { Button, useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
-import { ContentContainer } from '../shared/basic-components'
+import { ContentContainer } from '../shared-components/ContentContainer'
 import { Character } from '../shared/interfaces'
 import { CHARS } from './MOCK_CHARS'
-import Swiper from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import LearnCharCardDetails from './LearnCharCardDetails'
 import { LearnAppbar } from '../toolbar/AppbarWrapper'
 import useEventListener from '@use-it/event-listener'
+import { EffectCreative, Keyboard } from 'swiper'
 
 export default function Learn() {
   const { constants } = useTheme()
@@ -59,24 +60,48 @@ export default function Learn() {
         isLocked={!!charToReturnToFromFlashback}
         {...{ activeIndex }}
       />
+
       <ContentContainer>
-        <Box
-          maxWidth={constants.maxContentWidth}
-          height='100%'
-          position='relative'
-          margin='auto'
-          display='flex'
-          minWidth={0}
+        <Swiper
+          autoHeight
+          effect={'creative'}
+          keyboard={true}
+          spaceBetween={0}
+          // simulateTouch={false}
+          creativeEffect={{
+            prev: {
+              shadow: true,
+              translate: ['-20%', 0, -1],
+            },
+            next: {
+              translate: ['100%', 0, 0],
+            },
+          }}
+          onSlideChange={() => {
+            window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+          }}
+          onSlideChangeTransitionEnd={() => {
+            window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+          }}
+          modules={[EffectCreative, Keyboard]}
+          style={{
+            maxWidth: constants.maxContentWidth,
+          }}
         >
-          <LearnCharCardDetails
-            lessonChar={currentChar}
-            {...{
-              charToReturnToFromFlashback,
-              setCharToReturnToFromFlashback,
-            }}
-          />
-        </Box>
+          {lessonDataSource.map((char, index) => (
+            <SwiperSlide key={index}>
+              <LearnCharCardDetails
+                lessonChar={char}
+                {...{
+                  charToReturnToFromFlashback,
+                  setCharToReturnToFromFlashback,
+                }}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </ContentContainer>
+
       <Button onClick={() => moveToPreviousCharacter()}>prev</Button>
       <Button onClick={() => moveToNextCharacter()}>next</Button>
     </>

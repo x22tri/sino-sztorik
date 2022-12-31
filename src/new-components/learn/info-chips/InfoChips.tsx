@@ -5,7 +5,7 @@ import { getFrequencyText } from '../getFrequencyText'
 import InfoChip from './InfoChip'
 import { INFO_CHIP_UNKNOWN_FREQUENCY_EXPLANATION } from '../../shared/strings'
 import { chipConfig } from './chipConfig'
-import { LearnPopover } from '../../shared/basic-components'
+import { LearnPopover } from '../../shared-components/LearnPopover'
 
 export default function InfoChips({ char }: { char: Character }) {
   const { breakpoints } = useTheme()

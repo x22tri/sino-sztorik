@@ -12,8 +12,8 @@ import {
   CardSwiperWrapper,
   CardSwiperContent,
   BackButton,
-  ContentContainer,
 } from '../shared/basic-components'
+import { ContentContainer } from '../shared-components/ContentContainer'
 import { SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import { useTheme } from '@mui/material'

@@ -6,22 +6,18 @@ import {
   SetStateAction,
   useState,
 } from 'react'
-import { Popover, useTheme } from '@mui/material'
+import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
-import Button, { ButtonProps } from '@mui/material/Button'
+import Button from '@mui/material/Button'
 import Card, { CardProps } from '@mui/material/Card'
-import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import WestIcon from '@mui/icons-material/West'
 import SwiperInstance, { Keyboard } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import {
-  IconDefinition,
-  faClockRotateLeft,
-} from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faClockRotateLeft } from '@fortawesome/free-solid-svg-icons'
+import { LightenOnHoverButton } from '../shared-components/LightenOnHoverButton'
 
 export function MajorActionButton({ text }: { text: string }) {
   const { palette } = useTheme()
@@ -59,91 +55,6 @@ export function MinorActionButton({ text }: { text: string }) {
     >
       {text}
     </Button>
-  )
-}
-
-export function LightenOnHoverButton<B extends ElementType>(
-  props: ButtonProps<B, { component?: B }>
-) {
-  const { constants } = useTheme()
-
-  return (
-    <Button
-      {...props}
-      sx={{
-        transition: `${constants.animationDuration}ms`,
-        '&:hover': {
-          backgroundColor: 'inherit',
-          filter: 'brightness(1.3)',
-        },
-        '&:focus': {
-          filter: 'brightness(1.3)',
-        },
-        ...props.sx,
-      }}
-    >
-      {props.children}
-    </Button>
-  )
-}
-
-export function LearnActionButton({
-  color,
-  icon,
-  label,
-}: {
-  color?: 'primary' | 'secondary' | 'neutral'
-  icon: IconDefinition
-  label: string
-}) {
-  return (
-    <LightenOnHoverButton
-      size='small'
-      startIcon={<FontAwesomeIcon {...{ icon }} />}
-      {...{ color }}
-    >
-      {label}
-    </LightenOnHoverButton>
-  )
-}
-
-export function LearnPopover({
-  anchorEl,
-  onClose,
-  text,
-}: {
-  anchorEl: Element | ((element: Element) => Element) | null | undefined
-  onClose:
-    | ((event: {}, reason: 'backdropClick' | 'escapeKeyDown') => void)
-    | undefined
-  text: string | undefined
-}) {
-  const { palette } = useTheme()
-
-  return (
-    <Popover
-      {...{ anchorEl, onClose }}
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'left',
-      }}
-      open={!!anchorEl}
-      sx={{
-        mt: 0.5,
-        '.MuiPopover-paper': {
-          boxShadow: 'none',
-          border: `2px solid ${palette.grey[200]}`,
-        },
-      }}
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'center',
-      }}
-    >
-      <Typography variant='subtitle2' padding={1}>
-        {text}
-      </Typography>
-    </Popover>
   )
 }
 
@@ -285,32 +196,5 @@ export function CardSwiperContent({ children }: { children: ReactNode }) {
         {children}
       </Box>
     </SwiperSlide>
-  )
-}
-
-export function ContentContainer({ children }: { children: ReactNode }) {
-  const { constants } = useTheme()
-
-  return (
-    <Container
-      component='main'
-      maxWidth='lg'
-      sx={{
-        display: 'flex',
-        position: 'relative',
-        // // justifyContent: 'space-between',
-        // height: `calc(100% - ${constants.toolbarHeight})`,
-      }}
-    >
-      {children}
-    </Container>
-  )
-}
-
-function Scrollable({ children }: { children: ReactNode }) {
-  return (
-    <Box display='flex' minWidth={0} sx={{ overflowY: 'scroll' }}>
-      {children}
-    </Box>
   )
 }

@@ -11,18 +11,10 @@ import MobileNavigationMenu from './MobileNavigationMenu'
 import DesktopNavigationMenu from './DesktopNavigationMenu'
 import ProfileMenu from './ProfileMenu'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faCircle,
-  faClose,
-  faLock,
-  faPause,
-  faPauseCircle,
-} from '@fortawesome/free-solid-svg-icons'
+import { faClose } from '@fortawesome/free-solid-svg-icons'
 import { useNavButtonStyling } from '../learn/useNavButtonStyling'
 
 export function LessonSelectAppbar() {
-  const { breakpoints, palette } = useTheme()
-
   const username = 'Péter'
 
   const navigationItems = [LESSON_SELECT_TITLE, CHARACTER_SEARCH_TITLE] as const
@@ -114,7 +106,7 @@ function AppbarWrapper({ children }: { children: ReactNode }) {
       sx={{
         backgroundColor: palette.background.default,
         color: 'black',
-        borderBottom: `2px solid ${palette.grey[300]}`,
+        // borderBottom: `2px solid ${palette.grey[300]}`,
       }}
     >
       <Container disableGutters maxWidth='lg'>

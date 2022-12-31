@@ -30,7 +30,7 @@ import {
   faChartColumn,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { LearnActionButton } from '../shared/basic-components'
+import { LearnActionButton } from '../shared-components/LearnActionButton'
 import { Presentation } from './presentation/Presentation'
 import { Subheading } from './subheading/Subheading'
 import { StoryTypeSwitch } from './subheading/StoryTypeSwitch'
