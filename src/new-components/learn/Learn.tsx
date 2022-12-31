@@ -54,18 +54,13 @@ export default function Learn() {
     }
   })
 
-  // const swiper = useSwiper()
-
   const isSmallScreen = useMediaQuery(breakpoints.down('md'))
-
-  // const creativeEffect =
 
   return (
     <>
       <LearnAppbar
         lessonLength={CHARS.length}
         isLocked={!!charToReturnToFromFlashback}
-        // {...{ activeIndex }}
         activeIndex={0}
       />
 
@@ -82,62 +77,32 @@ export default function Learn() {
               translate: ['-20%', 0, -1],
             },
             next: {
-              // opacity: 0,
               opacity: 1,
-              // translate: ['100%', 0, 0],
               translate: ['100%', 0, 1],
             },
           }}
-          onSlideChangeTransitionStart={swiper => {
-            // swiper.updateSize()
-            // swiper.updateAutoHeight()
-          }}
-          onSlideChange={swiper => {
-            // swiper.previousIndex.
-            // swiper.updateSize()
-            // swiper.updateAutoHeight()
+          onSlideChange={() => {
             window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
           }}
           onSlideChangeTransitionEnd={() => {
-            // swiper.updateSize()
-            // swiper.updateAutoHeight()
             window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
           }}
           modules={[EffectCreative, EffectFade, Keyboard]}
           style={{ maxWidth: constants.maxContentWidth }}
         >
-          {lessonDataSource.map((char, index) => {
-            return (
-              <SwiperSlide key={index}>
-                {slide => {
-                  // console.log(char.charChinese, slide.isVisible)
-                  // console.log(slide.isVisible)
-                  // swiper = useSwiper()
-
-                  // console.log(swiper?.activeIndex)
-                  return (
-                    <Box
-                    // display={
-                    //   slide.isVisible || slide.isPrev || slide.isNext
-                    //     ? 'initial'
-                    //     : 'none'
-                    // }
-                    >
-                      <LearnCharCardDetails
-                        // activeIndex=
-                        lessonChar={char}
-                        {...{
-                          charToReturnToFromFlashback,
-                          setCharToReturnToFromFlashback,
-                          index,
-                        }}
-                      />
-                    </Box>
-                  )
+          {lessonDataSource.map((char, index) => (
+            <SwiperSlide key={index}>
+              <LearnCharCardDetails
+                // activeIndex=
+                lessonChar={char}
+                {...{
+                  charToReturnToFromFlashback,
+                  setCharToReturnToFromFlashback,
+                  index,
                 }}
-              </SwiperSlide>
-            )
-          })}
+              />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </ContentContainer>
 

@@ -109,7 +109,6 @@ export default function LearnCharCardDetails({
   return (
     <Box
       minWidth={0}
-      // marginBottom='-1px'
       marginBottom={1}
       border={`1px solid ${palette.grey[200]}`}
     >
