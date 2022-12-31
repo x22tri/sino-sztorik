@@ -34,13 +34,16 @@ import { LearnActionButton } from '../shared-components/LearnActionButton'
 import { Presentation } from './presentation/Presentation'
 import { Subheading } from './subheading/Subheading'
 import { StoryTypeSwitch } from './subheading/StoryTypeSwitch'
+import { useSwiper } from 'swiper/react'
 
 export default function LearnCharCardDetails({
   lessonChar,
+  index,
   charToReturnToFromFlashback,
   setCharToReturnToFromFlashback,
 }: {
   lessonChar: Character
+  index: number
   charToReturnToFromFlashback: Character | null
   setCharToReturnToFromFlashback: Dispatch<SetStateAction<Character | null>>
 }) {
@@ -99,8 +102,17 @@ export default function LearnCharCardDetails({
     story,
   } = currentlyViewedChar
 
+  const swiper = useSwiper()
+
+  console.log(swiper.activeIndex, charChinese, index)
+
   return (
-    <Box minWidth={0}>
+    <Box
+      minWidth={0}
+      // marginBottom='-1px'
+      marginBottom={1}
+      border={`1px solid ${palette.grey[200]}`}
+    >
       <Snackbar
         open={isErrorSnackbarOpen}
         autoHideDuration={6000}

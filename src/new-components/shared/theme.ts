@@ -118,8 +118,7 @@ let theme = responsiveFontSizes(
         },
       },
       MuiCssBaseline: {
-        styleOverrides: `.swiper-slide-shadow {
-          border-radius: 12px;
+        styleOverrides: `.swiper-slide-shadow {}
         `,
       },
       MuiLink: {

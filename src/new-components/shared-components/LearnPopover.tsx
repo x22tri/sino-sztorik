@@ -21,35 +21,17 @@ export function LearnPopover({
   return (
     <Popover
       {...{ anchorEl, container, marginThreshold, onClose }}
-      // anchorOrigin={{
-      //   vertical: 'bottom',
-      //   horizontal: 'left',
-      // }}
       open={!!anchorEl}
       anchorReference='anchorPosition'
       anchorPosition={{ top: 32, left: 0 }}
       PaperProps={{
         style: {
-          width: `calc(100% - ${marginThreshold * 3}px)`,
-          maxWidth: 'initial',
+          maxWidth: `calc(100% - ${marginThreshold * 3}px)`,
           boxShadow: 'none',
           border: `2px solid ${palette.grey[200]}`,
         },
       }}
-      sx={{
-        mt: 0.5,
-        width: '100%',
-        // '.MuiPopover-paper': {
-        //   boxShadow: 'none',
-        //   border: `2px solid ${palette.grey[200]}`,
-        //   width: '100%',
-        // },
-      }}
-
-      // transformOrigin={{
-      //   vertical: 'top',
-      //   horizontal: 'center',
-      // }}
+      sx={{ mt: 0.5 }}
     >
       <Typography variant='subtitle2' padding={1}>
         {text}

@@ -1,15 +1,13 @@
-import { useTheme, Stack, Divider, useMediaQuery } from '@mui/material'
+import { Stack, Divider } from '@mui/material'
 import { MouseEvent, useRef, useState } from 'react'
-import { Character, ChipId, ChipIds, ChipType } from '../../shared/interfaces'
-import { getFrequencyText } from '../getFrequencyText'
-import InfoChip from './InfoChip'
-import { INFO_CHIP_UNKNOWN_FREQUENCY_EXPLANATION } from '../../shared/strings'
 import { chipConfig } from './chipConfig'
+import InfoChip from './InfoChip'
+import { getFrequencyText } from '../getFrequencyText'
+import { Character, ChipId, ChipIds, ChipType } from '../../shared/interfaces'
+import { INFO_CHIP_UNKNOWN_FREQUENCY_EXPLANATION } from '../../shared/strings'
 import { LearnPopover } from '../../shared-components/LearnPopover'
 
 export default function InfoChips({ char }: { char: Character }) {
-  const { breakpoints } = useTheme()
-
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
   const [selectedChip, setSelectedChip] = useState<ChipType | null>(null)
@@ -41,7 +39,7 @@ export default function InfoChips({ char }: { char: Character }) {
     setSelectedChip(null)
   }
 
-  const h = useRef(null)
+  const stackRef = useRef(null)
 
   return (
     <>
@@ -56,9 +54,7 @@ export default function InfoChips({ char }: { char: Character }) {
         }
         gap={1}
         marginLeft={-1}
-        ref={h}
-        // marginLeft={useMediaQuery(breakpoints.down('md')) ? 0 : 1}
-        // marginY={1}
+        ref={stackRef}
       >
         {chipsContent.map(({ icon, id, label }) => (
           <InfoChip
@@ -76,7 +72,7 @@ export default function InfoChips({ char }: { char: Character }) {
 
       <LearnPopover
         {...{ anchorEl }}
-        container={h.current}
+        container={stackRef.current}
         onClose={deselectChip}
         text={selectedChip?.explanation}
       />
