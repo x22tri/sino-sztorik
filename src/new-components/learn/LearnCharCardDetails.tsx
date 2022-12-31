@@ -106,13 +106,15 @@ export default function LearnCharCardDetails({
         autoHideDuration={6000}
         message='Constituent not found.'
       />
-      <InfoChips char={currentlyViewedChar} />
+
       <Box
         borderRadius={2}
         paddingX={useStoryHorizontalPadding()}
         paddingY={1}
         sx={{ backgroundColor: palette.background.paper }}
       >
+        <InfoChips char={currentlyViewedChar} />
+
         <Subheading title='Karakter' isFirst />
 
         <Presentation

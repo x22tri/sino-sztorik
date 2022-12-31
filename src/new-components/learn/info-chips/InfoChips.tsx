@@ -1,5 +1,5 @@
 import { useTheme, Stack, Divider, useMediaQuery } from '@mui/material'
-import { MouseEvent, useState } from 'react'
+import { MouseEvent, useRef, useState } from 'react'
 import { Character, ChipId, ChipIds, ChipType } from '../../shared/interfaces'
 import { getFrequencyText } from '../getFrequencyText'
 import InfoChip from './InfoChip'
@@ -41,6 +41,8 @@ export default function InfoChips({ char }: { char: Character }) {
     setSelectedChip(null)
   }
 
+  const h = useRef(null)
+
   return (
     <>
       <Stack
@@ -53,8 +55,10 @@ export default function InfoChips({ char }: { char: Character }) {
           />
         }
         gap={1}
-        marginLeft={useMediaQuery(breakpoints.down('md')) ? 0 : 1}
-        marginY={1}
+        marginLeft={-1}
+        ref={h}
+        // marginLeft={useMediaQuery(breakpoints.down('md')) ? 0 : 1}
+        // marginY={1}
       >
         {chipsContent.map(({ icon, id, label }) => (
           <InfoChip
@@ -72,6 +76,7 @@ export default function InfoChips({ char }: { char: Character }) {
 
       <LearnPopover
         {...{ anchorEl }}
+        container={h.current}
         onClose={deselectChip}
         text={selectedChip?.explanation}
       />

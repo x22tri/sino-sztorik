@@ -29,7 +29,7 @@ export default function Learn() {
     }
 
     setActiveIndex(prev => prev - 1)
-    window.scrollTo(0, 0)
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
   }
 
   function moveToNextCharacter() {
@@ -38,7 +38,7 @@ export default function Learn() {
     }
 
     setActiveIndex(prev => prev + 1)
-    window.scrollTo(0, 0)
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
   }
 
   useEventListener('keydown', event => {
@@ -84,9 +84,7 @@ export default function Learn() {
             window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
           }}
           modules={[EffectCreative, Keyboard]}
-          style={{
-            maxWidth: constants.maxContentWidth,
-          }}
+          style={{ maxWidth: constants.maxContentWidth }}
         >
           {lessonDataSource.map((char, index) => (
             <SwiperSlide key={index}>
