@@ -81,7 +81,7 @@ export default function LearnContent({
 
   function toggleSupplements() {
     setIsSupplementsOpen(prevState => !prevState)
-    setTimeout(() => swiper.updateAutoHeight(100), 90)
+    // setTimeout(() => swiper.updateAutoHeight(100), 100)
   }
 
   const currentlyViewedChar = charOverride ?? lessonChar
@@ -154,7 +154,12 @@ export default function LearnContent({
         }
       />
 
-      <Collapse in={isSupplementsOpen}>aa</Collapse>
+      <Collapse
+        in={isSupplementsOpen}
+        onTransitionEnd={() => swiper.updateAutoHeight()}
+      >
+        aa
+      </Collapse>
 
       <Divider sx={{ mt: 4, mb: 1 }} />
 
