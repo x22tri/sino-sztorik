@@ -36,7 +36,7 @@ export default function Learn() {
 
   const [isSupplementsOpen, setIsSupplementsOpen] = useState(false)
 
-  // const [activeIndex, setActiveIndex] = useState(1)
+  const [activeIndex, setActiveIndex] = useState(0)
 
   // const currentChar = lessonDataSource[activeIndex]
 
@@ -72,8 +72,7 @@ export default function Learn() {
     <>
       <LearnAppbar
         lessonLength={CHARS.length}
-        isLocked={!!charToReturnToFromFlashback}
-        activeIndex={0}
+        {...{ activeIndex, charToReturnToFromFlashback }}
       />
 
       <ContentContainer>
@@ -81,7 +80,10 @@ export default function Learn() {
           autoHeight
           effect={useSmallScreen() ? 'creative' : 'slide'}
           keyboard
-          onSlideChange={scrollToTop}
+          onSlideChange={({ activeIndex }) => {
+            setActiveIndex(activeIndex)
+            scrollToTop()
+          }}
           onSlideChangeTransitionEnd={scrollToTop}
           modules={[EffectCreative, EffectFade, Keyboard]}
           spaceBetween={0}

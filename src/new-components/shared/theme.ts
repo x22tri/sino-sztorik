@@ -5,7 +5,7 @@ import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
 
 const chineseFont = "'Noto Sans', sans-serif" // To-Do: Create font with custom chars
 const genericFont = "'Noto Sans', sans-serif"
-const emphasisFont = "'Montserrat', sans-serif"
+export const emphasisFont = "'Montserrat', sans-serif"
 
 declare module '@mui/material/styles' {
   interface Theme {
