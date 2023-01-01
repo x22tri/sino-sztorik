@@ -6,12 +6,12 @@ import Typography from '@mui/material/Typography'
 import { useSmallScreen } from '../shared/utility-functions'
 
 export function ConstituentList({
-  centered = false,
+  phrases = false,
   constituents,
   emphasize = 'primitive',
   startFlashback,
 }: {
-  centered?: boolean
+  phrases?: boolean
   constituents: string[]
   emphasize?: 'keyword' | 'primitive'
   startFlashback: (constituent: string) => void
@@ -24,10 +24,11 @@ export function ConstituentList({
     <Box
       display='flex'
       justifyContent={
-        !centered ? 'flex-start' : isSmallScreen ? 'center' : 'flex-end'
+        !phrases ? 'flex-start' : isSmallScreen ? 'center' : 'flex-end'
       }
       alignItems='center'
       gap={3}
+      marginBottom={phrases && !isSmallScreen ? 3 : 0}
     >
       {constituents.map((constituent, index) => {
         const isHovered = hoveredIndex === index
@@ -44,14 +45,11 @@ export function ConstituentList({
             onMouseLeave={() => setHoveredIndex(null)}
             startIcon={<CharChinese {...{ constituent, isHovered }} />}
             sx={{
-              flexDirection: centered ? 'column' : 'row',
-              // justifyContent: 'center',
+              flexDirection: phrases ? 'column' : 'row',
               boxShadow: 'none',
               textTransform: 'none',
               p: 0,
-              '.MuiButton-startIcon': {
-                marginRight: centered ? 0 : 1,
-              },
+              '.MuiButton-startIcon': { marginRight: phrases ? 0 : 1 },
               '&.MuiButtonBase-root': {
                 '&:hover': { boxShadow: 'none', backgroundColor: 'initial' },
               },
@@ -60,7 +58,7 @@ export function ConstituentList({
             <Box
               display='flex'
               flexDirection='column'
-              alignItems={centered ? 'center' : 'flex-start'}
+              alignItems={phrases ? 'center' : 'flex-start'}
             >
               <Keyword keyword='keyword' {...{ emphasize, isHovered }} />
               <Primitive primitive='primitive' {...{ emphasize, isHovered }} />

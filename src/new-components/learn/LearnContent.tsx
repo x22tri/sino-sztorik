@@ -1,10 +1,10 @@
-import { Dispatch, SetStateAction, useState, useEffect, Fragment } from 'react'
+import { Dispatch, SetStateAction, useState, useEffect } from 'react'
 import { useSwiper } from 'swiper/react'
 import Box from '@mui/material/Box'
 import Collapse from '@mui/material/Collapse'
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
-import { Grid, Typography, useTheme } from '@mui/material'
+import { Grid, useTheme } from '@mui/material'
 import { CHARS } from './MOCK_CHARS'
 import Story from './story/Story'
 import InfoChips from './info-chips/InfoChips'
@@ -18,6 +18,7 @@ import { scrollToTop, useSmallScreen } from '../shared/utility-functions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { CharNavigation } from './char-navigation/CharNavigation'
+import { Phrases } from './Phrases'
 
 export default function LearnContent({
   charToReturnToFromFlashback,
@@ -39,8 +40,6 @@ export default function LearnContent({
   const { palette } = useTheme()
 
   const swiper = useSwiper()
-
-  const isSmallScreen = useSmallScreen()
 
   const [charOverride, setCharOverride] = useState<Character | null>(null)
 
@@ -137,58 +136,9 @@ export default function LearnContent({
         test
       </Collapse> */}
 
-      <Box
-        display='grid'
-        // rowGap={2}
-        gridTemplateColumns={
-          isSmallScreen
-            ? '1fr'
-            : 'minmax(max-content, 1fr) minmax(min-content, 1fr)'
-        }
-      >
-        {MOCK_PHRASES.map(({ phraseChinese, phraseHungarian }, index) => (
-          <Fragment key={index}>
-            <Box
-              sx={{
-                background: index % 2 ? palette.background.evenRow : 'inherit',
-                // borderRadius: '16px 0 0 16px',
-                py: 1,
-                ml: -2,
-                pl: 2,
-              }}
-            >
-              <ConstituentList
-                centered
-                constituents={phraseChinese.split('')}
-                emphasize='keyword'
-                {...{ startFlashback }}
-              />
-            </Box>
-            <Box
-              display='flex'
-              sx={{
-                alignItems: 'center',
-                background: index % 2 ? palette.background.evenRow : 'inherit',
-                // borderRadius: '0 16px 16px 0',
-                justifyContent: isSmallScreen ? 'center' : 'initial',
-                pl: isSmallScreen ? 0 : 3,
-                mr: -2,
-                pr: 2,
-              }}
-            >
-              <Typography
-                variant='h6'
-                textAlign={isSmallScreen ? 'center' : 'initial'}
-                // alignSelf='center'
-              >
-                {phraseHungarian}
-              </Typography>
-            </Box>
-          </Fragment>
-        ))}
-      </Box>
+      <Phrases {...{ startFlashback }} />
 
-      <Divider sx={{ mt: 4, mb: 1 }} />
+      <Divider sx={{ mt: 1, mb: 1 }} />
 
       <CharNavigation
         {...{ charToReturnToFromFlashback, prevChar, nextChar }}
@@ -196,11 +146,6 @@ export default function LearnContent({
     </Box>
   )
 }
-
-const MOCK_PHRASES = [
-  { phraseChinese: '正好正好正好', phraseHungarian: 'épp jó' },
-  { phraseChinese: '真正', phraseHungarian: 'valódi' },
-]
 
 function findCharToFlashbackTo(constituent: string): Character | null {
   const charInLesson = CHARS.find(char => char.charChinese === constituent)

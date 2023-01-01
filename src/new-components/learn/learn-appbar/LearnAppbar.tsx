@@ -4,11 +4,13 @@ import LinearProgress from '@mui/material/LinearProgress'
 import { IconButton, Typography, useTheme } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClose } from '@fortawesome/free-solid-svg-icons'
-import { useNavButtonStyling } from '../useNavButtonStyling'
 import { Character } from '../../shared/interfaces'
 import { LessonInfo } from './LessonInfo'
 import { AppbarWrapper } from '../../toolbar/AppbarWrapper'
-import { useSmallScreen } from '../../shared/utility-functions'
+import {
+  useNavButtonStyling,
+  useSmallScreen,
+} from '../../shared/utility-functions'
 import { FLASHBACK_MODE } from '../../shared/strings'
 import { Display } from '../../shared/utility-components'
 
