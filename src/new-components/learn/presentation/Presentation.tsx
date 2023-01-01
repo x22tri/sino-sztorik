@@ -1,12 +1,5 @@
-import { ReactNode, FC, ElementType } from 'react'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 import { Display } from '../../shared/utility-components'
-import Stack from '@mui/material/Stack'
-import { Character, ChipType, ChipIds, ChipId } from '../../shared/interfaces'
-import { chipConfig } from '../info-chips/chipConfig'
-import { LearnActionButton } from '../../shared-components/LearnActionButton'
-import IconButton from '@mui/material/IconButton'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTheme } from '@mui/material'
 import { KeywordExplanation } from './KeywordExplanation'
 

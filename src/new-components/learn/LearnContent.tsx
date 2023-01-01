@@ -1,47 +1,52 @@
 import { Dispatch, SetStateAction, useState, useEffect } from 'react'
+import { useSwiper } from 'swiper/react'
 import Box from '@mui/material/Box'
-import Snackbar from '@mui/material/Snackbar'
-import { Character } from '../shared/interfaces'
+import Collapse from '@mui/material/Collapse'
+import Divider from '@mui/material/Divider'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import { useTheme } from '@mui/material'
 import { CHARS } from './MOCK_CHARS'
 import Story from './story/Story'
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Collapse,
-  IconButton,
-  Typography,
-  useTheme,
-} from '@mui/material'
 import InfoChips from './info-chips/InfoChips'
 import { Display } from '../shared/utility-components'
 import { ConstituentList } from './ConstituentList'
 import { Presentation } from './presentation/Presentation'
 import { Subheading } from './subheading/Subheading'
 import { StoryTypeSwitch } from './subheading/StoryTypeSwitch'
-import { useSwiper } from 'swiper/react'
+import { Character } from '../shared/interfaces'
 import { useSmallScreen } from '../shared/utility-functions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import {
+  faChevronCircleRight,
+  faChevronDown,
+  faChevronLeft,
+} from '@fortawesome/free-solid-svg-icons'
+import { LightenOnHoverButton } from '../shared-components/LightenOnHoverButton'
+import { CharNavigation } from './char-navigation/CharNavigation'
 
-export default function LearnCharCardDetails({
-  lessonChar,
-  index,
+export default function LearnContent({
   charToReturnToFromFlashback,
+  isSupplementsOpen,
+  nextChar,
+  lessonChar,
+  prevChar,
   setCharToReturnToFromFlashback,
+  setIsSupplementsOpen,
 }: {
-  lessonChar: Character
-  index: number
   charToReturnToFromFlashback: Character | null
+  isSupplementsOpen: boolean
+  nextChar: string | null
+  lessonChar: Character
+  prevChar: string | null
   setCharToReturnToFromFlashback: Dispatch<SetStateAction<Character | null>>
+  setIsSupplementsOpen: Dispatch<SetStateAction<boolean>>
 }) {
   const { palette } = useTheme()
 
   const swiper = useSwiper()
 
   const [charOverride, setCharOverride] = useState<Character | null>(null)
-
-  const [isSupplementsOpen, setIsSupplementsOpen] = useState(false)
 
   useEffect(() => {
     if (charToReturnToFromFlashback === null) {
@@ -132,30 +137,6 @@ export default function LearnCharCardDetails({
 
       <Story {...{ story }} />
 
-      {/* <Accordion
-        TransitionProps={{
-          // unmountOnExit: true,
-          onExited: () => swiper.updateAutoHeight(1),
-        }}
-        expanded={isSupplementsOpen}
-        onClick={toggleSupplements}
-      >
-       <AccordionSummary
-          expandIcon={<FontAwesomeIcon icon={faChevronDown} />}
-          sx={{ p: 0, '.MuiAccordionSummary-content': {} }}
-        >
-           <Typography
-              variant='h6'
-              fontWeight={700}
-              fontSize={'90% !important'}
-            >
-              aa
-            </Typography>
-          aa
-        </AccordionSummary>
-        <AccordionDetails sx={{ p: 0 }}>aa</AccordionDetails>
-      </Accordion> */}
-
       <Subheading
         title='Kiegészítő információk'
         small
@@ -174,6 +155,10 @@ export default function LearnCharCardDetails({
       />
 
       <Collapse in={isSupplementsOpen}>aa</Collapse>
+
+      <Divider sx={{ mt: 4, mb: 1 }} />
+
+      <CharNavigation {...{ prevChar, nextChar }} />
     </Box>
   )
 }

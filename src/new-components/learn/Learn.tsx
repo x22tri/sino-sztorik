@@ -1,11 +1,11 @@
 import { KeyboardEvent, useState } from 'react'
-import { useTheme } from '@mui/material'
+import { Box, useTheme } from '@mui/material'
 import { ContentContainer } from '../shared-components/ContentContainer'
 import { Character } from '../shared/interfaces'
 import { CHARS } from './MOCK_CHARS'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
-import LearnCharCardDetails from './LearnCharCardDetails'
+import LearnContent from './LearnContent'
 import { LearnAppbar } from '../toolbar/AppbarWrapper'
 import useEventListener from '@use-it/event-listener'
 import { EffectCreative, EffectFade, Keyboard } from 'swiper'
@@ -22,6 +22,10 @@ const creativeEffect = {
   },
 }
 
+function scrollToTop() {
+  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+}
+
 export default function Learn() {
   const { constants } = useTheme()
 
@@ -29,6 +33,8 @@ export default function Learn() {
 
   const [charToReturnToFromFlashback, setCharToReturnToFromFlashback] =
     useState<Character | null>(null)
+
+  const [isSupplementsOpen, setIsSupplementsOpen] = useState(false)
 
   // const [activeIndex, setActiveIndex] = useState(1)
 
@@ -40,7 +46,7 @@ export default function Learn() {
     // }
 
     // setActiveIndex(prev => prev - 1)
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+    scrollToTop()
   }
 
   function moveToNextCharacter() {
@@ -49,7 +55,7 @@ export default function Learn() {
     // }
 
     // setActiveIndex(prev => prev + 1)
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+    scrollToTop()
   }
 
   useEventListener('keydown', event => {
@@ -77,12 +83,8 @@ export default function Learn() {
           autoHeight
           effect={useSmallScreen() ? 'creative' : 'slide'}
           keyboard
-          onSlideChange={() => {
-            window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-          }}
-          onSlideChangeTransitionEnd={() => {
-            window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-          }}
+          onSlideChange={scrollToTop}
+          onSlideChangeTransitionEnd={scrollToTop}
           modules={[EffectCreative, EffectFade, Keyboard]}
           spaceBetween={0}
           simulateTouch={false}
@@ -91,12 +93,16 @@ export default function Learn() {
         >
           {lessonDataSource.map((char, index) => (
             <SwiperSlide key={index}>
-              <LearnCharCardDetails
+              <LearnContent
                 lessonChar={char}
+                prevChar={lessonDataSource[index - 1]?.charChinese ?? null}
+                nextChar={lessonDataSource[index + 1]?.charChinese ?? null}
                 {...{
                   charToReturnToFromFlashback,
-                  setCharToReturnToFromFlashback,
                   index,
+                  isSupplementsOpen,
+                  setCharToReturnToFromFlashback,
+                  setIsSupplementsOpen,
                 }}
               />
             </SwiperSlide>
