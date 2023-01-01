@@ -44,18 +44,16 @@ export default function Learn() {
     // if (activeIndex === 0) {
     //   return
     // }
-
     // setActiveIndex(prev => prev - 1)
-    scrollToTop()
+    // scrollToTop()
   }
 
   function moveToNextCharacter() {
     // if (activeIndex === lessonDataSource.length - 1) {
     //   return
     // }
-
     // setActiveIndex(prev => prev + 1)
-    scrollToTop()
+    // scrollToTop()
   }
 
   useEventListener('keydown', event => {

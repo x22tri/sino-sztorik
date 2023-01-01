@@ -73,26 +73,70 @@ export function LearnAppbar({
 
   const lessonProgress = (activeIndex / (lessonLength - 1)) * 100
 
+  const gridSideColumn = `minmax(max-content, calc((100vw -  ${constants.maxContentWidth}) / 2))`
+
   return (
     <AppbarWrapper>
-      <Box whiteSpace='nowrap'>{'1. lecke'}</Box>
-      <Box width='100%' sx={{ m: 1 }}>
-        <LinearProgress
-          variant='determinate'
-          value={lessonProgress}
-          color={isLocked ? 'neutral' : 'primary'}
+      <Box
+        display='grid'
+        // gridRow={1}
+        // gridTemplateColumns={`minmax(0, 1fr) minmax(1fr, auto) minmax(0, 1fr)`}
+        // gridTemplateColumns={`max-content auto max-content`}
+        // gridTemplateColumns={`max-content 1fr 1fr`}
+        // gridTemplateColumns={`minmax(max-content, calc(100% -  ${constants.maxContentWidth} * 2)) auto minmax(max-content, calc(100% - ${constants.maxContentWidth} * 2))`}
+        gridTemplateColumns={`${gridSideColumn} auto ${gridSideColumn}`}
+        width='100%'
+        // justifyContent='center'
+        alignItems='center'
+        // alignContent='space-between'
+      >
+        <Box
+          // whiteSpace='nowrap'
+          display='flex'
+          marginLeft={1}
+          // gridRow={1}
+          // flexShrink={1}
+          // minWidth='0'
+          // width='fit-content'
+        >
+          {'1. leckessssssss'}
+        </Box>
+        <Box
+          display='flex'
           sx={{
-            borderRadius: '8px',
-            p: 0.5,
-            mx: 'auto',
-            maxWidth: constants.maxContentWidth,
+            m: 1,
+            // width: '100%',
+            // flexGrow: 1
           }}
-        />
+          // gridRow={1}
+        >
+          <LinearProgress
+            variant='determinate'
+            value={lessonProgress}
+            color={isLocked ? 'neutral' : 'primary'}
+            sx={{
+              borderRadius: '8px',
+              p: 0.5,
+              mx: 'auto',
+              maxWidth: constants.maxContentWidth,
+              width: '100%',
+            }}
+          />
+        </Box>
+        {/* <Box>{'x'}</Box> */}
+        <IconButton
+          size='large'
+          sx={{
+            mr: 1,
+            // gridRow: 1,
+            // width: 'fit-content',
+            justifySelf: 'flex-end',
+            ...navButtonStyling,
+          }}
+        >
+          <FontAwesomeIcon icon={faClose} />
+        </IconButton>
       </Box>
-      {/* <Box>{'x'}</Box> */}
-      <IconButton size='large' sx={{ ...navButtonStyling }}>
-        <FontAwesomeIcon icon={faClose} />
-      </IconButton>
     </AppbarWrapper>
   )
 }
@@ -104,21 +148,19 @@ function AppbarWrapper({ children }: { children: ReactNode }) {
     <AppBar
       position='static'
       elevation={0}
-      sx={{
-        backgroundColor: palette.background.default,
-        color: 'black',
-        // borderBottom: `2px solid ${palette.grey[300]}`,
-      }}
+      sx={{ backgroundColor: 'background.default', color: 'black' }}
     >
-      <Container disableGutters maxWidth='lg'>
-        <Toolbar
-          variant='dense'
-          disableGutters={useSmallScreen()}
-          // sx={{ maxWidth: constants.maxContentWidth }}
-        >
-          {children}
-        </Toolbar>
-      </Container>
+      {/* <Container disableGutters maxWidth='lg'> */}
+      <Toolbar
+        variant='dense'
+        // disableGutters={useSmallScreen()}
+        disableGutters
+
+        // sx={{ maxWidth: constants.maxContentWidth }}
+      >
+        {children}
+      </Toolbar>
+      {/* </Container> */}
     </AppBar>
   )
 }
