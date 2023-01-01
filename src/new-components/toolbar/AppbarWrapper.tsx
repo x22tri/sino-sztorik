@@ -3,7 +3,7 @@ import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import LinearProgress from '@mui/material/LinearProgress'
 import Toolbar from '@mui/material/Toolbar'
-import { IconButton, useMediaQuery, useTheme } from '@mui/material'
+import { IconButton, useTheme } from '@mui/material'
 import Container from '@mui/material/Container'
 import { CHARACTER_SEARCH_TITLE, LESSON_SELECT_TITLE } from '../shared/strings'
 import Logo from './Logo'
@@ -13,6 +13,7 @@ import ProfileMenu from './ProfileMenu'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClose } from '@fortawesome/free-solid-svg-icons'
 import { useNavButtonStyling } from '../learn/useNavButtonStyling'
+import { useSmallScreen } from '../shared/utility-functions'
 
 export function LessonSelectAppbar() {
   const username = 'Péter'
@@ -97,7 +98,7 @@ export function LearnAppbar({
 }
 
 function AppbarWrapper({ children }: { children: ReactNode }) {
-  const { breakpoints, constants, palette } = useTheme()
+  const { palette } = useTheme()
 
   return (
     <AppBar
@@ -112,7 +113,7 @@ function AppbarWrapper({ children }: { children: ReactNode }) {
       <Container disableGutters maxWidth='lg'>
         <Toolbar
           variant='dense'
-          disableGutters={useMediaQuery(breakpoints.down('md'))}
+          disableGutters={useSmallScreen()}
           // sx={{ maxWidth: constants.maxContentWidth }}
         >
           {children}

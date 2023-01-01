@@ -1,9 +1,7 @@
-import { Theme, useMediaQuery } from '@mui/material'
 import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
 import { Segment as SegmentType } from '../../shared/interfaces'
-import { useStoryHorizontalPadding } from '../useStoryHorizontalPadding'
 import { SegmentResolver } from './SegmentResolver'
+import { useSmallScreen } from '../../shared/utility-functions'
 
 export function NoteElement({
   color,
@@ -14,12 +12,6 @@ export function NoteElement({
   text: string | SegmentType[]
   title: string
 }) {
-  const px = useStoryHorizontalPadding()
-
-  const mx = useMediaQuery(({ breakpoints }: Theme) => breakpoints.down('md'))
-    ? 0
-    : -1
-
   return (
     <Box
       display='flex'
@@ -28,8 +20,8 @@ export function NoteElement({
         background: color,
         borderRadius: '0 16px',
         py: 2,
-        px,
-        mx,
+        px: useSmallScreen() ? 1 : 2,
+        mx: useSmallScreen() ? 0 : -1,
       }}
     >
       <Box typography='h6'>{title}</Box>

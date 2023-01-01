@@ -1,19 +1,29 @@
 import { KeyboardEvent, useState } from 'react'
-import { Button, useMediaQuery, useTheme } from '@mui/material'
-import Box from '@mui/material/Box'
+import { useTheme } from '@mui/material'
 import { ContentContainer } from '../shared-components/ContentContainer'
 import { Character } from '../shared/interfaces'
 import { CHARS } from './MOCK_CHARS'
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import LearnCharCardDetails from './LearnCharCardDetails'
 import { LearnAppbar } from '../toolbar/AppbarWrapper'
 import useEventListener from '@use-it/event-listener'
 import { EffectCreative, EffectFade, Keyboard } from 'swiper'
-import { Theme } from '@material-ui/core'
+import { useSmallScreen } from '../shared/utility-functions'
+
+const creativeEffect = {
+  prev: {
+    opacity: 0,
+    translate: ['-20%', 0, -1],
+  },
+  next: {
+    opacity: 1,
+    translate: ['100%', 0, 1],
+  },
+}
 
 export default function Learn() {
-  const { breakpoints, constants } = useTheme()
+  const { constants } = useTheme()
 
   const lessonDataSource = CHARS
 
@@ -54,8 +64,6 @@ export default function Learn() {
     }
   })
 
-  const isSmallScreen = useMediaQuery(breakpoints.down('md'))
-
   return (
     <>
       <LearnAppbar
@@ -67,20 +75,8 @@ export default function Learn() {
       <ContentContainer>
         <Swiper
           autoHeight
-          effect={isSmallScreen ? 'creative' : 'slide'}
-          keyboard={true}
-          spaceBetween={0}
-          simulateTouch={false}
-          creativeEffect={{
-            prev: {
-              opacity: 0,
-              translate: ['-20%', 0, -1],
-            },
-            next: {
-              opacity: 1,
-              translate: ['100%', 0, 1],
-            },
-          }}
+          effect={useSmallScreen() ? 'creative' : 'slide'}
+          keyboard
           onSlideChange={() => {
             window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
           }}
@@ -88,12 +84,14 @@ export default function Learn() {
             window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
           }}
           modules={[EffectCreative, EffectFade, Keyboard]}
+          spaceBetween={0}
+          simulateTouch={false}
           style={{ maxWidth: constants.maxContentWidth }}
+          {...{ creativeEffect }}
         >
           {lessonDataSource.map((char, index) => (
             <SwiperSlide key={index}>
               <LearnCharCardDetails
-                // activeIndex=
                 lessonChar={char}
                 {...{
                   charToReturnToFromFlashback,

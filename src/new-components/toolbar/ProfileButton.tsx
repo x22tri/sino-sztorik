@@ -2,12 +2,12 @@ import { MouseEvent } from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import ToolbarButton from './ToolbarButton'
-import { useMediaQuery, useTheme } from '@mui/material'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import {
   USER_SETTINGS_ARIA_LABEL,
   USER_SETTINGS_TOOLTIP,
 } from '../shared/strings'
+import { useSmallScreen } from '../shared/utility-functions'
 
 export default function ProfileButton({
   onClick,
@@ -16,11 +16,7 @@ export default function ProfileButton({
   onClick: (event: MouseEvent<HTMLElement>) => void
   username: string
 }) {
-  const { breakpoints } = useTheme()
-
-  const profileText = useMediaQuery(breakpoints.down('md'))
-    ? username
-    : `Szia, ${username}!`
+  const profileText = useSmallScreen() ? username : `Szia, ${username}!`
 
   return (
     <Box display='flex' alignItems='center'>

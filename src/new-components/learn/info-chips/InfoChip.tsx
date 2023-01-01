@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react'
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useMediaQuery, useTheme, Chip } from '@mui/material'
+import { useTheme, Chip } from '@mui/material'
 import { ChipId } from '../../shared/interfaces'
 
 export default function InfoChip({
@@ -41,7 +41,6 @@ export default function InfoChip({
         borderWidth: 0,
         borderRadius: 1,
         color: isSelected ? palette.primary.contrastText : palette.grey[700],
-        // fontSize: '80%',
         px: 1,
         '&:focus': {
           boxShadow: 'none',

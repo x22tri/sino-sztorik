@@ -7,7 +7,7 @@ import { Character, ChipId, ChipIds, ChipType } from '../../shared/interfaces'
 import { INFO_CHIP_UNKNOWN_FREQUENCY_EXPLANATION } from '../../shared/strings'
 import { LearnPopover } from '../../shared-components/LearnPopover'
 
-export default function InfoChips({ char }: { char: Character }) {
+export default function InfoChips(char: Partial<Character>) {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
   const [selectedChip, setSelectedChip] = useState<ChipType | null>(null)
@@ -16,7 +16,7 @@ export default function InfoChips({ char }: { char: Character }) {
 
   function getChips() {
     return chipConfig
-      .filter(({ id }) => id in char)
+      .filter(({ id }) => id in char && char[id] !== undefined)
       .map(chip => {
         if (chip.id === ChipIds.FREQUENCY) {
           return {
