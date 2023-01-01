@@ -6,17 +6,22 @@ import { Display } from '../../shared/utility-components'
 
 export function Subheading({
   endContent,
+  followedBySmall = false,
   isFirst = false,
   small = false,
   title,
 }: {
   endContent?: ReactNode
+  followedBySmall?: boolean
   isFirst?: boolean
   small?: boolean
   title: string
 }) {
   return (
-    <Box marginBottom={small ? 1 : 4} marginTop={isFirst ? 1 : 5}>
+    <Box
+      marginBottom={small || followedBySmall ? 1 : 4}
+      marginTop={isFirst ? 1 : 5}
+    >
       <Box display='flex' justifyContent='space-between' alignItems='center'>
         <Typography
           variant='h6'

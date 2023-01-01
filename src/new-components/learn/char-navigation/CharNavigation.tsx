@@ -7,11 +7,20 @@ import Box from '@mui/material/Box'
 import { LightenOnHoverButton } from '../../shared-components/LightenOnHoverButton'
 import { Display } from '../../shared/utility-components'
 import { useSwiper } from 'swiper/react'
+import {
+  CHAR_NAVIGATION_PREVIOUS_CHARACTER,
+  CHAR_NAVIGATION_NEXT_CHARACTER,
+  CHAR_NAVIGATION_EXIT_FLASHBACK_PROMPT,
+} from '../../shared/strings'
+import { Character } from '../../shared/interfaces'
+import { Typography } from '@mui/material'
 
 export function CharNavigation({
+  charToReturnToFromFlashback,
   prevChar,
   nextChar,
 }: {
+  charToReturnToFromFlashback: Character | null
   prevChar: string | null
   nextChar: string | null
 }) {
@@ -19,32 +28,47 @@ export function CharNavigation({
 
   return (
     <Box display='flex' width='100%' justifyContent='center'>
-      <Display if={prevChar}>
-        <LightenOnHoverButton
-          color='neutral'
-          onClick={() => swiper.slidePrev()}
-          size='small'
-          startIcon={
-            <FontAwesomeIcon icon={faChevronLeft} transform='shrink-4' />
-          }
-          sx={{ mr: 'auto' }}
-        >
-          Előző
-        </LightenOnHoverButton>
-      </Display>
+      <Display
+        if={!charToReturnToFromFlashback}
+        else={<ExitFlashbackWarning />}
+      >
+        <>
+          <Display if={prevChar}>
+            <LightenOnHoverButton
+              color='neutral'
+              onClick={() => swiper.slidePrev()}
+              size='small'
+              startIcon={
+                <FontAwesomeIcon icon={faChevronLeft} transform='shrink-4' />
+              }
+              sx={{ mr: 'auto' }}
+            >
+              {CHAR_NAVIGATION_PREVIOUS_CHARACTER}
+            </LightenOnHoverButton>
+          </Display>
 
-      <Display if={nextChar}>
-        <LightenOnHoverButton
-          endIcon={
-            <FontAwesomeIcon icon={faChevronRight} transform='shrink-4' />
-          }
-          onClick={() => swiper.slideNext()}
-          size='small'
-          sx={{ ml: 'auto' }}
-        >
-          Következő
-        </LightenOnHoverButton>
+          <Display if={nextChar}>
+            <LightenOnHoverButton
+              endIcon={
+                <FontAwesomeIcon icon={faChevronRight} transform='shrink-4' />
+              }
+              onClick={() => swiper.slideNext()}
+              size='small'
+              sx={{ ml: 'auto' }}
+            >
+              {CHAR_NAVIGATION_NEXT_CHARACTER}
+            </LightenOnHoverButton>
+          </Display>
+        </>
       </Display>
     </Box>
+  )
+}
+
+function ExitFlashbackWarning() {
+  return (
+    <Typography variant='subtitle2' color='text.disabled'>
+      {CHAR_NAVIGATION_EXIT_FLASHBACK_PROMPT}
+    </Typography>
   )
 }

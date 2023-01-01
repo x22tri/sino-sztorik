@@ -3,18 +3,32 @@ import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
+import { useSmallScreen } from '../shared/utility-functions'
 
 export function ConstituentList({
+  centered = false,
   constituents,
+  emphasize = 'primitive',
   startFlashback,
 }: {
+  centered?: boolean
   constituents: string[]
+  emphasize?: 'keyword' | 'primitive'
   startFlashback: (constituent: string) => void
 }) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
+  const isSmallScreen = useSmallScreen()
+
   return (
-    <Box display='flex' alignItems='center' gap={3}>
+    <Box
+      display='flex'
+      justifyContent={
+        !centered ? 'flex-start' : isSmallScreen ? 'center' : 'flex-end'
+      }
+      alignItems='center'
+      gap={3}
+    >
       {constituents.map((constituent, index) => {
         const isHovered = hoveredIndex === index
 
@@ -22,22 +36,34 @@ export function ConstituentList({
           <Button
             key={index}
             variant='text'
-            onClick={() => startFlashback(constituent)}
+            onClick={() => {
+              setHoveredIndex(null)
+              startFlashback(constituent)
+            }}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
             startIcon={<CharChinese {...{ constituent, isHovered }} />}
             sx={{
+              flexDirection: centered ? 'column' : 'row',
+              // justifyContent: 'center',
               boxShadow: 'none',
               textTransform: 'none',
               p: 0,
+              '.MuiButton-startIcon': {
+                marginRight: centered ? 0 : 1,
+              },
               '&.MuiButtonBase-root': {
                 '&:hover': { boxShadow: 'none', backgroundColor: 'initial' },
               },
             }}
           >
-            <Box display='flex' flexDirection='column' alignItems='flex-start'>
-              <Keyword keyword='keyword' {...{ isHovered }} />
-              <Primitive primitive='primitive' {...{ isHovered }} />
+            <Box
+              display='flex'
+              flexDirection='column'
+              alignItems={centered ? 'center' : 'flex-start'}
+            >
+              <Keyword keyword='keyword' {...{ emphasize, isHovered }} />
+              <Primitive primitive='primitive' {...{ emphasize, isHovered }} />
             </Box>
           </Button>
         )
@@ -46,7 +72,7 @@ export function ConstituentList({
   )
 }
 
-function CharChinese({
+export function CharChinese({
   constituent,
   isHovered,
 }: {
@@ -76,10 +102,12 @@ function CharChinese({
   )
 }
 
-function Keyword({
+export function Keyword({
+  emphasize,
   keyword,
   isHovered,
 }: {
+  emphasize?: 'keyword' | 'primitive'
   keyword: string
   isHovered: boolean
 }) {
@@ -90,8 +118,12 @@ function Keyword({
       component='span'
       sx={{
         ...typography.storySegments.keyword,
-        color: isHovered ? palette.primary.main : palette.text.disabled,
-        fontSize: '80%',
+        color: isHovered
+          ? palette.primary.main
+          : emphasize === 'keyword'
+          ? palette.text.primary
+          : palette.text.disabled,
+        fontSize: emphasize === 'keyword' ? '100%' : '80%',
         transition: `${constants.animationDuration}ms`,
       }}
       lineHeight={1}
@@ -101,10 +133,12 @@ function Keyword({
   )
 }
 
-function Primitive({
+export function Primitive({
+  emphasize,
   isHovered,
   primitive,
 }: {
+  emphasize?: 'keyword' | 'primitive'
   isHovered: boolean
   primitive: string
 }) {
@@ -113,10 +147,15 @@ function Primitive({
   return (
     <Typography
       component='span'
-      lineHeight={1}
+      lineHeight={1.1}
       sx={{
         ...typography.storySegments.primitive,
-        color: isHovered ? palette.secondary.main : palette.text.primary,
+        color: isHovered
+          ? palette.secondary.main
+          : emphasize === 'primitive'
+          ? palette.text.primary
+          : palette.text.disabled,
+        fontSize: emphasize === 'primitive' ? 'initial' : '80%',
         transition: `${constants.animationDuration}ms`,
       }}
     >

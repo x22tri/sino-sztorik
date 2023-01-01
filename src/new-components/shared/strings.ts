@@ -42,10 +42,10 @@ export const FREQUENCY_UNCOMMON = 'Nem gyakori'
 export const FREQUENCY_RARE = 'Ritka'
 export const FREQUENCY_VERY_RARE = 'Nagyon ritka'
 
-export const BOTTOM_NAVIGATION_PREVIOUS_CHARACTER = 'Előző karakter'
-export const BOTTOM_NAVIGATION_FREQUENCY = 'Gyakoriság'
-export const BOTTOM_NAVIGATION_SUPPLEMENTS = 'Kiegészítő információk'
-export const BOTTOM_NAVIGATION_NEXT_CHARACTER = 'Következő karakter'
+export const CHAR_NAVIGATION_PREVIOUS_CHARACTER = 'Előző'
+export const CHAR_NAVIGATION_NEXT_CHARACTER = 'Következő'
+export const CHAR_NAVIGATION_EXIT_FLASHBACK_PROMPT =
+  'Lépj ki a visszaemlékezésből a folytatáshoz'
 export const KEYWORD_EXPLANATION_TOOLTIP = 'Kattints a kulcsszó magyarázatához'
 
 export const INFO_CHIP_NEW_PRIMITIVE_LABEL = 'Új jelentés alapelemként!'

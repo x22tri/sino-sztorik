@@ -5,7 +5,7 @@ import {
   FREQUENCY_COMMON,
   FREQUENCY_UNCOMMON,
   FREQUENCY_VERY_RARE,
-} from '../shared/strings'
+} from '../../shared/strings'
 
 export function getFrequencyText(frequency?: number): string {
   if (typeof frequency !== 'number') {
