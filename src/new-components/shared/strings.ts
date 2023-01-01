@@ -26,6 +26,8 @@ export const USER_SETTINGS_ARIA_LABEL = 'Beállítások'
 export const USER_SETTING_ACCOUNT = 'Fiókbeállítások'
 export const USER_SETTING_LOGOUT = 'Kijelentkezés'
 
+export const FLASHBACK_MODE = 'Felidéző mód'
+export const LESSON_NUMBER_SUFFIX_APPBAR = '. lecke'
 export const BACK_TO_LESSON_FROM_FLASHBACK = 'Vissza a leckéhez'
 
 export const SPECIAL_PARAGRAPH_GENERIC = 'Megjegyzés'

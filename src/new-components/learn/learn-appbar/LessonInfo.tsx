@@ -1,10 +1,16 @@
 import Box from '@mui/material/Box'
 import { Button, Typography, useTheme } from '@mui/material'
-import { useSmallScreen } from '../../shared/utility-functions'
-import { Character } from '../../shared/interfaces'
 import { LessonInfoMobile } from './LessonInfoMobile'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Character } from '../../shared/interfaces'
+import { useSmallScreen } from '../../shared/utility-functions'
+import { Display } from '../../shared/utility-components'
+import {
+  BACK_TO_LESSON_FROM_FLASHBACK,
+  FLASHBACK_MODE,
+  LESSON_NUMBER_SUFFIX_APPBAR,
+} from '../../shared/strings'
 
 export function LessonInfo({
   charToReturnToFromFlashback,
@@ -23,42 +29,56 @@ export function LessonInfo({
 
   const isSmallScreen = useSmallScreen()
 
-  return isSmallScreen ? (
-    <LessonInfoMobile
-      {...{ charToReturnToFromFlashback, lessonNumber, returnFromFlashback }}
-    />
-  ) : (
-    <Box display='flex' flexDirection='row' marginX={1} gap={1}>
-      {charToReturnToFromFlashback ? (
-        <ReturnFromFlashback
-          {...{ charToReturnToFromFlashback, returnFromFlashback }}
+  return (
+    <Display
+      if={!isSmallScreen}
+      else={
+        <LessonInfoMobile
+          {...{
+            charToReturnToFromFlashback,
+            lessonNumber,
+            returnFromFlashback,
+          }}
         />
-      ) : (
-        <>
-          <img src={logoImage} alt='Logó' width='auto' height='28px' />
-          <Box display='flex' flexDirection='column'>
-            <Typography
-              component='span'
-              lineHeight={1}
-              sx={{
-                fontWeight: 900,
-                fontSize: '80%',
-                color: palette.text.disabled,
-              }}
-            >
-              {lessonNumber}. lecke
-            </Typography>
-            <Typography
-              component='span'
-              lineHeight={1}
-              sx={{ fontWeight: 'bold', color: palette.text.secondary }}
-            >
-              {lessonTitle}
-            </Typography>
-          </Box>
-        </>
-      )}
-    </Box>
+      }
+    >
+      <Box display='flex' flexDirection='row' marginX={1} gap={1}>
+        <Display
+          if={!charToReturnToFromFlashback}
+          else={
+            <ReturnFromFlashback
+              charToReturnToFromFlashback={charToReturnToFromFlashback!}
+              {...{ returnFromFlashback }}
+            />
+          }
+        >
+          <>
+            <img src={logoImage} alt='Logó' width='auto' height='28px' />
+            <Box display='flex' flexDirection='column'>
+              <Typography
+                component='span'
+                lineHeight={1}
+                sx={{
+                  fontWeight: 900,
+                  fontSize: '80%',
+                  color: palette.text.disabled,
+                }}
+              >
+                {lessonNumber}
+                {LESSON_NUMBER_SUFFIX_APPBAR}
+              </Typography>
+              <Typography
+                component='span'
+                lineHeight={1}
+                sx={{ fontWeight: 'bold', color: palette.text.secondary }}
+              >
+                {lessonTitle}
+              </Typography>
+            </Box>
+          </>
+        </Display>
+      </Box>
+    </Display>
   )
 }
 
@@ -83,10 +103,11 @@ function ReturnFromFlashback({
           lineHeight={1}
           sx={{ fontWeight: 900, fontSize: '80%', opacity: 0.5 }}
         >
-          Felidéző mód
+          {FLASHBACK_MODE}
         </Typography>
         <Typography component='span' lineHeight={1} sx={{ fontWeight: 'bold' }}>
-          Vissza a leckéhez ({charToReturnToFromFlashback?.charChinese})
+          {BACK_TO_LESSON_FROM_FLASHBACK} (
+          {charToReturnToFromFlashback?.charChinese})
         </Typography>
       </Box>
     </Button>
