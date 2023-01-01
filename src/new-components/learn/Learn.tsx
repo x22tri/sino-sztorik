@@ -8,8 +8,8 @@ import 'swiper/css'
 import LearnContent from './LearnContent'
 import { LearnAppbar } from './learn-appbar/LearnAppbar'
 import useEventListener from '@use-it/event-listener'
-import { EffectCreative, EffectFade, Keyboard } from 'swiper'
-import { useSmallScreen } from '../shared/utility-functions'
+import SwiperInstance, { EffectCreative, EffectFade, Keyboard } from 'swiper'
+import { scrollToTop, useSmallScreen } from '../shared/utility-functions'
 
 const creativeEffect = {
   prev: {
@@ -22,10 +22,6 @@ const creativeEffect = {
   },
 }
 
-function scrollToTop() {
-  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-}
-
 export default function Learn() {
   const { constants } = useTheme()
 
@@ -34,54 +30,46 @@ export default function Learn() {
   const [charToReturnToFromFlashback, setCharToReturnToFromFlashback] =
     useState<Character | null>(null)
 
+  const [swiperInstance, setSwiperInstance] = useState<SwiperInstance | null>(
+    null
+  )
+
   const [isSupplementsOpen, setIsSupplementsOpen] = useState(false)
 
   const [activeIndex, setActiveIndex] = useState(0)
 
-  // const currentChar = lessonDataSource[activeIndex]
+  function returnFromFlashback() {
+    setCharToReturnToFromFlashback(null)
 
-  function moveToPreviousCharacter() {
-    // if (activeIndex === 0) {
-    //   return
-    // }
-    // setActiveIndex(prev => prev - 1)
-    // scrollToTop()
+    swiperInstance?.enable()
+
+    scrollToTop()
+
+    setTimeout(() => swiperInstance?.updateAutoHeight(), 200)
   }
-
-  function moveToNextCharacter() {
-    // if (activeIndex === lessonDataSource.length - 1) {
-    //   return
-    // }
-    // setActiveIndex(prev => prev + 1)
-    // scrollToTop()
-  }
-
-  useEventListener('keydown', event => {
-    const key = (event as unknown as KeyboardEvent).key
-
-    if (key === 'ArrowLeft') {
-      moveToPreviousCharacter()
-    }
-
-    if (key === 'ArrowRight') {
-      moveToNextCharacter()
-    }
-  })
 
   return (
     <>
       <LearnAppbar
         lessonLength={CHARS.length}
-        {...{ activeIndex, charToReturnToFromFlashback }}
+        {...{
+          activeIndex,
+          charToReturnToFromFlashback,
+          returnFromFlashback,
+          swiperInstance,
+        }}
       />
 
       <ContentContainer>
         <Swiper
           autoHeight
+          // enabled={!charToReturnToFromFlashback}
           effect={useSmallScreen() ? 'creative' : 'slide'}
+          // keyboard={!charToReturnToFromFlashback}
           keyboard
+          onSwiper={swiper => setSwiperInstance(swiper)}
           onSlideChange={({ activeIndex }) => {
-            setActiveIndex(activeIndex)
+            setActiveIndex(activeIndex) // Causes lag on mobile. To-Do: See if there's a way to remove lag.
             scrollToTop()
           }}
           onSlideChangeTransitionEnd={scrollToTop}

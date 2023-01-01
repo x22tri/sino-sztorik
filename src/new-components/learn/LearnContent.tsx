@@ -4,7 +4,6 @@ import Box from '@mui/material/Box'
 import Collapse from '@mui/material/Collapse'
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
 import { useTheme } from '@mui/material'
 import { CHARS } from './MOCK_CHARS'
 import Story from './story/Story'
@@ -15,14 +14,9 @@ import { Presentation } from './presentation/Presentation'
 import { Subheading } from './subheading/Subheading'
 import { StoryTypeSwitch } from './subheading/StoryTypeSwitch'
 import { Character } from '../shared/interfaces'
-import { useSmallScreen } from '../shared/utility-functions'
+import { scrollToTop, useSmallScreen } from '../shared/utility-functions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faChevronCircleRight,
-  faChevronDown,
-  faChevronLeft,
-} from '@fortawesome/free-solid-svg-icons'
-import { LightenOnHoverButton } from '../shared-components/LightenOnHoverButton'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { CharNavigation } from './char-navigation/CharNavigation'
 
 export default function LearnContent({
@@ -65,23 +59,16 @@ export default function LearnContent({
     setCharToReturnToFromFlashback(lessonChar)
 
     setCharOverride(charToFlashbackTo)
-  }
 
-  function findCharToFlashbackTo(constituent: string): Character | null {
-    const charInLesson = CHARS.find(char => char.charChinese === constituent)
+    swiper.disable()
 
-    if (charInLesson) {
-      return charInLesson
-    }
+    setTimeout(() => swiper.updateAutoHeight(), 200)
 
-    // To-Do: if the char is not in the lesson, fetch it from the server.
-
-    return null
+    scrollToTop()
   }
 
   function toggleSupplements() {
     setIsSupplementsOpen(prevState => !prevState)
-    // setTimeout(() => swiper.updateAutoHeight(100), 100)
   }
 
   const currentlyViewedChar = charOverride ?? lessonChar
@@ -158,12 +145,28 @@ export default function LearnContent({
         in={isSupplementsOpen}
         onTransitionEnd={() => swiper.updateAutoHeight()}
       >
-        aa
+        test
       </Collapse>
 
-      <Divider sx={{ mt: 4, mb: 1 }} />
+      <Display if={!charToReturnToFromFlashback}>
+        <>
+          <Divider sx={{ mt: 4, mb: 1 }} />
 
-      <CharNavigation {...{ prevChar, nextChar }} />
+          <CharNavigation {...{ prevChar, nextChar }} />
+        </>
+      </Display>
     </Box>
   )
+}
+
+function findCharToFlashbackTo(constituent: string): Character | null {
+  const charInLesson = CHARS.find(char => char.charChinese === constituent)
+
+  if (charInLesson) {
+    return charInLesson
+  }
+
+  // To-Do: if the char is not in the lesson, fetch it from the server.
+
+  return null
 }

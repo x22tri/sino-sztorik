@@ -8,10 +8,12 @@ export function LessonInfo({
   charToReturnToFromFlashback,
   lessonNumber,
   lessonTitle,
+  returnFromFlashback,
 }: {
   charToReturnToFromFlashback: Character | null
   lessonNumber: number
   lessonTitle: string
+  returnFromFlashback: () => void
 }) {
   const { palette } = useTheme()
 
@@ -20,7 +22,9 @@ export function LessonInfo({
   const isSmallScreen = useSmallScreen()
 
   return isSmallScreen ? (
-    <LessonInfoMobile {...{ charToReturnToFromFlashback, lessonNumber }} />
+    <LessonInfoMobile
+      {...{ charToReturnToFromFlashback, lessonNumber, returnFromFlashback }}
+    />
   ) : (
     <Box display='flex' flexDirection='row' marginX={1} gap={1}>
       <img src={logoImage} alt='Logó' width='auto' height='28px' />

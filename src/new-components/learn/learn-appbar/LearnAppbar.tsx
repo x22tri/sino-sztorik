@@ -1,3 +1,4 @@
+import SwiperInstance from 'swiper'
 import Box from '@mui/material/Box'
 import LinearProgress from '@mui/material/LinearProgress'
 import { IconButton, useTheme } from '@mui/material'
@@ -9,13 +10,15 @@ import { LessonInfo } from './LessonInfo'
 import { AppbarWrapper } from '../../toolbar/AppbarWrapper'
 
 export function LearnAppbar({
-  activeIndex,
   charToReturnToFromFlashback,
   lessonLength,
+  returnFromFlashback,
+  swiperInstance,
 }: {
-  activeIndex: number
   charToReturnToFromFlashback: Character | null
   lessonLength: number
+  returnFromFlashback: () => void
+  swiperInstance: SwiperInstance | null
 }) {
   const { constants } = useTheme()
 
@@ -25,7 +28,10 @@ export function LearnAppbar({
 
   const gridSideColumn = `minmax(max-content, calc((100vw -  ${constants.maxContentWidth}) / 2))`
 
-  const lessonProgress = (activeIndex / (lessonLength - 1)) * 100
+  const activeIndex = swiperInstance?.activeIndex
+
+  const lessonProgress =
+    activeIndex === undefined ? 0 : (activeIndex / (lessonLength - 1)) * 100
 
   return (
     <AppbarWrapper>
@@ -39,7 +45,7 @@ export function LearnAppbar({
         <LessonInfo
           lessonNumber={99}
           lessonTitle={'Lecke címe'}
-          {...{ charToReturnToFromFlashback }}
+          {...{ charToReturnToFromFlashback, returnFromFlashback }}
         />
 
         <Box display='flex'>
