@@ -1,16 +1,11 @@
 import Box from '@mui/material/Box'
-import { Button, Typography, useTheme } from '@mui/material'
+import { Typography, useTheme } from '@mui/material'
 import { LessonInfoMobile } from './LessonInfoMobile'
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Character } from '../../shared/interfaces'
 import { useSmallScreen } from '../../shared/utility-functions'
 import { Display } from '../../shared/utility-components'
-import {
-  BACK_TO_LESSON_FROM_FLASHBACK,
-  FLASHBACK_MODE,
-  LESSON_NUMBER_SUFFIX_APPBAR,
-} from '../../shared/strings'
+import { LESSON_NUMBER_SUFFIX_APPBAR } from '../../shared/strings'
+import { ReturnFromFlashback } from './ReturnFromFlashback'
 
 export function LessonInfo({
   charToReturnToFromFlashback,
@@ -79,37 +74,5 @@ export function LessonInfo({
         </Display>
       </Box>
     </Display>
-  )
-}
-
-function ReturnFromFlashback({
-  charToReturnToFromFlashback,
-  returnFromFlashback,
-}: {
-  charToReturnToFromFlashback: Character
-  returnFromFlashback: () => void
-}) {
-  return (
-    <Button
-      size='small'
-      variant='contained'
-      onClick={returnFromFlashback}
-      startIcon={<FontAwesomeIcon icon={faChevronLeft} transform='shrink-4' />}
-      sx={{ ml: 1, minWidth: 0 }}
-    >
-      <Box display='flex' flexDirection='column' alignItems='flex-start'>
-        <Typography
-          component='span'
-          lineHeight={1}
-          sx={{ fontWeight: 900, fontSize: '80%', opacity: 0.5 }}
-        >
-          {FLASHBACK_MODE}
-        </Typography>
-        <Typography component='span' lineHeight={1} sx={{ fontWeight: 'bold' }}>
-          {BACK_TO_LESSON_FROM_FLASHBACK} (
-          {charToReturnToFromFlashback?.charChinese})
-        </Typography>
-      </Box>
-    </Button>
   )
 }
