@@ -63,9 +63,7 @@ export default function Learn() {
       <ContentContainer>
         <Swiper
           autoHeight
-          // enabled={!charToReturnToFromFlashback}
           effect={useSmallScreen() ? 'creative' : 'slide'}
-          // keyboard={!charToReturnToFromFlashback}
           keyboard
           onSwiper={swiper => setSwiperInstance(swiper)}
           onSlideChange={({ activeIndex }) => {
@@ -73,7 +71,7 @@ export default function Learn() {
             scrollToTop()
           }}
           onSlideChangeTransitionEnd={scrollToTop}
-          modules={[EffectCreative, EffectFade, Keyboard]}
+          modules={[EffectCreative, Keyboard]}
           spaceBetween={0}
           simulateTouch={false}
           style={{ maxWidth: constants.maxContentWidth }}
