@@ -4,7 +4,8 @@ import LessonSelect from './lesson-select/LessonSelect'
 
 import { ThemeProvider } from '@mui/material/styles'
 import theme from './shared/theme'
-import { LearnAppbar, LessonSelectAppbar } from './toolbar/AppbarWrapper'
+import { LessonSelectAppbar } from './toolbar/AppbarWrapper'
+import { LearnAppbar } from './learn/learn-appbar/LearnAppbar'
 import Learn from './learn/Learn'
 
 function App() {
