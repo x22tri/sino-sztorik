@@ -1,13 +1,16 @@
 import SwiperInstance from 'swiper'
 import Box from '@mui/material/Box'
 import LinearProgress from '@mui/material/LinearProgress'
-import { IconButton, useTheme } from '@mui/material'
+import { IconButton, Typography, useTheme } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClose } from '@fortawesome/free-solid-svg-icons'
 import { useNavButtonStyling } from '../useNavButtonStyling'
 import { Character } from '../../shared/interfaces'
 import { LessonInfo } from './LessonInfo'
 import { AppbarWrapper } from '../../toolbar/AppbarWrapper'
+import { useSmallScreen } from '../../shared/utility-functions'
+import { FLASHBACK_MODE } from '../../shared/strings'
+import { Display } from '../../shared/utility-components'
 
 export function LearnAppbar({
   charToReturnToFromFlashback,
@@ -23,6 +26,8 @@ export function LearnAppbar({
   const { constants } = useTheme()
 
   const navButtonStyling = useNavButtonStyling()
+
+  const isSmallScreen = useSmallScreen()
 
   const isLocked = !!charToReturnToFromFlashback
 
@@ -48,19 +53,24 @@ export function LearnAppbar({
           {...{ charToReturnToFromFlashback, returnFromFlashback }}
         />
 
-        <Box display='flex'>
-          <LinearProgress
-            variant='determinate'
-            value={lessonProgress}
-            color={isLocked ? 'neutral' : 'primary'}
-            sx={{
-              borderRadius: '8px',
-              p: 0.5,
-              mx: 'auto',
-              maxWidth: constants.maxContentWidth,
-              width: '100%',
-            }}
-          />
+        <Box display='flex' justifyContent='center'>
+          <Display
+            if={!isSmallScreen || !charToReturnToFromFlashback}
+            else={<FlashbackModeTextMobile />}
+          >
+            <LinearProgress
+              variant='determinate'
+              value={lessonProgress}
+              color={isLocked ? 'neutral' : 'primary'}
+              sx={{
+                borderRadius: '8px',
+                p: 0.5,
+                mx: 'auto',
+                maxWidth: constants.maxContentWidth,
+                width: '100%',
+              }}
+            />
+          </Display>
         </Box>
 
         <IconButton
@@ -71,5 +81,13 @@ export function LearnAppbar({
         </IconButton>
       </Box>
     </AppbarWrapper>
+  )
+}
+
+function FlashbackModeTextMobile() {
+  return (
+    <Typography variant='h6' color='text.disabled'>
+      {FLASHBACK_MODE}
+    </Typography>
   )
 }
