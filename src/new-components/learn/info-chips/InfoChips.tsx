@@ -1,5 +1,5 @@
 import { Stack, Divider } from '@mui/material'
-import { MouseEvent, useRef, useState } from 'react'
+import { MouseEvent, useState } from 'react'
 import { chipConfig } from './chipConfig'
 import InfoChip from './InfoChip'
 import { getFrequencyText } from '../getFrequencyText'
@@ -39,8 +39,6 @@ export default function InfoChips(char: Partial<Character>) {
     setSelectedChip(null)
   }
 
-  const stackRef = useRef(null)
-
   return (
     <>
       <Stack
@@ -54,7 +52,6 @@ export default function InfoChips(char: Partial<Character>) {
         }
         gap={1}
         marginLeft={-1}
-        ref={stackRef}
       >
         {chipsContent.map(({ icon, id, label }) => (
           <InfoChip
@@ -72,7 +69,6 @@ export default function InfoChips(char: Partial<Character>) {
 
       <LearnPopover
         {...{ anchorEl }}
-        container={stackRef.current}
         onClose={deselectChip}
         text={selectedChip?.explanation}
       />

@@ -3,12 +3,10 @@ import Typography from '@mui/material/Typography'
 
 export function LearnPopover({
   anchorEl,
-  container,
   onClose,
   text,
 }: {
   anchorEl: Element | ((element: Element) => Element) | null | undefined
-  container?: Element | (() => Element | null) | null | undefined
   onClose:
     | ((event: {}, reason: 'backdropClick' | 'escapeKeyDown') => void)
     | undefined
@@ -16,20 +14,21 @@ export function LearnPopover({
 }) {
   const { palette } = useTheme()
 
-  const marginThreshold = 4
-
   return (
     <Popover
-      {...{ anchorEl, container, marginThreshold, onClose }}
+      {...{ anchorEl, onClose }}
       open={!!anchorEl}
-      anchorReference='anchorPosition'
-      anchorPosition={{ top: 32, left: 0 }}
+      marginThreshold={2}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'center',
+      }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'center',
+      }}
       PaperProps={{
-        style: {
-          maxWidth: `calc(100% - ${marginThreshold * 3}px)`,
-          boxShadow: 'none',
-          border: `2px solid ${palette.grey[200]}`,
-        },
+        style: { boxShadow: 'none', border: `2px solid ${palette.grey[200]}` },
       }}
       sx={{ mt: 0.5 }}
     >

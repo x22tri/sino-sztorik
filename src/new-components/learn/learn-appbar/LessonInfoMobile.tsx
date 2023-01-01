@@ -1,11 +1,10 @@
 import Box from '@mui/material/Box'
-import { IconButton, useTheme } from '@mui/material'
+import { IconButton } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChalkboard } from '@fortawesome/free-solid-svg-icons'
 import { useNavButtonStyling } from '../useNavButtonStyling'
 import { Character } from '../../shared/interfaces'
 import { emphasisFont } from '../../shared/theme'
-import { LightenOnHoverButton } from '../../shared-components/LightenOnHoverButton'
 import { ReturnFromFlashbackMobile } from './ReturnFromFlashbackMobile'
 
 export function LessonInfoMobile({
