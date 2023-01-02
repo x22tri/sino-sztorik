@@ -149,7 +149,7 @@ let theme = responsiveFontSizes(
     },
     typography: {
       fontFamily: genericFont,
-      h4: { fontFamily: emphasisFont, fontWeight: 800, fontSize: 32 },
+      h4: { fontFamily: emphasisFont, fontWeight: 800, fontSize: 24 },
       h5: { fontFamily: emphasisFont, fontWeight: 600, fontSize: 18 },
       h6: { fontFamily: emphasisFont, fontWeight: 600, fontSize: 14 },
       button: { fontFamily: emphasisFont, textTransform: 'none' },

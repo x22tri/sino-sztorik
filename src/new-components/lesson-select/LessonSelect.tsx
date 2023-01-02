@@ -17,6 +17,8 @@ import { ContentContainer } from '../shared-components/ContentContainer'
 import { SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import { useTheme } from '@mui/material'
+import { TierStatusCircle } from './tier-status-circle/TierStatusCircle'
+import { PreviewRow } from './preview-row/PreviewRow'
 
 export default function LessonSelect() {
   const { constants } = useTheme()
@@ -45,7 +47,7 @@ export default function LessonSelect() {
   }
 
   return (
-    <ContentContainer>
+    <>
       {selectedLessonNumber === null ? (
         <LessonPreviewGrid
           lessons={LESSONS}
@@ -78,7 +80,7 @@ export default function LessonSelect() {
           <></>
         )}
       </Grow>
-    </ContentContainer>
+    </>
   )
 }
 
@@ -96,28 +98,29 @@ function LessonPreviewGrid({
   const { constants } = useTheme()
 
   return (
-    <Grid
-      container
-      sx={{
-        height: 'fit-content',
-        maxWidth: constants.maxContentWidth,
-        margin: 'auto',
-      }}
-    >
-      {lessons.map(({ lessonNumber, title, tierStatuses }) => (
-        <LessonSelectCard
-          key={lessonNumber}
-          {...{
-            lessonNumber,
-            title,
-            tierStatuses,
-            setSelectedLessonNumber,
-            upcomingLessonNumber,
-            setIsLessonDetailsVisible,
-          }}
-        />
-      ))}
-    </Grid>
+    // <Grid
+    //   container
+    //   sx={{
+    //     height: 'fit-content',
+    //     maxWidth: constants.maxContentWidth,
+    //     margin: 'auto',
+    //   }}
+    // >
+    //   {lessons.map(({ lessonNumber, title, tierStatuses }) => (
+    //     <LessonSelectCard
+    //       key={lessonNumber}
+    //       {...{
+    //         lessonNumber,
+    //         title,
+    //         tierStatuses,
+    //         setSelectedLessonNumber,
+    //         upcomingLessonNumber,
+    //         setIsLessonDetailsVisible,
+    //       }}
+    //     />
+    //   ))}
+    // </Grid>
+    <PreviewRow {...{ lessons }} />
   )
 }
 
