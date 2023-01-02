@@ -7,9 +7,11 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import LearnContent from './LearnContent'
 import { LearnAppbar } from './learn-appbar/LearnAppbar'
-import useEventListener from '@use-it/event-listener'
 import SwiperInstance, { EffectCreative, EffectFade, Keyboard } from 'swiper'
-import { scrollToTop, useSmallScreen } from '../shared/utility-functions'
+import useKeydown, {
+  scrollToTop,
+  useSmallScreen,
+} from '../shared/utility-functions'
 
 const creativeEffect = {
   prev: {
@@ -48,6 +50,16 @@ export default function Learn() {
     setTimeout(() => swiperInstance?.updateAutoHeight(), 200)
   }
 
+  useKeydown(({ key }) => {
+    if (key === 'ArrowLeft') {
+      swiperInstance?.slidePrev()
+    }
+
+    if (key === 'ArrowRight') {
+      swiperInstance?.slideNext()
+    }
+  })
+
   return (
     <>
       <LearnAppbar
@@ -64,14 +76,13 @@ export default function Learn() {
         <Swiper
           autoHeight
           effect={useSmallScreen() ? 'creative' : 'slide'}
-          keyboard
           onSwiper={swiper => setSwiperInstance(swiper)}
           onSlideChange={({ activeIndex }) => {
             setActiveIndex(activeIndex) // Causes lag on mobile. To-Do: See if there's a way to remove lag.
             scrollToTop()
           }}
           onSlideChangeTransitionEnd={scrollToTop}
-          modules={[EffectCreative, Keyboard]}
+          modules={[EffectCreative]}
           spaceBetween={0}
           simulateTouch={false}
           style={{ maxWidth: constants.maxContentWidth }}

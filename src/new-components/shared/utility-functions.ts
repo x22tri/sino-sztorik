@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Theme, useMediaQuery, useTheme } from '@mui/material'
 
 export const useSmallScreen = () =>
@@ -24,4 +25,24 @@ export function useNavButtonStyling() {
       color: palette.primary.main,
     },
   }
+}
+
+export default function useKeydown(
+  handler: (event: KeyboardEvent) => void,
+  capture = false,
+  element = window
+) {
+  useEffect(() => {
+    const isSupported = element && element.addEventListener
+
+    if (!isSupported) {
+      return
+    }
+
+    element.addEventListener('keydown', handler, { capture: capture })
+
+    return () => {
+      element.removeEventListener('keydown', handler, { capture: capture })
+    }
+  })
 }

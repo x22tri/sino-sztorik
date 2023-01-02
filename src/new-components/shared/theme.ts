@@ -155,7 +155,6 @@ let theme = responsiveFontSizes(
       button: { fontFamily: emphasisFont, textTransform: 'none' },
       body1: { lineHeight: 1.5 },
       body2: { fontSize: 16 },
-      overline: { fontWeight: 'bold' },
       chineseHeading: {
         fontFamily: chineseFont,
         fontSize: 120,
@@ -163,6 +162,7 @@ let theme = responsiveFontSizes(
         lineHeight: 1,
       },
       chineseNormal: { fontFamily: chineseFont, fontSize: 24, lineHeight: 1.2 },
+      overline: { fontWeight: 'bold' },
       presentation: {
         keyword: {
           fontFamily: emphasisFont,
