@@ -1,11 +1,11 @@
-import { Paragraph as ParagraphType, Note } from '../../shared/interfaces'
-
+import Box from '@mui/material/Box'
+import { Paragraph, Note } from '../../shared/interfaces'
 import { SegmentResolver } from './SegmentResolver'
 import { NoteResolver } from './NoteResolver'
 
-export default function Story({ story }: { story: ParagraphType[] }) {
+export default function Story({ story }: { story: Paragraph[] }) {
   return (
-    <>
+    <Box marginY={4}>
       {story.map((paragraph, index) =>
         isNote(paragraph) ? (
           <NoteResolver note={paragraph} key={index} />
@@ -13,10 +13,10 @@ export default function Story({ story }: { story: ParagraphType[] }) {
           <SegmentResolver segments={paragraph} key={index} />
         )
       )}
-    </>
+    </Box>
   )
 }
 
-function isNote(paragraph: ParagraphType): paragraph is Note {
+function isNote(paragraph: Paragraph): paragraph is Note {
   return !Array.isArray(paragraph)
 }

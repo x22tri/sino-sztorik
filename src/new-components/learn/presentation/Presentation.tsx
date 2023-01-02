@@ -19,11 +19,9 @@ export function Presentation({
   const { palette } = useTheme()
 
   return (
-    <Box display='flex' flexDirection='column' alignItems='center'>
+    <Box display='flex' flexDirection='column' alignItems='center' marginY={4}>
       <Display if={pinyin}>
-        <Box fontStyle='italic' fontSize='90%'>
-          {pinyin}
-        </Box>
+        <Box typography='presentation.pinyin'>{pinyin}</Box>
       </Display>
 
       <Box typography='chineseHeading' marginBottom={1}>
@@ -31,7 +29,11 @@ export function Presentation({
       </Box>
 
       <Display if={keyword}>
-        <Box typography='h4' color={palette.primary.main} position='relative'>
+        <Box
+          typography='presentation.keyword'
+          color={palette.primary.main}
+          position='relative'
+        >
           {keyword}
 
           <Display if={explanation}>
@@ -41,7 +43,7 @@ export function Presentation({
       </Display>
 
       <Display if={primitiveMeaning}>
-        <Box typography='primitiveMeaning'>{primitiveMeaning}</Box>
+        <Box typography='presentation.primitive'>{primitiveMeaning}</Box>
       </Display>
     </Box>
   )

@@ -19,6 +19,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { CharNavigation } from './char-navigation/CharNavigation'
 import { Phrases } from './Phrases'
+import { Heading } from './subheading/Heading'
 
 export default function LearnContent({
   charToReturnToFromFlashback,
@@ -104,7 +105,7 @@ export default function LearnContent({
         {...{ frequency, newPrimitive, prequel, productivePhonetic, reminder }}
       />
 
-      <Subheading title='Karakter' isFirst />
+      <Heading title='Karakter' />
 
       <Presentation
         {...{ charChinese, explanation, keyword, pinyin, primitiveMeaning }}
@@ -112,7 +113,7 @@ export default function LearnContent({
 
       <Display if={constituents}>
         <>
-          <Subheading title='Összetétel' small />
+          <Subheading title='Összetétel' />
 
           <ConstituentList
             constituents={constituents!}
@@ -121,13 +122,13 @@ export default function LearnContent({
         </>
       </Display>
 
-      <Subheading title='Történet' endContent={<StoryTypeSwitch />} />
+      <Heading title='Történet' endContent={<StoryTypeSwitch />} />
 
       <Story {...{ story }} />
 
-      <Subheading title='Kiegészítő információk' followedBySmall />
+      <Heading title='Kiegészítő információk' />
 
-      <Subheading title='Kifejezések a karakterrel' small isFirst />
+      <Subheading title='Kifejezések a karakterrel' />
 
       {/* <Collapse
         in={isSupplementsOpen}

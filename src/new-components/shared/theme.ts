@@ -58,10 +58,16 @@ declare module '@mui/material/styles' {
     constituent: CSSProperties
   }
 
+  interface PresentationVariants {
+    keyword: CSSProperties
+    primitive: CSSProperties
+    pinyin: CSSProperties
+  }
+
   interface TypographyVariants {
     chineseHeading: CSSProperties
     chineseNormal: CSSProperties
-    primitiveMeaning: CSSProperties
+    presentation: PresentationVariants
     storySegments: StorySegmentVariants
   }
 
@@ -69,7 +75,7 @@ declare module '@mui/material/styles' {
   interface TypographyVariantsOptions {
     chineseHeading?: CSSProperties
     chineseNormal?: CSSProperties
-    primitiveMeaning?: CSSProperties
+    presentation?: PresentationVariants
     storySegments?: StorySegmentVariants
   }
 }
@@ -91,7 +97,6 @@ declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
     chineseHeading: true
     chineseNormal: true
-    primitiveMeaning: true
   }
 }
 
@@ -144,8 +149,8 @@ let theme = responsiveFontSizes(
     typography: {
       fontFamily: genericFont,
       h4: { fontFamily: emphasisFont, fontWeight: 800, fontSize: 32 },
-      h5: { fontFamily: emphasisFont, fontWeight: 600, fontSize: 28 },
-      h6: { fontFamily: emphasisFont, fontWeight: 600, fontSize: 18 },
+      h5: { fontFamily: emphasisFont, fontWeight: 600, fontSize: 18 },
+      h6: { fontFamily: emphasisFont, fontWeight: 600, fontSize: 14 },
       button: { fontFamily: emphasisFont, textTransform: 'none' },
       body1: { lineHeight: 1.5 },
       body2: { fontSize: 16 },
@@ -157,13 +162,25 @@ let theme = responsiveFontSizes(
         lineHeight: 1,
       },
       chineseNormal: { fontFamily: chineseFont, fontSize: 24, lineHeight: 1.2 },
-      primitiveMeaning: {
-        fontSize: 20,
-        fontFamily: emphasisFont,
-        fontWeight: 'normal',
-        fontStyle: 'italic',
-        lineHeight: 1.2,
+      presentation: {
+        keyword: {
+          fontFamily: emphasisFont,
+          fontWeight: 800,
+          fontSize: 32,
+          lineHeight: 1.1,
+        },
+        primitive: {
+          fontSize: 20,
+          fontFamily: emphasisFont,
+          fontStyle: 'italic',
+          lineHeight: 1.2,
+        },
+        pinyin: {
+          fontSize: 14,
+          fontStyle: 'italic',
+        },
       },
+
       storySegments: {
         keyword: { fontWeight: 900 },
         primitive: { fontWeight: 'bold', fontStyle: 'italic' },
@@ -212,8 +229,13 @@ theme = createTheme(theme, {
     },
   },
   typography: {
-    primitiveMeaning: {
-      color: theme.palette.secondary.main,
+    presentation: {
+      keyword: {
+        color: theme.palette.primary.main,
+      },
+      primitive: {
+        color: theme.palette.secondary.main,
+      },
     },
     storySegments: {
       keyword: {

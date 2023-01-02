@@ -28,7 +28,7 @@ export function ConstituentList({
       }
       alignItems='center'
       gap={3}
-      marginBottom={phrases && !isSmallScreen ? 3 : 0}
+      marginBottom={phrases && isSmallScreen ? 1 : 3}
     >
       {constituents.map((constituent, index) => {
         const isHovered = hoveredIndex === index
@@ -43,7 +43,9 @@ export function ConstituentList({
             }}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
-            startIcon={<CharChinese {...{ constituent, isHovered }} />}
+            startIcon={
+              <CharChinese {...{ constituent, emphasize, isHovered }} />
+            }
             sx={{
               flexDirection: phrases ? 'column' : 'row',
               boxShadow: 'none',
@@ -72,23 +74,27 @@ export function ConstituentList({
 
 export function CharChinese({
   constituent,
+  emphasize,
   isHovered,
 }: {
   constituent: string
+  emphasize: 'keyword' | 'primitive'
   isHovered: boolean
 }) {
   const { constants, palette } = useTheme()
+
+  const colorBase =
+    emphasize === 'keyword' ? palette.neutral : palette.secondary
+
+  const colorHovered =
+    emphasize === 'keyword' ? palette.primary : palette.secondary
 
   return (
     <Typography
       variant='chineseNormal'
       sx={{
-        color: isHovered
-          ? palette.secondary.contrastText
-          : palette.text.primary,
-        backgroundColor: isHovered
-          ? palette.secondary.main
-          : palette.secondary.light,
+        color: isHovered ? colorBase.contrastText : palette.text.primary,
+        backgroundColor: isHovered ? colorHovered.main : colorBase.light,
         borderRadius: 6,
         p: 1,
         lineHeight: 1,

@@ -24,6 +24,7 @@ export function Phrases({
           ? '1fr'
           : 'minmax(max-content, 1fr) minmax(min-content, 1fr)'
       }
+      marginTop={2}
     >
       {MOCK_PHRASES.map(({ phraseChinese, phraseHungarian }, index) => (
         <Fragment key={index}>
