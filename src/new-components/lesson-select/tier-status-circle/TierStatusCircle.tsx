@@ -19,55 +19,12 @@ export function TierStatusCircle({
     [COMPLETED]: palette.primary.main,
   }
 
-  //   const colors = ['red', 'orange', 'blue', 'green']
-
   const [tierOneColor, tierTwoColor, tierThreeColor, tierFourColor] =
     tierStatuses.map(tier => colorDictionary[tier])
 
   const sizeInPx = 48
 
   return (
-    // <Box lineHeight='100%'>
-    //   {tierStatuses.map((tier, index) => (
-    //     <Box
-    //       key={index}
-    //       component='span'
-    //       color={colorDictionary[tier]}
-    //       fontSize='1.8em'
-    //     >
-    //       {tier === NOT_IN_TIER ? '○' : '●'}
-    //     </Box>
-    //   ))}
-    // </Box>
-    // <Box
-    //   borderRadius='50%'
-    //   position='relative'
-    //   sx={{
-    //     backgroundColor: 'red',
-    //     borderStyle: 'solid',
-    //     borderWidth: '50px',
-    //     borderBottomColor: 'red',
-    //     borderLeftColor: 'green',
-    //     borderRightColor: 'blue',
-    //     borderTopColor: 'yellow',
-    //     width: '0',
-    //     height: '0',
-    //     transform: 'rotate(45deg)',
-    //   }}
-    // >
-    //   <Box
-    //     position='absolute'
-    //     sx={{
-    //       backgroundColor: 'background.default',
-    //       width: '50%',
-    //       height: '50%',
-    //       borderRadius: '50%',
-    //       top: '50%',
-    //       left: '50%',
-    //       transform: 'translate(-50%, -50%)',
-    //     }}
-    //   ></Box>
-    // </Box>
     <Box
       position='relative'
       width={`${sizeInPx}px`}
@@ -128,8 +85,8 @@ export function TierStatusCircle({
         sx={{ backgroundColor: 'background.default' }}
       />
       <Box sx={{ backgroundColor: 'background.default' }} />
-      <Box position='relative' typography='h6'>
-        99
+      <Box position='relative' typography='h5'>
+        {lessonNumber}
       </Box>
     </Box>
   )

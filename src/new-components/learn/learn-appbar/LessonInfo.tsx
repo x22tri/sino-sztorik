@@ -49,30 +49,42 @@ export function LessonInfo({
         >
           <>
             <img src={logoImage} alt='Logó' width='auto' height='28px' />
-            <Box display='flex' flexDirection='column'>
-              <Typography
-                component='span'
-                lineHeight={1}
-                sx={{
-                  fontWeight: 900,
-                  fontSize: '80%',
-                  color: palette.text.disabled,
-                }}
-              >
-                {lessonNumber}
-                {LESSON_NUMBER_SUFFIX_APPBAR}
-              </Typography>
-              <Typography
-                component='span'
-                lineHeight={1}
-                sx={{ fontWeight: 'bold', color: palette.text.secondary }}
-              >
-                {lessonTitle}
-              </Typography>
-            </Box>
+            <TitleSubtitle
+              title={lessonNumber + LESSON_NUMBER_SUFFIX_APPBAR}
+              subtitle={lessonTitle}
+            />
           </>
         </Display>
       </Box>
     </Display>
+  )
+}
+
+function TitleSubtitle({
+  title,
+  subtitle,
+}: {
+  title: string
+  subtitle: string
+}) {
+  const { palette } = useTheme()
+
+  return (
+    <Box display='flex' flexDirection='column'>
+      <Box
+        component='span'
+        typography='titleSubtitle.title'
+        sx={{ color: palette.text.disabled }}
+      >
+        {title}
+      </Box>
+      <Box
+        component='span'
+        typography='titleSubtitle.subtitle'
+        sx={{ color: palette.text.secondary }}
+      >
+        {subtitle}
+      </Box>
+    </Box>
   )
 }

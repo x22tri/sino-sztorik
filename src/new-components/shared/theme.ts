@@ -70,6 +70,7 @@ declare module '@mui/material/styles' {
     chineseNormal: CSSProperties
     presentation: PresentationVariants
     storySegments: StorySegmentVariants
+    titleSubtitle: { title: CSSProperties; subtitle: CSSProperties }
   }
 
   // Allows configuration using `createTheme`.
@@ -78,6 +79,7 @@ declare module '@mui/material/styles' {
     chineseNormal?: CSSProperties
     presentation?: PresentationVariants
     storySegments?: StorySegmentVariants
+    titleSubtitle?: { title: CSSProperties; subtitle: CSSProperties }
   }
 }
 
@@ -189,6 +191,10 @@ let theme = responsiveFontSizes(
           fontFamily: emphasisFont,
           fontSize: 16,
         },
+      },
+      titleSubtitle: {
+        title: { fontWeight: 900, fontSize: '80%', lineHeight: 1 },
+        subtitle: { fontWeight: 'bold', lineHeight: 1 },
       },
     },
     palette: {

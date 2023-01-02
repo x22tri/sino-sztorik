@@ -5,10 +5,12 @@ import {
   CHARACTER_SEARCH_TITLE,
   LESSON_SELECT_TITLE,
 } from '../../shared/strings'
-import Logo from './Logo'
+import LogoTitle from './LogoTitle'
 import MobileNavigationMenu from './MobileNavigationMenu'
 import DesktopNavigationMenu from './DesktopNavigationMenu'
 import ProfileMenu from './ProfileMenu'
+import { useSmallScreen } from '../../shared/utility-functions'
+import { Display } from '../../shared/utility-components'
 
 export function LessonSelectAppbar() {
   const username = 'Péter'
@@ -25,10 +27,14 @@ export function LessonSelectAppbar() {
     setAnchorElNav(null)
   }
 
+  const isSmallScreen = useSmallScreen()
+
   return (
     <AppBar position='static' elevation={0}>
       <Toolbar variant='dense' disableGutters sx={{ mx: 1 }}>
-        <Logo display={{ xs: 'none', md: 'flex' }} flexGrow={0} />
+        <Display if={!isSmallScreen}>
+          <LogoTitle />
+        </Display>
 
         <MobileNavigationMenu
           {...{
@@ -39,7 +45,9 @@ export function LessonSelectAppbar() {
           }}
         />
 
-        <Logo display={{ xs: 'flex', md: 'none' }} flexGrow={1} />
+        <Display if={isSmallScreen}>
+          <LogoTitle noLogo />
+        </Display>
 
         <DesktopNavigationMenu
           {...{
