@@ -20,11 +20,11 @@ export function NoteElement({
         background: color,
         borderRadius: '0 16px',
         py: 2,
-        px: useSmallScreen() ? 1 : 2,
-        mx: useSmallScreen() ? 0 : -1,
+        px: 1,
+        mx: -1,
       }}
     >
-      <Box typography='h6'>{title}</Box>
+      <Box typography='storySegments.specialParagraphHeading'>{title}</Box>
 
       <Box typography='body2'>
         {typeof text === 'string' ? (

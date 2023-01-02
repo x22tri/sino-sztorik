@@ -11,8 +11,13 @@ export function Heading({
   title: string
 }) {
   return (
-    <Box marginY={1}>
-      <Box display='flex' justifyContent='space-between' alignItems='center'>
+    <>
+      <Box
+        display='flex'
+        justifyContent='space-between'
+        alignItems='center'
+        marginTop={1}
+      >
         <Typography variant='h5' fontWeight={700}>
           {title}
         </Typography>
@@ -20,6 +25,6 @@ export function Heading({
       </Box>
 
       <Divider />
-    </Box>
+    </>
   )
 }

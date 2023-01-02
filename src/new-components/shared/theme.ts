@@ -56,6 +56,7 @@ declare module '@mui/material/styles' {
     keyword: CSSProperties
     primitive: CSSProperties
     constituent: CSSProperties
+    specialParagraphHeading: CSSProperties
   }
 
   interface PresentationVariants {
@@ -180,11 +181,14 @@ let theme = responsiveFontSizes(
           fontStyle: 'italic',
         },
       },
-
       storySegments: {
         keyword: { fontWeight: 900 },
         primitive: { fontWeight: 'bold', fontStyle: 'italic' },
         constituent: {},
+        specialParagraphHeading: {
+          fontFamily: emphasisFont,
+          fontSize: 16,
+        },
       },
     },
     palette: {
@@ -214,7 +218,6 @@ theme = createTheme(theme, {
       styleOverrides: {
         root: {
           backgroundColor: theme.palette.secondary.light,
-          // color: theme.palette.secondary.dark,
           '&:hover': {
             backgroundColor: theme.palette.secondary.main,
             color: theme.palette.secondary.contrastText,

@@ -36,7 +36,7 @@ export function Phrases({
           />
 
           <Typography
-            variant='h6'
+            variant='h5'
             textAlign={isSmallScreen ? 'center' : 'initial'}
             marginBottom={isSmallScreen ? 3 : 0}
             marginLeft={isSmallScreen ? 0 : 3}

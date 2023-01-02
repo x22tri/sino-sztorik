@@ -130,16 +130,9 @@ export default function LearnContent({
 
       <Subheading title='Kifejezések a karakterrel' />
 
-      {/* <Collapse
-        in={isSupplementsOpen}
-        onTransitionEnd={() => swiper.updateAutoHeight()}
-      >
-        test
-      </Collapse> */}
-
       <Phrases {...{ startFlashback }} />
 
-      <Divider sx={{ mt: 1, mb: 1 }} />
+      <Divider sx={{ mb: 1 }} />
 
       <CharNavigation
         {...{ charToReturnToFromFlashback, prevChar, nextChar }}
