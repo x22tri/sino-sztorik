@@ -18,8 +18,6 @@ export function LessonInfo({
   lessonTitle: string
   returnFromFlashback: () => void
 }) {
-  const { palette } = useTheme()
-
   const logoImage = require(`../../../assets/logo.png`)
 
   const isSmallScreen = useSmallScreen()
