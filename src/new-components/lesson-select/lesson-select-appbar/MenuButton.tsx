@@ -3,7 +3,7 @@ import ToolbarButton from './ToolbarButton'
 import {
   MOBILE_NAVIGATION_ARIA_LABEL,
   MOBILE_NAVIGATION_TOOLTIP,
-} from '../shared/strings'
+} from '../../shared/strings'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 export default function MenuButton({

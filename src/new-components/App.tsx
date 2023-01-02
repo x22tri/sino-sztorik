@@ -4,7 +4,7 @@ import LessonSelect from './lesson-select/LessonSelect'
 
 import { ThemeProvider } from '@mui/material/styles'
 import theme from './shared/theme'
-import { LessonSelectAppbar } from './toolbar/AppbarWrapper'
+import { LessonSelectAppbar } from './lesson-select/lesson-select-appbar/LessonSelectAppbar'
 import { LearnAppbar } from './learn/learn-appbar/LearnAppbar'
 import Learn from './learn/Learn'
 
@@ -14,9 +14,9 @@ function App() {
       {/* <Landing /> */}
       <ThemeProvider {...{ theme }}>
         <CssBaseline />
-        {/* <LessonSelectAppbar /> */}
-        {/* <LessonSelect /> */}
-        <Learn />
+        <LessonSelectAppbar />
+        <LessonSelect />
+        {/* <Learn /> */}
       </ThemeProvider>
     </>
   )

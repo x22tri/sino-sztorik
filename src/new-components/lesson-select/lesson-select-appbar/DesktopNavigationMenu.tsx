@@ -9,13 +9,13 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
-import { SideNavigationItem } from '../shared/interfaces'
+import { SideNavigationItem } from '../../shared/interfaces'
 import {
   LESSON_SELECT_TITLE,
   CHARACTER_SEARCH_TITLE,
   LESSON_SELECT_TOOLTIP,
   CHARACTER_SEARCH_TOOLTIP,
-} from '../shared/strings'
+} from '../../shared/strings'
 
 export default function DesktopNavigationMenu({
   handleCloseNavMenu,

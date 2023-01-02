@@ -23,7 +23,6 @@ export default function ToolbarButton({
         aria-haspopup='true'
         color='inherit'
         {...{ onClick }}
-        sx={{ mx: 1 }}
       >
         <FontAwesomeIcon {...{ icon }} />
       </IconButton>

@@ -91,10 +91,6 @@ export interface ChipType {
 
 /* Story interfaces */
 
-function isValidCharacterKey(string: string) {
-  return /\p{Script=Han}/u.test(string)
-}
-
 export const StoryParagraphKeys = {
   KEYWORD: 'keyword',
   PRIMITIVE: 'primitive',

@@ -11,10 +11,10 @@ export default function Logo({
 }) {
   const { palette } = useTheme()
 
-  const logoImage = require(`../../assets/logo.png`)
+  const logoImage = require(`../../../assets/logo.png`)
 
   return (
-    <Box {...{ flexGrow }} sx={{ display, mr: 1 }}>
+    <Box {...{ flexGrow }} sx={{ display, mr: 1, alignItems: 'center' }}>
       <img src={logoImage} alt='Logó' width='auto' height='28px' />
 
       <Typography

@@ -6,8 +6,8 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 import {
   USER_SETTINGS_ARIA_LABEL,
   USER_SETTINGS_TOOLTIP,
-} from '../shared/strings'
-import { useSmallScreen } from '../shared/utility-functions'
+} from '../../shared/strings'
+import { useSmallScreen } from '../../shared/utility-functions'
 
 export default function ProfileButton({
   onClick,

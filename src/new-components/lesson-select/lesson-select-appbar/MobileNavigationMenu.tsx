@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Typography from '@mui/material/Typography'
-import { SideNavigationItem } from '../shared/interfaces'
+import { SideNavigationItem } from '../../shared/interfaces'
 import MenuButton from './MenuButton'
 
 export default function MobileNavigationMenu({

@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Typography from '@mui/material/Typography'
-import { USER_SETTING_ACCOUNT, USER_SETTING_LOGOUT } from '../shared/strings'
+import { USER_SETTING_ACCOUNT, USER_SETTING_LOGOUT } from '../../shared/strings'
 import ProfileButton from './ProfileButton'
 
 export default function ProfileMenu({ username }: { username: string }) {

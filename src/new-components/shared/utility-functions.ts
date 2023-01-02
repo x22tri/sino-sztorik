@@ -9,10 +9,10 @@ export function scrollToTop() {
 }
 
 export function useNavButtonStyling() {
-  const { palette } = useTheme()
+  const { constants, palette } = useTheme()
 
   return {
-    color: palette.grey[700],
+    transition: `${constants.animationDuration}ms`,
     '@media (hover: hover)': {
       '&:hover': {
         backgroundColor: 'transparent',
