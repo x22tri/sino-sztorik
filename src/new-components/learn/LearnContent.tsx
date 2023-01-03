@@ -20,6 +20,7 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { CharNavigation } from './char-navigation/CharNavigation'
 import { Phrases } from './Phrases'
 import { Heading } from './subheading/Heading'
+import { useFlashback } from './logic/useFlashback'
 
 export default function LearnContent({
   charToReturnToFromFlashback,
@@ -43,6 +44,8 @@ export default function LearnContent({
   const swiper = useSwiper()
 
   const [charOverride, setCharOverride] = useState<Character | null>(null)
+
+  // const { flashback, interrupted, resume, start } = useFlashback()
 
   useEffect(() => {
     if (charToReturnToFromFlashback === null) {
