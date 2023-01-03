@@ -14,24 +14,24 @@ import {
 } from '../../shared/strings'
 import { Character } from '../../shared/interfaces'
 import { Typography } from '@mui/material'
+import { useFlashback } from '../logic/useFlashback'
 
 export function CharNavigation({
-  charToReturnToFromFlashback,
+  // charToReturnToFromFlashback,
   prevChar,
   nextChar,
 }: {
-  charToReturnToFromFlashback: Character | null
+  // charToReturnToFromFlashback: Character | null
   prevChar: string | null
   nextChar: string | null
 }) {
   const swiper = useSwiper()
 
+  const { flashback, interrupted, resume, start } = useFlashback()
+
   return (
     <Box display='flex' width='100%' justifyContent='center'>
-      <Display
-        if={!charToReturnToFromFlashback}
-        else={<ExitFlashbackWarning />}
-      >
+      <Display if={!flashback} else={<ExitFlashbackWarning />}>
         <>
           <Display if={prevChar}>
             <LightenOnHoverButton

@@ -1,4 +1,5 @@
-import { Dispatch, SetStateAction, useState, useEffect } from 'react'
+import { Dispatch, SetStateAction, useState, useEffect, useRef } from 'react'
+import Swiper from 'swiper'
 import { useSwiper } from 'swiper/react'
 import Box from '@mui/material/Box'
 import Collapse from '@mui/material/Collapse'
@@ -14,7 +15,10 @@ import { Presentation } from './presentation/Presentation'
 import { Subheading } from './subheading/Subheading'
 import { StoryTypeSwitch } from './subheading/StoryTypeSwitch'
 import { Character } from '../shared/interfaces'
-import { scrollToTop, useSmallScreen } from '../shared/utility-functions'
+import useKeydown, {
+  scrollToTop,
+  useSmallScreen,
+} from '../shared/utility-functions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { CharNavigation } from './char-navigation/CharNavigation'
@@ -23,35 +27,51 @@ import { Heading } from './subheading/Heading'
 import { useFlashback } from './logic/useFlashback'
 
 export default function LearnContent({
-  charToReturnToFromFlashback,
-  isSupplementsOpen,
+  // charToReturnToFromFlashback,
   nextChar,
   lessonChar,
   prevChar,
-  setCharToReturnToFromFlashback,
-  setIsSupplementsOpen,
-}: {
-  charToReturnToFromFlashback: Character | null
-  isSupplementsOpen: boolean
+}: // setCharToReturnToFromFlashback,
+{
+  // charToReturnToFromFlashback: Character | null
   nextChar: string | null
   lessonChar: Character
   prevChar: string | null
-  setCharToReturnToFromFlashback: Dispatch<SetStateAction<Character | null>>
-  setIsSupplementsOpen: Dispatch<SetStateAction<boolean>>
+  // setCharToReturnToFromFlashback: Dispatch<SetStateAction<Character | null>>
 }) {
-  const { palette } = useTheme()
+  const { constants, palette } = useTheme()
 
   const swiper = useSwiper()
 
-  const [charOverride, setCharOverride] = useState<Character | null>(null)
-
-  // const { flashback, interrupted, resume, start } = useFlashback()
+  const { flashback, interrupted, resume, start } = useFlashback()
 
   useEffect(() => {
-    if (charToReturnToFromFlashback === null) {
-      setCharOverride(null)
+    if (!swiper?.params) {
+      return
     }
-  }, [charToReturnToFromFlashback])
+
+    scrollToTop()
+
+    swiper.updateAutoHeight()
+
+    flashback === null ? swiper.enable() : swiper.disable()
+  }, [flashback])
+
+  useKeydown(event => {
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault()
+      event.stopPropagation()
+      console.log(event)
+      swiper.slidePrev()
+    }
+
+    if (event.key === 'ArrowRight') {
+      event.preventDefault()
+      event.stopPropagation()
+      console.log(event)
+      swiper.slideNext()
+    }
+  })
 
   function startFlashback(constituent: string) {
     const charToFlashbackTo = findCharToFlashbackTo(constituent)
@@ -61,22 +81,21 @@ export default function LearnContent({
       return
     }
 
-    setCharToReturnToFromFlashback(lessonChar)
+    // setCharToReturnToFromFlashback(lessonChar)
 
-    setCharOverride(charToFlashbackTo)
+    // setCharOverride(charToFlashbackTo)
 
-    swiper.disable()
+    start(charToFlashbackTo, lessonChar)
 
-    setTimeout(() => swiper.updateAutoHeight(), 200)
+    // swiper.disable()
 
-    scrollToTop()
+    // scrollToTop()
+
+    // setTimeout(() => swiper.updateAutoHeight(), 200)
   }
 
-  function toggleSupplements() {
-    setIsSupplementsOpen(prevState => !prevState)
-  }
-
-  const currentlyViewedChar = charOverride ?? lessonChar
+  // const currentlyViewedChar = charOverride ?? lessonChar
+  const currentlyViewedChar = flashback ?? lessonChar
 
   const {
     charChinese,
@@ -102,7 +121,11 @@ export default function LearnContent({
       minWidth={0}
       paddingX={useSmallScreen() ? 1 : 2}
       paddingY={1}
-      sx={{ backgroundColor: palette.background.paper }}
+      sx={{
+        backgroundColor: palette.background.paper,
+        maxWidth: constants.maxContentWidth,
+        mx: 'auto',
+      }}
     >
       <InfoChips
         {...{ frequency, newPrimitive, prequel, productivePhonetic, reminder }}
@@ -138,7 +161,11 @@ export default function LearnContent({
       <Divider sx={{ mb: 1 }} />
 
       <CharNavigation
-        {...{ charToReturnToFromFlashback, prevChar, nextChar }}
+        {...{
+          // charToReturnToFromFlashback,
+          prevChar,
+          nextChar,
+        }}
       />
     </Box>
   )

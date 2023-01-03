@@ -18,30 +18,30 @@ import {
 } from '../../shared/utility-functions'
 import { FLASHBACK_MODE } from '../../shared/strings'
 import { Display } from '../../shared/utility-components'
+import { useFlashback } from '../logic/useFlashback'
+import { useSwiper } from 'swiper/react'
+import { useEffect, useState } from 'react'
 
-export function LearnAppbar({
-  charToReturnToFromFlashback,
-  lessonLength,
-  returnFromFlashback,
-  swiperInstance,
-}: {
-  charToReturnToFromFlashback: Character | null
-  lessonLength: number
-  returnFromFlashback: () => void
-  swiperInstance: SwiperInstance | null
-}) {
+export function LearnAppbar({ lessonLength }: { lessonLength: number }) {
   const { constants } = useTheme()
+
+  const swiper = useSwiper()
 
   const isSmallScreen = useSmallScreen()
 
-  const isLocked = !!charToReturnToFromFlashback
+  const [lessonProgress, setLessonProgress] = useState(0)
+
+  const { flashback } = useFlashback()
+
+  const isLocked = !!flashback
 
   const gridSideColumn = `minmax(max-content, calc((100vw -  ${constants.maxContentWidth}) / 2))`
 
-  const activeIndex = swiperInstance?.activeIndex
-
-  const lessonProgress =
-    activeIndex === undefined ? 0 : (activeIndex / (lessonLength - 1)) * 100
+  useEffect(() => {
+    swiper.on('activeIndexChange', () =>
+      setLessonProgress(calculateProgress(lessonLength, swiper?.activeIndex))
+    )
+  }, [swiper])
 
   return (
     <AppBar
@@ -57,15 +57,11 @@ export function LearnAppbar({
           gridTemplateColumns={`${gridSideColumn} auto ${gridSideColumn}`}
           width='100%'
         >
-          <LessonInfo
-            lessonNumber={99}
-            lessonTitle={'Lecke címe'}
-            {...{ charToReturnToFromFlashback, returnFromFlashback }}
-          />
+          <LessonInfo lessonNumber={99} lessonTitle={'Lecke címe'} />
 
           <Box display='flex' justifyContent='center'>
             <Display
-              if={!isSmallScreen || !charToReturnToFromFlashback}
+              if={!isSmallScreen || !flashback}
               else={<FlashbackModeTextMobile />}
             >
               <LinearProgress
@@ -109,4 +105,10 @@ function CloseButton() {
       <FontAwesomeIcon icon={faClose} />
     </IconButton>
   )
+}
+
+function calculateProgress(lessonLength: number, activeIndex?: number) {
+  return activeIndex === undefined
+    ? 0
+    : (activeIndex / (lessonLength - 1)) * 100
 }

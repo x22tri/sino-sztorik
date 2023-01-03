@@ -2,19 +2,21 @@ import { Button, Typography } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { Character } from '../../shared/interfaces'
+import { useFlashback } from '../logic/useFlashback'
 
-export function ReturnFromFlashbackMobile({
-  charToReturnToFromFlashback,
-  returnFromFlashback,
-}: {
-  charToReturnToFromFlashback: Character
-  returnFromFlashback: () => void
+export function ReturnFromFlashbackMobile({}: // charToReturnToFromFlashback,
+// returnFromFlashback,
+{
+  // charToReturnToFromFlashback: Character
+  // returnFromFlashback: () => void
 }) {
+  const { flashback, interrupted, resume, start } = useFlashback()
+
   return (
     <Button
       size='small'
       variant='contained'
-      onClick={returnFromFlashback}
+      onClick={resume}
       startIcon={<FontAwesomeIcon icon={faChevronLeft} transform='shrink-4' />}
       sx={{
         py: 0,
@@ -25,7 +27,7 @@ export function ReturnFromFlashbackMobile({
       }}
     >
       <Typography variant='chineseNormal'>
-        {charToReturnToFromFlashback.charChinese}
+        {interrupted?.charChinese}
       </Typography>
     </Button>
   )

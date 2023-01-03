@@ -1,4 +1,4 @@
-import { KeyboardEvent, useState } from 'react'
+import { KeyboardEvent, useEffect, useRef, useState } from 'react'
 import { Box, useTheme } from '@mui/material'
 import { ContentContainer } from '../shared-components/ContentContainer'
 import { Character } from '../shared/interfaces'
@@ -12,6 +12,7 @@ import useKeydown, {
   scrollToTop,
   useSmallScreen,
 } from '../shared/utility-functions'
+import { useFlashback } from './logic/useFlashback'
 
 const creativeEffect = {
   prev: {
@@ -29,83 +30,85 @@ export default function Learn() {
 
   const lessonDataSource = CHARS
 
-  const [charToReturnToFromFlashback, setCharToReturnToFromFlashback] =
-    useState<Character | null>(null)
+  // const [charToReturnToFromFlashback, setCharToReturnToFromFlashback] =
+  //   useState<Character | null>(null)
 
-  const [swiperInstance, setSwiperInstance] = useState<SwiperInstance | null>(
-    null
-  )
+  // const [swiperInstance, setSwiperInstance] = useState<SwiperInstance | null>(
+  //   null
+  // )
 
-  const [isSupplementsOpen, setIsSupplementsOpen] = useState(false)
+  // const [activeIndex, setActiveIndex] = useState(0)
 
-  const [activeIndex, setActiveIndex] = useState(0)
+  // useKeydown(({ key }) => {
+  //   if (key === 'ArrowLeft') {
+  //     swiperInstance?.slidePrev()
+  //   }
 
-  function returnFromFlashback() {
-    setCharToReturnToFromFlashback(null)
-
-    swiperInstance?.enable()
-
-    scrollToTop()
-
-    setTimeout(() => swiperInstance?.updateAutoHeight(), 200)
-  }
-
-  useKeydown(({ key }) => {
-    if (key === 'ArrowLeft') {
-      swiperInstance?.slidePrev()
-    }
-
-    if (key === 'ArrowRight') {
-      swiperInstance?.slideNext()
-    }
-  })
+  //   if (key === 'ArrowRight') {
+  //     swiperInstance?.slideNext()
+  //   }
+  // })
 
   return (
     <>
-      <LearnAppbar
+      {/* <LearnAppbar
         lessonLength={CHARS.length}
         {...{
           activeIndex,
-          charToReturnToFromFlashback,
-          returnFromFlashback,
-          swiperInstance,
+          // charToReturnToFromFlashback,
+          // returnFromFlashback,
+          // swiperInstance,
         }}
-      />
+      /> */}
 
-      <ContentContainer>
-        <Swiper
-          autoHeight
-          effect={useSmallScreen() ? 'creative' : 'slide'}
-          onSwiper={swiper => setSwiperInstance(swiper)}
-          onSlideChange={({ activeIndex }) => {
-            setActiveIndex(activeIndex) // Causes lag on mobile. To-Do: See if there's a way to remove lag.
-            scrollToTop()
-          }}
-          onSlideChangeTransitionEnd={scrollToTop}
-          modules={[EffectCreative]}
-          spaceBetween={0}
-          simulateTouch={false}
-          style={{ maxWidth: constants.maxContentWidth }}
-          {...{ creativeEffect }}
-        >
-          {lessonDataSource.map((char, index) => (
-            <SwiperSlide key={index}>
-              <LearnContent
-                lessonChar={char}
-                prevChar={lessonDataSource[index - 1]?.charChinese ?? null}
-                nextChar={lessonDataSource[index + 1]?.charChinese ?? null}
-                {...{
-                  charToReturnToFromFlashback,
-                  index,
-                  isSupplementsOpen,
-                  setCharToReturnToFromFlashback,
-                  setIsSupplementsOpen,
-                }}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </ContentContainer>
+      {/* <ContentContainer> */}
+      <Swiper
+        autoHeight
+        // centeredSlides
+        effect={useSmallScreen() ? 'creative' : 'slide'}
+        // onSwiper={swiper => setSwiperInstance(swiper)}
+        onSlideChange={({ activeIndex }) => {
+          // setActiveIndex(activeIndex) // Causes lag on mobile. To-Do: See if there's a way to remove lag.
+          scrollToTop()
+        }}
+        onSlideChangeTransitionEnd={scrollToTop}
+        modules={[EffectCreative]}
+        spaceBetween={0}
+        simulateTouch={false}
+        style={{
+          // maxWidth: constants.maxContentWidth,
+          display: 'flex',
+          flexDirection: 'column-reverse',
+        }}
+        {...{ creativeEffect }}
+      >
+        <LearnAppbar
+          lessonLength={CHARS.length}
+          {
+            ...{
+              // activeIndex,
+              // charToReturnToFromFlashback,
+              // returnFromFlashback,
+              // swiperInstance,
+            }
+          }
+        />
+        {lessonDataSource.map((char, index) => (
+          <SwiperSlide key={index}>
+            <LearnContent
+              lessonChar={char}
+              prevChar={lessonDataSource[index - 1]?.charChinese ?? null}
+              nextChar={lessonDataSource[index + 1]?.charChinese ?? null}
+              {...{
+                // charToReturnToFromFlashback,
+                index,
+                // setCharToReturnToFromFlashback,
+              }}
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      {/* </ContentContainer> */}
 
       {/* <Button onClick={() => moveToPreviousCharacter()}>prev</Button>
       <Button onClick={() => moveToNextCharacter()}>next</Button> */}

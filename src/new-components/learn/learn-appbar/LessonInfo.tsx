@@ -6,21 +6,24 @@ import { useSmallScreen } from '../../shared/utility-functions'
 import { Display } from '../../shared/utility-components'
 import { LESSON_NUMBER_SUFFIX_APPBAR } from '../../shared/strings'
 import { ReturnFromFlashback } from './ReturnFromFlashback'
+import { useFlashback } from '../logic/useFlashback'
 
 export function LessonInfo({
-  charToReturnToFromFlashback,
+  // charToReturnToFromFlashback,
   lessonNumber,
   lessonTitle,
-  returnFromFlashback,
-}: {
-  charToReturnToFromFlashback: Character | null
+}: // returnFromFlashback,
+{
+  // charToReturnToFromFlashback: Character | null
   lessonNumber: number
   lessonTitle: string
-  returnFromFlashback: () => void
+  // returnFromFlashback: () => void
 }) {
   const logoImage = require(`../../../assets/logo.png`)
 
   const isSmallScreen = useSmallScreen()
+
+  const { flashback, interrupted, resume, start } = useFlashback()
 
   return (
     <Display
@@ -28,20 +31,20 @@ export function LessonInfo({
       else={
         <LessonInfoMobile
           {...{
-            charToReturnToFromFlashback,
+            // charToReturnToFromFlashback,
             lessonNumber,
-            returnFromFlashback,
+            // returnFromFlashback,
           }}
         />
       }
     >
       <Box display='flex' flexDirection='row' marginX={1} gap={1}>
         <Display
-          if={!charToReturnToFromFlashback}
+          if={!flashback}
           else={
             <ReturnFromFlashback
-              charToReturnToFromFlashback={charToReturnToFromFlashback!}
-              {...{ returnFromFlashback }}
+            // charToReturnToFromFlashback={charToReturnToFromFlashback!}
+            // {...{ returnFromFlashback }}
             />
           }
         >

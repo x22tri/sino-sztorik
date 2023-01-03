@@ -6,21 +6,24 @@ import { useNavButtonStyling } from '../../shared/utility-functions'
 import { Character } from '../../shared/interfaces'
 import { emphasisFont } from '../../shared/theme'
 import { ReturnFromFlashbackMobile } from './ReturnFromFlashbackMobile'
+import { useFlashback } from '../logic/useFlashback'
 
 export function LessonInfoMobile({
   lessonNumber,
-  charToReturnToFromFlashback,
-  returnFromFlashback,
-}: {
+}: // charToReturnToFromFlashback,
+// returnFromFlashback,
+{
   lessonNumber: number
-  charToReturnToFromFlashback: Character | null
-  returnFromFlashback: () => void
+  // charToReturnToFromFlashback: Character | null
+  // returnFromFlashback: () => void
 }) {
   const navButtonStyling = useNavButtonStyling()
 
-  return charToReturnToFromFlashback ? (
+  const { flashback, interrupted, resume, start } = useFlashback()
+
+  return flashback ? (
     <ReturnFromFlashbackMobile
-      {...{ charToReturnToFromFlashback, returnFromFlashback }}
+    // {...{ charToReturnToFromFlashback, returnFromFlashback }}
     />
   ) : (
     <IconButton
