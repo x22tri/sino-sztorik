@@ -4,21 +4,25 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import { useSmallScreen } from '../shared/utility-functions'
+import { useFlashback } from './logic/useFlashback'
+import { Character } from '../shared/interfaces'
 
 export function ConstituentList({
   phrases = false,
   constituents,
   emphasize = 'primitive',
-  startFlashback,
+  lessonChar,
 }: {
   phrases?: boolean
   constituents: string[]
   emphasize?: 'keyword' | 'primitive'
-  startFlashback: (constituent: string) => void
+  lessonChar: Character
 }) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   const isSmallScreen = useSmallScreen()
+
+  const { startFlashback } = useFlashback()
 
   return (
     <Box
@@ -39,7 +43,7 @@ export function ConstituentList({
             variant='text'
             onClick={() => {
               setHoveredIndex(null)
-              startFlashback(constituent)
+              startFlashback(constituent, lessonChar)
             }}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}

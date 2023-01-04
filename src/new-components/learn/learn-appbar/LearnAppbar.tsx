@@ -1,4 +1,3 @@
-import SwiperInstance from 'swiper'
 import Box from '@mui/material/Box'
 import LinearProgress from '@mui/material/LinearProgress'
 import {
@@ -10,7 +9,6 @@ import {
 } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClose } from '@fortawesome/free-solid-svg-icons'
-import { Character } from '../../shared/interfaces'
 import { LessonInfo } from './LessonInfo'
 import {
   useNavButtonStyling,

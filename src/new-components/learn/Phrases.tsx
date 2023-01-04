@@ -3,6 +3,8 @@ import Box from '@mui/material/Box'
 import { Typography } from '@mui/material'
 import { ConstituentList } from './ConstituentList'
 import { useSmallScreen } from '../shared/utility-functions'
+import { useFlashback } from './logic/useFlashback'
+import { Character } from '../shared/interfaces'
 
 const MOCK_PHRASES = [
   { phraseChinese: '正好', phraseHungarian: 'épp jó' },
@@ -10,9 +12,10 @@ const MOCK_PHRASES = [
 ]
 
 export function Phrases({
-  startFlashback,
-}: {
-  startFlashback: (constituent: string) => void
+  lessonChar,
+}: // startFlashback,
+{
+  lessonChar: Character
 }) {
   const isSmallScreen = useSmallScreen()
 
@@ -32,7 +35,8 @@ export function Phrases({
             phrases
             constituents={phraseChinese.split('')}
             emphasize='keyword'
-            {...{ startFlashback }}
+            {...{ lessonChar }}
+            // {...{ startFlashback }}
           />
 
           <Typography

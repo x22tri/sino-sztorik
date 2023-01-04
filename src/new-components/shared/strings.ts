@@ -28,7 +28,7 @@ export const USER_SETTING_LOGOUT = 'Kijelentkezés'
 
 export const FLASHBACK_MODE = 'Visszaemlékezés'
 export const LESSON_NUMBER_SUFFIX_APPBAR = '. lecke'
-export const BACK_TO_LESSON_FROM_FLASHBACK = 'Lecke folytatása'
+export const RESUME_LESSON = 'Lecke folytatása'
 
 export const SPECIAL_PARAGRAPH_GENERIC = 'Megjegyzés'
 export const SPECIAL_PARAGRAPH_TIP = 'Tipp'

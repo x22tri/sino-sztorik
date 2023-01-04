@@ -1,4 +1,11 @@
-import { Dispatch, SetStateAction, useState, useEffect, useRef } from 'react'
+import {
+  Dispatch,
+  SetStateAction,
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+} from 'react'
 import Swiper from 'swiper'
 import { useSwiper } from 'swiper/react'
 import Box from '@mui/material/Box'
@@ -27,23 +34,19 @@ import { Heading } from './subheading/Heading'
 import { useFlashback } from './logic/useFlashback'
 
 export default function LearnContent({
-  // charToReturnToFromFlashback,
   nextChar,
   lessonChar,
   prevChar,
-}: // setCharToReturnToFromFlashback,
-{
-  // charToReturnToFromFlashback: Character | null
+}: {
   nextChar: string | null
   lessonChar: Character
   prevChar: string | null
-  // setCharToReturnToFromFlashback: Dispatch<SetStateAction<Character | null>>
 }) {
   const { constants, palette } = useTheme()
 
   const swiper = useSwiper()
 
-  const { flashback, interrupted, resume, start } = useFlashback()
+  const { flashback } = useFlashback()
 
   useEffect(() => {
     if (!swiper?.params) {
@@ -57,45 +60,7 @@ export default function LearnContent({
     flashback === null ? swiper.enable() : swiper.disable()
   }, [flashback])
 
-  useKeydown(event => {
-    if (event.key === 'ArrowLeft') {
-      event.preventDefault()
-      event.stopPropagation()
-      console.log(event)
-      swiper.slidePrev()
-    }
-
-    if (event.key === 'ArrowRight') {
-      event.preventDefault()
-      event.stopPropagation()
-      console.log(event)
-      swiper.slideNext()
-    }
-  })
-
-  function startFlashback(constituent: string) {
-    const charToFlashbackTo = findCharToFlashbackTo(constituent)
-
-    if (charToFlashbackTo === null) {
-      console.log('Constituent not found.')
-      return
-    }
-
-    // setCharToReturnToFromFlashback(lessonChar)
-
-    // setCharOverride(charToFlashbackTo)
-
-    start(charToFlashbackTo, lessonChar)
-
-    // swiper.disable()
-
-    // scrollToTop()
-
-    // setTimeout(() => swiper.updateAutoHeight(), 200)
-  }
-
-  // const currentlyViewedChar = charOverride ?? lessonChar
-  const currentlyViewedChar = flashback ?? lessonChar
+  const currentChar = flashback ?? lessonChar
 
   const {
     charChinese,
@@ -104,14 +69,13 @@ export default function LearnContent({
     frequency,
     keyword,
     newPrimitive,
-    otherUses,
     pinyin,
     prequel,
     primitiveMeaning,
     productivePhonetic,
     reminder,
     story,
-  } = currentlyViewedChar
+  } = currentChar
 
   return (
     <Box
@@ -141,10 +105,7 @@ export default function LearnContent({
         <>
           <Subheading title='Összetétel' />
 
-          <ConstituentList
-            constituents={constituents!}
-            {...{ startFlashback }}
-          />
+          <ConstituentList constituents={constituents!} {...{ lessonChar }} />
         </>
       </Display>
 
@@ -156,29 +117,11 @@ export default function LearnContent({
 
       <Subheading title='Kifejezések a karakterrel' />
 
-      <Phrases {...{ startFlashback }} />
+      <Phrases {...{ lessonChar }} />
 
       <Divider sx={{ mb: 1 }} />
 
-      <CharNavigation
-        {...{
-          // charToReturnToFromFlashback,
-          prevChar,
-          nextChar,
-        }}
-      />
+      <CharNavigation {...{ prevChar, nextChar }} />
     </Box>
   )
-}
-
-function findCharToFlashbackTo(constituent: string): Character | null {
-  const charInLesson = CHARS.find(char => char.charChinese === constituent)
-
-  if (charInLesson) {
-    return charInLesson
-  }
-
-  // To-Do: if the char is not in the lesson, fetch it from the server.
-
-  return null
 }

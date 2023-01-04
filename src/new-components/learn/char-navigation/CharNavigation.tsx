@@ -12,22 +12,19 @@ import {
   CHAR_NAVIGATION_NEXT_CHARACTER,
   CHAR_NAVIGATION_EXIT_FLASHBACK_PROMPT,
 } from '../../shared/strings'
-import { Character } from '../../shared/interfaces'
 import { Typography } from '@mui/material'
 import { useFlashback } from '../logic/useFlashback'
 
 export function CharNavigation({
-  // charToReturnToFromFlashback,
   prevChar,
   nextChar,
 }: {
-  // charToReturnToFromFlashback: Character | null
   prevChar: string | null
   nextChar: string | null
 }) {
   const swiper = useSwiper()
 
-  const { flashback, interrupted, resume, start } = useFlashback()
+  const { flashback } = useFlashback()
 
   return (
     <Box display='flex' width='100%' justifyContent='center'>

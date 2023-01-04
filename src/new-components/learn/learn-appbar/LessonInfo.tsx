@@ -1,7 +1,6 @@
 import Box from '@mui/material/Box'
-import { Typography, useTheme } from '@mui/material'
+import { useTheme } from '@mui/material'
 import { LessonInfoMobile } from './LessonInfoMobile'
-import { Character } from '../../shared/interfaces'
 import { useSmallScreen } from '../../shared/utility-functions'
 import { Display } from '../../shared/utility-components'
 import { LESSON_NUMBER_SUFFIX_APPBAR } from '../../shared/strings'
@@ -9,21 +8,17 @@ import { ReturnFromFlashback } from './ReturnFromFlashback'
 import { useFlashback } from '../logic/useFlashback'
 
 export function LessonInfo({
-  // charToReturnToFromFlashback,
   lessonNumber,
   lessonTitle,
-}: // returnFromFlashback,
-{
-  // charToReturnToFromFlashback: Character | null
+}: {
   lessonNumber: number
   lessonTitle: string
-  // returnFromFlashback: () => void
 }) {
   const logoImage = require(`../../../assets/logo.png`)
 
   const isSmallScreen = useSmallScreen()
 
-  const { flashback, interrupted, resume, start } = useFlashback()
+  const { flashback } = useFlashback()
 
   return (
     <Display
@@ -31,23 +26,13 @@ export function LessonInfo({
       else={
         <LessonInfoMobile
           {...{
-            // charToReturnToFromFlashback,
             lessonNumber,
-            // returnFromFlashback,
           }}
         />
       }
     >
       <Box display='flex' flexDirection='row' marginX={1} gap={1}>
-        <Display
-          if={!flashback}
-          else={
-            <ReturnFromFlashback
-            // charToReturnToFromFlashback={charToReturnToFromFlashback!}
-            // {...{ returnFromFlashback }}
-            />
-          }
-        >
+        <Display if={!flashback} else={<ReturnFromFlashback />}>
           <>
             <img src={logoImage} alt='Logó' width='auto' height='28px' />
             <TitleSubtitle
