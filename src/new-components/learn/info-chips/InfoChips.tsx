@@ -58,6 +58,7 @@ export default function InfoChips(char: Partial<Character>) {
             key={id}
             isSelected={selectedChip?.id === id}
             {...{
+              deselectChip,
               icon,
               id,
               label,
@@ -69,6 +70,7 @@ export default function InfoChips(char: Partial<Character>) {
 
       <LearnPopover
         {...{ anchorEl }}
+        hover
         onClose={deselectChip}
         text={selectedChip?.explanation}
       />
