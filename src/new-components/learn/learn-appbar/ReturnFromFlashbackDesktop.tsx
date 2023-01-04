@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { RESUME_LESSON, FLASHBACK_MODE } from '../../shared/strings'
 import { useFlashback } from '../logic/useFlashback'
 
-export function ReturnFromFlashback() {
+export function ReturnFromFlashbackDesktop() {
   const { interrupted, resumeLesson } = useFlashback()
 
   return (
