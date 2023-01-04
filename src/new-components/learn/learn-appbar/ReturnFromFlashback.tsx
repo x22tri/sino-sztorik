@@ -8,8 +8,6 @@ import { useFlashback } from '../logic/useFlashback'
 export function ReturnFromFlashback() {
   const { interrupted, resumeLesson } = useFlashback()
 
-  console.log(useFlashback())
-
   return (
     <Button
       size='small'

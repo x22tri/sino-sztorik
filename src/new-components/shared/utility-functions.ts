@@ -27,22 +27,20 @@ export function useNavButtonStyling() {
   }
 }
 
-export default function useKeydown(
-  handler: (event: KeyboardEvent) => void,
-  capture = false,
-  element = window
-) {
+export function useKeydown(actionArray: { on: string; do: () => void }[]) {
+  const handler = ({ key }: KeyboardEvent) => {
+    actionArray.forEach(action => {
+      if (key === action.on && action.do) {
+        action.do()
+      }
+    })
+  }
+
   useEffect(() => {
-    const isSupported = element && element.addEventListener
-
-    if (!isSupported) {
-      return
-    }
-
-    element.addEventListener('keydown', handler, { capture: capture })
+    window.addEventListener('keydown', handler)
 
     return () => {
-      element.removeEventListener('keydown', handler, { capture: capture })
+      window.removeEventListener('keydown', handler)
     }
   })
 }

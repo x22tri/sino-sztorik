@@ -1,33 +1,24 @@
-import { KeyboardEvent, useEffect, useRef, useState } from 'react'
-import { Box, useTheme } from '@mui/material'
-import { ContentContainer } from '../shared-components/ContentContainer'
-import { Character } from '../shared/interfaces'
 import { CHARS } from './MOCK_CHARS'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import LearnContent from './LearnContent'
 import { LearnAppbar } from './learn-appbar/LearnAppbar'
-import SwiperInstance, { EffectCreative, EffectFade, Keyboard } from 'swiper'
-import useKeydown, {
-  scrollToTop,
+import SwiperInstance, { EffectCreative } from 'swiper'
+import {
+  useKeydown,
   useSmallScreen,
+  scrollToTop,
 } from '../shared/utility-functions'
-import { useFlashback } from './logic/useFlashback'
 
 export default function Learn() {
   const lesson = CHARS
 
-  let swiperInstance: SwiperInstance
+  let swiperInstance: SwiperInstance | undefined
 
-  useKeydown(({ key }) => {
-    if (key === 'ArrowLeft') {
-      swiperInstance?.slidePrev()
-    }
-
-    if (key === 'ArrowRight') {
-      swiperInstance?.slideNext()
-    }
-  })
+  useKeydown([
+    { on: 'ArrowLeft', do: () => swiperInstance?.slidePrev() },
+    { on: 'ArrowRight', do: () => swiperInstance?.slideNext() },
+  ])
 
   return (
     <>

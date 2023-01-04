@@ -1,19 +1,8 @@
-import {
-  Dispatch,
-  SetStateAction,
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-} from 'react'
-import Swiper from 'swiper'
+import { useEffect } from 'react'
 import { useSwiper } from 'swiper/react'
 import Box from '@mui/material/Box'
-import Collapse from '@mui/material/Collapse'
 import Divider from '@mui/material/Divider'
-import IconButton from '@mui/material/IconButton'
-import { Grid, useTheme } from '@mui/material'
-import { CHARS } from './MOCK_CHARS'
+import { useTheme } from '@mui/material'
 import Story from './story/Story'
 import InfoChips from './info-chips/InfoChips'
 import { Display } from '../shared/utility-components'
@@ -22,12 +11,7 @@ import { Presentation } from './presentation/Presentation'
 import { Subheading } from './subheading/Subheading'
 import { StoryTypeSwitch } from './subheading/StoryTypeSwitch'
 import { Character } from '../shared/interfaces'
-import useKeydown, {
-  scrollToTop,
-  useSmallScreen,
-} from '../shared/utility-functions'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { scrollToTop, useSmallScreen } from '../shared/utility-functions'
 import { CharNavigation } from './char-navigation/CharNavigation'
 import { Phrases } from './Phrases'
 import { Heading } from './subheading/Heading'
