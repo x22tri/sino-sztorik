@@ -29,34 +29,32 @@ export function CharNavigation({
   return (
     <Box display='flex' width='100%' justifyContent='center'>
       <Display if={!flashback} else={<ExitFlashbackWarning />}>
-        <>
-          <Display if={prevChar}>
-            <LightenOnHoverButton
-              color='neutral'
-              onClick={() => swiper.slidePrev()}
-              size='small'
-              startIcon={
-                <FontAwesomeIcon icon={faChevronLeft} transform='shrink-4' />
-              }
-              sx={{ mr: 'auto' }}
-            >
-              {CHAR_NAVIGATION_PREVIOUS_CHARACTER}
-            </LightenOnHoverButton>
-          </Display>
+        <Display if={prevChar}>
+          <LightenOnHoverButton
+            color='neutral'
+            onClick={() => swiper.slidePrev()}
+            size='small'
+            startIcon={
+              <FontAwesomeIcon icon={faChevronLeft} transform='shrink-4' />
+            }
+            sx={{ mr: 'auto' }}
+          >
+            {CHAR_NAVIGATION_PREVIOUS_CHARACTER}
+          </LightenOnHoverButton>
+        </Display>
 
-          <Display if={nextChar}>
-            <LightenOnHoverButton
-              endIcon={
-                <FontAwesomeIcon icon={faChevronRight} transform='shrink-4' />
-              }
-              onClick={() => swiper.slideNext()}
-              size='small'
-              sx={{ ml: 'auto' }}
-            >
-              {CHAR_NAVIGATION_NEXT_CHARACTER}
-            </LightenOnHoverButton>
-          </Display>
-        </>
+        <Display if={nextChar}>
+          <LightenOnHoverButton
+            endIcon={
+              <FontAwesomeIcon icon={faChevronRight} transform='shrink-4' />
+            }
+            onClick={() => swiper.slideNext()}
+            size='small'
+            sx={{ ml: 'auto' }}
+          >
+            {CHAR_NAVIGATION_NEXT_CHARACTER}
+          </LightenOnHoverButton>
+        </Display>
       </Display>
     </Box>
   )

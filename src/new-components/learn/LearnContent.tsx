@@ -86,11 +86,9 @@ export default function LearnContent({
       />
 
       <Display if={constituents}>
-        <>
-          <Subheading title='Összetétel' />
+        <Subheading title='Összetétel' />
 
-          <ConstituentList constituents={constituents!} {...{ lessonChar }} />
-        </>
+        <ConstituentList constituents={constituents!} {...{ lessonChar }} />
       </Display>
 
       <Heading title='Történet' endContent={<StoryTypeSwitch />} />
