@@ -3,13 +3,13 @@ import Typography from '@mui/material/Typography'
 
 export function LearnPopover({
   anchorEl,
+  hover,
   onClose,
   text,
 }: {
   anchorEl: Element | ((element: Element) => Element) | null | undefined
-  onClose:
-    | ((event: {}, reason: 'backdropClick' | 'escapeKeyDown') => void)
-    | undefined
+  hover?: boolean
+  onClose?: (event: {}, reason: 'backdropClick' | 'escapeKeyDown') => void
   text: string | undefined
 }) {
   const { palette } = useTheme()
@@ -18,6 +18,7 @@ export function LearnPopover({
     <Popover
       {...{ anchorEl, onClose }}
       open={!!anchorEl}
+      disableRestoreFocus={hover}
       marginThreshold={2}
       anchorOrigin={{
         vertical: 'bottom',
@@ -30,7 +31,7 @@ export function LearnPopover({
       PaperProps={{
         style: { boxShadow: 'none', border: `2px solid ${palette.grey[200]}` },
       }}
-      sx={{ mt: 0.5 }}
+      sx={{ pointerEvents: hover ? 'none' : 'initial' }}
     >
       <Typography variant='subtitle2' padding={1}>
         {text}

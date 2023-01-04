@@ -37,7 +37,7 @@ export function Presentation({
           {keyword}
 
           <Display if={explanation}>
-            <KeywordExplanation />
+            <KeywordExplanation explanation={explanation!} />
           </Display>
         </Box>
       </Display>

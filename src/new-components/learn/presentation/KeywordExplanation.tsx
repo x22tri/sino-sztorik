@@ -1,14 +1,27 @@
 import Box from '@mui/material/Box'
-import { Tooltip, useTheme } from '@mui/material'
+import { useTheme } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
-import { KEYWORD_EXPLANATION_TOOLTIP } from '../../shared/strings'
+import { LearnPopover } from '../../shared-components/LearnPopover'
+import { MouseEvent, TouchEvent, useState } from 'react'
 
-export function KeywordExplanation() {
+export function KeywordExplanation({ explanation }: { explanation: string }) {
   const { palette } = useTheme()
 
+  const [anchorEl, setAnchorEl] = useState<HTMLSpanElement | null>(null)
+
+  function openPopover(
+    event: MouseEvent<HTMLSpanElement> | TouchEvent<HTMLSpanElement>
+  ) {
+    setAnchorEl(event.currentTarget)
+  }
+
+  function closePopover() {
+    setAnchorEl(null)
+  }
+
   return (
-    <Tooltip title={KEYWORD_EXPLANATION_TOOLTIP}>
+    <>
       <Box
         display='flex'
         component='span'
@@ -18,8 +31,13 @@ export function KeywordExplanation() {
         color={palette.primary.light}
         sx={{
           transform: 'translate(85%)',
-          '&:hover': { color: palette.primary.lightHovered, cursor: 'pointer' },
+          '&:hover': {
+            color: palette.primary.lightHovered,
+            cursor: 'pointer',
+          },
         }}
+        onMouseEnter={openPopover}
+        onMouseLeave={closePopover}
       >
         <FontAwesomeIcon
           size='xs'
@@ -27,6 +45,8 @@ export function KeywordExplanation() {
           icon={faQuestionCircle}
         />
       </Box>
-    </Tooltip>
+
+      <LearnPopover hover text={explanation} {...{ anchorEl }} />
+    </>
   )
 }
