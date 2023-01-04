@@ -1,7 +1,6 @@
 import Box from '@mui/material/Box'
 import { Segment as SegmentType } from '../../shared/interfaces'
 import { SegmentResolver } from './SegmentResolver'
-import { useSmallScreen } from '../../shared/utility-functions'
 
 export function NoteElement({
   color,

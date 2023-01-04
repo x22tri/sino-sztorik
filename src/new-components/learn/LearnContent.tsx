@@ -42,7 +42,7 @@ export default function LearnContent({
     swiper.updateAutoHeight()
 
     flashback === null ? swiper.enable() : swiper.disable()
-  }, [flashback])
+  }, [flashback, swiper])
 
   const currentChar = flashback ?? lessonChar
 

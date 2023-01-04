@@ -11,7 +11,7 @@ export function StoryTypeSwitch() {
 
   type switchKey = keyof typeof storyTypeDictionary
 
-  const [storyType, setStoryType] = useState<switchKey>('video')
+  const [storyType] = useState<switchKey>('video')
 
   const { icon, label } = storyTypeDictionary[storyType]
 

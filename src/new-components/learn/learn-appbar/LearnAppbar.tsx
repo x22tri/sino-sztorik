@@ -39,7 +39,7 @@ export function LearnAppbar({ lessonLength }: { lessonLength: number }) {
     swiper.on('activeIndexChange', () =>
       setLessonProgress(calculateProgress(lessonLength, swiper?.activeIndex))
     )
-  }, [swiper])
+  }, [lessonLength, swiper])
 
   return (
     <AppBar
