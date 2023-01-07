@@ -5,7 +5,7 @@ import { NoteResolver } from './NoteResolver'
 
 export default function Story({ story }: { story: Paragraph[] }) {
   return (
-    <Box marginY={4}>
+    <Box marginY={3}>
       {story.map((paragraph, index) =>
         isNote(paragraph) ? (
           <NoteResolver note={paragraph} key={index} />

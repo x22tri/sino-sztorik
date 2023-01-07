@@ -8,7 +8,7 @@ import { INFO_CHIP_UNKNOWN_FREQUENCY_EXPLANATION } from '../../shared/strings'
 import { LearnPopover } from '../../shared-components/LearnPopover'
 
 export default function InfoChips(char: Partial<Character>) {
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
+  // const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
   const [selectedChip, setSelectedChip] = useState<ChipType | null>(null)
 
@@ -29,15 +29,15 @@ export default function InfoChips(char: Partial<Character>) {
       })
   }
 
-  function selectChip(event: MouseEvent<HTMLButtonElement>, chipId: ChipId) {
-    setAnchorEl(event.currentTarget)
-    setSelectedChip(chipsContent.find(({ id }) => id === chipId)!)
-  }
+  // function selectChip(event: MouseEvent<HTMLButtonElement>, chipId: ChipId) {
+  //   setAnchorEl(event.currentTarget)
+  //   setSelectedChip(chipsContent.find(({ id }) => id === chipId)!)
+  // }
 
-  function deselectChip() {
-    setAnchorEl(null)
-    setSelectedChip(null)
-  }
+  // function deselectChip() {
+  //   setAnchorEl(null)
+  //   setSelectedChip(null)
+  // }
 
   return (
     <>
@@ -53,31 +53,33 @@ export default function InfoChips(char: Partial<Character>) {
         gap={1}
         marginLeft={-1}
       >
-        {chipsContent.map(({ icon, id, label }) => (
+        {chipsContent.map(({ explanation, icon, id, label }) => (
           <InfoChip
             key={id}
-            isSelected={selectedChip?.id === id}
+            // isSelected={selectedChip?.id === id}
             {...{
-              deselectChip,
+              // deselectChip,
+              explanation,
               icon,
               id,
               label,
-              selectChip,
+              // selectChip,
             }}
           />
         ))}
       </Stack>
 
-      <LearnPopover
+      {/* <LearnPopover
         {...{ anchorEl }}
         hover
         onClose={deselectChip}
         text={selectedChip?.explanation}
-      />
+      /> */}
     </>
   )
 }
 
+// Replaces placeholders in a text. The placeholder should be inside curly braces.
 function replacePlaceholders(text: string, map: { [key: string]: string }) {
   for (const key in map) {
     text = text.replace(new RegExp('\\{' + key + '\\}', 'gm'), map[key])
