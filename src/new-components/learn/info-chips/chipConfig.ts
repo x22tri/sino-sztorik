@@ -21,7 +21,7 @@ import {
 const { FREQUENCY, NEW_PRIMITIVE, PREQUEL, PRODUCTIVE_PHONETIC, REMINDER } =
   ChipIds
 
-// The order of the chips matters.
+// Chips will be shown in the order of the array elements.
 export const chipConfig: ChipType[] = [
   {
     id: FREQUENCY,

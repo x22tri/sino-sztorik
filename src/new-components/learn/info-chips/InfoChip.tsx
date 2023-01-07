@@ -1,28 +1,11 @@
 import { MouseEvent, useState } from 'react'
-import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useTheme, Chip } from '@mui/material'
-import { ChipId } from '../../shared/interfaces'
+import { Chip } from '@mui/material'
+import { ChipType } from '../../shared/interfaces'
 import { LearnPopover } from '../../shared-components/LearnPopover'
 
-export default function InfoChip({
-  // deselectChip,
-  explanation,
-  icon,
-  id,
-  // isSelected,
-  label,
-}: // selectChip,
-{
-  // deselectChip: () => void
-  explanation: string
-  icon: IconDefinition
-  id: ChipId
-  // isSelected: boolean
-  label: string
-  // selectChip: (event: MouseEvent<HTMLButtonElement>, chipId: ChipId) => void
-}) {
-  // const { palette } = useTheme()
+export default function InfoChip({ chip }: { chip: ChipType }) {
+  const { explanation, icon, id, label } = chip
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
@@ -39,10 +22,10 @@ export default function InfoChip({
       <Chip
         component='button'
         icon={<FontAwesomeIcon transform='left-2.5' {...{ icon }} />}
-        size='small'
         onClick={() => {}} // MUI applies hover styling only if chip is clickable.
         onMouseEnter={event => openPopover(event)}
         onMouseLeave={closePopover}
+        size='small'
         variant='outlined'
         sx={{
           borderWidth: 0,
@@ -53,12 +36,7 @@ export default function InfoChip({
         {...{ label }}
       />
 
-      <LearnPopover
-        {...{ anchorEl }}
-        hover
-        // onClose={adeselectChip}
-        text={explanation}
-      />
+      <LearnPopover {...{ anchorEl }} hover text={explanation} />
     </>
   )
 }

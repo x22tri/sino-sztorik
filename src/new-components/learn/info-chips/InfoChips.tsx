@@ -1,17 +1,10 @@
 import { Stack, Divider } from '@mui/material'
-import { MouseEvent, useState } from 'react'
 import { chipConfig } from './chipConfig'
 import InfoChip from './InfoChip'
-import { getFrequencyText } from './getFrequencyText'
-import { Character, ChipId, ChipIds, ChipType } from '../../shared/interfaces'
-import { INFO_CHIP_UNKNOWN_FREQUENCY_EXPLANATION } from '../../shared/strings'
-import { LearnPopover } from '../../shared-components/LearnPopover'
+import { Character, ChipIds } from '../../shared/interfaces'
+import { replaceFrequencyPlaceholders } from './replaceFrequencyPlaceholders'
 
 export default function InfoChips(char: Partial<Character>) {
-  // const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
-
-  const [selectedChip, setSelectedChip] = useState<ChipType | null>(null)
-
   const chipsContent = getChips()
 
   function getChips() {
@@ -29,16 +22,6 @@ export default function InfoChips(char: Partial<Character>) {
       })
   }
 
-  // function selectChip(event: MouseEvent<HTMLButtonElement>, chipId: ChipId) {
-  //   setAnchorEl(event.currentTarget)
-  //   setSelectedChip(chipsContent.find(({ id }) => id === chipId)!)
-  // }
-
-  // function deselectChip() {
-  //   setAnchorEl(null)
-  //   setSelectedChip(null)
-  // }
-
   return (
     <>
       <Stack
@@ -53,61 +36,15 @@ export default function InfoChips(char: Partial<Character>) {
         gap={1}
         marginLeft={-1}
       >
-        {chipsContent.map(({ explanation, icon, id, label }) => (
+        {chipsContent.map(chip => (
           <InfoChip
-            key={id}
-            // isSelected={selectedChip?.id === id}
+            key={chip.id}
             {...{
-              // deselectChip,
-              explanation,
-              icon,
-              id,
-              label,
-              // selectChip,
+              chip,
             }}
           />
         ))}
       </Stack>
-
-      {/* <LearnPopover
-        {...{ anchorEl }}
-        hover
-        onClose={deselectChip}
-        text={selectedChip?.explanation}
-      /> */}
     </>
   )
-}
-
-// Replaces placeholders in a text. The placeholder should be inside curly braces.
-function replacePlaceholders(text: string, map: { [key: string]: string }) {
-  for (const key in map) {
-    text = text.replace(new RegExp('\\{' + key + '\\}', 'gm'), map[key])
-  }
-
-  return text
-}
-
-function replaceFrequencyPlaceholders(
-  text: string,
-  frequency: number | undefined
-) {
-  const frequencyText = getFrequencyText(frequency)
-
-  if (frequency === undefined) {
-    return {
-      label: frequencyText,
-      explanation: INFO_CHIP_UNKNOWN_FREQUENCY_EXPLANATION,
-    }
-  }
-
-  const frequencyTextMap = {
-    frequency: frequency.toString(),
-    frequencyTextLowerCase: frequencyText.toLowerCase(),
-  }
-
-  return {
-    label: frequencyText,
-    explanation: replacePlaceholders(text, frequencyTextMap),
-  }
 }
