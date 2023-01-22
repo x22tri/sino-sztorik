@@ -198,7 +198,7 @@ let theme = responsiveFontSizes(
       },
     },
     palette: {
-      primary: { main: teal[600], light: teal[200], lightHovered: teal[300] },
+      primary: { main: '#008A8A', light: teal[200], lightHovered: teal[300] },
       secondary: { light: '#FFEFF3', main: '#D91147' },
       neutral: { main: grey[600], contrastText: grey[50], light: grey[200] },
       background: { default: grey[50] },

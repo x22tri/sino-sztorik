@@ -1,6 +1,10 @@
 import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
-import { TierStatuses, LessonStatuses } from '../../shared/interfaces'
+import {
+  TierStatuses,
+  LessonStatus,
+  LessonStatuses,
+} from '../../shared/interfaces'
 const { NOT_IN_TIER, LOCKED, UPCOMING, COMPLETED } = LessonStatuses
 
 export function TierStatusCircle({
@@ -14,7 +18,9 @@ export function TierStatusCircle({
 
   const sizeInPx = 48
 
-  const styleDictionary = {
+  const styleDictionary: {
+    [key in LessonStatus]: { color: string; borderStyle: 'double' | 'solid' }
+  } = {
     [NOT_IN_TIER]: { color: palette.grey[300], borderStyle: 'double' },
     [LOCKED]: { color: palette.grey[300], borderStyle: 'solid' },
     [UPCOMING]: { color: palette.secondary.main, borderStyle: 'solid' },
