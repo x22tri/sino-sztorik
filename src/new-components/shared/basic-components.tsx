@@ -47,12 +47,7 @@ export function MinorActionButton({ text }: { text: string }) {
     <Button
       variant='outlined'
       color='primary'
-      sx={{
-        borderWidth: '2px',
-        '&:hover': {
-          borderWidth: '2px',
-        },
-      }}
+      sx={{ borderWidth: '2px', '&:hover': { borderWidth: '2px' } }}
     >
       {text}
     </Button>
@@ -211,14 +206,6 @@ export function LessonSwiper(props: SwiperProps) {
   return (
     <Swiper
       autoHeight
-      effect={useSmallScreen() ? 'creative' : 'slide'}
-      modules={[EffectCreative]}
-      onSlideChange={scrollToTop}
-      onSlideChangeTransitionEnd={scrollToTop}
-      onSwiper={swiper => (swiperInstance = swiper)}
-      simulateTouch={false}
-      spaceBetween={0}
-      style={{ display: 'flex', flexDirection: 'column-reverse' }}
       creativeEffect={{
         prev: {
           opacity: 0,
@@ -229,6 +216,13 @@ export function LessonSwiper(props: SwiperProps) {
           translate: ['100%', 0, 1],
         },
       }}
+      effect={useSmallScreen() ? 'creative' : 'slide'}
+      modules={[EffectCreative]}
+      onSlideChange={scrollToTop}
+      onSlideChangeTransitionEnd={scrollToTop}
+      onSwiper={swiper => (swiperInstance = swiper)}
+      simulateTouch={false}
+      spaceBetween={0}
       {...props}
     >
       {props.children}

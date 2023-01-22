@@ -15,7 +15,7 @@ import {
 } from '../shared/strings'
 import { Display } from '../shared/utility-components'
 import { useSmallScreen } from '../shared/utility-functions'
-import { useTheme } from '@mui/material'
+import { Stack, useTheme } from '@mui/material'
 
 export default function LessonDetails({
   lesson,
@@ -28,17 +28,22 @@ export default function LessonDetails({
   const { title, preface, characters } = lesson
 
   return (
-    <Box
+    <Stack
       border={`1px solid ${palette.grey[200]}`}
       borderRadius={2}
-      marginBottom={1}
-      minWidth={0}
+      // display='flex'
+
+      // minWidth={0}
       paddingX={useSmallScreen() ? 1 : 2}
       paddingY={1}
+      // marginX={1}
+      marginY={1}
+      // flexShrink={1}
       sx={{
         backgroundColor: palette.background.paper,
-        maxWidth: constants.maxContentWidth,
-        mx: 'auto',
+        // maxWidth: constants.maxContentWidth,
+        // ml: 'auto',
+        // mx: 'auto',
       }}
     >
       <Typography component='header' variant='h4' textAlign='center' margin={1}>
@@ -61,7 +66,7 @@ export default function LessonDetails({
       <CharacterPreviews {...{ characters }} />
 
       <LearnReviewButtons {...{ isCurrentLesson }} />
-    </Box>
+    </Stack>
   )
 }
 

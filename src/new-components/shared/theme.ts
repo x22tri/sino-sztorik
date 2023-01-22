@@ -106,28 +106,14 @@ declare module '@mui/material/Typography' {
 let theme = responsiveFontSizes(
   createTheme({
     components: {
-      MuiButtonBase: {
-        defaultProps: { disableRipple: true },
-        // styleOverrides: { root: { textTransform: 'none' } },
+      MuiButtonBase: { defaultProps: { disableRipple: true } },
+      MuiContainer: {
+        styleOverrides: { root: { paddingLeft: 0, paddingRight: 0 } },
       },
       MuiIconButton: {
         styleOverrides: {
-          root: {
-            '&:hover': {
-              backgroundColor: 'transparent',
-              opacity: 0.8,
-            },
-          },
+          root: { '&:hover': { backgroundColor: 'transparent', opacity: 0.8 } },
         },
-      },
-      MuiContainer: {
-        styleOverrides: {
-          root: { paddingLeft: 0, paddingRight: 0 },
-        },
-      },
-      MuiCssBaseline: {
-        styleOverrides: `.swiper-slide-shadow {}
-        `,
       },
       MuiLink: {
         defaultProps: { underline: 'none' },
@@ -178,19 +164,13 @@ let theme = responsiveFontSizes(
           fontStyle: 'italic',
           lineHeight: 1.2,
         },
-        pinyin: {
-          fontSize: 14,
-          fontStyle: 'italic',
-        },
+        pinyin: { fontSize: 14, fontStyle: 'italic' },
       },
       storySegments: {
         keyword: { fontWeight: 900 },
         primitive: { fontWeight: 'bold', fontStyle: 'italic' },
         constituent: {},
-        specialParagraphHeading: {
-          fontFamily: emphasisFont,
-          fontSize: 16,
-        },
+        specialParagraphHeading: { fontFamily: emphasisFont, fontSize: 16 },
       },
       titleSubtitle: {
         title: { fontWeight: 900, fontSize: '80%', lineHeight: 1 },
@@ -198,7 +178,7 @@ let theme = responsiveFontSizes(
       },
     },
     palette: {
-      primary: { main: '#008A8A', light: teal[200], lightHovered: teal[300] },
+      primary: { main: teal[600], light: teal[200], lightHovered: teal[300] },
       secondary: { light: '#FFEFF3', main: '#D91147' },
       neutral: { main: grey[600], contrastText: grey[50], light: grey[200] },
       background: { default: grey[50] },
@@ -213,13 +193,7 @@ let theme = responsiveFontSizes(
 
 theme = createTheme(theme, {
   components: {
-    MuiBadge: {
-      styleOverrides: {
-        badge: {
-          fontFamily: emphasisFont,
-        },
-      },
-    },
+    MuiBadge: { styleOverrides: { badge: { fontFamily: emphasisFont } } },
     MuiLink: {
       styleOverrides: {
         root: {
@@ -233,26 +207,16 @@ theme = createTheme(theme, {
     },
   },
   palette: {
-    specialParagraphs: {
-      whenPrimitive: theme.palette.secondary.light,
-    },
+    specialParagraphs: { whenPrimitive: theme.palette.secondary.light },
   },
   typography: {
     presentation: {
-      keyword: {
-        color: theme.palette.primary.main,
-      },
-      primitive: {
-        color: theme.palette.secondary.main,
-      },
+      keyword: { color: theme.palette.primary.main },
+      primitive: { color: theme.palette.secondary.main },
     },
     storySegments: {
-      keyword: {
-        color: theme.palette.primary.main,
-      },
-      primitive: {
-        color: theme.palette.secondary.main,
-      },
+      keyword: { color: theme.palette.primary.main },
+      primitive: { color: theme.palette.secondary.main },
     },
   },
 })

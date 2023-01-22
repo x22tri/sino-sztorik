@@ -3,23 +3,13 @@ import { SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import LearnContent from './LearnContent'
 import { LearnAppbar } from './learn-appbar/LearnAppbar'
-import SwiperInstance from 'swiper'
-import { useKeydown } from '../shared/utility-functions'
 import { LessonSwiper } from '../shared/basic-components'
 
 export default function Learn() {
   const lesson = CHARS
 
-  // let swiperInstance: SwiperInstance | undefined
-
-  // useKeydown([
-  //   { on: 'ArrowLeft', do: () => swiperInstance?.slidePrev() },
-  //   { on: 'ArrowRight', do: () => swiperInstance?.slideNext() },
-  // ])
-
   return (
-    // <>
-    <LessonSwiper>
+    <LessonSwiper style={{ display: 'flex', flexDirection: 'column-reverse' }}>
       <LearnAppbar lessonLength={CHARS.length} />
       {lesson.map((char, index) => (
         <SwiperSlide key={index}>
@@ -32,6 +22,5 @@ export default function Learn() {
         </SwiperSlide>
       ))}
     </LessonSwiper>
-    // </>
   )
 }

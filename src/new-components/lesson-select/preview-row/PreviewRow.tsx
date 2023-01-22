@@ -9,6 +9,7 @@ import {
 import { AssembledLesson } from '../../shared/interfaces'
 import { TierStatusCircle } from '../tier-status-circle/TierStatusCircle'
 import { Dispatch, SetStateAction } from 'react'
+import { useSmallScreen } from '../../shared/utility-functions'
 
 export function PreviewRow({
   lessons,
@@ -18,8 +19,11 @@ export function PreviewRow({
   setSelectedLessonNumber: Dispatch<SetStateAction<number | null>>
 }) {
   const { palette, typography } = useTheme()
+
+  const isSmallScreen = useSmallScreen()
+
   return (
-    <List disablePadding>
+    <List disablePadding sx={{ minWidth: '300px' }}>
       {lessons.map(({ lessonNumber, tierStatuses }) => (
         <ListItem
           disablePadding
@@ -32,6 +36,7 @@ export function PreviewRow({
             onClick={() => setSelectedLessonNumber(lessonNumber)}
             sx={{
               backgroundColor: 'background.paper',
+              border: `1px solid ${palette.grey[200]}`,
               borderRadius: 2,
               mx: 1,
               padding: 0,
