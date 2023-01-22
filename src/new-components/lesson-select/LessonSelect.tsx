@@ -57,7 +57,7 @@ export default function LessonSelect() {
   }
 
   return (
-    <Box display='flex' justifyContent='center'>
+    <Box display='flex' justifyContent='center' marginX={1}>
       <LessonDetailsSwiper
         lessons={LESSONS}
         selectedLessonNumber={selectedLessonNumber!}
