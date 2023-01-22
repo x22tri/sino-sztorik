@@ -16,6 +16,13 @@ import { CharNavigation } from './char-navigation/CharNavigation'
 import { Phrases } from './Phrases'
 import { Heading } from './subheading/Heading'
 import { useFlashback } from './logic/useFlashback'
+import {
+  LEARN_HEADING_CHARACTER,
+  LEARN_SUBHEADING_CONSTITUENTS,
+  LEARN_HEADING_STORY,
+  LEARN_HEADING_SUPPLEMENTS,
+  LEARN_SUBHEADING_PHRASES,
+} from '../shared/strings'
 
 export default function LearnContent({
   nextChar,
@@ -79,25 +86,25 @@ export default function LearnContent({
         {...{ frequency, newPrimitive, prequel, productivePhonetic, reminder }}
       />
 
-      <Heading title='Karakter' />
+      <Heading title={LEARN_HEADING_CHARACTER} />
 
       <Presentation
         {...{ charChinese, explanation, keyword, pinyin, primitiveMeaning }}
       />
 
       <Display if={constituents}>
-        <Subheading title='Összetétel' />
+        <Subheading title={LEARN_SUBHEADING_CONSTITUENTS} />
 
         <ConstituentList constituents={constituents!} {...{ lessonChar }} />
       </Display>
 
-      <Heading title='Történet' endContent={<StoryTypeSwitch />} />
+      <Heading title={LEARN_HEADING_STORY} endContent={<StoryTypeSwitch />} />
 
       <Story {...{ story }} />
 
-      <Heading title='Kiegészítő információk' />
+      <Heading title={LEARN_HEADING_SUPPLEMENTS} />
 
-      <Subheading title='Kifejezések a karakterrel' />
+      <Subheading title={LEARN_SUBHEADING_PHRASES} />
 
       <Phrases {...{ lessonChar }} />
 

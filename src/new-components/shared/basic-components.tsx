@@ -235,36 +235,3 @@ export function LessonSwiper(props: SwiperProps) {
     </Swiper>
   )
 }
-
-const creativeEffect = {
-  prev: {
-    opacity: 0,
-    translate: ['-20%', 0, -1],
-  },
-  next: {
-    opacity: 1,
-    translate: ['100%', 0, 1],
-  },
-}
-
-export const sharedSwiperProps: SwiperProps = {
-  autoHeight: true,
-  // effect: useSmallScreen() ? 'creative' : 'slide',
-  modules: [EffectCreative],
-  onSlideChange: scrollToTop,
-  onSlideChangeTransitionEnd: scrollToTop,
-  // onSwiper: (swiper: SwiperInstance) => (swiperInstance = swiper),
-  simulateTouch: false,
-  spaceBetween: 0,
-  style: { display: 'flex', flexDirection: 'column-reverse' },
-  creativeEffect: {
-    prev: {
-      opacity: 0,
-      translate: ['-20%', 0, -1],
-    },
-    next: {
-      opacity: 1,
-      translate: ['100%', 0, 1],
-    },
-  },
-}

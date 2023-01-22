@@ -6,7 +6,6 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import {
   MajorActionButton,
   MinorActionButton,
-  // RoundedCard,
 } from '../shared/basic-components'
 import { AssembledLesson } from '../shared/interfaces'
 import {

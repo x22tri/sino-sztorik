@@ -48,6 +48,12 @@ export const CHAR_NAVIGATION_EXIT_FLASHBACK_PROMPT =
   'Lépj ki a visszaemlékezésből a folytatáshoz'
 export const KEYWORD_EXPLANATION_TOOLTIP = 'Kattints a kulcsszó magyarázatához'
 
+export const LEARN_HEADING_CHARACTER = 'Karakter'
+export const LEARN_SUBHEADING_CONSTITUENTS = 'Összetétel'
+export const LEARN_HEADING_STORY = 'Történet'
+export const LEARN_HEADING_SUPPLEMENTS = 'Kiegészítő információk'
+export const LEARN_SUBHEADING_PHRASES = 'Kifejezések a karakterrel'
+
 export const INFO_CHIP_NEW_PRIMITIVE_LABEL = 'Új jelentés alapelemként!'
 export const INFO_CHIP_PREQUEL_LABEL = 'Előzmény:'
 export const INFO_CHIP_PRODUCTIVE_PHONETIC_LABEL = 'Sokszor hangjelölő'
