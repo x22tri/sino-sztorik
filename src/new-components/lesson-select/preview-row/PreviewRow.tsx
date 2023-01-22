@@ -11,7 +11,6 @@ import { AssembledLesson } from '../../shared/interfaces'
 import { TierStatusCircle } from '../tier-status-circle/TierStatusCircle'
 import { Dispatch, ReactNode, SetStateAction, useState } from 'react'
 import { useSmallScreen } from '../../shared/utility-functions'
-import { Wrap } from '../../shared/utility-components'
 
 export function PreviewRow({
   lessons,
@@ -20,7 +19,7 @@ export function PreviewRow({
   lessons: AssembledLesson[]
   setSelectedLessonNumber: Dispatch<SetStateAction<number | null>>
 }) {
-  const { constants, palette, typography } = useTheme()
+  const { palette, typography } = useTheme()
 
   const isSmallScreen = useSmallScreen()
 
@@ -86,7 +85,6 @@ ${canScrollDown ? `rgba(0,0,0,0) 90%, ${palette.background.default} 100%` : ''}
                 backgroundColor: 'background.paper',
                 border: `1px solid ${palette.grey[200]}`,
                 borderRadius: 2,
-                // mx: 1,
                 padding: 0,
                 '.MuiListItemText-multiline': {
                   display: 'flex',
@@ -117,45 +115,4 @@ ${canScrollDown ? `rgba(0,0,0,0) 90%, ${palette.background.default} 100%` : ''}
       </List>
     </Box>
   )
-}
-
-function TopFade({ children }: { children: ReactNode }) {
-  const { constants, palette, typography } = useTheme()
-
-  return (
-    <Box
-      // sx={{
-      //   position: 'relative',
-      //   ':after': {
-      //     content: '""',
-      //     position: 'absolute',
-      //     bottom: 0,
-      //     left: 0,
-      //     pointerEvents: 'none',
-      //     background: `linear-gradient(to bottom, rgba(255,255,255, 0), ${palette.background.default} 90%)`,
-      //     width: '100%',
-      //     height: '4em',
-      //   },
-      // }}
-      sx={{
-        ...fadeStyles,
-        bottom: 0,
-        background: `linear-gradient(to bottom, rgba(255,255,255, 0), ${palette.background.default} 90%)`,
-      }}
-    >
-      {children}
-    </Box>
-  )
-}
-
-const fadeStyles = {
-  position: 'relative',
-  ':after': {
-    content: '""',
-    position: 'absolute',
-    left: 0,
-    pointerEvents: 'none',
-    width: '100%',
-    height: '4em',
-  },
 }
