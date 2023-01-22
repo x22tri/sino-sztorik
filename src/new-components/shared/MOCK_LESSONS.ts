@@ -88,4 +88,40 @@ export const LESSONS: AssembledLesson[] = [
     ],
     characters: [],
   },
+  {
+    lessonNumber: 8,
+    title: 'lesson8',
+    preface: 'teszt2',
+    tierStatuses: [
+      LessonStatuses.LOCKED,
+      LessonStatuses.LOCKED,
+      LessonStatuses.LOCKED,
+      LessonStatuses.LOCKED,
+    ],
+    characters: [],
+  },
+  {
+    lessonNumber: 9,
+    title: 'lesson9',
+    preface: 'teszt2',
+    tierStatuses: [
+      LessonStatuses.LOCKED,
+      LessonStatuses.LOCKED,
+      LessonStatuses.LOCKED,
+      LessonStatuses.LOCKED,
+    ],
+    characters: [],
+  },
+  {
+    lessonNumber: 10,
+    title: 'lesson10',
+    preface: 'teszt2',
+    tierStatuses: [
+      LessonStatuses.LOCKED,
+      LessonStatuses.LOCKED,
+      LessonStatuses.LOCKED,
+      LessonStatuses.LOCKED,
+    ],
+    characters: [],
+  },
 ]

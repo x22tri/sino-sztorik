@@ -14,9 +14,9 @@ function App() {
       {/* <Landing /> */}
       <ThemeProvider {...{ theme }}>
         <CssBaseline />
-        {/* <LessonSelectAppbar />
-        <LessonSelect /> */}
-        <Learn />
+        <LessonSelectAppbar />
+        <LessonSelect />
+        {/* <Learn />  */}
       </ThemeProvider>
     </>
   )

@@ -13,19 +13,35 @@ export function TierStatusCircle({
   const { palette } = useTheme()
 
   const colorDictionary = {
-    [NOT_IN_TIER]: palette.grey[400],
-    [LOCKED]: palette.grey[400],
+    [NOT_IN_TIER]: palette.grey[300],
+    [LOCKED]: palette.grey[300],
     [UPCOMING]: palette.secondary.main,
     [COMPLETED]: palette.primary.main,
   }
 
-  const [tierOneColor, tierTwoColor, tierThreeColor, tierFourColor] =
+  const styleDictionary = {
+    [NOT_IN_TIER]: { color: palette.grey[300], borderStyle: 'double' },
+    [LOCKED]: { color: palette.grey[300], borderStyle: 'solid' },
+    [UPCOMING]: { color: palette.secondary.main, borderStyle: 'solid' },
+    [COMPLETED]: { color: palette.primary.main, borderStyle: 'solid' },
+  }
+
+  const [tierOneStyles, tierTwoStyles, tierThreeStyles, tierFourStyles] =
+    tierStatuses.map(tier => styleDictionary[tier])
+
+  // console.log(x)
+
+  // const [tierOneColor, tierTwoColor, tierThreeColor, tierFourColor] =
+  //   tierStatuses.map(tier => colorDictionary[tier])
+
+  const [borderTopColor, borderRightColor, borderBottomColor, borderLeftColor] =
     tierStatuses.map(tier => colorDictionary[tier])
 
   const sizeInPx = 48
 
-  return (
-    <Box
+  // return (
+  {
+    /* <Box
       position='relative'
       width={`${sizeInPx}px`}
       height={`${sizeInPx}px`}
@@ -86,6 +102,40 @@ export function TierStatusCircle({
       />
       <Box sx={{ backgroundColor: 'background.default' }} />
       <Box position='relative' typography='h5'>
+        {lessonNumber}
+      </Box> 
+      
+    </Box>*/
+  }
+  //
+  return (
+    <Box
+      margin={1}
+      display='flex'
+      justifyContent='center'
+      alignItems='center'
+      width={`${sizeInPx}px`}
+      height={`${sizeInPx}px`}
+      border='6px solid'
+      borderRadius='100%'
+      sx={{
+        backgroundClip: 'content-box',
+        padding: '1em',
+        // borderBottomStyle: 'double',
+        // borderColor: 'red',
+
+        transform: 'rotate(45deg)',
+        borderTopColor: tierOneStyles.color,
+        borderRightColor: tierTwoStyles.color,
+        borderBottomColor: tierThreeStyles.color,
+        borderLeftColor: tierFourStyles.color,
+        borderTopStyle: tierOneStyles.borderStyle,
+        borderRightStyle: tierTwoStyles.borderStyle,
+        borderBottomStyle: tierThreeStyles.borderStyle,
+        borderLeftStyle: tierFourStyles.borderStyle,
+      }}
+    >
+      <Box typography='h5' sx={{ transform: 'rotate(-45deg)' }}>
         {lessonNumber}
       </Box>
     </Box>

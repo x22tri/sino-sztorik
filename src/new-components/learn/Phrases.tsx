@@ -6,7 +6,7 @@ import { useSmallScreen } from '../shared/utility-functions'
 import { Character } from '../shared/interfaces'
 
 const MOCK_PHRASES = [
-  { phraseChinese: '正好', phraseHungarian: 'épp jó' },
+  { phraseChinese: '正好', phraseHungarian: 'pont jó' },
   { phraseChinese: '真正', phraseHungarian: 'valódi' },
 ]
 
