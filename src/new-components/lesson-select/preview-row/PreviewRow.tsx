@@ -8,8 +8,15 @@ import {
 } from '@mui/material'
 import { AssembledLesson } from '../../shared/interfaces'
 import { TierStatusCircle } from '../tier-status-circle/TierStatusCircle'
+import { Dispatch, SetStateAction } from 'react'
 
-export function PreviewRow({ lessons }: { lessons: AssembledLesson[] }) {
+export function PreviewRow({
+  lessons,
+  setSelectedLessonNumber,
+}: {
+  lessons: AssembledLesson[]
+  setSelectedLessonNumber: Dispatch<SetStateAction<number | null>>
+}) {
   const { palette, typography } = useTheme()
   return (
     <List disablePadding>
@@ -22,6 +29,7 @@ export function PreviewRow({ lessons }: { lessons: AssembledLesson[] }) {
         >
           <ListItemButton
             disableGutters
+            onClick={() => setSelectedLessonNumber(lessonNumber)}
             sx={{
               backgroundColor: 'background.paper',
               borderRadius: 2,

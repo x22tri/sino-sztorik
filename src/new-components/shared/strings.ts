@@ -3,8 +3,8 @@ export const LESSON_UPCOMING = 'Soron következő lecke'
 export const LESSON_COMPLETED = 'Már megtanult lecke'
 export const LESSON_NOT_IN_TIER = 'Ebben a körben nincs ilyen lecke'
 
-export const LEARN_BUTTON = 'Tanulás'
-export const REVIEW_BUTTON = 'Ismétlés'
+export const LEARN_BUTTON = 'TANULÁS'
+export const REVIEW_BUTTON = 'ISMÉTLÉS'
 
 export const LESSON_SELECT_TITLE = 'Leckeválasztó'
 export const CHARACTER_SEARCH_TITLE = 'Karakterkereső'

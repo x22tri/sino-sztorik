@@ -14,10 +14,11 @@ import Typography from '@mui/material/Typography'
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import WestIcon from '@mui/icons-material/West'
-import SwiperInstance, { Keyboard } from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/react'
+import SwiperInstance, { EffectCreative, Keyboard } from 'swiper'
+import { Swiper, SwiperSlide, SwiperProps } from 'swiper/react'
 import { faClockRotateLeft } from '@fortawesome/free-solid-svg-icons'
 import { LightenOnHoverButton } from '../shared-components/LightenOnHoverButton'
+import { scrollToTop, useKeydown, useSmallScreen } from './utility-functions'
 
 export function MajorActionButton({ text }: { text: string }) {
   const { palette } = useTheme()
@@ -197,4 +198,73 @@ export function CardSwiperContent({ children }: { children: ReactNode }) {
       </Box>
     </SwiperSlide>
   )
+}
+
+export function LessonSwiper(props: SwiperProps) {
+  let swiperInstance: SwiperInstance | undefined
+
+  useKeydown([
+    { on: 'ArrowLeft', do: () => swiperInstance?.slidePrev() },
+    { on: 'ArrowRight', do: () => swiperInstance?.slideNext() },
+  ])
+
+  return (
+    <Swiper
+      autoHeight
+      effect={useSmallScreen() ? 'creative' : 'slide'}
+      modules={[EffectCreative]}
+      onSlideChange={scrollToTop}
+      onSlideChangeTransitionEnd={scrollToTop}
+      onSwiper={swiper => (swiperInstance = swiper)}
+      simulateTouch={false}
+      spaceBetween={0}
+      style={{ display: 'flex', flexDirection: 'column-reverse' }}
+      creativeEffect={{
+        prev: {
+          opacity: 0,
+          translate: ['-20%', 0, -1],
+        },
+        next: {
+          opacity: 1,
+          translate: ['100%', 0, 1],
+        },
+      }}
+      {...props}
+    >
+      {props.children}
+    </Swiper>
+  )
+}
+
+const creativeEffect = {
+  prev: {
+    opacity: 0,
+    translate: ['-20%', 0, -1],
+  },
+  next: {
+    opacity: 1,
+    translate: ['100%', 0, 1],
+  },
+}
+
+export const sharedSwiperProps: SwiperProps = {
+  autoHeight: true,
+  // effect: useSmallScreen() ? 'creative' : 'slide',
+  modules: [EffectCreative],
+  onSlideChange: scrollToTop,
+  onSlideChangeTransitionEnd: scrollToTop,
+  // onSwiper: (swiper: SwiperInstance) => (swiperInstance = swiper),
+  simulateTouch: false,
+  spaceBetween: 0,
+  style: { display: 'flex', flexDirection: 'column-reverse' },
+  creativeEffect: {
+    prev: {
+      opacity: 0,
+      translate: ['-20%', 0, -1],
+    },
+    next: {
+      opacity: 1,
+      translate: ['100%', 0, 1],
+    },
+  },
 }

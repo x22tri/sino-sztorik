@@ -12,13 +12,18 @@ import {
   CardSwiperWrapper,
   CardSwiperContent,
   BackButton,
+  sharedSwiperProps,
+  LessonSwiper,
 } from '../shared/basic-components'
 import { ContentContainer } from '../shared-components/ContentContainer'
-import { SwiperSlide } from 'swiper/react'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import { useTheme } from '@mui/material'
 import { TierStatusCircle } from './tier-status-circle/TierStatusCircle'
 import { PreviewRow } from './preview-row/PreviewRow'
+import { Display } from '../shared/utility-components'
+import { scrollToTop, useSmallScreen } from '../shared/utility-functions'
+import SwiperInstance, { EffectCreative } from 'swiper'
 
 export default function LessonSelect() {
   const { constants } = useTheme()
@@ -47,80 +52,24 @@ export default function LessonSelect() {
   }
 
   return (
-    <>
-      {selectedLessonNumber === null ? (
-        <LessonPreviewGrid
-          lessons={LESSONS}
-          {...{
-            upcomingLessonNumber,
-            setIsLessonDetailsVisible,
-            setSelectedLessonNumber,
-          }}
-        />
-      ) : null}
+    <Display
+      if={selectedLessonNumber !== null}
+      else={<PreviewRow lessons={LESSONS} {...{ setSelectedLessonNumber }} />}
+    >
+      {/* <Box
+        maxWidth={constants.maxContentWidth}
+        position='relative'
+        margin='auto'
+      > */}
+      <BackButton onClick={closeLessonDetails} text={LESSON_SELECT_TITLE} />
 
-      <Grow in={isLessonDetailsVisible} timeout={constants.animationDuration}>
-        {selectedLessonNumber !== null ? (
-          <Box
-            maxWidth={constants.maxContentWidth}
-            position='relative'
-            margin='auto'
-          >
-            <BackButton
-              onClick={closeLessonDetails}
-              text={LESSON_SELECT_TITLE}
-            />
-
-            <LessonDetailsSwiper
-              lessons={LESSONS}
-              {...{ upcomingLessonNumber, selectedLessonNumber }}
-            />
-          </Box>
-        ) : (
-          <></>
-        )}
-      </Grow>
-    </>
-  )
-}
-
-function LessonPreviewGrid({
-  upcomingLessonNumber,
-  lessons,
-  setIsLessonDetailsVisible,
-  setSelectedLessonNumber,
-}: {
-  upcomingLessonNumber: number
-  lessons: AssembledLesson[]
-  setIsLessonDetailsVisible: Dispatch<SetStateAction<boolean>>
-  setSelectedLessonNumber: Dispatch<SetStateAction<number | null>>
-}) {
-  const { constants } = useTheme()
-
-  return (
-    // <Grid
-    //   container
-    //   sx={{
-    //     height: 'fit-content',
-    //     maxWidth: constants.maxContentWidth,
-    //     margin: 'auto',
-    //   }}
-    // >
-    //   {lessons.map(({ lessonNumber, title, tierStatuses }) => (
-    //     <LessonSelectCard
-    //       key={lessonNumber}
-    //       {...{
-    //         lessonNumber,
-    //         title,
-    //         tierStatuses,
-    //         setSelectedLessonNumber,
-    //         upcomingLessonNumber,
-    //         setIsLessonDetailsVisible,
-    //       }}
-    //     />
-    //   ))}
-    // </Grid>
-    <PreviewRow {...{ lessons }} />
+      <LessonDetailsSwiper
+        lessons={LESSONS}
+        selectedLessonNumber={selectedLessonNumber!}
+        {...{ upcomingLessonNumber }}
+      />
+      {/* </Box> */}
+    </Display>
   )
 }
 
@@ -133,19 +82,57 @@ function LessonDetailsSwiper({
   lessons: AssembledLesson[]
   selectedLessonNumber: number
 }) {
+  // let swiperInstance: SwiperInstance | undefined
+
   return (
     // initialSlide is zero-indexed.
-    <CardSwiperWrapper initialSlide={selectedLessonNumber - 1}>
+    // <CardSwiperWrapper initialSlide={selectedLessonNumber - 1}>
+    //   {lessons.map(({ lessonNumber }) => (
+    //     <SwiperSlide key={lessonNumber}>
+    //       <CardSwiperContent>
+    //         <LessonDetails
+    //           isCurrentLesson={lessonNumber === upcomingLessonNumber}
+    //           lesson={lessons[lessonNumber - 1]}
+    //         />
+    //       </CardSwiperContent>
+    //     </SwiperSlide>
+    //   ))}
+    // </CardSwiperWrapper>
+    // <Swiper
+    // autoHeight
+    // effect={useSmallScreen() ? 'creative' : 'slide'}
+    // modules={[EffectCreative]}
+    // onSlideChange={scrollToTop}
+    // onSlideChangeTransitionEnd={scrollToTop}
+    // // onSwiper={swiper => (swiperInstance = swiper)}
+    // simulateTouch={false}
+    // spaceBetween={0}
+    // style={{ display: 'flex', flexDirection: 'column-reverse' }}
+    // {...{ creativeEffect }}
+    // {...sharedSwiperProps}
+    // >
+    <LessonSwiper>
+      {/* <LearnAppbar lessonLength={CHARS.length} /> */}
       {lessons.map(({ lessonNumber }) => (
         <SwiperSlide key={lessonNumber}>
-          <CardSwiperContent>
-            <LessonDetails
-              isCurrentLesson={lessonNumber === upcomingLessonNumber}
-              lesson={lessons[lessonNumber - 1]}
-            />
-          </CardSwiperContent>
+          <LessonDetails
+            isCurrentLesson={lessonNumber === upcomingLessonNumber}
+            lesson={lessons[lessonNumber - 1]}
+          />
         </SwiperSlide>
       ))}
-    </CardSwiperWrapper>
+      {/* </Swiper> */}
+    </LessonSwiper>
   )
+}
+
+const creativeEffect = {
+  prev: {
+    opacity: 0,
+    translate: ['-20%', 0, -1],
+  },
+  next: {
+    opacity: 1,
+    translate: ['100%', 0, 1],
+  },
 }

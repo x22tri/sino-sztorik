@@ -1,5 +1,5 @@
 import { CHARS } from './MOCK_CHARS'
-import { Swiper, SwiperSlide } from 'swiper/react'
+import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import LearnContent from './LearnContent'
 import { LearnAppbar } from './learn-appbar/LearnAppbar'
@@ -9,6 +9,7 @@ import {
   useSmallScreen,
   scrollToTop,
 } from '../shared/utility-functions'
+import { LessonSwiper, sharedSwiperProps } from '../shared/basic-components'
 
 export default function Learn() {
   const lesson = CHARS
@@ -22,18 +23,21 @@ export default function Learn() {
 
   return (
     <>
-      <Swiper
-        autoHeight
-        effect={useSmallScreen() ? 'creative' : 'slide'}
-        modules={[EffectCreative]}
-        onSlideChange={scrollToTop}
-        onSlideChangeTransitionEnd={scrollToTop}
-        onSwiper={swiper => (swiperInstance = swiper)}
-        simulateTouch={false}
-        spaceBetween={0}
-        style={{ display: 'flex', flexDirection: 'column-reverse' }}
-        {...{ creativeEffect }}
-      >
+      {/* <Swiper
+        // autoHeight
+        // effect={useSmallScreen() ? 'creative' : 'slide'}
+        // modules={[EffectCreative]}
+        // onSlideChange={scrollToTop}
+        // onSlideChangeTransitionEnd={scrollToTop}
+        // onSwiper={swiper => (swiperInstance = swiper)}
+        // simulateTouch={false}
+        // spaceBetween={0}
+        // style={{ display: 'flex', flexDirection: 'column-reverse' }}
+        // {...{ creativeEffect }}
+        {...sharedSwiperProps}
+      > */}
+      <LessonSwiper>
+        {/* <> */}
         <LearnAppbar lessonLength={CHARS.length} />
         {lesson.map((char, index) => (
           <SwiperSlide key={index}>
@@ -45,7 +49,9 @@ export default function Learn() {
             />
           </SwiperSlide>
         ))}
-      </Swiper>
+        {/* </> */}
+        {/* </Swiper> */}
+      </LessonSwiper>
     </>
   )
 }

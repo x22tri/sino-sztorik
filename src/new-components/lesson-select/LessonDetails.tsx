@@ -6,7 +6,7 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import {
   MajorActionButton,
   MinorActionButton,
-  RoundedCard,
+  // RoundedCard,
 } from '../shared/basic-components'
 import { AssembledLesson } from '../shared/interfaces'
 import {
@@ -14,6 +14,9 @@ import {
   REVIEW_BUTTON,
   CHARACTER_AMOUNT_LABEL,
 } from '../shared/strings'
+import { Display } from '../shared/utility-components'
+import { useSmallScreen } from '../shared/utility-functions'
+import { useTheme } from '@mui/material'
 
 export default function LessonDetails({
   lesson,
@@ -22,20 +25,28 @@ export default function LessonDetails({
   lesson: AssembledLesson
   isCurrentLesson: boolean
 }) {
+  const { palette, constants } = useTheme()
   const { title, preface, characters } = lesson
 
   return (
-    <RoundedCard className='disable-select'>
-      <Typography
-        component='header'
-        variant='h5'
-        textAlign='center'
-        sx={{ m: 1 }}
-      >
+    <Box
+      border={`1px solid ${palette.grey[200]}`}
+      borderRadius={2}
+      marginBottom={1}
+      minWidth={0}
+      paddingX={useSmallScreen() ? 1 : 2}
+      paddingY={1}
+      sx={{
+        backgroundColor: palette.background.paper,
+        maxWidth: constants.maxContentWidth,
+        mx: 'auto',
+      }}
+    >
+      <Typography component='header' variant='h4' textAlign='center' margin={1}>
         {title}
       </Typography>
 
-      <Typography component='p' variant='body1' sx={{ my: 3 }}>
+      <Typography component='p' variant='body1' marginY={3}>
         {preface}
       </Typography>
 
@@ -51,7 +62,7 @@ export default function LessonDetails({
       <CharacterPreviews {...{ characters }} />
 
       <LearnReviewButtons {...{ isCurrentLesson }} />
-    </RoundedCard>
+    </Box>
   )
 }
 
@@ -61,9 +72,13 @@ function LearnReviewButtons({ isCurrentLesson }: { isCurrentLesson: boolean }) {
       display='flex'
       gap='20px'
       justifyContent='center'
-      sx={{ flexDirection: { xs: 'column', md: 'row' }, mt: 4, mb: 1 }}
+      marginTop={4}
+      marginBottom={1}
+      sx={{ flexDirection: { xs: 'column', md: 'row' } }}
     >
-      {isCurrentLesson && <MajorActionButton text={LEARN_BUTTON} />}
+      <Display if={isCurrentLesson}>
+        <MajorActionButton text={LEARN_BUTTON} />
+      </Display>
 
       <MinorActionButton text={REVIEW_BUTTON} />
     </Box>
