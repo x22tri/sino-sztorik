@@ -9,19 +9,24 @@ import {
 } from '@mui/material'
 import { AssembledLesson } from '../../shared/interfaces'
 import { TierStatusCircle } from '../tier-status-circle/TierStatusCircle'
-import { Dispatch, ReactNode, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { useSmallScreen } from '../../shared/utility-functions'
+import { useSwiperInstance } from '../../shared/state'
 
 export function PreviewRow({
   lessons,
+  selectedLessonNumber,
   setSelectedLessonNumber,
 }: {
   lessons: AssembledLesson[]
+  selectedLessonNumber: number | null
   setSelectedLessonNumber: Dispatch<SetStateAction<number | null>>
 }) {
-  const { palette, typography } = useTheme()
+  const { constants, palette, typography } = useTheme()
 
   const isSmallScreen = useSmallScreen()
+
+  const { swiperInstance } = useSwiperInstance()
 
   const [canScrollUp, setCanScrollUp] = useState(false)
   const [canScrollDown, setCanScrollDown] = useState(true)
@@ -35,12 +40,17 @@ export function PreviewRow({
     setCanScrollDown(scrollHeight - scrollTop !== clientHeight)
   }
 
+  function selectLesson(lesson: number) {
+    swiperInstance?.slideTo(lesson - 1)
+    setSelectedLessonNumber(lesson)
+  }
+
   const minWidth = '360px'
   const height = '480px'
 
   return (
     <Box
-      marginTop={1}
+      marginY={1}
       position='relative'
       sx={{
         ':after': {
@@ -64,8 +74,6 @@ ${canScrollDown ? `rgba(0,0,0,0) 90%, ${palette.background.default} 100%` : ''}
         sx={{
           ml: 1,
           pr: 1,
-          borderTop: canScrollUp ? `2px solid ${palette.grey[300]}` : null,
-          borderBottom: canScrollDown ? `2px solid ${palette.grey[300]}` : null,
           minWidth,
           height: isSmallScreen ? undefined : height,
           overflow: isSmallScreen ? 'none' : 'scroll',
@@ -80,15 +88,25 @@ ${canScrollDown ? `rgba(0,0,0,0) 90%, ${palette.background.default} 100%` : ''}
           >
             <ListItemButton
               disableGutters
-              onClick={() => setSelectedLessonNumber(lessonNumber)}
+              onClick={() => selectLesson(lessonNumber)}
               sx={{
-                backgroundColor: 'background.paper',
+                backgroundColor:
+                  selectedLessonNumber === lessonNumber
+                    ? 'primary.light'
+                    : 'background.paper',
                 border: `1px solid ${palette.grey[200]}`,
                 borderRadius: 2,
+                transition: `${constants.animationDuration}ms`,
                 padding: 0,
                 '.MuiListItemText-multiline': {
                   display: 'flex',
                   flexDirection: 'column-reverse',
+                },
+                '&:hover': {
+                  backgroundColor:
+                    selectedLessonNumber === lessonNumber
+                      ? 'primary.lightHovered'
+                      : undefined,
                 },
               }}
             >

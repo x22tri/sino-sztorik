@@ -19,6 +19,7 @@ import { Swiper, SwiperSlide, SwiperProps } from 'swiper/react'
 import { faClockRotateLeft } from '@fortawesome/free-solid-svg-icons'
 import { LightenOnHoverButton } from '../shared-components/LightenOnHoverButton'
 import { scrollToTop, useKeydown, useSmallScreen } from './utility-functions'
+import { useSwiperInstance } from './state'
 
 export function MajorActionButton({ text }: { text: string }) {
   const { palette } = useTheme()
@@ -195,8 +196,12 @@ export function CardSwiperContent({ children }: { children: ReactNode }) {
   )
 }
 
-export function LessonSwiper(props: SwiperProps) {
-  let swiperInstance: SwiperInstance | undefined
+interface LessonSelector {
+  setSwiper?: Dispatch<SetStateAction<null | SwiperInstance>>
+}
+
+export function LessonSwiper(props: SwiperProps & LessonSelector) {
+  const { swiperInstance, setSwiperInstance } = useSwiperInstance()
 
   useKeydown([
     { on: 'ArrowLeft', do: () => swiperInstance?.slidePrev() },
@@ -207,20 +212,14 @@ export function LessonSwiper(props: SwiperProps) {
     <Swiper
       autoHeight
       creativeEffect={{
-        prev: {
-          opacity: 0,
-          translate: ['-20%', 0, -1],
-        },
-        next: {
-          opacity: 1,
-          translate: ['100%', 0, 1],
-        },
+        prev: { opacity: 0, translate: ['-20%', 0, -1] },
+        next: { opacity: 1, translate: ['100%', 0, 1] },
       }}
       effect={useSmallScreen() ? 'creative' : 'slide'}
       modules={[EffectCreative]}
       onSlideChange={scrollToTop}
       onSlideChangeTransitionEnd={scrollToTop}
-      onSwiper={swiper => (swiperInstance = swiper)}
+      onSwiper={swiper => setSwiperInstance(swiper)}
       simulateTouch={false}
       spaceBetween={0}
       {...props}

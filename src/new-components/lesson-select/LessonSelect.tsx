@@ -13,11 +13,11 @@ import { useSmallScreen } from '../shared/utility-functions'
 export default function LessonSelect() {
   const { constants } = useTheme()
 
-  const hasUpcomingTier = LESSONS.find(({ tierStatuses }) =>
+  const upcomingLessonNumber = LESSONS.find(({ tierStatuses }) =>
     tierStatuses.includes(LessonStatuses.UPCOMING)
   )?.lessonNumber
 
-  if (!hasUpcomingTier) {
+  if (!upcomingLessonNumber) {
     throw new Error('Current lesson is undefined.')
   }
 
@@ -25,16 +25,8 @@ export default function LessonSelect() {
     number | null
   >(null)
 
-  const [upcomingLessonNumber] = useState<number>(hasUpcomingTier)
-
-  // const [isLessonDetailsVisible, setIsLessonDetailsVisible] = useState(false)
-
   function closeLessonDetails() {
-    // setIsLessonDetailsVisible(false)
     setSelectedLessonNumber(null)
-    // setTimeout(() => {
-
-    // }, constants.animationDuration)
   }
 
   const isSmallScreen = useSmallScreen()
@@ -43,14 +35,19 @@ export default function LessonSelect() {
     return (
       <Display
         if={selectedLessonNumber !== null}
-        else={<PreviewRow lessons={LESSONS} {...{ setSelectedLessonNumber }} />}
+        else={
+          <PreviewRow
+            lessons={LESSONS}
+            {...{ selectedLessonNumber, setSelectedLessonNumber }}
+          />
+        }
       >
         <BackButton onClick={closeLessonDetails} text={LESSON_SELECT_TITLE} />
 
         <LessonDetailsSwiper
           lessons={LESSONS}
           selectedLessonNumber={selectedLessonNumber!}
-          {...{ upcomingLessonNumber }}
+          {...{ setSelectedLessonNumber, upcomingLessonNumber }}
         />
       </Display>
     )
@@ -61,30 +58,12 @@ export default function LessonSelect() {
       <LessonDetailsSwiper
         lessons={LESSONS}
         selectedLessonNumber={selectedLessonNumber!}
-        {...{ upcomingLessonNumber }}
+        {...{ setSelectedLessonNumber, upcomingLessonNumber }}
       />
-      <PreviewRow lessons={LESSONS} {...{ setSelectedLessonNumber }} />
-    </Box>
-  )
-}
-
-function LessonSelectLayoutDesktop({
-  selectedLessonNumber,
-  setSelectedLessonNumber,
-  upcomingLessonNumber,
-}: {
-  selectedLessonNumber: number
-  setSelectedLessonNumber: Dispatch<SetStateAction<number | null>>
-  upcomingLessonNumber: number
-}) {
-  return (
-    <>
-      <LessonDetailsSwiper
+      <PreviewRow
         lessons={LESSONS}
-        selectedLessonNumber={selectedLessonNumber!}
-        {...{ upcomingLessonNumber }}
+        {...{ selectedLessonNumber, setSelectedLessonNumber }}
       />
-      <PreviewRow lessons={LESSONS} {...{ setSelectedLessonNumber }} />
-    </>
+    </Box>
   )
 }

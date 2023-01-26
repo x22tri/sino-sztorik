@@ -4,15 +4,18 @@ import { LessonSwiper } from '../shared/basic-components'
 import { SwiperSlide } from 'swiper/react'
 import { useTheme } from '@mui/material'
 import { useSmallScreen } from '../shared/utility-functions'
+import { Dispatch, SetStateAction } from 'react'
 
 export function LessonDetailsSwiper({
   upcomingLessonNumber,
   lessons,
   selectedLessonNumber,
+  setSelectedLessonNumber,
 }: {
   upcomingLessonNumber: number
   lessons: AssembledLesson[]
   selectedLessonNumber: number
+  setSelectedLessonNumber: Dispatch<SetStateAction<number | null>>
 }) {
   const { constants } = useTheme()
 
@@ -21,6 +24,9 @@ export function LessonDetailsSwiper({
   return (
     // initialSlide is zero-indexed.
     <LessonSwiper
+      onActiveIndexChange={({ activeIndex }) =>
+        setSelectedLessonNumber(activeIndex + 1)
+      }
       initialSlide={selectedLessonNumber - 1}
       style={{
         margin: 0,

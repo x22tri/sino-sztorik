@@ -21,8 +21,8 @@ export function TierStatusCircle({
   const styleDictionary: {
     [key in LessonStatus]: { color: string; borderStyle: 'double' | 'solid' }
   } = {
-    [NOT_IN_TIER]: { color: palette.grey[300], borderStyle: 'double' },
-    [LOCKED]: { color: palette.grey[300], borderStyle: 'solid' },
+    [NOT_IN_TIER]: { color: '#00000022', borderStyle: 'double' },
+    [LOCKED]: { color: '#00000022', borderStyle: 'solid' },
     [UPCOMING]: { color: palette.secondary.main, borderStyle: 'solid' },
     [COMPLETED]: { color: palette.primary.main, borderStyle: 'solid' },
   }
