@@ -31,11 +31,9 @@ export function PreviewRow({
   const [canScrollUp, setCanScrollUp] = useState(false)
   const [canScrollDown, setCanScrollDown] = useState(true)
 
-  const handleScroll = ({
-    scrollHeight,
-    scrollTop,
-    clientHeight,
-  }: HTMLUListElement) => {
+  const handleScroll = (target: HTMLUListElement) => {
+    const { scrollHeight, scrollTop, clientHeight } = target
+
     setCanScrollUp(scrollTop !== 0)
     setCanScrollDown(scrollHeight - scrollTop !== clientHeight)
   }
