@@ -1,15 +1,15 @@
-import { Dispatch, SetStateAction, useState } from 'react'
-import { LESSONS } from '../shared/MOCK_LESSONS'
-import { LessonStatuses } from '../shared/interfaces'
-import { LESSON_SELECT_TITLE } from '../shared/strings'
-import { BackButton } from '../shared/basic-components'
-import 'swiper/css'
-import { Box, useTheme } from '@mui/material'
+import { useState } from 'react'
+import { Box } from '@mui/material'
 import { PreviewRow } from './preview-row/PreviewRow'
-import { Display } from '../shared/utility-components'
 import { LessonDetailsSwiper } from './LessonDetailsSwiper'
+import { LESSONS } from '../shared/MOCK_LESSONS'
+import { BackButton } from '../shared/basic-components'
+import { Display } from '../shared/utility-components'
+import { LESSON_SELECT_TITLE } from '../shared/strings'
+import { LessonStatuses } from '../shared/interfaces'
 import { useSmallScreen } from '../shared/utility-functions'
 import { useSwiperInstance } from '../shared/state'
+import 'swiper/css'
 
 export default function LessonSelect() {
   const { setSwiperInstance } = useSwiperInstance()
@@ -24,34 +24,38 @@ export default function LessonSelect() {
     throw new Error('Current lesson is undefined.')
   }
 
-  const [selectedLessonNumber, setSelectedLessonNumber] = useState<
-    number | null
-  >(isSmallScreen ? null : upcomingLessonNumber)
+  const [selectedLessonNumber, setSelectedLessonNumber] = useState(
+    isSmallScreen ? null : upcomingLessonNumber
+  )
 
   function closeLessonDetails() {
     setSelectedLessonNumber(null)
     setSwiperInstance(undefined)
   }
 
-  if (isSmallScreen) {
+  if (isSmallScreen && selectedLessonNumber !== null) {
     return (
-      <Display
-        if={selectedLessonNumber !== null}
-        else={
-          <PreviewRow
-            lessons={LESSONS}
-            {...{ selectedLessonNumber, setSelectedLessonNumber }}
-          />
-        }
-      >
+      <>
         <BackButton onClick={closeLessonDetails} text={LESSON_SELECT_TITLE} />
 
         <LessonDetailsSwiper
           lessons={LESSONS}
-          selectedLessonNumber={selectedLessonNumber!}
-          {...{ setSelectedLessonNumber, upcomingLessonNumber }}
+          {...{
+            selectedLessonNumber,
+            setSelectedLessonNumber,
+            upcomingLessonNumber,
+          }}
         />
-      </Display>
+      </>
+    )
+  }
+
+  if (isSmallScreen) {
+    return (
+      <PreviewRow
+        lessons={LESSONS}
+        {...{ selectedLessonNumber, setSelectedLessonNumber }}
+      />
     )
   }
 
