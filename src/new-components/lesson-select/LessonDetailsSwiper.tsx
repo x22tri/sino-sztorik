@@ -21,17 +21,16 @@ export function LessonDetailsSwiper({
 
   const isSmallScreen = useSmallScreen()
 
+  const maxWidth = isSmallScreen ? undefined : constants.maxContentWidth
+
   return (
     // initialSlide is zero-indexed.
     <LessonSwiper
-      onActiveIndexChange={({ activeIndex }) =>
+      onActiveIndexChange={({ activeIndex }) => {
         setSelectedLessonNumber(activeIndex + 1)
-      }
-      initialSlide={selectedLessonNumber - 1}
-      style={{
-        margin: 0,
-        maxWidth: isSmallScreen ? undefined : constants.maxContentWidth,
       }}
+      initialSlide={selectedLessonNumber - 1}
+      style={{ margin: 0, maxWidth }}
     >
       {lessons.map(({ lessonNumber }) => (
         <SwiperSlide key={lessonNumber}>

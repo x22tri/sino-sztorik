@@ -16,7 +16,7 @@ export function TierStatusCircle({
 }) {
   const { palette } = useTheme()
 
-  const sizeInPx = 48
+  const size = '48px'
 
   const styleDictionary: {
     [key in LessonStatus]: { color: string; borderStyle: 'double' | 'solid' }
@@ -40,8 +40,8 @@ export function TierStatusCircle({
       display='flex'
       justifyContent='center'
       alignItems='center'
-      width={`${sizeInPx}px`}
-      height={`${sizeInPx}px`}
+      width={size}
+      height={size}
       borderRadius='100%'
       sx={{
         transform: 'rotate(45deg)',

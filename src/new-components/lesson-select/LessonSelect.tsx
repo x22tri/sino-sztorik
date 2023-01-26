@@ -4,7 +4,6 @@ import { PreviewRow } from './preview-row/PreviewRow'
 import { LessonDetailsSwiper } from './LessonDetailsSwiper'
 import { LESSONS } from '../shared/MOCK_LESSONS'
 import { BackButton } from '../shared/basic-components'
-import { Display } from '../shared/utility-components'
 import { LESSON_SELECT_TITLE } from '../shared/strings'
 import { LessonStatuses } from '../shared/interfaces'
 import { useSmallScreen } from '../shared/utility-functions'
@@ -12,10 +11,6 @@ import { useSwiperInstance } from '../shared/state'
 import 'swiper/css'
 
 export default function LessonSelect() {
-  const { setSwiperInstance } = useSwiperInstance()
-
-  const isSmallScreen = useSmallScreen()
-
   const upcomingLessonNumber = LESSONS.find(({ tierStatuses }) =>
     tierStatuses.includes(LessonStatuses.UPCOMING)
   )?.lessonNumber
@@ -23,6 +18,10 @@ export default function LessonSelect() {
   if (!upcomingLessonNumber) {
     throw new Error('Current lesson is undefined.')
   }
+
+  const { setSwiperInstance } = useSwiperInstance()
+
+  const isSmallScreen = useSmallScreen()
 
   const [selectedLessonNumber, setSelectedLessonNumber] = useState(
     isSmallScreen ? null : upcomingLessonNumber
