@@ -9,9 +9,12 @@ import { PreviewRow } from './preview-row/PreviewRow'
 import { Display } from '../shared/utility-components'
 import { LessonDetailsSwiper } from './LessonDetailsSwiper'
 import { useSmallScreen } from '../shared/utility-functions'
+import { useSwiperInstance } from '../shared/state'
 
 export default function LessonSelect() {
-  const { constants } = useTheme()
+  const { setSwiperInstance } = useSwiperInstance()
+
+  const isSmallScreen = useSmallScreen()
 
   const upcomingLessonNumber = LESSONS.find(({ tierStatuses }) =>
     tierStatuses.includes(LessonStatuses.UPCOMING)
@@ -23,13 +26,12 @@ export default function LessonSelect() {
 
   const [selectedLessonNumber, setSelectedLessonNumber] = useState<
     number | null
-  >(null)
+  >(isSmallScreen ? null : upcomingLessonNumber)
 
   function closeLessonDetails() {
     setSelectedLessonNumber(null)
+    setSwiperInstance(undefined)
   }
-
-  const isSmallScreen = useSmallScreen()
 
   if (isSmallScreen) {
     return (

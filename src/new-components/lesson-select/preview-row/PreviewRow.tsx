@@ -32,6 +32,10 @@ export function PreviewRow({
   const [canScrollDown, setCanScrollDown] = useState(true)
 
   const handleScroll = (target: HTMLUListElement) => {
+    if (isSmallScreen) {
+      return
+    }
+
     const { scrollHeight, scrollTop, clientHeight } = target
 
     setCanScrollUp(scrollTop !== 0)
@@ -52,7 +56,9 @@ export function PreviewRow({
       position='relative'
       sx={{
         ':after': {
-          background: `linear-gradient(180deg, 
+          background: isSmallScreen
+            ? undefined
+            : `linear-gradient(180deg, 
 ${canScrollUp ? `${palette.background.default} 0%, rgba(0,0,0,0) 10%` : ''} 
 ${canScrollUp && canScrollDown ? ',' : ''}
 ${canScrollDown ? `rgba(0,0,0,0) 90%, ${palette.background.default} 100%` : ''}
