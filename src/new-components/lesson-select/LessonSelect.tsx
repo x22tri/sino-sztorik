@@ -9,6 +9,7 @@ import { LessonStatuses } from '../shared/interfaces'
 import { useSmallScreen } from '../shared/utility-functions'
 import { useSwiperInstance } from '../shared/state'
 import 'swiper/css'
+import { Display } from '../shared/utility-components'
 
 export default function LessonSelect() {
   const upcomingLessonNumber = LESSONS.find(({ tierStatuses }) =>
@@ -32,43 +33,31 @@ export default function LessonSelect() {
     setSwiperInstance(undefined)
   }
 
-  if (isSmallScreen && selectedLessonNumber !== null) {
-    return (
-      <>
-        <BackButton onClick={closeLessonDetails} text={LESSON_SELECT_TITLE} />
-
-        <LessonDetailsSwiper
-          lessons={LESSONS}
-          {...{
-            selectedLessonNumber,
-            setSelectedLessonNumber,
-            upcomingLessonNumber,
-          }}
-        />
-      </>
-    )
+  const lessonDetailsSwiperProps = {
+    lessons: LESSONS,
+    selectedLessonNumber: selectedLessonNumber!,
+    setSelectedLessonNumber,
+    upcomingLessonNumber,
   }
 
-  if (isSmallScreen) {
-    return (
-      <PreviewRow
-        lessons={LESSONS}
-        {...{ selectedLessonNumber, setSelectedLessonNumber }}
-      />
-    )
+  const previewRowProps = {
+    lessons: LESSONS,
+    selectedLessonNumber,
+    setSelectedLessonNumber,
   }
 
-  return (
-    <Box display='flex' justifyContent='center' marginX={1}>
-      <LessonDetailsSwiper
-        lessons={LESSONS}
-        selectedLessonNumber={selectedLessonNumber!}
-        {...{ setSelectedLessonNumber, upcomingLessonNumber }}
-      />
-      <PreviewRow
-        lessons={LESSONS}
-        {...{ selectedLessonNumber, setSelectedLessonNumber }}
-      />
+  return isSmallScreen ? (
+    <Display
+      if={selectedLessonNumber !== null}
+      else={<PreviewRow {...previewRowProps} />}
+    >
+      <BackButton onClick={closeLessonDetails} text={LESSON_SELECT_TITLE} />
+      <LessonDetailsSwiper {...lessonDetailsSwiperProps} />
+    </Display>
+  ) : (
+    <Box display='flex' justifyContent='center' margin={1}>
+      <LessonDetailsSwiper {...lessonDetailsSwiperProps} />
+      <PreviewRow {...previewRowProps} />
     </Box>
   )
 }

@@ -11,7 +11,6 @@ declare module '@mui/material/styles' {
   interface Theme {
     constants: {
       animationDuration: number
-      backButtonStripHeight: string
       maxContentWidth: string
       toolbarHeight: string
     }
@@ -20,7 +19,6 @@ declare module '@mui/material/styles' {
   interface ThemeOptions {
     constants?: {
       animationDuration?: number
-      backButtonStripHeight?: string
       maxContentWidth?: string
       toolbarHeight?: string
     }
@@ -131,7 +129,6 @@ let theme = responsiveFontSizes(
     },
     constants: {
       animationDuration: 150,
-      backButtonStripHeight: '40px',
       maxContentWidth: '48rem',
       toolbarHeight: '48px',
     },

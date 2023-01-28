@@ -23,6 +23,7 @@ export default function LessonDetails({
   isCurrentLesson: boolean
 }) {
   const { palette } = useTheme()
+
   const { title, preface, characters } = lesson
 
   return (
@@ -31,11 +32,8 @@ export default function LessonDetails({
       borderRadius={2}
       paddingX={useSmallScreen() ? 1 : 2}
       paddingY={1}
-      marginY={1}
       sx={{ backgroundColor: palette.background.paper }}
     >
-      {'<-'}
-
       <Typography component='header' variant='h4' textAlign='center' margin={1}>
         {title}
       </Typography>
