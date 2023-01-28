@@ -34,6 +34,8 @@ export default function LessonDetails({
       marginY={1}
       sx={{ backgroundColor: palette.background.paper }}
     >
+      {'<-'}
+
       <Typography component='header' variant='h4' textAlign='center' margin={1}>
         {title}
       </Typography>
@@ -55,20 +57,22 @@ export default function LessonDetails({
 
 function LearnReviewButtons({ isCurrentLesson }: { isCurrentLesson: boolean }) {
   return (
-    <Box
-      display='flex'
+    <Stack
+      direction={{ xs: 'column', md: 'row' }}
       gap='20px'
       justifyContent='center'
       marginTop={4}
       marginBottom={1}
-      sx={{ flexDirection: { xs: 'column', md: 'row' } }}
+      marginX='auto'
+      maxWidth='360px'
+      width='100%'
     >
       <Display if={isCurrentLesson}>
         <MajorActionButton text={LEARN_BUTTON} />
       </Display>
 
       <MinorActionButton text={REVIEW_BUTTON} />
-    </Box>
+    </Stack>
   )
 }
 
