@@ -1,11 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Theme, useMediaQuery, useTheme } from '@mui/material'
 
 export const useSmallScreen = () =>
   useMediaQuery(({ breakpoints }: Theme) => breakpoints.down('md'))
 
 export function scrollToTop() {
-  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
 export function useNavButtonStyling() {
@@ -43,4 +43,19 @@ export function useKeydown(actionArray: { on: string; do: () => void }[]) {
       window.removeEventListener('keydown', handler)
     }
   })
+}
+
+export function useOnChange<T>(value: T, effect: (prev: T, next: T) => void) {
+  const latestValue = useRef(value)
+  const callback = useRef(effect)
+  callback.current = effect
+
+  useEffect(
+    function onChange() {
+      if (value !== latestValue.current) {
+        callback.current(latestValue.current, value)
+      }
+    },
+    [value]
+  )
 }

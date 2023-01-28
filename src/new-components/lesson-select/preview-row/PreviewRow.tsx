@@ -9,9 +9,14 @@ import {
 } from '@mui/material'
 import { AssembledLesson } from '../../shared/interfaces'
 import { TierStatusCircle } from '../tier-status-circle/TierStatusCircle'
-import { Dispatch, SetStateAction, useRef, useState } from 'react'
-import { useSmallScreen } from '../../shared/utility-functions'
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
+import { useOnChange, useSmallScreen } from '../../shared/utility-functions'
 import { useSwiperInstance } from '../../shared/state'
+
+const listMinWidth = 360
+const listHeight = 480
+const listItemHeight = 65
+const listItemGap = 8
 
 export function PreviewRow({
   lessons,
@@ -22,9 +27,6 @@ export function PreviewRow({
   selectedLessonNumber: number | null
   setSelectedLessonNumber: Dispatch<SetStateAction<number | null>>
 }) {
-  const minWidthInPx = 360
-  const heightInPx = 480
-
   const { constants, palette, typography } = useTheme()
 
   const isSmallScreen = useSmallScreen()
@@ -36,7 +38,7 @@ export function PreviewRow({
 
   const listRef = useRef<HTMLUListElement>(null)
 
-  const handleScroll = (target: HTMLUListElement) => {
+  const updateEdges = (target: HTMLUListElement) => {
     if (isSmallScreen) {
       return
     }
@@ -47,23 +49,26 @@ export function PreviewRow({
     setCanScrollDown(scrollHeight - scrollTop !== clientHeight)
   }
 
-  function selectLesson(
-    lesson: number,
-    currentTarget: EventTarget & HTMLDivElement
-  ) {
+  function selectLesson(lesson: number) {
     swiperInstance?.slideTo(lesson - 1)
     setSelectedLessonNumber(lesson)
-
-    const li = currentTarget.offsetParent as HTMLLIElement
-
-    if (li?.offsetTop !== undefined) {
-      console.log(currentTarget.offsetParent as HTMLLIElement)
-      listRef?.current?.scrollTo({
-        top: li.offsetTop - heightInPx / 2 + li.offsetHeight / 2,
-        behavior: 'smooth',
-      })
-    }
   }
+
+  function scrollToLesson(lesson: number | null): void {
+    if (lesson === null) {
+      return
+    }
+
+    listRef.current?.scrollTo({
+      top:
+        (listItemHeight + listItemGap) * (lesson - 1) +
+        listItemHeight / 2 -
+        listHeight / 2,
+      behavior: 'smooth',
+    })
+  }
+
+  useOnChange(selectedLessonNumber, () => scrollToLesson(selectedLessonNumber))
 
   return (
     <Box
@@ -89,13 +94,13 @@ ${canScrollDown ? `rgba(0,0,0,0) 90%, ${palette.background.default} 100%` : ''}
     >
       <List
         disablePadding
-        onScroll={({ target }) => handleScroll(target as HTMLUListElement)}
+        onScroll={({ target }) => updateEdges(target as HTMLUListElement)}
         ref={listRef}
         sx={{
           ml: 1,
           pr: 1,
-          minWidth: `${minWidthInPx}px`,
-          height: isSmallScreen ? undefined : `${heightInPx}px`,
+          minWidth: `${listMinWidth}px`,
+          height: isSmallScreen ? undefined : `${listHeight}px`,
           overflow: isSmallScreen ? 'none' : 'scroll',
         }}
       >
@@ -108,9 +113,7 @@ ${canScrollDown ? `rgba(0,0,0,0) 90%, ${palette.background.default} 100%` : ''}
           >
             <ListItemButton
               disableGutters
-              onClick={({ currentTarget }) =>
-                selectLesson(lessonNumber, currentTarget)
-              }
+              onClick={() => selectLesson(lessonNumber)}
               sx={{
                 backgroundColor:
                   selectedLessonNumber === lessonNumber
@@ -119,6 +122,7 @@ ${canScrollDown ? `rgba(0,0,0,0) 90%, ${palette.background.default} 100%` : ''}
                 border: `1px solid ${palette.grey[200]}`,
                 borderRadius: 2,
                 transition: `${constants.animationDuration}ms`,
+                height: `${listItemHeight}px`,
                 padding: 0,
                 '.MuiListItemText-multiline': {
                   display: 'flex',
