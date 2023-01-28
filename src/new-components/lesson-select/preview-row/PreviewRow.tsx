@@ -9,7 +9,7 @@ import {
 } from '@mui/material'
 import { AssembledLesson } from '../../shared/interfaces'
 import { TierStatusCircle } from '../tier-status-circle/TierStatusCircle'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useRef, useState } from 'react'
 import { useSmallScreen } from '../../shared/utility-functions'
 import { useSwiperInstance } from '../../shared/state'
 
@@ -22,6 +22,9 @@ export function PreviewRow({
   selectedLessonNumber: number | null
   setSelectedLessonNumber: Dispatch<SetStateAction<number | null>>
 }) {
+  const minWidthInPx = 360
+  const heightInPx = 480
+
   const { constants, palette, typography } = useTheme()
 
   const isSmallScreen = useSmallScreen()
@@ -30,6 +33,8 @@ export function PreviewRow({
 
   const [canScrollUp, setCanScrollUp] = useState(false)
   const [canScrollDown, setCanScrollDown] = useState(true)
+
+  const listRef = useRef<HTMLUListElement>(null)
 
   const handleScroll = (target: HTMLUListElement) => {
     if (isSmallScreen) {
@@ -42,13 +47,23 @@ export function PreviewRow({
     setCanScrollDown(scrollHeight - scrollTop !== clientHeight)
   }
 
-  function selectLesson(lesson: number) {
+  function selectLesson(
+    lesson: number,
+    currentTarget: EventTarget & HTMLDivElement
+  ) {
     swiperInstance?.slideTo(lesson - 1)
     setSelectedLessonNumber(lesson)
-  }
 
-  const minWidth = '360px'
-  const height = '480px'
+    const li = currentTarget.offsetParent as HTMLLIElement
+
+    if (li?.offsetTop !== undefined) {
+      console.log(currentTarget.offsetParent as HTMLLIElement)
+      listRef?.current?.scrollTo({
+        top: li.offsetTop - heightInPx / 2 + li.offsetHeight / 2,
+        behavior: 'smooth',
+      })
+    }
+  }
 
   return (
     <Box
@@ -75,11 +90,12 @@ ${canScrollDown ? `rgba(0,0,0,0) 90%, ${palette.background.default} 100%` : ''}
       <List
         disablePadding
         onScroll={({ target }) => handleScroll(target as HTMLUListElement)}
+        ref={listRef}
         sx={{
           ml: 1,
           pr: 1,
-          minWidth,
-          height: isSmallScreen ? undefined : height,
+          minWidth: `${minWidthInPx}px`,
+          height: isSmallScreen ? undefined : `${heightInPx}px`,
           overflow: isSmallScreen ? 'none' : 'scroll',
         }}
       >
@@ -92,7 +108,9 @@ ${canScrollDown ? `rgba(0,0,0,0) 90%, ${palette.background.default} 100%` : ''}
           >
             <ListItemButton
               disableGutters
-              onClick={() => selectLesson(lessonNumber)}
+              onClick={({ currentTarget }) =>
+                selectLesson(lessonNumber, currentTarget)
+              }
               sx={{
                 backgroundColor:
                   selectedLessonNumber === lessonNumber

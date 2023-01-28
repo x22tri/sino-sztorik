@@ -1,8 +1,6 @@
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
-import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import {
   MajorActionButton,
   MinorActionButton,
@@ -24,27 +22,17 @@ export default function LessonDetails({
   lesson: AssembledLesson
   isCurrentLesson: boolean
 }) {
-  const { palette, constants } = useTheme()
+  const { palette } = useTheme()
   const { title, preface, characters } = lesson
 
   return (
     <Stack
       border={`1px solid ${palette.grey[200]}`}
       borderRadius={2}
-      // display='flex'
-
-      // minWidth={0}
       paddingX={useSmallScreen() ? 1 : 2}
       paddingY={1}
-      // marginX={1}
       marginY={1}
-      // flexShrink={1}
-      sx={{
-        backgroundColor: palette.background.paper,
-        // maxWidth: constants.maxContentWidth,
-        // ml: 'auto',
-        // mx: 'auto',
-      }}
+      sx={{ backgroundColor: palette.background.paper }}
     >
       <Typography component='header' variant='h4' textAlign='center' margin={1}>
         {title}
@@ -54,12 +42,7 @@ export default function LessonDetails({
         {preface}
       </Typography>
 
-      <Typography
-        display='block'
-        textAlign='center'
-        variant='overline'
-        sx={{ mx: 'auto' }}
-      >
+      <Typography marginX='auto' textAlign='center' variant='overline'>
         {characters.length} {CHARACTER_AMOUNT_LABEL}
       </Typography>
 
