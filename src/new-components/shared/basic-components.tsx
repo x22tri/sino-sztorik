@@ -1,6 +1,6 @@
-import { MouseEvent } from 'react'
+import { ElementType, MouseEvent } from 'react'
 import { useTheme } from '@mui/material'
-import Button from '@mui/material/Button'
+import Button, { ButtonProps } from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import WestIcon from '@mui/icons-material/West'
 import { EffectCreative } from 'swiper'
@@ -9,11 +9,14 @@ import { LightenOnHoverButton } from '../shared-components/LightenOnHoverButton'
 import { scrollToTop, useKeydown, useSmallScreen } from './utility-functions'
 import { useSwiperInstance } from './state'
 
-export function MajorActionButton({ text }: { text: string }) {
+export function MajorActionButton<B extends ElementType>(
+  props: ButtonProps<B, { component?: B; text: string }>
+) {
   const { palette } = useTheme()
 
   return (
     <Button
+      {...props}
       variant='contained'
       color='secondary'
       sx={{
@@ -24,9 +27,10 @@ export function MajorActionButton({ text }: { text: string }) {
           border: `2px solid ${palette.secondary.dark}`,
           boxShadow: 'none',
         },
+        ...props.sx,
       }}
     >
-      {text}
+      {props.text}
     </Button>
   )
 }

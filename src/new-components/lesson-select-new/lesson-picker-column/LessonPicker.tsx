@@ -7,14 +7,14 @@ import {
   ListItemIcon,
   ListItemText,
   Drawer,
+  Paper,
   useTheme,
 } from '@mui/material'
-import { useState } from 'react'
-import { TierStatusCircle } from '../lesson-select/tier-status-circle/TierStatusCircle'
-import { LESSONS } from '../shared/MOCK_LESSONS'
-import { useSmallScreen } from '../shared/utility-functions'
+import { TierStatusCircle } from '../../lesson-select/tier-status-circle/TierStatusCircle'
+import { LESSONS } from '../../shared/MOCK_LESSONS'
+import { useSmallScreen } from '../../shared/utility-functions'
 
-export default function SelectionDrawer({
+export default function LessonPicker({
   mobileOpen,
   toggleDrawer,
 }: {
@@ -41,8 +41,8 @@ export default function SelectionDrawer({
       >
         <SelectionDrawerContent />
       </Drawer>
-      <Drawer
-        variant='permanent'
+      <Paper
+        // variant='permanent'
         sx={{
           display: isSmallScreen ? 'none' : 'block',
           width: constants.drawerWidth,
@@ -51,10 +51,10 @@ export default function SelectionDrawer({
             width: constants.drawerWidth,
           },
         }}
-        open
+        // open
       >
         <SelectionDrawerContent />
-      </Drawer>
+      </Paper>
     </>
   )
 }

@@ -5,12 +5,11 @@ import Typography from '@mui/material/Typography'
 import MenuIcon from '@mui/icons-material/Menu'
 import { useState } from 'react'
 import { IconButton, useTheme } from '@mui/material'
-import SelectionDrawer from './SelectionDrawer'
-import { useSmallScreen } from '../shared/utility-functions'
+import LessonPicker from './lesson-picker-column/LessonPicker'
+import LessonStartColumn from './lesson-start-column/LessonStartColumn'
 
 export default function LessonSelectNew() {
   const { constants, zIndex } = useTheme()
-  const isSmallScreen = useSmallScreen()
   const [mobileOpen, setMobileOpen] = useState(false)
 
   const toggleDrawer = () => {
@@ -18,15 +17,15 @@ export default function LessonSelectNew() {
   }
 
   return (
-    <Box display='flex'>
+    <Box display='flex' maxWidth='1600px' justifyContent='center' margin='auto'>
       <AppBar position='fixed' sx={{ zIndex: zIndex.drawer + 1 }}>
         <Toolbar>
           <IconButton
-            color='inherit'
             aria-label='open drawer'
+            color='inherit'
             edge='start'
             onClick={toggleDrawer}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ mr: 2, display: { xs: 'flex', md: 'none' } }}
           >
             <MenuIcon />
           </IconButton>
@@ -35,18 +34,18 @@ export default function LessonSelectNew() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <SelectionDrawer {...{ mobileOpen, toggleDrawer }} />
+      <LessonPicker {...{ mobileOpen, toggleDrawer }} />
 
       <Box
         component='main'
         display='grid'
-        marginTop={constants.toolbarHeight}
         gap={1}
-        gridTemplateColumns={isSmallScreen ? '1fr' : '3fr 1fr'}
+        marginTop={constants.toolbarHeight}
         padding={3}
         width='100%'
+        sx={{ gridTemplateColumns: { xs: '1fr', lg: '3fr 1fr' } }}
       >
-        <Box maxWidth={constants.maxContentWidth} margin='auto'>
+        <Box maxWidth={constants.maxContentWidth} margin='0 auto'>
           <Typography paragraph>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
@@ -78,15 +77,7 @@ export default function LessonSelectNew() {
             ultrices sagittis orci a.
           </Typography>
         </Box>
-        <Box
-        //   position='fixed'
-        //   right={0}
-        //   padding={3}
-        //   top={constants.toolbarHeight}
-        //   width='24vw'
-        >
-          aaaaaaaaaaaaaaa
-        </Box>
+        <LessonStartColumn />
       </Box>
     </Box>
   )
