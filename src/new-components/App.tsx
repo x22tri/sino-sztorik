@@ -7,6 +7,7 @@ import theme from './shared/theme'
 import { LessonSelectAppbar } from './lesson-select/lesson-select-appbar/LessonSelectAppbar'
 import { LearnAppbar } from './learn/learn-appbar/LearnAppbar'
 import Learn from './learn/Learn'
+import LessonSelectNew from './lesson-select-new/LessonSelectNew'
 
 function App() {
   return (
@@ -14,8 +15,9 @@ function App() {
       {/* <Landing /> */}
       <ThemeProvider {...{ theme }}>
         <CssBaseline />
-        <LessonSelectAppbar />
-        <LessonSelect />
+        {/* <LessonSelectAppbar /> */}
+        {/* <LessonSelect /> */}
+        <LessonSelectNew />
         {/* <Learn /> */}
       </ThemeProvider>
     </>

@@ -24,12 +24,13 @@ export default function LessonSelect() {
 
   const isSmallScreen = useSmallScreen()
 
-  const [selectedLessonNumber, setSelectedLessonNumber] = useState(
-    isSmallScreen ? null : upcomingLessonNumber
-  )
+  const [selectedLessonNumber, setSelectedLessonNumber] =
+    useState(upcomingLessonNumber)
+
+  const [areDetailsShown, showDetailsOnMobile] = useState(false)
 
   function closeLessonDetails() {
-    setSelectedLessonNumber(null)
+    showDetailsOnMobile(false)
     setSwiperInstance(undefined)
   }
 
@@ -41,16 +42,15 @@ export default function LessonSelect() {
   }
 
   const previewRowProps = {
+    areDetailsShown,
     lessons: LESSONS,
     selectedLessonNumber,
+    showDetailsOnMobile,
     setSelectedLessonNumber,
   }
 
   return isSmallScreen ? (
-    <Display
-      if={selectedLessonNumber !== null}
-      else={<PreviewRow {...previewRowProps} />}
-    >
+    <Display if={areDetailsShown} else={<PreviewRow {...previewRowProps} />}>
       <BackButton onClick={closeLessonDetails} text={LESSON_SELECT_TITLE} />
       <LessonDetailsSwiper {...lessonDetailsSwiperProps} />
     </Display>

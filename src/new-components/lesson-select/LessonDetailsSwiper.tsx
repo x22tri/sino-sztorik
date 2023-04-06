@@ -15,7 +15,7 @@ export function LessonDetailsSwiper({
   upcomingLessonNumber: number
   lessons: AssembledLesson[]
   selectedLessonNumber: number
-  setSelectedLessonNumber: Dispatch<SetStateAction<number | null>>
+  setSelectedLessonNumber: Dispatch<SetStateAction<number>>
 }) {
   const { constants } = useTheme()
 

@@ -19,13 +19,17 @@ const listItemHeight = 65
 const listItemGap = 8
 
 export function PreviewRow({
+  areDetailsShown,
   lessons,
   selectedLessonNumber,
   setSelectedLessonNumber,
+  showDetailsOnMobile,
 }: {
+  areDetailsShown: boolean
   lessons: AssembledLesson[]
-  selectedLessonNumber: number | null
-  setSelectedLessonNumber: Dispatch<SetStateAction<number | null>>
+  selectedLessonNumber: number
+  setSelectedLessonNumber: Dispatch<SetStateAction<number>>
+  showDetailsOnMobile: Dispatch<SetStateAction<boolean>>
 }) {
   const { constants, palette, typography } = useTheme()
 
@@ -52,6 +56,7 @@ export function PreviewRow({
   function selectLesson(lesson: number) {
     swiperInstance?.slideTo(lesson - 1)
     setSelectedLessonNumber(lesson)
+    showDetailsOnMobile(true)
   }
 
   function scrollToLesson(lesson: number | null): void {
@@ -69,6 +74,8 @@ export function PreviewRow({
   }
 
   useOnChange(selectedLessonNumber, () => scrollToLesson(selectedLessonNumber))
+
+  useOnChange(areDetailsShown, () => scrollToLesson(selectedLessonNumber))
 
   return (
     <Box
@@ -116,7 +123,7 @@ ${canScrollDown ? `rgba(0,0,0,0) 90%, ${palette.background.default} 100%` : ''}
               onClick={() => selectLesson(lessonNumber)}
               sx={{
                 backgroundColor:
-                  selectedLessonNumber === lessonNumber
+                  selectedLessonNumber === lessonNumber && !isSmallScreen
                     ? 'primary.light'
                     : 'background.paper',
                 border: `1px solid ${palette.grey[200]}`,
@@ -130,7 +137,7 @@ ${canScrollDown ? `rgba(0,0,0,0) 90%, ${palette.background.default} 100%` : ''}
                 },
                 '&:hover': {
                   backgroundColor:
-                    selectedLessonNumber === lessonNumber
+                    selectedLessonNumber === lessonNumber && !isSmallScreen
                       ? 'primary.lightHovered'
                       : undefined,
                 },

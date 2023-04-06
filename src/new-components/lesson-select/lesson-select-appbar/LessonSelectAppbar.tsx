@@ -30,7 +30,11 @@ export function LessonSelectAppbar() {
   const isSmallScreen = useSmallScreen()
 
   return (
-    <AppBar position='static' elevation={0}>
+    <AppBar
+      position='fixed'
+      elevation={0}
+      sx={{ zIndex: theme => theme.zIndex.drawer + 1 }}
+    >
       <Toolbar variant='dense' disableGutters sx={{ mx: 1 }}>
         <Display if={!isSmallScreen}>
           <LogoTitle />
