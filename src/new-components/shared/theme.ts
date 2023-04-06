@@ -11,6 +11,7 @@ declare module '@mui/material/styles' {
   interface Theme {
     constants: {
       animationDuration: number
+      drawerWidth: number
       maxContentWidth: string
       toolbarHeight: string
     }
@@ -19,6 +20,7 @@ declare module '@mui/material/styles' {
   interface ThemeOptions {
     constants?: {
       animationDuration?: number
+      drawerWidth?: number
       maxContentWidth?: string
       toolbarHeight?: string
     }
@@ -129,8 +131,9 @@ let theme = responsiveFontSizes(
     },
     constants: {
       animationDuration: 150,
+      drawerWidth: 300,
       maxContentWidth: '48rem',
-      toolbarHeight: '48px',
+      toolbarHeight: '64px',
     },
     typography: {
       fontFamily: genericFont,
