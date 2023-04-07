@@ -4,7 +4,7 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import MenuIcon from '@mui/icons-material/Menu'
 import { useState } from 'react'
-import { IconButton, useMediaQuery, useTheme } from '@mui/material'
+import { IconButton, useTheme } from '@mui/material'
 import LessonPicker from './lesson-picker-column/LessonPicker'
 import {
   LessonStartDesktop,
@@ -12,35 +12,51 @@ import {
 } from './lesson-start/LessonStart'
 import LessonPrefaceColumn from './lesson-preface-column/LessonPrefaceColumn'
 import { LESSONS } from '../shared/MOCK_LESSONS'
-import { If, Then, Else } from 'react-if'
+import { If, Then, Else, When } from 'react-if'
+import { useLargeScreen, useSmallScreen } from '../shared/utility-functions'
 
 export default function LessonSelectNew() {
-  const { breakpoints, constants, zIndex } = useTheme()
+  const { constants, zIndex } = useTheme()
   const [mobileOpen, setMobileOpen] = useState(false)
-  const isLargeScreen = useMediaQuery(breakpoints.up('lg'))
+  const isSmallScreen = useSmallScreen()
+  const isLargeScreen = useLargeScreen()
 
   const toggleDrawer = () => {
     setMobileOpen(!mobileOpen)
   }
 
   return (
-    <Box display='flex' maxWidth='1600px' justifyContent='center' margin='auto'>
+    <Box
+      display='flex'
+      justifyContent='center'
+      margin='auto'
+      maxWidth={constants.lessonSelectPageMaxWidth}
+    >
       <AppBar position='fixed' sx={{ zIndex: zIndex.drawer + 1 }}>
-        <Toolbar>
-          <IconButton
-            aria-label='open drawer'
-            color='inherit'
-            edge='start'
-            onClick={toggleDrawer}
-            sx={{ mr: 2, display: { xs: 'flex', md: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant='h6' noWrap component='div'>
-            Clipped drawer
-          </Typography>
-        </Toolbar>
+        <Box
+          margin='auto'
+          maxWidth={constants.lessonSelectPageMaxWidth}
+          width='100%'
+        >
+          <Toolbar>
+            <When condition={isSmallScreen}>
+              <IconButton
+                color='inherit'
+                edge='start'
+                onClick={toggleDrawer}
+                sx={{ mr: 2 }}
+              >
+                <MenuIcon />
+              </IconButton>
+            </When>
+
+            <Typography variant='h6' noWrap component='div'>
+              Clipped drawer
+            </Typography>
+          </Toolbar>
+        </Box>
       </AppBar>
+
       <LessonPicker {...{ mobileOpen, toggleDrawer }} />
 
       <Box component='main' marginTop={constants.toolbarHeight} width='100%'>
@@ -59,7 +75,7 @@ export default function LessonSelectNew() {
 
 function LessonSelectDesktop() {
   return (
-    <Box display='grid' gap={1} gridTemplateColumns='3fr 1fr' padding={3}>
+    <Box display='grid' gap={2} gridTemplateColumns='3fr 1fr' padding={3}>
       <LessonPrefaceColumn />
       <LessonStartDesktop lesson={LESSONS[1]} />
     </Box>

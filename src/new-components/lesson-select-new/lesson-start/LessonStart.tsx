@@ -15,18 +15,14 @@ import {
   faEllipsisVertical,
 } from '@fortawesome/free-solid-svg-icons'
 import { MajorActionButton } from '../../shared/basic-components'
-import { CHARACTER_AMOUNT_LABEL } from '../../shared/strings'
+import { CHARACTER_AMOUNT_LABEL, LEARN_BUTTON } from '../../shared/strings'
 import { AssembledLesson } from '../../shared/interfaces'
 
 export function LessonStartDesktop({ lesson }: { lesson: AssembledLesson }) {
   const { title, preface, characters } = lesson
 
   return (
-    <Box
-      flexDirection='column'
-      gap={2}
-      sx={{ display: { xs: 'none', lg: 'flex' } }}
-    >
+    <Box display='flex' flexDirection='column' gap={2}>
       <LearnButton isLargeScreen />
 
       <Accordion elevation={0}>
@@ -79,22 +75,22 @@ export function LessonStartMobile() {
 }
 
 function LearnButton({ isLargeScreen }: { isLargeScreen: boolean }) {
-  const text = isLargeScreen ? (
-    'TANULÁS'
-  ) : (
-    <>
-      <Typography lineHeight={1} variant='button'>
-        TANULÁS
-      </Typography>
-      <Typography fontSize='75%' lineHeight={1} variant='caption'>
-        11 karakter
-      </Typography>
-    </>
-  )
-
   return (
     <MajorActionButton
-      {...{ text }}
+      text={
+        isLargeScreen ? (
+          LEARN_BUTTON
+        ) : (
+          <>
+            <Typography lineHeight={1} variant='button'>
+              {LEARN_BUTTON}
+            </Typography>
+            <Typography fontSize='75%' lineHeight={1} variant='caption'>
+              11 {CHARACTER_AMOUNT_LABEL}
+            </Typography>
+          </>
+        )
+      }
       sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}
     />
   )
@@ -102,7 +98,13 @@ function LearnButton({ isLargeScreen }: { isLargeScreen: boolean }) {
 
 function CharacterPreviews({ characters }: { characters: string[] }) {
   return (
-    <Box display='flex' gap={2} justifyContent='center' flexWrap='wrap'>
+    <Box
+      display='flex'
+      flexDirection='row'
+      gap={2}
+      justifyContent='center'
+      flexWrap='wrap'
+    >
       {characters.map(char => (
         <Card
           key={char}

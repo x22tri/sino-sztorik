@@ -4,6 +4,9 @@ import { Theme, useMediaQuery, useTheme } from '@mui/material'
 export const useSmallScreen = () =>
   useMediaQuery(({ breakpoints }: Theme) => breakpoints.down('md'))
 
+export const useLargeScreen = () =>
+  !useMediaQuery(({ breakpoints }: Theme) => breakpoints.down('lg'))
+
 export function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }

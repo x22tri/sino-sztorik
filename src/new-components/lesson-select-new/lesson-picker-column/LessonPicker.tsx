@@ -12,6 +12,7 @@ import {
 import { TierStatusCircle } from '../../lesson-select/tier-status-circle/TierStatusCircle'
 import { LESSONS } from '../../shared/MOCK_LESSONS'
 import { useSmallScreen } from '../../shared/utility-functions'
+import { Else, If, Then } from 'react-if'
 
 export default function LessonPicker({
   mobileOpen,
@@ -24,31 +25,29 @@ export default function LessonPicker({
   const isSmallScreen = useSmallScreen()
 
   return (
-    <>
-      <Drawer
-        ModalProps={{ keepMounted: true }}
-        open={mobileOpen}
-        onClose={toggleDrawer}
-        variant='temporary'
-        sx={{
-          display: isSmallScreen ? 'block' : 'none',
-          '& .MuiDrawer-paper': {
-            boxSizing: 'border-box',
-            width: constants.drawerWidth,
-          },
-        }}
-      >
-        <SelectionDrawerContent />
-      </Drawer>
-      <Box
-        display={isSmallScreen ? 'none' : 'block'}
-        height='100vh'
-        overflow='auto'
-        width={constants.drawerWidth}
-      >
-        <SelectionDrawerContent />
-      </Box>
-    </>
+    <If condition={isSmallScreen}>
+      <Then>
+        <Drawer
+          ModalProps={{ keepMounted: true }}
+          open={mobileOpen}
+          onClose={toggleDrawer}
+          variant='temporary'
+          sx={{
+            '& .MuiDrawer-paper': {
+              boxSizing: 'border-box',
+              width: constants.drawerWidth,
+            },
+          }}
+        >
+          <SelectionDrawerContent />
+        </Drawer>
+      </Then>
+      <Else>
+        <Box height='100vh' overflow='auto' width={constants.drawerWidth}>
+          <SelectionDrawerContent />
+        </Box>
+      </Else>
+    </If>
   )
 }
 
