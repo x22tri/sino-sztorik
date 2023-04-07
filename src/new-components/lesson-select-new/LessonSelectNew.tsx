@@ -36,8 +36,6 @@ export default function LessonSelectNew() {
     throw new Error('Current lesson is undefined.')
   }
 
-  const { setSwiperInstance } = useSwiperInstance()
-
   const [selectedLessonNumber, setSelectedLessonNumber] =
     useState(upcomingLessonNumber)
 
@@ -55,7 +53,6 @@ export default function LessonSelectNew() {
       margin='auto'
       maxWidth={constants.lessonSelectPageMaxWidth}
       minHeight='100vh'
-      // sx={{ backgroundColor: palette.common.white }}
     >
       <LessonPicker {...{ mobileOpen, toggleDrawer }} />
 
@@ -69,7 +66,16 @@ export default function LessonSelectNew() {
           elevation={0}
           position='relative'
           color='inherit'
-          sx={{ ml: 1, width: '100%' }}
+          sx={{
+            ml: 2,
+            width: '100%',
+            // '.MuiPaper': {
+            //   backgroundColor: 'red',
+            // },
+            borderBottomLeftRadius: '8px',
+            boxShadow:
+              'rgba(0, 0, 0, 0.05) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+          }}
         >
           <Toolbar>
             <When condition={isSmallScreen}>
@@ -82,6 +88,7 @@ export default function LessonSelectNew() {
 
         <Box
           component='main'
+          height={`calc(100% - ${constants.toolbarHeight})`}
           width='100%'
           sx={{ backgroundColor: palette.background.default }}
         >
@@ -91,8 +98,8 @@ export default function LessonSelectNew() {
                 display='grid'
                 gap={2}
                 gridTemplateColumns='3fr 1fr'
+                height='100%'
                 justifyItems='center'
-                padding={3}
               >
                 <LessonDetailsSwiper {...lessonDetailsSwiperProps} />
                 <LessonStartDesktop lesson={LESSONS[1]} />
@@ -105,9 +112,7 @@ export default function LessonSelectNew() {
                 justifyContent='space-between'
                 minHeight={`calc(100vh - ${constants.toolbarHeight})`}
               >
-                {/* <Box padding={3}> */}
                 <LessonDetailsSwiper {...lessonDetailsSwiperProps} />
-                {/* </Box> */}
                 <LessonStartMobile />
               </Box>
             </Else>

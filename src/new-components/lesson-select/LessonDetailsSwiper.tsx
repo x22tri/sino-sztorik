@@ -31,6 +31,8 @@ export function LessonDetailsSwiper({
       style={{
         // margin: 0,
         // maxWidth,
+        height: '100%',
+        overflowY: 'auto',
         width: '100%',
       }}
     >

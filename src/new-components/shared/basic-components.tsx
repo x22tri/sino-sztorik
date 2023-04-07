@@ -76,7 +76,7 @@ export function LessonSwiper(props: SwiperProps) {
 
   return (
     <Swiper
-      autoHeight
+      // autoHeight
       creativeEffect={{
         prev: { opacity: 0, translate: ['-20%', 0, -1] },
         next: { opacity: 1, translate: ['100%', 0, 1] },

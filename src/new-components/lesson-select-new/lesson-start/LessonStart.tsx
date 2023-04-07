@@ -67,6 +67,7 @@ export function LessonStartMobile() {
       paddingX={2}
       position='fixed'
       width='100%'
+      zIndex={9000}
       sx={{ backgroundColor: palette.common.white }}
     >
       <Box />
