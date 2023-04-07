@@ -14,6 +14,9 @@ import { TierStatusCircle } from '../../lesson-select/tier-status-circle/TierSta
 import { LESSONS } from '../../shared/MOCK_LESSONS'
 import { useSmallScreen } from '../../shared/utility-functions'
 import { Else, If, Then } from 'react-if'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGraduationCap } from '@fortawesome/free-solid-svg-icons'
+import { LESSONS_SUBHEADING } from '../../shared/strings'
 
 export default function LessonPicker({
   mobileOpen,
@@ -80,9 +83,11 @@ function SelectionDrawerContent() {
               boxSizing: 'content-box',
               display: 'flex',
               height: constants.toolbarHeight,
+              gap: 1,
             }}
           >
-            Leckék
+            <FontAwesomeIcon icon={faGraduationCap} />
+            {LESSONS_SUBHEADING}
           </ListSubheader>
         }
       >

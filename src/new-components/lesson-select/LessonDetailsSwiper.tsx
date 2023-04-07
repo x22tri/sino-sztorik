@@ -7,12 +7,10 @@ import { useSmallScreen } from '../shared/utility-functions'
 import { Dispatch, SetStateAction } from 'react'
 
 export function LessonDetailsSwiper({
-  upcomingLessonNumber,
   lessons,
   selectedLessonNumber,
   setSelectedLessonNumber,
 }: {
-  upcomingLessonNumber: number
   lessons: AssembledLesson[]
   selectedLessonNumber: number
   setSelectedLessonNumber: Dispatch<SetStateAction<number>>
@@ -34,10 +32,7 @@ export function LessonDetailsSwiper({
     >
       {lessons.map(({ lessonNumber }) => (
         <SwiperSlide key={lessonNumber}>
-          <LessonDetails
-            isCurrentLesson={lessonNumber === upcomingLessonNumber}
-            lesson={lessons[lessonNumber - 1]}
-          />
+          <LessonDetails lesson={lessons[lessonNumber - 1]} />
         </SwiperSlide>
       ))}
     </LessonSwiper>

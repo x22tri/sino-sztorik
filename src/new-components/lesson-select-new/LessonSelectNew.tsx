@@ -16,15 +16,37 @@ import { If, Then, Else, When } from 'react-if'
 import { useLargeScreen, useSmallScreen } from '../shared/utility-functions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGraduationCap } from '@fortawesome/free-solid-svg-icons'
+import { LessonStatuses } from '../shared/interfaces'
+import { useSwiperInstance } from '../shared/state'
+import 'swiper/css'
 
 export default function LessonSelectNew() {
-  const { constants, palette, zIndex } = useTheme()
+  const { constants, palette } = useTheme()
   const [mobileOpen, setMobileOpen] = useState(false)
   const isSmallScreen = useSmallScreen()
   const isLargeScreen = useLargeScreen()
 
   const toggleDrawer = () => {
     setMobileOpen(!mobileOpen)
+  }
+
+  const upcomingLessonNumber = LESSONS.find(({ tierStatuses }) =>
+    tierStatuses.includes(LessonStatuses.UPCOMING)
+  )?.lessonNumber
+
+  if (!upcomingLessonNumber) {
+    throw new Error('Current lesson is undefined.')
+  }
+
+  const { setSwiperInstance } = useSwiperInstance()
+
+  const [selectedLessonNumber, setSelectedLessonNumber] =
+    useState(upcomingLessonNumber)
+
+  const lessonDetailsSwiperProps = {
+    lessons: LESSONS,
+    selectedLessonNumber: selectedLessonNumber!,
+    setSelectedLessonNumber,
   }
 
   return (
@@ -50,36 +72,48 @@ export default function LessonSelectNew() {
           position='relative'
           color='inherit'
           sx={{
-            // backgroundColor: palette.common.white,
             borderBottom: `1px solid ${palette.grey[300]}`,
-            margin: 'auto',
-            left: 0,
-            // maxWidth: constants.lessonSelectPageMaxWidth,
             width: '100%',
-            // zIndex: zIndex.drawer + 1,
           }}
         >
           <Toolbar>
             <When condition={isSmallScreen}>
-              <IconButton
-                color='inherit'
-                edge='start'
-                onClick={toggleDrawer}
-                sx={{ mr: 2 }}
-              >
+              <IconButton onClick={toggleDrawer}>
                 <FontAwesomeIcon icon={faGraduationCap} />
               </IconButton>
             </When>
           </Toolbar>
         </AppBar>
 
-        <Box component='main' width='100%'>
+        <Box
+          component='main'
+          width='100%'
+          sx={{ backgroundColor: palette.background.default }}
+        >
           <If condition={isLargeScreen}>
             <Then>
-              <LessonSelectDesktop />
+              <Box
+                display='grid'
+                gap={2}
+                gridTemplateColumns='3fr 1fr'
+                padding={3}
+              >
+                <LessonPrefaceColumn {...{ lessonDetailsSwiperProps }} />
+                <LessonStartDesktop lesson={LESSONS[1]} />
+              </Box>
             </Then>
             <Else>
-              <LessonSelectMobile />
+              <Box
+                display='flex'
+                flexDirection='column'
+                justifyContent='space-between'
+                minHeight={`calc(100vh - ${constants.toolbarHeight})`}
+              >
+                <Box padding={3}>
+                  <LessonPrefaceColumn {...{ lessonDetailsSwiperProps }} />
+                </Box>
+                <LessonStartMobile />
+              </Box>
             </Else>
           </If>
         </Box>
@@ -88,28 +122,28 @@ export default function LessonSelectNew() {
   )
 }
 
-function LessonSelectDesktop() {
-  return (
-    <Box display='grid' gap={2} gridTemplateColumns='3fr 1fr' padding={3}>
-      <LessonPrefaceColumn />
-      <LessonStartDesktop lesson={LESSONS[1]} />
-    </Box>
-  )
-}
+// function LessonSelectDesktop() {
+//   return (
+//     <Box display='grid' gap={2} gridTemplateColumns='3fr 1fr' padding={3}>
+//       <LessonPrefaceColumn />
+//       <LessonStartDesktop lesson={LESSONS[1]} />
+//     </Box>
+//   )
+// }
 
-function LessonSelectMobile() {
-  const { constants } = useTheme()
-  return (
-    <Box
-      display='flex'
-      flexDirection='column'
-      justifyContent='space-between'
-      minHeight={`calc(100vh - ${constants.toolbarHeight})`}
-    >
-      <Box padding={3}>
-        <LessonPrefaceColumn />
-      </Box>
-      <LessonStartMobile />
-    </Box>
-  )
-}
+// function LessonSelectMobile() {
+//   const { constants } = useTheme()
+//   return (
+//     <Box
+//       display='flex'
+//       flexDirection='column'
+//       justifyContent='space-between'
+//       minHeight={`calc(100vh - ${constants.toolbarHeight})`}
+//     >
+//       <Box padding={3}>
+//         <LessonPrefaceColumn />
+//       </Box>
+//       <LessonStartMobile />
+//     </Box>
+//   )
+// }

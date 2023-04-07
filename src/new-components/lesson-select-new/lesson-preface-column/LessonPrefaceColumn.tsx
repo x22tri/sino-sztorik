@@ -1,10 +1,15 @@
 import { Box, Typography, useTheme } from '@mui/material'
+import { LessonDetailsSwiper } from '../../lesson-select/LessonDetailsSwiper'
 
-export default function LessonPrefaceColumn() {
+export default function LessonPrefaceColumn({
+  lessonDetailsSwiperProps,
+}: {
+  lessonDetailsSwiperProps: any
+}) {
   const { constants } = useTheme()
   return (
-    <Box maxWidth={constants.maxContentWidth} margin='0 auto'>
-      <Typography paragraph>
+    <Box maxWidth={constants.maxContentWidth} margin='auto'>
+      {/* <Typography paragraph>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus
         non enim praesent elementum facilisis leo vel. Risus at ultrices mi
@@ -31,7 +36,8 @@ export default function LessonPrefaceColumn() {
         Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra
         maecenas accumsan lacus vel facilisis. Nulla posuere sollicitudin
         aliquam ultrices sagittis orci a.
-      </Typography>
+      </Typography> */}
+      <LessonDetailsSwiper {...lessonDetailsSwiperProps} />
     </Box>
   )
 }
