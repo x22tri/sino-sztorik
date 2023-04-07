@@ -14,9 +14,11 @@ import LessonPrefaceColumn from './lesson-preface-column/LessonPrefaceColumn'
 import { LESSONS } from '../shared/MOCK_LESSONS'
 import { If, Then, Else, When } from 'react-if'
 import { useLargeScreen, useSmallScreen } from '../shared/utility-functions'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGraduationCap } from '@fortawesome/free-solid-svg-icons'
 
 export default function LessonSelectNew() {
-  const { constants, zIndex } = useTheme()
+  const { constants, palette, zIndex } = useTheme()
   const [mobileOpen, setMobileOpen] = useState(false)
   const isSmallScreen = useSmallScreen()
   const isLargeScreen = useLargeScreen()
@@ -28,15 +30,34 @@ export default function LessonSelectNew() {
   return (
     <Box
       display='flex'
+      position='relative'
       justifyContent='center'
       margin='auto'
       maxWidth={constants.lessonSelectPageMaxWidth}
+      minHeight='100vh'
+      sx={{ backgroundColor: palette.common.white }}
     >
-      <AppBar position='fixed' sx={{ zIndex: zIndex.drawer + 1 }}>
-        <Box
-          margin='auto'
-          maxWidth={constants.lessonSelectPageMaxWidth}
-          width='100%'
+      <LessonPicker {...{ mobileOpen, toggleDrawer }} />
+
+      <Box
+        marginLeft={isSmallScreen ? 0 : `${constants.drawerWidth}px`}
+        width={
+          isSmallScreen ? '100%' : `calc(100% - ${constants.drawerWidth}px)`
+        }
+      >
+        <AppBar
+          elevation={0}
+          position='relative'
+          color='inherit'
+          sx={{
+            // backgroundColor: palette.common.white,
+            borderBottom: `1px solid ${palette.grey[300]}`,
+            margin: 'auto',
+            left: 0,
+            // maxWidth: constants.lessonSelectPageMaxWidth,
+            width: '100%',
+            // zIndex: zIndex.drawer + 1,
+          }}
         >
           <Toolbar>
             <When condition={isSmallScreen}>
@@ -46,28 +67,22 @@ export default function LessonSelectNew() {
                 onClick={toggleDrawer}
                 sx={{ mr: 2 }}
               >
-                <MenuIcon />
+                <FontAwesomeIcon icon={faGraduationCap} />
               </IconButton>
             </When>
-
-            <Typography variant='h6' noWrap component='div'>
-              Clipped drawer
-            </Typography>
           </Toolbar>
+        </AppBar>
+
+        <Box component='main' width='100%'>
+          <If condition={isLargeScreen}>
+            <Then>
+              <LessonSelectDesktop />
+            </Then>
+            <Else>
+              <LessonSelectMobile />
+            </Else>
+          </If>
         </Box>
-      </AppBar>
-
-      <LessonPicker {...{ mobileOpen, toggleDrawer }} />
-
-      <Box component='main' marginTop={constants.toolbarHeight} width='100%'>
-        <If condition={isLargeScreen}>
-          <Then>
-            <LessonSelectDesktop />
-          </Then>
-          <Else>
-            <LessonSelectMobile />
-          </Else>
-        </If>
       </Box>
     </Box>
   )

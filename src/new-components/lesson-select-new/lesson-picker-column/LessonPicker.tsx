@@ -6,6 +6,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  ListSubheader,
   Toolbar,
   useTheme,
 } from '@mui/material'
@@ -21,7 +22,7 @@ export default function LessonPicker({
   mobileOpen: boolean
   toggleDrawer: () => void
 }) {
-  const { constants } = useTheme()
+  const { constants, palette } = useTheme()
   const isSmallScreen = useSmallScreen()
 
   return (
@@ -43,7 +44,19 @@ export default function LessonPicker({
         </Drawer>
       </Then>
       <Else>
-        <Box height='100vh' overflow='auto' width={constants.drawerWidth}>
+        <Box
+          bottom={0}
+          top={0}
+          left={0}
+          right={0}
+          flexShrink={1}
+          position='absolute'
+          // maxHeight='100vh'
+          // height='100%'
+          borderRight={`1px solid ${palette.grey[300]}`}
+          overflow='auto'
+          width={constants.drawerWidth}
+        >
           <SelectionDrawerContent />
         </Box>
       </Else>
@@ -52,46 +65,58 @@ export default function LessonPicker({
 }
 
 function SelectionDrawerContent() {
-  const { palette, typography } = useTheme()
+  const { constants, palette, typography } = useTheme()
   const lessons = LESSONS
 
   return (
-    <>
-      <Toolbar />
-      <Box>
-        <List>
-          {lessons.map(({ lessonNumber, tierStatuses }) => (
-            <ListItem disablePadding disableGutters key={lessonNumber}>
-              <ListItemButton
+    <Box>
+      <List
+        subheader={
+          <ListSubheader
+            component='div'
+            disableSticky
+            sx={{
+              alignItems: 'center',
+              boxSizing: 'content-box',
+              display: 'flex',
+              height: constants.toolbarHeight,
+            }}
+          >
+            Leckék
+          </ListSubheader>
+        }
+      >
+        {lessons.map(({ lessonNumber, tierStatuses }) => (
+          <ListItem disablePadding disableGutters key={lessonNumber}>
+            <ListItemButton
+              sx={{
+                '.MuiListItemText-multiline': {
+                  display: 'flex',
+                  flexDirection: 'column',
+                },
+              }}
+            >
+              <ListItemIcon>
+                <TierStatusCircle {...{ lessonNumber, tierStatuses }} />
+              </ListItemIcon>
+              <ListItemText
+                primary='Lecke címe'
+                secondary='11 karakter'
                 sx={{
-                  '.MuiListItemText-multiline': {
-                    display: 'flex',
-                    flexDirection: 'column',
+                  '.MuiListItemText-primary': {
+                    ...typography.titleSubtitle.subtitle,
+                    color: palette.text.secondary,
+                  },
+                  '.MuiListItemText-secondary': {
+                    ...typography.titleSubtitle.title,
+                    color: palette.text.disabled,
                   },
                 }}
-              >
-                <ListItemIcon>
-                  <TierStatusCircle {...{ lessonNumber, tierStatuses }} />
-                </ListItemIcon>
-                <ListItemText
-                  primary='Lecke címe'
-                  secondary='11 karakter'
-                  sx={{
-                    '.MuiListItemText-primary': {
-                      ...typography.titleSubtitle.subtitle,
-                      color: palette.text.secondary,
-                    },
-                    '.MuiListItemText-secondary': {
-                      ...typography.titleSubtitle.title,
-                      color: palette.text.disabled,
-                    },
-                  }}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Box>
-    </>
+              />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
   )
 }

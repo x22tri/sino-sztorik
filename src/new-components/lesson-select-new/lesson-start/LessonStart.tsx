@@ -15,11 +15,16 @@ import {
   faEllipsisVertical,
 } from '@fortawesome/free-solid-svg-icons'
 import { MajorActionButton } from '../../shared/basic-components'
-import { CHARACTER_AMOUNT_LABEL, LEARN_BUTTON } from '../../shared/strings'
+import {
+  CHARACTER_AMOUNT_LABEL,
+  LEARN_BUTTON,
+  LESSON_START_MORE_OPTIONS,
+} from '../../shared/strings'
 import { AssembledLesson } from '../../shared/interfaces'
 
 export function LessonStartDesktop({ lesson }: { lesson: AssembledLesson }) {
-  const { title, preface, characters } = lesson
+  const { characters } = lesson
+  const { palette } = useTheme()
 
   return (
     <Box display='flex' flexDirection='column' gap={2}>
@@ -27,7 +32,9 @@ export function LessonStartDesktop({ lesson }: { lesson: AssembledLesson }) {
 
       <Accordion elevation={0}>
         <AccordionSummary expandIcon={<FontAwesomeIcon icon={faChevronDown} />}>
-          <Typography variant='button'>További lehetőségek</Typography>
+          <Typography variant='button' color={palette.grey[700]}>
+            {LESSON_START_MORE_OPTIONS}
+          </Typography>
         </AccordionSummary>
         <AccordionDetails>
           {/* To-Do: Add "Review" when applicable */}
@@ -46,12 +53,12 @@ export function LessonStartDesktop({ lesson }: { lesson: AssembledLesson }) {
 }
 
 export function LessonStartMobile() {
-  const { constants } = useTheme()
+  const { constants, palette } = useTheme()
 
   return (
     <Box
       bottom={0}
-      borderTop='1px solid'
+      borderTop={`1px solid ${palette.grey[300]}`}
       display='grid'
       gap={2}
       gridTemplateColumns='1fr 1fr 1fr'
@@ -60,6 +67,7 @@ export function LessonStartMobile() {
       paddingX={2}
       position='sticky'
       width={`calc(100%) `}
+      sx={{ backgroundColor: palette.common.white }}
     >
       <Box />
       <Box margin='auto 0'>

@@ -199,6 +199,23 @@ let theme = responsiveFontSizes(
 
 theme = createTheme(theme, {
   components: {
+    // MuiAppBar: {
+    //   styleOverrides: {
+    //     colorPrimary: {
+    //       backgroundColor: theme.palette.common.white,
+    //     },
+    //   },
+    // },
+    MuiListSubheader: {
+      styleOverrides: {
+        // fontWeight: 'bold',
+        // fontStyle: 'italic',
+        root: {
+          // fontWeight: 'bold',
+          fontFamily: emphasisFont,
+        },
+      },
+    },
     MuiBadge: { styleOverrides: { badge: { fontFamily: emphasisFont } } },
     MuiLink: {
       styleOverrides: {

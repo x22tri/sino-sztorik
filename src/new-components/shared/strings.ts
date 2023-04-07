@@ -9,6 +9,8 @@ export const REVIEW_BUTTON = 'ISMÉTLÉS'
 export const LESSON_SELECT_TITLE = 'Leckeválasztó'
 export const CHARACTER_SEARCH_TITLE = 'Karakterkereső'
 
+export const LESSON_START_MORE_OPTIONS = 'További lehetőségek'
+
 export const LESSON_SELECT_TOOLTIP =
   'Tanulj új karaktereket vagy nézd át az eddigieket'
 export const CHARACTER_SEARCH_TOOLTIP =
