@@ -68,13 +68,10 @@ export default function LessonSelectNew() {
           color='inherit'
           sx={{
             ml: 2,
-            width: '100%',
-            // '.MuiPaper': {
-            //   backgroundColor: 'red',
-            // },
             borderBottomLeftRadius: '8px',
             boxShadow:
               'rgba(0, 0, 0, 0.05) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+            width: 'auto',
           }}
         >
           <Toolbar>
@@ -96,7 +93,7 @@ export default function LessonSelectNew() {
             <Then>
               <Box
                 display='grid'
-                gap={2}
+                // gap={2}
                 gridTemplateColumns='3fr 1fr'
                 height='100%'
                 justifyItems='center'

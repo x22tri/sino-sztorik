@@ -5,6 +5,7 @@ import {
   Box,
   Card,
   Divider,
+  Stack,
   Typography,
   useTheme,
 } from '@mui/material'
@@ -27,21 +28,38 @@ export function LessonStartDesktop({ lesson }: { lesson: AssembledLesson }) {
   const { palette } = useTheme()
 
   return (
-    <Box display='flex' flexDirection='column' gap={2}>
-      <LearnButton isLargeScreen />
+    <Box
+      display='flex'
+      flexDirection='column'
+      gap={2}
+      marginTop={2}
+      marginRight={2}
+    >
+      <Stack
+        borderRadius={2}
+        boxSizing='border-box'
+        padding={2}
+        sx={{
+          backgroundColor: palette.background.paper,
+          boxShadow:
+            'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+        }}
+      >
+        <LearnButton isLargeScreen />
 
-      <Accordion elevation={0}>
-        <AccordionSummary expandIcon={<FontAwesomeIcon icon={faChevronDown} />}>
-          <Typography variant='button' color={palette.grey[700]}>
-            {LESSON_START_MORE_OPTIONS}
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          {/* To-Do: Add "Review" when applicable */}
-        </AccordionDetails>
-      </Accordion>
-
-      <Divider />
+        <Accordion elevation={0}>
+          <AccordionSummary
+            expandIcon={<FontAwesomeIcon icon={faChevronDown} />}
+          >
+            <Typography variant='button' color={palette.grey[700]}>
+              {LESSON_START_MORE_OPTIONS}
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            {/* To-Do: Add "Review" when applicable */}
+          </AccordionDetails>
+        </Accordion>
+      </Stack>
 
       <Typography marginX='auto' textAlign='center' variant='overline'>
         {characters.length} {CHARACTER_AMOUNT_LABEL}
@@ -117,12 +135,12 @@ function CharacterPreviews({ characters }: { characters: string[] }) {
       {characters.map(char => (
         <Card
           key={char}
-          variant='outlined'
           component='span'
           sx={{
             borderWidth: '2px',
             p: 1,
             typography: 'chineseNormal',
+            boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
           }}
         >
           {char}
