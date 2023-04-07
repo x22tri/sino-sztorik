@@ -12,6 +12,7 @@ declare module '@mui/material/styles' {
     constants: {
       animationDuration: number
       drawerWidth: number
+      lessonStartBottomHeight: string
       maxContentWidth: string
       toolbarHeight: string
     }
@@ -21,6 +22,7 @@ declare module '@mui/material/styles' {
     constants?: {
       animationDuration?: number
       drawerWidth?: number
+      lessonStartBottomHeight?: string
       maxContentWidth?: string
       toolbarHeight?: string
     }
@@ -132,6 +134,7 @@ let theme = responsiveFontSizes(
     constants: {
       animationDuration: 150,
       drawerWidth: 300,
+      lessonStartBottomHeight: '64px',
       maxContentWidth: '48rem',
       toolbarHeight: '64px',
     },

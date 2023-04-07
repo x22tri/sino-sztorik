@@ -1,13 +1,12 @@
 import {
-  Toolbar,
   Box,
+  Drawer,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Drawer,
-  Paper,
+  Toolbar,
   useTheme,
 } from '@mui/material'
 import { TierStatusCircle } from '../../lesson-select/tier-status-circle/TierStatusCircle'
@@ -41,20 +40,14 @@ export default function LessonPicker({
       >
         <SelectionDrawerContent />
       </Drawer>
-      <Paper
-        // variant='permanent'
-        sx={{
-          display: isSmallScreen ? 'none' : 'block',
-          width: constants.drawerWidth,
-          '& .MuiDrawer-paper': {
-            boxSizing: 'border-box',
-            width: constants.drawerWidth,
-          },
-        }}
-        // open
+      <Box
+        display={isSmallScreen ? 'none' : 'block'}
+        height='100vh'
+        overflow='auto'
+        width={constants.drawerWidth}
       >
         <SelectionDrawerContent />
-      </Paper>
+      </Box>
     </>
   )
 }

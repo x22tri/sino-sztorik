@@ -1,4 +1,4 @@
-import { ElementType, MouseEvent } from 'react'
+import { ElementType, MouseEvent, ReactNode } from 'react'
 import { useTheme } from '@mui/material'
 import Button, { ButtonProps } from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
@@ -10,7 +10,7 @@ import { scrollToTop, useKeydown, useSmallScreen } from './utility-functions'
 import { useSwiperInstance } from './state'
 
 export function MajorActionButton<B extends ElementType>(
-  props: ButtonProps<B, { component?: B; text: string }>
+  props: ButtonProps<B, { component?: B; text: string | ReactNode }>
 ) {
   const { palette } = useTheme()
 
