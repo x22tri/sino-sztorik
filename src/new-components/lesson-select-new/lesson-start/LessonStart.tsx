@@ -1,45 +1,51 @@
-import { Box, Typography, useTheme } from '@mui/material'
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Divider,
+  Typography,
+  useTheme,
+} from '@mui/material'
 import { IconButton } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import {
+  faChevronDown,
+  faEllipsisVertical,
+} from '@fortawesome/free-solid-svg-icons'
 import { MajorActionButton } from '../../shared/basic-components'
 import { Display } from '../../shared/utility-components'
-import { ReactNode } from 'react'
 
 export function LessonStart({ isLargeScreen }: { isLargeScreen: boolean }) {
   return (
-    <Display
-      if={isLargeScreen}
-      else={<LessonStartMobile learnButton={<LearnButton />} />}
-    >
-      <LessonStartDesktop learnButton={<LearnButton />} />
+    <Display if={isLargeScreen} else={<LessonStartMobile />}>
+      <LessonStartDesktop />
     </Display>
   )
 }
 
-export function LessonStartDesktop({
-  learnButton,
-}: {
-  learnButton: ReactNode
-}) {
+export function LessonStartDesktop() {
   return (
-    <Box sx={{ display: { xs: 'none', lg: 'block' } }}>
-      <Box
-        display='flex'
-        flexDirection='row'
-        gap={3}
-        justifyContent='space-between'
-      >
-        {learnButton}
-        <IconButton>
-          <FontAwesomeIcon icon={faChevronDown} />
-        </IconButton>
-      </Box>
+    <Box
+      flexDirection='column'
+      gap={2}
+      sx={{ display: { xs: 'none', lg: 'flex' } }}
+    >
+      <LearnButton isLargeScreen />
+      <Accordion elevation={0}>
+        <AccordionSummary expandIcon={<FontAwesomeIcon icon={faChevronDown} />}>
+          <Typography variant='button'>További lehetőségek</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          {/* To-Do: Add "Review" when applicable */}
+        </AccordionDetails>
+      </Accordion>
+      <Divider />
     </Box>
   )
 }
 
-export function LessonStartMobile({ learnButton }: { learnButton: ReactNode }) {
+export function LessonStartMobile() {
   const { constants } = useTheme()
 
   return (
@@ -48,32 +54,43 @@ export function LessonStartMobile({ learnButton }: { learnButton: ReactNode }) {
       borderTop='1px solid'
       display='grid'
       gap={2}
-      gridTemplateColumns={'repeat(3, 1fr)'}
+      gridTemplateColumns='1fr 1fr 1fr'
       height={constants.lessonStartBottomHeight}
-      padding={1}
+      paddingY={1}
+      paddingX={2}
       position='sticky'
       width={`calc(100%) `}
     >
       <Box />
-      <Box margin='auto 0'>{learnButton}</Box>
-      <Box>aaa</Box>
+      <Box margin='auto 0'>
+        <LearnButton isLargeScreen={false} />
+      </Box>
+      <Box marginLeft='auto'>
+        <IconButton style={{ width: '48px' }}>
+          <FontAwesomeIcon icon={faEllipsisVertical} />
+        </IconButton>
+      </Box>
     </Box>
   )
 }
 
-function LearnButton() {
+function LearnButton({ isLargeScreen }: { isLargeScreen: boolean }) {
+  const text = isLargeScreen ? (
+    'TANULÁS'
+  ) : (
+    <>
+      <Typography lineHeight={1} variant='button'>
+        TANULÁS
+      </Typography>
+      <Typography fontSize='75%' lineHeight={1} variant='caption'>
+        11 karakter
+      </Typography>
+    </>
+  )
+
   return (
     <MajorActionButton
-      text={
-        <>
-          <Typography lineHeight={1} variant='button'>
-            TANULÁS
-          </Typography>
-          <Typography fontSize='75%' lineHeight={1} variant='caption'>
-            11 karakter
-          </Typography>
-        </>
-      }
+      {...{ text }}
       sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}
     />
   )
