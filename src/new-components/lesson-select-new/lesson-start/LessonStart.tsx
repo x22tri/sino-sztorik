@@ -87,11 +87,15 @@ export function LessonStartMobile() {
       gap={2}
       gridTemplateColumns='1fr 1fr 1fr'
       height={constants.lessonStartBottomHeight}
-      marginLeft={isSmallScreen ? 0 : 2}
+      marginX={isSmallScreen ? 0 : 2}
       paddingY={1}
       paddingX={2}
       position='fixed'
-      width={isSmallScreen ? '100%' : `calc(100% - ${constants.drawerWidth}px)`}
+      width={
+        isSmallScreen
+          ? '100%'
+          : `calc(100% - ${constants.drawerWidth}px - 32px)`
+      }
       zIndex={9000}
       sx={{
         backgroundColor: palette.common.white,

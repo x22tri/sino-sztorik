@@ -14,12 +14,11 @@ import { useLargeScreen, useSmallScreen } from '../shared/utility-functions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGraduationCap } from '@fortawesome/free-solid-svg-icons'
 import { LessonStatuses } from '../shared/interfaces'
-import { useSwiperInstance } from '../shared/state'
 import 'swiper/css'
 import { LessonDetailsSwiper } from '../lesson-select/LessonDetailsSwiper'
 
 export default function LessonSelectNew() {
-  const { constants, palette } = useTheme()
+  const { constants } = useTheme()
   const [mobileOpen, setMobileOpen] = useState(false)
   const isSmallScreen = useSmallScreen()
   const isLargeScreen = useLargeScreen()
@@ -48,11 +47,11 @@ export default function LessonSelectNew() {
   return (
     <Box
       display='flex'
-      position='relative'
       justifyContent='center'
       margin='auto'
       maxWidth={constants.lessonSelectPageMaxWidth}
       minHeight='100vh'
+      position='relative'
     >
       <LessonPicker {...{ mobileOpen, toggleDrawer }} />
 
@@ -63,11 +62,11 @@ export default function LessonSelectNew() {
         }
       >
         <AppBar
+          color='inherit'
           elevation={0}
           position='relative'
-          color='inherit'
           sx={{
-            ml: isSmallScreen ? 0 : 2,
+            mx: isSmallScreen ? 0 : 2,
             borderBottomLeftRadius: isSmallScreen ? 0 : '8px',
             borderBottomRightRadius: isSmallScreen ? 0 : '8px',
             boxShadow:
@@ -119,29 +118,3 @@ export default function LessonSelectNew() {
     </Box>
   )
 }
-
-// function LessonSelectDesktop() {
-//   return (
-//     <Box display='grid' gap={2} gridTemplateColumns='3fr 1fr' padding={3}>
-//       <LessonPrefaceColumn />
-//       <LessonStartDesktop lesson={LESSONS[1]} />
-//     </Box>
-//   )
-// }
-
-// function LessonSelectMobile() {
-//   const { constants } = useTheme()
-//   return (
-//     <Box
-//       display='flex'
-//       flexDirection='column'
-//       justifyContent='space-between'
-//       minHeight={`calc(100vh - ${constants.toolbarHeight})`}
-//     >
-//       <Box padding={3}>
-//         <LessonPrefaceColumn />
-//       </Box>
-//       <LessonStartMobile />
-//     </Box>
-//   )
-// }
