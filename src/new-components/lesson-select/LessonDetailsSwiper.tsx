@@ -28,7 +28,11 @@ export function LessonDetailsSwiper({
         setSelectedLessonNumber(activeIndex + 1)
       }}
       initialSlide={selectedLessonNumber - 1}
-      style={{ margin: 0, maxWidth }}
+      style={{
+        // margin: 0,
+        // maxWidth,
+        width: '100%',
+      }}
     >
       {lessons.map(({ lessonNumber }) => (
         <SwiperSlide key={lessonNumber}>

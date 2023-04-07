@@ -58,15 +58,15 @@ export function LessonStartMobile() {
   return (
     <Box
       bottom={0}
-      borderTop={`1px solid ${palette.grey[300]}`}
       display='grid'
       gap={2}
       gridTemplateColumns='1fr 1fr 1fr'
       height={constants.lessonStartBottomHeight}
+      marginLeft={1}
       paddingY={1}
       paddingX={2}
-      position='sticky'
-      width={`calc(100%) `}
+      position='fixed'
+      width='100%'
       sx={{ backgroundColor: palette.common.white }}
     >
       <Box />

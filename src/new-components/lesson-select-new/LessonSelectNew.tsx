@@ -1,8 +1,6 @@
 import Box from '@mui/material/Box'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
-import MenuIcon from '@mui/icons-material/Menu'
 import { useState } from 'react'
 import { IconButton, useTheme } from '@mui/material'
 import LessonPicker from './lesson-picker-column/LessonPicker'
@@ -10,7 +8,6 @@ import {
   LessonStartDesktop,
   LessonStartMobile,
 } from './lesson-start/LessonStart'
-import LessonPrefaceColumn from './lesson-preface-column/LessonPrefaceColumn'
 import { LESSONS } from '../shared/MOCK_LESSONS'
 import { If, Then, Else, When } from 'react-if'
 import { useLargeScreen, useSmallScreen } from '../shared/utility-functions'
@@ -19,6 +16,7 @@ import { faGraduationCap } from '@fortawesome/free-solid-svg-icons'
 import { LessonStatuses } from '../shared/interfaces'
 import { useSwiperInstance } from '../shared/state'
 import 'swiper/css'
+import { LessonDetailsSwiper } from '../lesson-select/LessonDetailsSwiper'
 
 export default function LessonSelectNew() {
   const { constants, palette } = useTheme()
@@ -57,7 +55,7 @@ export default function LessonSelectNew() {
       margin='auto'
       maxWidth={constants.lessonSelectPageMaxWidth}
       minHeight='100vh'
-      sx={{ backgroundColor: palette.common.white }}
+      // sx={{ backgroundColor: palette.common.white }}
     >
       <LessonPicker {...{ mobileOpen, toggleDrawer }} />
 
@@ -71,10 +69,7 @@ export default function LessonSelectNew() {
           elevation={0}
           position='relative'
           color='inherit'
-          sx={{
-            borderBottom: `1px solid ${palette.grey[300]}`,
-            width: '100%',
-          }}
+          sx={{ ml: 1, width: '100%' }}
         >
           <Toolbar>
             <When condition={isSmallScreen}>
@@ -96,9 +91,10 @@ export default function LessonSelectNew() {
                 display='grid'
                 gap={2}
                 gridTemplateColumns='3fr 1fr'
+                justifyItems='center'
                 padding={3}
               >
-                <LessonPrefaceColumn {...{ lessonDetailsSwiperProps }} />
+                <LessonDetailsSwiper {...lessonDetailsSwiperProps} />
                 <LessonStartDesktop lesson={LESSONS[1]} />
               </Box>
             </Then>
@@ -109,9 +105,9 @@ export default function LessonSelectNew() {
                 justifyContent='space-between'
                 minHeight={`calc(100vh - ${constants.toolbarHeight})`}
               >
-                <Box padding={3}>
-                  <LessonPrefaceColumn {...{ lessonDetailsSwiperProps }} />
-                </Box>
+                {/* <Box padding={3}> */}
+                <LessonDetailsSwiper {...lessonDetailsSwiperProps} />
+                {/* </Box> */}
                 <LessonStartMobile />
               </Box>
             </Else>

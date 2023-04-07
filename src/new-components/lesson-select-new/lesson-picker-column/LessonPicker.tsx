@@ -56,9 +56,10 @@ export default function LessonPicker({
           position='absolute'
           // maxHeight='100vh'
           // height='100%'
-          borderRight={`1px solid ${palette.grey[300]}`}
+          // borderRight={`1px solid ${palette.grey[300]}`}
           overflow='auto'
           width={constants.drawerWidth}
+          sx={{ backgroundColor: palette.background.paper }}
         >
           <SelectionDrawerContent />
         </Box>
@@ -84,9 +85,10 @@ function SelectionDrawerContent() {
               display: 'flex',
               height: constants.toolbarHeight,
               gap: 1,
+              ml: 1.5,
             }}
           >
-            <FontAwesomeIcon icon={faGraduationCap} />
+            <FontAwesomeIcon icon={faGraduationCap} size='lg' />
             {LESSONS_SUBHEADING}
           </ListSubheader>
         }
