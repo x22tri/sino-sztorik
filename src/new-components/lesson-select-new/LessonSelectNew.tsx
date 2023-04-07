@@ -67,8 +67,9 @@ export default function LessonSelectNew() {
           position='relative'
           color='inherit'
           sx={{
-            ml: 2,
-            borderBottomLeftRadius: '8px',
+            ml: isSmallScreen ? 0 : 2,
+            borderBottomLeftRadius: isSmallScreen ? 0 : '8px',
+            borderBottomRightRadius: isSmallScreen ? 0 : '8px',
             boxShadow:
               'rgba(0, 0, 0, 0.05) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
             width: 'auto',
@@ -87,13 +88,11 @@ export default function LessonSelectNew() {
           component='main'
           height={`calc(100% - ${constants.toolbarHeight})`}
           width='100%'
-          sx={{ backgroundColor: palette.background.default }}
         >
           <If condition={isLargeScreen}>
             <Then>
               <Box
                 display='grid'
-                // gap={2}
                 gridTemplateColumns='3fr 1fr'
                 height='100%'
                 justifyItems='center'
@@ -107,7 +106,8 @@ export default function LessonSelectNew() {
                 display='flex'
                 flexDirection='column'
                 justifyContent='space-between'
-                minHeight={`calc(100vh - ${constants.toolbarHeight})`}
+                height='100%'
+                width='100%'
               >
                 <LessonDetailsSwiper {...lessonDetailsSwiperProps} />
                 <LessonStartMobile />

@@ -8,9 +8,10 @@ import { Swiper, SwiperProps } from 'swiper/react'
 import { LightenOnHoverButton } from '../shared-components/LightenOnHoverButton'
 import { scrollToTop, useKeydown, useSmallScreen } from './utility-functions'
 import { useSwiperInstance } from './state'
+import { If, Then, Else } from 'react-if'
 
 export function MajorActionButton<B extends ElementType>(
-  props: ButtonProps<B, { component?: B; text: string | ReactNode }>
+  props: ButtonProps<B, { component?: B; text: string; secondaryText?: string }>
 ) {
   const { palette } = useTheme()
 
@@ -27,10 +28,22 @@ export function MajorActionButton<B extends ElementType>(
           border: `2px solid ${palette.secondary.dark}`,
           boxShadow: 'none',
         },
+        display: 'flex',
+        flexDirection: 'column',
         ...props.sx,
       }}
     >
-      {props.text}
+      <If condition={props.secondaryText}>
+        <Then>
+          <Typography lineHeight={1} variant='button'>
+            {props.text}
+          </Typography>
+          <Typography fontSize='75%' lineHeight={1} variant='caption'>
+            {props.secondaryText}
+          </Typography>
+        </Then>
+        <Else>{props.text}</Else>
+      </If>
     </Button>
   )
 }

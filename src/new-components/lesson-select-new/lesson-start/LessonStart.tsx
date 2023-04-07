@@ -22,6 +22,7 @@ import {
   LESSON_START_MORE_OPTIONS,
 } from '../../shared/strings'
 import { AssembledLesson } from '../../shared/interfaces'
+import { useSmallScreen } from '../../shared/utility-functions'
 
 export function LessonStartDesktop({ lesson }: { lesson: AssembledLesson }) {
   const { characters } = lesson
@@ -38,6 +39,7 @@ export function LessonStartDesktop({ lesson }: { lesson: AssembledLesson }) {
       <Stack
         borderRadius={2}
         boxSizing='border-box'
+        gap={1}
         padding={2}
         sx={{
           backgroundColor: palette.background.paper,
@@ -47,7 +49,10 @@ export function LessonStartDesktop({ lesson }: { lesson: AssembledLesson }) {
       >
         <LearnButton isLargeScreen />
 
-        <Accordion elevation={0}>
+        <Accordion
+          elevation={0}
+          sx={{ '.MuiAccordionSummary-root': { padding: 0 } }}
+        >
           <AccordionSummary
             expandIcon={<FontAwesomeIcon icon={faChevronDown} />}
           >
@@ -73,6 +78,8 @@ export function LessonStartDesktop({ lesson }: { lesson: AssembledLesson }) {
 export function LessonStartMobile() {
   const { constants, palette } = useTheme()
 
+  const isSmallScreen = useSmallScreen()
+
   return (
     <Box
       bottom={0}
@@ -80,13 +87,19 @@ export function LessonStartMobile() {
       gap={2}
       gridTemplateColumns='1fr 1fr 1fr'
       height={constants.lessonStartBottomHeight}
-      marginLeft={1}
+      marginLeft={isSmallScreen ? 0 : 2}
       paddingY={1}
       paddingX={2}
       position='fixed'
-      width='100%'
+      width={isSmallScreen ? '100%' : `calc(100% - ${constants.drawerWidth}px)`}
       zIndex={9000}
-      sx={{ backgroundColor: palette.common.white }}
+      sx={{
+        backgroundColor: palette.common.white,
+        borderTopLeftRadius: '8px',
+        borderTopRightRadius: '8px',
+        boxShadow:
+          'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+      }}
     >
       <Box />
       <Box margin='auto 0'>
@@ -104,21 +117,9 @@ export function LessonStartMobile() {
 function LearnButton({ isLargeScreen }: { isLargeScreen: boolean }) {
   return (
     <MajorActionButton
-      text={
-        isLargeScreen ? (
-          LEARN_BUTTON
-        ) : (
-          <>
-            <Typography lineHeight={1} variant='button'>
-              {LEARN_BUTTON}
-            </Typography>
-            <Typography fontSize='75%' lineHeight={1} variant='caption'>
-              11 {CHARACTER_AMOUNT_LABEL}
-            </Typography>
-          </>
-        )
-      }
-      sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}
+      text={LEARN_BUTTON}
+      secondaryText={isLargeScreen ? undefined : `11 ${CHARACTER_AMOUNT_LABEL}`}
+      sx={{ width: '100%' }}
     />
   )
 }

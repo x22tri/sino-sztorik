@@ -2,8 +2,6 @@ import LessonDetails from './LessonDetails'
 import { AssembledLesson } from '../shared/interfaces'
 import { LessonSwiper } from '../shared/basic-components'
 import { SwiperSlide } from 'swiper/react'
-import { useTheme } from '@mui/material'
-import { useSmallScreen } from '../shared/utility-functions'
 import { Dispatch, SetStateAction } from 'react'
 
 export function LessonDetailsSwiper({
@@ -15,12 +13,6 @@ export function LessonDetailsSwiper({
   selectedLessonNumber: number
   setSelectedLessonNumber: Dispatch<SetStateAction<number>>
 }) {
-  const { constants } = useTheme()
-
-  const isSmallScreen = useSmallScreen()
-
-  const maxWidth = isSmallScreen ? undefined : constants.maxContentWidth
-
   return (
     // initialSlide is zero-indexed.
     <LessonSwiper
@@ -29,8 +21,6 @@ export function LessonDetailsSwiper({
       }}
       initialSlide={selectedLessonNumber - 1}
       style={{
-        // margin: 0,
-        // maxWidth,
         height: '100%',
         overflowY: 'auto',
         width: '100%',
