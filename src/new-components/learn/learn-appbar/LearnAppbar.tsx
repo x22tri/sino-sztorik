@@ -15,10 +15,10 @@ import {
   useSmallScreen,
 } from '../../shared/utility-functions'
 import { FLASHBACK_MODE } from '../../shared/strings'
-import { Display } from '../../shared/utility-components'
 import { useFlashback } from '../logic/useFlashback'
 import { useSwiper } from 'swiper/react'
 import { useEffect, useState } from 'react'
+import { If, Then, Else } from 'react-if'
 
 export function LearnAppbar({ lessonLength }: { lessonLength: number }) {
   const { constants } = useTheme()
@@ -58,23 +58,25 @@ export function LearnAppbar({ lessonLength }: { lessonLength: number }) {
           <LessonInfo lessonNumber={99} lessonTitle={'Lecke címe'} />
 
           <Box display='flex' justifyContent='center'>
-            <Display
-              if={!isSmallScreen || !flashback}
-              else={<FlashbackModeTextMobile />}
-            >
-              <LinearProgress
-                variant='determinate'
-                value={lessonProgress}
-                color={isLocked ? 'neutral' : 'primary'}
-                sx={{
-                  borderRadius: '8px',
-                  p: 0.5,
-                  mx: 'auto',
-                  maxWidth: constants.maxContentWidth,
-                  width: '100%',
-                }}
-              />
-            </Display>
+            <If condition={!isSmallScreen || !flashback}>
+              <Then>
+                <LinearProgress
+                  variant='determinate'
+                  value={lessonProgress}
+                  color={isLocked ? 'neutral' : 'primary'}
+                  sx={{
+                    borderRadius: '8px',
+                    p: 0.5,
+                    mx: 'auto',
+                    maxWidth: constants.maxContentWidth,
+                    width: '100%',
+                  }}
+                />
+              </Then>
+              <Else>
+                <FlashbackModeTextMobile />
+              </Else>
+            </If>
           </Box>
 
           <CloseButton />

@@ -1,11 +1,11 @@
 import Box from '@mui/material/Box'
 import { LessonInfoMobile } from './LessonInfoMobile'
 import { useSmallScreen } from '../../shared/utility-functions'
-import { Display } from '../../shared/utility-components'
 import { ReturnFromFlashbackDesktop } from './ReturnFromFlashbackDesktop'
 import { useFlashback } from '../logic/useFlashback'
 import { ReturnFromFlashbackMobile } from './ReturnFromFlashbackMobile'
 import { LessonInfoDesktop } from './LessonInfoDesktop'
+import { If, Then, Else } from 'react-if'
 
 export function LessonInfo({
   lessonNumber,
@@ -28,9 +28,14 @@ export function LessonInfo({
 
   return (
     <Box display='flex' flexDirection='row' marginX={1} gap={1}>
-      <Display if={!flashback} else={<ReturnFromFlashbackDesktop />}>
-        <LessonInfoDesktop {...{ lessonNumber, lessonTitle }} />
-      </Display>
+      <If condition={!flashback}>
+        <Then>
+          <LessonInfoDesktop {...{ lessonNumber, lessonTitle }} />
+        </Then>
+        <Else>
+          <ReturnFromFlashbackDesktop />
+        </Else>
+      </If>
     </Box>
   )
 }

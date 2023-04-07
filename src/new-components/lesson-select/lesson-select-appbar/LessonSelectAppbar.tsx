@@ -10,7 +10,7 @@ import MobileNavigationMenu from './MobileNavigationMenu'
 import DesktopNavigationMenu from './DesktopNavigationMenu'
 import ProfileMenu from './ProfileMenu'
 import { useSmallScreen } from '../../shared/utility-functions'
-import { Display } from '../../shared/utility-components'
+import { When } from 'react-if'
 
 export function LessonSelectAppbar() {
   const username = 'Péter'
@@ -36,9 +36,9 @@ export function LessonSelectAppbar() {
       sx={{ zIndex: theme => theme.zIndex.drawer + 1 }}
     >
       <Toolbar variant='dense' disableGutters sx={{ mx: 1 }}>
-        <Display if={!isSmallScreen}>
+        <When condition={!isSmallScreen}>
           <LogoTitle />
-        </Display>
+        </When>
 
         <MobileNavigationMenu
           {...{
@@ -49,9 +49,9 @@ export function LessonSelectAppbar() {
           }}
         />
 
-        <Display if={isSmallScreen}>
+        <When condition={isSmallScreen}>
           <LogoTitle noLogo />
-        </Display>
+        </When>
 
         <DesktopNavigationMenu
           {...{

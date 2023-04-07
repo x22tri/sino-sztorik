@@ -5,7 +5,6 @@ import Divider from '@mui/material/Divider'
 import { useTheme } from '@mui/material'
 import Story from './story/Story'
 import InfoChips from './info-chips/InfoChips'
-import { Display } from '../shared/utility-components'
 import { ConstituentList } from './ConstituentList'
 import { Presentation } from './presentation/Presentation'
 import { Subheading } from './subheading/Subheading'
@@ -23,6 +22,7 @@ import {
   LEARN_HEADING_SUPPLEMENTS,
   LEARN_SUBHEADING_PHRASES,
 } from '../shared/strings'
+import { If, Then } from 'react-if'
 
 export default function LearnContent({
   nextChar,
@@ -92,11 +92,13 @@ export default function LearnContent({
         {...{ charChinese, explanation, keyword, pinyin, primitiveMeaning }}
       />
 
-      <Display if={constituents}>
-        <Subheading title={LEARN_SUBHEADING_CONSTITUENTS} />
+      <If condition={!!constituents}>
+        <Then>
+          <Subheading title={LEARN_SUBHEADING_CONSTITUENTS} />
 
-        <ConstituentList constituents={constituents!} {...{ lessonChar }} />
-      </Display>
+          <ConstituentList constituents={constituents!} {...{ lessonChar }} />
+        </Then>
+      </If>
 
       <Heading title={LEARN_HEADING_STORY} endContent={<StoryTypeSwitch />} />
 

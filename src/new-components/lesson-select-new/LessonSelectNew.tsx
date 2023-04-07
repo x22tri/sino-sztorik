@@ -7,12 +7,12 @@ import { useState } from 'react'
 import { IconButton, useMediaQuery, useTheme } from '@mui/material'
 import LessonPicker from './lesson-picker-column/LessonPicker'
 import {
-  LessonStart,
   LessonStartDesktop,
   LessonStartMobile,
 } from './lesson-start/LessonStart'
 import LessonPrefaceColumn from './lesson-preface-column/LessonPrefaceColumn'
-import { Display } from '../shared/utility-components'
+import { LESSONS } from '../shared/MOCK_LESSONS'
+import { If, Then, Else } from 'react-if'
 
 export default function LessonSelectNew() {
   const { breakpoints, constants, zIndex } = useTheme()
@@ -44,9 +44,14 @@ export default function LessonSelectNew() {
       <LessonPicker {...{ mobileOpen, toggleDrawer }} />
 
       <Box component='main' marginTop={constants.toolbarHeight} width='100%'>
-        <Display if={isLargeScreen} else={<LessonSelectMobile />}>
-          <LessonSelectDesktop />
-        </Display>
+        <If condition={isLargeScreen}>
+          <Then>
+            <LessonSelectDesktop />
+          </Then>
+          <Else>
+            <LessonSelectMobile />
+          </Else>
+        </If>
       </Box>
     </Box>
   )
@@ -56,7 +61,7 @@ function LessonSelectDesktop() {
   return (
     <Box display='grid' gap={1} gridTemplateColumns='3fr 1fr' padding={3}>
       <LessonPrefaceColumn />
-      <LessonStart isLargeScreen={true} />
+      <LessonStartDesktop lesson={LESSONS[1]} />
     </Box>
   )
 }
@@ -73,7 +78,7 @@ function LessonSelectMobile() {
       <Box padding={3}>
         <LessonPrefaceColumn />
       </Box>
-      <LessonStart isLargeScreen={false} />
+      <LessonStartMobile />
     </Box>
   )
 }

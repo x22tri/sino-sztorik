@@ -3,6 +3,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
+  Card,
   Divider,
   Typography,
   useTheme,
@@ -14,17 +15,12 @@ import {
   faEllipsisVertical,
 } from '@fortawesome/free-solid-svg-icons'
 import { MajorActionButton } from '../../shared/basic-components'
-import { Display } from '../../shared/utility-components'
+import { CHARACTER_AMOUNT_LABEL } from '../../shared/strings'
+import { AssembledLesson } from '../../shared/interfaces'
 
-export function LessonStart({ isLargeScreen }: { isLargeScreen: boolean }) {
-  return (
-    <Display if={isLargeScreen} else={<LessonStartMobile />}>
-      <LessonStartDesktop />
-    </Display>
-  )
-}
+export function LessonStartDesktop({ lesson }: { lesson: AssembledLesson }) {
+  const { title, preface, characters } = lesson
 
-export function LessonStartDesktop() {
   return (
     <Box
       flexDirection='column'
@@ -32,6 +28,7 @@ export function LessonStartDesktop() {
       sx={{ display: { xs: 'none', lg: 'flex' } }}
     >
       <LearnButton isLargeScreen />
+
       <Accordion elevation={0}>
         <AccordionSummary expandIcon={<FontAwesomeIcon icon={faChevronDown} />}>
           <Typography variant='button'>További lehetőségek</Typography>
@@ -40,7 +37,14 @@ export function LessonStartDesktop() {
           {/* To-Do: Add "Review" when applicable */}
         </AccordionDetails>
       </Accordion>
+
       <Divider />
+
+      <Typography marginX='auto' textAlign='center' variant='overline'>
+        {characters.length} {CHARACTER_AMOUNT_LABEL}
+      </Typography>
+
+      <CharacterPreviews {...{ characters }} />
     </Box>
   )
 }
@@ -93,5 +97,26 @@ function LearnButton({ isLargeScreen }: { isLargeScreen: boolean }) {
       {...{ text }}
       sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}
     />
+  )
+}
+
+function CharacterPreviews({ characters }: { characters: string[] }) {
+  return (
+    <Box display='flex' gap={2} justifyContent='center' flexWrap='wrap'>
+      {characters.map(char => (
+        <Card
+          key={char}
+          variant='outlined'
+          component='span'
+          sx={{
+            borderWidth: '2px',
+            p: 1,
+            typography: 'chineseNormal',
+          }}
+        >
+          {char}
+        </Card>
+      ))}
+    </Box>
   )
 }

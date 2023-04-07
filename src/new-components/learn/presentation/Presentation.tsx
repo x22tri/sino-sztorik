@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box'
-import { Display } from '../../shared/utility-components'
 import { useTheme } from '@mui/material'
 import { KeywordExplanation } from './KeywordExplanation'
+import { When } from 'react-if'
 
 export function Presentation({
   pinyin,
@@ -20,15 +20,15 @@ export function Presentation({
 
   return (
     <Box display='flex' flexDirection='column' alignItems='center' marginY={4}>
-      <Display if={pinyin}>
+      <When condition={pinyin}>
         <Box typography='presentation.pinyin'>{pinyin}</Box>
-      </Display>
+      </When>
 
       <Box typography='chineseHeading' marginBottom={1}>
         {charChinese}
       </Box>
 
-      <Display if={keyword}>
+      <When condition={keyword}>
         <Box
           typography='presentation.keyword'
           color={palette.primary.main}
@@ -36,15 +36,15 @@ export function Presentation({
         >
           {keyword}
 
-          <Display if={explanation}>
+          <When condition={explanation}>
             <KeywordExplanation explanation={explanation!} />
-          </Display>
+          </When>
         </Box>
-      </Display>
+      </When>
 
-      <Display if={primitiveMeaning}>
+      <When condition={primitiveMeaning}>
         <Box typography='presentation.primitive'>{primitiveMeaning}</Box>
-      </Display>
+      </When>
     </Box>
   )
 }

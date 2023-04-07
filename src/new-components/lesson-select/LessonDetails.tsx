@@ -11,9 +11,9 @@ import {
   REVIEW_BUTTON,
   CHARACTER_AMOUNT_LABEL,
 } from '../shared/strings'
-import { Display } from '../shared/utility-components'
 import { useSmallScreen } from '../shared/utility-functions'
 import { Stack, useTheme } from '@mui/material'
+import { When } from 'react-if'
 
 export default function LessonDetails({
   lesson,
@@ -65,9 +65,9 @@ function LearnReviewButtons({ isCurrentLesson }: { isCurrentLesson: boolean }) {
       maxWidth='360px'
       width='100%'
     >
-      <Display if={isCurrentLesson}>
+      <When condition={isCurrentLesson}>
         <MajorActionButton text={LEARN_BUTTON} />
-      </Display>
+      </When>
 
       <MinorActionButton text={REVIEW_BUTTON} />
     </Stack>

@@ -9,7 +9,7 @@ import { LessonStatuses } from '../shared/interfaces'
 import { useSmallScreen } from '../shared/utility-functions'
 import { useSwiperInstance } from '../shared/state'
 import 'swiper/css'
-import { Display } from '../shared/utility-components'
+import { If, Then, Else } from 'react-if'
 
 export default function LessonSelect() {
   const upcomingLessonNumber = LESSONS.find(({ tierStatuses }) =>
@@ -50,10 +50,15 @@ export default function LessonSelect() {
   }
 
   return isSmallScreen ? (
-    <Display if={areDetailsShown} else={<PreviewRow {...previewRowProps} />}>
-      <BackButton onClick={closeLessonDetails} text={LESSON_SELECT_TITLE} />
-      <LessonDetailsSwiper {...lessonDetailsSwiperProps} />
-    </Display>
+    <If condition={areDetailsShown}>
+      <Then>
+        <BackButton onClick={closeLessonDetails} text={LESSON_SELECT_TITLE} />
+        <LessonDetailsSwiper {...lessonDetailsSwiperProps} />
+      </Then>
+      <Else>
+        <PreviewRow {...previewRowProps} />
+      </Else>
+    </If>
   ) : (
     <Box display='flex' justifyContent='center' margin={1}>
       <LessonDetailsSwiper {...lessonDetailsSwiperProps} />
