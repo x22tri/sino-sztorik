@@ -53,7 +53,10 @@ export default function LessonSelectNew() {
       minHeight='100vh'
       position='relative'
     >
-      <LessonPicker {...{ mobileOpen, toggleDrawer }} />
+      <LessonPicker
+        {...lessonDetailsSwiperProps}
+        {...{ mobileOpen, toggleDrawer }}
+      />
 
       <Box
         marginLeft={isSmallScreen ? 0 : `${constants.drawerWidth}px`}

@@ -14,7 +14,7 @@ import {
 } from '@mui/material'
 import { TierStatusCircle } from '../../lesson-select/tier-status-circle/TierStatusCircle'
 import { LESSONS } from '../../shared/MOCK_LESSONS'
-import { useSmallScreen } from '../../shared/utility-functions'
+import { useOnChange, useSmallScreen } from '../../shared/utility-functions'
 import { Else, If, Then } from 'react-if'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -22,13 +22,27 @@ import {
   faGraduationCap,
 } from '@fortawesome/free-solid-svg-icons'
 import { LESSON_SELECT_TITLE } from '../../shared/strings'
+import { Dispatch, SetStateAction, useRef } from 'react'
+import { useSwiperInstance } from '../../shared/state'
+import { AssembledLesson } from '../../shared/interfaces'
+
+// const listMinWidth = 360
+// const listHeight = 480
+// const listItemHeight = 80
+// const listItemGap = 8
 
 export default function LessonPicker({
   mobileOpen,
   toggleDrawer,
+  lessons,
+  selectedLessonNumber,
+  setSelectedLessonNumber,
 }: {
   mobileOpen: boolean
   toggleDrawer: () => void
+  lessons: AssembledLesson[]
+  selectedLessonNumber: number
+  setSelectedLessonNumber: Dispatch<SetStateAction<number>>
 }) {
   const { constants, palette } = useTheme()
   const isSmallScreen = useSmallScreen()
@@ -48,7 +62,9 @@ export default function LessonPicker({
             },
           }}
         >
-          <LessonPickerContent />
+          <LessonPickerContent
+            {...{ lessons, selectedLessonNumber, setSelectedLessonNumber }}
+          />
         </Drawer>
       </Then>
 
@@ -63,23 +79,57 @@ export default function LessonPicker({
           width={constants.drawerWidth}
           sx={{ backgroundColor: palette.background.paper }}
         >
-          <LessonPickerContent />
+          <LessonPickerContent
+            {...{ lessons, selectedLessonNumber, setSelectedLessonNumber }}
+          />
         </Box>
       </Else>
     </If>
   )
 }
 
-function LessonPickerContent() {
+function LessonPickerContent({
+  lessons,
+  selectedLessonNumber,
+  setSelectedLessonNumber,
+}: {
+  lessons: AssembledLesson[]
+  selectedLessonNumber: number
+  setSelectedLessonNumber: Dispatch<SetStateAction<number>>
+}) {
   const { palette, typography } = useTheme()
-  const lessons = LESSONS
+
+  const listRef = useRef<HTMLUListElement>(null)
+
+  const { swiperInstance } = useSwiperInstance()
+
+  function selectLesson(lesson: number) {
+    swiperInstance?.slideTo(lesson - 1)
+    setSelectedLessonNumber(lesson)
+  }
+
+  function scrollToLesson(lesson: number | null): void {
+    if (lesson === null) {
+      return
+    }
+
+    // listRef.current?.scrollTo({
+    //   top:
+    //     (listItemHeight + listItemGap) * (lesson - 1) +
+    //     listItemHeight / 2 -
+    //     listHeight / 2,
+    //   behavior: 'smooth',
+    // })
+  }
+
+  useOnChange(selectedLessonNumber, () => scrollToLesson(selectedLessonNumber))
 
   return (
-    <List subheader={<LessonPickerTitle />}>
+    <List ref={listRef} subheader={<LessonPickerTitle />}>
       {lessons.map(({ lessonNumber, tierStatuses }) => (
         <ListItem disablePadding disableGutters key={lessonNumber}>
           <ListItemButton
-            // onClick={() => selectLesson(lessonNumber)}
+            onClick={() => selectLesson(lessonNumber)}
             sx={{
               '.MuiListItemText-multiline': {
                 display: 'flex',
