@@ -26,12 +26,12 @@ export function MajorActionButton<B extends ElementType>({
         border: '2px solid transparent',
         borderRadius: '0 8px',
         boxShadow: 'none',
+        display: 'flex',
+        flexDirection: 'column',
         '&:hover': {
           border: `2px solid ${palette.secondary.dark}`,
           boxShadow: 'none',
         },
-        display: 'flex',
-        flexDirection: 'column',
         ...restProps.sx,
       }}
     >

@@ -112,7 +112,7 @@ export function LessonStartMobile() {
       <Box margin='auto 0'>
         <LearnButton isLargeScreen={false} />
       </Box>
-      <Box marginLeft='auto'>
+      <Box margin='auto 0 auto auto'>
         <IconButton style={{ width: '48px' }}>
           <FontAwesomeIcon icon={faEllipsisVertical} />
         </IconButton>

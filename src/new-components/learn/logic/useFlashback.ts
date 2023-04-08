@@ -1,4 +1,4 @@
-import create from 'zustand'
+import { create } from 'zustand'
 import { Character } from '../../shared/interfaces'
 import { CHARS } from '../MOCK_CHARS'
 
