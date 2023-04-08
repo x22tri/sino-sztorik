@@ -17,6 +17,7 @@ import { faGraduationCap } from '@fortawesome/free-solid-svg-icons'
 import { LessonStatuses } from '../shared/interfaces'
 import 'swiper/css'
 import { LessonDetailsSwiper } from '../lesson-select/LessonDetailsSwiper'
+import { useLessonSelect } from '../lesson-select/logic/useLessonSelect'
 
 export default function LessonSelectNew() {
   const { constants, spacing } = useTheme()
@@ -35,6 +36,8 @@ export default function LessonSelectNew() {
   if (!upcomingLessonNumber) {
     throw new Error('Current lesson is undefined.')
   }
+
+  const { selected, select } = useLessonSelect()
 
   const [selectedLessonNumber, setSelectedLessonNumber] =
     useState(upcomingLessonNumber)
