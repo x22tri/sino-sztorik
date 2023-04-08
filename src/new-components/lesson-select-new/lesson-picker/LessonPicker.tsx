@@ -35,13 +35,13 @@ const listItemGap = 0
 
 export default function LessonPicker({
   mobileOpen,
-  toggleDrawer,
+  setMobileOpen,
   lessons,
   selectedLessonNumber,
   setSelectedLessonNumber,
 }: {
   mobileOpen: boolean
-  toggleDrawer: () => void
+  setMobileOpen: Dispatch<SetStateAction<boolean>>
   lessons: AssembledLesson[]
   selectedLessonNumber: number
   setSelectedLessonNumber: Dispatch<SetStateAction<number>>
@@ -56,7 +56,7 @@ export default function LessonPicker({
         <Drawer
           ModalProps={{ keepMounted: true }}
           open={mobileOpen}
-          onClose={toggleDrawer}
+          onClose={() => setMobileOpen(false)}
           variant='temporary'
           sx={{
             '& .MuiDrawer-paper': {
@@ -70,7 +70,12 @@ export default function LessonPicker({
       )}
     >
       <LessonPickerContent
-        {...{ lessons, selectedLessonNumber, setSelectedLessonNumber }}
+        {...{
+          lessons,
+          selectedLessonNumber,
+          setSelectedLessonNumber,
+          setMobileOpen,
+        }}
       />
     </Wrap>
   )
@@ -79,10 +84,12 @@ export default function LessonPicker({
 function LessonPickerContent({
   lessons,
   selectedLessonNumber,
+  setMobileOpen,
   setSelectedLessonNumber,
 }: {
   lessons: AssembledLesson[]
   selectedLessonNumber: number
+  setMobileOpen: Dispatch<SetStateAction<boolean>>
   setSelectedLessonNumber: Dispatch<SetStateAction<number>>
 }) {
   const { constants, palette, typography } = useTheme()
@@ -96,6 +103,7 @@ function LessonPickerContent({
   function selectLesson(lesson: number) {
     swiperInstance?.slideTo(lesson - 1)
     setSelectedLessonNumber(lesson)
+    setMobileOpen(false)
   }
 
   function scrollToLesson(lesson: number | null): void {
@@ -134,6 +142,17 @@ function LessonPickerContent({
           <ListItemButton
             onClick={() => selectLesson(lessonNumber)}
             sx={{
+              backgroundColor:
+                selectedLessonNumber === lessonNumber
+                  ? 'primary.light'
+                  : 'background.paper',
+              transition: `${constants.animationDuration}ms`,
+              '&:hover': {
+                backgroundColor:
+                  selectedLessonNumber === lessonNumber
+                    ? 'primary.lightHovered'
+                    : undefined,
+              },
               '.MuiListItemText-multiline': {
                 display: 'flex',
                 flexDirection: 'column',

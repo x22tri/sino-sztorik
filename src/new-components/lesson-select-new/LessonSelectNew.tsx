@@ -24,9 +24,9 @@ export default function LessonSelectNew() {
   const isSmallScreen = useSmallScreen()
   const isLargeScreen = useLargeScreen()
 
-  const toggleDrawer = () => {
-    setMobileOpen(!mobileOpen)
-  }
+  // const toggleDrawer = () => {
+  //   setMobileOpen(!mobileOpen)
+  // }
 
   const upcomingLessonNumber = LESSONS.find(({ tierStatuses }) =>
     tierStatuses.includes(LessonStatuses.UPCOMING)
@@ -56,7 +56,7 @@ export default function LessonSelectNew() {
     >
       <LessonPicker
         {...lessonDetailsSwiperProps}
-        {...{ mobileOpen, toggleDrawer }}
+        {...{ mobileOpen, setMobileOpen }}
       />
 
       <Box
@@ -80,7 +80,7 @@ export default function LessonSelectNew() {
         >
           <Toolbar disableGutters sx={{ px: 2 }}>
             <When condition={isSmallScreen}>
-              <IconButton onClick={toggleDrawer}>
+              <IconButton onClick={() => setMobileOpen(prev => !prev)}>
                 <FontAwesomeIcon icon={faGraduationCap} />
               </IconButton>
             </When>
