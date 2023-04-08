@@ -18,7 +18,7 @@ export default function LessonDetails({ lesson }: { lesson: AssembledLesson }) {
       boxSizing='border-box'
       margin={isSmallScreen ? 0 : 2}
       marginTop={isSmallScreen ? 1 : 2}
-      padding={isSmallScreen ? 1 : 3}
+      padding={3}
       sx={{
         backgroundColor: palette.background.paper,
         boxShadow: isSmallScreen

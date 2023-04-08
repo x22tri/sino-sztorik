@@ -26,15 +26,16 @@ import { useSmallScreen } from '../../shared/utility-functions'
 
 export function LessonStartDesktop({ lesson }: { lesson: AssembledLesson }) {
   const { characters } = lesson
-  const { palette } = useTheme()
+  const { spacing, palette } = useTheme()
 
   return (
     <Box
       display='flex'
       flexDirection='column'
       gap={2}
-      marginTop={2}
-      marginRight={2}
+      margin={2}
+      marginRight={4}
+      width={`calc(100% - ${spacing(2)})`} // marginRight - margin
     >
       <Stack
         borderRadius={2}
@@ -66,11 +67,13 @@ export function LessonStartDesktop({ lesson }: { lesson: AssembledLesson }) {
         </Accordion>
       </Stack>
 
-      <Typography marginX='auto' textAlign='center' variant='overline'>
-        {characters.length} {CHARACTER_AMOUNT_LABEL}
-      </Typography>
+      <Box display='flex' flexDirection='column'>
+        <Typography marginX='auto' textAlign='center' variant='overline'>
+          {characters.length} {CHARACTER_AMOUNT_LABEL}
+        </Typography>
 
-      <CharacterPreviews {...{ characters }} />
+        <CharacterPreviews {...{ characters }} />
+      </Box>
     </Box>
   )
 }
@@ -96,7 +99,7 @@ export function LessonStartMobile() {
           ? '100%'
           : `calc(100% - ${constants.drawerWidth}px - 32px)`
       }
-      zIndex={9000}
+      zIndex={100}
       sx={{
         backgroundColor: palette.common.white,
         borderTopLeftRadius: '8px',
@@ -129,20 +132,22 @@ function LearnButton({ isLargeScreen }: { isLargeScreen: boolean }) {
 }
 
 function CharacterPreviews({ characters }: { characters: string[] }) {
+  const charWidth = '42px'
+
   return (
     <Box
-      display='flex'
-      flexDirection='row'
-      gap={2}
-      justifyContent='center'
-      flexWrap='wrap'
+      display='grid'
+      gridTemplateColumns={`repeat(auto-fit, minmax(min(100%/4, max(${charWidth}, 100%/6)), 1fr))`}
+      columnGap={1}
+      rowGap={2}
     >
       {characters.map(char => (
         <Card
           key={char}
           component='span'
           sx={{
-            borderWidth: '2px',
+            maxWidth: charWidth,
+            margin: 'auto',
             p: 1,
             typography: 'chineseNormal',
             boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
