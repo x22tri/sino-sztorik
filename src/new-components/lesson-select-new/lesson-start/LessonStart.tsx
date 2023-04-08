@@ -79,7 +79,7 @@ export function LessonStartDesktop({ lesson }: { lesson: AssembledLesson }) {
 }
 
 export function LessonStartMobile() {
-  const { constants, palette } = useTheme()
+  const { constants, palette, spacing } = useTheme()
 
   const isSmallScreen = useSmallScreen()
 
@@ -97,13 +97,13 @@ export function LessonStartMobile() {
       width={
         isSmallScreen
           ? '100%'
-          : `calc(100% - ${constants.drawerWidth}px - 32px)`
+          : `calc(100% - ${constants.drawerWidth}px - ${spacing(4)})`
       }
       zIndex={100}
       sx={{
         backgroundColor: palette.common.white,
-        borderTopLeftRadius: '8px',
-        borderTopRightRadius: '8px',
+        borderTopLeftRadius: spacing(1),
+        borderTopRightRadius: spacing(1),
         boxShadow:
           'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
       }}
@@ -133,11 +133,13 @@ function LearnButton({ isLargeScreen }: { isLargeScreen: boolean }) {
 
 function CharacterPreviews({ characters }: { characters: string[] }) {
   const charWidth = '42px'
+  const minNumberOfColumns = 4
+  const maxNumberOfColumns = 6
 
   return (
     <Box
       display='grid'
-      gridTemplateColumns={`repeat(auto-fit, minmax(min(100%/4, max(${charWidth}, 100%/6)), 1fr))`}
+      gridTemplateColumns={`repeat(auto-fit, minmax(min(100%/${minNumberOfColumns}, max(${charWidth}, 100%/${maxNumberOfColumns})), 1fr))`}
       columnGap={1}
       rowGap={2}
     >

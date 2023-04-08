@@ -3,7 +3,7 @@ import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import { useState } from 'react'
 import { IconButton, useTheme } from '@mui/material'
-import LessonPicker from './lesson-picker-column/LessonPicker'
+import LessonPicker from './lesson-picker/LessonPicker'
 import {
   LessonStartDesktop,
   LessonStartMobile,
@@ -18,7 +18,7 @@ import 'swiper/css'
 import { LessonDetailsSwiper } from '../lesson-select/LessonDetailsSwiper'
 
 export default function LessonSelectNew() {
-  const { constants } = useTheme()
+  const { constants, spacing } = useTheme()
   const [mobileOpen, setMobileOpen] = useState(false)
   const isSmallScreen = useSmallScreen()
   const isLargeScreen = useLargeScreen()
@@ -67,8 +67,8 @@ export default function LessonSelectNew() {
           position='relative'
           sx={{
             mx: isSmallScreen ? 0 : 2,
-            borderBottomLeftRadius: isSmallScreen ? 0 : '8px',
-            borderBottomRightRadius: isSmallScreen ? 0 : '8px',
+            borderBottomLeftRadius: isSmallScreen ? 0 : spacing(1),
+            borderBottomRightRadius: isSmallScreen ? 0 : spacing(1),
             boxShadow:
               'rgba(0, 0, 0, 0.05) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
             width: 'auto',

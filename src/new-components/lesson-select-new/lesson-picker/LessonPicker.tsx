@@ -42,9 +42,10 @@ export default function LessonPicker({
             },
           }}
         >
-          <SelectionDrawerContent />
+          <LessonPickerContent />
         </Drawer>
       </Then>
+
       <Else>
         <Box
           bottom={0}
@@ -56,14 +57,14 @@ export default function LessonPicker({
           width={constants.drawerWidth}
           sx={{ backgroundColor: palette.background.paper }}
         >
-          <SelectionDrawerContent />
+          <LessonPickerContent />
         </Box>
       </Else>
     </If>
   )
 }
 
-function SelectionDrawerContent() {
+function LessonPickerContent() {
   const { constants, palette, typography } = useTheme()
   const lessons = LESSONS
 
