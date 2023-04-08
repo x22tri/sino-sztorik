@@ -28,9 +28,8 @@ import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import { useSwiperInstance } from '../../shared/state'
 import { AssembledLesson } from '../../shared/interfaces'
 import { constants } from 'buffer'
+import { Wrap } from '../../shared/utility-components'
 
-// const listMinWidth = 360
-// const listHeight = 480
 const listItemHeight = 80
 const listItemGap = 0
 
@@ -47,12 +46,13 @@ export default function LessonPicker({
   selectedLessonNumber: number
   setSelectedLessonNumber: Dispatch<SetStateAction<number>>
 }) {
-  const { constants, palette } = useTheme()
+  const { constants } = useTheme()
   const isSmallScreen = useSmallScreen()
 
   return (
-    <If condition={isSmallScreen}>
-      <Then>
+    <Wrap
+      if={isSmallScreen}
+      with={children => (
         <Drawer
           ModalProps={{ keepMounted: true }}
           open={mobileOpen}
@@ -65,18 +65,14 @@ export default function LessonPicker({
             },
           }}
         >
-          <LessonPickerContent
-            {...{ lessons, selectedLessonNumber, setSelectedLessonNumber }}
-          />
+          {children}
         </Drawer>
-      </Then>
-
-      <Else>
-        <LessonPickerContent
-          {...{ lessons, selectedLessonNumber, setSelectedLessonNumber }}
-        />
-      </Else>
-    </If>
+      )}
+    >
+      <LessonPickerContent
+        {...{ lessons, selectedLessonNumber, setSelectedLessonNumber }}
+      />
+    </Wrap>
   )
 }
 
