@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Box } from '@mui/material'
 import { PreviewRow } from './preview-row/PreviewRow'
-import { LessonDetailsSwiper } from '../lesson-select-new/lesson-preface/LessonDetailsSwiper'
+import { LessonPrefaceSwiper } from '../lesson-select-new/lesson-preface/LessonPrefaceSwiper'
 import { LESSONS } from '../shared/MOCK_LESSONS'
 import { BackButton } from '../shared/basic-components'
 import { LESSON_SELECT_TITLE } from '../shared/strings'
@@ -50,7 +50,7 @@ export default function LessonSelect() {
     <If condition={areDetailsShown}>
       <Then>
         <BackButton onClick={closeLessonDetails} text={LESSON_SELECT_TITLE} />
-        <LessonDetailsSwiper />
+        <LessonPrefaceSwiper />
       </Then>
       <Else>
         <PreviewRow {...previewRowProps} />
@@ -58,7 +58,7 @@ export default function LessonSelect() {
     </If>
   ) : (
     <Box display='flex' justifyContent='center' margin={1}>
-      <LessonDetailsSwiper />
+      <LessonPrefaceSwiper />
       <PreviewRow {...previewRowProps} />
     </Box>
   )

@@ -6,11 +6,17 @@ import { useSmallScreen } from '../shared/hooks/useSmallScreen'
 import { LessonStatuses } from '../shared/interfaces'
 import { useLessonSelect } from '../lesson-select/logic/useLessonSelect'
 import { LessonSelectAppbar } from './lesson-select-appbar/LessonSelectAppbar'
-import { LessonSelectMain } from './LessonSelectMain'
+import { LessonPrefaceSwiper } from './lesson-preface/LessonPrefaceSwiper'
+import { LessonStart } from './lesson-start/LessonStart'
+import { useLargeScreen } from '../shared/hooks/useLargeScreen'
 import 'swiper/css'
+
+const stylesDesktop = { display: 'grid', gridTemplateColumns: '3fr 1fr', justifyItems: 'center' }
+const stylesMobile = { display: 'flex', flexDirection: 'column' as const, justifyContent: 'space-between' }
 
 export default function LessonSelect() {
   const isSmallScreen = useSmallScreen()
+  const isLargeScreen = useLargeScreen()
   const { lessons, selected, select } = useLessonSelect()
   const { constants } = useTheme()
 
@@ -36,7 +42,14 @@ export default function LessonSelect() {
       >
         <LessonSelectAppbar />
 
-        <LessonSelectMain />
+        <Box
+          component='main'
+          height={`calc(100% - ${constants.toolbarHeight})`}
+          {...(isLargeScreen ? stylesDesktop : stylesMobile)}
+        >
+          <LessonPrefaceSwiper />
+          <LessonStart {...{ isLargeScreen }} lesson={lessons[selected - 1]} />
+        </Box>
       </Box>
     </Box>
   )
