@@ -17,7 +17,7 @@ export function LessonStartMobile({ lesson }: { lesson: AssembledLesson }) {
       display='grid'
       gap={2}
       gridTemplateColumns='1fr 1fr 1fr'
-      height={constants.lessonStartBottomHeight}
+      height={constants.lessonStartMobileHeight}
       marginX={isSmallScreen ? 0 : 2}
       paddingY={1}
       paddingX={2}

@@ -54,28 +54,15 @@ export function MajorActionButton<B extends ElementType>({
 
 export function MinorActionButton({ text }: { text: string }) {
   return (
-    <Button
-      variant='outlined'
-      color='primary'
-      sx={{ borderWidth: '2px', '&:hover': { borderWidth: '2px' } }}
-    >
+    <Button variant='outlined' color='primary' sx={{ borderWidth: '2px', '&:hover': { borderWidth: '2px' } }}>
       {text}
     </Button>
   )
 }
 
-export function BackButton({
-  onClick,
-  text,
-}: {
-  onClick: (event: MouseEvent<HTMLElement>) => void
-  text: string
-}) {
+export function BackButton({ onClick, text }: { onClick: (event: MouseEvent<HTMLElement>) => void; text: string }) {
   return (
-    <LightenOnHoverButton
-      {...{ onClick }}
-      startIcon={<WestIcon fontSize='small' />}
-    >
+    <LightenOnHoverButton {...{ onClick }} startIcon={<WestIcon fontSize='small' />}>
       <Typography component='span' textTransform='none'>
         {text}
       </Typography>

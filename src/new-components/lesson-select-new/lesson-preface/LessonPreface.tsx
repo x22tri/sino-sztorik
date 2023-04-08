@@ -9,7 +9,7 @@ export default function LessonPreface({ lesson }: { lesson: AssembledLesson }) {
   const isLargeScreen = useLargeScreen()
   const { constants, palette, spacing } = useTheme()
   const { title, preface } = lesson
-  const height = `calc(100% - ${spacing(isSmallScreen ? 2 : 4)} ${isLargeScreen ? '' : `- ${constants.lessonStartBottomHeight}`})`
+  const height = `calc(100% - ${spacing(isSmallScreen ? 2 : 4)} ${isLargeScreen ? '' : `- ${constants.lessonStartMobileHeight}`})`
 
   return (
     <Stack
@@ -21,7 +21,8 @@ export default function LessonPreface({ lesson }: { lesson: AssembledLesson }) {
       sx={{
         backgroundColor: palette.background.paper,
         boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-        height,
+        maxHeight: isLargeScreen ? height : undefined,
+        height: isLargeScreen ? undefined : height,
         overflowY: 'auto',
       }}
     >
