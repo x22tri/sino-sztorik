@@ -7,7 +7,7 @@ import {
   USER_SETTINGS_ARIA_LABEL,
   USER_SETTINGS_TOOLTIP,
 } from '../../shared/strings'
-import { useSmallScreen } from '../../shared/utility-functions'
+import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 
 export default function ProfileButton({
   onClick,

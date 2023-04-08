@@ -3,7 +3,7 @@ import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
-import { useSmallScreen } from '../shared/utility-functions'
+import { useSmallScreen } from '../shared/hooks/useSmallScreen'
 import { useFlashback } from './logic/useFlashback'
 import { Character } from '../shared/interfaces'
 

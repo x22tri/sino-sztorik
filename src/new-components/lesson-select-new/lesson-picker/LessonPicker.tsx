@@ -14,7 +14,9 @@ import {
 } from '@mui/material'
 import { TierStatusCircle } from '../../lesson-select/tier-status-circle/TierStatusCircle'
 import { LESSONS } from '../../shared/MOCK_LESSONS'
-import { useOnChange, useSmallScreen } from '../../shared/utility-functions'
+import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
+import { useWindowSize } from '../../shared/hooks/useWindowSize'
+import { useOnChange } from '../../shared/hooks/useOnChange'
 import { Else, If, Then } from 'react-if'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -28,8 +30,8 @@ import { AssembledLesson } from '../../shared/interfaces'
 
 // const listMinWidth = 360
 // const listHeight = 480
-// const listItemHeight = 80
-// const listItemGap = 8
+const listItemHeight = 80
+const listItemGap = 0
 
 export default function LessonPicker({
   mobileOpen,
@@ -101,6 +103,8 @@ function LessonPickerContent({
 
   const listRef = useRef<HTMLUListElement>(null)
 
+  const { height } = useWindowSize()
+
   const { swiperInstance } = useSwiperInstance()
 
   function selectLesson(lesson: number) {
@@ -109,7 +113,7 @@ function LessonPickerContent({
   }
 
   function scrollToLesson(lesson: number | null): void {
-    if (lesson === null) {
+    if (lesson === null || height === undefined) {
       return
     }
 
@@ -117,9 +121,17 @@ function LessonPickerContent({
     //   top:
     //     (listItemHeight + listItemGap) * (lesson - 1) +
     //     listItemHeight / 2 -
-    //     listHeight / 2,
+    //     height / 2,
     //   behavior: 'smooth',
     // })
+
+    // listRef.current?.scrollTo({ top: 0 })
+
+    setTimeout(function () {
+      listRef.current?.scrollIntoView()
+    }, 2)
+
+    console.log(listRef.current)
   }
 
   useOnChange(selectedLessonNumber, () => scrollToLesson(selectedLessonNumber))

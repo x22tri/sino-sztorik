@@ -1,6 +1,7 @@
 import Typography from '@mui/material/Typography'
 import { AssembledLesson } from '../shared/interfaces'
-import { useLargeScreen, useSmallScreen } from '../shared/utility-functions'
+import { useLargeScreen } from '../shared/hooks/useLargeScreen'
+import { useSmallScreen } from '../shared/hooks/useSmallScreen'
 import { Stack, useTheme } from '@mui/material'
 
 export default function LessonDetails({ lesson }: { lesson: AssembledLesson }) {

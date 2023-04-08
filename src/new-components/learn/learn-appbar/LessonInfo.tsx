@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box'
 import { LessonInfoMobile } from './LessonInfoMobile'
-import { useSmallScreen } from '../../shared/utility-functions'
+import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { ReturnFromFlashbackDesktop } from './ReturnFromFlashbackDesktop'
 import { useFlashback } from '../logic/useFlashback'
 import { ReturnFromFlashbackMobile } from './ReturnFromFlashbackMobile'

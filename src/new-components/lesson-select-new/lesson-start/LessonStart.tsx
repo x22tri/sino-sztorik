@@ -22,7 +22,7 @@ import {
   LESSON_START_MORE_OPTIONS,
 } from '../../shared/strings'
 import { AssembledLesson } from '../../shared/interfaces'
-import { useSmallScreen } from '../../shared/utility-functions'
+import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 
 export function LessonStartDesktop({ lesson }: { lesson: AssembledLesson }) {
   const { characters } = lesson

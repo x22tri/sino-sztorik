@@ -10,10 +10,8 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClose } from '@fortawesome/free-solid-svg-icons'
 import { LessonInfo } from './LessonInfo'
-import {
-  useNavButtonStyling,
-  useSmallScreen,
-} from '../../shared/utility-functions'
+import { useNavButtonStyling } from '../../shared/utility-functions'
+import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { FLASHBACK_MODE } from '../../shared/strings'
 import { useFlashback } from '../logic/useFlashback'
 import { useSwiper } from 'swiper/react'

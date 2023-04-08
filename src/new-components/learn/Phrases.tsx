@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import Box from '@mui/material/Box'
 import { Typography } from '@mui/material'
 import { ConstituentList } from './ConstituentList'
-import { useSmallScreen } from '../shared/utility-functions'
+import { useSmallScreen } from '../shared/hooks/useSmallScreen'
 import { Character } from '../shared/interfaces'
 
 const MOCK_PHRASES = [

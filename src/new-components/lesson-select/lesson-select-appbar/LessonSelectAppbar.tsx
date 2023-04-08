@@ -9,7 +9,7 @@ import LogoTitle from './LogoTitle'
 import MobileNavigationMenu from './MobileNavigationMenu'
 import DesktopNavigationMenu from './DesktopNavigationMenu'
 import ProfileMenu from './ProfileMenu'
-import { useSmallScreen } from '../../shared/utility-functions'
+import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { When } from 'react-if'
 
 export function LessonSelectAppbar() {

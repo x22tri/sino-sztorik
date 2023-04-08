@@ -10,7 +10,8 @@ import {
 import { AssembledLesson } from '../../shared/interfaces'
 import { TierStatusCircle } from '../tier-status-circle/TierStatusCircle'
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
-import { useOnChange, useSmallScreen } from '../../shared/utility-functions'
+import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
+import { useOnChange } from '../../shared/hooks/useOnChange'
 import { useSwiperInstance } from '../../shared/state'
 
 const listMinWidth = 360
