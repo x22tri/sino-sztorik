@@ -24,9 +24,10 @@ import {
   faGraduationCap,
 } from '@fortawesome/free-solid-svg-icons'
 import { LESSON_SELECT_TITLE } from '../../shared/strings'
-import { Dispatch, SetStateAction, useRef } from 'react'
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import { useSwiperInstance } from '../../shared/state'
 import { AssembledLesson } from '../../shared/interfaces'
+import { constants } from 'buffer'
 
 // const listMinWidth = 360
 // const listHeight = 480
@@ -71,20 +72,9 @@ export default function LessonPicker({
       </Then>
 
       <Else>
-        <Box
-          bottom={0}
-          top={0}
-          left={0}
-          right={0}
-          position='absolute'
-          overflow='auto'
-          width={constants.drawerWidth}
-          sx={{ backgroundColor: palette.background.paper }}
-        >
-          <LessonPickerContent
-            {...{ lessons, selectedLessonNumber, setSelectedLessonNumber }}
-          />
-        </Box>
+        <LessonPickerContent
+          {...{ lessons, selectedLessonNumber, setSelectedLessonNumber }}
+        />
       </Else>
     </If>
   )
@@ -99,7 +89,7 @@ function LessonPickerContent({
   selectedLessonNumber: number
   setSelectedLessonNumber: Dispatch<SetStateAction<number>>
 }) {
-  const { palette, typography } = useTheme()
+  const { constants, palette, typography } = useTheme()
 
   const listRef = useRef<HTMLUListElement>(null)
 
@@ -117,27 +107,32 @@ function LessonPickerContent({
       return
     }
 
-    // listRef.current?.scrollTo({
-    //   top:
-    //     (listItemHeight + listItemGap) * (lesson - 1) +
-    //     listItemHeight / 2 -
-    //     height / 2,
-    //   behavior: 'smooth',
-    // })
-
-    // listRef.current?.scrollTo({ top: 0 })
-
-    setTimeout(function () {
-      listRef.current?.scrollIntoView()
-    }, 2)
-
-    console.log(listRef.current)
+    listRef.current?.scrollTo({
+      top:
+        (listItemHeight + listItemGap) * (lesson - 1) +
+        listItemHeight / 2 -
+        height / 2,
+      behavior: 'smooth',
+    })
   }
 
   useOnChange(selectedLessonNumber, () => scrollToLesson(selectedLessonNumber))
 
   return (
-    <List ref={listRef} subheader={<LessonPickerTitle />}>
+    <List
+      ref={listRef}
+      subheader={<LessonPickerTitle />}
+      sx={{
+        bottom: 0,
+        top: 0,
+        left: 0,
+        right: 0,
+        position: 'absolute',
+        overflow: 'auto',
+        width: constants.drawerWidth,
+        backgroundColor: palette.background.paper,
+      }}
+    >
       {lessons.map(({ lessonNumber, tierStatuses }) => (
         <ListItem disablePadding disableGutters key={lessonNumber}>
           <ListItemButton
