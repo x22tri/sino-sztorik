@@ -10,14 +10,16 @@ import { scrollToTop, useKeydown, useSmallScreen } from './utility-functions'
 import { useSwiperInstance } from './state'
 import { If, Then, Else } from 'react-if'
 
-export function MajorActionButton<B extends ElementType>(
-  props: ButtonProps<B, { component?: B; text: string; secondaryText?: string }>
-) {
+export function MajorActionButton<B extends ElementType>({
+  text,
+  secondaryText,
+  ...restProps
+}: ButtonProps<B, { text: string; secondaryText?: string }>) {
   const { palette } = useTheme()
 
   return (
     <Button
-      {...props}
+      {...restProps}
       variant='contained'
       color='secondary'
       sx={{
@@ -30,19 +32,19 @@ export function MajorActionButton<B extends ElementType>(
         },
         display: 'flex',
         flexDirection: 'column',
-        ...props.sx,
+        ...restProps.sx,
       }}
     >
-      <If condition={props.secondaryText}>
+      <If condition={secondaryText}>
         <Then>
           <Typography lineHeight={1} variant='button'>
-            {props.text}
+            {text}
           </Typography>
           <Typography fontSize='75%' lineHeight={1} variant='caption'>
-            {props.secondaryText}
+            {secondaryText}
           </Typography>
         </Then>
-        <Else>{props.text}</Else>
+        <Else>{text}</Else>
       </If>
     </Button>
   )

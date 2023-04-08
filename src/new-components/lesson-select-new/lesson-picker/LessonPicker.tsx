@@ -71,32 +71,11 @@ export default function LessonPicker({
 }
 
 function LessonPickerContent() {
-  const { palette, spacing, typography } = useTheme()
+  const { palette, typography } = useTheme()
   const lessons = LESSONS
 
   return (
-    <List
-      subheader={
-        <Accordion elevation={0}>
-          <AccordionSummary
-            expandIcon={<FontAwesomeIcon icon={faChevronDown} />}
-            sx={{ px: 2, py: 1 }}
-          >
-            <Typography variant='button' color={palette.grey[700]}>
-              <FontAwesomeIcon
-                icon={faGraduationCap}
-                size='lg'
-                style={{ marginRight: spacing(1) }}
-              />
-              {LESSON_SELECT_TITLE}
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            {/* To-Do: Add "Character Finder" etc. when applicable */}
-          </AccordionDetails>
-        </Accordion>
-      }
-    >
+    <List subheader={<LessonPickerTitle />}>
       {lessons.map(({ lessonNumber, tierStatuses }) => (
         <ListItem disablePadding disableGutters key={lessonNumber}>
           <ListItemButton
@@ -129,5 +108,30 @@ function LessonPickerContent() {
         </ListItem>
       ))}
     </List>
+  )
+}
+
+function LessonPickerTitle() {
+  const { palette, spacing } = useTheme()
+
+  return (
+    <Accordion elevation={0}>
+      <AccordionSummary
+        expandIcon={<FontAwesomeIcon icon={faChevronDown} />}
+        sx={{ px: 2, py: 1 }}
+      >
+        <Typography variant='button' color={palette.grey[700]}>
+          <FontAwesomeIcon
+            icon={faGraduationCap}
+            size='lg'
+            style={{ marginRight: spacing(1) }}
+          />
+          {LESSON_SELECT_TITLE}
+        </Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        {/* To-Do: Add "Character Finder" etc. when applicable */}
+      </AccordionDetails>
+    </Accordion>
   )
 }
