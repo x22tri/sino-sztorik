@@ -1,14 +1,6 @@
-import {
-  Box,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  useTheme,
-} from '@mui/material'
+import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme } from '@mui/material'
 import { AssembledLesson } from '../../shared/interfaces'
-import { TierStatusCircle } from '../tier-status-circle/TierStatusCircle'
+import { TierStatusCircle } from '../../lesson-select-new/tier-status-circle/TierStatusCircle'
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { useOnChange } from '../../shared/hooks/useOnChange'
@@ -66,10 +58,7 @@ export function PreviewRow({
     }
 
     listRef.current?.scrollTo({
-      top:
-        (listItemHeight + listItemGap) * (lesson - 1) +
-        listItemHeight / 2 -
-        listHeight / 2,
+      top: (listItemHeight + listItemGap) * (lesson - 1) + listItemHeight / 2 - listHeight / 2,
       behavior: 'smooth',
     })
   }
@@ -113,20 +102,12 @@ ${canScrollDown ? `rgba(0,0,0,0) 90%, ${palette.background.default} 100%` : ''}
         }}
       >
         {lessons.map(({ lessonNumber, tierStatuses }) => (
-          <ListItem
-            disablePadding
-            disableGutters
-            key={lessonNumber}
-            sx={{ mt: lessonNumber === 1 ? 0 : 1 }}
-          >
+          <ListItem disablePadding disableGutters key={lessonNumber} sx={{ mt: lessonNumber === 1 ? 0 : 1 }}>
             <ListItemButton
               disableGutters
               onClick={() => selectLesson(lessonNumber)}
               sx={{
-                backgroundColor:
-                  selectedLessonNumber === lessonNumber && !isSmallScreen
-                    ? 'primary.light'
-                    : 'background.paper',
+                backgroundColor: selectedLessonNumber === lessonNumber && !isSmallScreen ? 'primary.light' : 'background.paper',
                 border: `1px solid ${palette.grey[200]}`,
                 borderRadius: 2,
                 transition: `${constants.animationDuration}ms`,
@@ -137,10 +118,7 @@ ${canScrollDown ? `rgba(0,0,0,0) 90%, ${palette.background.default} 100%` : ''}
                   flexDirection: 'column-reverse',
                 },
                 '&:hover': {
-                  backgroundColor:
-                    selectedLessonNumber === lessonNumber && !isSmallScreen
-                      ? 'primary.lightHovered'
-                      : undefined,
+                  backgroundColor: selectedLessonNumber === lessonNumber && !isSmallScreen ? 'primary.lightHovered' : undefined,
                 },
               }}
             >

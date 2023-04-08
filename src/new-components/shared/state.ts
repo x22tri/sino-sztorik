@@ -7,7 +7,6 @@ interface SwiperState {
 }
 
 export const useSwiperInstance = create<SwiperState>(set => ({
-  setSwiperInstance: (swiperInstance: Swiper | undefined) =>
-    set({ swiperInstance }),
+  setSwiperInstance: (swiperInstance: Swiper | undefined) => set({ swiperInstance }),
   swiperInstance: undefined,
 }))

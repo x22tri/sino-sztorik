@@ -1,5 +1,5 @@
 import { StateCreator, create } from 'zustand'
-import { AssembledLesson, LessonStatuses } from '../../shared/interfaces'
+import { AssembledLesson } from '../../shared/interfaces'
 import { LESSONS } from '../../shared/MOCK_LESSONS'
 
 type Slice<A, B> = StateCreator<A & B, [], [], A>

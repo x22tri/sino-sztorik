@@ -9,15 +9,9 @@ export function LessonDetailsSwiper() {
   return (
     // initialSlide is zero-indexed.
     <LessonSwiper
-      onActiveIndexChange={({ activeIndex }) => {
-        select(activeIndex + 1)
-      }}
       initialSlide={selected! - 1}
-      style={{
-        height: '100%',
-        overflowY: 'auto',
-        width: '100%',
-      }}
+      onActiveIndexChange={({ activeIndex }) => select(activeIndex + 1)}
+      style={{ height: '100%', overflowY: 'auto', width: '100%' }}
     >
       {lessons.map(({ lessonNumber }) => (
         <SwiperSlide key={lessonNumber}>
