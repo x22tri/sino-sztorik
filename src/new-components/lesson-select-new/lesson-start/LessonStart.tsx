@@ -5,11 +5,11 @@ import {
   Box,
   Card,
   Divider,
+  IconButton,
   Stack,
   Typography,
   useTheme,
 } from '@mui/material'
-import { IconButton } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChevronDown,
