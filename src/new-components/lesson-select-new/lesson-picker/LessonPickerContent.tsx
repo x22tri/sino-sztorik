@@ -1,12 +1,14 @@
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme } from '@mui/material'
-import { TierStatusCircle } from '../tier-status-circle/TierStatusCircle'
 import { useWindowSize } from '../../shared/hooks/useWindowSize'
 import { useOnChange } from '../../shared/hooks/useOnChange'
 import { useRef } from 'react'
 import { useSwiperInstance } from '../../shared/state'
 import { useLessonSelect } from '../../lesson-select/logic/useLessonSelect'
 import { LessonPickerTitle } from './LessonPickerTitle'
-import { listItemHeight, listItemGap } from './LessonPicker'
+import { TierStatusCircle } from '../tier-status-circle/TierStatusCircle'
+
+const itemHeight = 64
+const gap = 16
 
 export function LessonPickerContent() {
   const listRef = useRef<HTMLUListElement>(null)
@@ -26,10 +28,7 @@ export function LessonPickerContent() {
       return
     }
 
-    listRef.current?.scrollTo({
-      top: (listItemHeight + listItemGap) * (lesson - 1) + listItemHeight / 2 - height / 2,
-      behavior: 'smooth',
-    })
+    listRef.current?.scrollTo({ top: (itemHeight + gap) * lesson + itemHeight / 2 - height / 2, behavior: 'smooth' })
   }
 
   useOnChange(selected, () => scrollToLesson(selected!))
@@ -50,11 +49,13 @@ export function LessonPickerContent() {
       }}
     >
       {lessons.map(({ lessonNumber, tierStatuses }) => (
-        <ListItem disablePadding disableGutters key={lessonNumber}>
+        <ListItem key={lessonNumber}>
           <ListItemButton
             onClick={() => selectLesson(lessonNumber)}
             sx={{
               backgroundColor: selected === lessonNumber ? 'primary.light' : 'background.paper',
+              borderRadius: 3,
+              p: 0,
               transition: `${constants.animationDuration}ms`,
               '&:hover': { backgroundColor: selected === lessonNumber ? 'primary.lightHovered' : undefined },
               '.MuiListItemText-multiline': { display: 'flex', flexDirection: 'column' },

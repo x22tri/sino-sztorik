@@ -1,7 +1,7 @@
 import LessonDetails from './LessonDetails'
-import { LessonSwiper } from '../shared/basic-components'
+import { LessonSwiper } from '../../shared/basic-components'
 import { SwiperSlide } from 'swiper/react'
-import { useLessonSelect } from './logic/useLessonSelect'
+import { useLessonSelect } from '../../lesson-select/logic/useLessonSelect'
 
 export function LessonDetailsSwiper() {
   const { lessons, select, selected } = useLessonSelect()

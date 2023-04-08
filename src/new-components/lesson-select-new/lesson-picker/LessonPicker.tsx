@@ -4,9 +4,6 @@ import { Wrap } from '../../shared/utility-components'
 import { useLessonSelect } from '../../lesson-select/logic/useLessonSelect'
 import { LessonPickerContent } from './LessonPickerContent'
 
-export const listItemHeight = 80
-export const listItemGap = 0
-
 export default function LessonPicker() {
   const isSmallScreen = useSmallScreen()
   const { isOpen, toggle } = useLessonSelect()

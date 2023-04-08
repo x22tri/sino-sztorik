@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Box } from '@mui/material'
 import { PreviewRow } from './preview-row/PreviewRow'
-import { LessonDetailsSwiper } from './LessonDetailsSwiper'
+import { LessonDetailsSwiper } from '../lesson-select-new/lesson-preface/LessonDetailsSwiper'
 import { LESSONS } from '../shared/MOCK_LESSONS'
 import { BackButton } from '../shared/basic-components'
 import { LESSON_SELECT_TITLE } from '../shared/strings'
@@ -12,9 +12,7 @@ import 'swiper/css'
 import { If, Then, Else } from 'react-if'
 
 export default function LessonSelect() {
-  const upcomingLessonNumber = LESSONS.find(({ tierStatuses }) =>
-    tierStatuses.includes(LessonStatuses.UPCOMING)
-  )?.lessonNumber
+  const upcomingLessonNumber = LESSONS.find(({ tierStatuses }) => tierStatuses.includes(LessonStatuses.UPCOMING))?.lessonNumber
 
   if (!upcomingLessonNumber) {
     throw new Error('Current lesson is undefined.')
@@ -24,8 +22,7 @@ export default function LessonSelect() {
 
   const isSmallScreen = useSmallScreen()
 
-  const [selectedLessonNumber, setSelectedLessonNumber] =
-    useState(upcomingLessonNumber)
+  const [selectedLessonNumber, setSelectedLessonNumber] = useState(upcomingLessonNumber)
 
   const [areDetailsShown, showDetailsOnMobile] = useState(false)
 
