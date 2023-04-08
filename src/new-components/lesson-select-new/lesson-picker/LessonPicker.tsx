@@ -2,7 +2,6 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Box,
   Drawer,
   List,
   ListItem,
@@ -13,42 +12,24 @@ import {
   useTheme,
 } from '@mui/material'
 import { TierStatusCircle } from '../../lesson-select/tier-status-circle/TierStatusCircle'
-import { LESSONS } from '../../shared/MOCK_LESSONS'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { useWindowSize } from '../../shared/hooks/useWindowSize'
 import { useOnChange } from '../../shared/hooks/useOnChange'
-import { Else, If, Then } from 'react-if'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faChevronDown,
-  faGraduationCap,
-} from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
 import { LESSON_SELECT_TITLE } from '../../shared/strings'
-import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { useSwiperInstance } from '../../shared/state'
-import { AssembledLesson } from '../../shared/interfaces'
-import { constants } from 'buffer'
 import { Wrap } from '../../shared/utility-components'
 import { useLessonSelect } from '../../lesson-select/logic/useLessonSelect'
 
 const listItemHeight = 80
 const listItemGap = 0
 
-export default function LessonPicker({}: // mobileOpen,
-// setMobileOpen,
-// lessons,
-// selectedLessonNumber,
-// setSelectedLessonNumber,
-{
-  // mobileOpen: boolean
-  // setMobileOpen: Dispatch<SetStateAction<boolean>>
-  // lessons: AssembledLesson[]
-  // selectedLessonNumber: number
-  // setSelectedLessonNumber: (lesson: number) => void
-}) {
-  const { constants } = useTheme()
+export default function LessonPicker() {
   const isSmallScreen = useSmallScreen()
-  const { isOpen, lessons, select, selected, toggle } = useLessonSelect()
+  const { isOpen, toggle } = useLessonSelect()
+  const { constants } = useTheme()
 
   return (
     <Wrap
@@ -70,42 +51,20 @@ export default function LessonPicker({}: // mobileOpen,
         </Drawer>
       )}
     >
-      <LessonPickerContent
-      // {...{
-      //   lessons,
-      //   selectedLessonNumber,
-      //   setSelectedLessonNumber,
-      //   setMobileOpen,
-      // }}
-      />
+      <LessonPickerContent />
     </Wrap>
   )
 }
 
-function LessonPickerContent({}: // lessons,
-// selectedLessonNumber,
-// setMobileOpen,
-// setSelectedLessonNumber,
-{
-  // lessons: AssembledLesson[]
-  // selectedLessonNumber: number
-  // setMobileOpen: Dispatch<SetStateAction<boolean>>
-  // setSelectedLessonNumber: (lesson: number) => void
-}) {
-  const { constants, palette, typography } = useTheme()
-
+function LessonPickerContent() {
   const listRef = useRef<HTMLUListElement>(null)
-
   const { lessons, select, selected, toggle } = useLessonSelect()
-
-  const { height } = useWindowSize()
-
   const { swiperInstance } = useSwiperInstance()
+  const { constants, palette, typography } = useTheme()
+  const { height } = useWindowSize()
 
   function selectLesson(lesson: number) {
     swiperInstance?.slideTo(lesson - 1)
-    // setSelectedLessonNumber(lesson)
-    // setMobileOpen(false)
     select(lesson)
     toggle()
   }
@@ -116,10 +75,7 @@ function LessonPickerContent({}: // lessons,
     }
 
     listRef.current?.scrollTo({
-      top:
-        (listItemHeight + listItemGap) * (lesson - 1) +
-        listItemHeight / 2 -
-        height / 2,
+      top: (listItemHeight + listItemGap) * (lesson - 1) + listItemHeight / 2 - height / 2,
       behavior: 'smooth',
     })
   }
@@ -146,16 +102,10 @@ function LessonPickerContent({}: // lessons,
           <ListItemButton
             onClick={() => selectLesson(lessonNumber)}
             sx={{
-              backgroundColor:
-                selected === lessonNumber
-                  ? 'primary.light'
-                  : 'background.paper',
+              backgroundColor: selected === lessonNumber ? 'primary.light' : 'background.paper',
               transition: `${constants.animationDuration}ms`,
               '&:hover': {
-                backgroundColor:
-                  selected === lessonNumber
-                    ? 'primary.lightHovered'
-                    : undefined,
+                backgroundColor: selected === lessonNumber ? 'primary.lightHovered' : undefined,
               },
               '.MuiListItemText-multiline': {
                 display: 'flex',
@@ -192,22 +142,13 @@ function LessonPickerTitle() {
 
   return (
     <Accordion elevation={0}>
-      <AccordionSummary
-        expandIcon={<FontAwesomeIcon icon={faChevronDown} />}
-        sx={{ px: 2, py: 1 }}
-      >
+      <AccordionSummary expandIcon={<FontAwesomeIcon icon={faChevronDown} />} sx={{ px: 2, py: 1 }}>
         <Typography variant='button' color={palette.grey[700]}>
-          <FontAwesomeIcon
-            icon={faGraduationCap}
-            size='lg'
-            style={{ marginRight: spacing(1) }}
-          />
+          <FontAwesomeIcon icon={faGraduationCap} size='lg' style={{ marginRight: spacing(1) }} />
           {LESSON_SELECT_TITLE}
         </Typography>
       </AccordionSummary>
-      <AccordionDetails>
-        {/* To-Do: Add "Character Finder" etc. when applicable */}
-      </AccordionDetails>
+      <AccordionDetails>{/* To-Do: Add "Character Finder" etc. when applicable */}</AccordionDetails>
     </Accordion>
   )
 }

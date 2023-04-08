@@ -1,19 +1,11 @@
 import LessonDetails from './LessonDetails'
-import { AssembledLesson } from '../shared/interfaces'
 import { LessonSwiper } from '../shared/basic-components'
 import { SwiperSlide } from 'swiper/react'
-import { Dispatch, SetStateAction } from 'react'
 import { useLessonSelect } from './logic/useLessonSelect'
 
-export function LessonDetailsSwiper({}: // lessons,
-// selectedLessonNumber,
-// setSelectedLessonNumber,
-{
-  // lessons: AssembledLesson[]
-  // selectedLessonNumber: number
-  // setSelectedLessonNumber: (lesson: number) => void
-}) {
+export function LessonDetailsSwiper() {
   const { lessons, select, selected } = useLessonSelect()
+
   return (
     // initialSlide is zero-indexed.
     <LessonSwiper

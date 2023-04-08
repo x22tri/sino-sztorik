@@ -1,14 +1,10 @@
 import Box from '@mui/material/Box'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { IconButton, useTheme } from '@mui/material'
 import LessonPicker from './lesson-picker/LessonPicker'
-import {
-  LessonStartDesktop,
-  LessonStartMobile,
-} from './lesson-start/LessonStart'
-import { LESSONS } from '../shared/MOCK_LESSONS'
+import { LessonStartDesktop, LessonStartMobile } from './lesson-start/LessonStart'
 import { If, Then, Else, When } from 'react-if'
 import { useLargeScreen } from '../shared/hooks/useLargeScreen'
 import { useSmallScreen } from '../shared/hooks/useSmallScreen'
@@ -20,34 +16,15 @@ import { LessonDetailsSwiper } from '../lesson-select/LessonDetailsSwiper'
 import { useLessonSelect } from '../lesson-select/logic/useLessonSelect'
 
 export default function LessonSelectNew() {
-  const { constants, spacing } = useTheme()
-  const [mobileOpen, setMobileOpen] = useState(false)
   const isSmallScreen = useSmallScreen()
   const isLargeScreen = useLargeScreen()
-
-  // const toggleDrawer = () => {
-  //   setMobileOpen(!mobileOpen)
-  // }
-
   const { lessons, selected, select, toggle } = useLessonSelect()
+  const { constants, spacing } = useTheme()
 
   useEffect(() => {
-    const upcomingLessonNumber = lessons.find(({ tierStatuses }) =>
-      tierStatuses.includes(LessonStatuses.UPCOMING)
-    )?.lessonNumber
-
-    if (!upcomingLessonNumber) {
-      throw new Error('Current lesson is undefined.')
-    }
-
+    const upcomingLessonNumber = lessons.find(({ tierStatuses }) => tierStatuses.includes(LessonStatuses.UPCOMING))?.lessonNumber
     select(upcomingLessonNumber)
   }, [])
-
-  // const lessonDetailsSwiperProps = {
-  //   lessons: LESSONS,
-  //   selectedLessonNumber: selected!,
-  //   setSelectedLessonNumber: select,
-  // }
 
   return !selected ? null : (
     <Box
@@ -58,16 +35,11 @@ export default function LessonSelectNew() {
       minHeight='100vh'
       position='relative'
     >
-      <LessonPicker
-      // {...lessonDetailsSwiperProps}
-      // {...{ mobileOpen, setMobileOpen }}
-      />
+      <LessonPicker />
 
       <Box
         marginLeft={isSmallScreen ? 0 : `${constants.drawerWidth}px`}
-        width={
-          isSmallScreen ? '100%' : `calc(100% - ${constants.drawerWidth}px)`
-        }
+        width={isSmallScreen ? '100%' : `calc(100% - ${constants.drawerWidth}px)`}
       >
         <AppBar
           color='inherit'
@@ -77,8 +49,7 @@ export default function LessonSelectNew() {
             mx: isSmallScreen ? 0 : 2,
             borderBottomLeftRadius: isSmallScreen ? 0 : spacing(1),
             borderBottomRightRadius: isSmallScreen ? 0 : spacing(1),
-            boxShadow:
-              'rgba(0, 0, 0, 0.05) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+            boxShadow: 'rgba(0, 0, 0, 0.05) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
             width: 'auto',
           }}
         >
@@ -91,31 +62,16 @@ export default function LessonSelectNew() {
           </Toolbar>
         </AppBar>
 
-        <Box
-          component='main'
-          height={`calc(100% - ${constants.toolbarHeight})`}
-          width='100%'
-        >
+        <Box component='main' height={`calc(100% - ${constants.toolbarHeight})`} width='100%'>
           <If condition={isLargeScreen}>
             <Then>
-              <Box
-                display='grid'
-                gridTemplateColumns='3fr 1fr'
-                height='100%'
-                justifyItems='center'
-              >
+              <Box display='grid' gridTemplateColumns='3fr 1fr' height='100%' justifyItems='center'>
                 <LessonDetailsSwiper />
-                <LessonStartDesktop lesson={LESSONS[1]} />
+                <LessonStartDesktop lesson={lessons[selected - 1]} />
               </Box>
             </Then>
             <Else>
-              <Box
-                display='flex'
-                flexDirection='column'
-                justifyContent='space-between'
-                height='100%'
-                width='100%'
-              >
+              <Box display='flex' flexDirection='column' height='100%' justifyContent='space-between' width='100%'>
                 <LessonDetailsSwiper />
                 <LessonStartMobile />
               </Box>
