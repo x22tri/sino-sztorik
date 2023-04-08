@@ -74,7 +74,7 @@ export default function LessonSelectNew() {
             width: 'auto',
           }}
         >
-          <Toolbar disableGutters sx={{ px: 1 }}>
+          <Toolbar disableGutters sx={{ px: 2 }}>
             <When condition={isSmallScreen}>
               <IconButton onClick={toggleDrawer}>
                 <FontAwesomeIcon icon={faGraduationCap} />

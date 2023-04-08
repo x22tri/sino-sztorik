@@ -1,4 +1,7 @@
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Box,
   Drawer,
   List,
@@ -6,7 +9,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  ListSubheader,
+  Typography,
   useTheme,
 } from '@mui/material'
 import { TierStatusCircle } from '../../lesson-select/tier-status-circle/TierStatusCircle'
@@ -14,8 +17,11 @@ import { LESSONS } from '../../shared/MOCK_LESSONS'
 import { useSmallScreen } from '../../shared/utility-functions'
 import { Else, If, Then } from 'react-if'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGraduationCap } from '@fortawesome/free-solid-svg-icons'
-import { LESSONS_SUBHEADING } from '../../shared/strings'
+import {
+  faChevronDown,
+  faGraduationCap,
+} from '@fortawesome/free-solid-svg-icons'
+import { LESSON_SELECT_TITLE } from '../../shared/strings'
 
 export default function LessonPicker({
   mobileOpen,
@@ -65,61 +71,63 @@ export default function LessonPicker({
 }
 
 function LessonPickerContent() {
-  const { constants, palette, typography } = useTheme()
+  const { palette, spacing, typography } = useTheme()
   const lessons = LESSONS
 
   return (
-    <Box>
-      <List
-        subheader={
-          <ListSubheader
-            component='div'
-            disableSticky
+    <List
+      subheader={
+        <Accordion elevation={0}>
+          <AccordionSummary
+            expandIcon={<FontAwesomeIcon icon={faChevronDown} />}
+            sx={{ px: 2, py: 1 }}
+          >
+            <Typography variant='button' color={palette.grey[700]}>
+              <FontAwesomeIcon
+                icon={faGraduationCap}
+                size='lg'
+                style={{ marginRight: spacing(1) }}
+              />
+              {LESSON_SELECT_TITLE}
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            {/* To-Do: Add "Character Finder" etc. when applicable */}
+          </AccordionDetails>
+        </Accordion>
+      }
+    >
+      {lessons.map(({ lessonNumber, tierStatuses }) => (
+        <ListItem disablePadding disableGutters key={lessonNumber}>
+          <ListItemButton
+            // onClick={() => selectLesson(lessonNumber)}
             sx={{
-              alignItems: 'center',
-              boxSizing: 'content-box',
-              display: 'flex',
-              height: constants.toolbarHeight,
-              gap: 1,
-              ml: 1.5,
+              '.MuiListItemText-multiline': {
+                display: 'flex',
+                flexDirection: 'column',
+              },
             }}
           >
-            <FontAwesomeIcon icon={faGraduationCap} size='lg' />
-            {LESSONS_SUBHEADING}
-          </ListSubheader>
-        }
-      >
-        {lessons.map(({ lessonNumber, tierStatuses }) => (
-          <ListItem disablePadding disableGutters key={lessonNumber}>
-            <ListItemButton
+            <ListItemIcon>
+              <TierStatusCircle {...{ lessonNumber, tierStatuses }} />
+            </ListItemIcon>
+            <ListItemText
+              primary='Lecke címe'
+              secondary='11 karakter'
               sx={{
-                '.MuiListItemText-multiline': {
-                  display: 'flex',
-                  flexDirection: 'column',
+                '.MuiListItemText-primary': {
+                  ...typography.titleSubtitle.subtitle,
+                  color: palette.text.secondary,
+                },
+                '.MuiListItemText-secondary': {
+                  ...typography.titleSubtitle.title,
+                  color: palette.text.disabled,
                 },
               }}
-            >
-              <ListItemIcon>
-                <TierStatusCircle {...{ lessonNumber, tierStatuses }} />
-              </ListItemIcon>
-              <ListItemText
-                primary='Lecke címe'
-                secondary='11 karakter'
-                sx={{
-                  '.MuiListItemText-primary': {
-                    ...typography.titleSubtitle.subtitle,
-                    color: palette.text.secondary,
-                  },
-                  '.MuiListItemText-secondary': {
-                    ...typography.titleSubtitle.title,
-                    color: palette.text.disabled,
-                  },
-                }}
-              />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
+            />
+          </ListItemButton>
+        </ListItem>
+      ))}
+    </List>
   )
 }
