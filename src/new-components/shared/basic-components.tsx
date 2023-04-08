@@ -1,4 +1,4 @@
-import { ElementType, MouseEvent, ReactNode } from 'react'
+import { ElementType, MouseEvent } from 'react'
 import { useTheme } from '@mui/material'
 import Button, { ButtonProps } from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
