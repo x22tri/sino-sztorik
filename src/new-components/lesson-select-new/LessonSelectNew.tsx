@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { IconButton, useTheme } from '@mui/material'
 import LessonPicker from './lesson-picker/LessonPicker'
 import {
@@ -29,26 +29,27 @@ export default function LessonSelectNew() {
   //   setMobileOpen(!mobileOpen)
   // }
 
-  const upcomingLessonNumber = LESSONS.find(({ tierStatuses }) =>
-    tierStatuses.includes(LessonStatuses.UPCOMING)
-  )?.lessonNumber
+  const { lessons, selected, select, toggle } = useLessonSelect()
 
-  if (!upcomingLessonNumber) {
-    throw new Error('Current lesson is undefined.')
-  }
+  useEffect(() => {
+    const upcomingLessonNumber = lessons.find(({ tierStatuses }) =>
+      tierStatuses.includes(LessonStatuses.UPCOMING)
+    )?.lessonNumber
 
-  const { selected, select } = useLessonSelect()
+    if (!upcomingLessonNumber) {
+      throw new Error('Current lesson is undefined.')
+    }
 
-  const [selectedLessonNumber, setSelectedLessonNumber] =
-    useState(upcomingLessonNumber)
+    select(upcomingLessonNumber)
+  }, [])
 
-  const lessonDetailsSwiperProps = {
-    lessons: LESSONS,
-    selectedLessonNumber: selectedLessonNumber!,
-    setSelectedLessonNumber,
-  }
+  // const lessonDetailsSwiperProps = {
+  //   lessons: LESSONS,
+  //   selectedLessonNumber: selected!,
+  //   setSelectedLessonNumber: select,
+  // }
 
-  return (
+  return !selected ? null : (
     <Box
       display='flex'
       justifyContent='center'
@@ -58,8 +59,8 @@ export default function LessonSelectNew() {
       position='relative'
     >
       <LessonPicker
-        {...lessonDetailsSwiperProps}
-        {...{ mobileOpen, setMobileOpen }}
+      // {...lessonDetailsSwiperProps}
+      // {...{ mobileOpen, setMobileOpen }}
       />
 
       <Box
@@ -83,7 +84,7 @@ export default function LessonSelectNew() {
         >
           <Toolbar disableGutters sx={{ px: 2 }}>
             <When condition={isSmallScreen}>
-              <IconButton onClick={() => setMobileOpen(prev => !prev)}>
+              <IconButton onClick={toggle}>
                 <FontAwesomeIcon icon={faGraduationCap} />
               </IconButton>
             </When>
@@ -103,7 +104,7 @@ export default function LessonSelectNew() {
                 height='100%'
                 justifyItems='center'
               >
-                <LessonDetailsSwiper {...lessonDetailsSwiperProps} />
+                <LessonDetailsSwiper />
                 <LessonStartDesktop lesson={LESSONS[1]} />
               </Box>
             </Then>
@@ -115,7 +116,7 @@ export default function LessonSelectNew() {
                 height='100%'
                 width='100%'
               >
-                <LessonDetailsSwiper {...lessonDetailsSwiperProps} />
+                <LessonDetailsSwiper />
                 <LessonStartMobile />
               </Box>
             </Else>

@@ -29,25 +29,26 @@ import { useSwiperInstance } from '../../shared/state'
 import { AssembledLesson } from '../../shared/interfaces'
 import { constants } from 'buffer'
 import { Wrap } from '../../shared/utility-components'
+import { useLessonSelect } from '../../lesson-select/logic/useLessonSelect'
 
 const listItemHeight = 80
 const listItemGap = 0
 
-export default function LessonPicker({
-  mobileOpen,
-  setMobileOpen,
-  lessons,
-  selectedLessonNumber,
-  setSelectedLessonNumber,
-}: {
-  mobileOpen: boolean
-  setMobileOpen: Dispatch<SetStateAction<boolean>>
-  lessons: AssembledLesson[]
-  selectedLessonNumber: number
-  setSelectedLessonNumber: Dispatch<SetStateAction<number>>
+export default function LessonPicker({}: // mobileOpen,
+// setMobileOpen,
+// lessons,
+// selectedLessonNumber,
+// setSelectedLessonNumber,
+{
+  // mobileOpen: boolean
+  // setMobileOpen: Dispatch<SetStateAction<boolean>>
+  // lessons: AssembledLesson[]
+  // selectedLessonNumber: number
+  // setSelectedLessonNumber: (lesson: number) => void
 }) {
   const { constants } = useTheme()
   const isSmallScreen = useSmallScreen()
+  const { isOpen, lessons, select, selected, toggle } = useLessonSelect()
 
   return (
     <Wrap
@@ -55,8 +56,8 @@ export default function LessonPicker({
       with={children => (
         <Drawer
           ModalProps={{ keepMounted: true }}
-          open={mobileOpen}
-          onClose={() => setMobileOpen(false)}
+          open={isOpen}
+          onClose={toggle}
           variant='temporary'
           sx={{
             '& .MuiDrawer-paper': {
@@ -70,31 +71,32 @@ export default function LessonPicker({
       )}
     >
       <LessonPickerContent
-        {...{
-          lessons,
-          selectedLessonNumber,
-          setSelectedLessonNumber,
-          setMobileOpen,
-        }}
+      // {...{
+      //   lessons,
+      //   selectedLessonNumber,
+      //   setSelectedLessonNumber,
+      //   setMobileOpen,
+      // }}
       />
     </Wrap>
   )
 }
 
-function LessonPickerContent({
-  lessons,
-  selectedLessonNumber,
-  setMobileOpen,
-  setSelectedLessonNumber,
-}: {
-  lessons: AssembledLesson[]
-  selectedLessonNumber: number
-  setMobileOpen: Dispatch<SetStateAction<boolean>>
-  setSelectedLessonNumber: Dispatch<SetStateAction<number>>
+function LessonPickerContent({}: // lessons,
+// selectedLessonNumber,
+// setMobileOpen,
+// setSelectedLessonNumber,
+{
+  // lessons: AssembledLesson[]
+  // selectedLessonNumber: number
+  // setMobileOpen: Dispatch<SetStateAction<boolean>>
+  // setSelectedLessonNumber: (lesson: number) => void
 }) {
   const { constants, palette, typography } = useTheme()
 
   const listRef = useRef<HTMLUListElement>(null)
+
+  const { lessons, select, selected, toggle } = useLessonSelect()
 
   const { height } = useWindowSize()
 
@@ -102,8 +104,10 @@ function LessonPickerContent({
 
   function selectLesson(lesson: number) {
     swiperInstance?.slideTo(lesson - 1)
-    setSelectedLessonNumber(lesson)
-    setMobileOpen(false)
+    // setSelectedLessonNumber(lesson)
+    // setMobileOpen(false)
+    select(lesson)
+    toggle()
   }
 
   function scrollToLesson(lesson: number | null): void {
@@ -120,7 +124,7 @@ function LessonPickerContent({
     })
   }
 
-  useOnChange(selectedLessonNumber, () => scrollToLesson(selectedLessonNumber))
+  useOnChange(selected, () => scrollToLesson(selected!))
 
   return (
     <List
@@ -143,13 +147,13 @@ function LessonPickerContent({
             onClick={() => selectLesson(lessonNumber)}
             sx={{
               backgroundColor:
-                selectedLessonNumber === lessonNumber
+                selected === lessonNumber
                   ? 'primary.light'
                   : 'background.paper',
               transition: `${constants.animationDuration}ms`,
               '&:hover': {
                 backgroundColor:
-                  selectedLessonNumber === lessonNumber
+                  selected === lessonNumber
                     ? 'primary.lightHovered'
                     : undefined,
               },

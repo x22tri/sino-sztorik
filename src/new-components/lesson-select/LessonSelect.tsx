@@ -53,7 +53,7 @@ export default function LessonSelect() {
     <If condition={areDetailsShown}>
       <Then>
         <BackButton onClick={closeLessonDetails} text={LESSON_SELECT_TITLE} />
-        <LessonDetailsSwiper {...lessonDetailsSwiperProps} />
+        <LessonDetailsSwiper />
       </Then>
       <Else>
         <PreviewRow {...previewRowProps} />
@@ -61,7 +61,7 @@ export default function LessonSelect() {
     </If>
   ) : (
     <Box display='flex' justifyContent='center' margin={1}>
-      <LessonDetailsSwiper {...lessonDetailsSwiperProps} />
+      <LessonDetailsSwiper />
       <PreviewRow {...previewRowProps} />
     </Box>
   )
