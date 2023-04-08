@@ -4,13 +4,17 @@ import { useLargeScreen, useSmallScreen } from '../shared/utility-functions'
 import { Stack, useTheme } from '@mui/material'
 
 export default function LessonDetails({ lesson }: { lesson: AssembledLesson }) {
-  const { constants, palette } = useTheme()
+  const { constants, palette, spacing } = useTheme()
 
   const { title, preface } = lesson
 
   const isSmallScreen = useSmallScreen()
 
   const isLargeScreen = useLargeScreen()
+
+  const height = `calc(100% 
+    - ${spacing(isSmallScreen ? 2 : 4)} 
+    - ${isLargeScreen ? '0px' : constants.lessonStartBottomHeight})`
 
   return (
     <Stack
@@ -24,11 +28,7 @@ export default function LessonDetails({ lesson }: { lesson: AssembledLesson }) {
         boxShadow: isSmallScreen
           ? 'rgba(0, 0, 0, 0.1) 0px 20px 15px -15px'
           : 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-        height: isSmallScreen
-          ? `calc(100% - ${constants.lessonStartBottomHeight} - 16px)`
-          : !isLargeScreen
-          ? `calc(100% - ${constants.lessonStartBottomHeight} - 36px)`
-          : 'calc(100% - 36px)',
+        height,
         overflowY: 'auto',
       }}
     >
@@ -36,7 +36,7 @@ export default function LessonDetails({ lesson }: { lesson: AssembledLesson }) {
         {title}
       </Typography>
 
-      <Typography component='p' variant='body1' marginY={3}>
+      <Typography component='p' variant='body1'>
         {preface}
       </Typography>
     </Stack>

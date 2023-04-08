@@ -7,7 +7,6 @@ import {
   ListItemIcon,
   ListItemText,
   ListSubheader,
-  Toolbar,
   useTheme,
 } from '@mui/material'
 import { TierStatusCircle } from '../../lesson-select/tier-status-circle/TierStatusCircle'
@@ -52,11 +51,7 @@ export default function LessonPicker({
           top={0}
           left={0}
           right={0}
-          flexShrink={1}
           position='absolute'
-          // maxHeight='100vh'
-          // height='100%'
-          // borderRight={`1px solid ${palette.grey[300]}`}
           overflow='auto'
           width={constants.drawerWidth}
           sx={{ backgroundColor: palette.background.paper }}
