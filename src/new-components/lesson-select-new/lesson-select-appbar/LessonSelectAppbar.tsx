@@ -6,7 +6,7 @@ import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { useLessonSelect } from '../logic/useLessonSelect'
 import LogoTitle from './LogoTitle'
 import ProfileMenu from './TopNav'
-import ToolbarButton from './ToolbarButton'
+import ToolbarButton from '../../shared/components/ToolbarButton'
 import { LESSON_SELECT_TITLE } from '../../shared/strings'
 
 export function LessonSelectAppbar() {

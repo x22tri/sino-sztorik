@@ -2,7 +2,7 @@ import { MouseEvent, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Chip } from '@mui/material'
 import { ChipType } from '../../shared/interfaces'
-import { LearnPopover } from '../../shared-components/LearnPopover'
+import { LearnPopover } from '../../shared/components/LearnPopover'
 
 export default function InfoChip({ chip }: { chip: ChipType }) {
   const { explanation, icon, id, label } = chip

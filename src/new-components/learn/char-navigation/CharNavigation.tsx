@@ -1,10 +1,7 @@
-import {
-  faChevronLeft,
-  faChevronRight,
-} from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Box from '@mui/material/Box'
-import { LightenOnHoverButton } from '../../shared-components/LightenOnHoverButton'
+import { LightenOnHoverButton } from '../../shared/components/LightenOnHoverButton'
 import { useSwiper } from 'swiper/react'
 import {
   CHAR_NAVIGATION_PREVIOUS_CHARACTER,
@@ -15,13 +12,7 @@ import { Typography } from '@mui/material'
 import { useFlashback } from '../logic/useFlashback'
 import { Else, If, Then, When } from 'react-if'
 
-export function CharNavigation({
-  prevChar,
-  nextChar,
-}: {
-  prevChar: string | null
-  nextChar: string | null
-}) {
+export function CharNavigation({ prevChar, nextChar }: { prevChar: string | null; nextChar: string | null }) {
   const swiper = useSwiper()
 
   const { flashback } = useFlashback()
@@ -35,9 +26,7 @@ export function CharNavigation({
               color='neutral'
               onClick={() => swiper.slidePrev()}
               size='small'
-              startIcon={
-                <FontAwesomeIcon icon={faChevronLeft} transform='shrink-4' />
-              }
+              startIcon={<FontAwesomeIcon icon={faChevronLeft} transform='shrink-4' />}
               sx={{ mr: 'auto' }}
             >
               {CHAR_NAVIGATION_PREVIOUS_CHARACTER}
@@ -46,9 +35,7 @@ export function CharNavigation({
 
           <When condition={!!nextChar}>
             <LightenOnHoverButton
-              endIcon={
-                <FontAwesomeIcon icon={faChevronRight} transform='shrink-4' />
-              }
+              endIcon={<FontAwesomeIcon icon={faChevronRight} transform='shrink-4' />}
               onClick={() => swiper.slideNext()}
               size='small'
               sx={{ ml: 'auto' }}

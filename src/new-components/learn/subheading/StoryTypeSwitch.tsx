@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileLines, faVideo } from '@fortawesome/free-solid-svg-icons'
-import { LightenOnHoverButton } from '../../shared-components/LightenOnHoverButton'
+import { LightenOnHoverButton } from '../../shared/components/LightenOnHoverButton'
 
 export function StoryTypeSwitch() {
   const storyTypeDictionary = {
@@ -16,11 +16,7 @@ export function StoryTypeSwitch() {
   const { icon, label } = storyTypeDictionary[storyType]
 
   return (
-    <LightenOnHoverButton
-      color='neutral'
-      size='small'
-      startIcon={<FontAwesomeIcon {...{ icon }} />}
-    >
+    <LightenOnHoverButton color='neutral' size='small' startIcon={<FontAwesomeIcon {...{ icon }} />}>
       {label}
     </LightenOnHoverButton>
   )

@@ -2,7 +2,7 @@ import Box from '@mui/material/Box'
 import { useTheme } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
-import { LearnPopover } from '../../shared-components/LearnPopover'
+import { LearnPopover } from '../../shared/components/LearnPopover'
 import { MouseEvent, TouchEvent, useState } from 'react'
 
 export function KeywordExplanation({ explanation }: { explanation: string }) {
@@ -10,9 +10,7 @@ export function KeywordExplanation({ explanation }: { explanation: string }) {
 
   const [anchorEl, setAnchorEl] = useState<HTMLSpanElement | null>(null)
 
-  function openPopover(
-    event: MouseEvent<HTMLSpanElement> | TouchEvent<HTMLSpanElement>
-  ) {
+  function openPopover(event: MouseEvent<HTMLSpanElement> | TouchEvent<HTMLSpanElement>) {
     setAnchorEl(event.currentTarget)
   }
 
@@ -39,11 +37,7 @@ export function KeywordExplanation({ explanation }: { explanation: string }) {
         onMouseEnter={openPopover}
         onMouseLeave={closePopover}
       >
-        <FontAwesomeIcon
-          size='xs'
-          transform='shrink-7'
-          icon={faQuestionCircle}
-        />
+        <FontAwesomeIcon size='xs' transform='shrink-7' icon={faQuestionCircle} />
       </Box>
 
       <LearnPopover hover text={explanation} {...{ anchorEl }} />

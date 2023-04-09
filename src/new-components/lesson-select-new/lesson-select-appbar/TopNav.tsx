@@ -4,7 +4,7 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { TOP_NAV_ARIA_LABEL, TOP_NAV_TOOLTIP, TOP_NAV_ACCOUNT, TOP_NAV_LOGOUT } from '../../shared/strings'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
-import ToolbarButton from './ToolbarButton'
+import ToolbarButton from '../../shared/components/ToolbarButton'
 
 const settings = [TOP_NAV_ACCOUNT, TOP_NAV_LOGOUT]
 
