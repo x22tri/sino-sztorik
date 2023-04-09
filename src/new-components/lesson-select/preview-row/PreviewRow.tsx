@@ -1,6 +1,6 @@
 import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme } from '@mui/material'
 import { AssembledLesson } from '../../shared/interfaces'
-import { TierStatusCircle } from '../../lesson-select-new/tier-status-circle/TierStatusCircle'
+import { TierStatusCircle } from '../../lesson-select-new/lesson-picker/TierStatusCircle'
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { useOnChange } from '../../shared/hooks/useOnChange'
@@ -123,7 +123,7 @@ ${canScrollDown ? `rgba(0,0,0,0) 90%, ${palette.background.default} 100%` : ''}
               }}
             >
               <ListItemIcon>
-                <TierStatusCircle {...{ lessonNumber, tierStatuses }} />
+                <TierStatusCircle isActive={false} {...{ lessonNumber, tierStatuses }} />
               </ListItemIcon>
               <ListItemText
                 primary='Lecke címe'

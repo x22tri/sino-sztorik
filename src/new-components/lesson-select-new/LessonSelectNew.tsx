@@ -4,7 +4,7 @@ import { useTheme } from '@mui/material'
 import LessonPicker from './lesson-picker/LessonPicker'
 import { useSmallScreen } from '../shared/hooks/useSmallScreen'
 import { LessonStatuses } from '../shared/interfaces'
-import { useLessonSelect } from '../lesson-select/logic/useLessonSelect'
+import { useLessonSelect } from './logic/useLessonSelect'
 import { LessonSelectAppbar } from './lesson-select-appbar/LessonSelectAppbar'
 import { LessonPrefaceSwiper } from './lesson-preface/LessonPrefaceSwiper'
 import { LessonStart } from './lesson-start/LessonStart'
@@ -17,12 +17,13 @@ const stylesMobile = { display: 'flex', flexDirection: 'column' as const, justif
 export default function LessonSelect() {
   const isSmallScreen = useSmallScreen()
   const isLargeScreen = useLargeScreen()
-  const { lessons, selected, select } = useLessonSelect()
+  const { lessons, selected, select, setUpcoming } = useLessonSelect()
   const { constants } = useTheme()
 
   useEffect(() => {
-    const upcomingLessonNumber = lessons.find(({ tierStatuses }) => tierStatuses.includes(LessonStatuses.UPCOMING))?.lessonNumber
-    select(upcomingLessonNumber)
+    const upcoming = lessons.find(({ tierStatuses }) => tierStatuses.includes(LessonStatuses.UPCOMING))?.lessonNumber
+    setUpcoming(upcoming)
+    select(upcoming)
   }, [lessons, select])
 
   return !selected ? null : (
@@ -30,7 +31,7 @@ export default function LessonSelect() {
       display='flex'
       justifyContent='center'
       margin='auto'
-      maxWidth={constants.lessonSelectPageMaxWidth}
+      maxWidth={constants.lessonSelectMaxWidth}
       minHeight='100vh'
       position='relative'
     >

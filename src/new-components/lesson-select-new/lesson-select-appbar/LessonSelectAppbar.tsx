@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AppBar, Toolbar, IconButton, useTheme } from '@mui/material'
 import { When } from 'react-if'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
-import { useLessonSelect } from '../../lesson-select/logic/useLessonSelect'
+import { useLessonSelect } from '../logic/useLessonSelect'
 
 export function LessonSelectAppbar() {
   const isSmallScreen = useSmallScreen()

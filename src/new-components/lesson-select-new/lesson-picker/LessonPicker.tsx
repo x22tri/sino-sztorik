@@ -1,7 +1,7 @@
 import { Drawer, useTheme } from '@mui/material'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { Wrap } from '../../shared/utility-components'
-import { useLessonSelect } from '../../lesson-select/logic/useLessonSelect'
+import { useLessonSelect } from '../logic/useLessonSelect'
 import { LessonPickerContent } from './LessonPickerContent'
 
 export default function LessonPicker() {

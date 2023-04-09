@@ -17,7 +17,7 @@ export default function LessonPreface({ lesson }: { lesson: AssembledLesson }) {
       boxSizing='border-box'
       margin={isSmallScreen ? 0 : 2}
       marginTop={isSmallScreen ? 1 : 2}
-      padding={3}
+      padding={4}
       sx={{
         backgroundColor: palette.background.paper,
         boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
@@ -26,7 +26,7 @@ export default function LessonPreface({ lesson }: { lesson: AssembledLesson }) {
         overflowY: 'auto',
       }}
     >
-      <Typography component='header' margin={1} textAlign='center' variant='h4'>
+      <Typography component='header' textAlign='center' variant='h4'>
         {title}
       </Typography>
 

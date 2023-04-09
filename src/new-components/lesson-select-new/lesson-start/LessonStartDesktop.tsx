@@ -1,7 +1,7 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Stack, Typography, useTheme } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
-import { CHARACTER_AMOUNT_LABEL, LESSON_START_MORE_OPTIONS } from '../../shared/strings'
+import { CHARACTERS_IN_LESSON_LABEL, CHARACTER_AMOUNT_LABEL, LESSON_START_MORE_OPTIONS } from '../../shared/strings'
 import { AssembledLesson } from '../../shared/interfaces'
 import { CharacterPreviews } from './CharacterPreviews'
 import { LearnButton } from './LearnButton'
@@ -43,7 +43,7 @@ export function LessonStartDesktop({ lesson }: { lesson: AssembledLesson }) {
 
       <Box display='flex' flexDirection='column'>
         <Typography marginX='auto' textAlign='center' variant='overline'>
-          {characters.length} {CHARACTER_AMOUNT_LABEL}
+          {CHARACTERS_IN_LESSON_LABEL}
         </Typography>
 
         <CharacterPreviews {...{ characters }} />

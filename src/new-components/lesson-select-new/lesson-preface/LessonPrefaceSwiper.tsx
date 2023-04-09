@@ -1,7 +1,7 @@
-import LessonDetails from './LessonPreface'
+import LessonPreface from './LessonPreface'
 import { LessonSwiper } from '../../shared/basic-components'
 import { SwiperSlide } from 'swiper/react'
-import { useLessonSelect } from '../../lesson-select/logic/useLessonSelect'
+import { useLessonSelect } from '../logic/useLessonSelect'
 
 export function LessonPrefaceSwiper() {
   const { lessons, select, selected } = useLessonSelect()
@@ -15,7 +15,7 @@ export function LessonPrefaceSwiper() {
     >
       {lessons.map(({ lessonNumber }) => (
         <SwiperSlide key={lessonNumber}>
-          <LessonDetails lesson={lessons[lessonNumber - 1]} />
+          <LessonPreface lesson={lessons[lessonNumber - 1]} />
         </SwiperSlide>
       ))}
     </LessonSwiper>

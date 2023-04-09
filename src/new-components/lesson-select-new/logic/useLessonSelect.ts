@@ -8,7 +8,17 @@ interface LessonSlice {
   lessons: AssembledLesson[]
   selected: number | undefined
   select: (lesson: number | undefined) => void
+  setUpcoming: (lesson: number | undefined) => void
+  upcoming: number | undefined
 }
+
+const createLessonSlice: Slice<LessonSlice, MobileDrawerSlice> = set => ({
+  lessons: LESSONS,
+  selected: undefined,
+  select: lesson => set({ selected: lesson }),
+  setUpcoming: lesson => set({ upcoming: lesson }),
+  upcoming: undefined,
+})
 
 interface MobileDrawerSlice {
   isOpen: boolean
@@ -18,12 +28,6 @@ interface MobileDrawerSlice {
 const createMobileDrawerSlice: Slice<MobileDrawerSlice, LessonSlice> = set => ({
   isOpen: false,
   toggle: () => set(({ isOpen }) => ({ isOpen: !isOpen })),
-})
-
-const createLessonSlice: Slice<LessonSlice, MobileDrawerSlice> = set => ({
-  lessons: LESSONS,
-  selected: undefined,
-  select: lesson => set({ selected: lesson }),
 })
 
 export const useLessonSelect = create<LessonSlice & MobileDrawerSlice>()((...a) => ({

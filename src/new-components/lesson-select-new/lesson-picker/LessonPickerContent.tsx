@@ -1,18 +1,20 @@
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme } from '@mui/material'
 import { useWindowSize } from '../../shared/hooks/useWindowSize'
 import { useOnChange } from '../../shared/hooks/useOnChange'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useSwiperInstance } from '../../shared/state'
-import { useLessonSelect } from '../../lesson-select/logic/useLessonSelect'
+import { useLessonSelect } from '../logic/useLessonSelect'
 import { LessonPickerTitle } from './LessonPickerTitle'
-import { TierStatusCircle } from '../tier-status-circle/TierStatusCircle'
+import { TierStatusCircle } from './TierStatusCircle'
+import { CHARACTER_AMOUNT_LABEL } from '../../shared/strings'
 
 const itemHeight = 64
 const gap = 16
 
 export function LessonPickerContent() {
   const listRef = useRef<HTMLUListElement>(null)
-  const { lessons, select, selected, toggle } = useLessonSelect()
+  const [hovered, setHovered] = useState<number | null>(null)
+  const { lessons, select, selected, toggle, upcoming } = useLessonSelect()
   const { swiperInstance } = useSwiperInstance()
   const { constants, palette, typography } = useTheme()
   const { height } = useWindowSize()
@@ -48,33 +50,69 @@ export function LessonPickerContent() {
         backgroundColor: palette.background.paper,
       }}
     >
-      {lessons.map(({ lessonNumber, tierStatuses }) => (
-        <ListItem key={lessonNumber}>
-          <ListItemButton
-            onClick={() => selectLesson(lessonNumber)}
-            sx={{
-              backgroundColor: selected === lessonNumber ? 'primary.light' : 'background.paper',
-              borderRadius: 3,
-              p: 0,
-              transition: `${constants.animationDuration}ms`,
-              '&:hover': { backgroundColor: selected === lessonNumber ? 'primary.lightHovered' : undefined },
-              '.MuiListItemText-multiline': { display: 'flex', flexDirection: 'column' },
-            }}
-          >
-            <ListItemIcon>
-              <TierStatusCircle {...{ lessonNumber, tierStatuses }} />
-            </ListItemIcon>
-            <ListItemText
-              primary='Lecke címe'
-              secondary='11 karakter'
+      {lessons.map(({ lessonNumber, tierStatuses }) => {
+        const isHovered = hovered === lessonNumber
+        const isSelected = selected === lessonNumber
+        const isUpcoming = upcoming === lessonNumber
+
+        return (
+          <ListItem key={lessonNumber}>
+            <ListItemButton
+              onMouseEnter={() => setHovered(lessonNumber)}
+              onMouseLeave={() => setHovered(null)}
+              onClick={() => selectLesson(lessonNumber)}
               sx={{
-                '.MuiListItemText-primary': { ...typography.titleSubtitle.subtitle, color: palette.text.secondary },
-                '.MuiListItemText-secondary': { ...typography.titleSubtitle.title, color: palette.text.disabled },
+                backgroundColor: isSelected ? (isUpcoming ? palette.secondary.light : palette.grey[100]) : 'background.paper',
+                borderRadius: 3,
+                p: 0,
+                transition: `${constants.animationDuration}ms`,
+                '&:hover': {
+                  backgroundColor: isSelected ? (isUpcoming ? palette.secondary.light : palette.grey[100]) : 'background.paper',
+                },
               }}
-            />
-          </ListItemButton>
-        </ListItem>
-      ))}
+            >
+              <ListItemIcon>
+                <TierStatusCircle isActive={isHovered || isSelected} {...{ lessonNumber, tierStatuses }} />
+              </ListItemIcon>
+              <ListItemText
+                primary={lessons[lessonNumber - 1].title}
+                secondary={`${lessons[lessonNumber - 1].characters.length} ${CHARACTER_AMOUNT_LABEL}`}
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  transition: `${constants.animationDuration}ms`,
+                  '.MuiListItemText-primary': {
+                    ...typography.titleSubtitle.subtitle,
+                    color: isHovered || isSelected ? palette.common.black : palette.text.secondary,
+                  },
+                  '.MuiListItemText-secondary': {
+                    ...typography.titleSubtitle.title,
+                    color: isHovered || isSelected ? palette.text.secondary : palette.text.disabled,
+                  },
+                }}
+              />
+            </ListItemButton>
+          </ListItem>
+        )
+      })}
     </List>
   )
 }
+
+// function findLessonTitleColor({
+//   isHovered,
+//   isSelected,
+//   isUpcoming,
+// }: {
+//   isHovered: boolean
+//   isSelected: boolean
+//   isUpcoming: boolean
+// }) {
+//   const { palette } = useTheme()
+
+//   if (isHovered || isSelected) {
+//     return isUpcoming ? palette.primary.main : palette.common.black
+//   }
+
+//   return palette.text.secondary
+// }

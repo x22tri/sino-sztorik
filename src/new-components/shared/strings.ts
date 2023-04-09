@@ -11,13 +11,12 @@ export const CHARACTER_SEARCH_TITLE = 'Karakterkereső'
 
 export const LESSON_START_MORE_OPTIONS = 'További lehetőségek'
 
-export const LESSON_SELECT_TOOLTIP =
-  'Tanulj új karaktereket vagy nézd át az eddigieket'
-export const CHARACTER_SEARCH_TOOLTIP =
-  'Keress karakterre, kulcsszóra vagy alapelemre'
+export const LESSON_SELECT_TOOLTIP = 'Tanulj új karaktereket vagy nézd át az eddigieket'
+export const CHARACTER_SEARCH_TOOLTIP = 'Keress karakterre, kulcsszóra vagy alapelemre'
 
 export const UPCOMING_LESSON_LABEL = 'KÖVETKEZŐ'
 export const CHARACTER_AMOUNT_LABEL = 'karakter'
+export const CHARACTERS_IN_LESSON_LABEL = 'Karakterek a leckében'
 
 export const MOBILE_NAVIGATION_TOOLTIP = 'Navigáció'
 export const MOBILE_NAVIGATION_ARIA_LABEL = 'Navigáció'
@@ -46,8 +45,7 @@ export const FREQUENCY_VERY_RARE = 'Nagyon ritka'
 
 export const CHAR_NAVIGATION_PREVIOUS_CHARACTER = 'Előző'
 export const CHAR_NAVIGATION_NEXT_CHARACTER = 'Következő'
-export const CHAR_NAVIGATION_EXIT_FLASHBACK_PROMPT =
-  'Lépj ki a visszaemlékezésből a folytatáshoz'
+export const CHAR_NAVIGATION_EXIT_FLASHBACK_PROMPT = 'Lépj ki a visszaemlékezésből a folytatáshoz'
 export const KEYWORD_EXPLANATION_TOOLTIP = 'Kattints a kulcsszó magyarázatához'
 
 export const LEARN_HEADING_CHARACTER = 'Karakter'

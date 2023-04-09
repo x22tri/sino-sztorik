@@ -12,7 +12,7 @@ declare module '@mui/material/styles' {
     constants: {
       animationDuration: number
       drawerWidth: number
-      lessonSelectPageMaxWidth: string
+      lessonSelectMaxWidth: string
       lessonStartMobileHeight: string
       maxContentWidth: string
       toolbarHeight: string
@@ -23,7 +23,7 @@ declare module '@mui/material/styles' {
     constants?: {
       animationDuration?: number
       drawerWidth?: number
-      lessonSelectPageMaxWidth?: string
+      lessonSelectMaxWidth?: string
       lessonStartMobileHeight?: string
       maxContentWidth?: string
       toolbarHeight?: string
@@ -136,7 +136,7 @@ let theme = responsiveFontSizes(
     constants: {
       animationDuration: 150,
       drawerWidth: 300,
-      lessonSelectPageMaxWidth: '1600px',
+      lessonSelectMaxWidth: '1600px',
       lessonStartMobileHeight: '64px',
       maxContentWidth: '48rem',
       toolbarHeight: '64px',
