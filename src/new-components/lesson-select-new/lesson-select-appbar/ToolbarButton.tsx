@@ -17,13 +17,7 @@ export default function ToolbarButton({
 }) {
   return (
     <Tooltip title={tooltip}>
-      <IconButton
-        aria-label={ariaLabel}
-        aria-controls='menu-appbar'
-        aria-haspopup='true'
-        color='inherit'
-        {...{ onClick }}
-      >
+      <IconButton aria-label={ariaLabel} aria-controls='menu-appbar' aria-haspopup='true' {...{ onClick }}>
         <FontAwesomeIcon {...{ icon }} />
       </IconButton>
     </Tooltip>
