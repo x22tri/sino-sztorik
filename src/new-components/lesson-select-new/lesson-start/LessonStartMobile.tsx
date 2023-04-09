@@ -4,7 +4,8 @@ import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { LearnButton } from './LearnButton'
 import { AssembledLesson } from '../../shared/interfaces'
-import { CHARACTER_AMOUNT_LABEL } from '../../shared/strings'
+import { CHARACTER_AMOUNT_LABEL, LESSON_START_MORE_OPTIONS } from '../../shared/strings'
+import ToolbarButton from '../../shared/components/ToolbarButton'
 
 export function LessonStartMobile({ lesson }: { lesson: AssembledLesson }) {
   const isSmallScreen = useSmallScreen()
@@ -35,9 +36,14 @@ export function LessonStartMobile({ lesson }: { lesson: AssembledLesson }) {
 
       <LearnButton secondaryText={`${characters.length} ${CHARACTER_AMOUNT_LABEL}`} />
 
-      <IconButton style={{ margin: 'auto 0 auto auto', width: '48px' }}>
-        <FontAwesomeIcon icon={faEllipsisVertical} />
-      </IconButton>
+      <Box sx={{ alignItems: 'center', display: 'flex', justifyContent: 'center', marginLeft: 'auto', width: '37px' }}>
+        <ToolbarButton
+          ariaLabel={LESSON_START_MORE_OPTIONS}
+          icon={faEllipsisVertical}
+          onClick={() => {}}
+          tooltip={LESSON_START_MORE_OPTIONS}
+        />
+      </Box>
     </Box>
   )
 }
