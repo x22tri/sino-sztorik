@@ -3,7 +3,7 @@ import { CHARACTERS_IN_LESSON_LABEL } from '../../shared/strings'
 import { When } from 'react-if'
 
 export function CharacterPreviews({ characters }: { characters: string[] }) {
-  const { palette, spacing } = useTheme()
+  const { constants, palette, spacing } = useTheme()
 
   const charWidth = '42px'
   const minNumberOfColumns = 4
@@ -15,18 +15,7 @@ export function CharacterPreviews({ characters }: { characters: string[] }) {
         <Box
           display='flex'
           flexDirection='column'
-          sx={{
-            // boxShadow: `rgba(99, 99, 99, 0.2) 0px 2px 8px 0px inset`,
-            // border: `1px solid ${palette.grey[300]}`,
-            // backgroundColor: palette.background.paper,
-            backgroundColor: palette.grey[50],
-            borderRadius: spacing(3),
-            // maxHeight: '100%',
-            mx: 1,
-            my: 2,
-            py: 3,
-            // zIndex: 100000,
-          }}
+          sx={{ bgcolor: palette.grey[50], borderRadius: spacing(3), mx: 2, my: 2, py: 3 }}
         >
           <Typography marginX='auto' lineHeight={1} textAlign='center' variant='overline'>
             {CHARACTERS_IN_LESSON_LABEL}
@@ -45,11 +34,11 @@ export function CharacterPreviews({ characters }: { characters: string[] }) {
                 key={char}
                 component='span'
                 sx={{
-                  maxWidth: charWidth,
+                  boxShadow: constants.boxShadowLessonSelect,
                   m: 'auto',
-                  p: 1,
+                  maxWidth: charWidth,
                   typography: 'chineseNormal',
-                  boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
+                  p: 1,
                 }}
               >
                 {char}

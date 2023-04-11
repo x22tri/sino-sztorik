@@ -7,14 +7,11 @@ import { LessonStatuses } from '../shared/interfaces'
 import { useLessonSelect } from './logic/useLessonSelect'
 import { LessonSelectAppbar } from './appbar/LessonSelectAppbar'
 import { LessonPrefaceSwiper } from './lesson-preface/LessonPrefaceSwiper'
-import { LessonStart } from './lesson-start/LessonStart'
+import { LessonStart } from './lesson-start/LessonStartMobile'
 import { useLargeScreen } from '../shared/hooks/useLargeScreen'
 import 'swiper/css'
 import { CharacterPreviews } from './lesson-start/CharacterPreviews'
 import { When } from 'react-if'
-
-// const stylesDesktop = { display: 'grid', gridTemplateColumns: '3fr 1fr', justifyItems: 'center' }
-const stylesMobile = { display: 'flex', flexDirection: 'column' as const, justifyContent: 'space-between' }
 
 export default function LessonSelect() {
   const isSmallScreen = useSmallScreen()
@@ -45,15 +42,6 @@ export default function LessonSelect() {
       >
         <LessonSelectAppbar />
 
-        {/* <Box
-          boxSizing='border-box'
-          component='main'
-          position='relative'
-          // {...(isLargeScreen ? stylesDesktop : stylesMobile)}
-          sx={{
-            height: { xs: `calc(100% - ${constants.toolbarHeightMobile})`, sm: `calc(100% - ${constants.toolbarHeight})` },
-          }}
-        > */}
         <Box
           sx={{
             backgroundColor: palette.background.paper,
@@ -63,18 +51,15 @@ export default function LessonSelect() {
               xs: `calc(100% - ${constants.toolbarHeightMobile} - ${constants.lessonStartMobileHeight})`,
               sm: `calc(100% - ${constants.toolbarHeight} - ${constants.lessonStartMobileHeight})`,
             },
-            // zIndex: 9000,
           }}
         >
           <LessonPrefaceSwiper />
           <When condition={isLargeScreen}>
             <CharacterPreviews characters={lessons[selected - 1].characters} />
           </When>
-          {/* <Box>aa</Box> */}
         </Box>
-        <LessonStart isLargeScreen={false} lesson={lessons[selected - 1]} />
+        <LessonStart lesson={lessons[selected - 1]} />
       </Box>
-      {/* </Box> */}
     </Box>
   )
 }
