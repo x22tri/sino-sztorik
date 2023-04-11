@@ -7,11 +7,11 @@ import { LessonStatuses } from '../shared/interfaces'
 import { useLessonSelect } from './logic/useLessonSelect'
 import { LessonSelectAppbar } from './appbar/LessonSelectAppbar'
 import { LessonPrefaceSwiper } from './lesson-preface/LessonPrefaceSwiper'
-import { LessonStart } from './lesson-start/LessonStartMobile'
+import { LessonStart } from './lesson-start/LessonStart'
 import { useLargeScreen } from '../shared/hooks/useLargeScreen'
-import 'swiper/css'
 import { CharacterPreviews } from './lesson-start/CharacterPreviews'
 import { When } from 'react-if'
+import 'swiper/css'
 
 export default function LessonSelect() {
   const isSmallScreen = useSmallScreen()

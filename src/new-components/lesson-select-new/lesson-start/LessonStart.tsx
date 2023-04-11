@@ -1,13 +1,13 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Button, IconButton, Typography, useTheme } from '@mui/material'
+import { Box, Button, Typography, useTheme } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown, faChevronUp, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
+import { faChevronUp, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
-import { LearnButton } from './LearnButton'
 import { AssembledLesson } from '../../shared/interfaces'
-import { CHARACTER_AMOUNT_LABEL, LESSON_START_MORE_OPTIONS } from '../../shared/strings'
+import { CHARACTER_AMOUNT_LABEL, LEARN_BUTTON, LESSON_START_MORE_OPTIONS } from '../../shared/strings'
 import ToolbarButton from '../../shared/components/ToolbarButton'
 import { useLargeScreen } from '../../shared/hooks/useLargeScreen'
 import { Else, If, Then, When } from 'react-if'
+import { MajorActionButton } from '../../shared/basic-components'
 
 export function LessonStart({ lesson }: { lesson: AssembledLesson }) {
   const isSmallScreen = useSmallScreen()
@@ -31,12 +31,10 @@ export function LessonStart({ lesson }: { lesson: AssembledLesson }) {
     >
       <Typography variant='h6' color='text.secondary'>{`${characters.length} ${CHARACTER_AMOUNT_LABEL}`}</Typography>
 
-      <Box>
-        <LearnButton />
-      </Box>
+      <MajorActionButton text={LEARN_BUTTON} sx={{ alignSelf: 'center', maxHeight: '42px', width: '100%' }} />
 
       <When condition={isLargeScreen}>
-        <Box />
+        <Box /> {/* Spacer */}
       </When>
 
       <If condition={isSmallScreen}>
