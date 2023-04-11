@@ -4,7 +4,7 @@ import Landing from './Landing'
 import { ThemeProvider } from '@mui/material/styles'
 import theme from './shared/theme'
 import Learn from './learn/Learn'
-import LessonSelectNew from './lesson-select-new/LessonSelect'
+import LessonSelect from './lesson-select-new/LessonSelect'
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
       {/* <Landing /> */}
       <ThemeProvider {...{ theme }}>
         <CssBaseline />
-        <LessonSelectNew />
+        <LessonSelect />
         {/* <Learn /> */}
       </ThemeProvider>
     </>

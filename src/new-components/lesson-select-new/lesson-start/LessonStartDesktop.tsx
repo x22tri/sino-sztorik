@@ -8,25 +8,20 @@ import { LearnButton } from './LearnButton'
 
 export function LessonStartDesktop({ lesson }: { lesson: AssembledLesson }) {
   const { characters } = lesson
-  const { spacing, palette } = useTheme()
+  const { constants, spacing, palette } = useTheme()
 
   return (
-    <Box
-      display='flex'
-      flexDirection='column'
-      gap={2}
-      margin={2}
-      marginRight={4}
-      width={`calc(100% - ${spacing(2)})`} // marginRight - margin
-    >
+    <Box display='flex' flexDirection='column' gap={2} width='100%'>
       <Stack
-        borderRadius={2}
         boxSizing='border-box'
         gap={1}
         padding={2}
         sx={{
+          borderBottomRightRadius: spacing(2),
           backgroundColor: palette.background.paper,
-          boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+          boxShadow: constants.boxShadowLessonSelect,
+          clipPath: `inset(-20px -20px -20px 0px)`, // Cut off box shadow's left side.
+          zIndex: 9500,
         }}
       >
         <LearnButton />

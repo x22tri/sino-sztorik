@@ -16,12 +16,9 @@ export function LessonPrefaceSwiper() {
       initialSlide={selected! - 1}
       onActiveIndexChange={({ activeIndex }) => select(activeIndex + 1)}
       style={{
-        // boxSizing: 'border-box',
         height: `calc(100% ${isLargeScreen ? '' : `- ${constants.lessonStartMobileHeight}`})`,
-        // height: '100%',
-        // overflowY: 'auto',
-        // maxHeight: '100%',
         width: '100%',
+        boxShadow: constants.boxShadowLessonSelect,
       }}
     >
       {lessons.map(({ lessonNumber }) => (

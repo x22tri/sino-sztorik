@@ -5,7 +5,7 @@ import LessonPicker from './lesson-picker/LessonPicker'
 import { useSmallScreen } from '../shared/hooks/useSmallScreen'
 import { LessonStatuses } from '../shared/interfaces'
 import { useLessonSelect } from './logic/useLessonSelect'
-import { LessonSelectAppbar } from './lesson-select-appbar/LessonSelectAppbar'
+import { LessonSelectAppbar } from './appbar/LessonSelectAppbar'
 import { LessonPrefaceSwiper } from './lesson-preface/LessonPrefaceSwiper'
 import { LessonStart } from './lesson-start/LessonStart'
 import { useLargeScreen } from '../shared/hooks/useLargeScreen'
@@ -18,7 +18,7 @@ export default function LessonSelect() {
   const isSmallScreen = useSmallScreen()
   const isLargeScreen = useLargeScreen()
   const { lessons, selected, select, setUpcoming } = useLessonSelect()
-  const { constants } = useTheme()
+  const { constants, palette } = useTheme()
 
   useEffect(() => {
     const upcoming = lessons.find(({ tierStatuses }) => tierStatuses.includes(LessonStatuses.UPCOMING))?.lessonNumber
@@ -29,12 +29,10 @@ export default function LessonSelect() {
   return !selected ? null : (
     <Box
       display='flex'
+      height='100vh'
       justifyContent='center'
       margin='auto'
       maxWidth={constants.lessonSelectMaxWidth}
-      // minHeight='100vh'
-      height='100vh'
-      // minHeight='fill-available'
       position='relative'
     >
       <LessonPicker />
@@ -46,10 +44,8 @@ export default function LessonSelect() {
         <LessonSelectAppbar />
 
         <Box
-          component='main'
           boxSizing='border-box'
-          // height={`calc(100% - ${constants.toolbarHeight})`}
-          // height='100%'
+          component='main'
           position='relative'
           {...(isLargeScreen ? stylesDesktop : stylesMobile)}
           sx={{

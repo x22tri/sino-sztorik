@@ -40,14 +40,14 @@ export function LessonPickerContent() {
       ref={listRef}
       subheader={<LessonPickerTitle />}
       sx={{
-        bottom: 0,
-        top: 0,
-        left: 0,
-        right: 0,
-        position: 'absolute',
-        overflow: 'auto',
-        width: constants.drawerWidth,
         backgroundColor: palette.background.paper,
+        bottom: 0,
+        left: 0,
+        overflow: 'auto',
+        position: 'absolute',
+        right: 0,
+        top: 0,
+        width: constants.drawerWidth,
       }}
     >
       {lessons.map(({ lessonNumber, tierStatuses }) => {
