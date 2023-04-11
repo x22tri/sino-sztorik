@@ -11,6 +11,7 @@ export function CharacterPreviews({ characters }: { characters: string[] }) {
       gridTemplateColumns={`repeat(auto-fit, minmax(min(100%/${minNumberOfColumns}, max(${charWidth}, 100%/${maxNumberOfColumns})), 1fr))`}
       columnGap={1}
       rowGap={2}
+      marginX={2}
     >
       {characters.map(char => (
         <Card

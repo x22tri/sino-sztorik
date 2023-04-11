@@ -20,8 +20,8 @@ export function LessonStartDesktop({ lesson }: { lesson: AssembledLesson }) {
           borderBottomRightRadius: spacing(2),
           backgroundColor: palette.background.paper,
           boxShadow: constants.boxShadowLessonSelect,
-          clipPath: `inset(-20px -20px -20px 0px)`, // Cut off box shadow's left side.
-          zIndex: 9500,
+          clipPath: `inset(0px -20px -20px 0px)`, // Cut off box shadow's left side.
+          zIndex: 99,
         }}
       >
         <LearnButton />

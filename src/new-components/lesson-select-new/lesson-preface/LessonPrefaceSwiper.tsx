@@ -19,6 +19,7 @@ export function LessonPrefaceSwiper() {
         height: `calc(100% ${isLargeScreen ? '' : `- ${constants.lessonStartMobileHeight}`})`,
         width: '100%',
         boxShadow: constants.boxShadowLessonSelect,
+        clipPath: `inset(0px -20px -20px -20px)`, // Cut off box shadow's top.
       }}
     >
       {lessons.map(({ lessonNumber }) => (

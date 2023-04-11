@@ -19,17 +19,14 @@ export function LessonStartMobile({ lesson }: { lesson: AssembledLesson }) {
       gap={2}
       gridTemplateColumns='1fr 1fr 1fr'
       height={constants.lessonStartMobileHeight}
-      marginX={isSmallScreen ? 0 : 2}
       paddingY={1}
       paddingX={2}
       position='fixed'
-      width={isSmallScreen ? '100%' : `calc(100% - ${constants.drawerWidth}px - ${spacing(4)})`}
-      zIndex={100}
+      width={isSmallScreen ? '100%' : `calc(100% - ${constants.drawerWidth}px)`}
+      zIndex={100000}
       sx={{
-        backgroundColor: palette.common.white,
-        borderTopLeftRadius: spacing(1),
-        borderTopRightRadius: spacing(1),
-        boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+        backgroundColor: palette.background.paper,
+        boxShadow: isSmallScreen ? 'rgba(0, 0, 0, 0.1) 0px -2px 15px -3px' : 'none',
       }}
     >
       <Box />
