@@ -10,8 +10,10 @@ import { LessonPrefaceSwiper } from './lesson-preface/LessonPrefaceSwiper'
 import { LessonStart } from './lesson-start/LessonStart'
 import { useLargeScreen } from '../shared/hooks/useLargeScreen'
 import 'swiper/css'
+import { CharacterPreviews } from './lesson-start/CharacterPreviews'
+import { When } from 'react-if'
 
-const stylesDesktop = { display: 'grid', gridTemplateColumns: '3fr 1fr', justifyItems: 'center' }
+// const stylesDesktop = { display: 'grid', gridTemplateColumns: '3fr 1fr', justifyItems: 'center' }
 const stylesMobile = { display: 'flex', flexDirection: 'column' as const, justifyContent: 'space-between' }
 
 export default function LessonSelect() {
@@ -43,19 +45,36 @@ export default function LessonSelect() {
       >
         <LessonSelectAppbar />
 
-        <Box
+        {/* <Box
           boxSizing='border-box'
           component='main'
           position='relative'
-          {...(isLargeScreen ? stylesDesktop : stylesMobile)}
+          // {...(isLargeScreen ? stylesDesktop : stylesMobile)}
           sx={{
             height: { xs: `calc(100% - ${constants.toolbarHeightMobile})`, sm: `calc(100% - ${constants.toolbarHeight})` },
           }}
+        > */}
+        <Box
+          sx={{
+            backgroundColor: palette.background.paper,
+            display: 'grid',
+            gridTemplateColumns: !isLargeScreen ? '1fr' : '3fr 1fr',
+            height: {
+              xs: `calc(100% - ${constants.toolbarHeightMobile} - ${constants.lessonStartMobileHeight})`,
+              sm: `calc(100% - ${constants.toolbarHeight} - ${constants.lessonStartMobileHeight})`,
+            },
+            // zIndex: 9000,
+          }}
         >
           <LessonPrefaceSwiper />
-          <LessonStart {...{ isLargeScreen }} lesson={lessons[selected - 1]} />
+          <When condition={isLargeScreen}>
+            <CharacterPreviews characters={lessons[selected - 1].characters} />
+          </When>
+          {/* <Box>aa</Box> */}
         </Box>
+        <LessonStart isLargeScreen={false} lesson={lessons[selected - 1]} />
       </Box>
+      {/* </Box> */}
     </Box>
   )
 }

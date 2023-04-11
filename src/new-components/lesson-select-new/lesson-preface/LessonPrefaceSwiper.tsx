@@ -16,7 +16,8 @@ export function LessonPrefaceSwiper() {
       initialSlide={selected! - 1}
       onActiveIndexChange={({ activeIndex }) => select(activeIndex + 1)}
       style={{
-        height: `calc(100% ${isLargeScreen ? '' : `- ${constants.lessonStartMobileHeight}`})`,
+        // height: `calc(100% ${isLargeScreen ? '' : `- ${constants.lessonStartMobileHeight}`})`,
+        height: '100%',
         width: '100%',
         boxShadow: constants.boxShadowLessonSelect,
         clipPath: `inset(0px -20px -20px -20px)`, // Cut off box shadow's top.

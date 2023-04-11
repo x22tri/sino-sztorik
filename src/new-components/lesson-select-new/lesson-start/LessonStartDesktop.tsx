@@ -11,18 +11,51 @@ export function LessonStartDesktop({ lesson }: { lesson: AssembledLesson }) {
   const { constants, spacing, palette } = useTheme()
 
   return (
-    <Box display='flex' flexDirection='column' gap={2} width='100%'>
+    <Box
+      display='flex'
+      flexDirection='column'
+      gap={2}
+      width='100%'
+      // borderLeft={`1px solid ${palette.grey[200]}`}
+      sx={{
+        backgroundColor: palette.background.paper,
+        zIndex: 99,
+      }}
+    >
+      <Box
+        display='flex'
+        flexDirection='column'
+        sx={{
+          // boxShadow: `rgba(99, 99, 99, 0.2) 0px 2px 8px 0px inset`,
+          border: `1px solid ${palette.grey[200]}`,
+          // backgroundColor: palette.grey[50],
+          borderRadius: spacing(3),
+          height: '100%',
+          mx: 1,
+          my: 2,
+        }}
+      >
+        <Typography marginX='auto' marginY={1} textAlign='center' variant='overline'>
+          {CHARACTERS_IN_LESSON_LABEL}
+        </Typography>
+
+        <CharacterPreviews {...{ characters }} />
+      </Box>
+
       <Stack
         boxSizing='border-box'
         gap={1}
         padding={2}
-        sx={{
-          borderBottomRightRadius: spacing(2),
-          backgroundColor: palette.background.paper,
-          boxShadow: constants.boxShadowLessonSelect,
-          clipPath: `inset(0px -20px -20px 0px)`, // Cut off box shadow's left side.
-          zIndex: 99,
-        }}
+        sx={
+          {
+            // borderBottomRightRadius: spacing(2),
+            // backgroundColor: palette.background.paper,
+            // boxShadow: constants.boxShadowLessonSelect,
+            // clipPath: `inset(0px -20px -20px 0px)`, // Cut off box shadow's left side.
+            // zIndex: 99,
+            // border: `1px solid ${palette.grey[300]}`,
+          }
+        }
       >
         <LearnButton />
 
@@ -35,14 +68,6 @@ export function LessonStartDesktop({ lesson }: { lesson: AssembledLesson }) {
           <AccordionDetails>{/* To-Do: Add "Review" when applicable */}</AccordionDetails>
         </Accordion>
       </Stack>
-
-      <Box display='flex' flexDirection='column'>
-        <Typography marginX='auto' textAlign='center' variant='overline'>
-          {CHARACTERS_IN_LESSON_LABEL}
-        </Typography>
-
-        <CharacterPreviews {...{ characters }} />
-      </Box>
     </Box>
   )
 }
