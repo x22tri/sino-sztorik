@@ -32,7 +32,9 @@ export default function LessonSelect() {
       justifyContent='center'
       margin='auto'
       maxWidth={constants.lessonSelectMaxWidth}
-      minHeight='100vh'
+      // minHeight='100vh'
+      height='100vh'
+      // minHeight='fill-available'
       position='relative'
     >
       <LessonPicker />
@@ -45,8 +47,14 @@ export default function LessonSelect() {
 
         <Box
           component='main'
-          height={`calc(100% - ${constants.toolbarHeight})`}
+          boxSizing='border-box'
+          // height={`calc(100% - ${constants.toolbarHeight})`}
+          // height='100%'
+          position='relative'
           {...(isLargeScreen ? stylesDesktop : stylesMobile)}
+          sx={{
+            height: { xs: `calc(100% - ${constants.toolbarHeightMobile})`, sm: `calc(100% - ${constants.toolbarHeight})` },
+          }}
         >
           <LessonPrefaceSwiper />
           <LessonStart {...{ isLargeScreen }} lesson={lessons[selected - 1]} />

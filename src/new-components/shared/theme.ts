@@ -16,6 +16,7 @@ declare module '@mui/material/styles' {
       lessonStartMobileHeight: string
       maxContentWidth: string
       toolbarHeight: string
+      toolbarHeightMobile: string
     }
   }
 
@@ -27,6 +28,7 @@ declare module '@mui/material/styles' {
       lessonStartMobileHeight?: string
       maxContentWidth?: string
       toolbarHeight?: string
+      toolbarHeightMobile?: string
     }
   }
 
@@ -140,6 +142,7 @@ let theme = responsiveFontSizes(
       lessonStartMobileHeight: '64px',
       maxContentWidth: '48rem',
       toolbarHeight: '64px',
+      toolbarHeightMobile: '48px',
     },
     typography: {
       fontFamily: genericFont,

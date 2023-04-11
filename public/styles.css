@@ -1,15 +1,15 @@
 /* Generic selectors: */
 
 .disable-select {
-  -webkit-user-select: none;  
-  -moz-user-select: none;    
-  -ms-user-select: none;      
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 
 .spacer {
   display: table-row;
-  height: 10px
+  height: 10px;
 }
 
 .centerer {
