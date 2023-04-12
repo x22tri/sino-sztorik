@@ -3,7 +3,7 @@ import { SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import LearnContent from './LearnContent'
 import { LearnAppbar } from './learn-appbar/LearnAppbar'
-import { LessonSwiper } from '../shared/basic-components'
+import { LessonSwiper } from '../shared/components/LessonSwiper'
 
 export default function Learn() {
   const lesson = CHARS

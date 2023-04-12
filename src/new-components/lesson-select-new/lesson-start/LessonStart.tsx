@@ -7,7 +7,7 @@ import { CHARACTER_AMOUNT_LABEL, LEARN_BUTTON, LESSON_START_MORE_OPTIONS } from 
 import ToolbarButton from '../../shared/components/ToolbarButton'
 import { useLargeScreen } from '../../shared/hooks/useLargeScreen'
 import { Else, If, Then, When } from 'react-if'
-import { MajorActionButton } from '../../shared/basic-components'
+import { MajorActionButton } from '../../shared/components/MajorActionButton'
 
 export function LessonStart({ lesson }: { lesson: AssembledLesson }) {
   const isSmallScreen = useSmallScreen()

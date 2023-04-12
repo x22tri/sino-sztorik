@@ -1,5 +1,5 @@
 import LessonPreface from './LessonPreface'
-import { LessonSwiper } from '../../shared/basic-components'
+import { LessonSwiper } from '../../shared/components/LessonSwiper'
 import { SwiperSlide } from 'swiper/react'
 import { useLessonSelect } from '../logic/useLessonSelect'
 import { useTheme } from '@mui/material'
