@@ -1,30 +1,11 @@
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  ClickAwayListener,
-  Grow,
-  MenuItem,
-  MenuList,
-  Paper,
-  Popper,
-  Typography,
-  useTheme,
-} from '@mui/material'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronUp, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
-import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
+import { Box, Typography, useTheme } from '@mui/material'
 import { AssembledLesson } from '../../shared/interfaces'
-import { CHARACTER_AMOUNT_LABEL, LEARN_BUTTON, LESSON_START_MORE_OPTIONS } from '../../shared/strings'
-import ToolbarButton from '../../shared/components/ToolbarButton'
+import { CHARACTER_AMOUNT_LABEL } from '../../shared/strings'
 import { useLargeScreen } from '../../shared/hooks/useLargeScreen'
-import { Else, If, Then, When } from 'react-if'
-import { MajorActionButton } from '../../shared/components/MajorActionButton'
-import { useState, useRef } from 'react'
+import { Unless } from 'react-if'
 import { LearnReviewButton } from './LearnReviewButton'
 
 export function LessonStart({ lesson }: { lesson: AssembledLesson }) {
-  const isSmallScreen = useSmallScreen()
   const isLargeScreen = useLargeScreen()
   const { constants } = useTheme()
   const { characters } = lesson
@@ -45,17 +26,11 @@ export function LessonStart({ lesson }: { lesson: AssembledLesson }) {
     >
       <Box /> {/* Spacer */}
       <LearnReviewButton />
-      <If condition={isLargeScreen}>
-        <Then>
-          <Box /> {/* Spacer */}
-          <Box /> {/* Spacer */}
-        </Then>
-        <Else>
-          <Typography justifySelf='flex-end' marginRight={1} variant='overline'>
-            {characters.length} {CHARACTER_AMOUNT_LABEL}
-          </Typography>
-        </Else>
-      </If>
+      <Unless condition={isLargeScreen}>
+        <Typography justifySelf='flex-end' marginRight={1} variant='overline'>
+          {characters.length} {CHARACTER_AMOUNT_LABEL}
+        </Typography>
+      </Unless>
     </Box>
   )
 }
