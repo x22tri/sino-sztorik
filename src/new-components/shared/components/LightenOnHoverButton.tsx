@@ -2,9 +2,7 @@ import { ElementType } from 'react'
 import { useTheme } from '@mui/material'
 import Button, { ButtonProps } from '@mui/material/Button'
 
-export function LightenOnHoverButton<B extends ElementType>(
-  props: ButtonProps<B, { component?: B }>
-) {
+export function LightenOnHoverButton<B extends ElementType>(props: ButtonProps<B, { component?: B }>) {
   const { constants } = useTheme()
 
   return (
