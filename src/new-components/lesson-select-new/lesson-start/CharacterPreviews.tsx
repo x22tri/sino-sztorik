@@ -1,5 +1,5 @@
 import { Box, Card, Paper, Typography, useTheme } from '@mui/material'
-import { CHARACTERS_IN_LESSON_LABEL } from '../../shared/strings'
+import { CHARACTERS_IN_LESSON_LABEL, CHARACTER_AMOUNT_LABEL } from '../../shared/strings'
 import { When } from 'react-if'
 
 export function CharacterPreviews({ characters }: { characters: string[] }) {
@@ -18,7 +18,7 @@ export function CharacterPreviews({ characters }: { characters: string[] }) {
           sx={{ bgcolor: palette.grey[50], borderRadius: spacing(3), mx: 2, my: 2, py: 3 }}
         >
           <Typography marginX='auto' lineHeight={1} textAlign='center' variant='overline'>
-            {CHARACTERS_IN_LESSON_LABEL}
+            {characters.length} {CHARACTER_AMOUNT_LABEL}
           </Typography>
 
           <Box

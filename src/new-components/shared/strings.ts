@@ -3,9 +3,9 @@ export const LESSON_UPCOMING = 'Soron következő lecke'
 export const LESSON_COMPLETED = 'Már megtanult lecke'
 export const LESSON_NOT_IN_TIER = 'Ebben a körben nincs ilyen lecke'
 
-export const LEARN_BUTTON = 'TANULÁS'
+export const LEARN_BUTTON = 'Tanulás'
 export const LEARN_BUTTON_EXPLANATION = 'Új karakterek tanulása'
-export const REVIEW_BUTTON = 'ISMÉTLÉS'
+export const REVIEW_BUTTON = 'Ismétlés'
 export const REVIEW_BUTTON_EXPLANATION = 'Előző körök karaktereinek átnézése'
 
 export const LESSON_SELECT_TITLE = 'Leckeválasztó'

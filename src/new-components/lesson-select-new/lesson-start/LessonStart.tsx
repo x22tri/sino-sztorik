@@ -29,8 +29,6 @@ export function LessonStart({ lesson }: { lesson: AssembledLesson }) {
   const { constants } = useTheme()
   const { characters } = lesson
 
-  // const options = ['Tanulás', 'Ismétlés']
-
   return (
     <Box
       alignItems='center'
@@ -45,18 +43,18 @@ export function LessonStart({ lesson }: { lesson: AssembledLesson }) {
       zIndex={1}
       sx={{ bgcolor: 'background.paper', boxShadow: constants.boxShadowLessonSelect, clipPath: 'inset(0px 0px 0px -20px)' }}
     >
-      {/* <Typography variant='h6' color='text.secondary'>{`${characters.length} ${CHARACTER_AMOUNT_LABEL}`}</Typography> */}
       <Box /> {/* Spacer */}
-      {/* <MajorActionButton text={LEARN_BUTTON} sx={{ alignSelf: 'center', maxHeight: '42px', width: '100%' }} /> */}
       <LearnReviewButton />
-      <When condition={isLargeScreen}>
-        <Box /> {/* Spacer */}
-      </When>
       <If condition={isLargeScreen}>
         <Then>
           <Box /> {/* Spacer */}
+          <Box /> {/* Spacer */}
         </Then>
-        <Else>{/* 6 karakter */}</Else>
+        <Else>
+          <Typography justifySelf='flex-end' marginRight={1} variant='overline'>
+            {characters.length} {CHARACTER_AMOUNT_LABEL}
+          </Typography>
+        </Else>
       </If>
     </Box>
   )
