@@ -5,11 +5,12 @@ import { useRef, useState } from 'react'
 import { useSwiperInstance } from '../../shared/state'
 import { useLessonSelect } from '../logic/useLessonSelect'
 import { LessonPickerTitle } from './LessonPickerTitle'
-import { TierStatusCircle } from './TierStatusCircle'
-import { CHARACTER_AMOUNT_LABEL } from '../../shared/strings'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleRight } from '@fortawesome/free-solid-svg-icons'
+import { When } from 'react-if'
 
 const itemHeight = 64
-const gap = 16
+const gap = 0
 
 export function LessonPickerContent() {
   const listRef = useRef<HTMLUListElement>(null)
@@ -51,47 +52,46 @@ export function LessonPickerContent() {
         borderRight: `1px solid ${palette.grey[200]}`,
       }}
     >
-      {lessons.map(({ lessonNumber, tierStatuses }) => {
+      {lessons.map(({ lessonNumber }) => {
         const isHovered = hovered === lessonNumber
         const isSelected = selected === lessonNumber
         const isUpcoming = upcoming === lessonNumber
 
         return (
-          <ListItem key={lessonNumber}>
+          <ListItem key={lessonNumber} disablePadding>
             <ListItemButton
               onMouseEnter={() => setHovered(lessonNumber)}
               onMouseLeave={() => setHovered(null)}
               onClick={() => selectLesson(lessonNumber)}
+              selected={isSelected}
               sx={{
-                backgroundColor: isSelected ? (isUpcoming ? palette.secondary.light : palette.grey[100]) : 'background.paper',
-                borderRadius: 3,
-                p: 0,
+                border: isUpcoming ? `2px solid ${palette.primary.main}` : 'none',
+                borderRadius: 6,
+                color: isHovered || isSelected ? palette.common.black : palette.text.secondary,
+                height: '48px',
+                m: 1,
                 transition: `${constants.animationDuration}ms`,
-                '&:hover': {
-                  backgroundColor: isSelected ? (isUpcoming ? palette.secondary.light : palette.grey[100]) : 'background.paper',
+                '&.Mui-selected': {
+                  bgcolor: undefined,
                 },
               }}
             >
-              <ListItemIcon>
-                <TierStatusCircle isActive={isHovered || isSelected} {...{ lessonNumber, tierStatuses }} />
+              <ListItemIcon
+                sx={{ color: 'text.disabled', justifyContent: 'end', mr: 1, minWidth: '24px', typography: 'overline' }}
+              >
+                {`${lessonNumber})`}
               </ListItemIcon>
+
               <ListItemText
-                primary={lessons[lessonNumber - 1].title}
-                secondary={`${lessons[lessonNumber - 1].characters.length} ${CHARACTER_AMOUNT_LABEL}`}
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  transition: `${constants.animationDuration}ms`,
-                  '.MuiListItemText-primary': {
-                    ...typography.titleSubtitle.subtitle,
-                    color: isHovered || isSelected ? palette.common.black : palette.text.secondary,
-                  },
-                  '.MuiListItemText-secondary': {
-                    ...typography.titleSubtitle.title,
-                    color: isHovered || isSelected ? palette.text.secondary : palette.text.disabled,
-                  },
-                }}
+                primary={`${lessons[lessonNumber - 1].title}`}
+                sx={{ '.MuiListItemText-primary': { ...typography.titleSubtitle.title, fontSize: '90%' } }}
               />
+
+              <When condition={isUpcoming}>
+                <ListItemIcon sx={{ justifyContent: 'end', minWidth: 0 }}>
+                  <FontAwesomeIcon icon={faCircleRight} color={palette.primary.main} />
+                </ListItemIcon>
+              </When>
             </ListItemButton>
           </ListItem>
         )
@@ -99,21 +99,3 @@ export function LessonPickerContent() {
     </List>
   )
 }
-
-// function findLessonTitleColor({
-//   isHovered,
-//   isSelected,
-//   isUpcoming,
-// }: {
-//   isHovered: boolean
-//   isSelected: boolean
-//   isUpcoming: boolean
-// }) {
-//   const { palette } = useTheme()
-
-//   if (isHovered || isSelected) {
-//     return isUpcoming ? palette.primary.main : palette.common.black
-//   }
-
-//   return palette.text.secondary
-// }

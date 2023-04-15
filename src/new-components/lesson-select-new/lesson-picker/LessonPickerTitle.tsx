@@ -7,7 +7,7 @@ export function LessonPickerTitle() {
   const { palette, spacing } = useTheme()
 
   return (
-    <Accordion elevation={0}>
+    <Accordion elevation={0} sx={{ borderBottom: `1px solid ${palette.grey[200]}` }}>
       <AccordionSummary expandIcon={<FontAwesomeIcon icon={faChevronDown} />} sx={{ px: 2, py: 1 }}>
         <Typography variant='button' color={palette.grey[700]}>
           <FontAwesomeIcon icon={faGraduationCap} size='lg' style={{ marginRight: spacing(1) }} />

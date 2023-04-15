@@ -4,11 +4,12 @@ import { CHARACTER_AMOUNT_LABEL } from '../../shared/strings'
 import { useLargeScreen } from '../../shared/hooks/useLargeScreen'
 import { Unless } from 'react-if'
 import { LearnReviewButton } from './LearnReviewButton'
+import { TierStatusIcons } from '../lesson-picker/TierStatusIcons'
 
 export function LessonStart({ lesson }: { lesson: AssembledLesson }) {
   const isLargeScreen = useLargeScreen()
   const { constants, palette } = useTheme()
-  const { characters } = lesson
+  const { characters, tierStatuses } = lesson
 
   return (
     <Box
@@ -25,10 +26,12 @@ export function LessonStart({ lesson }: { lesson: AssembledLesson }) {
       zIndex={1}
       sx={{ bgcolor: 'background.paper' }}
     >
-      <Box /> {/* Spacer */}
+      <TierStatusIcons {...{ tierStatuses }} />
+
       <LearnReviewButton />
+
       <Unless condition={isLargeScreen}>
-        <Typography justifySelf='flex-end' marginRight={1} variant='overline'>
+        <Typography color='text.secondary' justifySelf='flex-end' marginRight={1} variant='overline'>
           {characters.length} {CHARACTER_AMOUNT_LABEL}
         </Typography>
       </Unless>

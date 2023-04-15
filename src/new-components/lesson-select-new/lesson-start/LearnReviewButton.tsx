@@ -33,12 +33,12 @@ export function LearnReviewButton() {
 
   return (
     <>
-      <ButtonGroup variant='contained' sx={{ justifySelf: 'center', maxHeight: '42px', width: '100%' }}>
-        <Button onClick={clickActionButton} sx={{ width: '100%' }}>
+      <ButtonGroup variant='contained' sx={{ borderRadius: 6, justifySelf: 'center', maxHeight: '42px', width: '100%' }}>
+        <Button onClick={clickActionButton} sx={{ borderRadius: 6, width: '100%' }}>
           {options[selectedIndex].button}
         </Button>
 
-        <Button onClick={clickToggle} ref={anchorRef}>
+        <Button onClick={clickToggle} ref={anchorRef} sx={{ borderRadius: 6 }}>
           <FontAwesomeIcon icon={faEllipsisVertical} />
         </Button>
       </ButtonGroup>
