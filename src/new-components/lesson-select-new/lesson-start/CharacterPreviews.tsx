@@ -1,13 +1,13 @@
-import { Box, Card, Paper, Typography, useTheme } from '@mui/material'
-import { CHARACTERS_IN_LESSON_LABEL, CHARACTER_AMOUNT_LABEL } from '../../shared/strings'
+import { Box, Card, Typography, useTheme } from '@mui/material'
+import { CHARACTER_AMOUNT_LABEL } from '../../shared/strings'
 import { When } from 'react-if'
 
-export function CharacterPreviews({ characters }: { characters: string[] }) {
-  const { constants, palette, spacing } = useTheme()
+const charWidth = '42px'
+const minNumberOfColumns = 4
+const maxNumberOfColumns = 6
 
-  const charWidth = '42px'
-  const minNumberOfColumns = 4
-  const maxNumberOfColumns = 6
+export function CharacterPreviews({ characters }: { characters: string[] }) {
+  const { palette, spacing } = useTheme()
 
   return (
     <Box zIndex={1} sx={{ bgcolor: palette.background.paper }}>

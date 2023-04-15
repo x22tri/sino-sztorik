@@ -14,16 +14,10 @@ export default function LessonPicker() {
       if={isSmallScreen}
       with={children => (
         <Drawer
-          ModalProps={{ keepMounted: true }}
           open={isOpen}
           onClose={toggle}
           variant='temporary'
-          sx={{
-            '& .MuiDrawer-paper': {
-              boxSizing: 'border-box',
-              width: constants.drawerWidth,
-            },
-          }}
+          sx={{ '& .MuiDrawer-paper': { boxSizing: 'border-box', width: constants.drawerWidth } }}
         >
           {children}
         </Drawer>

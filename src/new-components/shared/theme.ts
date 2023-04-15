@@ -12,11 +12,8 @@ declare module '@mui/material/styles' {
     constants: {
       animationDuration: number
       drawerWidth: number
-      lessonSelectMaxWidth: string
       lessonStartMobileHeight: string
       maxContentWidth: string
-      toolbarHeight: string
-      toolbarHeightMobile: string
     }
   }
 
@@ -24,11 +21,8 @@ declare module '@mui/material/styles' {
     constants?: {
       animationDuration?: number
       drawerWidth?: number
-      lessonSelectMaxWidth?: string
       lessonStartMobileHeight?: string
       maxContentWidth?: string
-      toolbarHeight?: string
-      toolbarHeightMobile?: string
     }
   }
 
@@ -138,11 +132,7 @@ let theme = responsiveFontSizes(
     constants: {
       animationDuration: 150,
       drawerWidth: 300,
-      lessonSelectMaxWidth: '1600px',
-      lessonStartMobileHeight: '64px',
       maxContentWidth: '48rem',
-      toolbarHeight: '64px',
-      toolbarHeightMobile: '48px',
     },
     typography: {
       fontFamily: genericFont,
@@ -221,6 +211,9 @@ theme = createTheme(theme, {
         },
       },
     },
+  },
+  constants: {
+    lessonStartMobileHeight: theme.spacing(8),
   },
   palette: {
     specialParagraphs: { whenPrimitive: theme.palette.secondary.light },
