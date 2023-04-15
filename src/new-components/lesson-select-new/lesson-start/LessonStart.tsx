@@ -7,22 +7,23 @@ import { LearnReviewButton } from './LearnReviewButton'
 
 export function LessonStart({ lesson }: { lesson: AssembledLesson }) {
   const isLargeScreen = useLargeScreen()
-  const { constants } = useTheme()
+  const { constants, palette } = useTheme()
   const { characters } = lesson
 
   return (
     <Box
       alignItems='center'
       bottom={0}
+      borderTop={`1px solid ${palette.grey[200]}`}
       display='grid'
       gap={2}
-      gridTemplateColumns={`repeat(${isLargeScreen ? 4 : 3}, 1fr)`}
+      gridTemplateColumns={`repeat(3, 1fr)`}
       height={constants.lessonStartMobileHeight}
       paddingX={2}
       position='sticky'
       width='100%'
       zIndex={1}
-      sx={{ bgcolor: 'background.paper', boxShadow: constants.boxShadowLessonSelect, clipPath: 'inset(0px 0px 0px -20px)' }}
+      sx={{ bgcolor: 'background.paper' }}
     >
       <Box /> {/* Spacer */}
       <LearnReviewButton />

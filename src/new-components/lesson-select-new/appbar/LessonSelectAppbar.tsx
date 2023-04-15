@@ -14,7 +14,9 @@ export function LessonSelectAppbar() {
   const { constants } = useTheme()
 
   return (
-    <AppBar color='inherit' elevation={0} position='relative' sx={{ boxShadow: constants.boxShadowLessonSelect }}>
+    <AppBar color='inherit' elevation={0} position='relative' 
+    // sx={{ boxShadow: constants.boxShadowLessonSelect }}
+    >
       <Toolbar disableGutters sx={{ justifyContent: 'space-between', px: 2 }}>
         <When condition={isSmallScreen}>
           <ToolbarButton ariaLabel={LESSON_SELECT_TITLE} icon={faGraduationCap} onClick={toggle} tooltip={LESSON_SELECT_TITLE} />

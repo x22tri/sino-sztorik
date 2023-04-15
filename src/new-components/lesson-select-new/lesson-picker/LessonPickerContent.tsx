@@ -48,6 +48,7 @@ export function LessonPickerContent() {
         right: 0,
         top: 0,
         width: constants.drawerWidth,
+        borderRight: `1px solid ${palette.grey[200]}`,
       }}
     >
       {lessons.map(({ lessonNumber, tierStatuses }) => {

@@ -34,7 +34,7 @@ export function CharacterPreviews({ characters }: { characters: string[] }) {
                 key={char}
                 component='span'
                 sx={{
-                  boxShadow: constants.boxShadowLessonSelect,
+                  boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px',
                   m: 'auto',
                   maxWidth: charWidth,
                   typography: 'chineseNormal',

@@ -17,7 +17,6 @@ declare module '@mui/material/styles' {
       maxContentWidth: string
       toolbarHeight: string
       toolbarHeightMobile: string
-      boxShadowLessonSelect: string
     }
   }
 
@@ -30,7 +29,6 @@ declare module '@mui/material/styles' {
       maxContentWidth?: string
       toolbarHeight?: string
       toolbarHeightMobile?: string
-      boxShadowLessonSelect?: string
     }
   }
 
@@ -145,7 +143,6 @@ let theme = responsiveFontSizes(
       maxContentWidth: '48rem',
       toolbarHeight: '64px',
       toolbarHeightMobile: '48px',
-      boxShadowLessonSelect: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px',
     },
     typography: {
       fontFamily: genericFont,
