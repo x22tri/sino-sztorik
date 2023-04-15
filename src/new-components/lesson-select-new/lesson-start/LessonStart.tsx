@@ -28,7 +28,7 @@ export function LessonStart({ lesson }: { lesson: AssembledLesson }) {
     >
       <TierStatusIcons {...{ tierStatuses }} />
 
-      <LearnReviewButton />
+      <LearnReviewButton {...{ tierStatuses }} />
 
       <Unless condition={isLargeScreen}>
         <Typography color='text.secondary' justifySelf='flex-end' marginRight={1} variant='overline'>

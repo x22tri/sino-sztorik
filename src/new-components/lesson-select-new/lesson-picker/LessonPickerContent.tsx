@@ -8,9 +8,12 @@ import { LessonPickerTitle } from './LessonPickerTitle'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleRight } from '@fortawesome/free-solid-svg-icons'
 import { When } from 'react-if'
+import { LessonStatuses } from '../../shared/interfaces'
 
 const itemHeight = 64
 const gap = 0
+
+const { UPCOMING, COMPLETED } = LessonStatuses
 
 export function LessonPickerContent() {
   const listRef = useRef<HTMLUListElement>(null)
@@ -52,7 +55,7 @@ export function LessonPickerContent() {
         borderRight: `1px solid ${palette.grey[200]}`,
       }}
     >
-      {lessons.map(({ lessonNumber }) => {
+      {lessons.map(({ lessonNumber, tierStatuses }) => {
         const isHovered = hovered === lessonNumber
         const isSelected = selected === lessonNumber
         const isUpcoming = upcoming === lessonNumber
@@ -64,15 +67,18 @@ export function LessonPickerContent() {
               onMouseLeave={() => setHovered(null)}
               onClick={() => selectLesson(lessonNumber)}
               selected={isSelected}
+              disabled={!tierStatuses.includes(UPCOMING) && !tierStatuses.includes(COMPLETED)}
               sx={{
-                border: isUpcoming ? `2px solid ${palette.primary.main}` : 'none',
+                border: isUpcoming ? `2px solid ${palette.secondary.main}` : 'none',
                 borderRadius: 6,
                 color: isHovered || isSelected ? palette.common.black : palette.text.secondary,
                 height: '48px',
                 m: 1,
                 transition: `${constants.animationDuration}ms`,
+                ':hover': { bgcolor: isUpcoming ? `${palette.secondary.main}11` : undefined },
                 '&.Mui-selected': {
-                  bgcolor: undefined,
+                  bgcolor: isUpcoming ? `${palette.secondary.main}11` : undefined,
+                  ':hover': { bgcolor: isUpcoming ? `${palette.secondary.main}22` : undefined },
                 },
               }}
             >
@@ -89,7 +95,7 @@ export function LessonPickerContent() {
 
               <When condition={isUpcoming}>
                 <ListItemIcon sx={{ justifyContent: 'end', minWidth: 0 }}>
-                  <FontAwesomeIcon icon={faCircleRight} color={palette.primary.main} />
+                  <FontAwesomeIcon icon={faCircleRight} color={palette.secondary.main} />
                 </ListItemIcon>
               </When>
             </ListItemButton>

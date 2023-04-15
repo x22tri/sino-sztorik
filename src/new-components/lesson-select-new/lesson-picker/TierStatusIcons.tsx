@@ -14,7 +14,7 @@ export function TierStatusIcons({ tierStatuses }: { tierStatuses: TierStatuses }
   const iconStyles = { color: palette.text.disabled, width: iconWidth }
 
   const iconDictionary: { [key in LessonStatus]: ReactNode } = {
-    [COMPLETED]: <FontAwesomeIcon icon={faCircleCheck} style={iconStyles} />,
+    [COMPLETED]: <FontAwesomeIcon icon={faCircleCheck} style={{ ...iconStyles, color: palette.primary.main }} />,
     [NOT_IN_TIER]: (
       <span className='fa-layers fa-fw' style={iconStyles}>
         <FontAwesomeIcon icon={faSpinner} rotation={180} style={{ clip: 'rect(10px, 5px, 16px, 0px)', ...iconStyles }} />
@@ -22,7 +22,7 @@ export function TierStatusIcons({ tierStatuses }: { tierStatuses: TierStatuses }
       </span>
     ),
     [LOCKED]: <FontAwesomeIcon icon={faCircle} style={iconStyles} />,
-    [UPCOMING]: <FontAwesomeIcon icon={faCircleRight} style={{ ...iconStyles, color: palette.primary.main }} />,
+    [UPCOMING]: <FontAwesomeIcon icon={faCircleRight} style={{ ...iconStyles, color: palette.secondary.main }} />,
   }
 
   return (

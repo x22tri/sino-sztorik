@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react'
 import { createTheme } from '@mui/material/styles'
-import { grey, teal } from '@mui/material/colors'
+import { blue, grey, lightBlue, teal } from '@mui/material/colors'
 import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
 
 const chineseFont = "'Noto Sans', sans-serif" // To-Do: Create font with custom chars
@@ -129,11 +129,7 @@ let theme = responsiveFontSizes(
         },
       },
     },
-    constants: {
-      animationDuration: 150,
-      drawerWidth: 300,
-      maxContentWidth: '48rem',
-    },
+    constants: { animationDuration: 150, drawerWidth: 300, maxContentWidth: '48rem' },
     typography: {
       fontFamily: genericFont,
       h4: { fontFamily: emphasisFont, fontWeight: 800, fontSize: 24 },
@@ -142,27 +138,12 @@ let theme = responsiveFontSizes(
       button: { fontFamily: emphasisFont, textTransform: 'none' },
       body1: { lineHeight: 1.5 },
       body2: { fontSize: 16 },
-      chineseHeading: {
-        fontFamily: chineseFont,
-        fontSize: 120,
-        fontWeight: 400,
-        lineHeight: 1,
-      },
+      chineseHeading: { fontFamily: chineseFont, fontSize: 120, fontWeight: 400, lineHeight: 1 },
       chineseNormal: { fontFamily: chineseFont, fontSize: 24, lineHeight: 1.2 },
       overline: { fontWeight: 'bold' },
       presentation: {
-        keyword: {
-          fontFamily: emphasisFont,
-          fontWeight: 800,
-          fontSize: 32,
-          lineHeight: 1.1,
-        },
-        primitive: {
-          fontSize: 20,
-          fontFamily: emphasisFont,
-          fontStyle: 'italic',
-          lineHeight: 1.2,
-        },
+        keyword: { fontFamily: emphasisFont, fontWeight: 800, fontSize: 32, lineHeight: 1.1 },
+        primitive: { fontSize: 20, fontFamily: emphasisFont, fontStyle: 'italic', lineHeight: 1.2 },
         pinyin: { fontSize: 14, fontStyle: 'italic' },
       },
       storySegments: {
@@ -192,26 +173,18 @@ let theme = responsiveFontSizes(
 
 theme = createTheme(theme, {
   components: {
-    MuiListSubheader: {
-      styleOverrides: {
-        root: {
-          fontFamily: emphasisFont,
-        },
-      },
-    },
+    MuiListSubheader: { styleOverrides: { root: { fontFamily: emphasisFont } } },
     MuiBadge: { styleOverrides: { badge: { fontFamily: emphasisFont } } },
     MuiLink: {
       styleOverrides: {
         root: {
           backgroundColor: theme.palette.secondary.light,
-          '&:hover': {
-            backgroundColor: theme.palette.secondary.main,
-            color: theme.palette.secondary.contrastText,
-          },
+          '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.secondary.contrastText },
         },
       },
     },
   },
+
   constants: {
     lessonStartMobileHeight: theme.spacing(8),
   },

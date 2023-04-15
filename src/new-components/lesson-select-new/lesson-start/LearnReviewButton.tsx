@@ -3,16 +3,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ButtonGroup, Button, Popper, Grow, Paper, ClickAwayListener, MenuList, MenuItem, Typography } from '@mui/material'
 import { useState, useRef } from 'react'
 import { LEARN_BUTTON, LEARN_BUTTON_EXPLANATION, REVIEW_BUTTON, REVIEW_BUTTON_EXPLANATION } from '../../shared/strings'
+import { LessonStatuses, TierStatuses } from '../../shared/interfaces'
+import { When } from 'react-if'
+
+const { UPCOMING, COMPLETED } = LessonStatuses
 
 const options = [
   { button: LEARN_BUTTON, explanation: LEARN_BUTTON_EXPLANATION },
   { button: REVIEW_BUTTON, explanation: REVIEW_BUTTON_EXPLANATION },
 ]
 
-export function LearnReviewButton() {
+export function LearnReviewButton({ tierStatuses }: { tierStatuses: TierStatuses }) {
   const anchorRef = useRef<HTMLButtonElement>(null)
   const [open, setOpen] = useState(false)
   const [selectedIndex, setSelectedIndex] = useState(0)
+
+  const availableOptions = options.filter(
+    ({ button }) =>
+      (button === LEARN_BUTTON && tierStatuses.includes(UPCOMING)) ||
+      (button === REVIEW_BUTTON && tierStatuses.includes(COMPLETED))
+  )
 
   const clickActionButton = () => console.info(`You clicked ${options[selectedIndex].button}`)
 
@@ -33,14 +43,21 @@ export function LearnReviewButton() {
 
   return (
     <>
-      <ButtonGroup variant='contained' sx={{ borderRadius: 6, justifySelf: 'center', maxHeight: '42px', width: '100%' }}>
+      <ButtonGroup
+        color={availableOptions[selectedIndex].button === LEARN_BUTTON ? 'secondary' : 'primary'}
+        disableElevation
+        variant='contained'
+        sx={{ borderRadius: 6, justifySelf: 'center', maxHeight: '42px', width: '100%' }}
+      >
         <Button onClick={clickActionButton} sx={{ borderRadius: 6, width: '100%' }}>
-          {options[selectedIndex].button}
+          {availableOptions[selectedIndex].button}
         </Button>
 
-        <Button onClick={clickToggle} ref={anchorRef} sx={{ borderRadius: 6 }}>
-          <FontAwesomeIcon icon={faEllipsisVertical} />
-        </Button>
+        <When condition={availableOptions.length > 1}>
+          <Button onClick={clickToggle} ref={anchorRef} sx={{ borderRadius: 6 }}>
+            <FontAwesomeIcon icon={faEllipsisVertical} />
+          </Button>
+        </When>
       </ButtonGroup>
 
       <Popper anchorEl={anchorRef.current} {...{ open }} placement='top-end' transition sx={{ zIndex: 1 }}>
@@ -49,7 +66,7 @@ export function LearnReviewButton() {
             <Paper>
               <ClickAwayListener onClickAway={closeMenu}>
                 <MenuList autoFocusItem>
-                  {options.map(({ button, explanation }, index) => (
+                  {availableOptions.map(({ button, explanation }, index) => (
                     <MenuItem
                       key={button}
                       onClick={() => clickMenuItem(index)}
