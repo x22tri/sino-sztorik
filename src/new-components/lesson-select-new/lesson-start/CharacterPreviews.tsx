@@ -10,7 +10,7 @@ export function CharacterPreviews({ characters }: { characters: string[] }) {
   const { palette, spacing } = useTheme()
 
   return (
-    <Box zIndex={1} sx={{ bgcolor: palette.background.paper }}>
+    <Box zIndex={1} sx={{ bgcolor: palette.background.paper, gridArea: 'chars' }}>
       <When condition={characters.length}>
         <Box
           display='flex'

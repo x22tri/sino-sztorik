@@ -38,8 +38,8 @@ export function LessonSelectAppbar({
   }
 
   return (
-    <AppBar color='inherit' elevation={0} position='relative' {...{ ref }}>
-      <Toolbar disableGutters sx={{ justifyContent: 'space-between', px: 2 }}>
+    <AppBar color='inherit' elevation={0} position='relative' sx={{ gridArea: 'nav' }}>
+      <Toolbar disableGutters {...{ ref }} sx={{ justifyContent: 'space-between', px: 2 }}>
         <When condition={isSmallScreen}>
           <ToolbarButton icon={faGraduationCap} onClick={toggle} tooltip={LESSON_SELECT_TITLE} />
         </When>

@@ -18,6 +18,7 @@ export function LessonStart({ lesson }: { lesson: AssembledLesson }) {
       borderTop={`1px solid ${palette.grey[200]}`}
       display='grid'
       gap={2}
+      gridArea='start'
       gridTemplateColumns={`repeat(${isLargeScreen ? 4 : 3}, 1fr)`}
       height={constants.lessonStartMobileHeight}
       paddingX={2}

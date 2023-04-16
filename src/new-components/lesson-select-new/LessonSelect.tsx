@@ -30,20 +30,29 @@ export default function LessonSelect() {
     <Box display='flex' height='100vh' justifyContent='center' margin='auto' maxWidth={lessonSelectMaxWidth} position='relative'>
       <LessonPicker />
 
-      <Box sx={{ ml: { xs: 0, md: `${constants.drawerWidth}px` } }}>
+      <Box
+        display='grid'
+        component='main'
+        height='100%'
+        position='relative'
+        gridTemplateColumns='repeat(4, 1fr)'
+        gridTemplateRows={`${toolbarHeight}px auto ${constants.lessonStartMobileHeight}`}
+        sx={{
+          ml: { xs: 0, md: `${constants.drawerWidth}px` },
+          gridTemplateAreas: {
+            xs: `"nav nav nav nav" "main main main main" "start start start start"`,
+            lg: `"nav nav nav nav" "main main main chars" "start start start start"`,
+          },
+        }}
+      >
         <LessonSelectAppbar {...{ setToolbarHeight, toolbarHeight }} />
 
-        <Box
-          display='grid'
-          component='main'
-          gridTemplateColumns={!isLargeScreen ? '1fr' : '3fr 1fr'}
-          sx={{ bgcolor: 'background.paper', height: `calc(100% - ${toolbarHeight}px - ${constants.lessonStartMobileHeight})` }}
-        >
-          <LessonPrefaceSwiper />
-          <When condition={isLargeScreen}>
-            <CharacterPreviews characters={lessons[selected - 1].characters} />
-          </When>
-        </Box>
+        <LessonPrefaceSwiper />
+
+        <When condition={isLargeScreen}>
+          <CharacterPreviews characters={lessons[selected - 1].characters} />
+        </When>
+
         <LessonStart lesson={lessons[selected - 1]} />
       </Box>
     </Box>

@@ -29,7 +29,7 @@ export function LessonPrefaceSwiper() {
     <LessonSwiper
       initialSlide={selected! - 1}
       onActiveIndexChange={({ activeIndex }) => select(activeIndex + 1)}
-      style={{ height: '100%', width: '100%' }}
+      style={{ gridArea: 'main', height: '100%', width: '100%' }}
     >
       {lessons.map(({ lessonNumber }) => (
         <SwiperSlide key={lessonNumber}>
