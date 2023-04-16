@@ -10,6 +10,7 @@ import {
   LEARN_EXIT_MODAL_TITLE,
 } from '../../shared/strings'
 import { useState } from 'react'
+import ToolbarButton from '../../shared/components/ToolbarButton'
 
 export function CloseButton() {
   const [openModal, setOpenModal] = useState(false)
@@ -17,13 +18,14 @@ export function CloseButton() {
 
   return (
     <>
-      <IconButton
+      {/* <IconButton
         onClick={() => setOpenModal(true)}
         size='large'
         sx={{ mx: 1, pl: 0, justifySelf: 'flex-end', ...navButtonStyling }}
       >
         <FontAwesomeIcon icon={faClose} />
-      </IconButton>
+      </IconButton> */}
+      <ToolbarButton icon={faClose} onClick={() => setOpenModal(true)} tooltip={LEARN_EXIT_MODAL_EXIT_BUTTON} />
 
       <Modal onClose={() => setOpenModal(false)} open={openModal}>
         <Box
@@ -31,6 +33,7 @@ export function CloseButton() {
             bgcolor: 'background.paper',
             borderRadius: 5,
             left: '50%',
+            maxWidth: 'calc(100vw - 10px)',
             top: '50%',
             transform: 'translate(-50%, -50%)',
             p: 4,

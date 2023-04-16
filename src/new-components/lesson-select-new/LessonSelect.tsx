@@ -1,8 +1,7 @@
 import Box from '@mui/material/Box'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useTheme } from '@mui/material'
 import LessonPicker from './lesson-picker/LessonPicker'
-import { useSmallScreen } from '../shared/hooks/useSmallScreen'
 import { LessonStatuses } from '../shared/interfaces'
 import { useLessonSelect } from './logic/useLessonSelect'
 import { LessonSelectAppbar } from './appbar/LessonSelectAppbar'
@@ -16,12 +15,10 @@ import 'swiper/css'
 const lessonSelectMaxWidth = '1600px'
 
 export default function LessonSelect() {
-  const isSmallScreen = useSmallScreen()
   const isLargeScreen = useLargeScreen()
+  const [toolbarHeight, setToolbarHeight] = useState(0)
   const { lessons, selected, select, setUpcoming } = useLessonSelect()
-  const { constants, spacing } = useTheme()
-
-  const getMainHeight = (toolbarHeight: number) => `calc(100% - ${spacing(toolbarHeight)} - ${constants.lessonStartMobileHeight})`
+  const { constants } = useTheme()
 
   useEffect(() => {
     const upcoming = lessons.find(({ tierStatuses }) => tierStatuses.includes(LessonStatuses.UPCOMING))?.lessonNumber
@@ -34,13 +31,13 @@ export default function LessonSelect() {
       <LessonPicker />
 
       <Box sx={{ ml: { xs: 0, md: `${constants.drawerWidth}px` } }}>
-        <LessonSelectAppbar />
+        <LessonSelectAppbar {...{ setToolbarHeight, toolbarHeight }} />
 
         <Box
           display='grid'
           component='main'
           gridTemplateColumns={!isLargeScreen ? '1fr' : '3fr 1fr'}
-          sx={{ bgcolor: 'background.paper', height: { xs: getMainHeight(6), sm: getMainHeight(8) } }}
+          sx={{ bgcolor: 'background.paper', height: `calc(100% - ${toolbarHeight}px - ${constants.lessonStartMobileHeight})` }}
         >
           <LessonPrefaceSwiper />
           <When condition={isLargeScreen}>

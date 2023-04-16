@@ -2,17 +2,11 @@ import { EffectCreative } from 'swiper'
 import { Swiper, SwiperProps } from 'swiper/react'
 import { scrollToTop } from '../utility-functions'
 import { useSmallScreen } from '../hooks/useSmallScreen'
-import { useKeydown } from '../hooks/useKeydown'
 import { useSwiperInstance } from '../state'
 
 export function LessonSwiper(props: SwiperProps) {
-  const { swiperInstance, setSwiperInstance } = useSwiperInstance()
+  const { setSwiperInstance } = useSwiperInstance()
   const isSmallScreen = useSmallScreen()
-
-  // useKeydown([
-  //   { on: 'ArrowLeft', do: () => swiperInstance?.slidePrev() },
-  //   { on: 'ArrowRight', do: () => swiperInstance?.slideNext() },
-  // ])
 
   return (
     <Swiper

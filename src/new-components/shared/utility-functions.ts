@@ -1,5 +1,5 @@
 import { useTheme } from '@mui/material'
-import { AssembledLesson, LessonStatuses, TierStatuses } from './interfaces'
+import { LessonStatuses, TierStatuses } from './interfaces'
 
 const { UPCOMING, COMPLETED } = LessonStatuses
 
@@ -12,20 +12,11 @@ export function isDisabledLesson(tierStatuses: TierStatuses) {
 }
 
 export function useNavButtonStyling() {
-  const { constants, palette } = useTheme()
+  const { constants } = useTheme()
 
   return {
     transition: `${constants.animationDuration}ms`,
-    '@media (hover: hover)': {
-      '&:hover': {
-        backgroundColor: 'transparent',
-        color: palette.grey[500],
-        cursor: 'pointer',
-      },
-    },
-    '&:active': {
-      backgroundColor: 'transparent',
-      color: palette.primary.main,
-    },
+    '@media (hover: hover)': { '&:hover': { backgroundColor: 'transparent', color: 'grey[500]', cursor: 'pointer' } },
+    '&:active': { backgroundColor: 'transparent', color: 'primary.main' },
   }
 }

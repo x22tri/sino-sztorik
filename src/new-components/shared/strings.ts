@@ -23,10 +23,8 @@ export const CHARACTER_AMOUNT_LABEL = 'karakter'
 export const CHARACTERS_IN_LESSON_LABEL = 'Karakterek a leckében'
 
 export const MOBILE_NAVIGATION_TOOLTIP = 'Navigáció'
-export const MOBILE_NAVIGATION_ARIA_LABEL = 'Navigáció'
 
 export const TOP_NAV_TOOLTIP = 'Beállítások'
-export const TOP_NAV_ARIA_LABEL = 'Beállítások'
 export const TOP_NAV_ACCOUNT = 'Fiókbeállítások'
 export const TOP_NAV_LOGOUT = 'Kijelentkezés'
 

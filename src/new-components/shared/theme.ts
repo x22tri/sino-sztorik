@@ -2,6 +2,7 @@ import { CSSProperties } from 'react'
 import { createTheme } from '@mui/material/styles'
 import { grey, teal } from '@mui/material/colors'
 import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
+import { tooltipClasses } from '@mui/material'
 
 const chineseFont = "'Noto Sans', sans-serif" // To-Do: Create font with custom chars
 const genericFont = "'Noto Sans', sans-serif"
@@ -176,6 +177,9 @@ theme = createTheme(theme, {
           '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.secondary.contrastText },
         },
       },
+    },
+    MuiTooltip: {
+      styleOverrides: { tooltip: { [`.${tooltipClasses.popper}[data-popper-placement*="bottom"] &`]: { marginTop: 2 } } },
     },
   },
   constants: { lessonStartMobileHeight: theme.spacing(8) },
