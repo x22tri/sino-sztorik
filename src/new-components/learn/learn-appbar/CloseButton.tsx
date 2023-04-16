@@ -25,7 +25,12 @@ export function CloseButton() {
       >
         <FontAwesomeIcon icon={faClose} />
       </IconButton> */}
-      <ToolbarButton icon={faClose} onClick={() => setOpenModal(true)} tooltip={LEARN_EXIT_MODAL_EXIT_BUTTON} />
+      <ToolbarButton
+        icon={faClose}
+        onClick={() => setOpenModal(true)}
+        tooltip={LEARN_EXIT_MODAL_EXIT_BUTTON}
+        sx={{ mx: 1, pl: 0, justifySelf: 'flex-end' }}
+      />
 
       <Modal onClose={() => setOpenModal(false)} open={openModal}>
         <Box
