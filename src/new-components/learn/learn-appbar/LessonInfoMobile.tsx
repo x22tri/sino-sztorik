@@ -10,25 +10,14 @@ import { If, Then, Else } from 'react-if'
 
 export function LessonInfoMobile({ lessonNumber }: { lessonNumber: number }) {
   const navButtonStyling = useNavButtonStyling()
-
   const { flashback } = useFlashback()
 
   return (
     <If condition={!flashback}>
       <Then>
-        <IconButton
-          size='large'
-          className='fa-layers fa-fw'
-          sx={{ ml: 1, justifySelf: 'flex-end', ...navButtonStyling }}
-        >
+        <IconButton size='large' className='fa-layers fa-fw' sx={{ ml: 1, justifySelf: 'flex-end', ...navButtonStyling }}>
           <FontAwesomeIcon icon={faChalkboard} transform='shrink-3' />
-          <Box
-            component='span'
-            fontFamily={emphasisFont}
-            fontWeight='bold'
-            fontSize='40%'
-            marginBottom='2px'
-          >
+          <Box component='span' fontFamily={emphasisFont} fontWeight='bold' fontSize='40%' marginBottom='2px'>
             {lessonNumber}
           </Box>
         </IconButton>

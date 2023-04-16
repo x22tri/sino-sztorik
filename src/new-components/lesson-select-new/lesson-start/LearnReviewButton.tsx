@@ -2,12 +2,19 @@ import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ButtonGroup, Button, Popper, Grow, Paper, ClickAwayListener, MenuList, MenuItem, Typography } from '@mui/material'
 import { useState, useRef } from 'react'
-import { LEARN_BUTTON, LEARN_BUTTON_EXPLANATION, REVIEW_BUTTON, REVIEW_BUTTON_EXPLANATION } from '../../shared/strings'
+import {
+  LEARN_BUTTON,
+  LEARN_BUTTON_EXPLANATION,
+  LOADING_PLACEHOLDER,
+  REVIEW_BUTTON,
+  REVIEW_BUTTON_EXPLANATION,
+} from '../../shared/strings'
 import { LessonStatuses, TierStatuses } from '../../shared/interfaces'
 import { When } from 'react-if'
 import { useOnChange } from '../../shared/hooks/useOnChange'
 import { useLessonSelect } from '../logic/useLessonSelect'
 import { LoadingButton } from '@mui/lab'
+import { useNavigate } from 'react-router-dom'
 
 const { UPCOMING, COMPLETED } = LessonStatuses
 
@@ -21,6 +28,7 @@ export function LearnReviewButton({ tierStatuses }: { tierStatuses: TierStatuses
   const [open, setOpen] = useState(false)
   const [selectedIndex, setSelectedIndex] = useState(0)
   const { selected } = useLessonSelect()
+  const navigate = useNavigate()
 
   const availableOptions = options.filter(
     ({ button }) =>
@@ -28,7 +36,12 @@ export function LearnReviewButton({ tierStatuses }: { tierStatuses: TierStatuses
       (button === REVIEW_BUTTON && tierStatuses.includes(COMPLETED))
   )
 
-  const clickActionButton = () => console.info(`You clicked ${availableOptions[selectedIndex].button}`)
+  const selectedButton = availableOptions[selectedIndex]?.button
+
+  const clickActionButton = () => {
+    console.info(`You clicked ${selectedButton}`)
+    navigate('/learn')
+  }
 
   const clickMenuItem = (index: number) => {
     setSelectedIndex(index)
@@ -47,30 +60,17 @@ export function LearnReviewButton({ tierStatuses }: { tierStatuses: TierStatuses
 
   useOnChange(selected, () => setSelectedIndex(0))
 
-  const selectedOption = availableOptions[selectedIndex]
-
   return (
     <>
       <ButtonGroup
-        color={selectedOption?.button === LEARN_BUTTON ? 'secondary' : 'primary'}
+        color={selectedButton === LEARN_BUTTON ? 'secondary' : 'primary'}
         disableElevation
         variant='contained'
         sx={{ borderRadius: 6, justifySelf: 'center', width: 1 }}
       >
-        <LoadingButton
-          variant='contained'
-          loading={!selectedOption}
-          onClick={clickActionButton}
-          sx={{
-            borderRadius: 6,
-            width: 1,
-            // '&.MuiButtonGroup-grouped:not(:last-of-type)': {
-            //   borderRight: `1px solid`,
-            // },
-          }}
-        >
-          {selectedOption?.button ?? 'Betöltés...'} {/* Placeholder needed so button doesn't disappear. */}
-        </LoadingButton>
+        <Button onClick={clickActionButton} sx={{ borderRadius: 6, width: 1 }}>
+          {selectedButton ?? LOADING_PLACEHOLDER} {/* Placeholder needed so button doesn't disappear. */}
+        </Button>
 
         <When condition={availableOptions.length > 1}>
           <Button onClick={clickModeSwitcher} ref={anchorRef} sx={{ borderRadius: 6 }}>

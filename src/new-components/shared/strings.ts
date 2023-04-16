@@ -3,6 +3,8 @@ export const LESSON_UPCOMING = 'Soron következő lecke'
 export const LESSON_COMPLETED = 'Már megtanult lecke'
 export const LESSON_NOT_IN_TIER = 'Ebben a körben nincs ilyen lecke'
 
+export const LOADING_PLACEHOLDER = 'Betöltés...'
+
 export const LEARN_BUTTON = 'Tanulás'
 export const LEARN_BUTTON_EXPLANATION = 'Új karakterek tanulása'
 export const REVIEW_BUTTON = 'Ismétlés'
@@ -27,6 +29,11 @@ export const TOP_NAV_TOOLTIP = 'Beállítások'
 export const TOP_NAV_ARIA_LABEL = 'Beállítások'
 export const TOP_NAV_ACCOUNT = 'Fiókbeállítások'
 export const TOP_NAV_LOGOUT = 'Kijelentkezés'
+
+export const LEARN_EXIT_MODAL_TITLE = 'Biztosan kilépsz?'
+export const LEARN_EXIT_MODAL_BODY = 'Ha kilépsz a Leckeválasztóba, legközelebb elölről kell majd kezdened a leckét.'
+export const LEARN_EXIT_MODAL_CANCEL_BUTTON = 'Mégse'
+export const LEARN_EXIT_MODAL_EXIT_BUTTON = 'Kilépés'
 
 export const FLASHBACK_MODE = 'Visszaemlékezés'
 export const LESSON_NUMBER_SUFFIX_APPBAR = '. lecke'
