@@ -27,34 +27,34 @@ export default function LessonSelect() {
   }, [lessons, select])
 
   return !selected ? null : (
-    <Box display='flex' height='100vh' justifyContent='center' margin='auto' maxWidth={lessonSelectMaxWidth} position='relative'>
+    <Box
+      display='grid'
+      height='100vh'
+      justifyContent='center'
+      margin='auto'
+      maxWidth={lessonSelectMaxWidth}
+      position='relative'
+      gridTemplateRows={`${toolbarHeight}px auto ${constants.lessonStartMobileHeight}`}
+      sx={{
+        gridTemplateColumns: { xs: 'repeat(4, 1fr)', md: `${constants.drawerWidth}px repeat(4, 1fr)` },
+        gridTemplateAreas: {
+          xs: `"nav nav nav nav" "main main main main" "start start start start"`,
+          md: `"drawer nav nav nav nav" "drawer main main main main" "drawer start start start start"`,
+          lg: `"drawer nav nav nav nav" "drawer main main main chars" "drawer start start start start"`,
+        },
+      }}
+    >
       <LessonPicker />
 
-      <Box
-        display='grid'
-        component='main'
-        height='100%'
-        position='relative'
-        gridTemplateColumns='repeat(4, 1fr)'
-        gridTemplateRows={`${toolbarHeight}px auto ${constants.lessonStartMobileHeight}`}
-        sx={{
-          ml: { xs: 0, md: `${constants.drawerWidth}px` },
-          gridTemplateAreas: {
-            xs: `"nav nav nav nav" "main main main main" "start start start start"`,
-            lg: `"nav nav nav nav" "main main main chars" "start start start start"`,
-          },
-        }}
-      >
-        <LessonSelectAppbar {...{ setToolbarHeight, toolbarHeight }} />
+      <LessonSelectAppbar {...{ setToolbarHeight, toolbarHeight }} />
 
-        <LessonPrefaceSwiper />
+      <LessonPrefaceSwiper />
 
-        <When condition={isLargeScreen}>
-          <CharacterPreviews characters={lessons[selected - 1].characters} />
-        </When>
+      <When condition={isLargeScreen}>
+        <CharacterPreviews characters={lessons[selected - 1].characters} />
+      </When>
 
-        <LessonStart lesson={lessons[selected - 1]} />
-      </Box>
+      <LessonStart lesson={lessons[selected - 1]} />
     </Box>
   )
 }

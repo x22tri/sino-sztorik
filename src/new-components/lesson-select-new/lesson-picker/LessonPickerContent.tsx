@@ -45,6 +45,7 @@ export function LessonPickerContent() {
         bottom: 0,
         borderRight: `1px solid ${palette.grey[200]}`,
         left: 0,
+        gridArea: 'drawer',
         overflow: 'auto',
         position: 'absolute',
         right: 0,
