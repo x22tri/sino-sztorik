@@ -1,8 +1,6 @@
 import Box from '@mui/material/Box'
-import { Button, IconButton, Modal, Typography } from '@mui/material'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Button, Modal, Typography } from '@mui/material'
 import { faClose } from '@fortawesome/free-solid-svg-icons'
-import { useNavButtonStyling } from '../../shared/utility-functions'
 import {
   LEARN_EXIT_MODAL_BODY,
   LEARN_EXIT_MODAL_CANCEL_BUTTON,
@@ -14,17 +12,9 @@ import ToolbarButton from '../../shared/components/ToolbarButton'
 
 export function CloseButton() {
   const [openModal, setOpenModal] = useState(false)
-  const navButtonStyling = useNavButtonStyling()
 
   return (
     <>
-      {/* <IconButton
-        onClick={() => setOpenModal(true)}
-        size='large'
-        sx={{ mx: 1, pl: 0, justifySelf: 'flex-end', ...navButtonStyling }}
-      >
-        <FontAwesomeIcon icon={faClose} />
-      </IconButton> */}
       <ToolbarButton
         icon={faClose}
         onClick={() => setOpenModal(true)}
