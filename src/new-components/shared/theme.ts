@@ -178,14 +178,8 @@ theme = createTheme(theme, {
       },
     },
   },
-  MuiListSubheader: { styleOverrides: { root: { fontFamily: emphasisFont } } },
-
-  constants: {
-    lessonStartMobileHeight: theme.spacing(8),
-  },
-  palette: {
-    specialParagraphs: { whenPrimitive: theme.palette.secondary.light },
-  },
+  constants: { lessonStartMobileHeight: theme.spacing(8) },
+  palette: { specialParagraphs: { whenPrimitive: theme.palette.secondary.light } },
   typography: {
     presentation: {
       keyword: { color: theme.palette.primary.main },

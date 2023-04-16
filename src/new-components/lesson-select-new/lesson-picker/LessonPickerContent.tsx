@@ -8,12 +8,10 @@ import { LessonPickerTitle } from './LessonPickerTitle'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleRight } from '@fortawesome/free-solid-svg-icons'
 import { When } from 'react-if'
-import { LessonStatuses } from '../../shared/interfaces'
+import { isDisabledLesson } from '../../shared/utility-functions'
 
 const itemHeight = 64
 const gap = 0
-
-const { UPCOMING, COMPLETED } = LessonStatuses
 
 export function LessonPickerContent() {
   const listRef = useRef<HTMLUListElement>(null)
@@ -60,7 +58,7 @@ export function LessonPickerContent() {
         return (
           <ListItem key={lessonNumber} disablePadding>
             <ListItemButton
-              disabled={!tierStatuses.includes(UPCOMING) && !tierStatuses.includes(COMPLETED)}
+              disabled={isDisabledLesson(tierStatuses)}
               onClick={() => selectLesson(lessonNumber)}
               selected={selected === lessonNumber}
               sx={{

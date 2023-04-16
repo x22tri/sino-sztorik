@@ -7,19 +7,17 @@ import { useSwiperInstance } from '../state'
 
 export function LessonSwiper(props: SwiperProps) {
   const { swiperInstance, setSwiperInstance } = useSwiperInstance()
+  const isSmallScreen = useSmallScreen()
 
-  useKeydown([
-    { on: 'ArrowLeft', do: () => swiperInstance?.slidePrev() },
-    { on: 'ArrowRight', do: () => swiperInstance?.slideNext() },
-  ])
+  // useKeydown([
+  //   { on: 'ArrowLeft', do: () => swiperInstance?.slidePrev() },
+  //   { on: 'ArrowRight', do: () => swiperInstance?.slideNext() },
+  // ])
 
   return (
     <Swiper
-      creativeEffect={{
-        prev: { opacity: 0, translate: ['-20%', 0, -1] },
-        next: { opacity: 1, translate: ['100%', 0, 1] },
-      }}
-      effect={useSmallScreen() ? 'creative' : 'slide'}
+      creativeEffect={{ prev: { opacity: 0, translate: ['-20%', 0, -1] }, next: { opacity: 1, translate: ['100%', 0, 1] } }}
+      effect={isSmallScreen ? 'creative' : 'slide'}
       modules={[EffectCreative]}
       onSlideChange={scrollToTop}
       onSlideChangeTransitionEnd={scrollToTop}
