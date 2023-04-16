@@ -5,6 +5,9 @@ import { useState, useRef } from 'react'
 import { LEARN_BUTTON, LEARN_BUTTON_EXPLANATION, REVIEW_BUTTON, REVIEW_BUTTON_EXPLANATION } from '../../shared/strings'
 import { LessonStatuses, TierStatuses } from '../../shared/interfaces'
 import { When } from 'react-if'
+import { useOnChange } from '../../shared/hooks/useOnChange'
+import { useLessonSelect } from '../logic/useLessonSelect'
+import { LoadingButton } from '@mui/lab'
 
 const { UPCOMING, COMPLETED } = LessonStatuses
 
@@ -17,6 +20,7 @@ export function LearnReviewButton({ tierStatuses }: { tierStatuses: TierStatuses
   const anchorRef = useRef<HTMLButtonElement>(null)
   const [open, setOpen] = useState(false)
   const [selectedIndex, setSelectedIndex] = useState(0)
+  const { selected } = useLessonSelect()
 
   const availableOptions = options.filter(
     ({ button }) =>
@@ -24,14 +28,14 @@ export function LearnReviewButton({ tierStatuses }: { tierStatuses: TierStatuses
       (button === REVIEW_BUTTON && tierStatuses.includes(COMPLETED))
   )
 
-  const clickActionButton = () => console.info(`You clicked ${options[selectedIndex].button}`)
+  const clickActionButton = () => console.info(`You clicked ${availableOptions[selectedIndex].button}`)
 
   const clickMenuItem = (index: number) => {
     setSelectedIndex(index)
     setOpen(false)
   }
 
-  const clickToggle = () => setOpen(prevOpen => !prevOpen)
+  const clickModeSwitcher = () => setOpen(prevOpen => !prevOpen)
 
   const closeMenu = ({ target }: Event) => {
     if (anchorRef.current?.contains(target as HTMLElement)) {
@@ -41,20 +45,35 @@ export function LearnReviewButton({ tierStatuses }: { tierStatuses: TierStatuses
     setOpen(false)
   }
 
+  useOnChange(selected, () => setSelectedIndex(0))
+
+  const selectedOption = availableOptions[selectedIndex]
+
   return (
     <>
       <ButtonGroup
-        color={availableOptions[selectedIndex].button === LEARN_BUTTON ? 'secondary' : 'primary'}
+        color={selectedOption?.button === LEARN_BUTTON ? 'secondary' : 'primary'}
         disableElevation
         variant='contained'
-        sx={{ borderRadius: 6, justifySelf: 'center', maxHeight: '42px', width: '100%' }}
+        sx={{ borderRadius: 6, justifySelf: 'center', width: 1 }}
       >
-        <Button onClick={clickActionButton} sx={{ borderRadius: 6, width: '100%' }}>
-          {availableOptions[selectedIndex].button}
-        </Button>
+        <LoadingButton
+          variant='contained'
+          loading={!selectedOption}
+          onClick={clickActionButton}
+          sx={{
+            borderRadius: 6,
+            width: 1,
+            // '&.MuiButtonGroup-grouped:not(:last-of-type)': {
+            //   borderRight: `1px solid`,
+            // },
+          }}
+        >
+          {selectedOption?.button ?? 'Betöltés...'} {/* Placeholder needed so button doesn't disappear. */}
+        </LoadingButton>
 
         <When condition={availableOptions.length > 1}>
-          <Button onClick={clickToggle} ref={anchorRef} sx={{ borderRadius: 6 }}>
+          <Button onClick={clickModeSwitcher} ref={anchorRef} sx={{ borderRadius: 6 }}>
             <FontAwesomeIcon icon={faEllipsisVertical} />
           </Button>
         </When>

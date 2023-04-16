@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react'
 import { createTheme } from '@mui/material/styles'
-import { blue, grey, lightBlue, teal } from '@mui/material/colors'
+import { grey, teal } from '@mui/material/colors'
 import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
 
 const chineseFont = "'Noto Sans', sans-serif" // To-Do: Create font with custom chars
@@ -107,14 +107,8 @@ let theme = responsiveFontSizes(
   createTheme({
     components: {
       MuiButtonBase: { defaultProps: { disableRipple: true } },
-      MuiContainer: {
-        styleOverrides: { root: { paddingLeft: 0, paddingRight: 0 } },
-      },
-      MuiIconButton: {
-        styleOverrides: {
-          root: { '&:hover': { backgroundColor: 'transparent', opacity: 0.8 } },
-        },
-      },
+      MuiContainer: { styleOverrides: { root: { paddingLeft: 0, paddingRight: 0 } } },
+      MuiIconButton: { styleOverrides: { root: { '&:hover': { backgroundColor: 'transparent', opacity: 0.8 } } } },
       MuiLink: {
         defaultProps: { underline: 'none' },
         styleOverrides: {
@@ -173,8 +167,8 @@ let theme = responsiveFontSizes(
 
 theme = createTheme(theme, {
   components: {
-    MuiListSubheader: { styleOverrides: { root: { fontFamily: emphasisFont } } },
     MuiBadge: { styleOverrides: { badge: { fontFamily: emphasisFont } } },
+    MuiButtonGroup: { styleOverrides: { grouped: { borderRightColor: 'transparent' } } },
     MuiLink: {
       styleOverrides: {
         root: {
@@ -184,6 +178,7 @@ theme = createTheme(theme, {
       },
     },
   },
+  MuiListSubheader: { styleOverrides: { root: { fontFamily: emphasisFont } } },
 
   constants: {
     lessonStartMobileHeight: theme.spacing(8),

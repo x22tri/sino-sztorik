@@ -18,22 +18,16 @@ export const LessonStatuses = {
 
 export type valueof<T> = T[keyof T]
 
-export type LessonStatus = typeof LessonStatuses[keyof typeof LessonStatuses]
+export type LessonStatus = (typeof LessonStatuses)[keyof typeof LessonStatuses]
 
 export const SideNavigationItems = {
   LESSON_SELECT: LESSON_SELECT_TITLE,
   CHARACTER_SEARCH: CHARACTER_SEARCH_TITLE,
 } as const
 
-export type SideNavigationItem =
-  typeof SideNavigationItems[keyof typeof SideNavigationItems]
+export type SideNavigationItem = (typeof SideNavigationItems)[keyof typeof SideNavigationItems]
 
-export type TierStatuses = [
-  LessonStatus,
-  LessonStatus,
-  LessonStatus,
-  LessonStatus
-]
+export type TierStatuses = [LessonStatus, LessonStatus, LessonStatus, LessonStatus]
 
 export type NoteStyles = {
   color: string
@@ -99,11 +93,7 @@ export const StoryParagraphKeys = {
 
 const { KEYWORD, PRIMITIVE, CONSTITUENT } = StoryParagraphKeys
 
-export type Segment =
-  | string
-  | { [KEYWORD]: string }
-  | { [PRIMITIVE]: string }
-  | { [CONSTITUENT]: string; references: string }
+export type Segment = string | { [KEYWORD]: string } | { [PRIMITIVE]: string } | { [CONSTITUENT]: string; references: string }
 
 export type SegmentKey = valueof<typeof StoryParagraphKeys>
 

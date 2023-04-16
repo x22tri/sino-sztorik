@@ -1,7 +1,7 @@
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme } from '@mui/material'
 import { useWindowSize } from '../../shared/hooks/useWindowSize'
 import { useOnChange } from '../../shared/hooks/useOnChange'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { useSwiperInstance } from '../../shared/state'
 import { useLessonSelect } from '../logic/useLessonSelect'
 import { LessonPickerTitle } from './LessonPickerTitle'
@@ -17,7 +17,6 @@ const { UPCOMING, COMPLETED } = LessonStatuses
 
 export function LessonPickerContent() {
   const listRef = useRef<HTMLUListElement>(null)
-  const [hovered, setHovered] = useState<number | null>(null)
   const { lessons, select, selected, toggle, upcoming } = useLessonSelect()
   const { swiperInstance } = useSwiperInstance()
   const { constants, palette, typography } = useTheme()
@@ -46,38 +45,35 @@ export function LessonPickerContent() {
       sx={{
         backgroundColor: palette.background.paper,
         bottom: 0,
+        borderRight: `1px solid ${palette.grey[200]}`,
         left: 0,
         overflow: 'auto',
         position: 'absolute',
         right: 0,
         top: 0,
         width: constants.drawerWidth,
-        borderRight: `1px solid ${palette.grey[200]}`,
       }}
     >
       {lessons.map(({ lessonNumber, tierStatuses }) => {
-        const isHovered = hovered === lessonNumber
-        const isSelected = selected === lessonNumber
         const isUpcoming = upcoming === lessonNumber
 
         return (
           <ListItem key={lessonNumber} disablePadding>
             <ListItemButton
-              onMouseEnter={() => setHovered(lessonNumber)}
-              onMouseLeave={() => setHovered(null)}
-              onClick={() => selectLesson(lessonNumber)}
-              selected={isSelected}
               disabled={!tierStatuses.includes(UPCOMING) && !tierStatuses.includes(COMPLETED)}
+              onClick={() => selectLesson(lessonNumber)}
+              selected={selected === lessonNumber}
               sx={{
                 border: isUpcoming ? `2px solid ${palette.secondary.main}` : 'none',
                 borderRadius: 6,
-                color: isHovered || isSelected ? palette.common.black : palette.text.secondary,
+                color: 'text.secondary',
                 height: '48px',
                 m: 1,
                 transition: `${constants.animationDuration}ms`,
                 ':hover': { bgcolor: isUpcoming ? `${palette.secondary.main}11` : undefined },
                 '&.Mui-selected': {
                   bgcolor: isUpcoming ? `${palette.secondary.main}11` : undefined,
+                  color: 'common.black',
                   ':hover': { bgcolor: isUpcoming ? `${palette.secondary.main}22` : undefined },
                 },
               }}

@@ -6,7 +6,6 @@ import { Box, useTheme } from '@mui/material'
 import { Fragment, ReactNode } from 'react'
 
 const { NOT_IN_TIER, LOCKED, UPCOMING, COMPLETED } = LessonStatuses
-
 const iconWidth = '14px'
 
 export function TierStatusIcons({ tierStatuses }: { tierStatuses: TierStatuses }) {
