@@ -44,7 +44,7 @@ export function LessonSelectAppbar({
           <ToolbarButton icon={faGraduationCap} onClick={toggle} tooltip={LESSON_SELECT_TITLE} />
         </When>
 
-        <LogoTitle noLogo={isSmallScreen} />
+        <LogoTitle />
 
         <ProfileMenu />
       </Toolbar>

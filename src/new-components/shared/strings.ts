@@ -1,3 +1,5 @@
+export const APP_TITLE = 'kin.ai'
+
 export const LESSON_LOCKED = 'Még nincs feloldva'
 export const LESSON_UPCOMING = 'Soron következő lecke'
 export const LESSON_COMPLETED = 'Már megtanult lecke'

@@ -72,6 +72,7 @@ declare module '@mui/material/styles' {
     presentation: PresentationVariants
     storySegments: StorySegmentVariants
     titleSubtitle: { title: CSSProperties; subtitle: CSSProperties }
+    logo: CSSProperties
   }
 
   // Allows configuration using `createTheme`.
@@ -81,6 +82,7 @@ declare module '@mui/material/styles' {
     presentation?: PresentationVariants
     storySegments?: StorySegmentVariants
     titleSubtitle?: { title: CSSProperties; subtitle: CSSProperties }
+    logo?: CSSProperties
   }
 }
 
@@ -101,6 +103,7 @@ declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
     chineseHeading: true
     chineseNormal: true
+    logo: true
   }
 }
 
@@ -185,6 +188,7 @@ theme = createTheme(theme, {
   constants: { lessonStartMobileHeight: theme.spacing(8) },
   palette: { specialParagraphs: { whenPrimitive: theme.palette.secondary.light } },
   typography: {
+    logo: { ...theme.typography.h4, textDecoration: 'none' },
     presentation: {
       keyword: { color: theme.palette.primary.main },
       primitive: { color: theme.palette.secondary.main },
