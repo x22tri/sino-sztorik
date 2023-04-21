@@ -7,7 +7,7 @@ const minNumberOfColumns = 4
 const maxNumberOfColumns = 6
 
 export function CharacterPreviews({ characters }: { characters: string[] }) {
-  const { palette, spacing } = useTheme()
+  const { constants, palette, spacing } = useTheme()
 
   return (
     <Box zIndex={1} sx={{ bgcolor: palette.background.paper, gridArea: 'chars' }}>
@@ -34,7 +34,7 @@ export function CharacterPreviews({ characters }: { characters: string[] }) {
                 key={char}
                 component='span'
                 sx={{
-                  boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px',
+                  boxShadow: constants.boxShadow,
                   m: 'auto',
                   maxWidth: charWidth,
                   typography: 'chineseNormal',

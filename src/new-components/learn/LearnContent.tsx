@@ -23,7 +23,8 @@ import {
   LEARN_HEADING_SUPPLEMENTS,
   LEARN_SUBHEADING_PHRASES,
 } from '../shared/strings'
-import { If, Then } from 'react-if'
+import { If, Then, When } from 'react-if'
+import { ConstituentListNew } from './ConstituentListNew'
 
 export default function LearnContent({
   nextChar,
@@ -83,23 +84,19 @@ export default function LearnContent({
         mx: 'auto',
       }}
     >
-      <InfoChips
+      {/* <InfoChips
         {...{ frequency, newPrimitive, prequel, productivePhonetic, reminder }}
-      />
+      /> */}
 
       <Heading title={LEARN_HEADING_CHARACTER} />
 
-      <Presentation
-        {...{ charChinese, explanation, keyword, pinyin, primitiveMeaning }}
-      />
+      <When condition={!!constituents}>
+        {/* <Subheading title={LEARN_SUBHEADING_CONSTITUENTS} /> */}
+        {/* <ConstituentList constituents={constituents!} {...{ lessonChar }} /> */}
+        <ConstituentListNew constituents={constituents!} />
+      </When>
 
-      <If condition={!!constituents}>
-        <Then>
-          <Subheading title={LEARN_SUBHEADING_CONSTITUENTS} />
-
-          <ConstituentList constituents={constituents!} {...{ lessonChar }} />
-        </Then>
-      </If>
+      <Presentation {...{ charChinese, explanation, keyword, pinyin, primitiveMeaning }} />
 
       <Heading title={LEARN_HEADING_STORY} endContent={<StoryTypeSwitch />} />
 

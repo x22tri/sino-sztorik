@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react'
 import { createTheme } from '@mui/material/styles'
-import { grey, teal } from '@mui/material/colors'
+import { blue, grey, teal } from '@mui/material/colors'
 import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
 import { tooltipClasses } from '@mui/material'
 
@@ -12,6 +12,7 @@ declare module '@mui/material/styles' {
   interface Theme {
     constants: {
       animationDuration: number
+      boxShadow: string
       drawerWidth: number
       lessonStartMobileHeight: string
       maxContentWidth: string
@@ -21,6 +22,7 @@ declare module '@mui/material/styles' {
   interface ThemeOptions {
     constants?: {
       animationDuration?: number
+      boxShadow?: string
       drawerWidth?: number
       lessonStartMobileHeight?: string
       maxContentWidth?: string
@@ -117,17 +119,23 @@ let theme = responsiveFontSizes(
         defaultProps: { underline: 'none' },
         styleOverrides: {
           root: {
-            color: 'initial',
-            fontStyle: 'italic',
-            borderRadius: '4px',
-            padding: '0 2px',
-            transition: '200ms',
-            '&:hover': { cursor: 'pointer' },
+            color: '#3366CC',
+            // color: 'initial',
+            //     fontStyle: 'italic',
+            //     borderRadius: '4px',
+            //     padding: '0 2px',
+            //     transition: '200ms',
+            // '&:hover': { cursor: 'pointer' },
           },
         },
       },
     },
-    constants: { animationDuration: 150, drawerWidth: 300, maxContentWidth: '48rem' },
+    constants: {
+      animationDuration: 150,
+      boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px',
+      drawerWidth: 300,
+      maxContentWidth: '48rem',
+    },
     typography: {
       fontFamily: genericFont,
       h4: { fontFamily: emphasisFont, fontWeight: 800, fontSize: 24 },
@@ -173,14 +181,14 @@ theme = createTheme(theme, {
   components: {
     MuiBadge: { styleOverrides: { badge: { fontFamily: emphasisFont } } },
     MuiButtonGroup: { styleOverrides: { grouped: { borderRightColor: 'transparent' } } },
-    MuiLink: {
-      styleOverrides: {
-        root: {
-          backgroundColor: theme.palette.secondary.light,
-          '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.secondary.contrastText },
-        },
-      },
-    },
+    // MuiLink: {
+    //   styleOverrides: {
+    //     root: {
+    //       backgroundColor: theme.palette.secondary.light,
+    //       '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.secondary.contrastText },
+    //     },
+    //   },
+    // },
     MuiTooltip: {
       styleOverrides: { tooltip: { [`.${tooltipClasses.popper}[data-popper-placement*="bottom"] &`]: { marginTop: 2 } } },
     },
