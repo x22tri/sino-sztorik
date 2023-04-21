@@ -21,7 +21,6 @@ export function FlashbackPreview({
         display: 'grid',
         columnGap: 1,
         gridTemplateAreas: `
-        textAlign: 'center',
     "pinyin pinyin pinyin"
     "char char char"
     "divider divider divider"
@@ -30,17 +29,18 @@ export function FlashbackPreview({
     "button button button"
     `,
         gridTemplateColumns: '12px auto 12px',
+        textAlign: 'center',
         p: 1,
         pointerEvents: 'auto',
       }}
     >
       <When condition={pinyin}>
-        <Box gridArea='pinyin' textAlign='center' typography='presentation.pinyin'>
+        <Box typography='presentation.pinyin' gridArea='pinyin' textAlign='center'>
           {pinyin}
         </Box>
       </When>
 
-      <Box fontSize='200%' gridArea='char' marginBottom={1} textAlign='center' typography='chineseNormal'>
+      <Box typography='chineseNormal' fontSize='200%' marginBottom={1} gridArea='char' textAlign='center'>
         {charChinese}
       </Box>
 
