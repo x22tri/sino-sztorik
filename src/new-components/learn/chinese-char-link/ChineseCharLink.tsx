@@ -1,11 +1,10 @@
-import { Link, Popover, useTheme } from '@mui/material'
+import { Link, Popover } from '@mui/material'
 import { useRef, useState } from 'react'
 import { FlashbackPreview } from './FlashbackPreview'
 
 export function ChineseCharLink({ char }: { char: string }) {
   const anchorEl = useRef(null)
   const [open, setOpen] = useState(false)
-  const { constants } = useTheme()
 
   return (
     <>
@@ -16,13 +15,14 @@ export function ChineseCharLink({ char }: { char: string }) {
       <Popover
         anchorEl={anchorEl.current}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        elevation={0}
         marginThreshold={2}
-        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
         PaperProps={{
           onMouseEnter: () => setOpen(true),
           onMouseLeave: () => setOpen(false),
-          style: { boxShadow: constants.boxShadow },
+          style: { backgroundColor: 'transparent' },
         }}
+        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
         sx={{ pointerEvents: 'none' }}
         {...{ open }}
       >

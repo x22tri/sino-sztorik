@@ -81,3 +81,5 @@ export const INFO_CHIP_REMINDER_EXPLANATION = `Ezt a karaktert korábban már be
 export const INFO_CHIP_FREQUENCY_EXPLANATION = `Ez a {frequency}. leggyakoribb írásjel a kínaiban, így {frequencyTextLowerCase} karakternek számít.`
 
 export const INFO_CHIP_UNKNOWN_FREQUENCY_EXPLANATION = `Nem tudjuk, milyen gyakori ez az írásjel a kínaiban.`
+
+export const JUMP_TO_FLASHBACK_BUTTON = 'Ugrás'
