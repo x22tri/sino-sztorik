@@ -33,20 +33,22 @@ export function FlashbackPreview({
         ".    paper"
         `,
         p: 1,
+        mr: 3,
+        mt: -1,
         pointerEvents: 'auto',
         textAlign: 'center',
       }}
     >
       <Box
         component='span'
-        sx={{ bgcolor: palette.grey[50], borderRadius: `${spacing(1)} 0 0 ${spacing(1)}`, gridArea: 'key', px: 0.5 }}
+        sx={{ bgcolor: '#FAEFDA', borderRadius: `${spacing(1)} 0 0 ${spacing(1)}`, gridArea: 'key', px: 0.5 }}
       >
         <FontAwesomeIcon icon={faKey} color='#f6ae2d' size='xs' />
       </Box>
 
       <Box
         component='span'
-        sx={{ bgcolor: palette.grey[50], borderRadius: `${spacing(1)} 0 0 ${spacing(1)}`, gridArea: 'cube', px: 0.5 }}
+        sx={{ bgcolor: '#DDE8FF', borderRadius: `${spacing(1)} 0 0 ${spacing(1)}`, gridArea: 'cube', px: 0.5 }}
       >
         <FontAwesomeIcon icon={faCube} color='#3366CC' size='xs' />
       </Box>
