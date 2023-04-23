@@ -10,7 +10,7 @@ export function LearnPopover({
   hover?: boolean
   text: string | undefined
 }) {
-  const { palette } = useTheme()
+  const { constants } = useTheme()
 
   return (
     <Popover
@@ -21,7 +21,7 @@ export function LearnPopover({
       anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       transformOrigin={{ vertical: 'top', horizontal: 'center' }}
       PaperProps={{
-        style: { boxShadow: 'none', border: `2px solid ${palette.grey[200]}` },
+        style: { boxShadow: constants.boxShadow },
       }}
       sx={{ pointerEvents: hover ? 'none' : 'initial' }}
     >

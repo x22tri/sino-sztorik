@@ -27,9 +27,7 @@ export function ConstituentList({
   return (
     <Box
       display='flex'
-      justifyContent={
-        !phrases ? 'flex-start' : isSmallScreen ? 'center' : 'flex-end'
-      }
+      justifyContent={!phrases ? 'flex-start' : isSmallScreen ? 'center' : 'flex-end'}
       alignItems='center'
       gap={3}
       marginBottom={phrases && isSmallScreen ? 1 : 3}
@@ -47,9 +45,7 @@ export function ConstituentList({
             }}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
-            startIcon={
-              <CharChinese {...{ constituent, emphasize, isHovered }} />
-            }
+            startIcon={<CharChinese {...{ constituent, emphasize, isHovered }} />}
             sx={{
               flexDirection: phrases ? 'column' : 'row',
               boxShadow: 'none',
@@ -61,11 +57,7 @@ export function ConstituentList({
               },
             }}
           >
-            <Box
-              display='flex'
-              flexDirection='column'
-              alignItems={phrases ? 'center' : 'flex-start'}
-            >
+            <Box display='flex' flexDirection='column' alignItems={phrases ? 'center' : 'flex-start'}>
               <Keyword keyword='keyword' {...{ emphasize, isHovered }} />
               <Primitive primitive='primitive' {...{ emphasize, isHovered }} />
             </Box>
@@ -87,11 +79,9 @@ export function CharChinese({
 }) {
   const { constants, palette } = useTheme()
 
-  const colorBase =
-    emphasize === 'keyword' ? palette.neutral : palette.secondary
+  const colorBase = emphasize === 'keyword' ? palette.neutral : palette.secondary
 
-  const colorHovered =
-    emphasize === 'keyword' ? palette.primary : palette.secondary
+  const colorHovered = emphasize === 'keyword' ? palette.primary : palette.secondary
 
   return (
     <Typography
@@ -102,7 +92,7 @@ export function CharChinese({
         borderRadius: 6,
         p: 1,
         lineHeight: 1,
-        transition: `${constants.animationDuration}ms`,
+        transition: constants.animationDuration,
       }}
     >
       {constituent}
@@ -126,13 +116,9 @@ export function Keyword({
       component='span'
       sx={{
         ...typography.storySegments.keyword,
-        color: isHovered
-          ? palette.primary.main
-          : emphasize === 'keyword'
-          ? palette.text.primary
-          : palette.text.disabled,
+        color: isHovered ? palette.primary.main : emphasize === 'keyword' ? palette.text.primary : palette.text.disabled,
         fontSize: emphasize === 'keyword' ? '100%' : '80%',
-        transition: `${constants.animationDuration}ms`,
+        transition: constants.animationDuration,
       }}
       lineHeight={1}
     >
@@ -158,13 +144,9 @@ export function Primitive({
       lineHeight={1.1}
       sx={{
         ...typography.storySegments.primitive,
-        color: isHovered
-          ? palette.secondary.main
-          : emphasize === 'primitive'
-          ? palette.text.primary
-          : palette.text.disabled,
+        color: isHovered ? palette.secondary.main : emphasize === 'primitive' ? palette.text.primary : palette.text.disabled,
         fontSize: emphasize === 'primitive' ? 'initial' : '80%',
-        transition: `${constants.animationDuration}ms`,
+        transition: constants.animationDuration,
       }}
     >
       {primitive}

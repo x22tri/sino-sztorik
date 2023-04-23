@@ -11,7 +11,7 @@ export const emphasisFont = "'Rubik', sans-serif"
 declare module '@mui/material/styles' {
   interface Theme {
     constants: {
-      animationDuration: number
+      animationDuration: `${number}ms`
       boxShadow: string
       drawerWidth: number
       lessonStartMobileHeight: string
@@ -21,7 +21,7 @@ declare module '@mui/material/styles' {
 
   interface ThemeOptions {
     constants?: {
-      animationDuration?: number
+      animationDuration?: `${number}ms`
       boxShadow?: string
       drawerWidth?: number
       lessonStartMobileHeight?: string
@@ -117,22 +117,12 @@ let theme = responsiveFontSizes(
       MuiIconButton: { styleOverrides: { root: { '&:hover': { backgroundColor: 'transparent', opacity: 0.8 } } } },
       MuiLink: {
         defaultProps: { underline: 'none' },
-        styleOverrides: {
-          root: {
-            color: '#3366CC',
-            // color: 'initial',
-            //     fontStyle: 'italic',
-            //     borderRadius: '4px',
-            //     padding: '0 2px',
-            //     transition: '200ms',
-            '&:hover': { cursor: 'pointer', backgroundColor: '#DDE8FF' },
-          },
-        },
+        styleOverrides: { root: { color: '#3366CC', '&:hover': { cursor: 'pointer', backgroundColor: '#DDE8FF' } } },
       },
     },
     constants: {
-      animationDuration: 150,
-      boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px',
+      animationDuration: '150ms',
+      boxShadow: 'rgba(0, 0, 0, 0.25) 0px 2px 15px -3px',
       drawerWidth: 300,
       maxContentWidth: '48rem',
     },
@@ -141,7 +131,7 @@ let theme = responsiveFontSizes(
       h4: { fontFamily: emphasisFont, fontWeight: 800, fontSize: 24 },
       h5: { fontFamily: emphasisFont, fontWeight: 600, fontSize: 18 },
       h6: { fontFamily: emphasisFont, fontWeight: 600, fontSize: 14 },
-      button: { fontFamily: emphasisFont, textTransform: 'none' },
+      button: { fontWeight: 'bold', textTransform: 'none' },
       body1: { lineHeight: 1.5 },
       body2: { fontSize: 16 },
       chineseHeading: { fontFamily: chineseFont, fontSize: 120, fontWeight: 400, lineHeight: 1 },
@@ -184,7 +174,7 @@ theme = createTheme(theme, {
     MuiLink: {
       styleOverrides: {
         root: {
-          transition: `${theme.constants.animationDuration}ms`,
+          transition: theme.constants.animationDuration,
         },
       },
     },

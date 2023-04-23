@@ -9,7 +9,7 @@ export function LightenOnHoverButton<B extends ElementType>(props: ButtonProps<B
     <Button
       {...props}
       sx={{
-        transition: `${constants.animationDuration}ms`,
+        transition: constants.animationDuration,
         '&:hover': {
           backgroundColor: 'inherit',
           filter: 'brightness(1.3)',

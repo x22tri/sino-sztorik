@@ -11,7 +11,7 @@ export function ConstituentListNew({ constituents }: { constituents: Partial<Cha
     <List disablePadding>
       {constituents.map(({ charChinese, keyword, primitiveMeaning }, index) => (
         <ListItem disablePadding key={index}>
-          <ListItemButton sx={{ ':hover': { bgcolor: '#DDE8FF' } }}>
+          <ListItemButton sx={{ borderRadius: 4, ':hover': { bgcolor: '#DDE8FF' } }}>
             <ListItemIcon>
               <Typography variant='chineseNormal' color='#3366CC'>
                 {charChinese}

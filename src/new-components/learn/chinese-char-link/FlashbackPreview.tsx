@@ -1,6 +1,6 @@
 import { IconDefinition, faCube, faKey } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Box, Paper } from '@mui/material'
+import { Box, Paper, useTheme } from '@mui/material'
 import { ReactNode } from 'react'
 import { When } from 'react-if'
 
@@ -73,13 +73,14 @@ function IconColumn({ children }: { children: ReactNode }) {
 }
 
 function PaperColumn({ children }: { children: ReactNode }) {
+  const { constants } = useTheme()
   return (
     <Paper
       sx={{
         alignItems: 'center',
         display: 'grid',
         borderRadius: 4,
-        boxShadow: 'rgba(0, 0, 0, 0.1) 0px 2px 15px -3px',
+        boxShadow: constants.boxShadow,
         gridArea: 'paper',
         gridTemplateAreas: `"pinyin" "char" "keyword" "primitive"`,
         gridTemplateRows: 'subgrid',

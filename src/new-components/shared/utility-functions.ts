@@ -15,7 +15,7 @@ export function useNavButtonStyling() {
   const { constants } = useTheme()
 
   return {
-    transition: `${constants.animationDuration}ms`,
+    transition: constants.animationDuration,
     '@media (hover: hover)': { '&:hover': { backgroundColor: 'transparent', color: 'grey[500]', cursor: 'pointer' } },
     '&:active': { backgroundColor: 'transparent', color: 'primary.main' },
   }

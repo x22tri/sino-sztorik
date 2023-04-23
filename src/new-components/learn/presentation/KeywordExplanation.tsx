@@ -27,7 +27,7 @@ export function KeywordExplanation({ explanation }: { explanation: string }) {
         onMouseLeave={closePopover}
         position='absolute'
         sx={{
-          transition: `${constants.animationDuration}ms`,
+          transition: constants.animationDuration,
           '&:hover': { color: lighten(palette.text.primary, 0.3), cursor: 'pointer' },
         }}
       >

@@ -68,7 +68,7 @@ export function LessonPickerContent() {
                 color: 'text.secondary',
                 height: '48px',
                 m: 1,
-                transition: `${constants.animationDuration}ms`,
+                transition: constants.animationDuration,
                 ':hover': { bgcolor: isUpcoming ? `${palette.secondary.main}11` : undefined },
                 '&.Mui-selected': {
                   bgcolor: isUpcoming ? `${palette.secondary.main}11` : undefined,
