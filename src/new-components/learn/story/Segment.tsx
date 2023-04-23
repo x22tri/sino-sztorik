@@ -4,7 +4,7 @@ import { ReactNode } from 'react'
 
 export function Segment({ styles, text }: { styles: SegmentStyles; text: string | ReactNode }) {
   return (
-    <Typography component='span' display='inline-flex' alignItems='center' sx={styles.fontStyle}>
+    <Typography component='span' sx={styles.fontStyle}>
       {text}
     </Typography>
   )

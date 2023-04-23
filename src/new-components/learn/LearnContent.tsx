@@ -105,9 +105,9 @@ export default function LearnContent({
 
       <Subheading title={LEARN_SUBHEADING_PHRASES} />
 
-      <Phrases {...{ lessonChar }} />
+      <Phrases />
 
-      <Divider sx={{ mb: 1 }} />
+      <Divider sx={{ my: 1 }} />
 
       <CharNavigation {...{ prevChar, nextChar }} />
     </Box>

@@ -20,7 +20,7 @@ export function ChineseCharLink({ char }: { char: string }) {
 
       <Popover
         anchorEl={anchorEl.current}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         elevation={0}
         marginThreshold={2}
         PaperProps={{
@@ -28,7 +28,7 @@ export function ChineseCharLink({ char }: { char: string }) {
           onMouseLeave: () => setOpen(false),
           style: { backgroundColor: 'transparent', overflow: 'visible' },
         }}
-        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+        transformOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         sx={{ pointerEvents: 'none' }}
         {...{ open }}
       >

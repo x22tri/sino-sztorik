@@ -23,13 +23,13 @@ export function KeywordExplanation({ explanation }: { explanation: string }) {
         component='span'
         color='text.primary'
         marginLeft={0.5}
-        position='absolute'
-        sx={{
-          transition: constants.animationDuration,
-          '&:hover': { color: lighten(palette.text.primary, 0.3), cursor: 'pointer' },
-        }}
         onMouseEnter={openPopover}
         onMouseLeave={closePopover}
+        position='absolute'
+        sx={{
+          transition: `${constants.animationDuration}ms`,
+          '&:hover': { color: lighten(palette.text.primary, 0.3), cursor: 'pointer' },
+        }}
       >
         <FontAwesomeIcon size='xs' transform='shrink-5' icon={faQuestionCircle} />
       </Box>

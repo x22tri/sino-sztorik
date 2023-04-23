@@ -6,6 +6,7 @@ import { When } from 'react-if'
 
 export function ConstituentListNew({ constituents }: { constituents: Partial<Character>[] }) {
   const { spacing } = useTheme()
+
   return (
     <List disablePadding>
       {constituents.map(({ charChinese, keyword, primitiveMeaning }, index) => (
@@ -32,8 +33,8 @@ export function ConstituentListNew({ constituents }: { constituents: Partial<Cha
               <When condition={primitiveMeaning}>
                 <Typography component='span' fontStyle='italic'>
                   <FontAwesomeIcon
-                    icon={faCube}
                     color='#3366CC'
+                    icon={faCube}
                     size='xs'
                     style={{ marginBottom: '2px', marginRight: spacing(0.75), verticalAlign: 'middle' }}
                   />

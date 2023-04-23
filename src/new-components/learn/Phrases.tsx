@@ -1,46 +1,36 @@
 import { Fragment } from 'react'
 import Box from '@mui/material/Box'
-import { Typography } from '@mui/material'
-import { ConstituentList } from './ConstituentList'
 import { useSmallScreen } from '../shared/hooks/useSmallScreen'
-import { Character } from '../shared/interfaces'
+import { ChineseCharLink } from './chinese-char-link/ChineseCharLink'
 
 const MOCK_PHRASES = [
   { phraseChinese: '正好', phraseHungarian: 'pont jó' },
   { phraseChinese: '真正', phraseHungarian: 'valódi' },
+  { phraseChinese: '光明正大', phraseHungarian: 'tisztességes, elvhű' },
+  { phraseChinese: '正视', phraseHungarian: 'szemtől szemben kiáll ellene' },
+  { phraseChinese: '正则', phraseHungarian: 'szabályos (síkidom)' },
 ]
 
-export function Phrases({ lessonChar }: { lessonChar: Character }) {
+export function Phrases() {
   const isSmallScreen = useSmallScreen()
 
   return (
     <Box
+      alignItems='baseline'
       display='grid'
-      gridTemplateColumns={
-        isSmallScreen
-          ? '1fr'
-          : 'minmax(max-content, 1fr) minmax(min-content, 1fr)'
-      }
-      marginTop={2}
+      columnGap={5}
+      paddingX={2}
+      rowGap={2}
+      sx={{ gridTemplateColumns: `repeat(${isSmallScreen ? 1 : 2}, max-content auto)` }}
     >
       {MOCK_PHRASES.map(({ phraseChinese, phraseHungarian }, index) => (
         <Fragment key={index}>
-          <ConstituentList
-            phrases
-            constituents={phraseChinese.split('')}
-            emphasize='keyword'
-            {...{ lessonChar }}
-          />
-
-          <Typography
-            variant='h5'
-            textAlign={isSmallScreen ? 'center' : 'initial'}
-            marginBottom={isSmallScreen ? 3 : 0}
-            marginLeft={isSmallScreen ? 0 : 3}
-            alignSelf='center'
-          >
-            {phraseHungarian}
-          </Typography>
+          <Box display='flex' gap={0.25}>
+            {phraseChinese.split('').map((char, charIndex) => (
+              <ChineseCharLink key={charIndex} {...{ char }}></ChineseCharLink>
+            ))}
+          </Box>
+          {phraseHungarian}
         </Fragment>
       ))}
     </Box>

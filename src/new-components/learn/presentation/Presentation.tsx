@@ -6,34 +6,32 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCube } from '@fortawesome/free-solid-svg-icons'
 
 export function Presentation({
-  pinyin,
+  charChinese,
   explanation,
   keyword,
-  charChinese,
+  pinyin,
   primitiveMeaning,
 }: {
-  pinyin?: string
+  charChinese: string
   explanation?: string
   keyword?: string
-  charChinese: string
+  pinyin?: string
   primitiveMeaning?: string
 }) {
   const { spacing } = useTheme()
 
   return (
-    <Box display='flex' flexDirection='column' alignItems='center' gap={2}>
+    <Box display='flex' flexDirection='column' alignItems='center' marginBottom={4}>
       <When condition={pinyin}>
-        <Box typography='presentation.pinyin' gridArea='pinyin' margin='auto' lineHeight={1}>
-          {pinyin}
-        </Box>
+        <Box typography='presentation.pinyin'>{pinyin}</Box>
       </When>
 
-      <Box typography='chineseHeading' marginBottom={1} gridArea='char' margin='auto'>
+      <Box typography='chineseHeading' marginBottom={2}>
         {charChinese}
       </Box>
 
       <When condition={keyword}>
-        <Box fontSize={32} fontWeight='800' lineHeight={1} gridArea='keyword' margin='auto' position='relative'>
+        <Box fontSize={32} fontWeight='800' position='relative'>
           {keyword}
 
           <When condition={explanation}>
@@ -43,7 +41,7 @@ export function Presentation({
       </When>
 
       <When condition={primitiveMeaning}>
-        <Box fontSize={20} fontStyle='italic' lineHeight={1} gridArea='primitive' margin='auto' textAlign='center'>
+        <Box fontSize={20} fontStyle='italic'>
           <FontAwesomeIcon
             icon={faCube}
             color='#3366CC'
