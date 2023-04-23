@@ -18,7 +18,7 @@ export function SegmentResolver({ segments }: { segments: SegmentType[] }) {
   }
 
   return (
-    <Box component='p' marginY={3}>
+    <Box component='p' marginY={1}>
       {segments.map((segment, index) => {
         if (typeof segment === 'string') {
           return <Fragment key={index}>{segment}</Fragment>
@@ -35,7 +35,12 @@ export function SegmentResolver({ segments }: { segments: SegmentType[] }) {
               styles={styles[PRIMITIVE]}
               text={
                 <>
-                  <FontAwesomeIcon icon={faCube} color='#3366CC' size='xs' style={{ marginRight: spacing(0.5) }} />
+                  <FontAwesomeIcon
+                    icon={faCube}
+                    color='#3366CC'
+                    size='xs'
+                    style={{ marginLeft: spacing(0.25), marginRight: spacing(0.5) }}
+                  />
                   {segment[PRIMITIVE]}
                 </>
               }

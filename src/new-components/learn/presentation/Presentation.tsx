@@ -7,14 +7,12 @@ import { IconDefinition, faCube, faCubes, faKey, faPencil, faVolumeLow } from '@
 import { ConstituentListNew } from '../ConstituentListNew'
 
 export function Presentation({
-  constituents,
   pinyin,
   explanation,
   keyword,
   charChinese,
   primitiveMeaning,
 }: {
-  constituents?: string[]
   pinyin?: string
   explanation?: string
   keyword?: string
@@ -93,24 +91,11 @@ export function Presentation({
             icon={faCube}
             color='#3366CC'
             size='xs'
-            style={{ marginRight: spacing(1), marginBottom: '2px', verticalAlign: 'middle' }}
+            style={{ marginBottom: '2px', marginRight: spacing(1), verticalAlign: 'middle' }}
           />
           {primitiveMeaning}
         </Box>
       </When>
-
-      {/* <When condition={!!constituents?.length}>
-        <When condition={hintMode}>
-          <HeadingChip
-            backgroundColor='#F8DEE0'
-            headingText='ÖSSZETÉTEL'
-            icon={faCubes}
-            iconColor='#D64550'
-            gridArea='headingConstituents'
-          />
-        </When>
-        <ConstituentListNew constituents={constituents!} />
-      </When> */}
     </Box>
   )
 }

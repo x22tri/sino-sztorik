@@ -7,13 +7,7 @@ export const CHARS: Character[] = [
     keyword: 'egy',
     primitiveMeaning: 'plafon, padló',
     story: [
-      [
-        'Az ',
-        { keyword: 'egy' },
-        ' kínai jele épp olyan, mint a római ',
-        { keyword: 'egy' },
-        ' (I), de 90 fokkal elforgatva.',
-      ],
+      ['Az ', { keyword: 'egy' }, ' kínai jele épp olyan, mint a római ', { keyword: 'egy' }, ' (I), de 90 fokkal elforgatva.'],
       {
         noteType: 'whenPrimitive',
         noteText: [
@@ -51,11 +45,21 @@ export const CHARS: Character[] = [
   },
   {
     id: 3,
-    constituents: ['一', '止'],
+    constituents: [
+      {
+        charChinese: '一',
+        keyword: 'egy',
+        primitiveMeaning: 'plafon, padló',
+      },
+      {
+        charChinese: '止',
+        keyword: 'megáll',
+        primitiveMeaning: 'lábnyom',
+      },
+    ],
     charChinese: '正',
     keyword: 'helyes',
-    explanation:
-      'A magyarhoz hasonlóan jelentheti azt, hogy „igaz, helytálló”, de azt is, hogy „csinos”.',
+    explanation: 'A magyarhoz hasonlóan jelentheti azt, hogy „igaz, helytálló”, de azt is, hogy „csinos”.',
     story: [
       [
         { constituent: 'Plafont', references: '一' },
@@ -65,11 +69,7 @@ export const CHARS: Character[] = [
         { primitive: 'ortopéd cipőt' },
         ' jelképez.',
       ],
-      [
-        'Az ilyeneket lúdtalp ellen szokták hordani, hogy a láb ',
-        { keyword: 'helyes' },
-        ' formáját megőrizze.',
-      ],
+      ['Az ilyeneket lúdtalp ellen szokták hordani, hogy a láb ', { keyword: 'helyes' }, ' formáját megőrizze.'],
       [
         'Könnyen megjegyezhető, ha csak arra gondolunk: az „ortopéd” szó jelentése „',
         { keyword: 'helyes' },
@@ -86,7 +86,10 @@ export const CHARS: Character[] = [
   },
   {
     id: 4,
-    constituents: ['讠', '正'],
+    constituents: [
+      { charChinese: '讠', primitiveMeaning: 'szavak' },
+      { charChinese: '正', keyword: 'helyes', primitiveMeaning: 'ortopéd cipő' },
+    ],
     charChinese: '证',
     keyword: 'bizonyíték',
     story: [
@@ -98,9 +101,7 @@ export const CHARS: Character[] = [
         { keyword: 'bizonyíték' },
         ' gyanánt, hogy „Ha nem megy fel, mentsed fel!"',
       ],
-      [
-        'Ezzel arra utalt, hogy Simpson alig tudta belepasszírozni a kezét abba a kesztyűbe, amelyet elvileg a gyilkos viselt.',
-      ],
+      ['Ezzel arra utalt, hogy Simpson alig tudta belepasszírozni a kezét abba a kesztyűbe, amelyet elvileg a gyilkos viselt.'],
       [
         'Ezen a karakteren hasonló dolog történik: az ügyvéd ',
         { constituent: 'szavai', references: '讠' },

@@ -49,7 +49,7 @@ export interface AssembledLesson {
 
 export interface Character {
   charChinese: string
-  constituents?: string[]
+  constituents?: Partial<Character>[]
   explanation?: string
   frequency?: number
   keyword?: string
