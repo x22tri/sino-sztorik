@@ -18,7 +18,7 @@ export function SegmentResolver({ segments }: { segments: SegmentType[] }) {
   }
 
   return (
-    <Box component='p' marginY={1}>
+    <Box component='p' marginY={2}>
       {segments.map((segment, index) => {
         if (typeof segment === 'string') {
           return <Fragment key={index}>{segment}</Fragment>

@@ -65,7 +65,7 @@ export const CHARS: Character[] = [
         { constituent: 'Plafont', references: '一' },
         ' szab a ',
         { constituent: 'lábnyomnak', references: '止' },
-        ' egy vonás – ez egy zárt, lyukacsos gyógypapucsot, azaz egy ',
+        ' egy vonás. Ez egy zárt, lyukacsos gyógypapucsot, azaz egy ',
         { primitive: 'ortopéd cipőt' },
         ' jelképez.',
       ],

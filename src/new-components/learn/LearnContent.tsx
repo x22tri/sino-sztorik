@@ -94,11 +94,10 @@ export default function LearnContent({
 
       <When condition={!!constituents}>
         <Subheading title={LEARN_SUBHEADING_CONSTITUENTS} />
-        {/* <ConstituentList constituents={constituents!} {...{ lessonChar }} /> */}
         <ConstituentListNew constituents={constituents!} />
       </When>
 
-      <Heading title={LEARN_HEADING_STORY} endContent={<StoryTypeSwitch />} />
+      <Heading title={LEARN_HEADING_STORY} />
 
       <Story {...{ story }} />
 

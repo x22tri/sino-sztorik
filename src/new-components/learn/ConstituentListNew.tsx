@@ -1,17 +1,4 @@
-import {
-  Box,
-  Divider,
-  Link,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Stack,
-  Typography,
-  useTheme,
-} from '@mui/material'
-import { ChineseCharLink } from './chinese-char-link/ChineseCharLink'
+import { Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, useTheme } from '@mui/material'
 import { faCube } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Character } from '../shared/interfaces'
@@ -30,30 +17,30 @@ export function ConstituentListNew({ constituents }: { constituents: Partial<Cha
               </Typography>
             </ListItemIcon>
             <ListItemText
-              primary={
-                <Box display='flex' flexDirection='row' alignItems='baseline' gap={1.5}>
-                  <When condition={keyword}>
-                    <Typography fontWeight='bold'>{keyword}</Typography>
-                  </When>
+              sx={{ '.MuiListItemText-primary': { alignItems: 'baseline', display: 'flex', flexDirection: 'row', gap: 1.5 } }}
+            >
+              <When condition={keyword}>
+                <Typography component='span' fontWeight='bold'>
+                  {keyword}
+                </Typography>
+              </When>
 
-                  <When condition={keyword && primitiveMeaning}>
-                    <Divider orientation='vertical' flexItem />
-                  </When>
+              <When condition={keyword && primitiveMeaning}>
+                <Divider orientation='vertical' flexItem />
+              </When>
 
-                  <When condition={primitiveMeaning}>
-                    <Typography fontStyle='italic'>
-                      <FontAwesomeIcon
-                        icon={faCube}
-                        color='#3366CC'
-                        size='xs'
-                        style={{ marginBottom: '2px', marginRight: spacing(0.75), verticalAlign: 'middle' }}
-                      />
-                      {primitiveMeaning}
-                    </Typography>
-                  </When>
-                </Box>
-              }
-            />
+              <When condition={primitiveMeaning}>
+                <Typography component='span' fontStyle='italic'>
+                  <FontAwesomeIcon
+                    icon={faCube}
+                    color='#3366CC'
+                    size='xs'
+                    style={{ marginBottom: '2px', marginRight: spacing(0.75), verticalAlign: 'middle' }}
+                  />
+                  {primitiveMeaning}
+                </Typography>
+              </When>
+            </ListItemText>
           </ListItemButton>
         </ListItem>
       ))}
