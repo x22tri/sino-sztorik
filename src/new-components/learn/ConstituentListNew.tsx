@@ -7,6 +7,7 @@ export function ConstituentListNew({ constituents }: { constituents: string[] })
       direction='row'
       display='flex'
       divider={<Divider orientation='vertical' flexItem />}
+      gridArea='constituents'
       justifyContent='center'
       spacing={2}
     >

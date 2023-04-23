@@ -5,11 +5,11 @@ import { Segment as SegmentType, SegmentKey, SegmentStyles, StoryParagraphKeys }
 import { Fragment } from 'react'
 import { Segment } from './Segment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCube, faKey } from '@fortawesome/free-solid-svg-icons'
+import { faCube } from '@fortawesome/free-solid-svg-icons'
 
 export function SegmentResolver({ segments }: { segments: SegmentType[] }) {
   const { KEYWORD, PRIMITIVE, CONSTITUENT } = StoryParagraphKeys
-  const { typography } = useTheme()
+  const { spacing, typography } = useTheme()
 
   const styles: Record<SegmentKey, SegmentStyles> = {
     [KEYWORD]: { fontStyle: { fontWeight: 'bold' } },
@@ -35,7 +35,7 @@ export function SegmentResolver({ segments }: { segments: SegmentType[] }) {
               styles={styles[PRIMITIVE]}
               text={
                 <>
-                  <FontAwesomeIcon icon={faCube} color='#3366CC' size='xs' style={{ marginRight: '2px' }} />
+                  <FontAwesomeIcon icon={faCube} color='#3366CC' size='xs' style={{ marginRight: spacing(0.5) }} />
                   {segment[PRIMITIVE]}
                 </>
               }

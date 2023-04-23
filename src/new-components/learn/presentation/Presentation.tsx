@@ -3,55 +3,73 @@ import { Typography, useTheme } from '@mui/material'
 import { KeywordExplanation } from './KeywordExplanation'
 import { When } from 'react-if'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { IconDefinition, faCube, faKey } from '@fortawesome/free-solid-svg-icons'
+import { IconDefinition, faCube, faCubes, faKey, faPencil, faVolumeLow } from '@fortawesome/free-solid-svg-icons'
+import { ConstituentListNew } from '../ConstituentListNew'
 
 export function Presentation({
+  constituents,
   pinyin,
   explanation,
   keyword,
   charChinese,
   primitiveMeaning,
 }: {
+  constituents?: string[]
   pinyin?: string
   explanation?: string
   keyword?: string
   charChinese: string
   primitiveMeaning?: string
 }) {
-  const { palette } = useTheme()
+  const { spacing } = useTheme()
+  const hintMode = false
 
   return (
     <Box
-      // alignItems='center'
       display='grid'
+      gap={2}
       gridTemplateAreas={`
-    ". pinyin ."
-    ". char ."
+    "headingPinyin pinyin ."
+    "headingChar char ."
     "headingKeyword keyword ."
     "headingPrimitive primitive ."
+    "headingConstituents constituents ."
     `}
       gridTemplateColumns='1fr 1fr 1fr'
-      marginY={4}
     >
       <When condition={pinyin}>
-        <Box typography='presentation.pinyin' gridArea='pinyin' margin='auto'>
+        <When condition={hintMode}>
+          <HeadingChip
+            backgroundColor='#DEF7F7'
+            headingText='KIEJTÉS'
+            icon={faVolumeLow}
+            iconColor='#26D49D'
+            gridArea='headingPinyin'
+          />
+        </When>
+        <Box typography='presentation.pinyin' gridArea='pinyin' margin='auto' lineHeight={1}>
           {pinyin}
         </Box>
       </When>
 
+      <When condition={hintMode}>
+        <HeadingChip backgroundColor='#F8DAFB' headingText='ÍRÁSJEL' icon={faPencil} iconColor='#B73FEB' gridArea='headingChar' />
+      </When>
       <Box typography='chineseHeading' marginBottom={1} gridArea='char' margin='auto'>
         {charChinese}
       </Box>
 
       <When condition={keyword}>
-        <HeadingChip
-          backgroundColor='#FAEFDA'
-          headingText='KULCSSZÓ'
-          icon={faKey}
-          iconColor='#F6AE2D'
-          gridArea='headingKeyword'
-        />
-        <Box fontSize={32} fontWeight='800' gridArea='keyword' margin='auto' position='relative'>
+        <When condition={hintMode}>
+          <HeadingChip
+            backgroundColor='#FAEFDA'
+            headingText='KULCSSZÓ'
+            icon={faKey}
+            iconColor='#F6AE2D'
+            gridArea='headingKeyword'
+          />
+        </When>
+        <Box fontSize={32} fontWeight='800' lineHeight={1} gridArea='keyword' margin='auto' position='relative'>
           {keyword}
 
           <When condition={explanation}>
@@ -61,17 +79,38 @@ export function Presentation({
       </When>
 
       <When condition={primitiveMeaning}>
-        <HeadingChip
-          backgroundColor='#DDE8FF'
-          headingText='ALAPELEMKÉNT'
-          icon={faCube}
-          iconColor='#3366CC'
-          gridArea='headingPrimitive'
-        />
-        <Box fontSize={20} fontStyle='italic' gridArea='primitive' margin='auto' textAlign='center'>
+        <When condition={hintMode}>
+          <HeadingChip
+            backgroundColor='#DDE8FF'
+            headingText='ALAPELEMKÉNT'
+            icon={faCube}
+            iconColor='#3366CC'
+            gridArea='headingPrimitive'
+          />
+        </When>
+        <Box fontSize={20} fontStyle='italic' lineHeight={1} gridArea='primitive' margin='auto' textAlign='center'>
+          <FontAwesomeIcon
+            icon={faCube}
+            color='#3366CC'
+            size='xs'
+            style={{ marginRight: spacing(1), marginBottom: '2px', verticalAlign: 'middle' }}
+          />
           {primitiveMeaning}
         </Box>
       </When>
+
+      {/* <When condition={!!constituents?.length}>
+        <When condition={hintMode}>
+          <HeadingChip
+            backgroundColor='#F8DEE0'
+            headingText='ÖSSZETÉTEL'
+            icon={faCubes}
+            iconColor='#D64550'
+            gridArea='headingConstituents'
+          />
+        </When>
+        <ConstituentListNew constituents={constituents!} />
+      </When> */}
     </Box>
   )
 }
@@ -92,7 +131,7 @@ function HeadingChip({
   const { spacing } = useTheme()
 
   return (
-    <Box display='flex' gap={0.5} alignItems='center' {...{ gridArea }}>
+    <Box display='flex' gap={0.5} alignItems='center' marginLeft='auto' {...{ gridArea }}>
       <FontAwesomeIcon
         {...{ icon }}
         size='xs'

@@ -90,10 +90,10 @@ export default function LearnContent({
 
       <Heading title={LEARN_HEADING_CHARACTER} />
 
-      <Presentation {...{ charChinese, explanation, keyword, pinyin, primitiveMeaning }} />
+      <Presentation {...{ charChinese, constituents, explanation, keyword, pinyin, primitiveMeaning }} />
 
       <When condition={!!constituents}>
-        {/* <Subheading title={LEARN_SUBHEADING_CONSTITUENTS} /> */}
+        <Subheading title={LEARN_SUBHEADING_CONSTITUENTS} />
         {/* <ConstituentList constituents={constituents!} {...{ lessonChar }} /> */}
         <ConstituentListNew constituents={constituents!} />
       </When>
