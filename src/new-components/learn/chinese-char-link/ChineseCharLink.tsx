@@ -8,7 +8,13 @@ export function ChineseCharLink({ char }: { char: string }) {
 
   return (
     <>
-      <Link typography='chineseNormal' onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)} ref={anchorEl}>
+      <Link
+        typography='chineseNormal'
+        onClick={() => console.log(`navigate to ${char}`)}
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
+        ref={anchorEl}
+      >
         {char}
       </Link>
 

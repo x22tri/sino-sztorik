@@ -1,22 +1,19 @@
 import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import Link from '@mui/material/Link'
-import {
-  Segment as SegmentType,
-  SegmentKey,
-  SegmentStyles,
-  StoryParagraphKeys,
-} from '../../shared/interfaces'
+import { Segment as SegmentType, SegmentKey, SegmentStyles, StoryParagraphKeys } from '../../shared/interfaces'
 import { Fragment } from 'react'
 import { Segment } from './Segment'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCube, faKey } from '@fortawesome/free-solid-svg-icons'
 
 export function SegmentResolver({ segments }: { segments: SegmentType[] }) {
   const { KEYWORD, PRIMITIVE, CONSTITUENT } = StoryParagraphKeys
   const { typography } = useTheme()
 
   const styles: Record<SegmentKey, SegmentStyles> = {
-    [KEYWORD]: { fontStyle: typography.storySegments.keyword },
-    [PRIMITIVE]: { fontStyle: typography.storySegments.primitive },
+    [KEYWORD]: { fontStyle: { fontWeight: 'bold' } },
+    [PRIMITIVE]: { fontStyle: { fontStyle: 'italic' } },
     [CONSTITUENT]: { fontStyle: typography.storySegments.constituent },
   }
 
@@ -28,13 +25,7 @@ export function SegmentResolver({ segments }: { segments: SegmentType[] }) {
         }
 
         if (KEYWORD in segment) {
-          return (
-            <Segment
-              key={index}
-              styles={styles[KEYWORD]}
-              text={segment[KEYWORD]}
-            />
-          )
+          return <Segment key={index} styles={styles[KEYWORD]} text={segment[KEYWORD]} />
         }
 
         if (PRIMITIVE in segment) {
@@ -42,19 +33,18 @@ export function SegmentResolver({ segments }: { segments: SegmentType[] }) {
             <Segment
               key={index}
               styles={styles[PRIMITIVE]}
-              text={segment[PRIMITIVE]}
+              text={
+                <>
+                  <FontAwesomeIcon icon={faCube} color='#3366CC' size='xs' style={{ marginRight: '2px' }} />
+                  {segment[PRIMITIVE]}
+                </>
+              }
             />
           )
         }
 
         if (CONSTITUENT in segment) {
-          return (
-            <Segment
-              key={index}
-              styles={styles[CONSTITUENT]}
-              text={<Link>{segment[CONSTITUENT]}</Link>}
-            />
-          )
+          return <Segment key={index} styles={styles[CONSTITUENT]} text={<Link>{segment[CONSTITUENT]}</Link>} />
         }
 
         return null

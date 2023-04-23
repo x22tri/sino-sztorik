@@ -52,14 +52,12 @@ export function FlashbackPreview({
 function Wrapper({ children }: { children: ReactNode }) {
   return (
     <Box
-      sx={{
-        alignItems: 'center',
-        display: 'grid',
-        gridTemplateAreas: `"icons paper" "icons paper" "icons paper" "icons paper"`,
-        mr: 3,
-        pointerEvents: 'auto',
-        textAlign: 'center',
-      }}
+      alignItems='center'
+      display='grid'
+      gridTemplateAreas={`"icons paper" "icons paper" "icons paper" "icons paper"`}
+      marginRight={3}
+      textAlign='center'
+      sx={{ pointerEvents: 'auto' }}
     >
       {children}
     </Box>
@@ -68,15 +66,7 @@ function Wrapper({ children }: { children: ReactNode }) {
 
 function IconColumn({ children }: { children: ReactNode }) {
   return (
-    <Box
-      sx={{
-        display: 'grid',
-        gridArea: 'icons',
-        gridTemplateAreas: `"." "."" key" "cube"`,
-        gridTemplateRows: 'subgrid',
-        py: 1,
-      }}
-    >
+    <Box display='grid' gridArea='icons' gridTemplateAreas={`"." "."" key" "cube"`} gridTemplateRows='subgrid' paddingY={1}>
       {children}
     </Box>
   )
