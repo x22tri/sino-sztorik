@@ -14,13 +14,13 @@ export function ChineseCharLink({ char }: { char: string }) {
 
       <Popover
         anchorEl={anchorEl.current}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         elevation={0}
         marginThreshold={2}
         PaperProps={{
           onMouseEnter: () => setOpen(true),
           onMouseLeave: () => setOpen(false),
-          style: { backgroundColor: 'transparent' },
+          style: { backgroundColor: 'transparent', overflow: 'visible' },
         }}
         transformOrigin={{ vertical: 'top', horizontal: 'center' }}
         sx={{ pointerEvents: 'none' }}

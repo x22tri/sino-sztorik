@@ -125,7 +125,7 @@ let theme = responsiveFontSizes(
             //     borderRadius: '4px',
             //     padding: '0 2px',
             //     transition: '200ms',
-            // '&:hover': { cursor: 'pointer' },
+            '&:hover': { cursor: 'pointer', backgroundColor: '#DDE8FF' },
           },
         },
       },
@@ -181,6 +181,13 @@ theme = createTheme(theme, {
   components: {
     MuiBadge: { styleOverrides: { badge: { fontFamily: emphasisFont } } },
     MuiButtonGroup: { styleOverrides: { grouped: { borderRightColor: 'transparent' } } },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          transition: `${theme.constants.animationDuration}ms`,
+        },
+      },
+    },
     // MuiLink: {
     //   styleOverrides: {
     //     root: {
