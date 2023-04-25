@@ -2,7 +2,17 @@ import { Link, Popover } from '@mui/material'
 import { useRef, useState } from 'react'
 import { FlashbackPreview } from './FlashbackPreview'
 
-export function ChineseCharLink({ char }: { char: string }) {
+export function ChineseCharLink({
+  charChinese,
+  keyword,
+  pinyin,
+  primitiveMeaning,
+}: {
+  charChinese: string
+  keyword?: string
+  pinyin?: string
+  primitiveMeaning?: string
+}) {
   const anchorEl = useRef(null)
   const [open, setOpen] = useState(false)
 
@@ -10,12 +20,12 @@ export function ChineseCharLink({ char }: { char: string }) {
     <>
       <Link
         typography='chineseNormal'
-        onClick={() => console.log(`navigate to ${char}`)}
+        onClick={() => console.log(`navigate to ${charChinese}`)}
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
         ref={anchorEl}
       >
-        {char}
+        {charChinese}
       </Link>
 
       <Popover
@@ -32,7 +42,7 @@ export function ChineseCharLink({ char }: { char: string }) {
         sx={{ pointerEvents: 'none' }}
         {...{ open }}
       >
-        <FlashbackPreview charChinese={char} pinyin='yi' keyword='egy' primitiveMeaning='plafon' />
+        <FlashbackPreview {...{ charChinese, keyword, pinyin, primitiveMeaning }} />
       </Popover>
     </>
   )

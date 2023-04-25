@@ -18,8 +18,12 @@ export function FlashbackPreview({
   return (
     <Wrapper>
       <IconColumn>
-        <IconNub backgroundColor='#FAEFDA' gridArea='key' icon={faKey} iconColor='#F6AE2D' />
-        <IconNub backgroundColor='#DDE8FF' gridArea='cube' icon={faCube} iconColor='#3366CC' />
+        <When condition={keyword}>
+          <IconNub backgroundColor='#FAEFDA' gridArea='key' icon={faKey} iconColor='#F6AE2D' />
+        </When>
+        <When condition={primitiveMeaning}>
+          <IconNub backgroundColor='#DDE8FF' gridArea='cube' icon={faCube} iconColor='#3366CC' />
+        </When>
       </IconColumn>
 
       <PaperColumn>
@@ -85,7 +89,7 @@ function PaperColumn({ children }: { children: ReactNode }) {
         gridTemplateAreas: `"pinyin" "char" "keyword" "primitive"`,
         gridTemplateRows: 'subgrid',
         minWidth: '100px',
-        py: 1,
+        p: 1,
       }}
     >
       {children}
