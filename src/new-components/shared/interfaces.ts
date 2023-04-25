@@ -47,6 +47,12 @@ export interface AssembledLesson {
   characters: string[]
 }
 
+export interface Phrase {
+  phraseChinese: string
+  phraseHungarian: string
+  characters: (Pick<Character, 'keyword' | 'primitiveMeaning'> & Pick<Character, 'charChinese'> & Pick<Character, 'pinyin'>)[]
+}
+
 export interface Character {
   charChinese: string
   constituents?: Partial<Character>[]
@@ -56,6 +62,7 @@ export interface Character {
   newPrimitive?: boolean
   id: number
   otherUses?: string[]
+  phrases?: Phrase[]
   pinyin?: string
   prequel?: boolean
   productivePhonetic?: boolean

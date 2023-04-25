@@ -63,6 +63,7 @@ export default function LearnContent({
     keyword,
     newPrimitive,
     pinyin,
+    phrases,
     prequel,
     primitiveMeaning,
     productivePhonetic,
@@ -101,11 +102,14 @@ export default function LearnContent({
 
       <Story {...{ story }} />
 
-      <Heading title={LEARN_HEADING_SUPPLEMENTS} />
-
-      <Subheading title={LEARN_SUBHEADING_PHRASES} />
-
-      <Phrases />
+      <When condition={phrases?.length}>
+        {/* To-Do: Add other uses, etc. */}
+        <Heading title={LEARN_HEADING_SUPPLEMENTS} />
+        <When condition={phrases?.length}>
+          <Subheading title={LEARN_SUBHEADING_PHRASES} />
+          <Phrases phrases={phrases!} />
+        </When>
+      </When>
 
       <Divider sx={{ my: 1 }} />
 
