@@ -1,6 +1,8 @@
-import { Link, Popover } from '@mui/material'
+import { Box, Link, Popover, useTheme } from '@mui/material'
 import { useRef, useState } from 'react'
-import { FlashbackPreview } from './FlashbackPreview'
+import { When } from 'react-if'
+import { faCube } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export function ChineseCharLink({
   charChinese,
@@ -15,35 +17,79 @@ export function ChineseCharLink({
 }) {
   const anchorEl = useRef(null)
   const [open, setOpen] = useState(false)
+  const { constants, spacing } = useTheme()
 
   return (
     <>
-      <Link
-        typography='chineseNormal'
-        onClick={() => console.log(`navigate to ${charChinese}`)}
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
-        ref={anchorEl}
-      >
-        {charChinese}
-      </Link>
+      <ruby>
+        <Link
+          display='inline-block'
+          onClick={() => console.log(`navigate to ${charChinese}`)}
+          onMouseEnter={() => setOpen(true)}
+          onMouseLeave={() => setOpen(false)}
+          ref={anchorEl}
+          typography='chineseNormal'
+        >
+          {charChinese}
+        </Link>
+        <rp>(</rp>
+        <Box component='rt' typography='presentation.pinyin' marginBottom={spacing(1)}>
+          {pinyin}
+        </Box>
+        <rp>)</rp>
+      </ruby>
 
       <Popover
         anchorEl={anchorEl.current}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        elevation={0}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         marginThreshold={2}
         PaperProps={{
           onMouseEnter: () => setOpen(true),
           onMouseLeave: () => setOpen(false),
-          style: { backgroundColor: 'transparent', overflow: 'visible' },
+          style: {
+            boxShadow: constants.boxShadow,
+            borderRadius: spacing(3),
+            display: 'flex',
+            flexDirection: 'column',
+            marginTop: spacing(1),
+            minWidth: '100px',
+            padding: spacing(1),
+            pointerEvents: 'auto',
+            textAlign: 'center',
+          },
         }}
-        transformOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
         sx={{ pointerEvents: 'none' }}
         {...{ open }}
       >
-        <FlashbackPreview {...{ charChinese, keyword, pinyin, primitiveMeaning }} />
+        <CharLinkPopoverContent {...{ keyword, primitiveMeaning }} />
       </Popover>
+    </>
+  )
+}
+
+function CharLinkPopoverContent({ keyword, primitiveMeaning }: { keyword?: string; primitiveMeaning?: string }) {
+  const { spacing } = useTheme()
+
+  return (
+    <>
+      <When condition={keyword}>
+        <Box fontWeight='bold' gridArea='keyword' marginBottom={0.5}>
+          {keyword}
+        </Box>
+      </When>
+
+      <When condition={primitiveMeaning}>
+        <Box fontStyle='italic' gridArea='primitive' marginBottom={0.5}>
+          <FontAwesomeIcon
+            icon={faCube}
+            color='#3366CC'
+            size='xs'
+            style={{ marginBottom: '2px', marginRight: spacing(0.5), verticalAlign: 'middle' }}
+          />
+          {primitiveMeaning}
+        </Box>
+      </When>
     </>
   )
 }

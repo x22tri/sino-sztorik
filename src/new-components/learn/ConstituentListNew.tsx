@@ -36,7 +36,7 @@ export function ConstituentListNew({ constituents }: { constituents: Partial<Cha
                     color='#3366CC'
                     icon={faCube}
                     size='xs'
-                    style={{ marginBottom: '2px', marginRight: spacing(0.75), verticalAlign: 'middle' }}
+                    style={{ marginBottom: '2px', marginRight: spacing(0.5), verticalAlign: 'middle' }}
                   />
                   {primitiveMeaning}
                 </Typography>

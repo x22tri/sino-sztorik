@@ -9,7 +9,7 @@ const MOCK_PHRASES = [
     phraseHungarian: 'pont jó',
     characters: [
       { pinyin: 'zhèng', charChinese: '正', keyword: 'helyes', primitiveMeaning: 'ortopéd cipő' },
-      { pinyin: 'hǎo', charChinese: '好', keyword: 'jó' },
+      { pinyin: 'hăo', charChinese: '好', keyword: 'jó' },
     ],
   },
   {

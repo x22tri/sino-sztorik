@@ -46,7 +46,7 @@ export function Presentation({
             icon={faCube}
             color='#3366CC'
             size='xs'
-            style={{ marginBottom: '2px', marginRight: spacing(1), verticalAlign: 'middle' }}
+            style={{ marginBottom: '2px', marginRight: spacing(0.5), verticalAlign: 'middle' }}
           />
           {primitiveMeaning}
         </Box>
