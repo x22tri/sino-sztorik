@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
+import { UseKeydownAction } from '../interfaces'
 
-export function useKeydown(actionArray: { on: string; do: () => void }[]) {
+export function useKeydown(actionArray: UseKeydownAction[]) {
   const handler = ({ key }: KeyboardEvent) => {
     actionArray.forEach(action => {
       if (key === action.on && action.do) {

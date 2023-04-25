@@ -2,7 +2,7 @@ import { LESSON_NUMBER_SUFFIX_APPBAR } from '../../shared/strings'
 import { TitleSubtitle } from './TitleSubtitle'
 
 export function LessonInfoDesktop({ lessonNumber, lessonTitle }: { lessonNumber: number; lessonTitle: string }) {
-  const logoImage = require(`../../../assets/logo-green.svgz`)
+  const logoImage = require(`../../../assets/logo.png`)
 
   return (
     <>

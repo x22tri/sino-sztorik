@@ -7,11 +7,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 export function ChineseCharLink({
   charChinese,
   keyword,
+  lessonChar,
   pinyin,
   primitiveMeaning,
 }: {
   charChinese: string
   keyword?: string
+  lessonChar: string
   pinyin?: string
   primitiveMeaning?: string
 }) {
@@ -19,11 +21,14 @@ export function ChineseCharLink({
   const [open, setOpen] = useState(false)
   const { constants, spacing } = useTheme()
 
+  const isLessonChar = lessonChar === charChinese
+
   return (
     <>
       <ruby>
         <Link
           display='inline-block'
+          fontWeight={isLessonChar ? 500 : 400}
           onClick={() => console.log(`navigate to ${charChinese}`)}
           onMouseEnter={() => setOpen(true)}
           onMouseLeave={() => setOpen(false)}
@@ -33,7 +38,7 @@ export function ChineseCharLink({
           {charChinese}
         </Link>
         <rp>(</rp>
-        <Box component='rt' typography='presentation.pinyin' marginBottom={spacing(1)}>
+        <Box component='rt' fontWeight={isLessonChar ? 500 : 400} typography='presentation.pinyin' marginBottom={spacing(1)}>
           {pinyin}
         </Box>
         <rp>)</rp>

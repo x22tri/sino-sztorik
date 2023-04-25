@@ -3,10 +3,23 @@ import { Swiper, SwiperProps } from 'swiper/react'
 import { scrollToTop } from '../utility-functions'
 import { useSmallScreen } from '../hooks/useSmallScreen'
 import { useSwiperInstance } from '../state'
+import { useKeydown } from '../hooks/useKeydown'
+import { UseKeydownAction } from '../interfaces'
 
-export function LessonSwiper(props: SwiperProps) {
-  const { setSwiperInstance } = useSwiperInstance()
+export function LessonSwiper({
+  children,
+  customKeyboardControls,
+  ...restProps
+}: SwiperProps & { customKeyboardControls?: UseKeydownAction[] }) {
+  const { swiperInstance, setSwiperInstance } = useSwiperInstance()
   const isSmallScreen = useSmallScreen()
+
+  useKeydown(
+    customKeyboardControls ?? [
+      { on: 'ArrowLeft', do: () => swiperInstance?.slidePrev() },
+      { on: 'ArrowRight', do: () => swiperInstance?.slideNext() },
+    ]
+  )
 
   return (
     <Swiper
@@ -18,9 +31,9 @@ export function LessonSwiper(props: SwiperProps) {
       onSwiper={swiper => setSwiperInstance(swiper)}
       simulateTouch={false}
       spaceBetween={0}
-      {...props}
+      {...restProps}
     >
-      {props.children}
+      {children}
     </Swiper>
   )
 }

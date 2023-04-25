@@ -4,7 +4,7 @@ import { useSmallScreen } from '../shared/hooks/useSmallScreen'
 import { ChineseCharLink } from './chinese-char-link/ChineseCharLink'
 import { Phrase } from '../shared/interfaces'
 
-export function Phrases({ phrases }: { phrases: Phrase[] }) {
+export function Phrases({ lessonChar, phrases }: { lessonChar: string; phrases: Phrase[] }) {
   const isSmallScreen = useSmallScreen()
 
   return (
@@ -20,7 +20,10 @@ export function Phrases({ phrases }: { phrases: Phrase[] }) {
         <Fragment key={index}>
           <Box display='flex' gap={0.25}>
             {characters.map(({ charChinese, keyword, pinyin, primitiveMeaning }, charIndex) => (
-              <ChineseCharLink key={charIndex} {...{ charChinese, keyword, pinyin, primitiveMeaning }}></ChineseCharLink>
+              <ChineseCharLink
+                key={charIndex}
+                {...{ charChinese, lessonChar, keyword, pinyin, primitiveMeaning }}
+              ></ChineseCharLink>
             ))}
           </Box>
           {phraseHungarian}

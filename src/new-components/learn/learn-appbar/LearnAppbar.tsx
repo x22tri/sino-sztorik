@@ -6,27 +6,54 @@ import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { FLASHBACK_MODE } from '../../shared/strings'
 import { useFlashback } from '../logic/useFlashback'
 import { useSwiper } from 'swiper/react'
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { If, Then, Else } from 'react-if'
 import { CloseButton } from './CloseButton'
+import { useSwiperInstance } from '../../shared/state'
 
-export function LearnAppbar({ lessonLength }: { lessonLength: number }) {
+export function LearnAppbar({
+  lessonLength,
+  setToolbarHeight,
+  toolbarHeight,
+}: {
+  lessonLength: number
+  setToolbarHeight: Dispatch<SetStateAction<number>>
+  toolbarHeight: number
+}) {
   const isSmallScreen = useSmallScreen()
-  const swiper = useSwiper()
+  const ref = useRef<HTMLDivElement | null>(null)
+  const resizeObserver = new ResizeObserver(handleToolbarResized)
+  const { swiperInstance } = useSwiperInstance()
   const [lessonProgress, setLessonProgress] = useState(0)
   const { flashback } = useFlashback()
   const { constants } = useTheme()
 
   const isLocked = !!flashback
-  const gridSideColumn = `minmax(max-content, calc((100vw -  ${constants.maxContentWidth}) / 2))`
+  const gridSideColumn = `minmax(max-content, calc((100% -  ${constants.maxContentWidth}) / 2))`
 
   useEffect(() => {
-    swiper.on('activeIndexChange', () => setLessonProgress(calculateProgress(lessonLength, swiper?.activeIndex)))
-  }, [lessonLength, swiper])
+    swiperInstance?.on('activeIndexChange', () => setLessonProgress(calculateProgress(lessonLength, swiperInstance?.activeIndex)))
+  }, [lessonLength, swiperInstance])
+
+  useEffect(() => {
+    if (ref?.current) {
+      resizeObserver.observe(ref?.current)
+    }
+
+    return () => {
+      resizeObserver.disconnect()
+    }
+  })
+
+  function handleToolbarResized() {
+    if (ref?.current && ref?.current.offsetHeight !== toolbarHeight) {
+      setToolbarHeight(ref?.current.offsetHeight)
+    }
+  }
 
   return (
-    <AppBar position='static' elevation={0} sx={{ backgroundColor: 'background.default' }}>
-      <Toolbar variant='dense' disableGutters>
+    <AppBar position='static' elevation={0} sx={{ backgroundColor: 'background.default', gridArea: 'nav' }}>
+      <Toolbar variant='dense' disableGutters {...{ ref }}>
         <Box
           alignItems='center'
           display='grid'
@@ -43,7 +70,7 @@ export function LearnAppbar({ lessonLength }: { lessonLength: number }) {
                   color={isLocked ? 'neutral' : 'primary'}
                   value={lessonProgress}
                   variant='determinate'
-                  sx={{ borderRadius: '8px', p: 0.5, mx: 'auto', maxWidth: constants.maxContentWidth, width: '100%' }}
+                  sx={{ borderRadius: '8px', mx: 'auto', p: 0.5, width: '100%' }}
                 />
               </Then>
               <Else>

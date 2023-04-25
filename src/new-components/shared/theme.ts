@@ -4,7 +4,7 @@ import { blue, grey, teal } from '@mui/material/colors'
 import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
 import { tooltipClasses } from '@mui/material'
 
-const chineseFont = "'Noto Sans', sans-serif" // To-Do: Create font with custom chars
+const chineseFont = "'Noto Sans SC', sans-serif" // To-Do: Create font with custom chars
 const genericFont = "'Rubik', sans-serif"
 export const emphasisFont = "'Rubik', sans-serif"
 

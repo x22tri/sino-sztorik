@@ -48,7 +48,7 @@ export default function LearnContent({
 
     scrollToTop()
 
-    swiper.updateAutoHeight()
+    // swiper.updateAutoHeight()
 
     flashback === null ? swiper.enable() : swiper.disable()
   }, [flashback, swiper])
@@ -73,16 +73,20 @@ export default function LearnContent({
 
   return (
     <Box
-      border={`1px solid ${palette.grey[300]}`}
+      // border={`1px solid ${palette.grey[300]}`}
       borderRadius={2}
       marginBottom={1}
       minWidth={0}
       paddingX={useSmallScreen() ? 1 : 2}
       paddingY={1}
+      boxSizing='border-box'
+      component='main'
       sx={{
         backgroundColor: palette.background.paper,
         maxWidth: constants.maxContentWidth,
         mx: 'auto',
+        height: '100%',
+        overflowY: 'auto',
       }}
     >
       {/* <InfoChips
@@ -107,7 +111,7 @@ export default function LearnContent({
         <Heading title={LEARN_HEADING_SUPPLEMENTS} />
         <When condition={phrases?.length}>
           <Subheading title={LEARN_SUBHEADING_PHRASES} />
-          <Phrases phrases={phrases!} />
+          <Phrases lessonChar={charChinese} phrases={phrases!} />
         </When>
       </When>
 

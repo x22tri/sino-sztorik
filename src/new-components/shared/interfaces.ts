@@ -47,6 +47,8 @@ export interface AssembledLesson {
   characters: string[]
 }
 
+export type UseKeydownAction = { on: string; do: () => void }
+
 export interface Phrase {
   phraseChinese: string
   phraseHungarian: string

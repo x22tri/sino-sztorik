@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography'
 import { APP_TITLE } from '../../shared/strings'
 
 export default function LogoTitle() {
-  const logoImage = require(`../../../assets/logo-green.svgz`)
+  const logoImage = require(`../../../assets/logo.png`)
 
   return (
     <Box alignItems='center' display='flex' gap={1}>
