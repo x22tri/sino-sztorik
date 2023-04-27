@@ -148,6 +148,7 @@ let theme = responsiveFontSizes(
         constituent: {},
         specialParagraphHeading: { fontFamily: emphasisFont, fontSize: 16 },
       },
+      subtitle2: { fontWeight: 400 },
       titleSubtitle: {
         title: { fontWeight: 900, fontSize: '80%', lineHeight: 1 },
         subtitle: { fontWeight: 'bold', lineHeight: 1 },

@@ -17,7 +17,7 @@ export function LessonPickerContent() {
   const listRef = useRef<HTMLUListElement>(null)
   const { lessons, select, selected, toggle, upcoming } = useLessonSelect()
   const { swiperInstance } = useSwiperInstance()
-  const { constants, palette, typography } = useTheme()
+  const { constants, palette, spacing, typography } = useTheme()
   const { height } = useWindowSize()
 
   function selectLesson(lesson: number) {
@@ -41,7 +41,7 @@ export function LessonPickerContent() {
       ref={listRef}
       subheader={<LessonPickerTitle />}
       sx={{
-        backgroundColor: palette.background.paper,
+        backgroundColor: 'background.paper',
         bottom: 0,
         borderRight: `1px solid ${palette.grey[200]}`,
         left: 0,
@@ -66,13 +66,13 @@ export function LessonPickerContent() {
                 border: isUpcoming ? `2px solid ${palette.secondary.main}` : 'none',
                 borderRadius: 6,
                 color: 'text.secondary',
-                height: '48px',
+                height: spacing(6),
                 m: 1,
                 transition: constants.animationDuration,
                 ':hover': { bgcolor: isUpcoming ? `${palette.secondary.main}11` : undefined },
                 '&.Mui-selected': {
                   bgcolor: isUpcoming ? `${palette.secondary.main}11` : undefined,
-                  color: 'common.black',
+                  color: 'text.primary',
                   ':hover': { bgcolor: isUpcoming ? `${palette.secondary.main}22` : undefined },
                 },
               }}

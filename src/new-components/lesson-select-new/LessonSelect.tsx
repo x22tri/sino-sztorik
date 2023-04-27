@@ -24,7 +24,7 @@ export default function LessonSelect() {
     const upcoming = lessons.find(({ tierStatuses }) => tierStatuses.includes(LessonStatuses.UPCOMING))?.lessonNumber
     setUpcoming(upcoming)
     select(upcoming)
-  }, [lessons, select])
+  }, [lessons, select, setUpcoming])
 
   return !selected ? null : (
     <Box
@@ -36,11 +36,11 @@ export default function LessonSelect() {
       position='relative'
       gridTemplateRows={`${toolbarHeight}px auto ${constants.lessonStartMobileHeight}`}
       sx={{
-        gridTemplateColumns: { xs: 'repeat(4, 1fr)', md: `${constants.drawerWidth}px repeat(4, 1fr)` },
+        gridTemplateColumns: { xs: '1fr', md: `${constants.drawerWidth}px auto`, lg: `${constants.drawerWidth}px 3fr 1fr` },
         gridTemplateAreas: {
-          xs: `"nav nav nav nav" "main main main main" "start start start start"`,
-          md: `"drawer nav nav nav nav" "drawer main main main main" "drawer start start start start"`,
-          lg: `"drawer nav nav nav nav" "drawer main main main chars" "drawer start start start start"`,
+          xs: `"nav" "main" "start"`,
+          md: `"drawer nav" "drawer main" "drawer start"`,
+          lg: `"drawer nav nav" "drawer main chars" "drawer start start"`,
         },
       }}
     >

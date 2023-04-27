@@ -6,6 +6,8 @@ import { LearnAppbar } from './learn-appbar/LearnAppbar'
 import { LessonSwiper } from '../shared/components/LessonSwiper'
 import { Box, useTheme } from '@mui/material'
 import { useState } from 'react'
+import { useSmallScreen } from '../shared/hooks/useSmallScreen'
+import { CharPicker } from './char-picker/CharPicker'
 
 const lessonSelectMaxWidth = '1600px'
 
@@ -13,6 +15,7 @@ export default function Learn() {
   const lesson = CHARS
   const [toolbarHeight, setToolbarHeight] = useState(0)
   const { constants } = useTheme()
+  const isSmallScreen = useSmallScreen()
 
   return (
     <Box
@@ -21,10 +24,17 @@ export default function Learn() {
       margin='auto'
       maxWidth={lessonSelectMaxWidth}
       gridTemplateRows={`${toolbarHeight}px auto`}
-      gridTemplateColumns='1fr'
-      gridTemplateAreas={`
-      "nav"
-      "content"`}
+      sx={{
+        gridTemplateColumns: { xs: '1fr', md: `${constants.drawerWidth}px 1fr` },
+        gridTemplateAreas: {
+          xs: `"nav" "content`,
+          md: `"nav nav" "drawer content"`,
+        },
+      }}
+      // gridTemplateColumns='1fr'
+      // gridTemplateAreas={`
+      // "nav"
+      // "content"`}
       // sx={{
       //   gridTemplateColumns: { xs: 'repeat(4, 1fr)', md: `${constants.drawerWidth}px repeat(4, 1fr)` },
       //   gridTemplateAreas: {
@@ -35,7 +45,10 @@ export default function Learn() {
       // }}
     >
       <LearnAppbar lessonLength={CHARS.length} {...{ toolbarHeight, setToolbarHeight }} />
-      <LessonSwiper style={{ maxWidth: '1600px', width: '100%', gridArea: 'content' }}>
+
+      <CharPicker {...{ lesson }} />
+
+      <LessonSwiper style={{ width: '100%', gridArea: 'content', marginBottom: isSmallScreen ? 0 : '16px' }}>
         {lesson.map((char, index) => (
           <SwiperSlide key={index}>
             <LearnContent

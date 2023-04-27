@@ -7,7 +7,15 @@ export const CHARS: Character[] = [
     keyword: 'egy',
     primitiveMeaning: 'plafon, padló',
     story: [
-      ['Az ', { keyword: 'egy' }, ' kínai jele épp olyan, mint a római ', { keyword: 'egy' }, ' (I), de 90 fokkal elforgatva.'],
+      [
+        'Az ',
+        { keyword: 'egy' },
+        ' kínai jele ',
+        { keyword: 'egy' },
+        ' vízszintes vonás. Vagy, ha úgy tetszik, a római ',
+        { keyword: 'egy' },
+        ' (I), de 90 fokkal elforgatva.',
+      ],
       {
         noteType: 'whenPrimitive',
         noteText: [
@@ -65,13 +73,13 @@ export const CHARS: Character[] = [
         { constituent: 'Plafont', references: '一' },
         ' szab a ',
         { constituent: 'lábnyomnak', references: '止' },
-        ' egy vonás. Ez egy zárt, lyukacsos gyógypapucsot, azaz egy ',
+        ' egy vonás – ez egy zárt, lyukacsos gyógypapucsot, azaz egy ',
         { primitive: 'ortopéd cipőt' },
         ' jelképez.',
       ],
-      ['Az ilyeneket lúdtalp ellen szokták hordani, hogy a láb ', { keyword: 'helyes' }, ' formáját megőrizze.'],
+      ['Az ilyet lúdtalp ellen szokták hordani, hogy a láb ', { keyword: 'helyes' }, ' formáját megőrizze.'],
       [
-        'Könnyen megjegyezhető, ha csak arra gondolunk: az „ortopéd” szó jelentése „',
+        'Talán segíthet a szó etimológiája is: az „ortopéd” szó jelentése „',
         { keyword: 'helyes' },
         ' láb”, mint ahogy az „ortográfia” a „',
         { keyword: 'helyes' },

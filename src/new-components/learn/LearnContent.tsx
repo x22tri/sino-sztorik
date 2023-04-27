@@ -74,20 +74,16 @@ export default function LearnContent({
   return (
     <Box
       // border={`1px solid ${palette.grey[300]}`}
-      borderRadius={2}
+      borderRadius={4}
+      boxSizing='border-box'
+      maxHeight='100%'
       marginBottom={1}
       minWidth={0}
-      paddingX={useSmallScreen() ? 1 : 2}
-      paddingY={1}
-      boxSizing='border-box'
+      marginX='auto'
+      paddingX={2}
+      paddingBottom={3}
       component='main'
-      sx={{
-        backgroundColor: palette.background.paper,
-        maxWidth: constants.maxContentWidth,
-        mx: 'auto',
-        height: '100%',
-        overflowY: 'auto',
-      }}
+      sx={{ bgcolor: 'background.paper', maxWidth: constants.maxContentWidth, overflowY: 'auto' }}
     >
       {/* <InfoChips
         {...{ frequency, newPrimitive, prequel, productivePhonetic, reminder }}
@@ -115,9 +111,9 @@ export default function LearnContent({
         </When>
       </When>
 
-      <Divider sx={{ my: 1 }} />
+      {/* <Divider sx={{ my: 1 }} /> */}
 
-      <CharNavigation {...{ prevChar, nextChar }} />
+      {/* <CharNavigation {...{ prevChar, nextChar }} /> */}
     </Box>
   )
 }
