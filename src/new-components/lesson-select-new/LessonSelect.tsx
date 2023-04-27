@@ -30,11 +30,10 @@ export default function LessonSelect() {
     <Box
       display='grid'
       height='100vh'
-      justifyContent='center'
       margin='auto'
       maxWidth={lessonSelectMaxWidth}
       position='relative'
-      gridTemplateRows={`${toolbarHeight}px auto ${constants.lessonStartMobileHeight}`}
+      gridTemplateRows={`${toolbarHeight}px auto ${constants.lessonStartHeight}`}
       sx={{
         gridTemplateColumns: { xs: '1fr', md: `${constants.drawerWidth}px auto`, lg: `${constants.drawerWidth}px 3fr 1fr` },
         gridTemplateAreas: {

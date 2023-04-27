@@ -20,7 +20,7 @@ export function LessonStart({ lesson }: { lesson: AssembledLesson }) {
       gap={2}
       gridArea='start'
       gridTemplateColumns={`repeat(${isLargeScreen ? 4 : 3}, 1fr)`}
-      height={constants.lessonStartMobileHeight}
+      height={constants.lessonStartHeight}
       paddingX={2}
       position='sticky'
       width='100%'

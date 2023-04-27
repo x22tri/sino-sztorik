@@ -14,7 +14,7 @@ declare module '@mui/material/styles' {
       animationDuration: `${number}ms`
       boxShadow: string
       drawerWidth: number
-      lessonStartMobileHeight: string
+      lessonStartHeight: `${number}px`
       maxContentWidth: string
     }
   }
@@ -24,7 +24,7 @@ declare module '@mui/material/styles' {
       animationDuration?: `${number}ms`
       boxShadow?: string
       drawerWidth?: number
-      lessonStartMobileHeight?: string
+      lessonStartHeight?: `${number}px`
       maxContentWidth?: string
     }
   }
@@ -172,13 +172,7 @@ theme = createTheme(theme, {
   components: {
     MuiBadge: { styleOverrides: { badge: { fontFamily: emphasisFont } } },
     MuiButtonGroup: { styleOverrides: { grouped: { borderRightColor: 'transparent' } } },
-    MuiLink: {
-      styleOverrides: {
-        root: {
-          transition: theme.constants.animationDuration,
-        },
-      },
-    },
+    MuiLink: { styleOverrides: { root: { transition: theme.constants.animationDuration } } },
     // MuiLink: {
     //   styleOverrides: {
     //     root: {
@@ -191,7 +185,7 @@ theme = createTheme(theme, {
       styleOverrides: { tooltip: { [`.${tooltipClasses.popper}[data-popper-placement*="bottom"] &`]: { marginTop: 2 } } },
     },
   },
-  constants: { lessonStartMobileHeight: theme.spacing(8) },
+  constants: { lessonStartHeight: theme.spacing(8) },
   palette: { specialParagraphs: { whenPrimitive: theme.palette.secondary.light } },
   typography: {
     logo: { ...theme.typography.h4, textDecoration: 'none' },

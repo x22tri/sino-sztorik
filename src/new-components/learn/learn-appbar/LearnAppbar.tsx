@@ -52,7 +52,7 @@ export function LearnAppbar({
   }
 
   return (
-    <AppBar position='static' elevation={0} sx={{ backgroundColor: 'background.default', gridArea: 'nav' }}>
+    <AppBar position='relative' elevation={0} sx={{ backgroundColor: 'background.default', gridArea: 'nav' }}>
       <Toolbar variant='dense' disableGutters {...{ ref }}>
         <Box
           alignItems='center'
@@ -70,7 +70,12 @@ export function LearnAppbar({
                   color={isLocked ? 'neutral' : 'primary'}
                   value={lessonProgress}
                   variant='determinate'
-                  sx={{ borderRadius: '8px', mx: 'auto', p: 0.5, width: '100%' }}
+                  sx={{
+                    borderRadius: '8px',
+                    mx: 'auto',
+                    p: 0.5,
+                    //  width: '100%'
+                  }}
                 />
               </Then>
               <Else>
