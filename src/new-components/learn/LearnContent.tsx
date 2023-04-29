@@ -48,8 +48,6 @@ export default function LearnContent({
 
     scrollToTop()
 
-    // swiper.updateAutoHeight()
-
     flashback === null ? swiper.enable() : swiper.disable()
   }, [flashback, swiper])
 
@@ -102,7 +100,7 @@ export default function LearnContent({
 
         {/* <Divider sx={{ my: 1 }} /> */}
 
-        {/* <CharNavigation {...{ prevChar, nextChar }} /> */}
+        <CharNavigation {...{ prevChar, nextChar }} />
       </Box>
     </Box>
   )

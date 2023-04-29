@@ -8,7 +8,7 @@ import {
   CHAR_NAVIGATION_NEXT_CHARACTER,
   CHAR_NAVIGATION_EXIT_FLASHBACK_PROMPT,
 } from '../../shared/strings'
-import { Typography } from '@mui/material'
+import { Button, Typography } from '@mui/material'
 import { useLearn } from '../logic/useLearn'
 import { Else, If, Then, When } from 'react-if'
 
@@ -18,7 +18,7 @@ export function CharNavigation({ prevChar, nextChar }: { prevChar: string | null
   const { flashback } = useLearn()
 
   return (
-    <Box display='flex' width='100%' justifyContent='center'>
+    <Box display='flex' width='100%' justifyContent='center' marginTop={5}>
       <If condition={!flashback}>
         <Then>
           <When condition={!!prevChar}>
@@ -33,16 +33,23 @@ export function CharNavigation({ prevChar, nextChar }: { prevChar: string | null
             </LightenOnHoverButton>
           </When>
 
-          <When condition={!!nextChar}>
-            <LightenOnHoverButton
-              endIcon={<FontAwesomeIcon icon={faChevronRight} transform='shrink-4' />}
-              onClick={() => swiper.slideNext()}
-              size='small'
-              sx={{ ml: 'auto' }}
-            >
-              {CHAR_NAVIGATION_NEXT_CHARACTER}
-            </LightenOnHoverButton>
-          </When>
+          <If condition={!!nextChar}>
+            <Then>
+              <LightenOnHoverButton
+                endIcon={<FontAwesomeIcon icon={faChevronRight} transform='shrink-4' />}
+                onClick={() => swiper.slideNext()}
+                size='small'
+                sx={{ ml: 'auto' }}
+              >
+                {CHAR_NAVIGATION_NEXT_CHARACTER}
+              </LightenOnHoverButton>
+            </Then>
+            <Else>
+              <Button variant='contained' href='/'>
+                Lecke befejezése
+              </Button>
+            </Else>
+          </If>
         </Then>
         <Else>
           <ExitFlashbackWarning />
