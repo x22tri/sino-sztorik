@@ -6,7 +6,8 @@ import { LearnAppbar } from './learn-appbar/LearnAppbar'
 import { LessonSwiper } from '../shared/components/LessonSwiper'
 import { Box, useTheme } from '@mui/material'
 import { useState } from 'react'
-import { CharPicker } from './char-picker/CharPicker'
+import { SideNav } from '../shared/components/SideNav'
+import { CharPickerContent } from './char-picker/CharPickerContent'
 
 const lessonSelectMaxWidth = '1600px'
 
@@ -29,7 +30,7 @@ export default function Learn() {
         gridTemplateAreas: { xs: `"nav" "content"`, md: `"drawer nav" "drawer content"` },
       }}
     >
-      <CharPicker {...{ lesson }} />
+      <SideNav content={<CharPickerContent {...{ lesson }} />} />
 
       <LearnAppbar lessonLength={CHARS.length} {...{ toolbarHeight, setToolbarHeight }} />
 

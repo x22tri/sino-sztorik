@@ -1,7 +1,6 @@
 import Box from '@mui/material/Box'
 import { useEffect, useState } from 'react'
 import { useTheme } from '@mui/material'
-import LessonPicker from './lesson-picker/LessonPicker'
 import { LessonStatuses } from '../shared/interfaces'
 import { useLessonSelect } from './logic/useLessonSelect'
 import { LessonSelectAppbar } from './appbar/LessonSelectAppbar'
@@ -11,6 +10,8 @@ import { useLargeScreen } from '../shared/hooks/useLargeScreen'
 import { CharacterPreviews } from './lesson-start/CharacterPreviews'
 import { When } from 'react-if'
 import 'swiper/css'
+import { LessonPickerContent } from './lesson-picker/LessonPickerContent'
+import { SideNav } from '../shared/components/SideNav'
 
 const lessonSelectMaxWidth = '1600px'
 
@@ -43,7 +44,7 @@ export default function LessonSelect() {
         },
       }}
     >
-      <LessonPicker />
+      <SideNav content={<LessonPickerContent />} />
 
       <LessonSelectAppbar {...{ setToolbarHeight, toolbarHeight }} />
 

@@ -1,10 +1,9 @@
 import { Drawer, useTheme } from '@mui/material'
+import { useLessonSelect } from '../../lesson-select-new/logic/useLessonSelect'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { Wrap } from '../../shared/utility-components'
-import { useLessonSelect } from '../logic/useLessonSelect'
-import { LessonPickerContent } from './LessonPickerContent'
 
-export default function LessonPicker() {
+export function SideNav({ content }: { content: JSX.Element | JSX.Element[] }) {
   const isSmallScreen = useSmallScreen()
   const { isOpen, toggle } = useLessonSelect()
   const { constants } = useTheme()
@@ -23,7 +22,7 @@ export default function LessonPicker() {
         </Drawer>
       )}
     >
-      <LessonPickerContent />
+      {content}
     </Wrap>
   )
 }
