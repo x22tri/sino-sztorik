@@ -24,13 +24,13 @@ export function LessonPrefaceSwiper() {
           },
         },
       ]}
-      initialSlide={selected! - 1}
-      onActiveIndexChange={({ activeIndex }) => select(activeIndex + 1)}
+      initialSlide={selected!}
+      onActiveIndexChange={({ activeIndex }) => select(activeIndex)}
       style={{ gridArea: 'main', height: '100%', width: '100%' }}
     >
-      {lessons.map(({ lessonNumber }) => (
-        <SwiperSlide key={lessonNumber}>
-          <LessonPreface lesson={lessons[lessonNumber - 1]} />
+      {lessons.map((lesson, index) => (
+        <SwiperSlide key={index}>
+          <LessonPreface {...{ lesson }} />
         </SwiperSlide>
       ))}
     </LessonSwiper>

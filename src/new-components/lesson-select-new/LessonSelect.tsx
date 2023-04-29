@@ -12,6 +12,7 @@ import { When } from 'react-if'
 import 'swiper/css'
 import { LessonPickerContent } from './lesson-picker/LessonPickerContent'
 import { SideNav } from '../shared/components/SideNav'
+import { LessonPickerTitle } from './lesson-picker/LessonPickerTitle'
 
 const lessonSelectMaxWidth = '1600px'
 
@@ -22,12 +23,12 @@ export default function LessonSelect() {
   const { constants } = useTheme()
 
   useEffect(() => {
-    const upcoming = lessons.find(({ tierStatuses }) => tierStatuses.includes(LessonStatuses.UPCOMING))?.lessonNumber
+    const upcoming = lessons.findIndex(({ tierStatuses }) => tierStatuses.includes(LessonStatuses.UPCOMING))
     setUpcoming(upcoming)
     select(upcoming)
   }, [lessons, select, setUpcoming])
 
-  return !selected ? null : (
+  return selected === undefined ? null : (
     <Box
       display='grid'
       height='100vh'
@@ -44,17 +45,17 @@ export default function LessonSelect() {
         },
       }}
     >
-      <SideNav content={<LessonPickerContent />} />
+      <SideNav title={<LessonPickerTitle />} content={<LessonPickerContent />} {...{ selected }} />
 
       <LessonSelectAppbar {...{ setToolbarHeight, toolbarHeight }} />
 
       <LessonPrefaceSwiper />
 
       <When condition={isLargeScreen}>
-        <CharacterPreviews characters={lessons[selected - 1].characters} />
+        <CharacterPreviews characters={lessons[selected].characters} />
       </When>
 
-      <LessonStart lesson={lessons[selected - 1]} />
+      <LessonStart lesson={lessons[selected]} />
     </Box>
   )
 }

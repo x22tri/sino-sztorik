@@ -20,48 +20,49 @@ export function LessonPickerContent() {
   const { constants, palette, spacing, typography } = useTheme()
   const { height } = useWindowSize()
 
-  function selectLesson(lesson: number) {
-    swiperInstance?.slideTo(lesson - 1)
-    select(lesson)
+  function selectLesson(index: number) {
+    swiperInstance?.slideTo(index)
+    select(index)
     toggle()
   }
 
-  function scrollToLesson(lesson: number | null): void {
-    if (lesson === null || height === undefined) {
-      return
-    }
+  // function scrollToLesson(lesson: number): void {
+  //   if (height === undefined) {
+  //     return
+  //   }
 
-    listRef.current?.scrollTo({ top: (itemHeight + gap) * lesson + itemHeight / 2 - height / 2, behavior: 'smooth' })
-  }
+  //   listRef.current?.scrollTo({ top: (itemHeight + gap) * lesson + itemHeight / 2 - height / 2, behavior: 'smooth' })
+  // }
 
-  useOnChange(selected, () => scrollToLesson(selected!))
+  // useOnChange(selected, () => scrollToLesson(selected!))
 
   return (
-    <List
-      ref={listRef}
-      subheader={<LessonPickerTitle />}
-      sx={{
-        backgroundColor: 'background.paper',
-        bottom: 0,
-        borderRight: `1px solid ${palette.grey[200]}`,
-        left: 0,
-        gridArea: 'drawer',
-        overflow: 'auto',
-        position: 'absolute',
-        right: 0,
-        top: 0,
-        width: constants.drawerWidth,
-      }}
-    >
-      {lessons.map(({ lessonNumber, tierStatuses }) => {
-        const isUpcoming = upcoming === lessonNumber
+    // <List
+    //   ref={listRef}
+    //   subheader={<LessonPickerTitle />}
+    //   sx={{
+    //     backgroundColor: 'background.paper',
+    //     bottom: 0,
+    //     borderRight: `1px solid ${palette.grey[200]}`,
+    //     left: 0,
+    //     gridArea: 'drawer',
+    //     overflow: 'auto',
+    //     position: 'absolute',
+    //     right: 0,
+    //     top: 0,
+    //     width: constants.drawerWidth,
+    //   }}
+    // >
+    <>
+      {lessons.map(({ lessonNumber, tierStatuses }, index) => {
+        const isUpcoming = upcoming === index
 
         return (
-          <ListItem key={lessonNumber} disablePadding>
+          <ListItem key={index} disablePadding>
             <ListItemButton
               disabled={isDisabledLesson(tierStatuses)}
-              onClick={() => selectLesson(lessonNumber)}
-              selected={selected === lessonNumber}
+              onClick={() => selectLesson(index)}
+              selected={selected === index}
               sx={{
                 border: isUpcoming ? `2px solid ${palette.secondary.main}` : 'none',
                 borderRadius: 6,
@@ -97,6 +98,7 @@ export function LessonPickerContent() {
           </ListItem>
         )
       })}
-    </List>
+      {/* </List> */}
+    </>
   )
 }

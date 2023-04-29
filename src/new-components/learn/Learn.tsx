@@ -9,13 +9,20 @@ import { useState } from 'react'
 import { SideNav } from '../shared/components/SideNav'
 import { CharPickerContent } from './char-picker/CharPickerContent'
 import { useLearn } from './logic/useLearn'
+import { CharPickerTitle } from './char-picker/CharPickerTitle'
 
 const lessonSelectMaxWidth = '1600px'
 
 export default function Learn() {
-  const { lesson, select } = useLearn()
+  const { lesson, select, selected } = useLearn()
   const [toolbarHeight, setToolbarHeight] = useState(0)
-  const { constants } = useTheme()
+  const { constants, palette } = useTheme()
+
+  const [content, setContent] = useState<'characters' | 'preface'>('characters')
+
+  const lessonNumber = 99
+  const lessonTitle = 'Lecke címe'
+  const preface = 'Teszt teszt teszt'
 
   return (
     <Box
@@ -26,18 +33,21 @@ export default function Learn() {
       position='relative'
       gridTemplateRows={`${toolbarHeight}px auto`}
       sx={{
-        bgcolor: 'background.paper',
         gridTemplateColumns: { xs: '1fr', md: `${constants.drawerWidth}px auto` },
         gridTemplateAreas: { xs: `"nav" "content"`, md: `"drawer nav" "drawer content"` },
       }}
     >
-      <SideNav content={<CharPickerContent />} />
+      <SideNav
+        title={<CharPickerTitle {...{ content, lessonNumber, lessonTitle, setContent }} />}
+        content={<CharPickerContent {...{ content }} />}
+        {...{ selected }}
+      />
 
       <LearnAppbar lessonLength={CHARS.length} {...{ toolbarHeight, setToolbarHeight }} />
 
       <LessonSwiper
         onActiveIndexChange={({ activeIndex }) => select(activeIndex)}
-        style={{ gridArea: 'content', height: '100%', width: '100%' }}
+        style={{ backgroundColor: palette.background.paper, gridArea: 'content', height: '100%', width: '100%' }}
       >
         {lesson.map((char, index) => (
           <SwiperSlide key={index}>

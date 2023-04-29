@@ -5,16 +5,16 @@ import { LESSONS } from '../../shared/MOCK_LESSONS'
 interface LessonsSlice {
   lessons: AssembledLesson[]
   selected: number | undefined
-  select: (lesson: number | undefined) => void
-  setUpcoming: (lesson: number | undefined) => void
+  select: (index: number) => void
+  setUpcoming: (index: number) => void
   upcoming: number | undefined
 }
 
 const createLessonsSlice: Slice<LessonsSlice, MobileDrawerSlice> = set => ({
   lessons: LESSONS,
   selected: undefined,
-  select: lesson => set({ selected: lesson }),
-  setUpcoming: lesson => set({ upcoming: lesson }),
+  select: index => set({ selected: index }),
+  setUpcoming: index => set({ upcoming: index }),
   upcoming: undefined,
 })
 
