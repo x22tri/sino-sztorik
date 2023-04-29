@@ -72,27 +72,8 @@ export default function LearnContent({
   } = currentChar
 
   return (
-    <Box
-      // border={`1px solid ${palette.grey[300]}`}
-
-      boxSizing='border-box'
-      // display='grid'
-      maxHeight='100%'
-      // minWidth={0}
-      // marginX='auto'
-      component='main'
-      sx={{ bgcolor: 'background.paper', overflowY: 'auto' }}
-    >
-      <Box
-        // borderRadius={4}
-        // gridArea='learnContent'
-        marginBottom={1}
-        // marginX='auto'
-        maxWidth='56rem'
-        paddingBottom={3}
-        paddingX={2}
-        sx={{ p: `${spacing(1)} ${spacing(2)} ${spacing(3)}` }}
-      >
+    <Box boxSizing='border-box' maxHeight='100%' component='main' sx={{ bgcolor: 'background.paper', overflowY: 'auto' }}>
+      <Box maxWidth='56rem' paddingBottom={3} paddingX={2} sx={{ p: `0 ${spacing(2)} ${spacing(3)}` }}>
         {/* <InfoChips
         {...{ frequency, newPrimitive, prequel, productivePhonetic, reminder }}
       /> */}
