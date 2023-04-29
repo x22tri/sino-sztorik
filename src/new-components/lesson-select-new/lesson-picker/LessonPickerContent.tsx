@@ -78,7 +78,7 @@ export function LessonPickerContent() {
               }}
             >
               <ListItemIcon
-                sx={{ color: 'text.disabled', justifyContent: 'end', mr: 1, minWidth: '24px', typography: 'overline' }}
+                sx={{ color: 'text.disabled', justifyContent: 'end', mr: 1, minWidth: spacing(3), typography: 'overline' }}
               >
                 {`${lessonNumber})`}
               </ListItemIcon>

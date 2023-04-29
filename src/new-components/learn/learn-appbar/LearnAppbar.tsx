@@ -10,6 +10,7 @@ import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { If, Then, Else } from 'react-if'
 import { CloseButton } from './CloseButton'
 import { useSwiperInstance } from '../../shared/state'
+import LogoTitle from '../../lesson-select-new/appbar/LogoTitle'
 
 export function LearnAppbar({
   lessonLength,
@@ -53,7 +54,7 @@ export function LearnAppbar({
 
   return (
     <AppBar position='relative' elevation={0} sx={{ bgcolor: 'inherit', gridArea: 'nav' }}>
-      <Toolbar disableGutters {...{ ref }}>
+      <Toolbar disableGutters {...{ ref }} sx={{ px: 2 }}>
         <Box
           alignItems='center'
           display='grid'
@@ -61,7 +62,8 @@ export function LearnAppbar({
           gridTemplateColumns={`${gridSideColumn} auto ${gridSideColumn}`}
           width='100%'
         >
-          <LessonInfo lessonNumber={99} lessonTitle={'Lecke címe'} />
+          {/* <LessonInfo lessonNumber={99} lessonTitle={'Lecke címe'} /> */}
+          <LogoTitle />
 
           <Box display='flex' justifyContent='center'>
             <If condition={!isSmallScreen || !flashback}>

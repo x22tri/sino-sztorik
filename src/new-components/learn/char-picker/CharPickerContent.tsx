@@ -17,6 +17,8 @@ export function CharPickerContent({ lesson }: { lesson: Character[] }) {
   const lessonTitle = 'Lecke címe'
   const preface = 'Teszt teszt teszt'
 
+  const [selectedChar, selectChar] = useState(null) // To-Do: Move to global state
+
   return (
     <List
       ref={listRef}
@@ -56,12 +58,39 @@ export function CharPickerContent({ lesson }: { lesson: Character[] }) {
         <Then>
           {lesson.map((char, index) => (
             <ListItem key={index} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>{char.charChinese}</ListItemIcon>
+              <ListItemButton
+                selected={false}
+                sx={{
+                  borderRadius: 6,
+                  color: 'text.secondary',
+                  height: spacing(6),
+                  m: 1,
+                  transition: constants.animationDuration,
+                  '&.Mui-selected': {
+                    color: 'text.primary',
+                  },
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    color: 'text.disabled',
+                    justifyContent: 'end',
+                    mr: 1,
+                    mb: spacing(0.75),
+                    minWidth: spacing(3),
+                    typography: 'chineseNormal',
+                    fontWeight: 500,
+                    fontSize: '100%',
+                  }}
+                >
+                  {char.charChinese}
+                </ListItemIcon>
 
                 <ListItemText
                   primary={char.keyword}
-                  sx={{ '.MuiListItemText-primary': { ...typography.titleSubtitle.title, fontSize: '90%' } }}
+                  sx={{
+                    '.MuiListItemText-primary': { ...typography.titleSubtitle.title, fontSize: '90%' },
+                  }}
                 />
               </ListItemButton>
             </ListItem>

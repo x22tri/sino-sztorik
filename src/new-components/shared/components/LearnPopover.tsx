@@ -10,22 +10,20 @@ export function LearnPopover({
   hover?: boolean
   text: string | undefined
 }) {
-  const { constants } = useTheme()
+  const { constants, spacing } = useTheme()
 
   return (
     <Popover
-      {...{ anchorEl }}
-      open={!!anchorEl}
-      disableRestoreFocus={hover}
-      marginThreshold={2}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      disableRestoreFocus={hover}
+      open={!!anchorEl}
+      marginThreshold={2}
+      PaperProps={{ style: { borderRadius: spacing(2), boxShadow: constants.boxShadow } }}
       transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-      PaperProps={{
-        style: { boxShadow: constants.boxShadow },
-      }}
       sx={{ pointerEvents: hover ? 'none' : 'initial' }}
+      {...{ anchorEl }}
     >
-      <Typography variant='subtitle2' padding={1} maxWidth='95ch'>
+      <Typography variant='subtitle2' padding={2} maxWidth='95ch'>
         {text}
       </Typography>
     </Popover>
