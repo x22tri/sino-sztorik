@@ -1,24 +1,15 @@
-import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme } from '@mui/material'
-import { useWindowSize } from '../../shared/hooks/useWindowSize'
-import { useOnChange } from '../../shared/hooks/useOnChange'
-import { useRef } from 'react'
+import { ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme } from '@mui/material'
 import { useSwiperInstance } from '../../shared/state'
 import { useLessonSelect } from '../logic/useLessonSelect'
-import { LessonPickerTitle } from './LessonPickerTitle'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleRight } from '@fortawesome/free-solid-svg-icons'
 import { When } from 'react-if'
 import { isDisabledLesson } from '../../shared/utility-functions'
 
-const itemHeight = 64
-const gap = 0
-
 export function LessonPickerContent() {
-  const listRef = useRef<HTMLUListElement>(null)
   const { lessons, select, selected, toggle, upcoming } = useLessonSelect()
   const { swiperInstance } = useSwiperInstance()
   const { constants, palette, spacing, typography } = useTheme()
-  const { height } = useWindowSize()
 
   function selectLesson(index: number) {
     swiperInstance?.slideTo(index)
@@ -26,33 +17,7 @@ export function LessonPickerContent() {
     toggle()
   }
 
-  // function scrollToLesson(lesson: number): void {
-  //   if (height === undefined) {
-  //     return
-  //   }
-
-  //   listRef.current?.scrollTo({ top: (itemHeight + gap) * lesson + itemHeight / 2 - height / 2, behavior: 'smooth' })
-  // }
-
-  // useOnChange(selected, () => scrollToLesson(selected!))
-
   return (
-    // <List
-    //   ref={listRef}
-    //   subheader={<LessonPickerTitle />}
-    //   sx={{
-    //     backgroundColor: 'background.paper',
-    //     bottom: 0,
-    //     borderRight: `1px solid ${palette.grey[200]}`,
-    //     left: 0,
-    //     gridArea: 'drawer',
-    //     overflow: 'auto',
-    //     position: 'absolute',
-    //     right: 0,
-    //     top: 0,
-    //     width: constants.drawerWidth,
-    //   }}
-    // >
     <>
       {lessons.map(({ lessonNumber, tierStatuses }, index) => {
         const isUpcoming = upcoming === index
@@ -98,7 +63,6 @@ export function LessonPickerContent() {
           </ListItem>
         )
       })}
-      {/* </List> */}
     </>
   )
 }

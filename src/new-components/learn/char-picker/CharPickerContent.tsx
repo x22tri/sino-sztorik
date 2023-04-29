@@ -1,16 +1,13 @@
 import { Box, ListItem, ListItemButton, ListItemIcon, useTheme } from '@mui/material'
-import { useState } from 'react'
 import { Else, If, Then } from 'react-if'
 import { useLearn } from '../logic/useLearn'
 import { useSwiperInstance } from '../../shared/state'
 import { KeywordPrimitiveRow } from '../../shared/components/KeywordPrimitiveRow'
 
-export function CharPickerContent({ content }: { content: 'characters' | 'preface' }) {
+export function CharPickerContent({ content, preface }: { content: 'characters' | 'preface'; preface: string }) {
   const { swiperInstance } = useSwiperInstance()
   const { constants, spacing } = useTheme()
   const { lesson, select, selected, toggle } = useLearn()
-
-  const preface = 'Teszt teszt teszt'
 
   function selectChar(index: number) {
     swiperInstance?.slideTo(index)
@@ -54,6 +51,7 @@ export function CharPickerContent({ content }: { content: 'characters' | 'prefac
           </ListItem>
         ))}
       </Then>
+
       <Else>
         <Box padding={2}>{preface}</Box>
       </Else>

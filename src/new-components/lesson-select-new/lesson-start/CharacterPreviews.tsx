@@ -33,13 +33,7 @@ export function CharacterPreviews({ characters }: { characters: string[] }) {
               <Card
                 key={char}
                 component='span'
-                sx={{
-                  boxShadow: constants.boxShadow,
-                  m: 'auto',
-                  maxWidth: charWidth,
-                  typography: 'chineseNormal',
-                  p: 1,
-                }}
+                sx={{ boxShadow: constants.boxShadow, m: 'auto', maxWidth: charWidth, typography: 'chineseNormal', p: 1 }}
               >
                 {char}
               </Card>

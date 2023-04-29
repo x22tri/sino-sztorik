@@ -39,7 +39,7 @@ export default function Learn() {
     >
       <SideNav
         title={<CharPickerTitle {...{ content, lessonNumber, lessonTitle, setContent }} />}
-        content={<CharPickerContent {...{ content }} />}
+        content={<CharPickerContent {...{ content, preface }} />}
         {...{ selected }}
       />
 

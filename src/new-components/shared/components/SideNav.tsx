@@ -13,7 +13,7 @@ export function SideNav({ content, selected, title }: { content: JSX.Element; se
   const isSmallScreen = useSmallScreen()
   const ref = useRef<HTMLUListElement>(null)
   const { isOpen, toggle } = useLessonSelect()
-  const { constants, palette } = useTheme()
+  const { constants } = useTheme()
   const { height } = useWindowSize()
 
   function scrollToItem(index: number): void {
@@ -42,17 +42,7 @@ export function SideNav({ content, selected, title }: { content: JSX.Element; se
     >
       <List
         subheader={title}
-        sx={{
-          bottom: 0,
-          // borderRight: `1px solid ${palette.grey[200]}`,
-          left: 0,
-          gridArea: 'drawer',
-          overflow: 'auto',
-          position: 'absolute',
-          right: 0,
-          top: 0,
-          width: constants.drawerWidth,
-        }}
+        sx={{ left: 0, gridArea: 'drawer', overflow: 'auto', position: 'absolute', top: 0, width: constants.drawerWidth }}
         {...{ ref }}
       >
         {content}
