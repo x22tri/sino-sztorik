@@ -4,7 +4,7 @@ import { AppBar, Toolbar, Typography, useTheme } from '@mui/material'
 import { LessonInfo } from './LessonInfo'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { FLASHBACK_MODE } from '../../shared/strings'
-import { useFlashback } from '../logic/useFlashback'
+import { useLearn } from '../logic/useLearn'
 import { useSwiper } from 'swiper/react'
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { If, Then, Else } from 'react-if'
@@ -26,7 +26,7 @@ export function LearnAppbar({
   const resizeObserver = new ResizeObserver(handleToolbarResized)
   const { swiperInstance } = useSwiperInstance()
   const [lessonProgress, setLessonProgress] = useState(0)
-  const { flashback } = useFlashback()
+  const { flashback } = useLearn()
   const { constants } = useTheme()
 
   const isLocked = !!flashback

@@ -4,7 +4,7 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import { useSmallScreen } from '../shared/hooks/useSmallScreen'
-import { useFlashback } from './logic/useFlashback'
+import { useLearn } from './logic/useLearn'
 import { Character } from '../shared/interfaces'
 
 export function ConstituentList({
@@ -22,7 +22,7 @@ export function ConstituentList({
 
   const isSmallScreen = useSmallScreen()
 
-  const { startFlashback } = useFlashback()
+  const { startFlashback } = useLearn()
 
   return (
     <Box

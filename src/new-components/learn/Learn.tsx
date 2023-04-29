@@ -8,11 +8,12 @@ import { Box, useTheme } from '@mui/material'
 import { useState } from 'react'
 import { SideNav } from '../shared/components/SideNav'
 import { CharPickerContent } from './char-picker/CharPickerContent'
+import { useLearn } from './logic/useLearn'
 
 const lessonSelectMaxWidth = '1600px'
 
 export default function Learn() {
-  const lesson = CHARS
+  const { lesson, select } = useLearn()
   const [toolbarHeight, setToolbarHeight] = useState(0)
   const { constants } = useTheme()
 
@@ -30,11 +31,14 @@ export default function Learn() {
         gridTemplateAreas: { xs: `"nav" "content"`, md: `"drawer nav" "drawer content"` },
       }}
     >
-      <SideNav content={<CharPickerContent {...{ lesson }} />} />
+      <SideNav content={<CharPickerContent />} />
 
       <LearnAppbar lessonLength={CHARS.length} {...{ toolbarHeight, setToolbarHeight }} />
 
-      <LessonSwiper style={{ gridArea: 'content', height: '100%', width: '100%' }}>
+      <LessonSwiper
+        onActiveIndexChange={({ activeIndex }) => select(activeIndex)}
+        style={{ gridArea: 'content', height: '100%', width: '100%' }}
+      >
         {lesson.map((char, index) => (
           <SwiperSlide key={index}>
             <LearnContent

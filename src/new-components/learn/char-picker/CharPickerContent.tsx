@@ -1,46 +1,39 @@
 import { Box, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, useTheme } from '@mui/material'
 import { useRef, useState } from 'react'
 import { Character } from '../../shared/interfaces'
-import { TitleSubtitle } from '../learn-appbar/TitleSubtitle'
-import { LESSON_NUMBER_SUFFIX_APPBAR } from '../../shared/strings'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import ToolbarButton from '../../shared/components/ToolbarButton'
-import { faNewspaper } from '@fortawesome/free-regular-svg-icons'
 import { Else, If, Then } from 'react-if'
-import { faLanguage } from '@fortawesome/free-solid-svg-icons'
+import { useLearn } from '../logic/useLearn'
+import { useSwiperInstance } from '../../shared/state'
+import { CharPickerTitle } from './CharPickerTitle'
 
-export function CharPickerContent({ lesson }: { lesson: Character[] }) {
+export function CharPickerContent() {
   const listRef = useRef<HTMLUListElement>(null)
   const [content, setContent] = useState<'characters' | 'preface'>('characters')
+  const { swiperInstance } = useSwiperInstance()
   const { constants, palette, spacing, typography } = useTheme()
+  const { lesson, select, selected, toggle } = useLearn()
   const lessonNumber = 99
   const lessonTitle = 'Lecke címe'
   const preface = 'Teszt teszt teszt'
 
-  const [selectedChar, selectChar] = useState(null) // To-Do: Move to global state
+  function selectChar(index: number) {
+    swiperInstance?.slideTo(index)
+    select(index)
+    toggle()
+  }
 
   return (
     <List
       ref={listRef}
       subheader={
-        <Box
-          alignItems='center'
-          display='flex'
-          justifyContent='space-between'
-          minHeight={`${spacing(8)}`}
-          paddingX={`${spacing(2)}`}
-          borderBottom={`1px solid ${palette.grey[200]}`}
-        >
-          <TitleSubtitle title={lessonNumber + LESSON_NUMBER_SUFFIX_APPBAR} subtitle={lessonTitle} />
-          <If condition={content === 'characters'}>
-            <Then>
-              <ToolbarButton icon={faNewspaper} onClick={() => setContent('preface')} tooltip='Előszó' />
-            </Then>
-            <Else>
-              <ToolbarButton icon={faLanguage} onClick={() => setContent('characters')} tooltip='Karakterek' />
-            </Else>
-          </If>
-        </Box>
+        <CharPickerTitle
+          {...{
+            content,
+            lessonNumber,
+            lessonTitle,
+            setContent,
+          }}
+        />
       }
       sx={{
         bottom: 0,
@@ -56,10 +49,11 @@ export function CharPickerContent({ lesson }: { lesson: Character[] }) {
     >
       <If condition={content === 'characters'}>
         <Then>
-          {lesson.map((char, index) => (
+          {lesson.map(({ charChinese, keyword }, index) => (
             <ListItem key={index} disablePadding>
               <ListItemButton
-                selected={false}
+                onClick={() => selectChar(index)}
+                selected={selected === index}
                 sx={{
                   borderRadius: 6,
                   color: 'text.secondary',
@@ -83,11 +77,11 @@ export function CharPickerContent({ lesson }: { lesson: Character[] }) {
                     fontSize: '100%',
                   }}
                 >
-                  {char.charChinese}
+                  {charChinese}
                 </ListItemIcon>
 
                 <ListItemText
-                  primary={char.keyword}
+                  primary={keyword}
                   sx={{
                     '.MuiListItemText-primary': { ...typography.titleSubtitle.title, fontSize: '90%' },
                   }}

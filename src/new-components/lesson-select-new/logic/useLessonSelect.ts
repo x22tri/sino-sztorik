@@ -1,10 +1,8 @@
-import { StateCreator, create } from 'zustand'
-import { AssembledLesson } from '../../shared/interfaces'
+import { create } from 'zustand'
+import { AssembledLesson, Slice } from '../../shared/interfaces'
 import { LESSONS } from '../../shared/MOCK_LESSONS'
 
-type Slice<A, B> = StateCreator<A & B, [], [], A>
-
-interface LessonSlice {
+interface LessonsSlice {
   lessons: AssembledLesson[]
   selected: number | undefined
   select: (lesson: number | undefined) => void
@@ -12,7 +10,7 @@ interface LessonSlice {
   upcoming: number | undefined
 }
 
-const createLessonSlice: Slice<LessonSlice, MobileDrawerSlice> = set => ({
+const createLessonsSlice: Slice<LessonsSlice, MobileDrawerSlice> = set => ({
   lessons: LESSONS,
   selected: undefined,
   select: lesson => set({ selected: lesson }),
@@ -25,12 +23,12 @@ interface MobileDrawerSlice {
   toggle: () => void
 }
 
-const createMobileDrawerSlice: Slice<MobileDrawerSlice, LessonSlice> = set => ({
+const createMobileDrawerSlice: Slice<MobileDrawerSlice, LessonsSlice> = set => ({
   isOpen: false,
   toggle: () => set(({ isOpen }) => ({ isOpen: !isOpen })),
 })
 
-export const useLessonSelect = create<LessonSlice & MobileDrawerSlice>()((...a) => ({
+export const useLessonSelect = create<LessonsSlice & MobileDrawerSlice>()((...a) => ({
   ...createMobileDrawerSlice(...a),
-  ...createLessonSlice(...a),
+  ...createLessonsSlice(...a),
 }))

@@ -5,12 +5,12 @@ import { faChalkboard } from '@fortawesome/free-solid-svg-icons'
 import { useNavButtonStyling } from '../../shared/utility-functions'
 import { emphasisFont } from '../../shared/theme'
 import { ReturnFromFlashbackMobile } from './ReturnFromFlashbackMobile'
-import { useFlashback } from '../logic/useFlashback'
+import { useLearn } from '../logic/useLearn'
 import { If, Then, Else } from 'react-if'
 
 export function LessonInfoMobile({ lessonNumber }: { lessonNumber: number }) {
   const navButtonStyling = useNavButtonStyling()
-  const { flashback } = useFlashback()
+  const { flashback } = useLearn()
 
   return (
     <If condition={!flashback}>

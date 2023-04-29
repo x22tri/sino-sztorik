@@ -15,7 +15,7 @@ import { useSmallScreen } from '../shared/hooks/useSmallScreen'
 import { CharNavigation } from './char-navigation/CharNavigation'
 import { Phrases } from './Phrases'
 import { Heading } from './subheading/Heading'
-import { useFlashback } from './logic/useFlashback'
+import { useLearn } from './logic/useLearn'
 import {
   LEARN_HEADING_CHARACTER,
   LEARN_SUBHEADING_CONSTITUENTS,
@@ -39,7 +39,7 @@ export default function LearnContent({
 
   const swiper = useSwiper()
 
-  const { flashback } = useFlashback()
+  const { flashback } = useLearn()
 
   useEffect(() => {
     if (!swiper?.params) {

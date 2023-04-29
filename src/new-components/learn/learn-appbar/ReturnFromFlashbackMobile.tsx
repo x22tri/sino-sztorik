@@ -1,10 +1,10 @@
 import { Button, Typography } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
-import { useFlashback } from '../logic/useFlashback'
+import { useLearn } from '../logic/useLearn'
 
 export function ReturnFromFlashbackMobile() {
-  const { interrupted, resumeLesson } = useFlashback()
+  const { interrupted, resumeLesson } = useLearn()
 
   return (
     <Button
@@ -20,9 +20,7 @@ export function ReturnFromFlashbackMobile() {
         '.MuiButton-startIcon': { marginRight: '2px' },
       }}
     >
-      <Typography variant='chineseNormal'>
-        {interrupted?.charChinese}
-      </Typography>
+      <Typography variant='chineseNormal'>{interrupted?.charChinese}</Typography>
     </Button>
   )
 }

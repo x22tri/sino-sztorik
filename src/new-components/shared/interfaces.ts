@@ -8,6 +8,7 @@ import {
   LESSON_SELECT_TITLE,
   CHARACTER_SEARCH_TITLE,
 } from './strings'
+import { StateCreator } from 'zustand'
 
 export const LessonStatuses = {
   NOT_IN_TIER: LESSON_NOT_IN_TIER,
@@ -17,6 +18,9 @@ export const LessonStatuses = {
 } as const
 
 export type valueof<T> = T[keyof T]
+
+export type Slice<A, B> = StateCreator<A & B, [], [], A>
+export type ThreeWaySlice<A, B, C> = StateCreator<A & B & C, [], [], A>
 
 export type LessonStatus = (typeof LessonStatuses)[keyof typeof LessonStatuses]
 
