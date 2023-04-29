@@ -35,7 +35,7 @@ export default function LearnContent({
   lessonChar: Character
   prevChar: string | null
 }) {
-  const { constants, palette } = useTheme()
+  const { constants, palette, spacing } = useTheme()
 
   const swiper = useSwiper()
 
@@ -74,46 +74,55 @@ export default function LearnContent({
   return (
     <Box
       // border={`1px solid ${palette.grey[300]}`}
-      borderRadius={4}
+
       boxSizing='border-box'
+      // display='grid'
       maxHeight='100%'
-      marginBottom={1}
-      minWidth={0}
-      marginX='auto'
-      paddingX={2}
-      paddingBottom={3}
+      // minWidth={0}
+      // marginX='auto'
       component='main'
-      sx={{ bgcolor: 'background.paper', maxWidth: constants.maxContentWidth, overflowY: 'auto' }}
+      sx={{ bgcolor: 'background.paper', overflowY: 'auto' }}
     >
-      {/* <InfoChips
+      <Box
+        // borderRadius={4}
+        // gridArea='learnContent'
+        marginBottom={1}
+        // marginX='auto'
+        maxWidth='56rem'
+        paddingBottom={3}
+        paddingX={2}
+        sx={{ p: `${spacing(1)} ${spacing(2)} ${spacing(3)}` }}
+      >
+        {/* <InfoChips
         {...{ frequency, newPrimitive, prequel, productivePhonetic, reminder }}
       /> */}
 
-      <Heading title={LEARN_HEADING_CHARACTER} />
+        <Heading title={LEARN_HEADING_CHARACTER} />
 
-      <Presentation {...{ charChinese, explanation, keyword, pinyin, primitiveMeaning }} />
+        <Presentation {...{ charChinese, explanation, keyword, pinyin, primitiveMeaning }} />
 
-      <When condition={!!constituents}>
-        <Subheading title={LEARN_SUBHEADING_CONSTITUENTS} />
-        <ConstituentListNew constituents={constituents!} />
-      </When>
-
-      <Heading title={LEARN_HEADING_STORY} />
-
-      <Story {...{ story }} />
-
-      <When condition={phrases?.length}>
-        {/* To-Do: Add other uses, etc. */}
-        <Heading title={LEARN_HEADING_SUPPLEMENTS} />
-        <When condition={phrases?.length}>
-          <Subheading title={LEARN_SUBHEADING_PHRASES} />
-          <Phrases lessonChar={charChinese} phrases={phrases!} />
+        <When condition={!!constituents}>
+          <Subheading title={LEARN_SUBHEADING_CONSTITUENTS} />
+          <ConstituentListNew constituents={constituents!} />
         </When>
-      </When>
 
-      {/* <Divider sx={{ my: 1 }} /> */}
+        <Heading title={LEARN_HEADING_STORY} />
 
-      {/* <CharNavigation {...{ prevChar, nextChar }} /> */}
+        <Story {...{ story }} />
+
+        <When condition={phrases?.length}>
+          {/* To-Do: Add other uses, etc. */}
+          <Heading title={LEARN_HEADING_SUPPLEMENTS} />
+          <When condition={phrases?.length}>
+            <Subheading title={LEARN_SUBHEADING_PHRASES} />
+            <Phrases lessonChar={charChinese} phrases={phrases!} />
+          </When>
+        </When>
+
+        {/* <Divider sx={{ my: 1 }} /> */}
+
+        {/* <CharNavigation {...{ prevChar, nextChar }} /> */}
+      </Box>
     </Box>
   )
 }

@@ -27,6 +27,7 @@ export default function Learn() {
       position='relative'
       gridTemplateRows={`${toolbarHeight}px auto`}
       sx={{
+        bgcolor: 'background.paper',
         gridTemplateColumns: { xs: '1fr', md: `${constants.drawerWidth}px auto` },
         // gridTemplateAreas: {
         //   xs: `"nav" "content`,

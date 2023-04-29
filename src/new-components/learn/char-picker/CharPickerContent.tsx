@@ -11,9 +11,9 @@ export function CharPickerContent({ lesson }: { lesson: Character[] }) {
       ref={listRef}
       subheader='99. lecke'
       sx={{
-        backgroundColor: palette.background.paper,
+        // backgroundColor: palette.background.paper,
         bottom: 0,
-        borderRight: `1px solid ${palette.grey[200]}`,
+        // borderRight: `1px solid ${palette.grey[200]}`,
         left: 0,
         gridArea: 'drawer',
         overflow: 'auto',

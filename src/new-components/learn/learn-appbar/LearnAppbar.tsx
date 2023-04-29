@@ -52,7 +52,7 @@ export function LearnAppbar({
   }
 
   return (
-    <AppBar position='relative' elevation={0} sx={{ backgroundColor: 'background.default', gridArea: 'nav' }}>
+    <AppBar position='relative' elevation={0} sx={{ bgcolor: 'inherit', gridArea: 'nav' }}>
       <Toolbar variant='dense' disableGutters {...{ ref }}>
         <Box
           alignItems='center'
@@ -74,7 +74,7 @@ export function LearnAppbar({
                     borderRadius: '8px',
                     mx: 'auto',
                     p: 0.5,
-                    //  width: '100%'
+                    width: '100%',
                   }}
                 />
               </Then>
