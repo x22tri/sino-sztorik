@@ -13,7 +13,7 @@ import LogoTitle from '../../shared/components/LogoTitle'
 import ToolbarButton from '../../shared/components/ToolbarButton'
 import { faChalkboard } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useBoundStore } from '../../shared/logic/useBoundStore'
+import { useStore } from '../../shared/logic/useStore'
 
 export function LearnAppbar({
   lessonLength,
@@ -29,7 +29,7 @@ export function LearnAppbar({
   const resizeObserver = new ResizeObserver(handleToolbarResized)
   const [lessonProgress, setLessonProgress] = useState(0)
   const { swiperInstance } = useSwiperInstance()
-  const { flashbackChar } = useBoundStore(({ flashbackSlice }) => flashbackSlice)
+  const { flashbackChar } = useStore(({ flashback }) => flashback)
 
   const isLocked = !!flashbackChar
 

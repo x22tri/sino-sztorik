@@ -6,11 +6,11 @@ import { useNavButtonStyling } from '../../shared/utility-functions'
 import { emphasisFont } from '../../shared/theme'
 import { ReturnFromFlashbackMobile } from './ReturnFromFlashbackMobile'
 import { If, Then, Else } from 'react-if'
-import { useBoundStore } from '../../shared/logic/useBoundStore'
+import { useStore } from '../../shared/logic/useStore'
 
 export function LessonInfoMobile({ lessonNumber }: { lessonNumber: number }) {
   const navButtonStyling = useNavButtonStyling()
-  const { flashbackChar } = useBoundStore(({ flashbackSlice }) => flashbackSlice)
+  const { flashbackChar } = useStore(({ flashback }) => flashback)
 
   return (
     <If condition={!flashbackChar}>

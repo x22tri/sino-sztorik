@@ -7,7 +7,7 @@ import ProfileMenu from './TopNav'
 import ToolbarButton from '../../shared/components/ToolbarButton'
 import { LESSON_SELECT_TITLE } from '../../shared/strings'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
-import { useBoundStore } from '../../shared/logic/useBoundStore'
+import { useStore } from '../../shared/logic/useStore'
 
 export function LessonSelectAppbar({
   setToolbarHeight,
@@ -18,7 +18,7 @@ export function LessonSelectAppbar({
 }) {
   const isSmallScreen = useSmallScreen()
   const ref = useRef<HTMLDivElement | null>(null)
-  const { toggle } = useBoundStore(({ mobileDrawerSlice }) => mobileDrawerSlice)
+  const { toggleDrawer } = useStore(({ mobileDrawer }) => mobileDrawer)
   const resizeObserver = new ResizeObserver(handleToolbarResized)
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export function LessonSelectAppbar({
     <AppBar color='inherit' elevation={0} position='relative' sx={{ gridArea: 'nav' }}>
       <Toolbar disableGutters {...{ ref }} sx={{ justifyContent: 'space-between', px: 2 }}>
         <When condition={isSmallScreen}>
-          <ToolbarButton icon={faGraduationCap} onClick={toggle} tooltip={LESSON_SELECT_TITLE} />
+          <ToolbarButton icon={faGraduationCap} onClick={toggleDrawer} tooltip={LESSON_SELECT_TITLE} />
         </When>
 
         <LogoTitle />

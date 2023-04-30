@@ -12,16 +12,14 @@ import 'swiper/css'
 import { LessonPickerContent } from './lesson-picker/LessonPickerContent'
 import { SideNav } from '../shared/components/SideNav'
 import { LessonPickerTitle } from './lesson-picker/LessonPickerTitle'
-import { useBoundStore } from '../shared/logic/useBoundStore'
+import { useStore } from '../shared/logic/useStore'
 
 const lessonSelectMaxWidth = '1600px'
 
 export default function LessonSelect() {
   const isLargeScreen = useLargeScreen()
   const [toolbarHeight, setToolbarHeight] = useState(0)
-  const { lessons, selectedLessonIndex, selectLessonIndex, setUpcomingLessonIndex } = useBoundStore(
-    ({ lessonSelectSlice }) => lessonSelectSlice
-  )
+  const { lessons, selectedLessonIndex, selectLessonIndex, setUpcomingLessonIndex } = useStore(({ lessonSelect }) => lessonSelect)
   const { constants } = useTheme()
 
   useEffect(() => {

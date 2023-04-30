@@ -19,7 +19,7 @@ import {
 } from '../shared/strings'
 import { When } from 'react-if'
 import { ConstituentListNew } from './ConstituentListNew'
-import { useBoundStore } from '../shared/logic/useBoundStore'
+import { useStore } from '../shared/logic/useStore'
 
 export default function LearnContent({
   nextChar,
@@ -34,7 +34,7 @@ export default function LearnContent({
 
   const swiper = useSwiper()
 
-  const { flashbackChar } = useBoundStore(({ flashbackSlice }) => flashbackSlice)
+  const { flashbackChar } = useStore(({ flashback }) => flashback)
 
   useEffect(() => {
     if (!swiper?.params) {

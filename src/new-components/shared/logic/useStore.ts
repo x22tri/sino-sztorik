@@ -3,10 +3,11 @@ import { LESSONS } from '../MOCK_LESSONS'
 import { CHARS } from '../../learn/MOCK_CHARS'
 import { AssembledLesson, Character } from '../interfaces'
 
-export const useBoundStore = create<Store>(set => ({
-  flashbackSlice: {
-    exitFlashback: () =>
-      set(({ flashbackSlice }) => ({ flashbackSlice: { ...flashbackSlice, flashback: null, interrupted: null } })),
+export const useStore = create<Store>(set => ({
+  flashback: {
+    exitFlashback: () => {
+      set(({ flashback }) => ({ flashback: { ...flashback, flashback: null, interrupted: null } }))
+    },
     flashbackChar: null,
     interruptedChar: null,
     startFlashback: (destination: string, interrupted?: Character) => {
@@ -16,43 +17,52 @@ export const useBoundStore = create<Store>(set => ({
         return
       }
 
-      set(({ flashbackSlice }) => ({
-        flashbackSlice: {
-          ...flashbackSlice,
+      set(({ flashback }) => ({
+        flashback: {
+          ...flashback,
           flashbackChar: foundFlashback,
-          interruptedChar: flashbackSlice.interruptedChar ?? interrupted!,
+          interruptedChar: flashback.interruptedChar ?? interrupted!,
         },
       }))
     },
   },
-  mobileDrawerSlice: {
+
+  mobileDrawer: {
     isOpen: false,
-    toggle: () =>
-      set(({ mobileDrawerSlice }) => ({ mobileDrawerSlice: { ...mobileDrawerSlice, isOpen: !mobileDrawerSlice.isOpen } })),
+    toggleDrawer: () => {
+      set(({ mobileDrawer }) => ({ mobileDrawer: { ...mobileDrawer, isOpen: !mobileDrawer.isOpen } }))
+    },
   },
-  learnSlice: {
+
+  learn: {
     currentLesson: LESSONS[0],
     selectedCharIndex: 0,
-    selectCharIndex: (index: number) => set(({ learnSlice }) => ({ learnSlice: { ...learnSlice, selectedCharIndex: index } })),
-    setCurrentLesson: (lesson: AssembledLesson) =>
-      set(({ learnSlice }) => ({ learnSlice: { ...learnSlice, currentLesson: lesson } })),
+    selectCharIndex: (index: number) => {
+      set(({ learn }) => ({ learn: { ...learn, selectedCharIndex: index } }))
+    },
+    setCurrentLesson: (lesson: AssembledLesson) => {
+      set(({ learn }) => ({ learn: { ...learn, currentLesson: lesson } }))
+    },
   },
-  lessonSelectSlice: {
+
+  lessonSelect: {
     lessons: LESSONS,
     selectedLessonIndex: undefined,
-    selectLessonIndex: (index: number) =>
-      set(({ lessonSelectSlice }) => ({ lessonSelectSlice: { ...lessonSelectSlice, selectedLessonIndex: index } })),
-    setUpcomingLessonIndex: (index: number) =>
-      set(({ lessonSelectSlice }) => ({ lessonSelectSlice: { ...lessonSelectSlice, upcomingLessonIndex: index } })),
+    selectLessonIndex: (index: number) => {
+      set(({ lessonSelect }) => ({ lessonSelect: { ...lessonSelect, selectedLessonIndex: index } }))
+    },
+    setUpcomingLessonIndex: (index: number) => {
+      set(({ lessonSelect }) => ({ lessonSelect: { ...lessonSelect, upcomingLessonIndex: index } }))
+    },
     upcomingLessonIndex: undefined,
   },
 }))
 
 type Store = {
-  flashbackSlice: FlashbackSlice
-  mobileDrawerSlice: MobileDrawerSlice
-  learnSlice: LearnSlice
-  lessonSelectSlice: LessonSelectSlice
+  flashback: FlashbackSlice
+  mobileDrawer: MobileDrawerSlice
+  learn: LearnSlice
+  lessonSelect: LessonSelectSlice
 }
 
 interface LessonSelectSlice {
@@ -79,7 +89,7 @@ interface FlashbackSlice {
 
 interface MobileDrawerSlice {
   isOpen: boolean
-  toggle: () => void
+  toggleDrawer: () => void
 }
 
 function findFlashbackChar(constituent: string): Character | null {

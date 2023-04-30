@@ -3,10 +3,10 @@ import { Button, Typography } from '@mui/material'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { RESUME_LESSON, FLASHBACK_MODE } from '../../shared/strings'
-import { useBoundStore } from '../../shared/logic/useBoundStore'
+import { useStore } from '../../shared/logic/useStore'
 
 export function ReturnFromFlashbackDesktop() {
-  const { interruptedChar, exitFlashback } = useBoundStore(({ flashbackSlice }) => flashbackSlice)
+  const { interruptedChar, exitFlashback } = useStore(({ flashback }) => flashback)
 
   return (
     <Button

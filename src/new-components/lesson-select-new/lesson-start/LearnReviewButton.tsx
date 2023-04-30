@@ -14,7 +14,7 @@ import { When } from 'react-if'
 import { useOnChange } from '../../shared/hooks/useOnChange'
 import { LoadingButton } from '@mui/lab'
 import { useNavigate } from 'react-router-dom'
-import { useBoundStore } from '../../shared/logic/useBoundStore'
+import { useStore } from '../../shared/logic/useStore'
 
 const { UPCOMING, COMPLETED } = LessonStatuses
 
@@ -27,7 +27,7 @@ export function LearnReviewButton({ tierStatuses }: { tierStatuses: TierStatuses
   const anchorRef = useRef<HTMLButtonElement>(null)
   const [open, setOpen] = useState(false)
   const [selectedModeIndex, setSelectedModeIndex] = useState(0)
-  const { selectedLessonIndex } = useBoundStore(({ lessonSelectSlice }) => lessonSelectSlice)
+  const { selectedLessonIndex } = useStore(({ lessonSelect }) => lessonSelect)
   const navigate = useNavigate()
 
   const availableOptions = options.filter(

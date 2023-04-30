@@ -5,7 +5,7 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import { useSmallScreen } from '../shared/hooks/useSmallScreen'
 import { Character } from '../shared/interfaces'
-import { useBoundStore } from '../shared/logic/useBoundStore'
+import { useStore } from '../shared/logic/useStore'
 
 export function ConstituentList({
   phrases = false,
@@ -19,7 +19,7 @@ export function ConstituentList({
   lessonChar: Character
 }) {
   const isSmallScreen = useSmallScreen()
-  const { startFlashback } = useBoundStore(({ flashbackSlice }) => flashbackSlice)
+  const { startFlashback } = useStore(({ flashback }) => flashback)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   return (

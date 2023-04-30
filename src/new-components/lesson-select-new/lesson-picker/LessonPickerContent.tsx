@@ -4,20 +4,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleRight } from '@fortawesome/free-solid-svg-icons'
 import { When } from 'react-if'
 import { isDisabledLesson } from '../../shared/utility-functions'
-import { useBoundStore } from '../../shared/logic/useBoundStore'
+import { useStore } from '../../shared/logic/useStore'
 
 export function LessonPickerContent() {
-  const { lessons, selectLessonIndex, selectedLessonIndex, upcomingLessonIndex } = useBoundStore(
-    ({ lessonSelectSlice }) => lessonSelectSlice
-  )
-  const { toggle } = useBoundStore(({ mobileDrawerSlice }) => mobileDrawerSlice)
+  const { lessons, selectLessonIndex, selectedLessonIndex, upcomingLessonIndex } = useStore(({ lessonSelect }) => lessonSelect)
+  const { toggleDrawer } = useStore(({ mobileDrawer }) => mobileDrawer)
   const { swiperInstance } = useSwiperInstance()
   const { constants, palette, spacing, typography } = useTheme()
 
   function selectLesson(index: number) {
     swiperInstance?.slideTo(index)
     selectLessonIndex(index)
-    toggle()
+    toggleDrawer()
   }
 
   return (

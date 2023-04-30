@@ -3,10 +3,10 @@ import { LessonSwiper } from '../../shared/components/LessonSwiper'
 import { SwiperSlide } from 'swiper/react'
 import { useSwiperInstance } from '../../shared/state'
 import { isDisabledLesson } from '../../shared/utility-functions'
-import { useBoundStore } from '../../shared/logic/useBoundStore'
+import { useStore } from '../../shared/logic/useStore'
 
 export function LessonPrefaceSwiper() {
-  const { lessons, selectLessonIndex, selectedLessonIndex } = useBoundStore(({ lessonSelectSlice }) => lessonSelectSlice)
+  const { lessons, selectLessonIndex, selectedLessonIndex } = useStore(({ lessonSelect }) => lessonSelect)
   const { swiperInstance } = useSwiperInstance()
 
   return (

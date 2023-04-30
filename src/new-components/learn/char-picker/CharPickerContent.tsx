@@ -2,18 +2,18 @@ import { Box, ListItem, ListItemButton, ListItemIcon, useTheme } from '@mui/mate
 import { Else, If, Then } from 'react-if'
 import { useSwiperInstance } from '../../shared/state'
 import { KeywordPrimitiveRow } from '../../shared/components/KeywordPrimitiveRow'
-import { useBoundStore } from '../../shared/logic/useBoundStore'
+import { useStore } from '../../shared/logic/useStore'
 
 export function CharPickerContent({ content, preface }: { content: 'characters' | 'preface'; preface: string }) {
   const { swiperInstance } = useSwiperInstance()
   const { constants, spacing } = useTheme()
-  const { currentLesson, selectCharIndex, selectedCharIndex } = useBoundStore(({ learnSlice }) => learnSlice)
-  const { toggle } = useBoundStore(({ mobileDrawerSlice }) => mobileDrawerSlice)
+  const { currentLesson, selectCharIndex, selectedCharIndex } = useStore(({ learn }) => learn)
+  const { toggleDrawer } = useStore(({ mobileDrawer }) => mobileDrawer)
 
   function selectChar(index: number) {
     swiperInstance?.slideTo(index)
     selectCharIndex(index)
-    toggle()
+    toggleDrawer()
   }
 
   return (

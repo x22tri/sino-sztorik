@@ -9,12 +9,12 @@ import { useState } from 'react'
 import { SideNav } from '../shared/components/SideNav'
 import { CharPickerContent } from './char-picker/CharPickerContent'
 import { CharPickerTitle } from './char-picker/CharPickerTitle'
-import { useBoundStore } from '../shared/logic/useBoundStore'
+import { useStore } from '../shared/logic/useStore'
 
 const lessonSelectMaxWidth = '1600px'
 
 export default function Learn() {
-  const { currentLesson, selectCharIndex, selectedCharIndex } = useBoundStore(({ learnSlice }) => learnSlice)
+  const { currentLesson, selectCharIndex, selectedCharIndex } = useStore(({ learn }) => learn)
   const [toolbarHeight, setToolbarHeight] = useState(0)
   const { constants, palette } = useTheme()
 

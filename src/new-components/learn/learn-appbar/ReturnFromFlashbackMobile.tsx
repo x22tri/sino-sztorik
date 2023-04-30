@@ -1,10 +1,10 @@
 import { Button, Typography } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
-import { useBoundStore } from '../../shared/logic/useBoundStore'
+import { useStore } from '../../shared/logic/useStore'
 
 export function ReturnFromFlashbackMobile() {
-  const { interruptedChar, exitFlashback } = useBoundStore(({ flashbackSlice }) => flashbackSlice)
+  const { interruptedChar, exitFlashback } = useStore(({ flashback }) => flashback)
 
   return (
     <Button

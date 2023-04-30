@@ -5,11 +5,11 @@ import { ReturnFromFlashbackDesktop } from './ReturnFromFlashbackDesktop'
 import { ReturnFromFlashbackMobile } from './ReturnFromFlashbackMobile'
 import { LessonInfoDesktop } from './LessonInfoDesktop'
 import { If, Then, Else } from 'react-if'
-import { useBoundStore } from '../../shared/logic/useBoundStore'
+import { useStore } from '../../shared/logic/useStore'
 
 export function LessonInfo({ lessonNumber, lessonTitle }: { lessonNumber: number; lessonTitle: string }) {
   const isSmallScreen = useSmallScreen()
-  const { flashbackChar } = useBoundStore(({ flashbackSlice }) => flashbackSlice)
+  const { flashbackChar } = useStore(({ flashback }) => flashback)
 
   if (flashbackChar && isSmallScreen) {
     return <ReturnFromFlashbackMobile />

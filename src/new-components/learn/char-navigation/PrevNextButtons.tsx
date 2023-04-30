@@ -10,12 +10,12 @@ import {
 } from '../../shared/strings'
 import { Button, Typography } from '@mui/material'
 import { Else, If, Then, When } from 'react-if'
-import { useBoundStore } from '../../shared/logic/useBoundStore'
+import { useStore } from '../../shared/logic/useStore'
 
 export function PrevNextButtons({ prevChar, nextChar }: { prevChar: string | null; nextChar: string | null }) {
   const swiper = useSwiper()
 
-  const { flashbackChar } = useBoundStore(({ flashbackSlice }) => flashbackSlice)
+  const { flashbackChar } = useStore(({ flashback }) => flashback)
 
   return (
     <Box display='flex' width='100%' justifyContent='center' marginTop={5}>
