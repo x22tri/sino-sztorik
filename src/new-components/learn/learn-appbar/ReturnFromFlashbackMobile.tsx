@@ -4,7 +4,7 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { useStore } from '../../shared/logic/useStore'
 
 export function ReturnFromFlashbackMobile() {
-  const { interruptedChar, exitFlashback } = useStore(({ flashback }) => flashback)
+  const { interruptedChar, exitFlashback } = useStore('flashback')
 
   return (
     <Button

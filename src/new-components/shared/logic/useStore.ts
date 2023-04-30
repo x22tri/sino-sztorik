@@ -3,11 +3,9 @@ import { LESSONS } from '../MOCK_LESSONS'
 import { CHARS } from '../../learn/MOCK_CHARS'
 import { AssembledLesson, Character } from '../interfaces'
 
-export const useStore = create<Store>(set => ({
+const useBoundStore = create<Store>(set => ({
   flashback: {
-    exitFlashback: () => {
-      set(({ flashback }) => ({ flashback: { ...flashback, flashback: null, interrupted: null } }))
-    },
+    exitFlashback: () => set(({ flashback }) => ({ flashback: { ...flashback, flashback: null, interrupted: null } })),
     flashbackChar: null,
     interruptedChar: null,
     startFlashback: (destination: string, interrupted?: Character) => {
@@ -29,34 +27,30 @@ export const useStore = create<Store>(set => ({
 
   mobileDrawer: {
     isOpen: false,
-    toggleDrawer: () => {
-      set(({ mobileDrawer }) => ({ mobileDrawer: { ...mobileDrawer, isOpen: !mobileDrawer.isOpen } }))
-    },
+    toggleDrawer: () => set(({ mobileDrawer }) => ({ mobileDrawer: { ...mobileDrawer, isOpen: !mobileDrawer.isOpen } })),
   },
 
   learn: {
     currentLesson: LESSONS[0],
     selectedCharIndex: 0,
-    selectCharIndex: (index: number) => {
-      set(({ learn }) => ({ learn: { ...learn, selectedCharIndex: index } }))
-    },
-    setCurrentLesson: (lesson: AssembledLesson) => {
-      set(({ learn }) => ({ learn: { ...learn, currentLesson: lesson } }))
-    },
+    selectCharIndex: (index: number) => set(({ learn }) => ({ learn: { ...learn, selectedCharIndex: index } })),
+    setCurrentLesson: (lesson: AssembledLesson) => set(({ learn }) => ({ learn: { ...learn, currentLesson: lesson } })),
   },
 
   lessonSelect: {
     lessons: LESSONS,
     selectedLessonIndex: undefined,
-    selectLessonIndex: (index: number) => {
-      set(({ lessonSelect }) => ({ lessonSelect: { ...lessonSelect, selectedLessonIndex: index } }))
-    },
-    setUpcomingLessonIndex: (index: number) => {
-      set(({ lessonSelect }) => ({ lessonSelect: { ...lessonSelect, upcomingLessonIndex: index } }))
-    },
+    selectLessonIndex: (index: number) =>
+      set(({ lessonSelect }) => ({ lessonSelect: { ...lessonSelect, selectedLessonIndex: index } })),
+    setUpcomingLessonIndex: (index: number) =>
+      set(({ lessonSelect }) => ({ lessonSelect: { ...lessonSelect, upcomingLessonIndex: index } })),
     upcomingLessonIndex: undefined,
   },
 }))
+
+export function useStore<SliceType extends keyof Store>(slice: SliceType): Store[SliceType] {
+  return useBoundStore(state => state[slice])
+}
 
 type Store = {
   flashback: FlashbackSlice

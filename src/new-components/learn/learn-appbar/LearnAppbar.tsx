@@ -29,7 +29,7 @@ export function LearnAppbar({
   const resizeObserver = new ResizeObserver(handleToolbarResized)
   const [lessonProgress, setLessonProgress] = useState(0)
   const { swiperInstance } = useSwiperInstance()
-  const { flashbackChar } = useStore(({ flashback }) => flashback)
+  const { flashbackChar } = useStore('flashback')
 
   const isLocked = !!flashbackChar
 

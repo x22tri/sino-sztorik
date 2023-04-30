@@ -6,7 +6,7 @@ import { RESUME_LESSON, FLASHBACK_MODE } from '../../shared/strings'
 import { useStore } from '../../shared/logic/useStore'
 
 export function ReturnFromFlashbackDesktop() {
-  const { interruptedChar, exitFlashback } = useStore(({ flashback }) => flashback)
+  const { interruptedChar, exitFlashback } = useStore('flashback')
 
   return (
     <Button

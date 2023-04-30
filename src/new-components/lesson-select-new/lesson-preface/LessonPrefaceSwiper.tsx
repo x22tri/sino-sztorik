@@ -6,7 +6,7 @@ import { isDisabledLesson } from '../../shared/utility-functions'
 import { useStore } from '../../shared/logic/useStore'
 
 export function LessonPrefaceSwiper() {
-  const { lessons, selectLessonIndex, selectedLessonIndex } = useStore(({ lessonSelect }) => lessonSelect)
+  const { lessons, selectLessonIndex, selectedLessonIndex } = useStore('lessonSelect')
   const { swiperInstance } = useSwiperInstance()
 
   return (

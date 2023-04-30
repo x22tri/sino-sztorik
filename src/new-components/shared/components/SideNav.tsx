@@ -12,7 +12,7 @@ const gap = 0
 export function SideNav({ content, selected, title }: { content: JSX.Element; selected: number; title: JSX.Element }) {
   const isSmallScreen = useSmallScreen()
   const ref = useRef<HTMLUListElement>(null)
-  const { isOpen, toggleDrawer } = useStore(({ mobileDrawer }) => mobileDrawer)
+  const { isOpen, toggleDrawer } = useStore('mobileDrawer')
   const { constants } = useTheme()
   const { height } = useWindowSize()
 

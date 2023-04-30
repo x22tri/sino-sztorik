@@ -34,7 +34,7 @@ export default function LearnContent({
 
   const swiper = useSwiper()
 
-  const { flashbackChar } = useStore(({ flashback }) => flashback)
+  const { flashbackChar } = useStore('flashback')
 
   useEffect(() => {
     if (!swiper?.params) {

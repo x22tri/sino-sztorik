@@ -18,7 +18,7 @@ export function LessonSelectAppbar({
 }) {
   const isSmallScreen = useSmallScreen()
   const ref = useRef<HTMLDivElement | null>(null)
-  const { toggleDrawer } = useStore(({ mobileDrawer }) => mobileDrawer)
+  const { toggleDrawer } = useStore('mobileDrawer')
   const resizeObserver = new ResizeObserver(handleToolbarResized)
 
   useEffect(() => {

@@ -7,8 +7,8 @@ import { isDisabledLesson } from '../../shared/utility-functions'
 import { useStore } from '../../shared/logic/useStore'
 
 export function LessonPickerContent() {
-  const { lessons, selectLessonIndex, selectedLessonIndex, upcomingLessonIndex } = useStore(({ lessonSelect }) => lessonSelect)
-  const { toggleDrawer } = useStore(({ mobileDrawer }) => mobileDrawer)
+  const { lessons, selectLessonIndex, selectedLessonIndex, upcomingLessonIndex } = useStore('lessonSelect')
+  const { toggleDrawer } = useStore('mobileDrawer')
   const { swiperInstance } = useSwiperInstance()
   const { constants, palette, spacing, typography } = useTheme()
 

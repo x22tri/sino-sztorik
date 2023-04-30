@@ -14,8 +14,7 @@ import { useStore } from '../../shared/logic/useStore'
 
 export function PrevNextButtons({ prevChar, nextChar }: { prevChar: string | null; nextChar: string | null }) {
   const swiper = useSwiper()
-
-  const { flashbackChar } = useStore(({ flashback }) => flashback)
+  const { flashbackChar } = useStore('flashback')
 
   return (
     <Box display='flex' width='100%' justifyContent='center' marginTop={5}>

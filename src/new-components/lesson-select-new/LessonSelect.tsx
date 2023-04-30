@@ -19,7 +19,7 @@ const lessonSelectMaxWidth = '1600px'
 export default function LessonSelect() {
   const isLargeScreen = useLargeScreen()
   const [toolbarHeight, setToolbarHeight] = useState(0)
-  const { lessons, selectedLessonIndex, selectLessonIndex, setUpcomingLessonIndex } = useStore(({ lessonSelect }) => lessonSelect)
+  const { lessons, selectedLessonIndex, selectLessonIndex, setUpcomingLessonIndex } = useStore('lessonSelect')
   const { constants } = useTheme()
 
   useEffect(() => {

@@ -19,7 +19,7 @@ export function ConstituentList({
   lessonChar: Character
 }) {
   const isSmallScreen = useSmallScreen()
-  const { startFlashback } = useStore(({ flashback }) => flashback)
+  const { startFlashback } = useStore('flashback')
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   return (

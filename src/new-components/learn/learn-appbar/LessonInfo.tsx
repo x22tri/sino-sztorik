@@ -9,7 +9,7 @@ import { useStore } from '../../shared/logic/useStore'
 
 export function LessonInfo({ lessonNumber, lessonTitle }: { lessonNumber: number; lessonTitle: string }) {
   const isSmallScreen = useSmallScreen()
-  const { flashbackChar } = useStore(({ flashback }) => flashback)
+  const { flashbackChar } = useStore('flashback')
 
   if (flashbackChar && isSmallScreen) {
     return <ReturnFromFlashbackMobile />

@@ -7,8 +7,8 @@ import { useStore } from '../../shared/logic/useStore'
 export function CharPickerContent({ content, preface }: { content: 'characters' | 'preface'; preface: string }) {
   const { swiperInstance } = useSwiperInstance()
   const { constants, spacing } = useTheme()
-  const { currentLesson, selectCharIndex, selectedCharIndex } = useStore(({ learn }) => learn)
-  const { toggleDrawer } = useStore(({ mobileDrawer }) => mobileDrawer)
+  const { currentLesson, selectCharIndex, selectedCharIndex } = useStore('learn')
+  const { toggleDrawer } = useStore('mobileDrawer')
 
   function selectChar(index: number) {
     swiperInstance?.slideTo(index)

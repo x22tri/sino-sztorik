@@ -10,7 +10,7 @@ import { useStore } from '../../shared/logic/useStore'
 
 export function LessonInfoMobile({ lessonNumber }: { lessonNumber: number }) {
   const navButtonStyling = useNavButtonStyling()
-  const { flashbackChar } = useStore(({ flashback }) => flashback)
+  const { flashbackChar } = useStore('flashback')
 
   return (
     <If condition={!flashbackChar}>

@@ -27,7 +27,7 @@ export function LearnReviewButton({ tierStatuses }: { tierStatuses: TierStatuses
   const anchorRef = useRef<HTMLButtonElement>(null)
   const [open, setOpen] = useState(false)
   const [selectedModeIndex, setSelectedModeIndex] = useState(0)
-  const { selectedLessonIndex } = useStore(({ lessonSelect }) => lessonSelect)
+  const { selectedLessonIndex } = useStore('lessonSelect')
   const navigate = useNavigate()
 
   const availableOptions = options.filter(

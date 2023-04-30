@@ -14,7 +14,7 @@ import { useStore } from '../shared/logic/useStore'
 const lessonSelectMaxWidth = '1600px'
 
 export default function Learn() {
-  const { currentLesson, selectCharIndex, selectedCharIndex } = useStore(({ learn }) => learn)
+  const { currentLesson, selectCharIndex, selectedCharIndex } = useStore('learn')
   const [toolbarHeight, setToolbarHeight] = useState(0)
   const { constants, palette } = useTheme()
 
