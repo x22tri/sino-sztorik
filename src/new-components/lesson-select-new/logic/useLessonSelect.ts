@@ -28,7 +28,11 @@ const createMobileDrawerSlice: Slice<MobileDrawerSlice, LessonsSlice> = set => (
   toggle: () => set(({ isOpen }) => ({ isOpen: !isOpen })),
 })
 
-export const useLessonSelect = create<LessonsSlice & MobileDrawerSlice>()((...a) => ({
+export const useLessonSelect = create<UseLessonSelectState>()((...a) => ({
   ...createMobileDrawerSlice(...a),
   ...createLessonsSlice(...a),
 }))
+
+type UseLessonSelectState = LessonsSlice & MobileDrawerSlice
+
+type X = Exclude<UseLessonSelectState, LessonsSlice>
