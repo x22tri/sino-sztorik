@@ -1,12 +1,12 @@
 import LessonPreface from './LessonPreface'
 import { LessonSwiper } from '../../shared/components/LessonSwiper'
 import { SwiperSlide } from 'swiper/react'
-import { useLessonSelect } from '../logic/useLessonSelect'
 import { useSwiperInstance } from '../../shared/state'
 import { isDisabledLesson } from '../../shared/utility-functions'
+import { useBoundStore } from '../../shared/logic/useBoundStore'
 
 export function LessonPrefaceSwiper() {
-  const { lessons, select, selected } = useLessonSelect()
+  const { lessons, selectLessonIndex, selectedLessonIndex } = useBoundStore(({ lessonSelectSlice }) => lessonSelectSlice)
   const { swiperInstance } = useSwiperInstance()
 
   return (
@@ -24,8 +24,8 @@ export function LessonPrefaceSwiper() {
           },
         },
       ]}
-      initialSlide={selected!}
-      onActiveIndexChange={({ activeIndex }) => select(activeIndex)}
+      initialSlide={selectedLessonIndex!}
+      onActiveIndexChange={({ activeIndex }) => selectLessonIndex(activeIndex)}
       style={{ gridArea: 'main', height: '100%', width: '100%' }}
     >
       {lessons.map((lesson, index) => (

@@ -4,7 +4,6 @@ import { AppBar, IconButton, Toolbar, Tooltip, Typography, useTheme } from '@mui
 import { LessonInfo } from './LessonInfo'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { FLASHBACK_MODE } from '../../shared/strings'
-import { useLearn } from '../logic/useLearn'
 import { useSwiper } from 'swiper/react'
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { If, Then, Else } from 'react-if'
@@ -14,6 +13,7 @@ import LogoTitle from '../../shared/components/LogoTitle'
 import ToolbarButton from '../../shared/components/ToolbarButton'
 import { faChalkboard } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useBoundStore } from '../../shared/logic/useBoundStore'
 
 export function LearnAppbar({
   lessonLength,
@@ -29,9 +29,9 @@ export function LearnAppbar({
   const resizeObserver = new ResizeObserver(handleToolbarResized)
   const [lessonProgress, setLessonProgress] = useState(0)
   const { swiperInstance } = useSwiperInstance()
-  const { flashback } = useLearn()
+  const { flashbackChar } = useBoundStore(({ flashbackSlice }) => flashbackSlice)
 
-  const isLocked = !!flashback
+  const isLocked = !!flashbackChar
 
   useEffect(() => {
     swiperInstance?.on('activeIndexChange', () => setLessonProgress(calculateProgress(lessonLength, swiperInstance?.activeIndex)))
@@ -74,7 +74,7 @@ export function LearnAppbar({
           </If>
 
           <Box display='flex' justifyContent='center' width='100%'>
-            <If condition={!isSmallScreen || !flashback}>
+            <If condition={!isSmallScreen || !flashbackChar}>
               <Then>
                 <LinearProgress
                   color={isLocked ? 'neutral' : 'primary'}

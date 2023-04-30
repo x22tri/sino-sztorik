@@ -10,7 +10,6 @@ import { scrollToTop } from '../shared/utility-functions'
 import { PrevNextButtons } from './char-navigation/PrevNextButtons'
 import { Phrases } from './Phrases'
 import { Heading } from './subheading/Heading'
-import { useLearn } from './logic/useLearn'
 import {
   LEARN_HEADING_CHARACTER,
   LEARN_SUBHEADING_CONSTITUENTS,
@@ -20,6 +19,7 @@ import {
 } from '../shared/strings'
 import { When } from 'react-if'
 import { ConstituentListNew } from './ConstituentListNew'
+import { useBoundStore } from '../shared/logic/useBoundStore'
 
 export default function LearnContent({
   nextChar,
@@ -30,11 +30,11 @@ export default function LearnContent({
   lessonChar: Character
   prevChar: string | null
 }) {
-  const { constants, palette, spacing } = useTheme()
+  const { spacing } = useTheme()
 
   const swiper = useSwiper()
 
-  const { flashback } = useLearn()
+  const { flashbackChar } = useBoundStore(({ flashbackSlice }) => flashbackSlice)
 
   useEffect(() => {
     if (!swiper?.params) {
@@ -43,10 +43,10 @@ export default function LearnContent({
 
     scrollToTop()
 
-    flashback === null ? swiper.enable() : swiper.disable()
-  }, [flashback, swiper])
+    flashbackChar === null ? swiper.enable() : swiper.disable()
+  }, [flashbackChar, swiper])
 
-  const currentChar = flashback ?? lessonChar
+  const currentChar = flashbackChar ?? lessonChar
 
   const {
     charChinese,

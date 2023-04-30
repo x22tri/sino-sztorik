@@ -9,17 +9,17 @@ import {
   CHAR_NAVIGATION_EXIT_FLASHBACK_PROMPT,
 } from '../../shared/strings'
 import { Button, Typography } from '@mui/material'
-import { useLearn } from '../logic/useLearn'
 import { Else, If, Then, When } from 'react-if'
+import { useBoundStore } from '../../shared/logic/useBoundStore'
 
 export function PrevNextButtons({ prevChar, nextChar }: { prevChar: string | null; nextChar: string | null }) {
   const swiper = useSwiper()
 
-  const { flashback } = useLearn()
+  const { flashbackChar } = useBoundStore(({ flashbackSlice }) => flashbackSlice)
 
   return (
     <Box display='flex' width='100%' justifyContent='center' marginTop={5}>
-      <If condition={!flashback}>
+      <If condition={!flashbackChar}>
         <Then>
           <When condition={!!prevChar}>
             <LightenOnHoverButton

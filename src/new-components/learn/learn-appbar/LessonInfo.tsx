@@ -2,17 +2,16 @@ import Box from '@mui/material/Box'
 import { LessonInfoMobile } from './LessonInfoMobile'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { ReturnFromFlashbackDesktop } from './ReturnFromFlashbackDesktop'
-import { useLearn } from '../logic/useLearn'
 import { ReturnFromFlashbackMobile } from './ReturnFromFlashbackMobile'
 import { LessonInfoDesktop } from './LessonInfoDesktop'
 import { If, Then, Else } from 'react-if'
+import { useBoundStore } from '../../shared/logic/useBoundStore'
 
 export function LessonInfo({ lessonNumber, lessonTitle }: { lessonNumber: number; lessonTitle: string }) {
   const isSmallScreen = useSmallScreen()
+  const { flashbackChar } = useBoundStore(({ flashbackSlice }) => flashbackSlice)
 
-  const { flashback } = useLearn()
-
-  if (flashback && isSmallScreen) {
+  if (flashbackChar && isSmallScreen) {
     return <ReturnFromFlashbackMobile />
   }
 
@@ -22,7 +21,7 @@ export function LessonInfo({ lessonNumber, lessonTitle }: { lessonNumber: number
 
   return (
     <Box display='flex' flexDirection='row' marginX={1} gap={1}>
-      <If condition={!flashback}>
+      <If condition={!flashbackChar}>
         <Then>
           <LessonInfoDesktop {...{ lessonNumber, lessonTitle }} />
         </Then>

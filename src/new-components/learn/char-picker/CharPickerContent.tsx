@@ -1,28 +1,29 @@
 import { Box, ListItem, ListItemButton, ListItemIcon, useTheme } from '@mui/material'
 import { Else, If, Then } from 'react-if'
-import { useLearn } from '../logic/useLearn'
 import { useSwiperInstance } from '../../shared/state'
 import { KeywordPrimitiveRow } from '../../shared/components/KeywordPrimitiveRow'
+import { useBoundStore } from '../../shared/logic/useBoundStore'
 
 export function CharPickerContent({ content, preface }: { content: 'characters' | 'preface'; preface: string }) {
   const { swiperInstance } = useSwiperInstance()
   const { constants, spacing } = useTheme()
-  const { lesson, select, selected, toggle } = useLearn()
+  const { currentLesson, selectCharIndex, selectedCharIndex } = useBoundStore(({ learnSlice }) => learnSlice)
+  const { toggle } = useBoundStore(({ mobileDrawerSlice }) => mobileDrawerSlice)
 
   function selectChar(index: number) {
     swiperInstance?.slideTo(index)
-    select(index)
+    selectCharIndex(index)
     toggle()
   }
 
   return (
     <If condition={content === 'characters'}>
       <Then>
-        {lesson.map(({ charChinese, keyword, primitiveMeaning }, index) => (
+        {currentLesson?.characters.map(({ charChinese, keyword, primitiveMeaning }, index) => (
           <ListItem key={index} disablePadding>
             <ListItemButton
               onClick={() => selectChar(index)}
-              selected={selected === index}
+              selected={selectedCharIndex === index}
               sx={{
                 borderRadius: 6,
                 color: 'text.secondary',

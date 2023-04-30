@@ -2,7 +2,6 @@ import Box from '@mui/material/Box'
 import { useEffect, useState } from 'react'
 import { useTheme } from '@mui/material'
 import { LessonStatuses } from '../shared/interfaces'
-import { useLessonSelect } from './logic/useLessonSelect'
 import { LessonSelectAppbar } from './appbar/LessonSelectAppbar'
 import { LessonPrefaceSwiper } from './lesson-preface/LessonPrefaceSwiper'
 import { LessonStart } from './lesson-start/LessonStart'
@@ -13,22 +12,25 @@ import 'swiper/css'
 import { LessonPickerContent } from './lesson-picker/LessonPickerContent'
 import { SideNav } from '../shared/components/SideNav'
 import { LessonPickerTitle } from './lesson-picker/LessonPickerTitle'
+import { useBoundStore } from '../shared/logic/useBoundStore'
 
 const lessonSelectMaxWidth = '1600px'
 
 export default function LessonSelect() {
   const isLargeScreen = useLargeScreen()
   const [toolbarHeight, setToolbarHeight] = useState(0)
-  const { lessons, selected, select, setUpcoming } = useLessonSelect()
+  const { lessons, selectedLessonIndex, selectLessonIndex, setUpcomingLessonIndex } = useBoundStore(
+    ({ lessonSelectSlice }) => lessonSelectSlice
+  )
   const { constants } = useTheme()
 
   useEffect(() => {
     const upcoming = lessons.findIndex(({ tierStatuses }) => tierStatuses.includes(LessonStatuses.UPCOMING))
-    setUpcoming(upcoming)
-    select(upcoming)
-  }, [lessons, select, setUpcoming])
+    setUpcomingLessonIndex(upcoming)
+    selectLessonIndex(upcoming)
+  }, [lessons, selectLessonIndex, setUpcomingLessonIndex])
 
-  return selected === undefined ? null : (
+  return selectedLessonIndex === undefined ? null : (
     <Box
       display='grid'
       height='100vh'
@@ -45,17 +47,17 @@ export default function LessonSelect() {
         },
       }}
     >
-      <SideNav title={<LessonPickerTitle />} content={<LessonPickerContent />} {...{ selected }} />
+      <SideNav title={<LessonPickerTitle />} content={<LessonPickerContent />} selected={selectedLessonIndex} />
 
       <LessonSelectAppbar {...{ setToolbarHeight, toolbarHeight }} />
 
       <LessonPrefaceSwiper />
 
       <When condition={isLargeScreen}>
-        <CharacterPreviews characters={lessons[selected].characters} />
+        <CharacterPreviews characters={lessons[selectedLessonIndex].characters} />
       </When>
 
-      <LessonStart lesson={lessons[selected]} />
+      <LessonStart lesson={lessons[selectedLessonIndex]} />
     </Box>
   )
 }

@@ -1,33 +1,36 @@
 import { ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme } from '@mui/material'
 import { useSwiperInstance } from '../../shared/state'
-import { useLessonSelect } from '../logic/useLessonSelect'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleRight } from '@fortawesome/free-solid-svg-icons'
 import { When } from 'react-if'
 import { isDisabledLesson } from '../../shared/utility-functions'
+import { useBoundStore } from '../../shared/logic/useBoundStore'
 
 export function LessonPickerContent() {
-  const { lessons, select, selected, toggle, upcoming } = useLessonSelect()
+  const { lessons, selectLessonIndex, selectedLessonIndex, upcomingLessonIndex } = useBoundStore(
+    ({ lessonSelectSlice }) => lessonSelectSlice
+  )
+  const { toggle } = useBoundStore(({ mobileDrawerSlice }) => mobileDrawerSlice)
   const { swiperInstance } = useSwiperInstance()
   const { constants, palette, spacing, typography } = useTheme()
 
   function selectLesson(index: number) {
     swiperInstance?.slideTo(index)
-    select(index)
+    selectLessonIndex(index)
     toggle()
   }
 
   return (
     <>
       {lessons.map(({ lessonNumber, tierStatuses }, index) => {
-        const isUpcoming = upcoming === index
+        const isUpcoming = upcomingLessonIndex === index
 
         return (
           <ListItem key={index} disablePadding>
             <ListItemButton
               disabled={isDisabledLesson(tierStatuses)}
               onClick={() => selectLesson(index)}
-              selected={selected === index}
+              selected={selectedLessonIndex === index}
               sx={{
                 border: isUpcoming ? `2px solid ${palette.secondary.main}` : 'none',
                 borderRadius: 6,

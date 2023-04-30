@@ -48,7 +48,7 @@ export interface AssembledLesson {
   title: string
   preface: string
   tierStatuses: TierStatuses
-  characters: string[]
+  characters: Character[]
 }
 
 export type UseKeydownAction = { on: string; do: () => void }

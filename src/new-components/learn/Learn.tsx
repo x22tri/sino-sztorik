@@ -8,13 +8,13 @@ import { Box, useTheme } from '@mui/material'
 import { useState } from 'react'
 import { SideNav } from '../shared/components/SideNav'
 import { CharPickerContent } from './char-picker/CharPickerContent'
-import { useLearn } from './logic/useLearn'
 import { CharPickerTitle } from './char-picker/CharPickerTitle'
+import { useBoundStore } from '../shared/logic/useBoundStore'
 
 const lessonSelectMaxWidth = '1600px'
 
 export default function Learn() {
-  const { lesson, select, selected } = useLearn()
+  const { currentLesson, selectCharIndex, selectedCharIndex } = useBoundStore(({ learnSlice }) => learnSlice)
   const [toolbarHeight, setToolbarHeight] = useState(0)
   const { constants, palette } = useTheme()
 
@@ -24,7 +24,7 @@ export default function Learn() {
   const lessonTitle = 'Lecke címe'
   const preface = 'Teszt teszt teszt'
 
-  return (
+  return !currentLesson?.characters.length ? null : (
     <Box
       display='grid'
       height='100vh'
@@ -44,21 +44,21 @@ export default function Learn() {
       <SideNav
         title={<CharPickerTitle {...{ content, lessonNumber, lessonTitle, setContent }} />}
         content={<CharPickerContent {...{ content, preface }} />}
-        {...{ selected }}
+        selected={selectedCharIndex}
       />
 
       <LearnAppbar lessonLength={CHARS.length} {...{ toolbarHeight, setToolbarHeight }} />
 
       <LessonSwiper
-        onActiveIndexChange={({ activeIndex }) => select(activeIndex)}
+        onActiveIndexChange={({ activeIndex }) => selectCharIndex(activeIndex)}
         style={{ backgroundColor: palette.background.paper, gridArea: 'content', height: '100%', width: '100%' }}
       >
-        {lesson.map((char, index) => (
+        {currentLesson?.characters.map((char, index) => (
           <SwiperSlide key={index}>
             <LearnContent
               lessonChar={char}
-              prevChar={lesson[index - 1]?.charChinese ?? null}
-              nextChar={lesson[index + 1]?.charChinese ?? null}
+              prevChar={currentLesson.characters[index - 1]?.charChinese ?? null}
+              nextChar={currentLesson.characters[index + 1]?.charChinese ?? null}
               {...{ index }}
             />
           </SwiperSlide>

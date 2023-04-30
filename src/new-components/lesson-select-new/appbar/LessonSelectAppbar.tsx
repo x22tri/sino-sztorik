@@ -2,12 +2,12 @@ import { faGraduationCap } from '@fortawesome/free-solid-svg-icons'
 import { AppBar, Toolbar } from '@mui/material'
 import { When } from 'react-if'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
-import { useLessonSelect } from '../logic/useLessonSelect'
 import LogoTitle from '../../shared/components/LogoTitle'
 import ProfileMenu from './TopNav'
 import ToolbarButton from '../../shared/components/ToolbarButton'
 import { LESSON_SELECT_TITLE } from '../../shared/strings'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
+import { useBoundStore } from '../../shared/logic/useBoundStore'
 
 export function LessonSelectAppbar({
   setToolbarHeight,
@@ -18,7 +18,7 @@ export function LessonSelectAppbar({
 }) {
   const isSmallScreen = useSmallScreen()
   const ref = useRef<HTMLDivElement | null>(null)
-  const { toggle } = useLessonSelect()
+  const { toggle } = useBoundStore(({ mobileDrawerSlice }) => mobileDrawerSlice)
   const resizeObserver = new ResizeObserver(handleToolbarResized)
 
   useEffect(() => {

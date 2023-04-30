@@ -1,10 +1,10 @@
 import { Drawer, List, useTheme } from '@mui/material'
-import { useLessonSelect } from '../../lesson-select-new/logic/useLessonSelect'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { Wrap } from '../../shared/utility-components'
 import { useWindowSize } from '../hooks/useWindowSize'
 import { useRef } from 'react'
 import { useOnChange } from '../hooks/useOnChange'
+import { useBoundStore } from '../logic/useBoundStore'
 
 const itemHeight = 64
 const gap = 0
@@ -12,7 +12,7 @@ const gap = 0
 export function SideNav({ content, selected, title }: { content: JSX.Element; selected: number; title: JSX.Element }) {
   const isSmallScreen = useSmallScreen()
   const ref = useRef<HTMLUListElement>(null)
-  const { isOpen, toggle } = useLessonSelect()
+  const { isOpen, toggle } = useBoundStore(({ mobileDrawerSlice }) => mobileDrawerSlice)
   const { constants } = useTheme()
   const { height } = useWindowSize()
 

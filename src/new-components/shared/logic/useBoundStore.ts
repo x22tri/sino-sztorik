@@ -31,7 +31,7 @@ export const useBoundStore = create<Store>(set => ({
       set(({ mobileDrawerSlice }) => ({ mobileDrawerSlice: { ...mobileDrawerSlice, isOpen: !mobileDrawerSlice.isOpen } })),
   },
   learnSlice: {
-    currentLesson: undefined,
+    currentLesson: LESSONS[0],
     selectedCharIndex: 0,
     selectCharIndex: (index: number) => set(({ learnSlice }) => ({ learnSlice: { ...learnSlice, selectedCharIndex: index } })),
     setCurrentLesson: (lesson: AssembledLesson) =>

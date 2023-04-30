@@ -4,8 +4,8 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import { useSmallScreen } from '../shared/hooks/useSmallScreen'
-import { useLearn } from './logic/useLearn'
 import { Character } from '../shared/interfaces'
+import { useBoundStore } from '../shared/logic/useBoundStore'
 
 export function ConstituentList({
   phrases = false,
@@ -18,11 +18,9 @@ export function ConstituentList({
   emphasize?: 'keyword' | 'primitive'
   lessonChar: Character
 }) {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-
   const isSmallScreen = useSmallScreen()
-
-  const { startFlashback } = useLearn()
+  const { startFlashback } = useBoundStore(({ flashbackSlice }) => flashbackSlice)
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   return (
     <Box

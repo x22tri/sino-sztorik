@@ -5,15 +5,15 @@ import { faChalkboard } from '@fortawesome/free-solid-svg-icons'
 import { useNavButtonStyling } from '../../shared/utility-functions'
 import { emphasisFont } from '../../shared/theme'
 import { ReturnFromFlashbackMobile } from './ReturnFromFlashbackMobile'
-import { useLearn } from '../logic/useLearn'
 import { If, Then, Else } from 'react-if'
+import { useBoundStore } from '../../shared/logic/useBoundStore'
 
 export function LessonInfoMobile({ lessonNumber }: { lessonNumber: number }) {
   const navButtonStyling = useNavButtonStyling()
-  const { flashback } = useLearn()
+  const { flashbackChar } = useBoundStore(({ flashbackSlice }) => flashbackSlice)
 
   return (
-    <If condition={!flashback}>
+    <If condition={!flashbackChar}>
       <Then>
         <IconButton size='large' className='fa-layers fa-fw' sx={{ ml: 1, justifySelf: 'flex-end', ...navButtonStyling }}>
           <FontAwesomeIcon icon={faChalkboard} transform='shrink-3' />

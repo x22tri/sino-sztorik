@@ -3,16 +3,16 @@ import { Button, Typography } from '@mui/material'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { RESUME_LESSON, FLASHBACK_MODE } from '../../shared/strings'
-import { useLearn } from '../logic/useLearn'
+import { useBoundStore } from '../../shared/logic/useBoundStore'
 
 export function ReturnFromFlashbackDesktop() {
-  const { interrupted, resumeLesson } = useLearn()
+  const { interruptedChar, exitFlashback } = useBoundStore(({ flashbackSlice }) => flashbackSlice)
 
   return (
     <Button
       size='small'
       variant='contained'
-      onClick={resumeLesson}
+      onClick={exitFlashback}
       startIcon={<FontAwesomeIcon icon={faChevronLeft} transform='shrink-4' />}
       sx={{ ml: 1, minWidth: 0 }}
     >
@@ -21,7 +21,7 @@ export function ReturnFromFlashbackDesktop() {
           {FLASHBACK_MODE}
         </Typography>
         <Typography component='span' lineHeight={1} sx={{ fontWeight: 'bold' }}>
-          {RESUME_LESSON} ({interrupted?.charChinese})
+          {RESUME_LESSON} ({interruptedChar?.charChinese})
         </Typography>
       </Box>
     </Button>

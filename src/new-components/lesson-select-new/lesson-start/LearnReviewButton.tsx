@@ -12,9 +12,9 @@ import {
 import { LessonStatuses, TierStatuses } from '../../shared/interfaces'
 import { When } from 'react-if'
 import { useOnChange } from '../../shared/hooks/useOnChange'
-import { useLessonSelect } from '../logic/useLessonSelect'
 import { LoadingButton } from '@mui/lab'
 import { useNavigate } from 'react-router-dom'
+import { useBoundStore } from '../../shared/logic/useBoundStore'
 
 const { UPCOMING, COMPLETED } = LessonStatuses
 
@@ -26,8 +26,8 @@ const options = [
 export function LearnReviewButton({ tierStatuses }: { tierStatuses: TierStatuses }) {
   const anchorRef = useRef<HTMLButtonElement>(null)
   const [open, setOpen] = useState(false)
-  const [selectedIndex, setSelectedIndex] = useState(0)
-  const { selected } = useLessonSelect()
+  const [selectedModeIndex, setSelectedModeIndex] = useState(0)
+  const { selectedLessonIndex } = useBoundStore(({ lessonSelectSlice }) => lessonSelectSlice)
   const navigate = useNavigate()
 
   const availableOptions = options.filter(
@@ -36,7 +36,7 @@ export function LearnReviewButton({ tierStatuses }: { tierStatuses: TierStatuses
       (button === REVIEW_BUTTON && tierStatuses.includes(COMPLETED))
   )
 
-  const selectedButton = availableOptions[selectedIndex]?.button
+  const selectedButton = availableOptions[selectedModeIndex]?.button
 
   const clickActionButton = () => {
     console.info(`You clicked ${selectedButton}`)
@@ -44,7 +44,7 @@ export function LearnReviewButton({ tierStatuses }: { tierStatuses: TierStatuses
   }
 
   const clickMenuItem = (index: number) => {
-    setSelectedIndex(index)
+    setSelectedModeIndex(index)
     setOpen(false)
   }
 
@@ -58,7 +58,7 @@ export function LearnReviewButton({ tierStatuses }: { tierStatuses: TierStatuses
     setOpen(false)
   }
 
-  useOnChange(selected, () => setSelectedIndex(0))
+  useOnChange(selectedLessonIndex, () => setSelectedModeIndex(0))
 
   return (
     <>
@@ -89,7 +89,7 @@ export function LearnReviewButton({ tierStatuses }: { tierStatuses: TierStatuses
                     <MenuItem
                       key={button}
                       onClick={() => clickMenuItem(index)}
-                      selected={index === selectedIndex}
+                      selected={index === selectedModeIndex}
                       sx={{ display: 'block' }}
                     >
                       <Typography noWrap lineHeight={1} variant='body2'>
