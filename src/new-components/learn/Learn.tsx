@@ -33,8 +33,12 @@ export default function Learn() {
       position='relative'
       gridTemplateRows={`${toolbarHeight}px auto`}
       sx={{
-        gridTemplateColumns: { xs: '1fr', md: `${constants.drawerWidth}px auto` },
-        gridTemplateAreas: { xs: `"nav" "content"`, md: `"drawer nav" "drawer content"` },
+        gridTemplateColumns: { xs: '1fr', md: `${constants.drawerWidth}px auto`, lg: `${constants.drawerWidth}px 3fr 1fr` },
+        gridTemplateAreas: {
+          xs: `"nav" "content"`,
+          md: `"drawer nav" "drawer content"`,
+          lg: `"drawer nav nav" "drawer content content"`,
+        },
       }}
     >
       <SideNav

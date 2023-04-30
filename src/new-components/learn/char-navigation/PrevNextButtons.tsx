@@ -12,7 +12,7 @@ import { Button, Typography } from '@mui/material'
 import { useLearn } from '../logic/useLearn'
 import { Else, If, Then, When } from 'react-if'
 
-export function CharNavigation({ prevChar, nextChar }: { prevChar: string | null; nextChar: string | null }) {
+export function PrevNextButtons({ prevChar, nextChar }: { prevChar: string | null; nextChar: string | null }) {
   const swiper = useSwiper()
 
   const { flashback } = useLearn()

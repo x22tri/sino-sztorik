@@ -10,7 +10,7 @@ import {
 import { useState } from 'react'
 import ToolbarButton from '../../shared/components/ToolbarButton'
 
-export function CloseButton() {
+export function CloseLearnButton() {
   const [openModal, setOpenModal] = useState(false)
 
   return (

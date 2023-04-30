@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box'
 import LinearProgress from '@mui/material/LinearProgress'
-import { AppBar, Toolbar, Typography, useTheme } from '@mui/material'
+import { AppBar, IconButton, Toolbar, Tooltip, Typography, useTheme } from '@mui/material'
 import { LessonInfo } from './LessonInfo'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { FLASHBACK_MODE } from '../../shared/strings'
@@ -8,9 +8,12 @@ import { useLearn } from '../logic/useLearn'
 import { useSwiper } from 'swiper/react'
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { If, Then, Else } from 'react-if'
-import { CloseButton } from './CloseButton'
+import { CloseLearnButton } from './CloseLearnButton'
 import { useSwiperInstance } from '../../shared/state'
-import LogoTitle from '../../lesson-select-new/appbar/LogoTitle'
+import LogoTitle from '../../shared/components/LogoTitle'
+import ToolbarButton from '../../shared/components/ToolbarButton'
+import { faChalkboard } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export function LearnAppbar({
   lessonLength,
@@ -24,13 +27,11 @@ export function LearnAppbar({
   const isSmallScreen = useSmallScreen()
   const ref = useRef<HTMLDivElement | null>(null)
   const resizeObserver = new ResizeObserver(handleToolbarResized)
-  const { swiperInstance } = useSwiperInstance()
   const [lessonProgress, setLessonProgress] = useState(0)
+  const { swiperInstance } = useSwiperInstance()
   const { flashback } = useLearn()
-  const { constants } = useTheme()
 
   const isLocked = !!flashback
-  const gridSideColumn = `minmax(max-content, calc((100% -  ${constants.maxContentWidth}) / 2))`
 
   useEffect(() => {
     swiperInstance?.on('activeIndexChange', () => setLessonProgress(calculateProgress(lessonLength, swiperInstance?.activeIndex)))
@@ -55,29 +56,31 @@ export function LearnAppbar({
   return (
     <AppBar position='relative' elevation={0} sx={{ bgcolor: 'background.paper', gridArea: 'nav' }}>
       <Toolbar disableGutters {...{ ref }} sx={{ px: 2 }}>
-        <Box
-          alignItems='center'
-          display='grid'
-          gap={1}
-          gridTemplateColumns={`${gridSideColumn} auto ${gridSideColumn}`}
-          width='100%'
-        >
-          {/* <LessonInfo lessonNumber={99} lessonTitle={'Lecke címe'} /> */}
-          <LogoTitle />
+        <Box alignItems='center' display='flex' gap={3} width='100%'>
+          <If condition={!isSmallScreen}>
+            <Then>
+              <LogoTitle noTitle />
+            </Then>
+            <Else>
+              <Tooltip title='Leckeinformáció'>
+                <IconButton size='large' className='fa-layers fa-fw'>
+                  <FontAwesomeIcon icon={faChalkboard} />
+                  <Typography component='span' fontWeight='bold' fontSize='45%' marginBottom='2px'>
+                    99
+                  </Typography>
+                </IconButton>
+              </Tooltip>
+            </Else>
+          </If>
 
-          <Box display='flex' justifyContent='center'>
+          <Box display='flex' justifyContent='center' width='100%'>
             <If condition={!isSmallScreen || !flashback}>
               <Then>
                 <LinearProgress
                   color={isLocked ? 'neutral' : 'primary'}
                   value={lessonProgress}
                   variant='determinate'
-                  sx={{
-                    borderRadius: '8px',
-                    mx: 'auto',
-                    p: 0.5,
-                    width: '100%',
-                  }}
+                  sx={{ borderRadius: 6, mx: 'auto', p: 0.6, width: '100%' }}
                 />
               </Then>
               <Else>
@@ -86,7 +89,7 @@ export function LearnAppbar({
             </If>
           </Box>
 
-          <CloseButton />
+          <CloseLearnButton />
         </Box>
       </Toolbar>
     </AppBar>
