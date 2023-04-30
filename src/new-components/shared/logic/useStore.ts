@@ -3,50 +3,55 @@ import { LESSONS } from '../MOCK_LESSONS'
 import { CHARS } from '../../learn/MOCK_CHARS'
 import { AssembledLesson, Character } from '../interfaces'
 
-const useBoundStore = create<Store>(set => ({
-  flashback: {
-    exitFlashback: () => set(({ flashback }) => ({ flashback: { ...flashback, flashback: null, interrupted: null } })),
-    flashbackChar: null,
-    interruptedChar: null,
-    startFlashback: (destination: string, interrupted?: Character) => {
-      const foundFlashback = findFlashbackChar(destination)
+const useBoundStore = create<Store>(set => {
+  function update<SliceType extends keyof Store>(slice: SliceType, updated: Partial<Store[SliceType]>) {
+    return set(state => ({ [slice]: { ...state[slice], ...updated } }))
+  }
 
-      if (!foundFlashback) {
-        return
-      }
+  return {
+    flashback: {
+      exitFlashback: () => update('flashback', { flashbackChar: null, interruptedChar: null }),
+      flashbackChar: null,
+      interruptedChar: null,
+      startFlashback: (destination: string, interrupted?: Character) => {
+        const foundFlashback = findFlashbackChar(destination)
 
-      set(({ flashback }) => ({
-        flashback: {
-          ...flashback,
-          flashbackChar: foundFlashback,
-          interruptedChar: flashback.interruptedChar ?? interrupted!,
-        },
-      }))
+        if (!foundFlashback) {
+          return
+        }
+
+        set(({ flashback }) => ({
+          flashback: {
+            ...flashback,
+            flashbackChar: foundFlashback,
+            interruptedChar: flashback.interruptedChar ?? interrupted!,
+          },
+        }))
+      },
     },
-  },
 
-  mobileDrawer: {
-    isOpen: false,
-    toggleDrawer: () => set(({ mobileDrawer }) => ({ mobileDrawer: { ...mobileDrawer, isOpen: !mobileDrawer.isOpen } })),
-  },
+    mobileDrawer: {
+      isOpen: false,
+      toggleDrawer: () => set(({ mobileDrawer }) => ({ mobileDrawer: { ...mobileDrawer, isOpen: !mobileDrawer.isOpen } })),
+      // toggleDrawer: () => update('mobileDrawer', {isOpen: !mobileDrawer.isOpen})
+    },
 
-  learn: {
-    currentLesson: LESSONS[0],
-    selectedCharIndex: 0,
-    selectCharIndex: (index: number) => set(({ learn }) => ({ learn: { ...learn, selectedCharIndex: index } })),
-    setCurrentLesson: (lesson: AssembledLesson) => set(({ learn }) => ({ learn: { ...learn, currentLesson: lesson } })),
-  },
+    learn: {
+      currentLesson: LESSONS[0],
+      selectedCharIndex: 0,
+      selectCharIndex: (index: number) => update('learn', { selectedCharIndex: index }),
+      setCurrentLesson: (lesson: AssembledLesson) => update('learn', { currentLesson: lesson }),
+    },
 
-  lessonSelect: {
-    lessons: LESSONS,
-    selectedLessonIndex: undefined,
-    selectLessonIndex: (index: number) =>
-      set(({ lessonSelect }) => ({ lessonSelect: { ...lessonSelect, selectedLessonIndex: index } })),
-    setUpcomingLessonIndex: (index: number) =>
-      set(({ lessonSelect }) => ({ lessonSelect: { ...lessonSelect, upcomingLessonIndex: index } })),
-    upcomingLessonIndex: undefined,
-  },
-}))
+    lessonSelect: {
+      lessons: LESSONS,
+      selectedLessonIndex: undefined,
+      selectLessonIndex: (index: number) => update('lessonSelect', { selectedLessonIndex: index }),
+      setUpcomingLessonIndex: (index: number) => update('lessonSelect', { upcomingLessonIndex: index }),
+      upcomingLessonIndex: undefined,
+    },
+  }
+})
 
 export function useStore<SliceType extends keyof Store>(slice: SliceType): Store[SliceType] {
   return useBoundStore(state => state[slice])
