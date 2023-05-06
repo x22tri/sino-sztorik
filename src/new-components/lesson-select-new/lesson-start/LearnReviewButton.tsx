@@ -23,12 +23,11 @@ const options = [
   { button: REVIEW_BUTTON, explanation: REVIEW_BUTTON_EXPLANATION },
 ]
 
-export function LearnReviewButton({ tierStatuses }: { tierStatuses: TierStatuses }) {
+export function LearnReviewButton({ startLesson, tierStatuses }: { startLesson: () => void; tierStatuses: TierStatuses }) {
   const anchorRef = useRef<HTMLButtonElement>(null)
   const [open, setOpen] = useState(false)
   const [selectedModeIndex, setSelectedModeIndex] = useState(0)
   const { selectedLessonIndex } = useStore('lessonSelect')
-  const navigate = useNavigate()
 
   const availableOptions = options.filter(
     ({ button }) =>
@@ -37,11 +36,6 @@ export function LearnReviewButton({ tierStatuses }: { tierStatuses: TierStatuses
   )
 
   const selectedButton = availableOptions[selectedModeIndex]?.button
-
-  const clickActionButton = () => {
-    console.info(`You clicked ${selectedButton}`)
-    navigate('/learn')
-  }
 
   const clickMenuItem = (index: number) => {
     setSelectedModeIndex(index)
@@ -68,7 +62,7 @@ export function LearnReviewButton({ tierStatuses }: { tierStatuses: TierStatuses
         variant='contained'
         sx={{ borderRadius: 6, justifySelf: 'center', width: 1 }}
       >
-        <Button onClick={clickActionButton} sx={{ borderRadius: 6, width: 1 }}>
+        <Button onClick={startLesson} sx={{ borderRadius: 6, width: 1 }}>
           {selectedButton ?? LOADING_PLACEHOLDER} {/* Placeholder needed so button doesn't disappear. */}
         </Button>
 

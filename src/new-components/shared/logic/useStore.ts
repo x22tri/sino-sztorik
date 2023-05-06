@@ -33,14 +33,13 @@ const useBoundStore = create<Store>(set => {
     mobileDrawer: {
       isOpen: false,
       toggleDrawer: () => set(({ mobileDrawer }) => ({ mobileDrawer: { ...mobileDrawer, isOpen: !mobileDrawer.isOpen } })),
-      // toggleDrawer: () => update('mobileDrawer', {isOpen: !mobileDrawer.isOpen})
     },
 
     learn: {
       currentLesson: LESSONS[0],
       selectedCharIndex: 0,
       selectCharIndex: (index: number) => update('learn', { selectedCharIndex: index }),
-      setCurrentLesson: (lesson: AssembledLesson) => update('learn', { currentLesson: lesson }),
+      setCurrentLesson: (lesson: AssembledLesson | undefined) => update('learn', { currentLesson: lesson }),
     },
 
     lessonSelect: {
@@ -76,7 +75,7 @@ interface LearnSlice {
   currentLesson: AssembledLesson | undefined
   selectedCharIndex: number
   selectCharIndex: (index: number) => void
-  setCurrentLesson: (lesson: AssembledLesson) => void
+  setCurrentLesson: (lesson: AssembledLesson | undefined) => void
 }
 
 interface FlashbackSlice {
@@ -91,8 +90,8 @@ interface MobileDrawerSlice {
   toggleDrawer: () => void
 }
 
-function findFlashbackChar(constituent: string): Character | null {
-  const charInLesson = CHARS.find(({ charChinese }) => charChinese === constituent)
+function findFlashbackChar(char: string): Character | null {
+  const charInLesson = CHARS.find(({ charChinese }) => charChinese === char)
 
   if (charInLesson) {
     return charInLesson

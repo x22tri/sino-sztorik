@@ -14,15 +14,10 @@ import { useStore } from '../shared/logic/useStore'
 const lessonSelectMaxWidth = '1600px'
 
 export default function Learn() {
-  const { currentLesson, selectCharIndex, selectedCharIndex } = useStore('learn')
   const [toolbarHeight, setToolbarHeight] = useState(0)
-  const { constants, palette } = useTheme()
-
   const [content, setContent] = useState<'characters' | 'preface'>('characters')
-
-  const lessonNumber = 99
-  const lessonTitle = 'Lecke címe'
-  const preface = 'Teszt teszt teszt'
+  const { currentLesson, selectCharIndex, selectedCharIndex } = useStore('learn')
+  const { constants, palette } = useTheme()
 
   return !currentLesson?.characters.length ? null : (
     <Box
@@ -42,8 +37,8 @@ export default function Learn() {
       }}
     >
       <SideNav
-        title={<CharPickerTitle {...{ content, lessonNumber, lessonTitle, setContent }} />}
-        content={<CharPickerContent {...{ content, preface }} />}
+        title={<CharPickerTitle {...{ content, setContent }} />}
+        content={<CharPickerContent {...{ content }} />}
         selected={selectedCharIndex}
       />
 

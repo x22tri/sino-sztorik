@@ -5,11 +5,20 @@ import { useLargeScreen } from '../../shared/hooks/useLargeScreen'
 import { Unless } from 'react-if'
 import { LearnReviewButton } from './LearnReviewButton'
 import { TierStatusIcons } from '../lesson-picker/TierStatusIcons'
+import { useStore } from '../../shared/logic/useStore'
+import { useNavigate } from 'react-router-dom'
 
 export function LessonStart({ lesson }: { lesson: AssembledLesson }) {
   const isLargeScreen = useLargeScreen()
   const { constants, palette } = useTheme()
+  const { setCurrentLesson } = useStore('learn')
+  const navigate = useNavigate()
   const { characters, tierStatuses } = lesson
+
+  function startLesson() {
+    setCurrentLesson(lesson)
+    navigate('/learn')
+  }
 
   return (
     <Box
@@ -29,7 +38,7 @@ export function LessonStart({ lesson }: { lesson: AssembledLesson }) {
     >
       <TierStatusIcons {...{ tierStatuses }} />
 
-      <LearnReviewButton {...{ tierStatuses }} />
+      <LearnReviewButton {...{ startLesson, tierStatuses }} />
 
       <Unless condition={isLargeScreen}>
         <Typography color='text.secondary' justifySelf='flex-end' marginRight={1} variant='overline'>

@@ -6,19 +6,18 @@ import ToolbarButton from '../../shared/components/ToolbarButton'
 import { faNewspaper } from '@fortawesome/free-regular-svg-icons'
 import { Else, If, Then } from 'react-if'
 import { faLanguage } from '@fortawesome/free-solid-svg-icons'
+import { useStore } from '../../shared/logic/useStore'
 
 export function CharPickerTitle({
   content,
-  lessonNumber,
-  lessonTitle,
   setContent,
 }: {
   content: 'characters' | 'preface'
-  lessonNumber: number
-  lessonTitle: string
   setContent: Dispatch<SetStateAction<'characters' | 'preface'>>
 }) {
   const { palette, spacing } = useTheme()
+  const { currentLesson } = useStore('learn')
+
   return (
     <Box
       alignItems='center'
@@ -28,7 +27,8 @@ export function CharPickerTitle({
       paddingX={`${spacing(2)}`}
       borderBottom={`1px solid ${palette.grey[200]}`}
     >
-      <TitleSubtitle title={lessonNumber + LESSON_NUMBER_SUFFIX_APPBAR} subtitle={lessonTitle} />
+      <TitleSubtitle title={currentLesson?.lessonNumber + LESSON_NUMBER_SUFFIX_APPBAR} subtitle={currentLesson?.title ?? ''} />
+
       <If condition={content === 'characters'}>
         <Then>
           <ToolbarButton icon={faNewspaper} onClick={() => setContent('preface')} tooltip='Előszó' />

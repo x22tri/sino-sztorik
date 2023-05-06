@@ -42,7 +42,15 @@ export function SideNav({ content, selected, title }: { content: JSX.Element; se
     >
       <List
         subheader={title}
-        sx={{ left: 0, gridArea: 'drawer', overflow: 'auto', position: 'absolute', top: 0, width: constants.drawerWidth }}
+        sx={{
+          bottom: 0,
+          left: 0,
+          gridArea: 'drawer',
+          overflow: 'auto',
+          position: 'absolute',
+          top: 0,
+          width: constants.drawerWidth,
+        }}
         {...{ ref }}
       >
         {content}
