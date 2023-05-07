@@ -1,12 +1,11 @@
 import { Box, useTheme } from '@mui/material'
 import { Dispatch, SetStateAction } from 'react'
-import { TitleSubtitle } from '../learn-appbar/TitleSubtitle'
+import { TitleSubtitle } from '../../shared/components/TitleSubtitle'
 import { LESSON_NUMBER_SUFFIX_APPBAR } from '../../shared/strings'
 import ToolbarButton from '../../shared/components/ToolbarButton'
 import { faNewspaper } from '@fortawesome/free-regular-svg-icons'
 import { Else, If, Then } from 'react-if'
 import { faLanguage } from '@fortawesome/free-solid-svg-icons'
-import { useStore } from '../../shared/logic/useStore'
 import { useLoaderData } from 'react-router-dom'
 import { AssembledLesson } from '../../shared/interfaces'
 

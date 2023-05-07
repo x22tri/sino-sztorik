@@ -9,11 +9,9 @@ import {
 } from '../../shared/strings'
 import { useState } from 'react'
 import ToolbarButton from '../../shared/components/ToolbarButton'
-import { useStore } from '../../shared/logic/useStore'
 
 export function CloseLearnButton() {
   const [openModal, setOpenModal] = useState(false)
-  const { setCurrentLesson } = useStore('learn')
 
   return (
     <>
@@ -47,7 +45,7 @@ export function CloseLearnButton() {
           <Box display='flex' gap={2} sx={{ flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'flex-end', mt: 4 }}>
             <Button onClick={() => setOpenModal(false)}>{LEARN_EXIT_MODAL_CANCEL_BUTTON}</Button>
 
-            <Button href='/' onClick={() => setCurrentLesson(undefined)} variant='contained'>
+            <Button href='/' variant='contained'>
               {LEARN_EXIT_MODAL_EXIT_BUTTON}
             </Button>
           </Box>

@@ -1,19 +1,19 @@
 import Box from '@mui/material/Box'
 import LinearProgress from '@mui/material/LinearProgress'
-import { AppBar, IconButton, Toolbar, Tooltip, Typography, useTheme } from '@mui/material'
-import { LessonInfo } from './LessonInfo'
+import { AppBar, IconButton, Toolbar, Tooltip, Typography } from '@mui/material'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { FLASHBACK_MODE } from '../../shared/strings'
-import { useSwiper } from 'swiper/react'
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { If, Then, Else } from 'react-if'
 import { CloseLearnButton } from './CloseLearnButton'
 import { useSwiperInstance } from '../../shared/state'
 import LogoTitle from '../../shared/components/LogoTitle'
-import ToolbarButton from '../../shared/components/ToolbarButton'
 import { faChalkboard } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useStore } from '../../shared/logic/useStore'
+import { useLoaderData } from 'react-router-dom'
+import { AssembledLesson } from '../../shared/interfaces'
+import { ExitFlashbackButton } from './ExitFlashbackButton'
 
 export function LearnAppbar({
   lessonLength,
@@ -25,13 +25,13 @@ export function LearnAppbar({
   toolbarHeight: number
 }) {
   const isSmallScreen = useSmallScreen()
+  const lesson = useLoaderData() as AssembledLesson
   const ref = useRef<HTMLDivElement | null>(null)
   const resizeObserver = new ResizeObserver(handleToolbarResized)
   const [lessonProgress, setLessonProgress] = useState(0)
   const { swiperInstance } = useSwiperInstance()
   const { flashbackChar } = useStore('flashback')
-
-  const isLocked = !!flashbackChar
+  const { selectedCharIndex } = useStore('learn')
 
   useEffect(() => {
     swiperInstance?.on('activeIndexChange', () => setLessonProgress(calculateProgress(lessonLength, swiperInstance?.activeIndex)))
@@ -57,32 +57,42 @@ export function LearnAppbar({
     <AppBar position='relative' elevation={0} sx={{ bgcolor: 'background.paper', gridArea: 'nav' }}>
       <Toolbar disableGutters {...{ ref }} sx={{ px: 2 }}>
         <Box alignItems='center' display='flex' gap={3} width='100%'>
-          <If condition={!isSmallScreen}>
+          <If condition={!flashbackChar}>
             <Then>
-              <LogoTitle noTitle />
+              <If condition={!isSmallScreen}>
+                <Then>
+                  <LogoTitle noTitle />
+                </Then>
+
+                <Else>
+                  <Tooltip title='Leckeinformáció'>
+                    <IconButton size='large' className='fa-layers fa-fw'>
+                      <FontAwesomeIcon icon={faChalkboard} />
+                      <Typography component='span' fontWeight='bold' fontSize='45%' marginBottom='2px'>
+                        {lesson.lessonNumber}
+                      </Typography>
+                    </IconButton>
+                  </Tooltip>
+                </Else>
+              </If>
             </Then>
+
             <Else>
-              <Tooltip title='Leckeinformáció'>
-                <IconButton size='large' className='fa-layers fa-fw'>
-                  <FontAwesomeIcon icon={faChalkboard} />
-                  <Typography component='span' fontWeight='bold' fontSize='45%' marginBottom='2px'>
-                    99
-                  </Typography>
-                </IconButton>
-              </Tooltip>
+              <ExitFlashbackButton charChinese={lesson.characters[selectedCharIndex].charChinese} />
             </Else>
           </If>
 
           <Box display='flex' justifyContent='center' width='100%'>
-            <If condition={!isSmallScreen || !flashbackChar}>
+            <If condition={!flashbackChar}>
               <Then>
                 <LinearProgress
-                  color={isLocked ? 'neutral' : 'primary'}
+                  color='primary'
                   value={lessonProgress}
                   variant='determinate'
                   sx={{ borderRadius: 6, mx: 'auto', p: 0.6, width: '100%' }}
                 />
               </Then>
+
               <Else>
                 <FlashbackModeTextMobile />
               </Else>

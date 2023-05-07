@@ -2,7 +2,7 @@ import { Box, Typography, useTheme } from '@mui/material'
 import { AssembledLesson } from '../../shared/interfaces'
 import { CHARACTER_AMOUNT_LABEL } from '../../shared/strings'
 import { useLargeScreen } from '../../shared/hooks/useLargeScreen'
-import { Unless } from 'react-if'
+import { Unless, When } from 'react-if'
 import { LearnReviewButton } from './LearnReviewButton'
 import { TierStatusIcons } from '../lesson-picker/TierStatusIcons'
 
@@ -29,7 +29,9 @@ export function LessonStart({ lesson }: { lesson: AssembledLesson }) {
     >
       <TierStatusIcons {...{ tierStatuses }} />
 
-      <LearnReviewButton {...{ lessonNumber, tierStatuses }} />
+      <When condition={lesson.characters.length}>
+        <LearnReviewButton {...{ lessonNumber, tierStatuses }} />
+      </When>
 
       <Unless condition={isLargeScreen}>
         <Typography color='text.secondary' justifySelf='flex-end' marginRight={1} variant='overline'>

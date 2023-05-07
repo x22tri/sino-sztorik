@@ -1,10 +1,10 @@
-import { Button, Typography } from '@mui/material'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Button, Typography } from '@mui/material'
 import { useStore } from '../../shared/logic/useStore'
 
-export function ReturnFromFlashbackMobile() {
-  const { interruptedChar, exitFlashback } = useStore('flashback')
+export function ExitFlashbackButton({ charChinese }: { charChinese: string }) {
+  const { exitFlashback } = useStore('flashback')
 
   return (
     <Button
@@ -14,7 +14,7 @@ export function ReturnFromFlashbackMobile() {
       startIcon={<FontAwesomeIcon icon={faChevronLeft} transform='shrink-4' />}
       sx={{ py: 0, px: 1, ml: 1, minWidth: 0, '.MuiButton-startIcon': { marginRight: '2px' } }}
     >
-      <Typography variant='chineseNormal'>{interruptedChar?.charChinese}</Typography>
+      <Typography variant='chineseNormal'>{charChinese}</Typography>
     </Button>
   )
 }

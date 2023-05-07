@@ -51,9 +51,9 @@ export const FREQUENCY_UNCOMMON = 'Nem gyakori'
 export const FREQUENCY_RARE = 'Ritka'
 export const FREQUENCY_VERY_RARE = 'Nagyon ritka'
 
-export const CHAR_NAVIGATION_PREVIOUS_CHARACTER = 'Előző'
-export const CHAR_NAVIGATION_NEXT_CHARACTER = 'Következő'
-export const CHAR_NAVIGATION_EXIT_FLASHBACK_PROMPT = 'Lépj ki a visszaemlékezésből a folytatáshoz'
+export const PREV_NEXT_BUTTONS_PREV = 'Előző'
+export const PREV_NEXT_BUTTONS_NEXT = 'Következő'
+export const PREV_NEXT_BUTTONS_EXIT_FLASHBACK_PROMPT = 'Lépj ki a visszaemlékezésből a folytatáshoz'
 export const KEYWORD_EXPLANATION_TOOLTIP = 'Kattints a kulcsszó magyarázatához'
 
 export const LEARN_HEADING_CHARACTER = 'Karakter'

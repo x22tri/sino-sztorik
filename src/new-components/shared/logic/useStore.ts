@@ -9,45 +9,15 @@ const useBoundStore = create<Store>(set => {
   }
 
   return {
-    // flashback: {
-    //   exitFlashback: () => update('flashback', { flashbackChar: null, interruptedChar: null }),
-    //   flashbackChar: null,
-    //   interruptedChar: null,
-    //   startFlashback: (destination: string, interrupted?: Character) => {
-    //     const foundFlashback = findFlashbackChar(destination)
-
-    //     if (!foundFlashback) {
-    //       return
-    //     }
-
-    //     set(({ flashback }) => ({
-    //       flashback: {
-    //         ...flashback,
-    //         flashbackChar: foundFlashback,
-    //         interruptedChar: flashback.interruptedChar ?? interrupted!,
-    //       },
-    //     }))
-    //   },
-    // },
-
     flashback: {
-      exitFlashback: () => update('flashback', { flashbackChar: null, interruptedChar: null }),
-      flashbackChar: null,
-      interruptedChar: null,
+      exitFlashback: () => update('flashback', { flashbackChar: undefined }),
+      flashbackChar: undefined,
       startFlashback: (destination: string) => {
         const foundFlashback = findFlashbackChar(destination)
 
-        if (!foundFlashback) {
-          return
+        if (foundFlashback) {
+          update('flashback', { flashbackChar: foundFlashback })
         }
-
-        set(({ learn, flashback }) => ({
-          flashback: {
-            ...flashback,
-            flashbackChar: foundFlashback,
-            interruptedChar: flashback.interruptedChar ?? learn.currentLesson!.characters[learn.selectedCharIndex],
-          },
-        }))
       },
     },
 
@@ -57,10 +27,8 @@ const useBoundStore = create<Store>(set => {
     },
 
     learn: {
-      currentLesson: undefined,
       selectedCharIndex: 0,
       selectCharIndex: (index: number) => update('learn', { selectedCharIndex: index }),
-      setCurrentLesson: (lesson: AssembledLesson | undefined) => update('learn', { currentLesson: lesson }),
     },
 
     lessonSelect: {
@@ -93,17 +61,14 @@ interface LessonSelectSlice {
 }
 
 interface LearnSlice {
-  currentLesson: AssembledLesson | undefined
   selectedCharIndex: number
   selectCharIndex: (index: number) => void
-  setCurrentLesson: (lesson: AssembledLesson | undefined) => void
 }
 
 interface FlashbackSlice {
   exitFlashback: () => void
-  flashbackChar: Character | null
-  interruptedChar: Character | null
-  startFlashback: (destination: string, interrupted?: Character) => void
+  flashbackChar: Character | undefined
+  startFlashback: (destination: string) => void
 }
 
 interface MobileDrawerSlice {
