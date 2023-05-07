@@ -31,13 +31,13 @@ export function LessonStart({ lesson }: { lesson: AssembledLesson }) {
 
       <When condition={lesson.characters.length}>
         <LearnReviewButton {...{ lessonNumber, tierStatuses }} />
-      </When>
 
-      <Unless condition={isLargeScreen}>
-        <Typography color='text.secondary' justifySelf='flex-end' marginRight={1} variant='overline'>
-          {characters.length} {CHARACTER_AMOUNT_LABEL}
-        </Typography>
-      </Unless>
+        <Unless condition={isLargeScreen}>
+          <Typography color='text.secondary' justifySelf='flex-end' marginRight={1} variant='overline'>
+            {characters.length} {CHARACTER_AMOUNT_LABEL}
+          </Typography>
+        </Unless>
+      </When>
     </Box>
   )
 }

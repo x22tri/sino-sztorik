@@ -1,5 +1,4 @@
 import { ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme } from '@mui/material'
-import { useSwiperInstance } from '../../shared/state'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleRight } from '@fortawesome/free-solid-svg-icons'
 import { When } from 'react-if'
@@ -9,7 +8,7 @@ import { useStore } from '../../shared/logic/useStore'
 export function LessonPickerContent() {
   const { lessons, selectLessonIndex, selectedLessonIndex, upcomingLessonIndex } = useStore('lessonSelect')
   const { toggleDrawer } = useStore('mobileDrawer')
-  const { swiperInstance } = useSwiperInstance()
+  const { swiperInstance } = useStore('swiper')
   const { constants, palette, spacing, typography } = useTheme()
 
   function selectLesson(index: number) {

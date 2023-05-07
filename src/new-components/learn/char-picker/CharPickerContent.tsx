@@ -1,6 +1,5 @@
 import { Box, ListItem, ListItemButton, ListItemIcon, useTheme } from '@mui/material'
 import { Else, If, Then } from 'react-if'
-import { useSwiperInstance } from '../../shared/state'
 import { KeywordPrimitiveRow } from '../../shared/components/KeywordPrimitiveRow'
 import { useStore } from '../../shared/logic/useStore'
 import { useLoaderData } from 'react-router-dom'
@@ -8,10 +7,10 @@ import { AssembledLesson } from '../../shared/interfaces'
 
 export function CharPickerContent({ content }: { content: 'characters' | 'preface' }) {
   const lesson = useLoaderData() as AssembledLesson
-  const { swiperInstance } = useSwiperInstance()
   const { constants, spacing } = useTheme()
   const { selectCharIndex, selectedCharIndex } = useStore('learn')
   const { toggleDrawer } = useStore('mobileDrawer')
+  const { swiperInstance } = useStore('swiper')
 
   function selectChar(index: number) {
     swiperInstance?.slideTo(index)

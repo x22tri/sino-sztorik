@@ -35,6 +35,10 @@ export const LEARN_EXIT_MODAL_BODY = 'Ha kilépsz a Leckeválasztóba, legközel
 export const LEARN_EXIT_MODAL_CANCEL_BUTTON = 'Mégse'
 export const LEARN_EXIT_MODAL_EXIT_BUTTON = 'Kilépés'
 
+export const LEARN_LESSON_INFO_BUTTON = 'Leckeinformáció'
+export const LEARN_LESSON_PREFACE_TOOLTIP = 'Előszó'
+export const LEARN_LESSON_CHARACTERS_TOOLTIP = 'Karakterek'
+
 export const FLASHBACK_MODE = 'Visszaemlékezés'
 export const LESSON_NUMBER_SUFFIX_APPBAR = '. lecke'
 export const RESUME_LESSON = 'Lecke folytatása'

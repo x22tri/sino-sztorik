@@ -2,16 +2,16 @@ import { EffectCreative } from 'swiper'
 import { Swiper, SwiperProps } from 'swiper/react'
 import { scrollToTop } from '../utility-functions'
 import { useSmallScreen } from '../hooks/useSmallScreen'
-import { useSwiperInstance } from '../state'
 import { useKeydown } from '../hooks/useKeydown'
 import { UseKeydownAction } from '../interfaces'
+import { useStore } from '../logic/useStore'
 
-export function LessonSwiper({
+export function SwiperWrapper({
   children,
   customKeyboardControls,
   ...restProps
 }: SwiperProps & { customKeyboardControls?: UseKeydownAction[] }) {
-  const { swiperInstance, setSwiperInstance } = useSwiperInstance()
+  const { swiperInstance, setSwiperInstance } = useStore('swiper')
   const isSmallScreen = useSmallScreen()
 
   useKeydown(

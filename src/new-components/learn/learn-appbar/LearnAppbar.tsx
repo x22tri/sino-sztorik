@@ -2,11 +2,10 @@ import Box from '@mui/material/Box'
 import LinearProgress from '@mui/material/LinearProgress'
 import { AppBar, IconButton, Toolbar, Tooltip, Typography } from '@mui/material'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
-import { FLASHBACK_MODE } from '../../shared/strings'
+import { FLASHBACK_MODE, LEARN_LESSON_INFO_BUTTON } from '../../shared/strings'
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { If, Then, Else } from 'react-if'
 import { CloseLearnButton } from './CloseLearnButton'
-import { useSwiperInstance } from '../../shared/state'
 import LogoTitle from '../../shared/components/LogoTitle'
 import { faChalkboard } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -29,9 +28,10 @@ export function LearnAppbar({
   const ref = useRef<HTMLDivElement | null>(null)
   const resizeObserver = new ResizeObserver(handleToolbarResized)
   const [lessonProgress, setLessonProgress] = useState(0)
-  const { swiperInstance } = useSwiperInstance()
   const { flashbackChar } = useStore('flashback')
   const { selectedCharIndex } = useStore('learn')
+  const { toggleDrawer } = useStore('mobileDrawer')
+  const { swiperInstance } = useStore('swiper')
 
   useEffect(() => {
     swiperInstance?.on('activeIndexChange', () => setLessonProgress(calculateProgress(lessonLength, swiperInstance?.activeIndex)))
@@ -65,8 +65,8 @@ export function LearnAppbar({
                 </Then>
 
                 <Else>
-                  <Tooltip title='Leckeinformáció'>
-                    <IconButton size='large' className='fa-layers fa-fw'>
+                  <Tooltip title={LEARN_LESSON_INFO_BUTTON}>
+                    <IconButton className='fa-layers fa-fw' onClick={toggleDrawer} size='large'>
                       <FontAwesomeIcon icon={faChalkboard} />
                       <Typography component='span' fontWeight='bold' fontSize='45%' marginBottom='2px'>
                         {lesson.lessonNumber}

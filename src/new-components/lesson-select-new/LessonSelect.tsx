@@ -49,7 +49,7 @@ export default function LessonSelect() {
 
       <LessonSelectAppbar {...{ setToolbarHeight, toolbarHeight }} />
 
-      <LessonPrefaceSwiper />
+      {/* <LessonPrefaceSwiper /> */}
 
       <When condition={isLargeScreen}>
         <CharacterPreviews characters={lessons[selectedLessonIndex].characters} />

@@ -19,8 +19,6 @@ export function SegmentResolver({ segments }: { segments: SegmentType[] }) {
     [CONSTITUENT]: { fontStyle: typography.storySegments.constituent },
   }
 
-  // function flashback
-
   return (
     <Box component='p' marginY={2}>
       {segments.map((segment, index) => {

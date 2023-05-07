@@ -1,7 +1,7 @@
 import { Box, useTheme } from '@mui/material'
 import { Dispatch, SetStateAction } from 'react'
 import { TitleSubtitle } from '../../shared/components/TitleSubtitle'
-import { LESSON_NUMBER_SUFFIX_APPBAR } from '../../shared/strings'
+import { LEARN_LESSON_CHARACTERS_TOOLTIP, LEARN_LESSON_PREFACE_TOOLTIP, LESSON_NUMBER_SUFFIX_APPBAR } from '../../shared/strings'
 import ToolbarButton from '../../shared/components/ToolbarButton'
 import { faNewspaper } from '@fortawesome/free-regular-svg-icons'
 import { Else, If, Then } from 'react-if'
@@ -32,10 +32,10 @@ export function CharPickerTitle({
 
       <If condition={content === 'characters'}>
         <Then>
-          <ToolbarButton icon={faNewspaper} onClick={() => setContent('preface')} tooltip='Előszó' />
+          <ToolbarButton icon={faNewspaper} onClick={() => setContent('preface')} tooltip={LEARN_LESSON_PREFACE_TOOLTIP} />
         </Then>
         <Else>
-          <ToolbarButton icon={faLanguage} onClick={() => setContent('characters')} tooltip='Karakterek' />
+          <ToolbarButton icon={faLanguage} onClick={() => setContent('characters')} tooltip={LEARN_LESSON_CHARACTERS_TOOLTIP} />
         </Else>
       </If>
     </Box>

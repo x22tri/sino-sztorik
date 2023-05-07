@@ -1,7 +1,8 @@
+import Swiper from 'swiper'
 import { create } from 'zustand'
 import { LESSONS } from '../MOCK_LESSONS'
-import { CHARS } from '../../learn/MOCK_CHARS'
 import { AssembledLesson, Character } from '../interfaces'
+import { findFlashbackChar } from './findFlashbackChar'
 
 const useBoundStore = create<Store>(set => {
   function update<SliceType extends keyof Store>(slice: SliceType, updated: Partial<Store[SliceType]>) {
@@ -38,6 +39,11 @@ const useBoundStore = create<Store>(set => {
       setUpcomingLessonIndex: (index: number) => update('lessonSelect', { upcomingLessonIndex: index }),
       upcomingLessonIndex: undefined,
     },
+
+    swiper: {
+      setSwiperInstance: (swiperInstance: Swiper | undefined) => update('swiper', { swiperInstance }),
+      swiperInstance: undefined,
+    },
   }
 })
 
@@ -50,6 +56,7 @@ type Store = {
   mobileDrawer: MobileDrawerSlice
   learn: LearnSlice
   lessonSelect: LessonSelectSlice
+  swiper: SwiperState
 }
 
 interface LessonSelectSlice {
@@ -76,14 +83,7 @@ interface MobileDrawerSlice {
   toggleDrawer: () => void
 }
 
-function findFlashbackChar(char: string): Character | null {
-  const charInLesson = CHARS.find(({ charChinese }) => charChinese === char)
-
-  if (charInLesson) {
-    return charInLesson
-  }
-
-  // To-Do: if the char is not in the lesson, fetch it from the server.
-
-  return null
+interface SwiperState {
+  setSwiperInstance: (swiperInstance: Swiper | undefined) => void
+  swiperInstance: Swiper | undefined
 }

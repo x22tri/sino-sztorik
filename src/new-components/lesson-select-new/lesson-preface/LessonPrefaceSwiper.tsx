@@ -1,16 +1,15 @@
 import LessonPreface from './LessonPreface'
-import { LessonSwiper } from '../../shared/components/LessonSwiper'
+import { SwiperWrapper } from '../../shared/components/SwiperWrapper'
 import { SwiperSlide } from 'swiper/react'
-import { useSwiperInstance } from '../../shared/state'
 import { isDisabledLesson } from '../../shared/utility-functions'
 import { useStore } from '../../shared/logic/useStore'
 
 export function LessonPrefaceSwiper() {
   const { lessons, selectLessonIndex, selectedLessonIndex } = useStore('lessonSelect')
-  const { swiperInstance } = useSwiperInstance()
+  const { swiperInstance } = useStore('swiper')
 
   return (
-    <LessonSwiper
+    <SwiperWrapper
       customKeyboardControls={[
         { on: 'ArrowLeft', do: () => swiperInstance?.slidePrev() },
         {
@@ -33,6 +32,6 @@ export function LessonPrefaceSwiper() {
           <LessonPreface prevLesson={lessons[index - 1]} nextLesson={lessons[index + 1]} {...{ lesson }} />
         </SwiperSlide>
       ))}
-    </LessonSwiper>
+    </SwiperWrapper>
   )
 }

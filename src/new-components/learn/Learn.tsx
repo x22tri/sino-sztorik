@@ -3,7 +3,7 @@ import { SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import LearnContent from './LearnContent'
 import { LearnAppbar } from './learn-appbar/LearnAppbar'
-import { LessonSwiper } from '../shared/components/LessonSwiper'
+import { SwiperWrapper } from '../shared/components/SwiperWrapper'
 import { Box, useTheme } from '@mui/material'
 import { useState } from 'react'
 import { SideNav } from '../shared/components/SideNav'
@@ -47,7 +47,7 @@ export default function Learn() {
 
       <LearnAppbar lessonLength={CHARS.length} {...{ toolbarHeight, setToolbarHeight }} />
 
-      <LessonSwiper
+      <SwiperWrapper
         onActiveIndexChange={({ activeIndex }) => selectCharIndex(activeIndex)}
         style={{ backgroundColor: palette.background.paper, gridArea: 'content', height: '100%', width: '100%' }}
       >
@@ -61,7 +61,7 @@ export default function Learn() {
             />
           </SwiperSlide>
         ))}
-      </LessonSwiper>
+      </SwiperWrapper>
     </Box>
   )
 }
