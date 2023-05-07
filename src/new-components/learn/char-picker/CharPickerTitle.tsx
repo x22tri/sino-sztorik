@@ -7,6 +7,8 @@ import { faNewspaper } from '@fortawesome/free-regular-svg-icons'
 import { Else, If, Then } from 'react-if'
 import { faLanguage } from '@fortawesome/free-solid-svg-icons'
 import { useStore } from '../../shared/logic/useStore'
+import { useLoaderData } from 'react-router-dom'
+import { AssembledLesson } from '../../shared/interfaces'
 
 export function CharPickerTitle({
   content,
@@ -15,8 +17,8 @@ export function CharPickerTitle({
   content: 'characters' | 'preface'
   setContent: Dispatch<SetStateAction<'characters' | 'preface'>>
 }) {
+  const lesson = useLoaderData() as AssembledLesson
   const { palette, spacing } = useTheme()
-  const { currentLesson } = useStore('learn')
 
   return (
     <Box
@@ -27,7 +29,7 @@ export function CharPickerTitle({
       paddingX={`${spacing(2)}`}
       borderBottom={`1px solid ${palette.grey[200]}`}
     >
-      <TitleSubtitle title={currentLesson?.lessonNumber + LESSON_NUMBER_SUFFIX_APPBAR} subtitle={currentLesson?.title ?? ''} />
+      <TitleSubtitle title={lesson.lessonNumber + LESSON_NUMBER_SUFFIX_APPBAR} subtitle={lesson.title ?? ''} />
 
       <If condition={content === 'characters'}>
         <Then>

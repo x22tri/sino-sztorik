@@ -15,6 +15,7 @@ import { useOnChange } from '../../shared/hooks/useOnChange'
 import { LoadingButton } from '@mui/lab'
 import { useNavigate } from 'react-router-dom'
 import { useStore } from '../../shared/logic/useStore'
+import { LEARN_PATH, REVIEW_PATH } from '../../shared/paths'
 
 const { UPCOMING, COMPLETED } = LessonStatuses
 
@@ -23,8 +24,9 @@ const options = [
   { button: REVIEW_BUTTON, explanation: REVIEW_BUTTON_EXPLANATION },
 ]
 
-export function LearnReviewButton({ startLesson, tierStatuses }: { startLesson: () => void; tierStatuses: TierStatuses }) {
+export function LearnReviewButton({ lessonNumber, tierStatuses }: { lessonNumber: number; tierStatuses: TierStatuses }) {
   const anchorRef = useRef<HTMLButtonElement>(null)
+  const navigate = useNavigate()
   const [open, setOpen] = useState(false)
   const [selectedModeIndex, setSelectedModeIndex] = useState(0)
   const { selectedLessonIndex } = useStore('lessonSelect')
@@ -37,19 +39,29 @@ export function LearnReviewButton({ startLesson, tierStatuses }: { startLesson: 
 
   const selectedButton = availableOptions[selectedModeIndex]?.button
 
-  const clickMenuItem = (index: number) => {
+  function clickMenuItem(index: number) {
     setSelectedModeIndex(index)
     setOpen(false)
   }
 
-  const clickModeSwitcher = () => setOpen(prevOpen => !prevOpen)
+  function clickModeSwitcher() {
+    setOpen(prevOpen => !prevOpen)
+  }
 
-  const closeMenu = ({ target }: Event) => {
+  function closeMenu({ target }: Event) {
     if (anchorRef.current?.contains(target as HTMLElement)) {
       return
     }
 
     setOpen(false)
+  }
+
+  function startLesson(selectedButton: string) {
+    if (selectedButton === LEARN_BUTTON) {
+      navigate(LEARN_PATH)
+    } else {
+      navigate(`${REVIEW_PATH}/${lessonNumber}`)
+    }
   }
 
   useOnChange(selectedLessonIndex, () => setSelectedModeIndex(0))
@@ -62,7 +74,7 @@ export function LearnReviewButton({ startLesson, tierStatuses }: { startLesson: 
         variant='contained'
         sx={{ borderRadius: 6, justifySelf: 'center', width: 1 }}
       >
-        <Button onClick={startLesson} sx={{ borderRadius: 6, width: 1 }}>
+        <Button onClick={() => startLesson(selectedButton)} sx={{ borderRadius: 6, width: 1 }}>
           {selectedButton ?? LOADING_PLACEHOLDER} {/* Placeholder needed so button doesn't disappear. */}
         </Button>
 

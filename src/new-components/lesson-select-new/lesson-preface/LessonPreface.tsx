@@ -25,11 +25,11 @@ export default function LessonPreface({
         {preface}
       </Typography>
 
-      <PrevNextButtons prev={getLessonTitleIfActive(prevLesson)} next={getLessonTitleIfActive(nextLesson)} />
+      <PrevNextButtons prev={getTitleIfActive(prevLesson)} next={getTitleIfActive(nextLesson)} />
     </Stack>
   )
 }
 
-function getLessonTitleIfActive(lesson: AssembledLesson | undefined) {
+function getTitleIfActive(lesson: AssembledLesson | undefined) {
   return lesson && !isDisabledLesson(lesson.tierStatuses) ? lesson.title : null
 }

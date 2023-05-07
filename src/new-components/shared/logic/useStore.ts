@@ -9,22 +9,43 @@ const useBoundStore = create<Store>(set => {
   }
 
   return {
+    // flashback: {
+    //   exitFlashback: () => update('flashback', { flashbackChar: null, interruptedChar: null }),
+    //   flashbackChar: null,
+    //   interruptedChar: null,
+    //   startFlashback: (destination: string, interrupted?: Character) => {
+    //     const foundFlashback = findFlashbackChar(destination)
+
+    //     if (!foundFlashback) {
+    //       return
+    //     }
+
+    //     set(({ flashback }) => ({
+    //       flashback: {
+    //         ...flashback,
+    //         flashbackChar: foundFlashback,
+    //         interruptedChar: flashback.interruptedChar ?? interrupted!,
+    //       },
+    //     }))
+    //   },
+    // },
+
     flashback: {
       exitFlashback: () => update('flashback', { flashbackChar: null, interruptedChar: null }),
       flashbackChar: null,
       interruptedChar: null,
-      startFlashback: (destination: string, interrupted?: Character) => {
+      startFlashback: (destination: string) => {
         const foundFlashback = findFlashbackChar(destination)
 
         if (!foundFlashback) {
           return
         }
 
-        set(({ flashback }) => ({
+        set(({ learn, flashback }) => ({
           flashback: {
             ...flashback,
             flashbackChar: foundFlashback,
-            interruptedChar: flashback.interruptedChar ?? interrupted!,
+            interruptedChar: flashback.interruptedChar ?? learn.currentLesson!.characters[learn.selectedCharIndex],
           },
         }))
       },
@@ -36,7 +57,7 @@ const useBoundStore = create<Store>(set => {
     },
 
     learn: {
-      currentLesson: LESSONS[0],
+      currentLesson: undefined,
       selectedCharIndex: 0,
       selectCharIndex: (index: number) => update('learn', { selectedCharIndex: index }),
       setCurrentLesson: (lesson: AssembledLesson | undefined) => update('learn', { currentLesson: lesson }),

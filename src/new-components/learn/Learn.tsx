@@ -10,16 +10,19 @@ import { SideNav } from '../shared/components/SideNav'
 import { CharPickerContent } from './char-picker/CharPickerContent'
 import { CharPickerTitle } from './char-picker/CharPickerTitle'
 import { useStore } from '../shared/logic/useStore'
+import { useLoaderData } from 'react-router-dom'
+import { AssembledLesson } from '../shared/interfaces'
 
 const lessonSelectMaxWidth = '1600px'
 
 export default function Learn() {
+  const lesson = useLoaderData() as AssembledLesson
   const [toolbarHeight, setToolbarHeight] = useState(0)
   const [content, setContent] = useState<'characters' | 'preface'>('characters')
-  const { currentLesson, selectCharIndex, selectedCharIndex } = useStore('learn')
+  const { selectCharIndex, selectedCharIndex } = useStore('learn')
   const { constants, palette } = useTheme()
 
-  return !currentLesson?.characters.length ? null : (
+  return !lesson.characters.length ? null : (
     <Box
       display='grid'
       height='100vh'
@@ -48,12 +51,12 @@ export default function Learn() {
         onActiveIndexChange={({ activeIndex }) => selectCharIndex(activeIndex)}
         style={{ backgroundColor: palette.background.paper, gridArea: 'content', height: '100%', width: '100%' }}
       >
-        {currentLesson?.characters.map((char, index) => (
+        {lesson.characters.map((char, index) => (
           <SwiperSlide key={index}>
             <LearnContent
               lessonChar={char}
-              prevChar={currentLesson.characters[index - 1]?.charChinese ?? null}
-              nextChar={currentLesson.characters[index + 1]?.charChinese ?? null}
+              prevChar={lesson.characters[index - 1]?.charChinese ?? null}
+              nextChar={lesson.characters[index + 1]?.charChinese ?? null}
               {...{ index }}
             />
           </SwiperSlide>

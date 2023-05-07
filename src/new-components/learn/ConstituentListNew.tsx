@@ -1,13 +1,16 @@
 import { List, ListItem, ListItemButton, ListItemIcon, Typography } from '@mui/material'
-import { Character } from '../shared/interfaces'
+import { Constituent } from '../shared/interfaces'
 import { KeywordPrimitiveRow } from '../shared/components/KeywordPrimitiveRow'
+import { useStore } from '../shared/logic/useStore'
 
-export function ConstituentListNew({ constituents }: { constituents: Partial<Character>[] }) {
+export function ConstituentListNew({ constituents }: { constituents: Constituent[] }) {
+  const { startFlashback } = useStore('flashback')
+
   return (
     <List disablePadding>
       {constituents.map(({ charChinese, keyword, primitiveMeaning }, index) => (
         <ListItem disablePadding key={index}>
-          <ListItemButton sx={{ borderRadius: 6, ':hover': { bgcolor: '#DDE8FF' } }}>
+          <ListItemButton onClick={() => startFlashback(charChinese)} sx={{ borderRadius: 6, ':hover': { bgcolor: '#DDE8FF' } }}>
             <ListItemIcon>
               <Typography variant='chineseNormal' color='#3366CC'>
                 {charChinese}

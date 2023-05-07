@@ -3,11 +3,14 @@ import { Else, If, Then } from 'react-if'
 import { useSwiperInstance } from '../../shared/state'
 import { KeywordPrimitiveRow } from '../../shared/components/KeywordPrimitiveRow'
 import { useStore } from '../../shared/logic/useStore'
+import { useLoaderData } from 'react-router-dom'
+import { AssembledLesson } from '../../shared/interfaces'
 
 export function CharPickerContent({ content }: { content: 'characters' | 'preface' }) {
+  const lesson = useLoaderData() as AssembledLesson
   const { swiperInstance } = useSwiperInstance()
   const { constants, spacing } = useTheme()
-  const { currentLesson, selectCharIndex, selectedCharIndex } = useStore('learn')
+  const { selectCharIndex, selectedCharIndex } = useStore('learn')
   const { toggleDrawer } = useStore('mobileDrawer')
 
   function selectChar(index: number) {
@@ -19,7 +22,7 @@ export function CharPickerContent({ content }: { content: 'characters' | 'prefac
   return (
     <If condition={content === 'characters'}>
       <Then>
-        {currentLesson?.characters.map(({ charChinese, keyword, primitiveMeaning }, index) => (
+        {lesson.characters.map(({ charChinese, keyword, primitiveMeaning }, index) => (
           <ListItem key={index} disablePadding>
             <ListItemButton
               onClick={() => selectChar(index)}
@@ -55,7 +58,7 @@ export function CharPickerContent({ content }: { content: 'characters' | 'prefac
 
       <Else>
         <Box padding={2} sx={{ color: 'text.secondary' }}>
-          {currentLesson?.preface}
+          {lesson.preface}
         </Box>
       </Else>
     </If>
