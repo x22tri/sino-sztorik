@@ -13,8 +13,6 @@ import { useStore } from '../shared/logic/useStore'
 import { useLoaderData } from 'react-router-dom'
 import { AssembledLesson } from '../shared/interfaces'
 
-const lessonSelectMaxWidth = '1600px'
-
 export default function Learn() {
   const lesson = useLoaderData() as AssembledLesson
   const [toolbarHeight, setToolbarHeight] = useState(0)
@@ -27,7 +25,7 @@ export default function Learn() {
       display='grid'
       height='100vh'
       margin='auto'
-      maxWidth={lessonSelectMaxWidth}
+      maxWidth={constants.maxContentWidth}
       position='relative'
       gridTemplateRows={`${toolbarHeight}px auto`}
       sx={{

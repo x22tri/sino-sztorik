@@ -20,7 +20,7 @@ export function PrevNextButtons({
   const { swiperInstance } = useStore('swiper')
 
   return (
-    <Box display='flex' width='100%' justifyContent='center' marginTop={5}>
+    <Box display='flex' width='100%' justifyContent='center' marginTop={8}>
       <If condition={!flashbackChar}>
         <Then>
           <When condition={!!prev}>

@@ -124,7 +124,7 @@ let theme = responsiveFontSizes(
       animationDuration: '150ms',
       boxShadow: 'rgba(0, 0, 0, 0.25) 0px 2px 15px -3px',
       drawerWidth: 300,
-      maxContentWidth: '48rem',
+      maxContentWidth: '1600px',
     },
     typography: {
       fontFamily: genericFont,

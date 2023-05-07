@@ -14,8 +14,6 @@ import { SideNav } from '../shared/components/SideNav'
 import { LessonPickerTitle } from './lesson-picker/LessonPickerTitle'
 import { useStore } from '../shared/logic/useStore'
 
-const lessonSelectMaxWidth = '1600px'
-
 export default function LessonSelect() {
   const isLargeScreen = useLargeScreen()
   const [toolbarHeight, setToolbarHeight] = useState(0)
@@ -33,7 +31,7 @@ export default function LessonSelect() {
       display='grid'
       height='100vh'
       margin='auto'
-      maxWidth={lessonSelectMaxWidth}
+      maxWidth={constants.maxContentWidth}
       position='relative'
       gridTemplateRows={`${toolbarHeight}px auto ${constants.lessonStartHeight}`}
       sx={{
