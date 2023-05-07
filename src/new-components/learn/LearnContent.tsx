@@ -44,7 +44,7 @@ export default function LearnContent({
 
     scrollToTop()
 
-    flashbackChar === null ? swiper.enable() : swiper.disable()
+    !flashbackChar ? swiper.enable() : swiper.disable()
   }, [flashbackChar, swiper])
 
   const currentChar = flashbackChar ?? lessonChar
