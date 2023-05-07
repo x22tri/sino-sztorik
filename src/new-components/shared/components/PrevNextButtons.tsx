@@ -1,16 +1,16 @@
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Box from '@mui/material/Box'
-import { LightenOnHoverButton } from '../../shared/components/LightenOnHoverButton'
+import { LightenOnHoverButton } from './LightenOnHoverButton'
 import { useSwiper } from 'swiper/react'
 import {
   CHAR_NAVIGATION_PREVIOUS_CHARACTER,
   CHAR_NAVIGATION_NEXT_CHARACTER,
   CHAR_NAVIGATION_EXIT_FLASHBACK_PROMPT,
-} from '../../shared/strings'
+} from '../strings'
 import { Button, Typography } from '@mui/material'
 import { Else, If, Then, When } from 'react-if'
-import { useStore } from '../../shared/logic/useStore'
+import { useStore } from '../logic/useStore'
 
 export function PrevNextButtons({
   customEndElement,
@@ -57,6 +57,7 @@ export function PrevNextButtons({
             </Else>
           </If>
         </Then>
+
         <Else>
           <ExitFlashbackWarning />
         </Else>

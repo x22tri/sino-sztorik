@@ -1,7 +1,7 @@
 import Typography from '@mui/material/Typography'
 import { AssembledLesson } from '../../shared/interfaces'
 import { Stack } from '@mui/material'
-import { PrevNextButtons } from '../../learn/char-navigation/PrevNextButtons'
+import { PrevNextButtons } from '../../shared/components/PrevNextButtons'
 import { isDisabledLesson } from '../../shared/utility-functions'
 
 export default function LessonPreface({
