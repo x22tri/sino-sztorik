@@ -6,16 +6,20 @@ import { Fragment } from 'react'
 import { Segment } from './Segment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCube } from '@fortawesome/free-solid-svg-icons'
+import { useStore } from '../../shared/logic/useStore'
 
 export function SegmentResolver({ segments }: { segments: SegmentType[] }) {
   const { KEYWORD, PRIMITIVE, CONSTITUENT } = StoryParagraphKeys
   const { spacing, typography } = useTheme()
+  const { startFlashback } = useStore('flashback')
 
   const styles: Record<SegmentKey, SegmentStyles> = {
     [KEYWORD]: { fontStyle: { fontWeight: 'bold' } },
     [PRIMITIVE]: { fontStyle: { fontStyle: 'italic' } },
     [CONSTITUENT]: { fontStyle: typography.storySegments.constituent },
   }
+
+  // function flashback
 
   return (
     <Box component='p' marginY={2}>
@@ -49,7 +53,13 @@ export function SegmentResolver({ segments }: { segments: SegmentType[] }) {
         }
 
         if (CONSTITUENT in segment) {
-          return <Segment key={index} styles={styles[CONSTITUENT]} text={<Link>{segment[CONSTITUENT]}</Link>} />
+          return (
+            <Segment
+              key={index}
+              styles={styles[CONSTITUENT]}
+              text={<Link onClick={() => startFlashback(segment.references)}>{segment[CONSTITUENT]}</Link>}
+            />
+          )
         }
 
         return null
