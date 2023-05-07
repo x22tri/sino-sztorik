@@ -14,10 +14,10 @@ const useBoundStore = create<Store>(set => {
       exitFlashback: () => update('flashback', { flashbackChar: undefined }),
       flashbackChar: undefined,
       startFlashback: (destination: string) => {
-        const foundFlashback = findFlashbackChar(destination)
+        const foundFlashbackChar = findFlashbackChar(destination)
 
-        if (foundFlashback) {
-          update('flashback', { flashbackChar: foundFlashback })
+        if (foundFlashbackChar) {
+          update('flashback', { flashbackChar: foundFlashbackChar })
         }
       },
     },

@@ -31,10 +31,8 @@ export default function LearnContent({
   lessonChar: Character
   prevChar: string | null
 }) {
-  const { spacing } = useTheme()
-
   const swiper = useSwiper()
-
+  const { spacing } = useTheme()
   const { flashbackChar } = useStore('flashback')
 
   useEffect(() => {
