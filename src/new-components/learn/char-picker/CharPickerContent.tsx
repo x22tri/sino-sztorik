@@ -54,7 +54,9 @@ export function CharPickerContent({ content }: { content: 'characters' | 'prefac
       </Then>
 
       <Else>
-        <Box padding={2}>{currentLesson?.preface}</Box>
+        <Box padding={2} sx={{ color: 'text.secondary' }}>
+          {currentLesson?.preface}
+        </Box>
       </Else>
     </If>
   )

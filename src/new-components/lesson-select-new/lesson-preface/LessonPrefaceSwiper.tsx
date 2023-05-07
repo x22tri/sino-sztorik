@@ -30,7 +30,7 @@ export function LessonPrefaceSwiper() {
     >
       {lessons.map((lesson, index) => (
         <SwiperSlide key={index}>
-          <LessonPreface {...{ lesson }} />
+          <LessonPreface prevLesson={lessons[index - 1]} nextLesson={lessons[index + 1]} {...{ lesson }} />
         </SwiperSlide>
       ))}
     </LessonSwiper>

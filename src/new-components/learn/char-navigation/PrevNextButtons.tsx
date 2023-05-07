@@ -12,7 +12,15 @@ import { Button, Typography } from '@mui/material'
 import { Else, If, Then, When } from 'react-if'
 import { useStore } from '../../shared/logic/useStore'
 
-export function PrevNextButtons({ prevChar, nextChar }: { prevChar: string | null; nextChar: string | null }) {
+export function PrevNextButtons({
+  customEndElement,
+  prev,
+  next,
+}: {
+  customEndElement?: JSX.Element
+  prev: string | null
+  next: string | null
+}) {
   const swiper = useSwiper()
   const { flashbackChar } = useStore('flashback')
 
@@ -20,7 +28,7 @@ export function PrevNextButtons({ prevChar, nextChar }: { prevChar: string | nul
     <Box display='flex' width='100%' justifyContent='center' marginTop={5}>
       <If condition={!flashbackChar}>
         <Then>
-          <When condition={!!prevChar}>
+          <When condition={!!prev}>
             <LightenOnHoverButton
               color='neutral'
               onClick={() => swiper.slidePrev()}
@@ -32,7 +40,7 @@ export function PrevNextButtons({ prevChar, nextChar }: { prevChar: string | nul
             </LightenOnHoverButton>
           </When>
 
-          <If condition={!!nextChar}>
+          <If condition={!!next}>
             <Then>
               <LightenOnHoverButton
                 endIcon={<FontAwesomeIcon icon={faChevronRight} transform='shrink-4' />}
@@ -43,10 +51,9 @@ export function PrevNextButtons({ prevChar, nextChar }: { prevChar: string | nul
                 {CHAR_NAVIGATION_NEXT_CHARACTER}
               </LightenOnHoverButton>
             </Then>
+
             <Else>
-              <Button variant='contained' href='/'>
-                Lecke befejezése
-              </Button>
+              <When condition={!!customEndElement}>{customEndElement}</When>
             </Else>
           </If>
         </Then>

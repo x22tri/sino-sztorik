@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useSwiper } from 'swiper/react'
 import Box from '@mui/material/Box'
-import { useTheme } from '@mui/material'
+import { Button, useTheme } from '@mui/material'
 import Story from './story/Story'
 import { Presentation } from './presentation/Presentation'
 import { Subheading } from './subheading/Subheading'
@@ -16,6 +16,7 @@ import {
   LEARN_HEADING_STORY,
   LEARN_HEADING_SUPPLEMENTS,
   LEARN_SUBHEADING_PHRASES,
+  LEARN_FINISH_LESSON_BUTTON,
 } from '../shared/strings'
 import { When } from 'react-if'
 import { ConstituentListNew } from './ConstituentListNew'
@@ -100,7 +101,15 @@ export default function LearnContent({
           </When>
         </When>
 
-        <PrevNextButtons {...{ prevChar, nextChar }} />
+        <PrevNextButtons
+          customEndElement={
+            <Button variant='contained' href='/'>
+              {LEARN_FINISH_LESSON_BUTTON}
+            </Button>
+          }
+          prev={prevChar}
+          next={nextChar}
+        />
       </Box>
     </Box>
   )
