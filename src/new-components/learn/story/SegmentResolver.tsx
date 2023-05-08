@@ -10,7 +10,7 @@ import { useStore } from '../../shared/logic/useStore'
 
 export function SegmentResolver({ segments }: { segments: SegmentType[] }) {
   const { KEYWORD, PRIMITIVE, CONSTITUENT } = StoryParagraphKeys
-  const { spacing, typography } = useTheme()
+  const { palette, spacing, typography } = useTheme()
   const { startFlashback } = useStore('flashback')
 
   const styles: Record<SegmentKey, SegmentStyles> = {
@@ -39,7 +39,7 @@ export function SegmentResolver({ segments }: { segments: SegmentType[] }) {
                 <>
                   <FontAwesomeIcon
                     icon={faCube}
-                    color='#3366CC'
+                    color={palette.secondary.main}
                     size='xs'
                     style={{ marginLeft: spacing(0.25), marginRight: spacing(0.5) }}
                   />

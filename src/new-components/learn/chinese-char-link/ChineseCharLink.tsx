@@ -28,12 +28,13 @@ export function ChineseCharLink({
       <ruby>
         <Link
           display='inline-block'
-          fontWeight={isLessonChar ? 500 : 400}
           onClick={() => console.log(`navigate to ${charChinese}`)}
           onMouseEnter={() => setOpen(true)}
           onMouseLeave={() => setOpen(false)}
           ref={anchorEl}
           typography='chineseNormal'
+          fontWeight={isLessonChar ? 500 : 400}
+          underline='none'
         >
           {charChinese}
         </Link>
@@ -74,7 +75,7 @@ export function ChineseCharLink({
 }
 
 function CharLinkPopoverContent({ keyword, primitiveMeaning }: { keyword?: string; primitiveMeaning?: string }) {
-  const { spacing } = useTheme()
+  const { palette, spacing } = useTheme()
 
   return (
     <>
@@ -88,7 +89,7 @@ function CharLinkPopoverContent({ keyword, primitiveMeaning }: { keyword?: strin
         <Box fontStyle='italic' gridArea='primitive' marginBottom={0.5}>
           <FontAwesomeIcon
             icon={faCube}
-            color='#3366CC'
+            color={palette.secondary.main}
             size='xs'
             style={{ marginBottom: '2px', marginRight: spacing(0.5), verticalAlign: 'middle' }}
           />

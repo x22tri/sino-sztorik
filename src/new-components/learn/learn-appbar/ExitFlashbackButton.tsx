@@ -8,11 +8,12 @@ export function ExitFlashbackButton({ charChinese }: { charChinese: string }) {
 
   return (
     <Button
+      disableElevation
       size='small'
       variant='contained'
       onClick={exitFlashback}
       startIcon={<FontAwesomeIcon icon={faChevronLeft} transform='shrink-4' />}
-      sx={{ py: 0, px: 1, ml: 1, minWidth: 0, '.MuiButton-startIcon': { marginRight: '2px' } }}
+      sx={{ borderRadius: 6, px: 2, py: 0.5, ml: 1, minWidth: 0, '.MuiButton-startIcon': { marginRight: '2px' } }}
     >
       <Typography variant='chineseNormal'>{charChinese}</Typography>
     </Button>

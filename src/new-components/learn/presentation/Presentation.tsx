@@ -18,7 +18,7 @@ export function Presentation({
   pinyin?: string
   primitiveMeaning?: string
 }) {
-  const { spacing } = useTheme()
+  const { palette, spacing } = useTheme()
 
   return (
     <Box display='flex' flexDirection='column' alignItems='center' marginBottom={4}>
@@ -44,7 +44,7 @@ export function Presentation({
         <Box fontSize={20} fontStyle='italic'>
           <FontAwesomeIcon
             icon={faCube}
-            color='#3366CC'
+            color={palette.secondary.main}
             size='xs'
             style={{ marginBottom: '2px', marginRight: spacing(0.5), verticalAlign: 'middle' }}
           />

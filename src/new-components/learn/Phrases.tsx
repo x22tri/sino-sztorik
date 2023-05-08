@@ -20,10 +20,7 @@ export function Phrases({ lessonChar, phrases }: { lessonChar: string; phrases: 
         <Fragment key={index}>
           <Box display='flex' gap={0.25}>
             {characters.map(({ charChinese, keyword, pinyin, primitiveMeaning }, charIndex) => (
-              <ChineseCharLink
-                key={charIndex}
-                {...{ charChinese, lessonChar, keyword, pinyin, primitiveMeaning }}
-              ></ChineseCharLink>
+              <ChineseCharLink key={charIndex} {...{ charChinese, lessonChar, keyword, pinyin, primitiveMeaning }} />
             ))}
           </Box>
           {phraseHungarian}

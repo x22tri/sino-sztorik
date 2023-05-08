@@ -121,10 +121,6 @@ let theme = responsiveFontSizes(
       MuiButtonBase: { defaultProps: { disableRipple: true } },
       MuiContainer: { styleOverrides: { root: { paddingLeft: 0, paddingRight: 0 } } },
       MuiIconButton: { styleOverrides: { root: { '&:hover': { backgroundColor: 'transparent', opacity: 0.8 } } } },
-      MuiLink: {
-        defaultProps: { underline: 'none' },
-        styleOverrides: { root: { color: '#3366CC', '&:hover': { cursor: 'pointer', backgroundColor: '#DDE8FF' } } },
-      },
     },
     constants: {
       animationDuration: '150ms',
@@ -141,7 +137,7 @@ let theme = responsiveFontSizes(
       body1: { lineHeight: 1.5 },
       body2: { fontSize: 16 },
       chineseHeading: { fontFamily: chineseFont, fontSize: 120, fontWeight: 400, lineHeight: 1 },
-      chineseNormal: { fontFamily: chineseFont, fontSize: 24, lineHeight: 1.2 },
+      chineseNormal: { fontFamily: chineseFont, fontSize: 24, fontWeight: 400, lineHeight: 1.2 },
       overline: { fontWeight: 'bold' },
       presentation: {
         keyword: { fontFamily: emphasisFont, fontWeight: 800, fontSize: 32, lineHeight: 1.1 },
@@ -162,7 +158,7 @@ let theme = responsiveFontSizes(
     },
     palette: {
       primary: { main: grey[400] },
-      secondary: { main: '#3366CC', light: '#FFEFF3' },
+      secondary: { main: '#3366CC', light: '#DDE8FF' },
       neutral: { main: grey[600], contrastText: grey[50], light: grey[200] },
       background: { default: '#FDFDFD' },
       specialParagraphs: {
@@ -183,7 +179,7 @@ theme = createTheme(theme, {
       },
       variants: [
         {
-          props: { color: 'neutral' },
+          props: { color: 'primary' },
           style: {
             '.MuiButtonBase-root': {
               backgroundColor: grey[200],
@@ -193,7 +189,29 @@ theme = createTheme(theme, {
         },
       ],
     },
-    MuiLink: { styleOverrides: { root: { transition: theme.constants.animationDuration } } },
+    MuiButton: {
+      variants: [
+        {
+          props: { color: 'primary' },
+          style: {
+            // '.MuiButtonBase-root': {
+            backgroundColor: grey[200],
+            color: theme.palette.text.primary,
+          },
+          // },
+        },
+      ],
+    },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          color: theme.palette.secondary.main,
+          transition: theme.constants.animationDuration,
+          textDecorationColor: theme.palette.secondary.main,
+          '&:hover': { cursor: 'pointer', backgroundColor: theme.palette.secondary.light },
+        },
+      },
+    },
     MuiPopover: {
       styleOverrides: {
         paper: {

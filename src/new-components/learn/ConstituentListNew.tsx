@@ -12,7 +12,7 @@ export function ConstituentListNew({ constituents }: { constituents: Constituent
         <ListItem disablePadding key={index}>
           <ListItemButton onClick={() => startFlashback(charChinese)} sx={{ borderRadius: 6, ':hover': { bgcolor: '#DDE8FF' } }}>
             <ListItemIcon>
-              <Typography variant='chineseNormal' color='#3366CC'>
+              <Typography variant='chineseNormal' color='secondary.main'>
                 {charChinese}
               </Typography>
             </ListItemIcon>

@@ -12,7 +12,8 @@ export function KeywordPrimitiveRow({
   primitiveMeaning?: string
   small?: boolean
 }) {
-  const { spacing } = useTheme()
+  const { palette, spacing } = useTheme()
+
   return (
     <ListItemText
       sx={{
@@ -32,7 +33,7 @@ export function KeywordPrimitiveRow({
       <When condition={primitiveMeaning}>
         <Typography component='span' fontStyle='italic' fontSize='inherit'>
           <FontAwesomeIcon
-            color='#3366CC'
+            color={palette.secondary.main}
             icon={faCube}
             size='xs'
             style={{ marginBottom: '2px', marginRight: spacing(0.5), verticalAlign: 'middle' }}
