@@ -34,8 +34,10 @@ export type SideNavigationItem = (typeof SideNavigationItems)[keyof typeof SideN
 export type TierStatuses = [LessonStatus, LessonStatus, LessonStatus, LessonStatus]
 
 export type NoteStyles = {
-  color: string
+  backgroundColor: string
+  textColor: string
   title: string
+  icon: IconDefinition
 }
 
 export type SegmentStyles = {

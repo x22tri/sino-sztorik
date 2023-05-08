@@ -86,7 +86,7 @@ export function LearnAppbar({
             <If condition={!flashbackChar}>
               <Then>
                 <LinearProgress
-                  color='info'
+                  color='secondary'
                   value={lessonProgress}
                   variant='determinate'
                   sx={{ borderRadius: 6, mx: 'auto', p: 0.6, width: '100%' }}

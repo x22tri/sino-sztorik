@@ -1,37 +1,33 @@
 import Box from '@mui/material/Box'
 import { Segment as SegmentType } from '../../shared/interfaces'
 import { SegmentResolver } from './SegmentResolver'
+import { useTheme } from '@mui/material'
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export function NoteElement({
-  color,
+  backgroundColor,
+  icon,
   text,
+  textColor,
   title,
 }: {
-  color: string
+  backgroundColor: string
+  icon: IconDefinition
   text: string | SegmentType[]
+  textColor: string
   title: string
 }) {
-  return (
-    <Box
-      display='flex'
-      flexDirection='column'
-      sx={{
-        background: color,
-        borderRadius: '0 16px',
-        py: 2,
-        px: 1,
-        mx: -1,
-      }}
-    >
-      <Box typography='storySegments.specialParagraphHeading'>{title}</Box>
+  const { spacing } = useTheme()
 
-      <Box typography='body2'>
-        {typeof text === 'string' ? (
-          <>{text}</>
-        ) : (
-          <SegmentResolver segments={text} />
-        )}
+  return (
+    <Box display='flex' flexDirection='column' sx={{ backgroundColor, color: textColor, borderRadius: spacing(2), p: 2, mt: 5 }}>
+      <Box fontWeight='bold'>
+        <FontAwesomeIcon {...{ icon }} style={{ marginRight: spacing(1) }} />
+        {title}
       </Box>
+
+      <Box typography='body2'>{typeof text === 'string' ? <>{text}</> : <SegmentResolver segments={text} />}</Box>
     </Box>
   )
 }

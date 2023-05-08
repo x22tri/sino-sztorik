@@ -2,7 +2,7 @@ import { CSSProperties } from 'react'
 import { createTheme } from '@mui/material/styles'
 import { blue, grey, teal } from '@mui/material/colors'
 import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
-import { tooltipClasses } from '@mui/material'
+import { lighten, tooltipClasses } from '@mui/material'
 
 const chineseFont = "'Noto Sans SC', sans-serif" // To-Do: Create font with custom chars
 const genericFont = "'Rubik', sans-serif"
@@ -31,35 +31,32 @@ declare module '@mui/material/styles' {
 
   interface Palette {
     neutral: Palette['primary']
-    specialParagraphs: {
-      generic: string
-      tip: string
-      whenPrimitive: string
-    }
   }
 
   interface PaletteOptions {
     neutral: PaletteOptions['primary']
-    specialParagraphs: {
-      generic: string
-      tip: string
-      whenPrimitive: string
-    }
   }
 
   interface PaletteColor {
     lightHovered?: string
+    100?: string
+    200?: string
+    300?: string
+    400?: string
   }
 
   interface SimplePaletteColorOptions {
     lightHovered?: string
+    100?: string
+    200?: string
+    300?: string
+    400?: string
   }
 
   interface StorySegmentVariants {
     keyword: CSSProperties
     primitive: CSSProperties
     constituent: CSSProperties
-    specialParagraphHeading: CSSProperties
   }
 
   interface PresentationVariants {
@@ -148,7 +145,6 @@ let theme = responsiveFontSizes(
         keyword: { fontWeight: 900 },
         primitive: { fontWeight: 'bold', fontStyle: 'italic' },
         constituent: {},
-        specialParagraphHeading: { fontFamily: emphasisFont, fontSize: 16 },
       },
       subtitle2: { fontWeight: 400 },
       titleSubtitle: {
@@ -158,14 +154,10 @@ let theme = responsiveFontSizes(
     },
     palette: {
       primary: { main: grey[400] },
-      secondary: { main: '#3366CC', light: '#DDE8FF' },
+      secondary: { main: '#3366CC', 100: '#DDE8FF', 200: '#C4D6FD', 300: '#7AA4FF', 400: '#6598FF' },
       neutral: { main: grey[600], contrastText: grey[50], light: grey[200] },
+      warning: { light: '#FFF4EA', main: '#ffa726', dark: '#D25B00' },
       background: { default: '#FDFDFD' },
-      specialParagraphs: {
-        generic: grey[200],
-        tip: '#F8F2E9',
-        whenPrimitive: '', // Fallback. Overridden later to be in line with 'secondary.light'.
-      },
     },
   })
 )
@@ -192,30 +184,34 @@ theme = createTheme(theme, {
         },
       ],
     },
+    MuiLinearProgress: {
+      variants: [
+        {
+          props: { color: 'secondary' },
+          style: {
+            '.MuiLinearProgress-bar': { backgroundColor: theme.palette.secondary[300] },
+            backgroundColor: theme.palette.secondary[100],
+          },
+        },
+      ],
+    },
     MuiLink: {
       styleOverrides: {
         root: {
           color: theme.palette.secondary.main,
           transition: theme.constants.animationDuration,
           textDecorationColor: theme.palette.secondary.main,
+          textUnderlineOffset: '2px',
           '&:hover': { cursor: 'pointer', backgroundColor: theme.palette.secondary.light },
         },
       },
     },
-    MuiPopover: {
-      styleOverrides: {
-        paper: {
-          borderRadius: theme.spacing(1.5),
-          boxShadow: theme.constants.boxShadow,
-        },
-      },
-    },
+    MuiPopover: { styleOverrides: { paper: { borderRadius: theme.spacing(1.5), boxShadow: theme.constants.boxShadow } } },
     MuiTooltip: {
       styleOverrides: { tooltip: { [`.${tooltipClasses.popper}[data-popper-placement*="bottom"] &`]: { marginTop: 2 } } },
     },
   },
   constants: { lessonStartHeight: theme.spacing(8) },
-  palette: { specialParagraphs: { whenPrimitive: theme.palette.secondary.light } },
   typography: {
     logo: { ...theme.typography.h4, textDecoration: 'none' },
     presentation: {
