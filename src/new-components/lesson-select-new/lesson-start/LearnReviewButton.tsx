@@ -68,7 +68,7 @@ export function LearnReviewButton({ lessonNumber, tierStatuses }: { lessonNumber
   return (
     <>
       <ButtonGroup
-        color={selectedButton === LEARN_BUTTON ? 'secondary' : 'neutral'}
+        color={selectedButton === LEARN_BUTTON ? 'secondary' : 'primary'}
         disableElevation
         variant='contained'
         sx={{ borderRadius: 6, justifySelf: 'center', width: 1 }}

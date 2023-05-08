@@ -173,32 +173,22 @@ let theme = responsiveFontSizes(
 theme = createTheme(theme, {
   components: {
     MuiBadge: { styleOverrides: { badge: { fontFamily: emphasisFont } } },
-    MuiButtonGroup: {
-      styleOverrides: {
-        grouped: { borderRightColor: 'transparent' },
-      },
+    MuiButtonGroup: { styleOverrides: { grouped: { borderRightColor: 'transparent' } } },
+    MuiButton: {
+      styleOverrides: { root: { borderRadius: theme.spacing(6), boxShadow: 'none', ':hover': { boxShadow: 'none' } } },
       variants: [
         {
-          props: { color: 'primary' },
+          props: { color: 'primary', variant: 'contained' },
           style: {
-            '.MuiButtonBase-root': {
-              backgroundColor: grey[200],
-              color: theme.palette.text.primary,
-            },
+            backgroundColor: grey[200],
+            borderRadius: theme.spacing(6),
+            color: theme.palette.text.primary,
+            ':hover': { backgroundColor: grey[400] },
           },
         },
-      ],
-    },
-    MuiButton: {
-      variants: [
         {
-          props: { color: 'primary' },
-          style: {
-            // '.MuiButtonBase-root': {
-            backgroundColor: grey[200],
-            color: theme.palette.text.primary,
-          },
-          // },
+          props: { color: 'primary', variant: 'text' },
+          style: { color: theme.palette.text.primary, ':hover': { backgroundColor: grey[100] } },
         },
       ],
     },

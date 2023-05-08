@@ -43,7 +43,9 @@ export function CloseLearnButton() {
           <Typography marginTop={2}>{LEARN_EXIT_MODAL_BODY}</Typography>
 
           <Box display='flex' gap={2} sx={{ flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'flex-end', mt: 4 }}>
-            <Button onClick={() => setOpenModal(false)}>{LEARN_EXIT_MODAL_CANCEL_BUTTON}</Button>
+            <Button variant='text' onClick={() => setOpenModal(false)}>
+              {LEARN_EXIT_MODAL_CANCEL_BUTTON}
+            </Button>
 
             <Button href='/' variant='contained'>
               {LEARN_EXIT_MODAL_EXIT_BUTTON}
