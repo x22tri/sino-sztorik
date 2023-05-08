@@ -38,6 +38,7 @@ export function PrevNextButtons({
           <If condition={!!next}>
             <Then>
               <LightenOnHoverButton
+                color='neutral'
                 endIcon={<FontAwesomeIcon icon={faChevronRight} transform='shrink-4' />}
                 onClick={() => swiperInstance?.slideNext()}
                 size='small'

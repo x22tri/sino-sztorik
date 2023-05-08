@@ -1,6 +1,6 @@
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { ButtonGroup, Button, Popper, Grow, Paper, ClickAwayListener, MenuList, MenuItem, Typography } from '@mui/material'
+import { ButtonGroup, Button, MenuItem, Typography, Menu } from '@mui/material'
 import { useState, useRef } from 'react'
 import {
   LEARN_BUTTON,
@@ -68,7 +68,7 @@ export function LearnReviewButton({ lessonNumber, tierStatuses }: { lessonNumber
   return (
     <>
       <ButtonGroup
-        color={selectedButton === LEARN_BUTTON ? 'secondary' : 'primary'}
+        color={selectedButton === LEARN_BUTTON ? 'secondary' : 'neutral'}
         disableElevation
         variant='contained'
         sx={{ borderRadius: 6, justifySelf: 'center', width: 1 }}
@@ -84,34 +84,31 @@ export function LearnReviewButton({ lessonNumber, tierStatuses }: { lessonNumber
         </When>
       </ButtonGroup>
 
-      <Popper anchorEl={anchorRef.current} {...{ open }} placement='top-end' transition sx={{ zIndex: 1 }}>
-        {({ TransitionProps }) => (
-          <Grow {...TransitionProps}>
-            <Paper>
-              <ClickAwayListener onClickAway={closeMenu}>
-                <MenuList autoFocusItem>
-                  {availableOptions.map(({ button, explanation }, index) => (
-                    <MenuItem
-                      key={button}
-                      onClick={() => clickMenuItem(index)}
-                      selected={index === selectedModeIndex}
-                      sx={{ display: 'block' }}
-                    >
-                      <Typography noWrap lineHeight={1} variant='body2'>
-                        {button}
-                      </Typography>
+      <Menu
+        anchorEl={anchorRef.current}
+        anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+        keepMounted
+        onClose={closeMenu}
+        {...{ open }}
+        transformOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      >
+        {availableOptions.map(({ button, explanation }, index) => (
+          <MenuItem
+            key={button}
+            onClick={() => clickMenuItem(index)}
+            selected={index === selectedModeIndex}
+            sx={{ display: 'block' }}
+          >
+            <Typography noWrap lineHeight={1} variant='body2'>
+              {button}
+            </Typography>
 
-                      <Typography color='text.secondary' noWrap variant='caption'>
-                        {explanation}
-                      </Typography>
-                    </MenuItem>
-                  ))}
-                </MenuList>
-              </ClickAwayListener>
-            </Paper>
-          </Grow>
-        )}
-      </Popper>
+            <Typography color='text.secondary' noWrap variant='caption'>
+              {explanation}
+            </Typography>
+          </MenuItem>
+        ))}
+      </Menu>
     </>
   )
 }

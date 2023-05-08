@@ -100,6 +100,12 @@ declare module '@mui/material/Button' {
   }
 }
 
+declare module '@mui/material/ButtonGroup' {
+  interface ButtonGroupPropsColorOverrides {
+    neutral: true
+  }
+}
+
 // Updates the Typography's variant prop options.
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
@@ -155,8 +161,8 @@ let theme = responsiveFontSizes(
       },
     },
     palette: {
-      primary: { main: teal[600], light: teal[200], lightHovered: teal[300] },
-      secondary: { light: '#FFEFF3', main: '#D91147' },
+      primary: { main: grey[400] },
+      secondary: { main: '#3366CC', light: '#FFEFF3' },
       neutral: { main: grey[600], contrastText: grey[50], light: grey[200] },
       background: { default: '#FDFDFD' },
       specialParagraphs: {
@@ -171,16 +177,31 @@ let theme = responsiveFontSizes(
 theme = createTheme(theme, {
   components: {
     MuiBadge: { styleOverrides: { badge: { fontFamily: emphasisFont } } },
-    MuiButtonGroup: { styleOverrides: { grouped: { borderRightColor: 'transparent' } } },
+    MuiButtonGroup: {
+      styleOverrides: {
+        grouped: { borderRightColor: 'transparent' },
+      },
+      variants: [
+        {
+          props: { color: 'neutral' },
+          style: {
+            '.MuiButtonBase-root': {
+              backgroundColor: grey[200],
+              color: theme.palette.text.primary,
+            },
+          },
+        },
+      ],
+    },
     MuiLink: { styleOverrides: { root: { transition: theme.constants.animationDuration } } },
-    // MuiLink: {
-    //   styleOverrides: {
-    //     root: {
-    //       backgroundColor: theme.palette.secondary.light,
-    //       '&:hover': { backgroundColor: theme.palette.secondary.main, color: theme.palette.secondary.contrastText },
-    //     },
-    //   },
-    // },
+    MuiPopover: {
+      styleOverrides: {
+        paper: {
+          borderRadius: theme.spacing(1.5),
+          boxShadow: theme.constants.boxShadow,
+        },
+      },
+    },
     MuiTooltip: {
       styleOverrides: { tooltip: { [`.${tooltipClasses.popper}[data-popper-placement*="bottom"] &`]: { marginTop: 2 } } },
     },

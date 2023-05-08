@@ -37,9 +37,9 @@ export function LessonPickerContent() {
                 transition: constants.animationDuration,
                 ':hover': { bgcolor: isUpcoming ? `${palette.secondary.main}11` : undefined },
                 '&.Mui-selected': {
-                  bgcolor: isUpcoming ? `${palette.secondary.main}11` : undefined,
+                  bgcolor: isUpcoming ? `${palette.secondary.main}11` : palette.grey[200],
                   color: 'text.primary',
-                  ':hover': { bgcolor: isUpcoming ? `${palette.secondary.main}22` : undefined },
+                  ':hover': { bgcolor: isUpcoming ? `${palette.secondary.main}22` : palette.grey[300] },
                 },
               }}
             >
