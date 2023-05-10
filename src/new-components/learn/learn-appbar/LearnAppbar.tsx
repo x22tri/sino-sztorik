@@ -89,7 +89,7 @@ export function LearnAppbar({
                   color='secondary'
                   value={lessonProgress}
                   variant='determinate'
-                  sx={{ borderRadius: 6, mx: 'auto', p: 0.6, width: '100%' }}
+                  sx={{ borderRadius: 6, mx: 'auto', p: 0.4, width: '100%' }}
                 />
               </Then>
 

@@ -189,8 +189,8 @@ theme = createTheme(theme, {
         {
           props: { color: 'secondary' },
           style: {
-            '.MuiLinearProgress-bar': { backgroundColor: theme.palette.secondary[300] },
-            backgroundColor: theme.palette.secondary[100],
+            '.MuiLinearProgress-bar': { backgroundColor: theme.palette.secondary.light },
+            backgroundColor: theme.palette.grey[100],
           },
         },
       ],
