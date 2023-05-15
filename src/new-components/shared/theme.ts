@@ -5,8 +5,7 @@ import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
 import { tooltipClasses } from '@mui/material'
 
 const chineseFont = "'Noto Sans SC', sans-serif" // To-Do: Create font with custom chars
-const genericFont = "'Rubik', sans-serif"
-export const emphasisFont = "'Rubik', sans-serif"
+const latinFont = "'Rubik', sans-serif"
 
 declare module '@mui/material/styles' {
   interface Theme {
@@ -126,10 +125,10 @@ let theme = responsiveFontSizes(
       maxContentWidth: '1600px',
     },
     typography: {
-      fontFamily: genericFont,
-      h4: { fontFamily: emphasisFont, fontWeight: 800, fontSize: 24 },
-      h5: { fontFamily: emphasisFont, fontWeight: 600, fontSize: 18 },
-      h6: { fontFamily: emphasisFont, fontWeight: 600, fontSize: 14 },
+      fontFamily: latinFont,
+      h4: { fontFamily: latinFont, fontWeight: 800, fontSize: 24 },
+      h5: { fontFamily: latinFont, fontWeight: 600, fontSize: 18 },
+      h6: { fontFamily: latinFont, fontWeight: 600, fontSize: 14 },
       button: { fontWeight: 'bold', textTransform: 'none' },
       body1: { lineHeight: 1.5 },
       body2: { fontSize: 16 },
@@ -137,8 +136,8 @@ let theme = responsiveFontSizes(
       chineseNormal: { fontFamily: chineseFont, fontSize: 24, fontWeight: 400, lineHeight: 1.2 },
       overline: { fontWeight: 'bold' },
       presentation: {
-        keyword: { fontFamily: emphasisFont, fontWeight: 800, fontSize: 32, lineHeight: 1.1 },
-        primitive: { fontSize: 20, fontFamily: emphasisFont, fontStyle: 'italic', lineHeight: 1.2 },
+        keyword: { fontFamily: latinFont, fontWeight: 800, fontSize: 32, lineHeight: 1.1 },
+        primitive: { fontSize: 20, fontFamily: latinFont, fontStyle: 'italic', lineHeight: 1.2 },
         pinyin: { fontSize: 14, fontStyle: 'italic' },
       },
       storySegments: {
@@ -164,7 +163,7 @@ let theme = responsiveFontSizes(
 
 theme = createTheme(theme, {
   components: {
-    MuiBadge: { styleOverrides: { badge: { fontFamily: emphasisFont } } },
+    MuiBadge: { styleOverrides: { badge: { fontFamily: latinFont } } },
     MuiButtonGroup: { styleOverrides: { grouped: { borderRightColor: 'transparent' } } },
     MuiButton: {
       styleOverrides: { root: { borderRadius: theme.spacing(6), boxShadow: 'none', ':hover': { boxShadow: 'none' } } },
