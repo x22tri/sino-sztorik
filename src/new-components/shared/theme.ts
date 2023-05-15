@@ -1,8 +1,8 @@
 import { CSSProperties } from 'react'
 import { createTheme } from '@mui/material/styles'
-import { blue, grey, teal } from '@mui/material/colors'
+import { grey } from '@mui/material/colors'
 import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
-import { lighten, tooltipClasses } from '@mui/material'
+import { tooltipClasses } from '@mui/material'
 
 const chineseFont = "'Noto Sans SC', sans-serif" // To-Do: Create font with custom chars
 const genericFont = "'Rubik', sans-serif"
