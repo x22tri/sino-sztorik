@@ -40,6 +40,8 @@ export const LEARN_LESSON_PREFACE_TOOLTIP = 'Előszó'
 export const LEARN_LESSON_CHARACTERS_TOOLTIP = 'Karakterek'
 
 export const FLASHBACK_MODE = 'Visszaemlékezés'
+export const FLASHBACK_MODE_EXPLANATION =
+  'Visszaemlékezés során visszanézhetsz korábbi karaktereket, hogy felfrissítsd az emlékezeted. A lecke szünetel, amíg ki nem lépsz a visszaemlékezésből.'
 export const LESSON_NUMBER_SUFFIX_APPBAR = '. lecke'
 export const RESUME_LESSON = 'Lecke folytatása'
 

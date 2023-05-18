@@ -115,6 +115,7 @@ let theme = responsiveFontSizes(
   createTheme({
     components: {
       MuiButtonBase: { defaultProps: { disableRipple: true } },
+      MuiLink: { defaultProps: { underline: 'none' } },
       MuiContainer: { styleOverrides: { root: { paddingLeft: 0, paddingRight: 0 } } },
       MuiIconButton: { styleOverrides: { root: { '&:hover': { backgroundColor: 'transparent', opacity: 0.8 } } } },
     },
@@ -191,7 +192,7 @@ theme = createTheme(theme, {
       styleOverrides: {
         root: {
           transition: theme.constants.animationDuration,
-          '&:hover': { cursor: 'pointer', backgroundColor: theme.palette.secondary[100] },
+          '&:hover': { cursor: 'pointer', backgroundColor: theme.palette.primary[100] },
         },
       },
     },

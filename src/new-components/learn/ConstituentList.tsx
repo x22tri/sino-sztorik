@@ -3,7 +3,7 @@ import { Constituent } from '../shared/interfaces'
 import { KeywordPrimitiveRow } from '../shared/components/KeywordPrimitiveRow'
 import { useStore } from '../shared/logic/useStore'
 
-export function ConstituentListNew({ constituents }: { constituents: Constituent[] }) {
+export function ConstituentList({ constituents }: { constituents: Constituent[] }) {
   const { startFlashback } = useStore('flashback')
 
   return (

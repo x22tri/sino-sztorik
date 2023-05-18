@@ -19,7 +19,7 @@ import {
   LEARN_FINISH_LESSON_BUTTON,
 } from '../shared/strings'
 import { When } from 'react-if'
-import { ConstituentListNew } from './ConstituentListNew'
+import { ConstituentList } from './ConstituentList'
 import { useStore } from '../shared/logic/useStore'
 
 export default function LearnContent({
@@ -83,7 +83,7 @@ export default function LearnContent({
 
         <When condition={!!constituents}>
           <Subheading title={LEARN_SUBHEADING_CONSTITUENTS} />
-          <ConstituentListNew constituents={constituents!} />
+          <ConstituentList constituents={constituents!} />
         </When>
 
         <Heading title={LEARN_HEADING_STORY} />

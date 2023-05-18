@@ -34,7 +34,6 @@ export function ChineseCharLink({
           ref={anchorEl}
           typography='chineseNormal'
           fontWeight={isLessonChar ? 500 : 400}
-          underline='none'
         >
           {charChinese}
         </Link>

@@ -2,9 +2,9 @@ import Box from '@mui/material/Box'
 import LinearProgress from '@mui/material/LinearProgress'
 import { AppBar, IconButton, Toolbar, Tooltip, Typography } from '@mui/material'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
-import { FLASHBACK_MODE, LEARN_LESSON_INFO_BUTTON } from '../../shared/strings'
+import { LEARN_LESSON_INFO_BUTTON } from '../../shared/strings'
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
-import { If, Then, Else } from 'react-if'
+import { If, Then, Else, When } from 'react-if'
 import { CloseLearnButton } from './CloseLearnButton'
 import LogoTitle from '../../shared/components/LogoTitle'
 import { faChalkboard } from '@fortawesome/free-solid-svg-icons'
@@ -13,6 +13,8 @@ import { useStore } from '../../shared/logic/useStore'
 import { useLoaderData } from 'react-router-dom'
 import { AssembledLesson } from '../../shared/interfaces'
 import { ExitFlashbackButton } from './ExitFlashbackButton'
+import { useLargeScreen } from '../../shared/hooks/useLargeScreen'
+import { FlashbackModeTitle } from './FlashbackModeTitle'
 
 export function LearnAppbar({
   lessonLength,
@@ -24,6 +26,7 @@ export function LearnAppbar({
   toolbarHeight: number
 }) {
   const isSmallScreen = useSmallScreen()
+  const isLargeScreen = useLargeScreen()
   const lesson = useLoaderData() as AssembledLesson
   const ref = useRef<HTMLDivElement | null>(null)
   const resizeObserver = new ResizeObserver(handleToolbarResized)
@@ -56,9 +59,9 @@ export function LearnAppbar({
   return (
     <AppBar position='relative' elevation={0} sx={{ bgcolor: 'background.paper', gridArea: 'nav' }}>
       <Toolbar disableGutters {...{ ref }} sx={{ px: 2 }}>
-        <Box alignItems='center' display='flex' gap={3} width='100%'>
-          <If condition={!flashbackChar}>
-            <Then>
+        <If condition={!flashbackChar}>
+          <Then>
+            <Box alignItems='center' display='flex' gap={3} width='100%'>
               <If condition={!isSmallScreen}>
                 <Then>
                   <LogoTitle noTitle />
@@ -75,42 +78,35 @@ export function LearnAppbar({
                   </Tooltip>
                 </Else>
               </If>
-            </Then>
 
-            <Else>
-              <ExitFlashbackButton charChinese={lesson.characters[selectedCharIndex].charChinese} />
-            </Else>
-          </If>
-
-          <Box display='flex' justifyContent='center' width='100%'>
-            <If condition={!flashbackChar}>
-              <Then>
+              <Box display='flex' justifyContent='center' width='100%'>
                 <LinearProgress
                   color='primary'
                   value={lessonProgress}
                   variant='determinate'
                   sx={{ borderRadius: 6, mx: 'auto', p: 0.4, width: '100%' }}
                 />
-              </Then>
+              </Box>
 
-              <Else>
-                <FlashbackModeTextMobile />
-              </Else>
-            </If>
-          </Box>
+              <CloseLearnButton />
+            </Box>
+          </Then>
+          <Else>
+            <Box display='grid' width='100%' sx={{ gridTemplateColumns: `repeat(${isLargeScreen ? 4 : 3}, 1fr)` }}>
+              <ExitFlashbackButton charChinese={lesson.characters[selectedCharIndex].charChinese} />
 
-          <CloseLearnButton />
-        </Box>
+              <FlashbackModeTitle />
+
+              <When condition={isLargeScreen}>
+                <Box />
+              </When>
+
+              <CloseLearnButton />
+            </Box>
+          </Else>
+        </If>
       </Toolbar>
     </AppBar>
-  )
-}
-
-function FlashbackModeTextMobile() {
-  return (
-    <Typography variant='h6' color='text.disabled'>
-      {FLASHBACK_MODE}
-    </Typography>
   )
 }
 
