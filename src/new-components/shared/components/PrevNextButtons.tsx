@@ -2,8 +2,7 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Box from '@mui/material/Box'
 import { LightenOnHoverButton } from './LightenOnHoverButton'
-import { PREV_NEXT_BUTTONS_PREV, PREV_NEXT_BUTTONS_NEXT, PREV_NEXT_BUTTONS_EXIT_FLASHBACK_PROMPT } from '../strings'
-import { Typography } from '@mui/material'
+import { PREV_NEXT_BUTTONS_PREV, PREV_NEXT_BUTTONS_NEXT } from '../strings'
 import { Else, If, Then, When } from 'react-if'
 import { useStore } from '../logic/useStore'
 
