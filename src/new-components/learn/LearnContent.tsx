@@ -101,7 +101,7 @@ export default function LearnContent({
 
         <PrevNextButtons
           customEndElement={
-            <Button disableElevation color='secondary' variant='contained' href='/' sx={{ borderRadius: 6 }}>
+            <Button disableElevation variant='contained' href='/' sx={{ borderRadius: 6 }}>
               {LEARN_FINISH_LESSON_BUTTON}
             </Button>
           }

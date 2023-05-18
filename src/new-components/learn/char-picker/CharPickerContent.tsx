@@ -7,7 +7,7 @@ import { AssembledLesson } from '../../shared/interfaces'
 
 export function CharPickerContent({ content }: { content: 'characters' | 'preface' }) {
   const lesson = useLoaderData() as AssembledLesson
-  const { constants, spacing } = useTheme()
+  const { constants, palette, spacing } = useTheme()
   const { selectCharIndex, selectedCharIndex } = useStore('learn')
   const { toggleDrawer } = useStore('mobileDrawer')
   const { swiperInstance } = useStore('swiper')
@@ -32,7 +32,7 @@ export function CharPickerContent({ content }: { content: 'characters' | 'prefac
                 height: spacing(6),
                 m: 1,
                 transition: constants.animationDuration,
-                '&.Mui-selected': { color: 'text.primary' },
+                '&.Mui-selected': { color: 'text.primary', bgcolor: palette.grey[200] },
               }}
             >
               <ListItemIcon

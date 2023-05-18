@@ -10,7 +10,10 @@ export function ConstituentListNew({ constituents }: { constituents: Constituent
     <List disablePadding>
       {constituents.map(({ charChinese, keyword, primitiveMeaning }, index) => (
         <ListItem disablePadding key={index}>
-          <ListItemButton onClick={() => startFlashback(charChinese)} sx={{ borderRadius: 6, ':hover': { bgcolor: '#DDE8FF' } }}>
+          <ListItemButton
+            onClick={() => startFlashback(charChinese)}
+            sx={{ borderRadius: 6, ':hover': { bgcolor: 'secondary.100' } }}
+          >
             <ListItemIcon>
               <Typography variant='chineseNormal' color='secondary.main'>
                 {charChinese}

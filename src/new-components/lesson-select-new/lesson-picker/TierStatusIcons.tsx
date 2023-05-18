@@ -21,7 +21,7 @@ export function TierStatusIcons({ tierStatuses }: { tierStatuses: TierStatuses }
       </span>
     ),
     [LOCKED]: <FontAwesomeIcon icon={faCircle} style={iconStyles} />,
-    [UPCOMING]: <FontAwesomeIcon icon={faCircleRight} style={{ ...iconStyles, color: palette.secondary.main }} />,
+    [UPCOMING]: <FontAwesomeIcon icon={faCircleRight} style={{ ...iconStyles, color: palette.primary.main }} />,
   }
 
   return (

@@ -152,8 +152,8 @@ let theme = responsiveFontSizes(
       },
     },
     palette: {
-      primary: { main: grey[400] },
-      secondary: { main: '#3366CC', 100: '#DDE8FF', 200: '#C4D6FD', 300: '#7AA4FF', 400: '#6598FF' },
+      primary: { main: '#3366CC', 100: '#DDE8FF', 200: '#C4D6FD', 300: '#7AA4FF', 400: '#6598FF' },
+      secondary: { main: '#7613B8', 100: '#F6EDFD' },
       neutral: { main: grey[600], contrastText: grey[50], light: grey[200] },
       warning: { light: '#FFF4EA', main: '#ffa726', dark: '#D25B00' },
       background: { default: '#FDFDFD' },
@@ -165,26 +165,13 @@ theme = createTheme(theme, {
   components: {
     MuiBadge: { styleOverrides: { badge: { fontFamily: latinFont } } },
     MuiButton: {
-      styleOverrides: { root: { borderRadius: theme.spacing(6), boxShadow: 'none', ':hover': { boxShadow: 'none' } } },
+      styleOverrides: { root: { borderRadius: theme.spacing(6) } },
       variants: [
         {
-          props: { color: 'primary', variant: 'contained' },
+          props: { color: 'primary', variant: 'outlined' },
           style: {
-            backgroundColor: grey[200],
-            borderRadius: theme.spacing(6),
-            color: theme.palette.text.primary,
-            ':hover': { backgroundColor: grey[400] },
-          },
-        },
-        {
-          props: { color: 'primary', variant: 'text' },
-          style: { color: theme.palette.text.primary, ':hover': { backgroundColor: grey[100] } },
-        },
-        {
-          props: { color: 'secondary', variant: 'outlined' },
-          style: {
-            border: `2px solid ${theme.palette.secondary.main}`,
-            ':hover': { border: `2px solid ${theme.palette.secondary.main}` },
+            border: `2px solid ${theme.palette.primary.main}`,
+            ':hover': { border: `2px solid ${theme.palette.primary.main}` },
           },
         },
       ],
@@ -192,9 +179,9 @@ theme = createTheme(theme, {
     MuiLinearProgress: {
       variants: [
         {
-          props: { color: 'secondary' },
+          props: { color: 'primary' },
           style: {
-            '.MuiLinearProgress-bar': { backgroundColor: theme.palette.secondary.light },
+            '.MuiLinearProgress-bar': { backgroundColor: theme.palette.primary.main },
             backgroundColor: theme.palette.grey[100],
           },
         },
@@ -203,10 +190,7 @@ theme = createTheme(theme, {
     MuiLink: {
       styleOverrides: {
         root: {
-          color: theme.palette.secondary.main,
           transition: theme.constants.animationDuration,
-          textDecorationColor: theme.palette.secondary.main,
-          textUnderlineOffset: '2px',
           '&:hover': { cursor: 'pointer', backgroundColor: theme.palette.secondary[100] },
         },
       },

@@ -55,7 +55,11 @@ export function SegmentResolver({ segments }: { segments: SegmentType[] }) {
             <Segment
               key={index}
               styles={styles[CONSTITUENT]}
-              text={<Link onClick={() => startFlashback(segment.references)}>{segment[CONSTITUENT]}</Link>}
+              text={
+                <Link underline='none' color='secondary' onClick={() => startFlashback(segment.references)}>
+                  {segment[CONSTITUENT]}
+                </Link>
+              }
             />
           )
         }

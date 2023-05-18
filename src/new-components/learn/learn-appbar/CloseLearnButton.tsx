@@ -47,7 +47,7 @@ export function CloseLearnButton() {
               {LEARN_EXIT_MODAL_CANCEL_BUTTON}
             </Button>
 
-            <Button href='/' variant='contained'>
+            <Button href='/' disableElevation variant='contained'>
               {LEARN_EXIT_MODAL_EXIT_BUTTON}
             </Button>
           </Box>

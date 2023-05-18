@@ -29,17 +29,17 @@ export function LessonPickerContent() {
               onClick={() => selectLesson(index)}
               selected={selectedLessonIndex === index}
               sx={{
-                border: isUpcoming ? `2px solid ${palette.secondary.main}` : 'none',
+                border: isUpcoming ? `2px solid ${palette.primary.main}` : 'none',
                 borderRadius: 6,
                 color: 'text.secondary',
                 height: spacing(6),
                 m: 1,
                 transition: constants.animationDuration,
-                ':hover': { bgcolor: isUpcoming ? `${palette.secondary.main}11` : undefined },
+                ':hover': { bgcolor: isUpcoming ? `${palette.primary.main}11` : undefined },
                 '&.Mui-selected': {
-                  bgcolor: isUpcoming ? `${palette.secondary.main}11` : palette.grey[200],
+                  bgcolor: isUpcoming ? `${palette.primary.main}11` : palette.grey[200],
                   color: 'text.primary',
-                  ':hover': { bgcolor: isUpcoming ? `${palette.secondary.main}22` : palette.grey[300] },
+                  ':hover': { bgcolor: isUpcoming ? `${palette.primary.main}22` : palette.grey[300] },
                 },
               }}
             >
@@ -56,7 +56,7 @@ export function LessonPickerContent() {
 
               <When condition={isUpcoming}>
                 <ListItemIcon sx={{ justifyContent: 'end', minWidth: 0 }}>
-                  <FontAwesomeIcon icon={faCircleRight} color={palette.secondary.main} />
+                  <FontAwesomeIcon icon={faCircleRight} color={palette.primary.main} />
                 </ListItemIcon>
               </When>
             </ListItemButton>
