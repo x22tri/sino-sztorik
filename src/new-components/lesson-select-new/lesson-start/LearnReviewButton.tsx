@@ -1,24 +1,20 @@
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { ButtonGroup, Button, MenuItem, Typography, Menu } from '@mui/material'
-import { useState, useRef } from 'react'
-import {
-  LEARN_BUTTON,
-  LEARN_BUTTON_EXPLANATION,
-  LOADING_PLACEHOLDER,
-  REVIEW_BUTTON,
-  REVIEW_BUTTON_EXPLANATION,
-} from '../../shared/strings'
+import { ButtonGroup, Button, MenuItem, Typography, Menu, ButtonProps, ButtonGroupProps } from '@mui/material'
+import { useState, useRef, RefObject } from 'react'
+import { LEARN_BUTTON, LEARN_BUTTON_EXPLANATION, REVIEW_BUTTON, REVIEW_BUTTON_EXPLANATION } from '../../shared/strings'
 import { LessonStatuses, TierStatuses } from '../../shared/interfaces'
-import { When } from 'react-if'
+import { Else, If, Then } from 'react-if'
 import { useOnChange } from '../../shared/hooks/useOnChange'
 import { useNavigate } from 'react-router-dom'
 import { useStore } from '../../shared/logic/useStore'
 import { LEARN_PATH, REVIEW_PATH } from '../../shared/paths'
 
+type ButtonOption = { button: string; explanation: string }
+
 const { UPCOMING, COMPLETED } = LessonStatuses
 
-const options = [
+const options: ButtonOption[] = [
   { button: LEARN_BUTTON, explanation: LEARN_BUTTON_EXPLANATION },
   { button: REVIEW_BUTTON, explanation: REVIEW_BUTTON_EXPLANATION },
 ]
@@ -56,33 +52,24 @@ export function LearnReviewButton({ lessonNumber, tierStatuses }: { lessonNumber
   }
 
   function startLesson(selectedButton: string) {
-    if (selectedButton === LEARN_BUTTON) {
-      navigate(LEARN_PATH)
-    } else {
-      navigate(`${REVIEW_PATH}/${lessonNumber}`)
-    }
+    navigate(selectedButton === LEARN_BUTTON ? LEARN_PATH : `${REVIEW_PATH}/${lessonNumber}`)
   }
 
   useOnChange(selectedLessonIndex, () => setSelectedModeIndex(0))
 
   return (
     <>
-      <ButtonGroup
-        color={selectedButton === LEARN_BUTTON ? 'secondary' : 'primary'}
-        disableElevation
-        variant='contained'
-        sx={{ borderRadius: 6, justifySelf: 'center', width: 1 }}
-      >
-        <Button onClick={() => startLesson(selectedButton)} sx={{ borderRadius: 6, width: 1 }}>
-          {selectedButton ?? LOADING_PLACEHOLDER} {/* Placeholder needed so button doesn't disappear. */}
-        </Button>
-
-        <When condition={availableOptions.length > 1}>
-          <Button onClick={clickModeSwitcher} ref={anchorRef} sx={{ borderRadius: 6 }}>
-            <FontAwesomeIcon icon={faEllipsisVertical} />
-          </Button>
-        </When>
-      </ButtonGroup>
+      <ButtonOrButtonGroup
+        buttonText={selectedButton}
+        onClickMainButton={() => startLesson(selectedButton)}
+        onClickModeSwitcher={clickModeSwitcher}
+        stylingProps={{
+          color: 'secondary',
+          disableElevation: true,
+          variant: selectedButton === LEARN_BUTTON ? 'contained' : 'outlined',
+        }}
+        {...{ anchorRef, availableOptions }}
+      />
 
       <Menu
         anchorEl={anchorRef.current}
@@ -110,5 +97,43 @@ export function LearnReviewButton({ lessonNumber, tierStatuses }: { lessonNumber
         ))}
       </Menu>
     </>
+  )
+}
+
+function ButtonOrButtonGroup({
+  anchorRef,
+  availableOptions,
+  buttonText,
+  stylingProps,
+  onClickMainButton,
+  onClickModeSwitcher,
+}: {
+  anchorRef: RefObject<HTMLButtonElement>
+  availableOptions: ButtonOption[]
+  buttonText: string
+  stylingProps: ButtonProps | ButtonGroupProps
+  onClickMainButton: () => void
+  onClickModeSwitcher: () => void
+}) {
+  return (
+    <If condition={availableOptions.length > 1}>
+      <Then>
+        <ButtonGroup {...(stylingProps as ButtonGroupProps)}>
+          <Button onClick={onClickMainButton} sx={{ borderRadius: 6, width: 1 }}>
+            {buttonText}
+          </Button>
+
+          <Button onClick={onClickModeSwitcher} ref={anchorRef} sx={{ borderRadius: 6 }}>
+            <FontAwesomeIcon icon={faEllipsisVertical} />
+          </Button>
+        </ButtonGroup>
+      </Then>
+
+      <Else>
+        <Button {...(stylingProps as ButtonProps)} onClick={onClickMainButton}>
+          {buttonText}
+        </Button>
+      </Else>
+    </If>
   )
 }
