@@ -47,7 +47,7 @@ export const CHARS: Character[] = [
         ' ott maradjon.',
       ],
     ],
-    frequency: 496,
+    frequency: 596,
     pinyin: 'zhǐ',
     newPrimitive: true,
   },
