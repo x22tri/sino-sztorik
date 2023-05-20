@@ -30,14 +30,29 @@ declare module '@mui/material/styles' {
 
   interface Palette {
     neutral: Palette['primary']
+    frequency: {
+      veryCommon: string
+      quiteCommon: string
+      common: string
+      uncommon: string
+      rare: string
+      veryRare: string
+    }
   }
 
   interface PaletteOptions {
     neutral: PaletteOptions['primary']
+    frequency: {
+      veryCommon: string
+      quiteCommon: string
+      common: string
+      uncommon: string
+      rare: string
+      veryRare: string
+    }
   }
 
   interface PaletteColor {
-    lightHovered?: string
     100?: string
     200?: string
     300?: string
@@ -45,7 +60,6 @@ declare module '@mui/material/styles' {
   }
 
   interface SimplePaletteColorOptions {
-    lightHovered?: string
     100?: string
     200?: string
     300?: string
@@ -132,7 +146,7 @@ let theme = responsiveFontSizes(
       h6: { fontFamily: latinFont, fontWeight: 600, fontSize: 14 },
       button: { fontWeight: 'bold', textTransform: 'none' },
       body1: { lineHeight: 1.5 },
-      body2: { fontSize: 16 },
+      body2: { fontSize: 14 },
       chineseHeading: { fontFamily: chineseFont, fontSize: 120, fontWeight: 400, lineHeight: 1 },
       chineseNormal: { fontFamily: chineseFont, fontSize: 24, fontWeight: 400, lineHeight: 1.2 },
       overline: { fontWeight: 'bold' },
@@ -158,6 +172,14 @@ let theme = responsiveFontSizes(
       neutral: { main: grey[600], contrastText: grey[50], light: grey[200] },
       warning: { light: '#FFF4EA', main: '#ffa726', dark: '#D25B00' },
       background: { default: '#FDFDFD' },
+      frequency: {
+        veryCommon: '#d03738',
+        quiteCommon: '#D26836',
+        common: '#D17F36',
+        uncommon: '#D7AF1F',
+        rare: grey[700],
+        veryRare: grey[500],
+      },
     },
   })
 )

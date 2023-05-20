@@ -82,7 +82,7 @@ export function LearnReviewButton({ lessonNumber, tierStatuses }: { lessonNumber
             selected={index === selectedModeIndex}
             sx={{ display: 'block' }}
           >
-            <Typography noWrap lineHeight={1} variant='body2'>
+            <Typography noWrap lineHeight={1}>
               {button}
             </Typography>
 

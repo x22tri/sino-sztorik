@@ -28,7 +28,7 @@ export function KeywordExplanation({ explanation }: { explanation: string }) {
         position='absolute'
         sx={{
           transition: constants.animationDuration,
-          '&:hover': { color: lighten(palette.text.primary, 0.3), cursor: 'pointer' },
+          '&:hover': { color: lighten(palette.text.primary, 0.3), cursor: 'help' },
         }}
       >
         <FontAwesomeIcon size='xs' transform='shrink-5' icon={faQuestionCircle} />

@@ -5,6 +5,7 @@ import {
   FREQUENCY_COMMON,
   FREQUENCY_UNCOMMON,
   FREQUENCY_VERY_RARE,
+  FREQUENCY_RARE,
 } from '../../shared/strings'
 
 export function getFrequencyText(frequency?: number): string {
@@ -17,7 +18,7 @@ export function getFrequencyText(frequency?: number): string {
     [1000, FREQUENCY_QUITE_COMMON],
     [1500, FREQUENCY_COMMON],
     [2000, FREQUENCY_UNCOMMON],
-    [3000, FREQUENCY_VERY_RARE],
+    [3000, FREQUENCY_RARE],
   ])
 
   for (const [key, value] of frequencyTooltipMap) {

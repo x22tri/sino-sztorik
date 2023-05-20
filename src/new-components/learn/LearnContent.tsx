@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useSwiper } from 'swiper/react'
 import Box from '@mui/material/Box'
-import { Button, useTheme } from '@mui/material'
+import { Button, Divider, useTheme } from '@mui/material'
 import Story from './story/Story'
 import { Presentation } from './presentation/Presentation'
 import { Subheading } from './subheading/Subheading'
@@ -17,10 +17,12 @@ import {
   LEARN_HEADING_SUPPLEMENTS,
   LEARN_SUBHEADING_PHRASES,
   LEARN_FINISH_LESSON_BUTTON,
+  LEARN_SUBHEADING_FREQUENCY,
 } from '../shared/strings'
 import { When } from 'react-if'
 import { ConstituentList } from './ConstituentList'
 import { useStore } from '../shared/logic/useStore'
+import { Frequency } from './frequency/Frequency'
 
 export default function LearnContent({
   nextChar,
@@ -77,9 +79,18 @@ export default function LearnContent({
         {...{ frequency, newPrimitive, prequel, productivePhonetic, reminder }}
       /> */}
 
-        <Heading title={LEARN_HEADING_CHARACTER} />
+        <Box display='flex' justifyContent='space-between' alignItems='center'>
+          <Heading title={LEARN_HEADING_CHARACTER} />
+          <When condition={frequency}>
+            <Frequency frequency={frequency!} />
+          </When>
+        </Box>
 
         <Presentation {...{ charChinese, explanation, keyword, pinyin, primitiveMeaning }} />
+
+        {/* <When condition={frequency}>
+          <Frequency frequency={frequency!} />
+        </When> */}
 
         <When condition={!!constituents}>
           <Subheading title={LEARN_SUBHEADING_CONSTITUENTS} />

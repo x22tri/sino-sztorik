@@ -27,7 +27,7 @@ export function NoteElement({
         {title}
       </Box>
 
-      <Box typography='body2'>{typeof text === 'string' ? <>{text}</> : <SegmentResolver segments={text} />}</Box>
+      {typeof text === 'string' ? <>{text}</> : <SegmentResolver segments={text} />}
     </Box>
   )
 }

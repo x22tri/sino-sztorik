@@ -64,6 +64,7 @@ export const KEYWORD_EXPLANATION_TOOLTIP = 'Kattints a kulcsszó magyarázatáho
 
 export const LEARN_HEADING_CHARACTER = 'Karakter'
 export const LEARN_SUBHEADING_CONSTITUENTS = 'Összetétel'
+export const LEARN_SUBHEADING_FREQUENCY = 'Gyakoriság'
 export const LEARN_HEADING_STORY = 'Történet'
 export const LEARN_HEADING_SUPPLEMENTS = 'Kiegészítő információk'
 export const LEARN_SUBHEADING_PHRASES = 'Kifejezések a karakterrel'

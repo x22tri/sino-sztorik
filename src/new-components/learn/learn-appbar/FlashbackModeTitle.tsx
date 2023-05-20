@@ -23,7 +23,7 @@ export function FlashbackModeTitle() {
         variant='h6'
         onMouseEnter={openPopover}
         onMouseLeave={closePopover}
-        sx={{ textDecoration: `2px dotted underline`, textUnderlineOffset: '2px', '&:hover': { cursor: 'pointer' } }}
+        sx={{ textDecoration: `2px dotted underline`, textUnderlineOffset: '2px', '&:hover': { cursor: 'help' } }}
       >
         {FLASHBACK_MODE}
       </Typography>
