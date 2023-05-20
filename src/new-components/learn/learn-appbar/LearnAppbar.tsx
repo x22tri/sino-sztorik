@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box'
 import LinearProgress from '@mui/material/LinearProgress'
-import { AppBar, IconButton, Toolbar, Tooltip, Typography } from '@mui/material'
+import { AppBar, IconButton, Toolbar, Tooltip, Typography, useTheme } from '@mui/material'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { LEARN_LESSON_INFO_BUTTON } from '../../shared/strings'
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
@@ -35,6 +35,8 @@ export function LearnAppbar({
   const { selectedCharIndex } = useStore('learn')
   const { toggleDrawer } = useStore('mobileDrawer')
   const { swiperInstance } = useStore('swiper')
+  const { constants } = useTheme()
+  const drawerWidth = isSmallScreen ? 0 : constants.drawerWidth
 
   useEffect(() => {
     swiperInstance?.on('activeIndexChange', () => setLessonProgress(calculateProgress(lessonLength, swiperInstance?.activeIndex)))
@@ -57,7 +59,17 @@ export function LearnAppbar({
   }
 
   return (
-    <AppBar position='relative' elevation={0} sx={{ bgcolor: 'background.paper', gridArea: 'nav' }}>
+    <Box
+      component='header'
+      position='fixed'
+      sx={{
+        bgcolor: 'background.paper',
+        maxWidth: `calc(${constants.maxContentWidth} - ${drawerWidth}px)`,
+        width: `calc(100% - ${drawerWidth}px)`,
+        zIndex: 1,
+        top: 0,
+      }}
+    >
       <Toolbar disableGutters {...{ ref }} sx={{ px: 2 }}>
         <If condition={!flashbackChar}>
           <Then>
@@ -106,7 +118,7 @@ export function LearnAppbar({
           </Else>
         </If>
       </Toolbar>
-    </AppBar>
+    </Box>
   )
 }
 

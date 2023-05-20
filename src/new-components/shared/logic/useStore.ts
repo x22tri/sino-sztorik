@@ -4,7 +4,7 @@ import { LESSONS } from '../MOCK_LESSONS'
 import { AssembledLesson, Character } from '../interfaces'
 import { findFlashbackChar } from './findFlashbackChar'
 
-const useBoundStore = create<Store>(set => {
+const useBoundStore = create<Store>((set, get) => {
   function update<SliceType extends keyof Store>(slice: SliceType, updated: Partial<Store[SliceType]>) {
     return set(state => ({ [slice]: { ...state[slice], ...updated } }))
   }
@@ -18,6 +18,7 @@ const useBoundStore = create<Store>(set => {
 
         if (foundFlashbackChar) {
           update('flashback', { flashbackChar: foundFlashbackChar })
+          setTimeout(() => get().swiper.swiperInstance?.updateAutoHeight(), 200)
         }
       },
     },

@@ -23,15 +23,18 @@ import { When } from 'react-if'
 import { ConstituentList } from './ConstituentList'
 import { useStore } from '../shared/logic/useStore'
 import { Frequency } from './frequency/Frequency'
+import { constants } from 'buffer'
 
 export default function LearnContent({
   nextChar,
   lessonChar,
   prevChar,
+  toolbarHeight,
 }: {
   nextChar: string | null
   lessonChar: Character
   prevChar: string | null
+  toolbarHeight: number
 }) {
   const swiper = useSwiper()
   const { spacing } = useTheme()
@@ -72,7 +75,13 @@ export default function LearnContent({
       display='grid'
       maxHeight='100%'
       padding={`0 ${spacing(2)} ${spacing(3)}`}
-      sx={{ bgcolor: 'background.paper', gridTemplateColumns: { xs: '1fr', lg: '3fr 1fr' }, overflowY: 'auto' }}
+      sx={{
+        bgcolor: 'background.paper',
+        // gridTemplateColumns: { xs: '1fr', lg: '3fr 1fr' },
+        gridTemplateRows: 'auto max-content',
+        mt: `${toolbarHeight}px`,
+        minHeight: `calc(100vh - ${toolbarHeight}px)`,
+      }}
     >
       <Box>
         {/* <InfoChips
@@ -87,10 +96,6 @@ export default function LearnContent({
         </Box>
 
         <Presentation {...{ charChinese, explanation, keyword, pinyin, primitiveMeaning }} />
-
-        {/* <When condition={frequency}>
-          <Frequency frequency={frequency!} />
-        </When> */}
 
         <When condition={!!constituents}>
           <Subheading title={LEARN_SUBHEADING_CONSTITUENTS} />
@@ -109,7 +114,9 @@ export default function LearnContent({
             <Phrases lessonChar={charChinese} phrases={phrases!} />
           </When>
         </When>
+      </Box>
 
+      <When condition={!flashbackChar}>
         <PrevNextButtons
           customEndElement={
             <Button disableElevation variant='contained' href='/' sx={{ borderRadius: 6 }}>
@@ -119,7 +126,7 @@ export default function LearnContent({
           prev={prevChar}
           next={nextChar}
         />
-      </Box>
+      </When>
     </Box>
   )
 }

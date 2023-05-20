@@ -22,19 +22,27 @@ export default function Learn() {
 
   return !lesson.characters.length ? null : (
     <Box
+      // display='grid'
+      // height='100vh'
+      // margin='auto'
+      // maxWidth={constants.maxContentWidth}
+      // position='relative'
+      // gridTemplateRows={`${toolbarHeight}px auto`}
+      // sx={{
+      //   gridTemplateColumns: { xs: '1fr', md: `${constants.drawerWidth}px auto`, lg: `${constants.drawerWidth}px 3fr 1fr` },
+      //   gridTemplateAreas: {
+      //     xs: `"nav" "content"`,
+      //     md: `"drawer nav" "drawer content"`,
+      //     lg: `"drawer nav nav" "drawer content content"`,
+      //   },
+      // }}
       display='grid'
-      height='100vh'
+      position='relative'
       margin='auto'
       maxWidth={constants.maxContentWidth}
-      position='relative'
-      gridTemplateRows={`${toolbarHeight}px auto`}
       sx={{
-        gridTemplateColumns: { xs: '1fr', md: `${constants.drawerWidth}px auto`, lg: `${constants.drawerWidth}px 3fr 1fr` },
-        gridTemplateAreas: {
-          xs: `"nav" "content"`,
-          md: `"drawer nav" "drawer content"`,
-          lg: `"drawer nav nav" "drawer content content"`,
-        },
+        gridTemplateColumns: { xs: 'auto', md: `${constants.drawerWidth}px auto` },
+        gridTemplateAreas: `"drawer main"`,
       }}
     >
       <SideNav
@@ -43,19 +51,19 @@ export default function Learn() {
         selected={selectedCharIndex}
       />
 
-      <LearnAppbar lessonLength={CHARS.length} {...{ toolbarHeight, setToolbarHeight }} />
-
       <SwiperWrapper
         onActiveIndexChange={({ activeIndex }) => selectCharIndex(activeIndex)}
-        style={{ backgroundColor: palette.background.paper, gridArea: 'content', height: '100%', width: '100%' }}
+        style={{ gridArea: 'main', width: '100%' }}
       >
+        <LearnAppbar lessonLength={CHARS.length} {...{ toolbarHeight, setToolbarHeight }} />
+
         {lesson.characters.map((char, index) => (
           <SwiperSlide key={index}>
             <LearnContent
               lessonChar={char}
               prevChar={lesson.characters[index - 1]?.charChinese ?? null}
               nextChar={lesson.characters[index + 1]?.charChinese ?? null}
-              {...{ index }}
+              {...{ index, toolbarHeight }}
             />
           </SwiperSlide>
         ))}
