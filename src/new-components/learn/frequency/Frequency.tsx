@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChartColumn } from '@fortawesome/free-solid-svg-icons'
 
 export function Frequency({ frequency }: { frequency: number }) {
-  const { color, text } = getFrequencyText(frequency)
+  const { color, text } = useFrequency(frequency)
 
   return (
     <Box alignItems='center' color='text.secondary' display='flex' gap={0.5} typography='body2'>
@@ -21,7 +21,7 @@ export function Frequency({ frequency }: { frequency: number }) {
   )
 }
 
-function getFrequencyText(frequency: number): { color: string; text: string } {
+function useFrequency(frequency: number): { color: string; text: string } {
   const { palette } = useTheme()
   const { veryCommon, quiteCommon, common, uncommon, rare, veryRare } = palette.frequency
 
