@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react'
 import { createTheme } from '@mui/material/styles'
-import { grey } from '@mui/material/colors'
+import { common, grey } from '@mui/material/colors'
 import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
 import { tooltipClasses } from '@mui/material'
 
@@ -30,6 +30,7 @@ declare module '@mui/material/styles' {
 
   interface Palette {
     neutral: Palette['primary']
+    white: Palette['primary']
     frequency: {
       veryCommon: string
       quiteCommon: string
@@ -42,6 +43,7 @@ declare module '@mui/material/styles' {
 
   interface PaletteOptions {
     neutral: PaletteOptions['primary']
+    white: PaletteOptions['primary']
     frequency: {
       veryCommon: string
       quiteCommon: string
@@ -57,6 +59,8 @@ declare module '@mui/material/styles' {
     200?: string
     300?: string
     400?: string
+    700?: string
+    800?: string
   }
 
   interface SimplePaletteColorOptions {
@@ -64,6 +68,8 @@ declare module '@mui/material/styles' {
     200?: string
     300?: string
     400?: string
+    700?: string
+    800?: string
   }
 
   interface StorySegmentVariants {
@@ -107,6 +113,7 @@ declare module '@mui/material/LinearProgress' {
 declare module '@mui/material/Button' {
   interface ButtonPropsColorOverrides {
     neutral: true
+    white: true
   }
 }
 
@@ -167,9 +174,18 @@ let theme = responsiveFontSizes(
       },
     },
     palette: {
-      primary: { main: '#3366CC', 100: '#DDE8FF', 200: '#C4D6FD', 300: '#7AA4FF', 400: '#6598FF' },
+      primary: {
+        main: '#3366CC',
+        100: '#DDE8FF',
+        200: '#C4D6FD',
+        300: '#82A1E5',
+        400: '#6598FF',
+        700: '#1A3F87',
+        800: '#183162',
+      },
       secondary: { main: '#7613B8', 100: '#F6EDFD' },
       neutral: { main: grey[600], contrastText: grey[50], light: grey[200] },
+      white: { main: common.white, contrastText: grey[900] },
       warning: { light: '#FFF4EA', main: '#ffa726', dark: '#D25B00' },
       background: { default: '#FDFDFD' },
       frequency: {
@@ -196,6 +212,10 @@ theme = createTheme(theme, {
             border: `2px solid ${theme.palette.primary.main}`,
             ':hover': { border: `2px solid ${theme.palette.primary.main}` },
           },
+        },
+        {
+          props: { color: 'white', variant: 'contained' },
+          style: { ':hover': { color: theme.palette.primary.main } },
         },
       ],
     },

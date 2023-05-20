@@ -11,7 +11,10 @@ const useBoundStore = create<Store>((set, get) => {
 
   return {
     flashback: {
-      exitFlashback: () => update('flashback', { flashbackChar: undefined }),
+      exitFlashback: () => {
+        update('flashback', { flashbackChar: undefined })
+        setTimeout(() => get().swiper.swiperInstance?.updateAutoHeight(), 200)
+      },
       flashbackChar: undefined,
       startFlashback: (destination: string) => {
         const foundFlashbackChar = findFlashbackChar(destination)

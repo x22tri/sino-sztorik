@@ -9,9 +9,11 @@ import {
 } from '../../shared/strings'
 import { useState } from 'react'
 import ToolbarButton from '../../shared/components/ToolbarButton'
+import { useStore } from '../../shared/logic/useStore'
 
 export function CloseLearnButton() {
   const [openModal, setOpenModal] = useState(false)
+  const { flashbackChar } = useStore('flashback')
 
   return (
     <>
@@ -19,7 +21,7 @@ export function CloseLearnButton() {
         icon={faClose}
         onClick={() => setOpenModal(true)}
         tooltip={LEARN_EXIT_MODAL_EXIT_BUTTON}
-        sx={{ justifySelf: 'flex-end' }}
+        sx={{ justifySelf: 'flex-end', color: flashbackChar ? 'primary.300' : undefined }}
       />
 
       <Modal onClose={() => setOpenModal(false)} open={openModal}>

@@ -11,6 +11,7 @@ export function ExitFlashbackButton({ charChinese }: { charChinese: string }) {
   return (
     <Button
       disableElevation
+      color='white'
       variant='contained'
       onClick={exitFlashback}
       startIcon={<FontAwesomeIcon icon={faChevronLeft} transform='shrink-4' />}

@@ -18,7 +18,7 @@ export function FlashbackModeTitle() {
     <>
       <Typography
         alignSelf='center'
-        color='text.disabled'
+        color='primary.300'
         justifySelf='center'
         variant='h6'
         onMouseEnter={openPopover}
