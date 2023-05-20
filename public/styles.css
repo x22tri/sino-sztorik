@@ -15,3 +15,11 @@
 .centerer {
   padding-left: calc(100vw - 100%); /* Needed so that the scrollbar won't shift content */
 }
+
+/* .swiper {
+  position: absolute;
+} */
+
+.swiper-wrapper {
+  /* transform: undefined; */
+}

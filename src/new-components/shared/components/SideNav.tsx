@@ -34,7 +34,7 @@ export function SideNav({ content, selected, title }: { content: JSX.Element; se
           open={isOpen}
           onClose={toggleDrawer}
           variant='temporary'
-          sx={{ '& .MuiDrawer-paper': { boxSizing: 'border-box', width: constants.drawerWidth } }}
+          sx={{ '& .MuiDrawer-paper': { boxSizing: 'border-box', width: `${constants.drawerWidth}px` } }}
         >
           {children}
         </Drawer>
@@ -47,9 +47,11 @@ export function SideNav({ content, selected, title }: { content: JSX.Element; se
           left: 0,
           gridArea: 'drawer',
           overflow: 'auto',
-          position: 'absolute',
+          flexShrink: 0,
+          // maxHeight: '100vh',
+          // position: 'absolute',
           top: 0,
-          width: constants.drawerWidth,
+          width: `${constants.drawerWidth}px`,
         }}
         {...{ ref }}
       >

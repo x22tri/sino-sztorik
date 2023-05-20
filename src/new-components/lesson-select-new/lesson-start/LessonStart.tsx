@@ -5,11 +5,14 @@ import { useLargeScreen } from '../../shared/hooks/useLargeScreen'
 import { Unless, When } from 'react-if'
 import { LearnReviewButton } from './LearnReviewButton'
 import { TierStatusIcons } from '../lesson-picker/TierStatusIcons'
+import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 
 export function LessonStart({ lesson }: { lesson: AssembledLesson }) {
   const isLargeScreen = useLargeScreen()
   const { constants, palette } = useTheme()
+  const isSmallScreen = useSmallScreen()
   const { characters, lessonNumber, tierStatuses } = lesson
+  const drawerWidth = isSmallScreen ? 0 : constants.drawerWidth
 
   return (
     <Box
@@ -22,10 +25,13 @@ export function LessonStart({ lesson }: { lesson: AssembledLesson }) {
       gridTemplateColumns={`repeat(${isLargeScreen ? 4 : 3}, 1fr)`}
       height={constants.lessonStartHeight}
       paddingX={2}
-      position='sticky'
-      width='100%'
+      position='fixed'
       zIndex={1}
-      sx={{ bgcolor: 'background.paper' }}
+      sx={{
+        bgcolor: 'background.paper',
+        maxWidth: `calc(${constants.maxContentWidth} - ${drawerWidth}px)`,
+        width: `calc(100% - ${drawerWidth}px)`,
+      }}
     >
       <TierStatusIcons {...{ tierStatuses }} />
 
