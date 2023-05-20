@@ -33,7 +33,7 @@ export default function LessonPreface({
         width: 1,
       }}
     >
-      <Typography component='header' textAlign='center' variant='h4'>
+      <Typography textAlign='center' variant='h4'>
         {title}
       </Typography>
 

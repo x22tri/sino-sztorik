@@ -16,8 +16,6 @@ import { useStore } from '../shared/logic/useStore'
 import { useSmallScreen } from '../shared/hooks/useSmallScreen'
 
 export default function LessonSelect() {
-  const isSmallScreen = useSmallScreen()
-  // const [toolbarHeight, setToolbarHeight] = useState(0)
   const { lessons, selectedLessonIndex, selectLessonIndex, setUpcomingLessonIndex } = useStore('lessonSelect')
   const { constants } = useTheme()
 
@@ -28,61 +26,19 @@ export default function LessonSelect() {
   }, [lessons, selectLessonIndex, setUpcomingLessonIndex])
 
   return selectedLessonIndex === undefined ? null : (
-    // <Box
-    //   display='flex'
-    // maxWidth='100vw'
-    // height='100vh'
-    // margin='auto'
-    // maxWidth={constants.maxContentWidth}
-    // position='relative'
-    // gridTemplateRows={`${toolbarHeight}px auto ${constants.lessonStartHeight}`}
-    // gridTemplateRows='auto 1fr auto'
-    // sx={{
-    //   // overflowY: 'auto',
-    //   gridTemplateColumns: { xs: '1fr', md: `${constants.drawerWidth}px auto` },
-    //   gridTemplateRows: 'auto 1fr auto',
-    //   gridTemplateAreas: {
-    //     xs: `"nav" "main" "start"`,
-    //     md: `"drawer nav" "drawer main" "drawer start"`,
-    //     // lg: `"drawer nav nav" "drawer main main" "drawer start start"`,
-    //   },
-    // }}
-    // >
-    //  <When condition={!isSmallScreen}>
-    // <SideNav title={<LessonPickerTitle />} content={<LessonPickerContent />} selected={selectedLessonIndex} />
-    //  </When>
-
-    // <LessonSelectAppbar {...{ setToolbarHeight, toolbarHeight }} />
-
     <Box
       display='grid'
-      // maxHeight='100%'
       position='relative'
       margin='auto'
       maxWidth={constants.maxContentWidth}
       sx={{
-        gridTemplateColumns: { xs: '1fr', md: `${constants.drawerWidth}px auto` },
-        // gridTemplateRows: '100vh auto',
+        gridTemplateColumns: { xs: 'auto', md: `${constants.drawerWidth}px auto` },
         gridTemplateAreas: `"drawer main"`,
-        // {
-        // xs: `"nav" "main" "start"`,
-        // md: `"drawer nav" "drawer main" "drawer start"`,
-        // lg: `"drawer nav nav" "drawer main main" "drawer start start"`,
-        // },
       }}
     >
-      {/* <When condition={!isSmallScreen}> */}
       <SideNav title={<LessonPickerTitle />} content={<LessonPickerContent />} selected={selectedLessonIndex} />
-      {/* </When> */}
 
       <LessonPrefaceSwiper />
     </Box>
-
-    // <When condition={isLargeScreen}>
-    //   <CharacterPreviews characters={lessons[selectedLessonIndex].characters} />
-    // </When>
-
-    // <LessonStart lesson={lessons[selectedLessonIndex]} />
-    // </Box>
   )
 }

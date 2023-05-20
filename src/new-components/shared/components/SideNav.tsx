@@ -43,16 +43,10 @@ export function SideNav({ content, selected, title }: { content: JSX.Element; se
       <List
         subheader={title}
         sx={{
-          // display: 'flex',
-          // flexDirection: 'column',
-          // flexBasis: '100%',
           bottom: 0,
           left: 0,
           gridArea: 'drawer',
           overflow: 'auto',
-          flexShrink: 1,
-          // maxHeight: '200px',
-          // maxHeight: `${height}px`,
           position: 'absolute',
           top: 0,
           width: `${constants.drawerWidth}px`,

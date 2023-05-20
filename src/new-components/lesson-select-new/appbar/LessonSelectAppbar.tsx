@@ -1,5 +1,5 @@
 import { faGraduationCap } from '@fortawesome/free-solid-svg-icons'
-import { AppBar, Box, Toolbar, useTheme } from '@mui/material'
+import { Box, Toolbar, useTheme } from '@mui/material'
 import { When } from 'react-if'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import LogoTitle from '../../shared/components/LogoTitle'
@@ -41,27 +41,14 @@ export function LessonSelectAppbar({
 
   return (
     <Box
-      // color='inherit'
-      // elevation={0}
+      component='header'
       position='fixed'
       sx={{
         bgcolor: 'background.paper',
-        // contain: 'none !important',
-        // transform: 'translateZ(0)',
-        // willChange: 'auto',
-        // transform: 'none !important',
-        // width: '100%',
         maxWidth: `calc(${constants.maxContentWidth} - ${drawerWidth}px)`,
         width: `calc(100% - ${drawerWidth}px)`,
         zIndex: 1,
-        // gridArea: 'nav',
         top: 0,
-        // left: 0,
-        '&.MuiPaper-root': {
-          // maxWidth: `calc(${constants.maxContentWidth} - ${drawerWidth}px)`,
-          // width: `calc(100% - ${drawerWidth}px)`,
-          // right: 'auto',
-        },
       }}
     >
       <Toolbar disableGutters {...{ ref }} sx={{ justifyContent: 'space-between', px: 2 }}>

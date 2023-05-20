@@ -6,13 +6,8 @@ import { useStore } from '../../shared/logic/useStore'
 import { LessonSelectAppbar } from '../appbar/LessonSelectAppbar'
 import { useState } from 'react'
 import { LessonStart } from '../lesson-start/LessonStart'
-import { Box, useTheme } from '@mui/material'
-import { useLargeScreen } from '../../shared/hooks/useLargeScreen'
-import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 
 export function LessonPrefaceSwiper() {
-  const { constants } = useTheme()
-  const isSmallScreen = useSmallScreen()
   const { lessons, selectLessonIndex, selectedLessonIndex } = useStore('lessonSelect')
   const { swiperInstance } = useStore('swiper')
   const [toolbarHeight, setToolbarHeight] = useState(0)
@@ -34,15 +29,7 @@ export function LessonPrefaceSwiper() {
       ]}
       initialSlide={selectedLessonIndex!}
       onActiveIndexChange={({ activeIndex }) => selectLessonIndex(activeIndex)}
-      style={{
-        gridArea: 'main',
-        // overflowY: 'auto',
-        // display: 'grid',
-        // gridTemplateRows: `${toolbarHeight}px auto ${constants.lessonStartHeight}`,
-        // position: 'relative',
-        width: '100%',
-        // marginLeft: isSmallScreen ? 0 : `${constants.drawerWidth}px`,
-      }}
+      style={{ gridArea: 'main', width: '100%' }}
     >
       <LessonSelectAppbar {...{ setToolbarHeight, toolbarHeight }} />
 
