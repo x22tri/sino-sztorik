@@ -54,10 +54,26 @@ export default function LessonSelect() {
 
     // <LessonSelectAppbar {...{ setToolbarHeight, toolbarHeight }} />
 
-    <Box display='flex' margin='auto' maxWidth={constants.maxContentWidth}>
-      <When condition={!isSmallScreen}>
-        <SideNav title={<LessonPickerTitle />} content={<LessonPickerContent />} selected={selectedLessonIndex} />
-      </When>
+    <Box
+      display='grid'
+      // maxHeight='100%'
+      position='relative'
+      margin='auto'
+      maxWidth={constants.maxContentWidth}
+      sx={{
+        gridTemplateColumns: { xs: '1fr', md: `${constants.drawerWidth}px auto` },
+        // gridTemplateRows: '100vh auto',
+        gridTemplateAreas: `"drawer main"`,
+        // {
+        // xs: `"nav" "main" "start"`,
+        // md: `"drawer nav" "drawer main" "drawer start"`,
+        // lg: `"drawer nav nav" "drawer main main" "drawer start start"`,
+        // },
+      }}
+    >
+      {/* <When condition={!isSmallScreen}> */}
+      <SideNav title={<LessonPickerTitle />} content={<LessonPickerContent />} selected={selectedLessonIndex} />
+      {/* </When> */}
 
       <LessonPrefaceSwiper />
     </Box>

@@ -35,7 +35,7 @@ export function LessonPrefaceSwiper() {
       initialSlide={selectedLessonIndex!}
       onActiveIndexChange={({ activeIndex }) => selectLessonIndex(activeIndex)}
       style={{
-        // gridArea: 'main',
+        gridArea: 'main',
         // overflowY: 'auto',
         // display: 'grid',
         // gridTemplateRows: `${toolbarHeight}px auto ${constants.lessonStartHeight}`,
