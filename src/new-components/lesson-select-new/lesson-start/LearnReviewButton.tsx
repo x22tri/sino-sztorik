@@ -63,7 +63,11 @@ export function LearnReviewButton({ lessonNumber, tierStatuses }: { lessonNumber
         buttonText={selectedButton}
         onClickMainButton={() => startLesson(selectedButton)}
         onClickModeSwitcher={clickModeSwitcher}
-        stylingProps={{ disableElevation: true, variant: selectedButton === LEARN_BUTTON ? 'contained' : 'outlined' }}
+        stylingProps={{
+          disableElevation: true,
+          variant: selectedButton === LEARN_BUTTON ? 'contained' : 'outlined',
+          sx: { m: 'auto', width: 1, maxWidth: '300px' },
+        }}
         {...{ anchorRef, availableOptions }}
       />
 

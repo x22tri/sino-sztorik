@@ -22,7 +22,7 @@ export function LessonStart({ lesson }: { lesson: AssembledLesson }) {
       display='grid'
       gap={2}
       gridArea='start'
-      gridTemplateColumns={`repeat(${isLargeScreen ? 4 : 3}, 1fr)`}
+      gridTemplateColumns={`repeat(3, 1fr)`}
       height={constants.lessonStartHeight}
       paddingX={2}
       position='fixed'
