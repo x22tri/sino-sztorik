@@ -6,10 +6,7 @@ import { Phrase } from '../shared/interfaces'
 import { useLargeScreen } from '../shared/hooks/useLargeScreen'
 import { Theme, useMediaQuery } from '@mui/material'
 
-export function Phrases({ lessonChar, phrases }: { lessonChar: string; phrases: Phrase[] }) {
-  const isSmallScreen = useSmallScreen()
-  const isLargeScreen = useLargeScreen()
-
+export function Phrases({ currentChar, phrases }: { currentChar: string; phrases: Phrase[] }) {
   const isMediumScreen = useMediaQuery(({ breakpoints }: Theme) => breakpoints.between('sm', 'lg'))
 
   return (
@@ -25,7 +22,7 @@ export function Phrases({ lessonChar, phrases }: { lessonChar: string; phrases: 
         <Fragment key={index}>
           <Box display='flex' gap={0.25}>
             {characters.map(({ charChinese, keyword, pinyin, primitiveMeaning }, charIndex) => (
-              <ChineseCharLink key={charIndex} {...{ charChinese, lessonChar, keyword, pinyin, primitiveMeaning }} />
+              <ChineseCharLink key={charIndex} {...{ charChinese, currentChar, keyword, pinyin, primitiveMeaning }} />
             ))}
           </Box>
           {phraseHungarian}

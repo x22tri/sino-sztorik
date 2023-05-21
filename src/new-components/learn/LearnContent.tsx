@@ -1,11 +1,9 @@
-import { useEffect } from 'react'
 import Box from '@mui/material/Box'
-import { Button, useTheme } from '@mui/material'
+import { Button } from '@mui/material'
 import Story from './story/Story'
 import { Presentation } from './presentation/Presentation'
 import { Subheading } from './subheading/Subheading'
 import { AssembledLesson, Character, Constituent, Paragraph, Phrase } from '../shared/interfaces'
-import { scrollToTop } from '../shared/utility-functions'
 import { PrevNextButtons } from '../shared/components/PrevNextButtons'
 import { Phrases } from './Phrases'
 import { Heading } from './subheading/Heading'
@@ -13,7 +11,6 @@ import {
   LEARN_HEADING_CHARACTER,
   LEARN_SUBHEADING_CONSTITUENTS,
   LEARN_HEADING_STORY,
-  LEARN_HEADING_SUPPLEMENTS,
   LEARN_SUBHEADING_PHRASES,
   LEARN_FINISH_LESSON_BUTTON,
 } from '../shared/strings'
@@ -35,19 +32,7 @@ export default function LearnContent({
 }) {
   const lesson = useLoaderData() as AssembledLesson
   const isLargeScreen = useLargeScreen()
-  const { spacing } = useTheme()
   const { flashbackChar } = useStore('flashback')
-  const { swiperInstance } = useStore('swiper')
-
-  useEffect(() => {
-    if (!swiperInstance?.params) {
-      return
-    }
-
-    scrollToTop()
-
-    !flashbackChar ? swiperInstance.enable() : swiperInstance.disable()
-  }, [flashbackChar, swiperInstance])
 
   const prevChar = lesson.characters[index - 1]?.charChinese ?? null
   const nextChar = lesson.characters[index + 1]?.charChinese ?? null
@@ -75,6 +60,8 @@ export default function LearnContent({
       component='main'
       columnGap={6}
       display='grid'
+      marginTop={`${toolbarHeight}px`}
+      minHeight={`calc(100vh - ${toolbarHeight}px)`}
       padding={2}
       paddingTop={0}
       sx={{
@@ -87,8 +74,6 @@ export default function LearnContent({
                "prev-next prev-next" auto
                / 3fr 1fr`,
         },
-        mt: `${toolbarHeight}px`,
-        minHeight: `calc(100vh - ${toolbarHeight}px)`,
       }}
     >
       <Box gridArea='learn'>
@@ -101,15 +86,16 @@ export default function LearnContent({
         <StorySection {...{ story }} />
 
         <When condition={!isLargeScreen}>
-          <PhrasesSection lessonChar={charChinese} phrases={phrases} />
+          <PhrasesSection currentChar={charChinese} {...{ phrases }} />
         </When>
       </Box>
 
       <When condition={isLargeScreen}>
         <Box gridArea='aside'>
+          {/* Keep elements below in sync with duplicates above until CSS Grid Masonry is supported widely */}
           <ConstituentsSection {...{ constituents }} />
 
-          <PhrasesSection lessonChar={charChinese} phrases={phrases} />
+          <PhrasesSection currentChar={charChinese} {...{ phrases }} />
         </Box>
       </When>
 
@@ -137,11 +123,11 @@ function ConstituentsSection({ constituents }: { constituents?: Constituent[] })
   )
 }
 
-function PhrasesSection({ lessonChar, phrases }: { lessonChar: string; phrases?: Phrase[] }) {
+function PhrasesSection({ currentChar, phrases }: { currentChar: string; phrases?: Phrase[] }) {
   return (
     <When condition={phrases?.length}>
       <Subheading title={LEARN_SUBHEADING_PHRASES} />
-      <Phrases {...{ lessonChar }} phrases={phrases!} />
+      <Phrases {...{ currentChar }} phrases={phrases!} />
     </When>
   )
 }
