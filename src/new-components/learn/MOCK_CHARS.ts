@@ -80,7 +80,10 @@ export const CHARS: Character[] = [
     frequency: 129,
     id: 3,
     keyword: 'helyes',
-    otherUses: ['kijavít', 'holdhónap első napja'],
+    otherUses: [
+      { pinyin: 'zhèng', meanings: ['kijavít', 'épp'] },
+      { pinyin: 'zhēng', meanings: ['holdév első hónapja'] },
+    ],
     pinyin: 'zhèng',
     phrases: [
       {

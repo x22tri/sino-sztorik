@@ -61,6 +61,11 @@ export interface Phrase {
   characters: (Pick<Character, 'keyword' | 'primitiveMeaning'> & Pick<Character, 'charChinese'> & Pick<Character, 'pinyin'>)[]
 }
 
+export interface OtherUse {
+  meanings: string[]
+  pinyin: string
+}
+
 export type Constituent = Pick<Character, 'keyword' | 'primitiveMeaning'> & Pick<Character, 'charChinese'>
 
 export interface Character {
@@ -71,7 +76,7 @@ export interface Character {
   keyword?: string
   newPrimitive?: boolean
   id: number
-  otherUses?: string[]
+  otherUses?: OtherUse[]
   phrases?: Phrase[]
   pinyin?: string
   prequel?: boolean

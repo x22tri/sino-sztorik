@@ -25,7 +25,7 @@ export function ChineseCharLink({
 
   return (
     <>
-      <ruby>
+      <Box component='ruby' minWidth='42px' textAlign='center'>
         <Link
           display='inline-block'
           onClick={() => console.log(`navigate to ${charChinese}`)}
@@ -42,7 +42,7 @@ export function ChineseCharLink({
           {pinyin}
         </Box>
         <rp>)</rp>
-      </ruby>
+      </Box>
 
       <Popover
         anchorEl={anchorEl.current}

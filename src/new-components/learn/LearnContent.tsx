@@ -3,9 +3,9 @@ import { Button } from '@mui/material'
 import Story from './story/Story'
 import { Presentation } from './presentation/Presentation'
 import { Subheading } from './subheading/Subheading'
-import { AssembledLesson, Character, Constituent, Paragraph, Phrase } from '../shared/interfaces'
+import { AssembledLesson, Character, Constituent, OtherUse, Paragraph, Phrase } from '../shared/interfaces'
 import { PrevNextButtons } from '../shared/components/PrevNextButtons'
-import { Phrases } from './Phrases'
+import { Phrases } from './phrases/Phrases'
 import { Heading } from './subheading/Heading'
 import {
   LEARN_HEADING_CHARACTER,
@@ -13,6 +13,7 @@ import {
   LEARN_HEADING_STORY,
   LEARN_SUBHEADING_PHRASES,
   LEARN_FINISH_LESSON_BUTTON,
+  LEARN_SUBHEADING_OTHER_USES,
 } from '../shared/strings'
 import { When } from 'react-if'
 import { ConstituentList } from './ConstituentList'
@@ -20,6 +21,7 @@ import { useStore } from '../shared/logic/useStore'
 import { Frequency } from './frequency/Frequency'
 import { useLoaderData } from 'react-router-dom'
 import { useLargeScreen } from '../shared/hooks/useLargeScreen'
+import { OtherUses } from './other-uses/OtherUses'
 
 export default function LearnContent({
   lessonChar,
@@ -37,7 +39,7 @@ export default function LearnContent({
   const prevChar = lesson.characters[index - 1]?.charChinese ?? null
   const nextChar = lesson.characters[index + 1]?.charChinese ?? null
   const currentChar = flashbackChar ?? lessonChar
-  const { charChinese, constituents, phrases, story } = currentChar
+  const { charChinese, constituents, otherUses, phrases, story } = currentChar
 
   return (
     <Box
@@ -71,7 +73,9 @@ export default function LearnContent({
         <StorySection {...{ story }} />
 
         <When condition={!isLargeScreen}>
-          <PhrasesSection currentChar={charChinese} {...{ phrases }} />
+          <PhrasesAndOtherUsesSection currentChar={charChinese} {...{ otherUses, phrases }} />
+
+          {/* <OtherUsesSection {...{ otherUses }} /> */}
         </When>
       </Box>
 
@@ -80,7 +84,9 @@ export default function LearnContent({
           {/* Keep elements below in sync with duplicates above until CSS Grid Masonry is supported widely */}
           <ConstituentsSection {...{ constituents }} />
 
-          <PhrasesSection currentChar={charChinese} {...{ phrases }} />
+          <PhrasesAndOtherUsesSection currentChar={charChinese} {...{ otherUses, phrases }} />
+
+          {/* <OtherUsesSection {...{ otherUses }} /> */}
         </Box>
       </When>
 
@@ -108,21 +114,12 @@ function ConstituentsSection({ constituents }: { constituents?: Constituent[] })
   )
 }
 
-function PhrasesSection({ currentChar, phrases }: { currentChar: string; phrases?: Phrase[] }) {
-  return (
-    <When condition={phrases?.length}>
-      <Subheading title={LEARN_SUBHEADING_PHRASES} />
-      <Phrases {...{ currentChar }} phrases={phrases!} />
-    </When>
-  )
-}
-
 function StorySection({ story }: { story: Paragraph[] }) {
   return (
-    <Box gridArea='story'>
+    <>
       <Heading title={LEARN_HEADING_STORY} />
       <Story {...{ story }} />
-    </Box>
+    </>
   )
 }
 
@@ -130,7 +127,7 @@ function CharacterSection({ currentChar }: { currentChar: Character }) {
   const { frequency } = currentChar
 
   return (
-    <Box gridArea='character'>
+    <>
       <Box display='flex' justifyContent='space-between' alignItems='center'>
         <Heading title={LEARN_HEADING_CHARACTER} />
 
@@ -140,6 +137,40 @@ function CharacterSection({ currentChar }: { currentChar: Character }) {
       </Box>
 
       <Presentation {...{ currentChar }} />
-    </Box>
+    </>
+  )
+}
+
+function PhrasesSection({ currentChar, phrases }: { currentChar: string; phrases?: Phrase[] }) {
+  return (
+    <When condition={phrases?.length}>
+      {/* <Subheading title={LEARN_SUBHEADING_PHRASES} /> */}
+      <Phrases {...{ currentChar }} phrases={phrases!} />
+    </When>
+  )
+}
+
+function OtherUsesSection({ otherUses }: { otherUses?: OtherUse[] }) {
+  return (
+    <When condition={otherUses?.length}>
+      <Subheading title={LEARN_SUBHEADING_OTHER_USES} />
+      <OtherUses otherUses={otherUses!} />
+    </When>
+  )
+}
+
+function PhrasesAndOtherUsesSection({
+  currentChar,
+  otherUses,
+  phrases,
+}: {
+  currentChar: string
+  otherUses?: OtherUse[]
+  phrases?: Phrase[]
+}) {
+  return (
+    <When condition={phrases?.length || otherUses?.length}>
+      <Phrases {...{ currentChar, otherUses, phrases }} />
+    </When>
   )
 }
