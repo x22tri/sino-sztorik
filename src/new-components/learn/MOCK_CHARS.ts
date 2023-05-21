@@ -2,10 +2,13 @@ import { Character } from '../shared/interfaces'
 
 export const CHARS: Character[] = [
   {
-    id: 1,
     charChinese: '一',
+    frequency: 2,
+    id: 1,
     keyword: 'egy',
+    pinyin: 'yī',
     primitiveMeaning: 'plafon, padló',
+    reminder: true,
     story: [
       [
         'Az ',
@@ -29,26 +32,12 @@ export const CHARS: Character[] = [
         ],
       },
     ],
-    frequency: 2,
-    pinyin: 'yī',
-    reminder: true,
   },
   {
-    id: 2,
     charChinese: '止',
-    keyword: 'megáll',
-    primitiveMeaning: 'lábnyom',
-    story: [
-      [
-        'Egy bal láb képe, ami azt jelképezi, hogy valaki itt elég sokáig ',
-        { keyword: 'megállt' },
-        ' ahhoz, hogy a ',
-        { primitive: 'lábnyoma' },
-        ' ott maradjon.',
-      ],
-    ],
     frequency: 596,
-    pinyin: 'zhĭ',
+    id: 2,
+    keyword: 'megáll',
     newPrimitive: true,
     phrases: [
       {
@@ -60,9 +49,21 @@ export const CHARS: Character[] = [
         ],
       },
     ],
+
+    pinyin: 'zhĭ',
+    primitiveMeaning: 'lábnyom',
+    story: [
+      [
+        'Egy bal láb képe, ami azt jelképezi, hogy valaki itt elég sokáig ',
+        { keyword: 'megállt' },
+        ' ahhoz, hogy a ',
+        { primitive: 'lábnyoma' },
+        ' ott maradjon.',
+      ],
+    ],
   },
   {
-    id: 3,
+    charChinese: '正',
     constituents: [
       {
         charChinese: '一',
@@ -75,32 +76,12 @@ export const CHARS: Character[] = [
         primitiveMeaning: 'lábnyom',
       },
     ],
-    charChinese: '正',
-    keyword: 'helyes',
     explanation: 'A magyarhoz hasonlóan jelentheti azt, hogy „igaz, helytálló”, de azt is, hogy „csinos”.',
-    story: [
-      [
-        { constituent: 'Plafont', references: '一' },
-        ' szab a ',
-        { constituent: 'lábnyomnak', references: '止' },
-        ' egy vonás – ez egy zárt, lyukacsos gyógypapucsot, azaz egy ',
-        { primitive: 'ortopéd cipőt' },
-        ' jelképez.',
-      ],
-      ['Az ilyet lúdtalp ellen szokták hordani, hogy a láb ', { keyword: 'helyes' }, ' formáját megőrizze.'],
-      [
-        'Talán segíthet a szó etimológiája is: az „ortopéd” szó jelentése „',
-        { keyword: 'helyes' },
-        ' láb”, mint ahogy az „ortográfia” a „',
-        { keyword: 'helyes' },
-        ' írás”.',
-      ],
-    ],
-    primitiveMeaning: 'ortopéd cipő',
     frequency: 129,
-    pinyin: 'zhèng',
+    id: 3,
+    keyword: 'helyes',
     otherUses: ['kijavít', 'holdhónap első napja'],
-    productivePhonetic: true,
+    pinyin: 'zhèng',
     phrases: [
       {
         phraseChinese: '正好',
@@ -145,15 +126,38 @@ export const CHARS: Character[] = [
         ],
       },
     ],
+    primitiveMeaning: 'ortopéd cipő',
+    productivePhonetic: true,
+    story: [
+      [
+        { constituent: 'Plafont', references: '一' },
+        ' szab a ',
+        { constituent: 'lábnyomnak', references: '止' },
+        ' egy vonás – ez egy zárt, lyukacsos gyógypapucsot, azaz egy ',
+        { primitive: 'ortopéd cipőt' },
+        ' jelképez.',
+      ],
+      ['Az ilyet lúdtalp ellen szokták hordani, hogy a láb ', { keyword: 'helyes' }, ' formáját megőrizze.'],
+      [
+        'Talán segíthet a szó etimológiája is: az „ortopéd” szó jelentése „',
+        { keyword: 'helyes' },
+        ' láb”, mint ahogy az „ortográfia” a „',
+        { keyword: 'helyes' },
+        ' írás”.',
+      ],
+    ],
   },
   {
-    id: 4,
+    charChinese: '证',
     constituents: [
       { charChinese: '讠', primitiveMeaning: 'szavak' },
       { charChinese: '正', keyword: 'helyes', primitiveMeaning: 'ortopéd cipő' },
     ],
-    charChinese: '证',
+    frequency: 373,
+    id: 4,
     keyword: 'bizonyíték',
+    pinyin: 'zhèng',
+    prequel: true,
     story: [
       [
         'Az 1990-es években Amerikában nagy port kavart OJ Simpson pere, akit azzal vádoltak, hogy megölte feleségét és annak egy barátját.',
@@ -174,8 +178,5 @@ export const CHARS: Character[] = [
         ' szolgáltatnak a bíróságon.',
       ],
     ],
-    frequency: 373,
-    pinyin: 'zhèng',
-    prequel: true,
   },
 ]
