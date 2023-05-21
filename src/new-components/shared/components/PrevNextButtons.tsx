@@ -1,10 +1,9 @@
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Box from '@mui/material/Box'
 import { PREV_NEXT_BUTTONS_PREV, PREV_NEXT_BUTTONS_NEXT } from '../strings'
 import { Else, If, Then, When } from 'react-if'
 import { useStore } from '../logic/useStore'
-import { Button } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import { TitleSubtitle } from './TitleSubtitle'
 
 export function PrevNextButtons({
@@ -19,7 +18,14 @@ export function PrevNextButtons({
   const { swiperInstance } = useStore('swiper')
 
   return (
-    <Box alignItems='flex-end' display='flex' gridArea='prev-next' width='100%' marginTop={8}>
+    <Box
+      alignItems='flex-end'
+      display='flex'
+      gridArea='prev-next'
+      width='100%'
+      marginTop={8}
+      sx={{ flexDirection: { xs: 'column', md: 'row' } }}
+    >
       <When condition={!!prev}>
         <Button
           color='neutral'

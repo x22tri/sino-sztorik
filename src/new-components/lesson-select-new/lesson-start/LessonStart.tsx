@@ -39,7 +39,7 @@ export function LessonStart({ lesson }: { lesson: AssembledLesson }) {
         <LearnReviewButton {...{ lessonNumber, tierStatuses }} />
 
         <Unless condition={isLargeScreen}>
-          <Typography color='text.secondary' justifySelf='flex-end' marginRight={1} variant='overline'>
+          <Typography color='text.secondary' justifySelf='flex-end' variant='overline'>
             {characters.length} {CHARACTER_AMOUNT_LABEL}
           </Typography>
         </Unless>
