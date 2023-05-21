@@ -9,6 +9,7 @@ export const CHARS: Character[] = [
     pinyin: 'yī',
     primitiveMeaning: 'plafon, padló',
     reminder: true,
+    similarMeaning: [{ charChinese: '壹', keyword: 'egyes' }],
     story: [
       [
         'Az ',

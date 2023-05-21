@@ -69,6 +69,8 @@ export const LEARN_HEADING_STORY = 'Történet'
 export const LEARN_HEADING_SUPPLEMENTS = 'Kiegészítő információk'
 export const LEARN_SUBHEADING_PHRASES = 'Kifejezések a karakterrel'
 export const LEARN_SUBHEADING_OTHER_USES = 'A karakter egyéb jelentései'
+export const LEARN_SUBHEADING_SIMILAR_APPEARANCE = 'Hasonló kinézetű karakterek'
+export const LEARN_SUBHEADING_SIMILAR_MEANING = 'Hasonló jelentésű karakterek'
 export const LEARN_FINISH_LESSON_BUTTON = 'Lecke befejezése'
 
 export const INFO_CHIP_NEW_PRIMITIVE_LABEL = 'Új jelentés alapelemként!'

@@ -8,7 +8,11 @@ import { useStore } from '../shared/logic/useStore'
 import { useLoaderData } from 'react-router-dom'
 import { useLargeScreen } from '../shared/hooks/useLargeScreen'
 import { OtherUses } from './other-uses/OtherUses'
-import { ConstituentsSection } from './learn-content-sections/LearnContentSections'
+import {
+  ConstituentsSection,
+  SimilarAppearanceSection,
+  SimilarMeaningSection,
+} from './learn-content-sections/LearnContentSections'
 import { StorySection } from './learn-content-sections/LearnContentSections'
 import { CharacterSection } from './learn-content-sections/LearnContentSections'
 import { PhrasesAndOtherUsesSection } from './learn-content-sections/LearnContentSections'
@@ -29,7 +33,7 @@ export default function LearnContent({
   const prevChar = lesson.characters[index - 1]?.charChinese ?? null
   const nextChar = lesson.characters[index + 1]?.charChinese ?? null
   const currentChar = flashbackChar ?? lessonChar
-  const { charChinese, constituents, otherUses, phrases, story } = currentChar
+  const { charChinese, constituents, otherUses, phrases, similarAppearance, similarMeaning, story } = currentChar
 
   return (
     <Box
@@ -64,6 +68,10 @@ export default function LearnContent({
 
         <When condition={!isLargeScreen}>
           <PhrasesAndOtherUsesSection currentChar={charChinese} {...{ otherUses, phrases }} />
+
+          <SimilarMeaningSection {...{ similarMeaning }} />
+
+          <SimilarAppearanceSection {...{ similarAppearance }} />
         </When>
       </Box>
 
@@ -73,6 +81,10 @@ export default function LearnContent({
           <ConstituentsSection {...{ constituents }} />
 
           <PhrasesAndOtherUsesSection currentChar={charChinese} {...{ otherUses, phrases }} />
+
+          <SimilarMeaningSection {...{ similarMeaning }} />
+
+          <SimilarAppearanceSection {...{ similarAppearance }} />
         </Box>
       </When>
 

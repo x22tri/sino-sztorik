@@ -4,10 +4,12 @@ import { ListItemText, Typography, Divider, useTheme } from '@mui/material'
 import { When } from 'react-if'
 
 export function KeywordPrimitiveRow({
+  emphasizePrimitive = false,
   keyword,
   primitiveMeaning,
   small = false,
 }: {
+  emphasizePrimitive?: boolean
   keyword?: string
   primitiveMeaning?: string
   small?: boolean
@@ -21,7 +23,7 @@ export function KeywordPrimitiveRow({
       }}
     >
       <When condition={keyword}>
-        <Typography component='span' fontWeight='bold' fontSize='inherit'>
+        <Typography component='span' fontWeight={emphasizePrimitive ? 'normal' : 'bold'} fontSize='inherit'>
           {keyword}
         </Typography>
       </When>
@@ -31,7 +33,7 @@ export function KeywordPrimitiveRow({
       </When>
 
       <When condition={primitiveMeaning}>
-        <Typography component='span' fontStyle='italic' fontSize='inherit'>
+        <Typography component='span' fontStyle='italic' fontSize='inherit' fontWeight={emphasizePrimitive ? 'bold' : 'normal'}>
           <FontAwesomeIcon
             color={palette.secondary.main}
             icon={faCube}

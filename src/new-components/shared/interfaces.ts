@@ -55,10 +55,12 @@ export interface AssembledLesson {
 
 export type UseKeydownAction = { on: string; do: () => void }
 
+export type ReferencedChar = Pick<Character, 'keyword' | 'primitiveMeaning'> & Pick<Character, 'charChinese'>
+
 export interface Phrase {
   phraseChinese: string
   phraseHungarian: string
-  characters: (Pick<Character, 'keyword' | 'primitiveMeaning'> & Pick<Character, 'charChinese'> & Pick<Character, 'pinyin'>)[]
+  characters: (ReferencedChar & Pick<Character, 'pinyin'>)[]
 }
 
 export interface OtherUse {
@@ -66,11 +68,13 @@ export interface OtherUse {
   pinyin: string
 }
 
-export type Constituent = Pick<Character, 'keyword' | 'primitiveMeaning'> & Pick<Character, 'charChinese'>
+export type SimilarMeaning = ReferencedChar & { similarToPrimitive?: boolean }
+
+export type SimilarAppearance = ReferencedChar
 
 export interface Character {
   charChinese: string
-  constituents?: Constituent[]
+  constituents?: ReferencedChar[]
   explanation?: string
   frequency?: number
   keyword?: string
@@ -83,6 +87,8 @@ export interface Character {
   productivePhonetic?: boolean
   primitiveMeaning?: string
   reminder?: boolean
+  similarAppearance?: SimilarAppearance[]
+  similarMeaning?: SimilarMeaning[]
   story: Paragraph[]
 }
 

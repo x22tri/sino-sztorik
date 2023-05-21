@@ -1,8 +1,22 @@
 import Box from '@mui/material/Box'
 import { When } from 'react-if'
-import { Character, Constituent, OtherUse, Paragraph, Phrase } from '../../shared/interfaces'
-import { LEARN_HEADING_CHARACTER, LEARN_HEADING_STORY, LEARN_SUBHEADING_CONSTITUENTS } from '../../shared/strings'
-import { ConstituentList } from '../ConstituentList'
+import {
+  Character,
+  OtherUse,
+  Paragraph,
+  Phrase,
+  ReferencedChar,
+  SimilarAppearance,
+  SimilarMeaning,
+} from '../../shared/interfaces'
+import {
+  LEARN_HEADING_CHARACTER,
+  LEARN_HEADING_STORY,
+  LEARN_SUBHEADING_CONSTITUENTS,
+  LEARN_SUBHEADING_SIMILAR_APPEARANCE,
+  LEARN_SUBHEADING_SIMILAR_MEANING,
+} from '../../shared/strings'
+import { ConstituentList, SimilarAppearanceList, SimilarMeaningList } from '../CharacterButtonList'
 import { Subheading } from '../subheading/Subheading'
 import Story from '../story/Story'
 import { Heading } from '../subheading/Heading'
@@ -28,7 +42,7 @@ export function CharacterSection({ currentChar }: { currentChar: Character }) {
   )
 }
 
-export function ConstituentsSection({ constituents }: { constituents?: Constituent[] }) {
+export function ConstituentsSection({ constituents }: { constituents?: ReferencedChar[] }) {
   return (
     <When condition={!!constituents}>
       <Subheading title={LEARN_SUBHEADING_CONSTITUENTS} />
@@ -58,6 +72,24 @@ export function PhrasesAndOtherUsesSection({
   return (
     <When condition={phrases?.length || otherUses?.length}>
       <PhrasesAndOtherUses {...{ currentChar, otherUses, phrases }} />
+    </When>
+  )
+}
+
+export function SimilarMeaningSection({ similarMeaning }: { similarMeaning?: SimilarMeaning[] }) {
+  return (
+    <When condition={similarMeaning?.length}>
+      <Subheading title={LEARN_SUBHEADING_SIMILAR_MEANING} />
+      <SimilarMeaningList similarMeaning={similarMeaning!} />
+    </When>
+  )
+}
+
+export function SimilarAppearanceSection({ similarAppearance }: { similarAppearance?: SimilarAppearance[] }) {
+  return (
+    <When condition={similarAppearance?.length}>
+      <Subheading title={LEARN_SUBHEADING_SIMILAR_APPEARANCE} />
+      <SimilarAppearanceList similarAppearance={similarAppearance!} />
     </When>
   )
 }
