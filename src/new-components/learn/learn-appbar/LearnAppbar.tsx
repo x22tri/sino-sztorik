@@ -116,19 +116,11 @@ export function LearnAppbar({
           </Then>
 
           <Else>
-            <Box
-              display='grid'
-              width='100%'
-              sx={{ gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(3, 1fr)', lg: 'repeat(4, 1fr)' } }}
-            >
+            <Box display='grid' width='100%' sx={{ gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(3, 1fr)' } }}>
               <ExitFlashbackButton charChinese={lesson.characters[selectedCharIndex].charChinese} />
 
               <When condition={!isVerySmallScreen}>
                 <FlashbackModeTitle />
-              </When>
-
-              <When condition={isLargeScreen}>
-                <Box />
               </When>
 
               <CloseLearnButton />

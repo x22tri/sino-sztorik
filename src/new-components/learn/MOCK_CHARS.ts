@@ -48,8 +48,18 @@ export const CHARS: Character[] = [
       ],
     ],
     frequency: 596,
-    pinyin: 'zhǐ',
+    pinyin: 'zhĭ',
     newPrimitive: true,
+    phrases: [
+      {
+        phraseChinese: '停止',
+        phraseHungarian: 'abbahagy; abbamarad',
+        characters: [
+          { pinyin: 'tíng', charChinese: '停', keyword: 'leáll' },
+          { pinyin: 'zhĭ', charChinese: '止', keyword: 'megáll', primitiveMeaning: 'lábnyom' },
+        ],
+      },
+    ],
   },
   {
     id: 3,
