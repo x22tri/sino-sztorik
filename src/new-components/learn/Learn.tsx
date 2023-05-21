@@ -3,7 +3,7 @@ import { SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import LearnContent from './LearnContent'
 import { LearnAppbar } from './learn-appbar/LearnAppbar'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { CharPickerContent } from './char-picker/CharPickerContent'
 import { CharPickerTitle } from './char-picker/CharPickerTitle'
 import { useStore } from '../shared/logic/useStore'
@@ -17,6 +17,14 @@ export default function Learn() {
   const [contentType, setContentType] = useState<'characters' | 'preface'>('characters')
   const { selectCharIndex, selectedCharIndex } = useStore('learn')
   const { swiperInstance } = useStore('swiper')
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (swiperInstance?.params) {
+        swiperInstance.updateAutoHeight()
+      }
+    }, 0)
+  }, [swiperInstance])
 
   return !lesson.characters.length ? null : (
     <SwiperGrid

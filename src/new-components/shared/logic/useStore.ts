@@ -27,6 +27,8 @@ const useBoundStore = create<Store>((set, get) => {
           get().swiper.swiperInstance?.disable()
           scrollToTop()
           setTimeout(() => get().swiper.swiperInstance?.updateAutoHeight(), 200)
+        } else {
+          console.log(`${destination} nem található`)
         }
       },
     },

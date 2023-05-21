@@ -7,14 +7,8 @@ import ToolbarButton from '../../shared/components/ToolbarButton'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const settings = [
-  {
-    icon: faGear,
-    text: TOP_NAV_ACCOUNT,
-  },
-  {
-    icon: faArrowRightFromBracket,
-    text: TOP_NAV_LOGOUT,
-  },
+  { icon: faGear, text: TOP_NAV_ACCOUNT },
+  { icon: faArrowRightFromBracket, text: TOP_NAV_LOGOUT },
 ]
 
 export function ProfileMenu() {
