@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
-import { useSwiper } from 'swiper/react'
 import Box from '@mui/material/Box'
-import { Button, Divider, useTheme } from '@mui/material'
+import { Button, useTheme } from '@mui/material'
 import Story from './story/Story'
 import { Presentation } from './presentation/Presentation'
 import { Subheading } from './subheading/Subheading'
@@ -17,13 +16,11 @@ import {
   LEARN_HEADING_SUPPLEMENTS,
   LEARN_SUBHEADING_PHRASES,
   LEARN_FINISH_LESSON_BUTTON,
-  LEARN_SUBHEADING_FREQUENCY,
 } from '../shared/strings'
 import { When } from 'react-if'
 import { ConstituentList } from './ConstituentList'
 import { useStore } from '../shared/logic/useStore'
 import { Frequency } from './frequency/Frequency'
-import { constants } from 'buffer'
 import { useLoaderData } from 'react-router-dom'
 
 export default function LearnContent({
