@@ -3,9 +3,14 @@ import Box from '@mui/material/Box'
 import { useSmallScreen } from '../shared/hooks/useSmallScreen'
 import { ChineseCharLink } from './chinese-char-link/ChineseCharLink'
 import { Phrase } from '../shared/interfaces'
+import { useLargeScreen } from '../shared/hooks/useLargeScreen'
+import { Theme, useMediaQuery } from '@mui/material'
 
 export function Phrases({ lessonChar, phrases }: { lessonChar: string; phrases: Phrase[] }) {
   const isSmallScreen = useSmallScreen()
+  const isLargeScreen = useLargeScreen()
+
+  const isMediumScreen = useMediaQuery(({ breakpoints }: Theme) => breakpoints.between('sm', 'lg'))
 
   return (
     <Box
@@ -14,7 +19,7 @@ export function Phrases({ lessonChar, phrases }: { lessonChar: string; phrases: 
       columnGap={5}
       paddingX={2}
       rowGap={2}
-      sx={{ gridTemplateColumns: `repeat(${isSmallScreen ? 1 : 2}, max-content auto)` }}
+      sx={{ gridTemplateColumns: `repeat(${isMediumScreen ? 2 : 1}, max-content auto)` }}
     >
       {phrases.map(({ characters, phraseHungarian }, index) => (
         <Fragment key={index}>

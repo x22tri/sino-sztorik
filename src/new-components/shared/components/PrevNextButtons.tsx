@@ -19,7 +19,7 @@ export function PrevNextButtons({
   const { swiperInstance } = useStore('swiper')
 
   return (
-    <Box display='flex' gridArea='prev-next' width='100%' justifyContent='center' marginTop={8}>
+    <Box alignItems='flex-end' display='flex' gridArea='prev-next' width='100%' marginTop={8}>
       <When condition={!!prev}>
         <Button
           color='neutral'

@@ -37,7 +37,7 @@ export function LearnAppbar({
   const { selectedCharIndex } = useStore('learn')
   const { toggleDrawer } = useStore('mobileDrawer')
   const { swiperInstance } = useStore('swiper')
-  const { constants, palette } = useTheme()
+  const { constants, spacing } = useTheme()
   const drawerWidth = isSmallScreen ? 0 : constants.drawerWidth
 
   useEffect(() => {
@@ -76,7 +76,7 @@ export function LearnAppbar({
         zIndex: 1,
       }}
     >
-      <Toolbar disableGutters {...{ ref }} sx={{ px: 2 }}>
+      <Toolbar disableGutters {...{ ref }} sx={{ px: { xs: 1, sm: 2 } }}>
         <If condition={!flashbackChar}>
           <Then>
             <Box alignItems='center' display='flex' gap={3} width='100%'>
@@ -87,7 +87,12 @@ export function LearnAppbar({
 
                 <Else>
                   <Tooltip title={LEARN_LESSON_INFO_BUTTON}>
-                    <IconButton className='fa-layers fa-fw' onClick={toggleDrawer} size='large'>
+                    <IconButton
+                      className='fa-layers fa-fw'
+                      onClick={toggleDrawer}
+                      size='large'
+                      style={{ marginLeft: spacing(0.5) }}
+                    >
                       <FontAwesomeIcon icon={faChalkboard} />
                       <Typography component='span' fontWeight='bold' fontSize='45%' marginBottom='2px'>
                         {lesson.lessonNumber}

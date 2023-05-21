@@ -4,7 +4,7 @@ import { Button, useTheme } from '@mui/material'
 import Story from './story/Story'
 import { Presentation } from './presentation/Presentation'
 import { Subheading } from './subheading/Subheading'
-import { AssembledLesson, Character } from '../shared/interfaces'
+import { AssembledLesson, Character, Constituent, Paragraph, Phrase } from '../shared/interfaces'
 import { scrollToTop } from '../shared/utility-functions'
 import { PrevNextButtons } from '../shared/components/PrevNextButtons'
 import { Phrases } from './Phrases'
@@ -22,6 +22,7 @@ import { ConstituentList } from './ConstituentList'
 import { useStore } from '../shared/logic/useStore'
 import { Frequency } from './frequency/Frequency'
 import { useLoaderData } from 'react-router-dom'
+import { useLargeScreen } from '../shared/hooks/useLargeScreen'
 
 export default function LearnContent({
   lessonChar,
@@ -33,6 +34,7 @@ export default function LearnContent({
   toolbarHeight: number
 }) {
   const lesson = useLoaderData() as AssembledLesson
+  const isLargeScreen = useLargeScreen()
   const { spacing } = useTheme()
   const { flashbackChar } = useStore('flashback')
   const { swiperInstance } = useStore('swiper')
@@ -71,51 +73,45 @@ export default function LearnContent({
     <Box
       boxSizing='border-box'
       component='main'
+      columnGap={6}
       display='grid'
-      // maxHeight='100%'
-      // padding={`0 ${spacing(2)} ${spacing(3)}`}
       padding={2}
       paddingTop={0}
       sx={{
         bgcolor: 'background.paper',
-        // gridTemplateColumns: { xs: '1fr', lg: '3fr 1fr' },
-        gridTemplateRows: 'auto max-content',
+        grid: {
+          xs: `"learn" auto
+               "prev-next" max-content
+               / auto`,
+          lg: `"learn aside" max-content
+               "prev-next prev-next" auto
+               / 3fr 1fr`,
+        },
         mt: `${toolbarHeight}px`,
         minHeight: `calc(100vh - ${toolbarHeight}px)`,
       }}
     >
-      <Box>
-        {/* <InfoChips
-        {...{ frequency, newPrimitive, prequel, productivePhonetic, reminder }}
-      /> */}
+      <Box gridArea='learn'>
+        <CharacterSection {...{ currentChar }} />
 
-        <Box display='flex' justifyContent='space-between' alignItems='center'>
-          <Heading title={LEARN_HEADING_CHARACTER} />
-          <When condition={frequency}>
-            <Frequency frequency={frequency!} />
-          </When>
-        </Box>
-
-        <Presentation {...{ charChinese, explanation, keyword, pinyin, primitiveMeaning }} />
-
-        <When condition={!!constituents}>
-          <Subheading title={LEARN_SUBHEADING_CONSTITUENTS} />
-          <ConstituentList constituents={constituents!} />
+        <When condition={!isLargeScreen}>
+          <ConstituentsSection {...{ constituents }} />
         </When>
 
-        <Heading title={LEARN_HEADING_STORY} />
+        <StorySection {...{ story }} />
 
-        <Story {...{ story }} />
-
-        <When condition={phrases?.length}>
-          {/* To-Do: Add other uses, etc. */}
-          {/* <Heading title={LEARN_HEADING_SUPPLEMENTS} /> */}
-          <When condition={phrases?.length}>
-            <Subheading title={LEARN_SUBHEADING_PHRASES} />
-            <Phrases lessonChar={charChinese} phrases={phrases!} />
-          </When>
+        <When condition={!isLargeScreen}>
+          <PhrasesSection lessonChar={charChinese} phrases={phrases} />
         </When>
       </Box>
+
+      <When condition={isLargeScreen}>
+        <Box gridArea='aside'>
+          <ConstituentsSection {...{ constituents }} />
+
+          <PhrasesSection lessonChar={charChinese} phrases={phrases} />
+        </Box>
+      </When>
 
       <When condition={!flashbackChar}>
         <PrevNextButtons
@@ -128,6 +124,65 @@ export default function LearnContent({
           next={nextChar}
         />
       </When>
+    </Box>
+  )
+}
+
+function ConstituentsSection({ constituents }: { constituents?: Constituent[] }) {
+  return (
+    <When condition={!!constituents}>
+      <Subheading title={LEARN_SUBHEADING_CONSTITUENTS} />
+      <ConstituentList constituents={constituents!} />
+    </When>
+  )
+}
+
+function PhrasesSection({ lessonChar, phrases }: { lessonChar: string; phrases?: Phrase[] }) {
+  return (
+    <When condition={phrases?.length}>
+      <Subheading title={LEARN_SUBHEADING_PHRASES} />
+      <Phrases {...{ lessonChar }} phrases={phrases!} />
+    </When>
+  )
+}
+
+function StorySection({ story }: { story: Paragraph[] }) {
+  return (
+    <Box gridArea='story'>
+      <Heading title={LEARN_HEADING_STORY} />
+      <Story {...{ story }} />
+    </Box>
+  )
+}
+
+function CharacterSection({ currentChar }: { currentChar: Character }) {
+  const {
+    charChinese,
+    constituents,
+    explanation,
+    frequency,
+    keyword,
+    newPrimitive,
+    pinyin,
+    phrases,
+    prequel,
+    primitiveMeaning,
+    productivePhonetic,
+    reminder,
+    story,
+  } = currentChar
+
+  return (
+    <Box gridArea='character'>
+      <Box display='flex' justifyContent='space-between' alignItems='center'>
+        <Heading title={LEARN_HEADING_CHARACTER} />
+
+        <When condition={frequency}>
+          <Frequency frequency={frequency!} />
+        </When>
+      </Box>
+
+      <Presentation {...{ charChinese, explanation, keyword, pinyin, primitiveMeaning }} />
     </Box>
   )
 }

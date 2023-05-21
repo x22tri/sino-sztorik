@@ -44,12 +44,12 @@ export function LessonSelectAppbar({
       sx={{
         bgcolor: 'background.paper',
         maxWidth: `calc(${constants.maxContentWidth} - ${drawerWidth}px)`,
+        top: 0,
         width: `calc(100% - ${drawerWidth}px)`,
         zIndex: 1,
-        top: 0,
       }}
     >
-      <Toolbar disableGutters {...{ ref }} sx={{ justifyContent: 'space-between', px: 2 }}>
+      <Toolbar disableGutters {...{ ref }} sx={{ justifyContent: 'space-between', px: { xs: 1, sm: 2 } }}>
         <When condition={isSmallScreen}>
           <ToolbarButton icon={faGraduationCap} onClick={toggleDrawer} tooltip={LESSON_SELECT_TITLE} />
         </When>
