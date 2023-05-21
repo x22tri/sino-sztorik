@@ -1,10 +1,10 @@
-import { Fragment } from 'react'
 import { Box, Theme, useMediaQuery } from '@mui/material'
-import { ChineseCharLink } from '../chinese-char-link/ChineseCharLink'
 import { OtherUse, Phrase } from '../../shared/interfaces'
 import { When } from 'react-if'
 import { LEARN_SUBHEADING_OTHER_USES, LEARN_SUBHEADING_PHRASES } from '../../shared/strings'
 import { Subheading } from '../subheading/Subheading'
+import { Phrases } from './Phrases'
+import { OtherUses } from './OtherUses'
 
 export function PhrasesAndOtherUses({
   currentChar,
@@ -36,42 +36,5 @@ export function PhrasesAndOtherUses({
         <OtherUses otherUses={otherUses!} />
       </When>
     </Box>
-  )
-}
-
-function Phrases({ currentChar, phrases }: { currentChar: string; phrases: Phrase[] }) {
-  return (
-    <>
-      {phrases.map(({ characters, phraseHungarian }, index) => (
-        <Fragment key={index}>
-          <Box display='flex'>
-            {characters.map(({ charChinese, keyword, pinyin, primitiveMeaning }, charIndex) => (
-              <ChineseCharLink key={charIndex} {...{ charChinese, currentChar, keyword, pinyin, primitiveMeaning }} />
-            ))}
-          </Box>
-          {phraseHungarian}
-        </Fragment>
-      ))}
-    </>
-  )
-}
-
-function OtherUses({ otherUses }: { otherUses: OtherUse[] }) {
-  return (
-    <>
-      {otherUses.map(({ pinyin, meanings }) => (
-        <Fragment key={pinyin}>
-          <Box component='span' fontWeight={500} gridColumn='1 / 2' typography='presentation.pinyin'>
-            {pinyin}
-          </Box>
-
-          {meanings.map(meaning => (
-            <Box component='span' key={meaning} gridColumn='2 / 3' marginTop={-0.5}>
-              {meaning}
-            </Box>
-          ))}
-        </Fragment>
-      ))}
-    </>
   )
 }

@@ -5,7 +5,7 @@ import { Presentation } from './presentation/Presentation'
 import { Subheading } from './subheading/Subheading'
 import { AssembledLesson, Character, Constituent, OtherUse, Paragraph, Phrase } from '../shared/interfaces'
 import { PrevNextButtons } from '../shared/components/PrevNextButtons'
-import { PhrasesAndOtherUses } from './phrases/Phrases'
+import { PhrasesAndOtherUses } from './phrases-and-other-uses/PhrasesAndOtherUses'
 import { Heading } from './subheading/Heading'
 import {
   LEARN_HEADING_CHARACTER,
