@@ -1,27 +1,17 @@
 import Box from '@mui/material/Box'
 import { Button } from '@mui/material'
-import Story from './story/Story'
-import { Presentation } from './presentation/Presentation'
-import { Subheading } from './subheading/Subheading'
-import { AssembledLesson, Character, Constituent, OtherUse, Paragraph, Phrase } from '../shared/interfaces'
+import { AssembledLesson, Character } from '../shared/interfaces'
 import { PrevNextButtons } from '../shared/components/PrevNextButtons'
-import { PhrasesAndOtherUses } from './phrases-and-other-uses/PhrasesAndOtherUses'
-import { Heading } from './subheading/Heading'
-import {
-  LEARN_HEADING_CHARACTER,
-  LEARN_SUBHEADING_CONSTITUENTS,
-  LEARN_HEADING_STORY,
-  LEARN_SUBHEADING_PHRASES,
-  LEARN_FINISH_LESSON_BUTTON,
-  LEARN_SUBHEADING_OTHER_USES,
-} from '../shared/strings'
+import { LEARN_SUBHEADING_PHRASES, LEARN_FINISH_LESSON_BUTTON, LEARN_SUBHEADING_OTHER_USES } from '../shared/strings'
 import { When } from 'react-if'
-import { ConstituentList } from './ConstituentList'
 import { useStore } from '../shared/logic/useStore'
-import { Frequency } from './frequency/Frequency'
 import { useLoaderData } from 'react-router-dom'
 import { useLargeScreen } from '../shared/hooks/useLargeScreen'
 import { OtherUses } from './other-uses/OtherUses'
+import { ConstituentsSection } from './learn-content-sections/LearnContentSections'
+import { StorySection } from './learn-content-sections/LearnContentSections'
+import { CharacterSection } from './learn-content-sections/LearnContentSections'
+import { PhrasesAndOtherUsesSection } from './learn-content-sections/LearnContentSections'
 
 export default function LearnContent({
   lessonChar,
@@ -74,8 +64,6 @@ export default function LearnContent({
 
         <When condition={!isLargeScreen}>
           <PhrasesAndOtherUsesSection currentChar={charChinese} {...{ otherUses, phrases }} />
-
-          {/* <OtherUsesSection {...{ otherUses }} /> */}
         </When>
       </Box>
 
@@ -85,8 +73,6 @@ export default function LearnContent({
           <ConstituentsSection {...{ constituents }} />
 
           <PhrasesAndOtherUsesSection currentChar={charChinese} {...{ otherUses, phrases }} />
-
-          {/* <OtherUsesSection {...{ otherUses }} /> */}
         </Box>
       </When>
 
@@ -102,57 +88,5 @@ export default function LearnContent({
         />
       </When>
     </Box>
-  )
-}
-
-function ConstituentsSection({ constituents }: { constituents?: Constituent[] }) {
-  return (
-    <When condition={!!constituents}>
-      <Subheading title={LEARN_SUBHEADING_CONSTITUENTS} />
-      <ConstituentList constituents={constituents!} />
-    </When>
-  )
-}
-
-function StorySection({ story }: { story: Paragraph[] }) {
-  return (
-    <>
-      <Heading title={LEARN_HEADING_STORY} />
-      <Story {...{ story }} />
-    </>
-  )
-}
-
-function CharacterSection({ currentChar }: { currentChar: Character }) {
-  const { frequency } = currentChar
-
-  return (
-    <>
-      <Box display='flex' justifyContent='space-between' alignItems='center'>
-        <Heading title={LEARN_HEADING_CHARACTER} />
-
-        <When condition={frequency}>
-          <Frequency frequency={frequency!} />
-        </When>
-      </Box>
-
-      <Presentation {...{ currentChar }} />
-    </>
-  )
-}
-
-function PhrasesAndOtherUsesSection({
-  currentChar,
-  otherUses,
-  phrases,
-}: {
-  currentChar: string
-  otherUses?: OtherUse[]
-  phrases?: Phrase[]
-}) {
-  return (
-    <When condition={phrases?.length || otherUses?.length}>
-      <PhrasesAndOtherUses {...{ currentChar, otherUses, phrases }} />
-    </When>
   )
 }
