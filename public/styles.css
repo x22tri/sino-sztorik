@@ -15,3 +15,8 @@
 .centerer {
   padding-left: calc(100vw - 100%); /* Needed so that the scrollbar won't shift content */
 }
+
+.swiper {
+  grid-area: main;
+  width: 100%;
+}

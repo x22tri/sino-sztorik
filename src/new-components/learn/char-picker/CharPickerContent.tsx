@@ -5,7 +5,7 @@ import { useStore } from '../../shared/logic/useStore'
 import { useLoaderData } from 'react-router-dom'
 import { AssembledLesson } from '../../shared/interfaces'
 
-export function CharPickerContent({ content }: { content: 'characters' | 'preface' }) {
+export function CharPickerContent({ contentType }: { contentType: 'characters' | 'preface' }) {
   const lesson = useLoaderData() as AssembledLesson
   const { constants, palette, spacing } = useTheme()
   const { selectCharIndex, selectedCharIndex } = useStore('learn')
@@ -19,7 +19,7 @@ export function CharPickerContent({ content }: { content: 'characters' | 'prefac
   }
 
   return (
-    <If condition={content === 'characters'}>
+    <If condition={contentType === 'characters'}>
       <Then>
         {lesson.characters.map(({ charChinese, keyword, primitiveMeaning }, index) => (
           <ListItem key={index} disablePadding>

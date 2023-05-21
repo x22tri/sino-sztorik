@@ -10,11 +10,11 @@ import { useLoaderData } from 'react-router-dom'
 import { AssembledLesson } from '../../shared/interfaces'
 
 export function CharPickerTitle({
-  content,
-  setContent,
+  contentType,
+  setContentType,
 }: {
-  content: 'characters' | 'preface'
-  setContent: Dispatch<SetStateAction<'characters' | 'preface'>>
+  contentType: 'characters' | 'preface'
+  setContentType: Dispatch<SetStateAction<'characters' | 'preface'>>
 }) {
   const lesson = useLoaderData() as AssembledLesson
   const { palette, spacing } = useTheme()
@@ -30,12 +30,16 @@ export function CharPickerTitle({
     >
       <TitleSubtitle title={lesson.lessonNumber + LESSON_NUMBER_SUFFIX_APPBAR} subtitle={lesson.title ?? ''} />
 
-      <If condition={content === 'characters'}>
+      <If condition={contentType === 'characters'}>
         <Then>
-          <ToolbarButton icon={faNewspaper} onClick={() => setContent('preface')} tooltip={LEARN_LESSON_PREFACE_TOOLTIP} />
+          <ToolbarButton icon={faNewspaper} onClick={() => setContentType('preface')} tooltip={LEARN_LESSON_PREFACE_TOOLTIP} />
         </Then>
         <Else>
-          <ToolbarButton icon={faLanguage} onClick={() => setContent('characters')} tooltip={LEARN_LESSON_CHARACTERS_TOOLTIP} />
+          <ToolbarButton
+            icon={faLanguage}
+            onClick={() => setContentType('characters')}
+            tooltip={LEARN_LESSON_CHARACTERS_TOOLTIP}
+          />
         </Else>
       </If>
     </Box>

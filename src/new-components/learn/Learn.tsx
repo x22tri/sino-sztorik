@@ -16,45 +16,25 @@ import { AssembledLesson } from '../shared/interfaces'
 export default function Learn() {
   const lesson = useLoaderData() as AssembledLesson
   const [toolbarHeight, setToolbarHeight] = useState(0)
-  const [content, setContent] = useState<'characters' | 'preface'>('characters')
+  const [contentType, setContentType] = useState<'characters' | 'preface'>('characters')
   const { selectCharIndex, selectedCharIndex } = useStore('learn')
-  const { constants, palette } = useTheme()
+  const { constants } = useTheme()
 
   return !lesson.characters.length ? null : (
     <Box
-      // display='grid'
-      // height='100vh'
-      // margin='auto'
-      // maxWidth={constants.maxContentWidth}
-      // position='relative'
-      // gridTemplateRows={`${toolbarHeight}px auto`}
-      // sx={{
-      //   gridTemplateColumns: { xs: '1fr', md: `${constants.drawerWidth}px auto`, lg: `${constants.drawerWidth}px 3fr 1fr` },
-      //   gridTemplateAreas: {
-      //     xs: `"nav" "content"`,
-      //     md: `"drawer nav" "drawer content"`,
-      //     lg: `"drawer nav nav" "drawer content content"`,
-      //   },
-      // }}
       display='grid'
       position='relative'
       margin='auto'
       maxWidth={constants.maxContentWidth}
-      sx={{
-        gridTemplateColumns: { xs: 'auto', md: `${constants.drawerWidth}px auto` },
-        gridTemplateAreas: `"drawer main"`,
-      }}
+      sx={{ gridTemplate: { xs: `"main" / auto`, md: `"drawer main" / ${constants.drawerWidth}px auto` } }}
     >
       <SideNav
-        title={<CharPickerTitle {...{ content, setContent }} />}
-        content={<CharPickerContent {...{ content }} />}
+        title={<CharPickerTitle {...{ contentType, setContentType }} />}
+        content={<CharPickerContent {...{ contentType }} />}
         selected={selectedCharIndex}
       />
 
-      <SwiperWrapper
-        onActiveIndexChange={({ activeIndex }) => selectCharIndex(activeIndex)}
-        style={{ gridArea: 'main', width: '100%' }}
-      >
+      <SwiperWrapper onActiveIndexChange={({ activeIndex }) => selectCharIndex(activeIndex)}>
         <LearnAppbar lessonLength={CHARS.length} {...{ toolbarHeight, setToolbarHeight }} />
 
         {lesson.characters.map((char, index) => (
