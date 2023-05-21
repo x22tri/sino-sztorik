@@ -127,21 +127,7 @@ function StorySection({ story }: { story: Paragraph[] }) {
 }
 
 function CharacterSection({ currentChar }: { currentChar: Character }) {
-  const {
-    charChinese,
-    constituents,
-    explanation,
-    frequency,
-    keyword,
-    newPrimitive,
-    pinyin,
-    phrases,
-    prequel,
-    primitiveMeaning,
-    productivePhonetic,
-    reminder,
-    story,
-  } = currentChar
+  const { frequency } = currentChar
 
   return (
     <Box gridArea='character'>
@@ -153,7 +139,7 @@ function CharacterSection({ currentChar }: { currentChar: Character }) {
         </When>
       </Box>
 
-      <Presentation {...{ charChinese, explanation, keyword, pinyin, primitiveMeaning }} />
+      <Presentation {...{ currentChar }} />
     </Box>
   )
 }

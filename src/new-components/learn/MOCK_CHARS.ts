@@ -100,7 +100,7 @@ export const CHARS: Character[] = [
     frequency: 129,
     pinyin: 'zhèng',
     otherUses: ['kijavít', 'holdhónap első napja'],
-    prequel: true,
+    productivePhonetic: true,
     phrases: [
       {
         phraseChinese: '正好',
@@ -176,6 +176,6 @@ export const CHARS: Character[] = [
     ],
     frequency: 373,
     pinyin: 'zhèng',
-    productivePhonetic: true,
+    prequel: true,
   },
 ]
