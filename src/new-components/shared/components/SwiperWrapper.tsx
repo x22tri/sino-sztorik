@@ -5,11 +5,9 @@ import { UseKeydownAction } from '../interfaces'
 import { useStore } from '../logic/useStore'
 import 'swiper/css'
 
-export function SwiperWrapper({
-  children,
-  customKeyboardControls,
-  ...restProps
-}: SwiperProps & { customKeyboardControls?: UseKeydownAction[] }) {
+export type SwiperWrapperProps = SwiperProps & { customKeyboardControls?: UseKeydownAction[] }
+
+export function SwiperWrapper({ children, customKeyboardControls, ...restProps }: SwiperWrapperProps) {
   const { swiperInstance, setSwiperInstance } = useStore('swiper')
 
   useKeydown(

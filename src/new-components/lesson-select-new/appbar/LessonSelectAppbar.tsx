@@ -3,7 +3,7 @@ import { Box, Toolbar, useTheme } from '@mui/material'
 import { When } from 'react-if'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import LogoTitle from '../../shared/components/LogoTitle'
-import ProfileMenu from './TopNav'
+import { ProfileMenu } from './ProfileMenu'
 import ToolbarButton from '../../shared/components/ToolbarButton'
 import { LESSON_SELECT_TITLE } from '../../shared/strings'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
@@ -25,17 +25,15 @@ export function LessonSelectAppbar({
 
   useEffect(() => {
     if (ref?.current) {
-      resizeObserver.observe(ref?.current)
+      resizeObserver.observe(ref.current)
     }
 
-    return () => {
-      resizeObserver.disconnect()
-    }
+    return () => resizeObserver.disconnect()
   })
 
   function handleToolbarResized() {
-    if (ref?.current && ref?.current.offsetHeight !== toolbarHeight) {
-      setToolbarHeight(ref?.current.offsetHeight)
+    if (ref?.current && ref.current.offsetHeight !== toolbarHeight) {
+      setToolbarHeight(ref.current.offsetHeight)
     }
   }
 

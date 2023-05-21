@@ -1,10 +1,11 @@
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Box from '@mui/material/Box'
-import { LightenOnHoverButton } from './LightenOnHoverButton'
 import { PREV_NEXT_BUTTONS_PREV, PREV_NEXT_BUTTONS_NEXT } from '../strings'
 import { Else, If, Then, When } from 'react-if'
 import { useStore } from '../logic/useStore'
+import { Button } from '@mui/material'
+import { TitleSubtitle } from './TitleSubtitle'
 
 export function PrevNextButtons({
   customEndElement,
@@ -20,28 +21,39 @@ export function PrevNextButtons({
   return (
     <Box display='flex' width='100%' justifyContent='center' marginTop={8}>
       <When condition={!!prev}>
-        <LightenOnHoverButton
+        <Button
           color='neutral'
-          onClick={() => swiperInstance?.slidePrev()}
-          size='small'
           startIcon={<FontAwesomeIcon icon={faChevronLeft} transform='shrink-4' />}
-          sx={{ mr: 'auto' }}
+          size='large'
+          onClick={() => swiperInstance?.slidePrev()}
+          variant='text'
+          sx={{ mr: 'auto', px: 2 }}
         >
-          {PREV_NEXT_BUTTONS_PREV}
-        </LightenOnHoverButton>
+          <TitleSubtitle
+            title={PREV_NEXT_BUTTONS_PREV}
+            subtitle={prev!}
+            subtitleStyles={{ lineHeight: 'initial' }}
+          ></TitleSubtitle>
+        </Button>
       </When>
 
       <If condition={!!next}>
         <Then>
-          <LightenOnHoverButton
+          <Button
             color='neutral'
             endIcon={<FontAwesomeIcon icon={faChevronRight} transform='shrink-4' />}
+            size='large'
             onClick={() => swiperInstance?.slideNext()}
-            size='small'
-            sx={{ ml: 'auto' }}
+            variant='text'
+            sx={{ ml: 'auto', px: 2 }}
           >
-            {PREV_NEXT_BUTTONS_NEXT}
-          </LightenOnHoverButton>
+            <TitleSubtitle
+              title={PREV_NEXT_BUTTONS_NEXT}
+              subtitle={next!}
+              containerStyles={{ alignItems: 'flex-end' }}
+              subtitleStyles={{ lineHeight: 'initial' }}
+            ></TitleSubtitle>
+          </Button>
         </Then>
 
         <Else>

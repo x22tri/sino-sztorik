@@ -5,7 +5,7 @@ import { Button, Divider, useTheme } from '@mui/material'
 import Story from './story/Story'
 import { Presentation } from './presentation/Presentation'
 import { Subheading } from './subheading/Subheading'
-import { Character } from '../shared/interfaces'
+import { AssembledLesson, Character } from '../shared/interfaces'
 import { scrollToTop } from '../shared/utility-functions'
 import { PrevNextButtons } from '../shared/components/PrevNextButtons'
 import { Phrases } from './Phrases'
@@ -24,32 +24,34 @@ import { ConstituentList } from './ConstituentList'
 import { useStore } from '../shared/logic/useStore'
 import { Frequency } from './frequency/Frequency'
 import { constants } from 'buffer'
+import { useLoaderData } from 'react-router-dom'
 
 export default function LearnContent({
-  nextChar,
   lessonChar,
-  prevChar,
+  index,
   toolbarHeight,
 }: {
-  nextChar: string | null
   lessonChar: Character
-  prevChar: string | null
+  index: number
   toolbarHeight: number
 }) {
-  const swiper = useSwiper()
+  const lesson = useLoaderData() as AssembledLesson
   const { spacing } = useTheme()
   const { flashbackChar } = useStore('flashback')
+  const { swiperInstance } = useStore('swiper')
 
   useEffect(() => {
-    if (!swiper?.params) {
+    if (!swiperInstance?.params) {
       return
     }
 
     scrollToTop()
 
-    !flashbackChar ? swiper.enable() : swiper.disable()
-  }, [flashbackChar, swiper])
+    !flashbackChar ? swiperInstance.enable() : swiperInstance.disable()
+  }, [flashbackChar, swiperInstance])
 
+  const prevChar = lesson.characters[index - 1]?.charChinese ?? null
+  const nextChar = lesson.characters[index + 1]?.charChinese ?? null
   const currentChar = flashbackChar ?? lessonChar
 
   const {
