@@ -72,8 +72,10 @@ export default function LearnContent({
       boxSizing='border-box'
       component='main'
       display='grid'
-      maxHeight='100%'
-      padding={`0 ${spacing(2)} ${spacing(3)}`}
+      // maxHeight='100%'
+      // padding={`0 ${spacing(2)} ${spacing(3)}`}
+      padding={2}
+      paddingTop={0}
       sx={{
         bgcolor: 'background.paper',
         // gridTemplateColumns: { xs: '1fr', lg: '3fr 1fr' },
@@ -107,7 +109,7 @@ export default function LearnContent({
 
         <When condition={phrases?.length}>
           {/* To-Do: Add other uses, etc. */}
-          <Heading title={LEARN_HEADING_SUPPLEMENTS} />
+          {/* <Heading title={LEARN_HEADING_SUPPLEMENTS} /> */}
           <When condition={phrases?.length}>
             <Subheading title={LEARN_SUBHEADING_PHRASES} />
             <Phrases lessonChar={charChinese} phrases={phrases!} />

@@ -1,4 +1,4 @@
-import { Drawer, List, useTheme } from '@mui/material'
+import { Box, Drawer, List, useTheme } from '@mui/material'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { Wrap } from '../../shared/utility-components'
 import { useWindowSize } from '../hooks/useWindowSize'
@@ -42,16 +42,15 @@ export function SideNav({ content, selected, title }: { content: JSX.Element; se
     >
       <List
         subheader={title}
+        {...{ ref }}
         sx={{
           bottom: 0,
-          left: 0,
           gridArea: 'drawer',
-          overflow: 'auto',
-          position: 'absolute',
+          overflowY: 'auto',
           top: 0,
+          position: 'fixed',
           width: `${constants.drawerWidth}px`,
         }}
-        {...{ ref }}
       >
         {content}
       </List>
