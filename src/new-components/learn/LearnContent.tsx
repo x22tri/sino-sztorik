@@ -37,22 +37,7 @@ export default function LearnContent({
   const prevChar = lesson.characters[index - 1]?.charChinese ?? null
   const nextChar = lesson.characters[index + 1]?.charChinese ?? null
   const currentChar = flashbackChar ?? lessonChar
-
-  const {
-    charChinese,
-    constituents,
-    explanation,
-    frequency,
-    keyword,
-    newPrimitive,
-    pinyin,
-    phrases,
-    prequel,
-    primitiveMeaning,
-    productivePhonetic,
-    reminder,
-    story,
-  } = currentChar
+  const { charChinese, constituents, phrases, story } = currentChar
 
   return (
     <Box

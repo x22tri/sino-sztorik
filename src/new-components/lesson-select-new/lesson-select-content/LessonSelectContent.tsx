@@ -26,13 +26,12 @@ export default function LessonSelectContent({
     <Stack
       boxSizing='border-box'
       component='main'
-      columnGap={2}
+      columnGap={6}
       display='grid'
       marginTop={`${toolbarHeight}px`}
       marginBottom={constants.lessonStartHeight}
       minHeight={`calc(100vh - ${toolbarHeight}px - ${constants.lessonStartHeight})`}
       padding={2}
-      width={1}
       sx={{
         bgcolor: 'background.paper',
         grid: {
