@@ -6,7 +6,7 @@ import { When } from 'react-if'
 import { LEARN_SUBHEADING_OTHER_USES, LEARN_SUBHEADING_PHRASES } from '../../shared/strings'
 import { Subheading } from '../subheading/Subheading'
 
-export function Phrases({
+export function PhrasesAndOtherUses({
   currentChar,
   otherUses,
   phrases,
@@ -39,30 +39,23 @@ export function Phrases({
             {phraseHungarian}
           </Fragment>
         ))}
-
-        <When condition={phrases!.length % 2 === 1 && isMediumScreen}>
-          <span />
-          <span />
-        </When>
       </When>
 
       <When condition={otherUses?.length}>
         <Subheading title={LEARN_SUBHEADING_OTHER_USES} styles={{ gridColumn: '1 / -1', mx: -2, my: 2 }} />
 
         {otherUses?.map(({ pinyin, meanings }) => (
-          // <Box display='grid' key={pinyin} sx={{ gridTemplateColumns: 'auto auto', gridColumn: 'span 2' }}>
-          <>
+          <Fragment key={pinyin}>
             <Box component='span' fontWeight={500} gridColumn='1 / 2' typography='presentation.pinyin'>
               {pinyin}
             </Box>
 
             {meanings.map(meaning => (
-              <Box component='span' key={meaning} gridColumn='2 / 3'>
+              <Box component='span' key={meaning} gridColumn='2 / 3' marginTop={-2}>
                 {meaning}
               </Box>
             ))}
-          </>
-          // </Box>
+          </Fragment>
         ))}
       </When>
     </Box>

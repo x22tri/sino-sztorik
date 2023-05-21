@@ -5,7 +5,7 @@ import { Presentation } from './presentation/Presentation'
 import { Subheading } from './subheading/Subheading'
 import { AssembledLesson, Character, Constituent, OtherUse, Paragraph, Phrase } from '../shared/interfaces'
 import { PrevNextButtons } from '../shared/components/PrevNextButtons'
-import { Phrases } from './phrases/Phrases'
+import { PhrasesAndOtherUses } from './phrases/Phrases'
 import { Heading } from './subheading/Heading'
 import {
   LEARN_HEADING_CHARACTER,
@@ -141,24 +141,6 @@ function CharacterSection({ currentChar }: { currentChar: Character }) {
   )
 }
 
-function PhrasesSection({ currentChar, phrases }: { currentChar: string; phrases?: Phrase[] }) {
-  return (
-    <When condition={phrases?.length}>
-      {/* <Subheading title={LEARN_SUBHEADING_PHRASES} /> */}
-      <Phrases {...{ currentChar }} phrases={phrases!} />
-    </When>
-  )
-}
-
-function OtherUsesSection({ otherUses }: { otherUses?: OtherUse[] }) {
-  return (
-    <When condition={otherUses?.length}>
-      <Subheading title={LEARN_SUBHEADING_OTHER_USES} />
-      <OtherUses otherUses={otherUses!} />
-    </When>
-  )
-}
-
 function PhrasesAndOtherUsesSection({
   currentChar,
   otherUses,
@@ -170,7 +152,7 @@ function PhrasesAndOtherUsesSection({
 }) {
   return (
     <When condition={phrases?.length || otherUses?.length}>
-      <Phrases {...{ currentChar, otherUses, phrases }} />
+      <PhrasesAndOtherUses {...{ currentChar, otherUses, phrases }} />
     </When>
   )
 }
