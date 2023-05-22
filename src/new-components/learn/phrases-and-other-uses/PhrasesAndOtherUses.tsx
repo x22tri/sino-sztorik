@@ -2,7 +2,7 @@ import { Box, Theme, useMediaQuery } from '@mui/material'
 import { OtherUse, Phrase } from '../../shared/interfaces'
 import { When } from 'react-if'
 import { LEARN_SUBHEADING_OTHER_USES, LEARN_SUBHEADING_PHRASES } from '../../shared/strings'
-import { Subheading } from '../subheading/Subheading'
+import { Subheading } from '../headings/Subheading'
 import { Phrases } from './Phrases'
 import { OtherUses } from './OtherUses'
 

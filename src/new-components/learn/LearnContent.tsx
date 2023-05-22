@@ -2,12 +2,11 @@ import Box from '@mui/material/Box'
 import { Button } from '@mui/material'
 import { AssembledLesson, Character } from '../shared/interfaces'
 import { PrevNextButtons } from '../shared/components/PrevNextButtons'
-import { LEARN_SUBHEADING_PHRASES, LEARN_FINISH_LESSON_BUTTON, LEARN_SUBHEADING_OTHER_USES } from '../shared/strings'
+import { LEARN_FINISH_LESSON_BUTTON } from '../shared/strings'
 import { When } from 'react-if'
 import { useStore } from '../shared/logic/useStore'
 import { useLoaderData } from 'react-router-dom'
 import { useLargeScreen } from '../shared/hooks/useLargeScreen'
-import { OtherUses } from './other-uses/OtherUses'
 import {
   ConstituentsSection,
   SimilarAppearanceSection,

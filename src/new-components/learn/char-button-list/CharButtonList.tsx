@@ -1,21 +1,21 @@
 import { List, ListItem, ListItemButton, ListItemIcon, Typography } from '@mui/material'
-import { ReferencedChar, SimilarAppearance, SimilarMeaning } from '../shared/interfaces'
-import { KeywordPrimitiveRow } from '../shared/components/KeywordPrimitiveRow'
-import { useStore } from '../shared/logic/useStore'
+import { ReferencedChar, SimilarAppearance, SimilarMeaning } from '../../shared/interfaces'
+import { KeywordPrimitiveRow } from '../../shared/components/KeywordPrimitiveRow'
+import { useStore } from '../../shared/logic/useStore'
 
 export function ConstituentList({ constituents }: { constituents: ReferencedChar[] }) {
-  return <CharacterButtonList characters={constituents} color='secondary' />
+  return <CharButtonList characters={constituents} color='secondary' />
 }
 
 export function SimilarMeaningList({ similarMeaning }: { similarMeaning: SimilarMeaning[] }) {
-  return <CharacterButtonList characters={similarMeaning} color='primary' />
+  return <CharButtonList characters={similarMeaning} color='primary' />
 }
 
 export function SimilarAppearanceList({ similarAppearance }: { similarAppearance: SimilarAppearance[] }) {
-  return <CharacterButtonList characters={similarAppearance} color='primary' />
+  return <CharButtonList characters={similarAppearance} color='primary' />
 }
 
-function CharacterButtonList({
+function CharButtonList({
   color,
   characters,
 }: {

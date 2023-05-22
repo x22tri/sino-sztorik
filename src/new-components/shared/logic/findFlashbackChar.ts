@@ -1,4 +1,4 @@
-import { CHARS } from '../../learn/MOCK_CHARS'
+import { CHARS } from '../MOCK_CHARS'
 import { Character } from '../interfaces'
 
 export function findFlashbackChar(char: string): Character | null {

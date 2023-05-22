@@ -1,4 +1,4 @@
-import { CHARS } from '../learn/MOCK_CHARS'
+import { CHARS } from './MOCK_CHARS'
 import { LessonStatuses, AssembledLesson } from './interfaces'
 
 export const LESSONS: AssembledLesson[] = [

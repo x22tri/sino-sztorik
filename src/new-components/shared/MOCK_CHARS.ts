@@ -1,4 +1,4 @@
-import { Character } from '../shared/interfaces'
+import { Character } from './interfaces'
 
 export const CHARS: Character[] = [
   {

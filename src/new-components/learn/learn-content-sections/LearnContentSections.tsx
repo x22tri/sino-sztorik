@@ -16,10 +16,10 @@ import {
   LEARN_SUBHEADING_SIMILAR_APPEARANCE,
   LEARN_SUBHEADING_SIMILAR_MEANING,
 } from '../../shared/strings'
-import { ConstituentList, SimilarAppearanceList, SimilarMeaningList } from '../CharacterButtonList'
-import { Subheading } from '../subheading/Subheading'
+import { ConstituentList, SimilarAppearanceList, SimilarMeaningList } from '../char-button-list/CharButtonList'
+import { Subheading } from '../headings/Subheading'
 import Story from '../story/Story'
-import { Heading } from '../subheading/Heading'
+import { Heading } from '../headings/Heading'
 import { Presentation } from '../presentation/Presentation'
 import { PhrasesAndOtherUses } from '../phrases-and-other-uses/PhrasesAndOtherUses'
 import { Frequency } from '../frequency/Frequency'

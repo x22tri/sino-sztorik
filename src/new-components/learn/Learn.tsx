@@ -1,4 +1,4 @@
-import { CHARS } from './MOCK_CHARS'
+import { CHARS } from '../shared/MOCK_CHARS'
 import { SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import LearnContent from './LearnContent'
