@@ -16,6 +16,7 @@ import {
 import { StorySection } from './learn-content-sections/LearnContentSections'
 import { CharacterSection } from './learn-content-sections/LearnContentSections'
 import { PhrasesAndOtherUsesSection } from './learn-content-sections/LearnContentSections'
+import { LESSON_SELECT_PATH } from '../shared/paths'
 
 export default function LearnContent({
   lessonChar,
@@ -91,7 +92,7 @@ export default function LearnContent({
       <When condition={!flashbackChar}>
         <PrevNextButtons
           customEndElement={
-            <Button disableElevation variant='contained' href='/' sx={{ borderRadius: 6 }}>
+            <Button disableElevation variant='contained' href={LESSON_SELECT_PATH} sx={{ borderRadius: 6 }}>
               {LEARN_FINISH_LESSON_BUTTON}
             </Button>
           }

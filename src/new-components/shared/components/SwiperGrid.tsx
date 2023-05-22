@@ -1,6 +1,5 @@
 import { Box, useTheme } from '@mui/material'
 import { SideNav } from './SideNav'
-import { SwiperWrapper, SwiperWrapperProps } from './SwiperWrapper'
 import { Swiper, SwiperProps } from 'swiper/react'
 import { useStore } from '../logic/useStore'
 import { UseKeydownAction } from '../interfaces'

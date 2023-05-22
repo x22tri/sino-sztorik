@@ -27,12 +27,12 @@ export function PhrasesAndOtherUses({
       sx={{ gridTemplateColumns: `repeat(${isMediumScreen ? 2 : 1}, max-content auto)` }}
     >
       <When condition={phrases?.length}>
-        <Subheading title={LEARN_SUBHEADING_PHRASES} styles={{ gridColumn: '1 / -1', mx: -2, my: 2 }} />
+        <Subheading title={LEARN_SUBHEADING_PHRASES} styles={{ gridColumn: '1 / -1', mx: -2, mt: 3, mb: 1 }} />
         <Phrases phrases={phrases!} {...{ currentChar }} />
       </When>
 
       <When condition={otherUses?.length}>
-        <Subheading title={LEARN_SUBHEADING_OTHER_USES} styles={{ gridColumn: '1 / -1', mx: -2, my: 2 }} />
+        <Subheading title={LEARN_SUBHEADING_OTHER_USES} styles={{ gridColumn: '1 / -1', mx: -2, mt: 3, mb: 1 }} />
         <OtherUses otherUses={otherUses!} />
       </When>
     </Box>
