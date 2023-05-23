@@ -1,5 +1,5 @@
 import CssBaseline from '@mui/material/CssBaseline'
-import Landing from './landing/Landing'
+import { Landing } from './landing/Landing'
 
 import { ThemeProvider } from '@mui/material/styles'
 import theme from './shared/theme'

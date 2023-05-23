@@ -1,7 +1,7 @@
 import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import Link from '@mui/material/Link'
-import { Segment as SegmentType, SegmentKey, SegmentStyles, StoryParagraphKeys } from '../../shared/interfaces'
+import { Segment as SegmentType, StoryParagraphKeys } from '../../shared/interfaces'
 import { Fragment } from 'react'
 import { Segment } from './Segment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -10,14 +10,8 @@ import { useStore } from '../../shared/logic/useStore'
 
 export function SegmentResolver({ segments }: { segments: SegmentType[] }) {
   const { KEYWORD, PRIMITIVE, CONSTITUENT } = StoryParagraphKeys
-  const { palette, spacing, typography } = useTheme()
+  const { palette, spacing } = useTheme()
   const { startFlashback } = useStore('flashback')
-
-  const styles: Record<SegmentKey, SegmentStyles> = {
-    [KEYWORD]: { fontStyle: { fontWeight: 'bold' } },
-    [PRIMITIVE]: { fontStyle: { fontStyle: 'italic' } },
-    [CONSTITUENT]: { fontStyle: typography.storySegments.constituent },
-  }
 
   return (
     <Box component='p' marginY={2}>
@@ -27,14 +21,13 @@ export function SegmentResolver({ segments }: { segments: SegmentType[] }) {
         }
 
         if (KEYWORD in segment) {
-          return <Segment key={index} styles={styles[KEYWORD]} text={segment[KEYWORD]} />
+          return <Segment key={index} text={segment[KEYWORD]} typographyProps={{ fontWeight: 'bold' }} />
         }
 
         if (PRIMITIVE in segment) {
           return (
             <Segment
               key={index}
-              styles={styles[PRIMITIVE]}
               text={
                 <>
                   <FontAwesomeIcon
@@ -46,6 +39,7 @@ export function SegmentResolver({ segments }: { segments: SegmentType[] }) {
                   {segment[PRIMITIVE]}
                 </>
               }
+              typographyProps={{ fontStyle: 'italic' }}
             />
           )
         }
@@ -54,7 +48,6 @@ export function SegmentResolver({ segments }: { segments: SegmentType[] }) {
           return (
             <Segment
               key={index}
-              styles={styles[CONSTITUENT]}
               text={
                 <Link
                   color='secondary'

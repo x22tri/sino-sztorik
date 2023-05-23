@@ -1,10 +1,10 @@
-import Typography from '@mui/material/Typography'
+import Typography, { TypographyProps } from '@mui/material/Typography'
 import { SegmentStyles } from '../../shared/interfaces'
 import { ReactNode } from 'react'
 
-export function Segment({ styles, text }: { styles: SegmentStyles; text: string | ReactNode }) {
+export function Segment({ text, typographyProps }: { text: string | ReactNode; typographyProps?: TypographyProps }) {
   return (
-    <Typography component='span' display='inline-flex' flexWrap='nowrap' alignItems='baseline' sx={styles.fontStyle}>
+    <Typography component='span' display='inline-flex' flexWrap='nowrap' alignItems='baseline' {...typographyProps}>
       {text}
     </Typography>
   )
