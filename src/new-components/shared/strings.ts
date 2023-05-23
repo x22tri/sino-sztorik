@@ -1,5 +1,9 @@
 export const APP_TITLE = 'kin.ai'
 
+export const LANDING_HEADER_FIRST_ROW = 'Tanulj meg olvasni'
+export const LANDING_HEADER_SECOND_ROW = 'kínaiul, kín nélkül'
+export const LANDING_HEADER_PARAGRAPH = `A ${APP_TITLE} megtanítja neked a 3000 legfontosabb kínai írásjegyet, magolás helyett könnyen megjegyezhető történetekkel.`
+
 export const LESSON_LOCKED = 'Még nincs feloldva'
 export const LESSON_UPCOMING = 'Soron következő lecke'
 export const LESSON_COMPLETED = 'Már megtanult lecke'

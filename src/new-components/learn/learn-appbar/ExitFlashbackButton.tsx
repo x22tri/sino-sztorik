@@ -10,7 +10,6 @@ export function ExitFlashbackButton({ charChinese }: { charChinese: string }) {
 
   return (
     <Button
-      disableElevation
       color='white'
       variant='contained'
       onClick={exitFlashback}

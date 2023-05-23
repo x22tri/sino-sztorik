@@ -1,6 +1,7 @@
-import { AppBar, Box, Toolbar, Typography, useTheme } from '@mui/material'
+import { AppBar, Box, Toolbar, useTheme } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import LogoTitle from '../shared/components/LogoTitle'
+import { MainHeading } from './MainHeading'
 
 export function Landing() {
   const { constants } = useTheme()
@@ -9,7 +10,7 @@ export function Landing() {
 
   return (
     <>
-      <AppBar elevation={0} sx={{ bgcolor: 'transparent' }}>
+      <AppBar elevation={0} sx={{ bgcolor: 'background.paper' }}>
         <Toolbar sx={containerStyles}>
           <LogoTitle />
         </Toolbar>
@@ -18,13 +19,13 @@ export function Landing() {
       <Toolbar />
 
       <Box bgcolor='primary.700' sx={{ backgroundImage: constants.synapsesBackground }}>
-        <Grid container padding={3} sx={{ ...containerStyles }}>
+        <Grid container padding={3} spacing={2} sx={{ ...containerStyles }}>
           <Grid xs={12} md={6}>
-            <Sting />
+            <MainHeading />
           </Grid>
 
           <Grid xs={12} md={6}>
-            <Box>aaaa</Box>
+            <Demo />
           </Grid>
         </Grid>
       </Box>
@@ -32,15 +33,6 @@ export function Landing() {
   )
 }
 
-function Sting() {
-  return (
-    <Box sx={{ margin: 'auto', textAlign: { xs: 'center', md: 'start' }, width: 'max-content' }}>
-      <Typography component='h1' variant='h3' color='primary.contrastText'>
-        Tanulj meg olvasni
-      </Typography>
-      <Typography component='h1' variant='h2' color='primary.contrastText'>
-        kínaiul, kín nélkül
-      </Typography>
-    </Box>
-  )
+function Demo() {
+  return <Box>aaaa</Box>
 }

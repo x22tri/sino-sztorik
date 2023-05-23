@@ -117,6 +117,8 @@ let theme = responsiveFontSizes(
   createTheme({
     components: {
       MuiButtonBase: { defaultProps: { disableRipple: true } },
+      MuiButton: { defaultProps: { disableElevation: true } },
+      MuiButtonGroup: { defaultProps: { disableElevation: true, disableRipple: true } },
       MuiLink: { defaultProps: { underline: 'none' } },
       MuiIconButton: { styleOverrides: { root: { '&:hover': { backgroundColor: 'transparent', opacity: 0.8 } } } },
       MuiTooltip: {
@@ -177,13 +179,16 @@ theme = createTheme(theme, {
     MuiButton: {
       styleOverrides: { root: { borderRadius: theme.spacing(6) } },
       variants: [
-        {
-          props: { color: 'primary', variant: 'outlined' },
-          style: {
-            border: `2px solid ${theme.palette.primary.main}`,
-            ':hover': { border: `2px solid ${theme.palette.primary.main}` },
-          },
-        },
+        // {
+        //   props: { color: 'primary', variant: 'outlined' },
+        //   style: {
+        //     border: `2px solid ${theme.palette.primary.main}`,
+        //     ':hover': { border: `2px solid ${theme.palette.primary.main}` },
+        //   },
+        // },
+        { props: { variant: 'outlined' }, style: { borderWidth: '2px', ':hover': { borderWidth: '2px' } } },
+        { props: { color: 'primary' }, style: { borderColor: theme.palette.primary.main } },
+        { props: { color: 'white' }, style: { borderColor: theme.palette.white.main } },
         {
           props: { color: 'white', variant: 'contained' },
           style: { ':hover': { color: theme.palette.primary.main } },

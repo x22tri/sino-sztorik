@@ -91,7 +91,7 @@ export default function LearnContent({
       <When condition={!flashbackChar}>
         <PrevNextButtons
           customEndElement={
-            <Button disableElevation variant='contained' href={LESSON_SELECT_PATH} sx={{ borderRadius: 6 }}>
+            <Button variant='contained' href={LESSON_SELECT_PATH} sx={{ borderRadius: 6 }}>
               {LEARN_FINISH_LESSON_BUTTON}
             </Button>
           }
