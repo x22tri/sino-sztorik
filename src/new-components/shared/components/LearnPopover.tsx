@@ -20,7 +20,7 @@ export function LearnPopover({
       marginThreshold={2}
       PaperProps={{ style: { borderRadius: spacing(2), boxShadow: constants.boxShadow } }}
       transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-      sx={{ pointerEvents: hover ? 'none' : 'initial' }}
+      sx={{ pointerEvents: hover ? 'none' : 'initial', marginTop: spacing(1) }}
       {...{ anchorEl }}
     >
       <Typography variant='body2' lineHeight={1.5} padding={2} maxWidth='48ch'>

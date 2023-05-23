@@ -53,7 +53,7 @@ export function ChineseCharLink({
           onMouseLeave: () => setOpen(false),
           style: {
             boxShadow: constants.boxShadow,
-            borderRadius: spacing(3),
+            borderRadius: spacing(1.5),
             display: 'flex',
             flexDirection: 'column',
             marginTop: spacing(1),
