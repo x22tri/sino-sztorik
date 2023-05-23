@@ -74,27 +74,16 @@ declare module '@mui/material/styles' {
     800?: string
   }
 
-  interface PresentationVariants {
-    keyword: CSSProperties
-    primitive: CSSProperties
-    pinyin: CSSProperties
-  }
-
   interface TypographyVariants {
-    chineseHeading: CSSProperties
-    chineseNormal: CSSProperties
-    presentation: PresentationVariants
+    chineseText: CSSProperties
     titleSubtitle: { title: CSSProperties; subtitle: CSSProperties }
-    logo: CSSProperties
   }
 
   // Allows configuration using `createTheme`.
   interface TypographyVariantsOptions {
-    chineseHeading?: CSSProperties
-    chineseNormal?: CSSProperties
-    presentation?: PresentationVariants
+    chineseText?: CSSProperties
+    pinyin?: CSSProperties
     titleSubtitle?: { title: CSSProperties; subtitle: CSSProperties }
-    logo?: CSSProperties
   }
 }
 
@@ -120,9 +109,7 @@ declare module '@mui/material/ButtonGroup' {
 // Updates the Typography's variant prop options.
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
-    chineseHeading: true
-    chineseNormal: true
-    logo: true
+    chineseText: true
   }
 }
 
@@ -131,7 +118,6 @@ let theme = responsiveFontSizes(
     components: {
       MuiButtonBase: { defaultProps: { disableRipple: true } },
       MuiLink: { defaultProps: { underline: 'none' } },
-      MuiContainer: { styleOverrides: { root: { paddingLeft: 0, paddingRight: 0 } } },
       MuiIconButton: { styleOverrides: { root: { '&:hover': { backgroundColor: 'transparent', opacity: 0.8 } } } },
       MuiTooltip: {
         styleOverrides: { tooltip: { [`.${tooltipClasses.popper}[data-popper-placement*="bottom"] &`]: { marginTop: 2 } } },
@@ -146,23 +132,16 @@ let theme = responsiveFontSizes(
     },
     typography: {
       fontFamily: latinFont,
-      h4: { fontWeight: 800, fontSize: 24 },
-      h5: { fontWeight: 600, fontSize: 18 },
-      h6: { fontWeight: 600, fontSize: 14 },
+      h2: { fontWeight: 'bold', fontSize: 56 },
+      h4: { fontWeight: 'bold', fontSize: 24 },
+      h5: { fontSize: 18 },
+      h6: { fontSize: 14 },
       button: { fontWeight: 'bold', textTransform: 'none' },
-      body1: { lineHeight: 1.5 },
-      body2: { fontSize: 14 },
-      chineseHeading: { fontFamily: chineseFont, fontSize: 120, fontWeight: 400, lineHeight: 1 },
-      chineseNormal: { fontFamily: chineseFont, fontSize: 24, fontWeight: 400, lineHeight: 1.2 },
+      chineseText: { fontFamily: chineseFont, fontSize: 24, fontWeight: 400, lineHeight: 1.2 },
       overline: { fontWeight: 'bold' },
-      presentation: {
-        keyword: { fontWeight: 800, fontSize: 32, lineHeight: 1.1 },
-        primitive: { fontSize: 20, fontStyle: 'italic', lineHeight: 1.2 },
-        pinyin: { fontSize: 14, fontStyle: 'italic' },
-      },
-      subtitle2: { fontWeight: 400 },
+      pinyin: { fontSize: 14, fontStyle: 'italic' },
       titleSubtitle: {
-        title: { fontWeight: 900, fontSize: '80%', lineHeight: 1 },
+        title: { fontWeight: 'bold', fontSize: 13, lineHeight: 1 },
         subtitle: { fontWeight: 'bold', lineHeight: 1 },
       },
     },
@@ -215,20 +194,14 @@ theme = createTheme(theme, {
       styleOverrides: {
         root: {
           transition: theme.constants.animationDuration,
-          '&:hover': { cursor: 'pointer', backgroundColor: theme.palette.primary[100] },
+          ':hover': { cursor: 'pointer', backgroundColor: theme.palette.primary[100] },
         },
       },
+      variants: [{ props: { color: 'secondary' }, style: { ':hover': { backgroundColor: theme.palette.secondary[100] } } }],
     },
     MuiPopover: { styleOverrides: { paper: { borderRadius: theme.spacing(1.5), boxShadow: theme.constants.boxShadow } } },
   },
   constants: { lessonStartHeight: theme.spacing(8) },
-  typography: {
-    logo: { ...theme.typography.h4, textDecoration: 'none' },
-    presentation: {
-      keyword: { color: theme.palette.primary.main },
-      primitive: { color: theme.palette.secondary.main },
-    },
-  },
 })
 
 export default theme

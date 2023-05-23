@@ -7,7 +7,7 @@ export function OtherUses({ otherUses }: { otherUses: OtherUse[] }) {
     <>
       {otherUses.map(({ pinyin, meanings }) => (
         <Fragment key={pinyin}>
-          <Box component='span' fontWeight={500} gridColumn='1 / 2' typography='presentation.pinyin'>
+          <Box component='span' fontWeight={500} gridColumn='1 / 2' typography='pinyin'>
             {pinyin}
           </Box>
 

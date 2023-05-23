@@ -23,7 +23,7 @@ export function LearnPopover({
       sx={{ pointerEvents: hover ? 'none' : 'initial' }}
       {...{ anchorEl }}
     >
-      <Typography variant='subtitle2' padding={2} maxWidth='48ch'>
+      <Typography variant='body2' lineHeight={1.5} padding={2} maxWidth='48ch'>
         {text}
       </Typography>
     </Popover>

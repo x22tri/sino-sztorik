@@ -41,7 +41,7 @@ export function CharPickerContent({ contentType }: { contentType: 'characters' |
                   justifyContent: 'end',
                   mr: 1,
                   minWidth: spacing(3),
-                  typography: 'chineseNormal',
+                  typography: 'chineseText',
                   fontWeight: 500,
                   fontSize: '100%',
                 }}

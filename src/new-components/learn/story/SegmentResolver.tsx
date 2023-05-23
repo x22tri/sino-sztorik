@@ -49,11 +49,7 @@ export function SegmentResolver({ segments }: { segments: SegmentType[] }) {
             <Segment
               key={index}
               text={
-                <Link
-                  color='secondary'
-                  onClick={() => startFlashback(segment.references)}
-                  sx={{ '&:hover': { bgcolor: 'secondary.100' } }}
-                >
+                <Link color='secondary' onClick={() => startFlashback(segment.references)}>
                   {segment[CONSTITUENT]}
                 </Link>
               }

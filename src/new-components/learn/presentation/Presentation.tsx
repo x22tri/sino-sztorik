@@ -14,17 +14,13 @@ export function Presentation({ currentChar }: { currentChar: Character }) {
   return (
     <Box display='flex' flexDirection='column' alignItems='center' marginBottom={4}>
       <When condition={pinyin}>
-        <SpotlightWrapper
-          contentStyles={{ typography: 'presentation.pinyin', mb: 1 }}
-          spotlightIf='productivePhonetic'
-          {...{ currentChar }}
-        >
+        <SpotlightWrapper contentStyles={{ typography: 'pinyin', mb: 1 }} spotlightIf='productivePhonetic' {...{ currentChar }}>
           {pinyin}
         </SpotlightWrapper>
       </When>
 
       <SpotlightWrapper
-        contentStyles={{ mb: 2, pb: 1, typography: 'chineseHeading' }}
+        contentStyles={{ mb: 2, pb: 1, typography: 'chineseText', fontSize: 120, lineHeight: 1 }}
         spotlightIf='reminder'
         {...{ currentChar }}
       >

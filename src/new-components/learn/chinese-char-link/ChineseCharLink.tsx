@@ -32,13 +32,13 @@ export function ChineseCharLink({
           onMouseEnter={() => setOpen(true)}
           onMouseLeave={() => setOpen(false)}
           ref={anchorEl}
-          typography='chineseNormal'
+          typography='chineseText'
           fontWeight={isCurrentChar ? 500 : 400}
         >
           {charChinese}
         </Link>
         <rp>(</rp>
-        <Box component='rt' fontWeight={isCurrentChar ? 500 : 400} typography='presentation.pinyin' marginBottom={spacing(1)}>
+        <Box component='rt' fontWeight={isCurrentChar ? 500 : 400} typography='pinyin' marginBottom={spacing(1)}>
           {pinyin}
         </Box>
         <rp>)</rp>

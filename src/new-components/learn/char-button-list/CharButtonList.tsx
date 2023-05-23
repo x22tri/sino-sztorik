@@ -33,7 +33,7 @@ function CharButtonList({
             sx={{ borderRadius: 6, ':hover': { bgcolor: color === 'primary' ? 'primary.100' : 'secondary.100' } }}
           >
             <ListItemIcon>
-              <Typography variant='chineseNormal' color={color === 'primary' ? 'primary.main' : 'secondary.main'}>
+              <Typography variant='chineseText' color={color === 'primary' ? 'primary.main' : 'secondary.main'}>
                 {character.charChinese}
               </Typography>
             </ListItemIcon>

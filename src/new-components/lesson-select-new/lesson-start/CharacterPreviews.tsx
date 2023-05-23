@@ -26,7 +26,7 @@ export function CharacterPreviews({ characters }: { characters: Character[] }) {
             <Typography
               key={charChinese}
               component='span'
-              variant='chineseNormal'
+              variant='chineseText'
               sx={{ bgcolor: 'grey.50', borderRadius: 2, m: 'auto', maxWidth: charWidth, p: 1 }}
             >
               {charChinese}
