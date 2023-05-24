@@ -4,7 +4,7 @@ import { Box, Button } from '@mui/material'
 
 export function ButtonRow() {
   return (
-    <Box display='flex' gap={3} marginTop={8} sx={{ flexDirection: { xs: 'column', md: 'row' } }}>
+    <Box alignItems='center' display='flex' gap={3} marginTop={8} sx={{ flexDirection: { xs: 'column', md: 'row' } }}>
       <SignupButton />
       <LoginButton />
     </Box>
@@ -19,7 +19,7 @@ function SignupButton() {
       variant='contained'
       onClick={() => {}}
       endIcon={<FontAwesomeIcon icon={faArrowRight} transform='shrink-4' />}
-      sx={{ borderRadius: 6 }}
+      sx={{ borderRadius: 6, maxWidth: '30ch', width: 1 }}
     >
       Kezdés
     </Button>
@@ -28,7 +28,7 @@ function SignupButton() {
 
 function LoginButton() {
   return (
-    <Button color='white' size='large' variant='outlined' onClick={() => {}} sx={{ borderRadius: 6 }}>
+    <Button color='white' size='large' variant='outlined' onClick={() => {}} sx={{ borderRadius: 6, maxWidth: '30ch', width: 1 }}>
       Már van fiókom
     </Button>
   )

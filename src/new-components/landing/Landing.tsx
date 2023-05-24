@@ -20,7 +20,7 @@ export function Landing() {
       <Toolbar />
 
       <Box bgcolor='primary.700' sx={{ backgroundImage: constants.synapsesBackground }}>
-        <Grid container padding={3} spacing={2} sx={{ ...containerStyles }}>
+        <Grid container rowGap={9} padding={3} spacing={2} sx={{ ...containerStyles }}>
           <Grid xs={12} md={6}>
             <MainHeading />
           </Grid>

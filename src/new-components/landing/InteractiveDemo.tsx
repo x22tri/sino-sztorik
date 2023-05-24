@@ -1,11 +1,8 @@
-import { Box, Grow, Link, Typography, useTheme } from '@mui/material'
+import { Box, Grow, Link, Typography } from '@mui/material'
 import { DemoContentChar, DemoContentRelationshipChar, demoContent } from './DEMO_CONTENT'
 import { Dispatch, Fragment, SetStateAction, useState } from 'react'
-import Story from '../learn/story/Story'
 import { Segment as SegmentType, StoryParagraphKeys } from '../shared/interfaces'
 import { Segment } from '../learn/story/Segment'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCube } from '@fortawesome/free-solid-svg-icons'
 
 export function InteractiveDemo() {
   const [demoedCharChinese, setDemoedCharChinese] = useState('朋')
@@ -21,7 +18,7 @@ export function InteractiveDemo() {
 
       <DemoedChar char={demoedChar} {...{ setDemoedCharChinese }} />
 
-      <Box display='flex' justifyContent='space-around'>
+      <Box display='flex' justifyContent='space-evenly'>
         {demoedChar.children?.map((char, index) => (
           <ChildOrParent key={index} {...{ char, setDemoedCharChinese }} />
         ))}
@@ -70,20 +67,19 @@ function DemoedChar({
         bgcolor='background.paper'
         borderRadius={1}
         margin='auto'
-        maxWidth='20ch'
+        maxWidth='24ch'
         padding={1}
-        textAlign='center'
+        textAlign='justify'
         typography='chineseText'
       >
-        <Typography variant='chineseText' fontSize={80}>
+        <Typography display='flex' justifyContent='center' variant='chineseText' fontSize={80} width={1}>
           {char.charChinese}
         </Typography>
 
-        <Typography variant='h4'>{char.keyword}</Typography>
+        <Typography display='flex' justifyContent='center' variant='h4'>
+          {char.keyword}
+        </Typography>
 
-        {/* <Typography variant='body2'> */}
-        {/* <Story story={char.story} /> */}
-        {/* </Typography> */}
         {char.story.map((paragraph, index) => (
           <StorySegmentResolverDemo key={index} segments={paragraph as SegmentType[]} {...{ setDemoedCharChinese }} />
         ))}
@@ -99,11 +95,10 @@ function StorySegmentResolverDemo({
   segments: SegmentType[]
   setDemoedCharChinese: Dispatch<SetStateAction<string>>
 }) {
-  const { KEYWORD, PRIMITIVE, CONSTITUENT } = StoryParagraphKeys
-  const { palette, spacing } = useTheme()
+  const { KEYWORD, CONSTITUENT } = StoryParagraphKeys
 
   return (
-    <Box component='p' marginY={2} typography='body2'>
+    <Box component='p' marginY={1} padding={1} typography='body2'>
       {segments.map((segment, index) => {
         if (typeof segment === 'string') {
           return <Fragment key={index}>{segment}</Fragment>
@@ -122,9 +117,7 @@ function StorySegmentResolverDemo({
                   color='secondary'
                   variant='body2'
                   onClick={() => {
-                    setDemoedCharChinese(
-                      demoContent.find(demoContentChar => demoContentChar.charChinese === segment.references)!.charChinese
-                    )
+                    setDemoedCharChinese(demoContent.find(({ charChinese }) => charChinese === segment.references)!.charChinese)
                   }}
                 >
                   {segment[CONSTITUENT]}
