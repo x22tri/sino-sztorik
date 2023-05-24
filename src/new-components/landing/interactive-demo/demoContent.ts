@@ -21,9 +21,9 @@ export const demoContent: DemoContentChar[] = [
     ],
     story: [
       [
-        'A ',
+        'Kevesen tudják, de a ',
         { constituent: 'hold', references: '月' },
-        ' igazából nem kerek, hanem félgömb alakú. De van egy ',
+        ' igazából nem kerek, hanem félgömb alakú. Viszont van egy ',
         { keyword: 'társa' },
         ', egy másik félgömb alakú ',
         { constituent: 'hold', references: '月' },
@@ -33,7 +33,7 @@ export const demoContent: DemoContentChar[] = [
         { keyword: 'társa' },
         ' – csak elbújik a mi ',
         { constituent: 'holdunk', references: '月' },
-        ' mögé, így nem látni teljesen. Minden éjjel egyre jobban előbújik, míg végül teliholdkor egymás mellé kerül a két ',
+        ' mögé, így nem látni teljesen. Minden alkalommal egyre jobban előbújik, míg végül teliholdkor egymás mellé kerül a két ',
         { keyword: 'társ' },
         ', kiadva egy egész kört.',
       ],

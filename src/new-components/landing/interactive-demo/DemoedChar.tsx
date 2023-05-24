@@ -16,8 +16,8 @@ export function DemoedChar({
       bgcolor='background.paper'
       borderRadius={1}
       key={char.charChinese}
-      margin='auto'
-      maxWidth='24ch'
+      marginX='auto'
+      width='24ch'
       padding={1}
       textAlign='justify'
       typography='chineseText'
@@ -25,6 +25,7 @@ export function DemoedChar({
         animationDuration: ({ constants }) => constants.animationDuration,
         animationName: 'fade-in',
         '@keyframes fade-in': { '0%': { opacity: 0 }, '100%': { opacity: 1 } },
+        height: 'max-content',
       }}
     >
       <Typography display='flex' justifyContent='center' variant='chineseText' fontSize={80} width={1}>

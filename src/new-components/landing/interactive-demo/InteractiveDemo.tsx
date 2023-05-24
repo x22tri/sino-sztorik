@@ -9,7 +9,7 @@ export function InteractiveDemo() {
   const demoedChar = demoContent.find(({ charChinese }) => charChinese === demoedCharChinese)!
 
   return (
-    <Box display='flex' flexDirection='column' gap={4}>
+    <Box display='grid' gap={4} gridTemplateRows='4em 24em 4em'>
       <Box display='flex' justifyContent='space-evenly'>
         {demoedChar.parents?.map((char, index) => (
           <ChildOrParent key={index} {...{ char, setDemoedCharChinese }} />
