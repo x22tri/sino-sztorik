@@ -1,5 +1,5 @@
 import { Box, Grow, Typography } from '@mui/material'
-import { DemoContentChar } from '../DEMO_CONTENT'
+import { DemoContentChar } from './demoContent'
 import { Dispatch, SetStateAction } from 'react'
 import { Segment as SegmentType } from '../../shared/interfaces'
 import { StorySegmentResolverDemo } from './StorySegmentResolverDemo'

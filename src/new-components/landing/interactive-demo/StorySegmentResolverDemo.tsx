@@ -1,5 +1,5 @@
 import { Box, Link } from '@mui/material'
-import { demoContent } from '../DEMO_CONTENT'
+import { demoContent } from './demoContent'
 import { Dispatch, Fragment, SetStateAction } from 'react'
 import { Segment as SegmentType, StoryParagraphKeys } from '../../shared/interfaces'
 import { Segment } from '../../learn/story/Segment'

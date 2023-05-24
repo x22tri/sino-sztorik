@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import { demoContent } from '../DEMO_CONTENT'
+import { demoContent } from './demoContent'
 import { useState } from 'react'
 import { ChildOrParent } from './ChildOrParent'
 import { DemoedChar } from './DemoedChar'

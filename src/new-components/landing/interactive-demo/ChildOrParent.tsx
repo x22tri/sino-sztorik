@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material'
-import { DemoContentRelationshipChar } from '../DEMO_CONTENT'
+import { DemoContentRelationshipChar } from './demoContent'
 import { Dispatch, SetStateAction } from 'react'
 
 export function ChildOrParent({
