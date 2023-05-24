@@ -2,7 +2,7 @@ import { AppBar, Box, Toolbar, useTheme } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import LogoTitle from '../shared/components/LogoTitle'
 import { MainHeading } from './MainHeading'
-import { InteractiveDemo } from './InteractiveDemo'
+import { InteractiveDemo } from './interactive-demo/InteractiveDemo'
 
 export function Landing() {
   const { constants } = useTheme()
