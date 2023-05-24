@@ -169,7 +169,7 @@ export const CHARS: Character[] = [
       [
         'Végül felmentették, ebben pedig nagy szerepe volt ügyvédje záróbeszédének, amelyben azok a híressé vált szavak hangzottak el ',
         { keyword: 'bizonyíték' },
-        ' gyanánt, hogy „Ha nem megy fel, mentsed fel!"',
+        ' gyanánt, hogy „Ha nem megy fel, mentsed fel!”',
       ],
       ['Ezzel arra utalt, hogy Simpson alig tudta belepasszírozni a kezét abba a kesztyűbe, amelyet elvileg a gyilkos viselt.'],
       [

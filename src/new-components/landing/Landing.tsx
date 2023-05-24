@@ -2,6 +2,7 @@ import { AppBar, Box, Toolbar, useTheme } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import LogoTitle from '../shared/components/LogoTitle'
 import { MainHeading } from './MainHeading'
+import { InteractiveDemo } from './InteractiveDemo'
 
 export function Landing() {
   const { constants } = useTheme()
@@ -25,14 +26,10 @@ export function Landing() {
           </Grid>
 
           <Grid xs={12} md={6}>
-            <Demo />
+            <InteractiveDemo />
           </Grid>
         </Grid>
       </Box>
     </>
   )
-}
-
-function Demo() {
-  return <Box>aaaa</Box>
 }
