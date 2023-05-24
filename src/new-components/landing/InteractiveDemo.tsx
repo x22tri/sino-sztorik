@@ -1,7 +1,141 @@
-import { Box } from '@mui/material'
+import { Box, Grow, Link, Typography, useTheme } from '@mui/material'
+import { DemoContentChar, DemoContentRelationshipChar, demoContent } from './DEMO_CONTENT'
+import { Dispatch, Fragment, SetStateAction, useState } from 'react'
+import Story from '../learn/story/Story'
+import { Segment as SegmentType, StoryParagraphKeys } from '../shared/interfaces'
+import { Segment } from '../learn/story/Segment'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCube } from '@fortawesome/free-solid-svg-icons'
 
 export function InteractiveDemo() {
-  return <Box>aaaa</Box>
+  const [demoedCharChinese, setDemoedCharChinese] = useState('朋')
+  const demoedChar = demoContent.find(({ charChinese }) => charChinese === demoedCharChinese)!
+
+  return (
+    <Box display='flex' flexDirection='column' gap={4}>
+      <Box display='flex' justifyContent='space-evenly'>
+        {demoedChar.parents?.map((char, index) => (
+          <ChildOrParent key={index} {...{ char, setDemoedCharChinese }} />
+        ))}
+      </Box>
+
+      <DemoedChar char={demoedChar} {...{ setDemoedCharChinese }} />
+
+      <Box display='flex' justifyContent='space-around'>
+        {demoedChar.children?.map((char, index) => (
+          <ChildOrParent key={index} {...{ char, setDemoedCharChinese }} />
+        ))}
+      </Box>
+    </Box>
+  )
 }
 
-function CurrentlyDemoedChar() {}
+function ChildOrParent({
+  char,
+  setDemoedCharChinese,
+}: {
+  char: DemoContentRelationshipChar
+  setDemoedCharChinese: Dispatch<SetStateAction<string>>
+}) {
+  return (
+    <Box
+      borderRadius={1}
+      minWidth='72px'
+      onClick={() => setDemoedCharChinese(char.charChinese)}
+      padding={1}
+      textAlign='center'
+      sx={{
+        transition: ({ constants }) => constants.animationDuration,
+        bgcolor: ({ palette }) => `${palette.background.default}66`,
+        ':hover': { cursor: 'pointer', bgcolor: 'background.paper' },
+      }}
+    >
+      <Typography variant='chineseText'>{char.charChinese}</Typography>
+
+      <Typography variant='h6'>{char.keyword}</Typography>
+    </Box>
+  )
+}
+
+function DemoedChar({
+  char,
+  setDemoedCharChinese,
+}: {
+  char: DemoContentChar
+  setDemoedCharChinese: Dispatch<SetStateAction<string>>
+}) {
+  return (
+    <Grow in={true}>
+      <Box
+        bgcolor='background.paper'
+        borderRadius={1}
+        margin='auto'
+        maxWidth='20ch'
+        padding={1}
+        textAlign='center'
+        typography='chineseText'
+      >
+        <Typography variant='chineseText' fontSize={80}>
+          {char.charChinese}
+        </Typography>
+
+        <Typography variant='h4'>{char.keyword}</Typography>
+
+        {/* <Typography variant='body2'> */}
+        {/* <Story story={char.story} /> */}
+        {/* </Typography> */}
+        {char.story.map((paragraph, index) => (
+          <StorySegmentResolverDemo key={index} segments={paragraph as SegmentType[]} {...{ setDemoedCharChinese }} />
+        ))}
+      </Box>
+    </Grow>
+  )
+}
+
+function StorySegmentResolverDemo({
+  segments,
+  setDemoedCharChinese,
+}: {
+  segments: SegmentType[]
+  setDemoedCharChinese: Dispatch<SetStateAction<string>>
+}) {
+  const { KEYWORD, PRIMITIVE, CONSTITUENT } = StoryParagraphKeys
+  const { palette, spacing } = useTheme()
+
+  return (
+    <Box component='p' marginY={2} typography='body2'>
+      {segments.map((segment, index) => {
+        if (typeof segment === 'string') {
+          return <Fragment key={index}>{segment}</Fragment>
+        }
+
+        if (KEYWORD in segment) {
+          return <Segment key={index} text={segment[KEYWORD]} typographyProps={{ variant: 'body2', fontWeight: 'bold' }} />
+        }
+
+        if (CONSTITUENT in segment) {
+          return (
+            <Segment
+              key={index}
+              text={
+                <Link
+                  color='secondary'
+                  variant='body2'
+                  onClick={() => {
+                    setDemoedCharChinese(
+                      demoContent.find(demoContentChar => demoContentChar.charChinese === segment.references)!.charChinese
+                    )
+                  }}
+                >
+                  {segment[CONSTITUENT]}
+                </Link>
+              }
+            />
+          )
+        }
+
+        return null
+      })}
+    </Box>
+  )
+}

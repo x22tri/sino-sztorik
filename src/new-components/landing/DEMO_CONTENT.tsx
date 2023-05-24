@@ -1,63 +1,27 @@
-export const DEMO_CONTENT = [
-  {
-    charChinese: '麻',
-    children: ['磨'],
-    keyword: 'kender',
-    parents: ['广', '林'],
-    story: [
-      [
-        'Mivel a ',
-        { keyword: 'kender' },
-        ' egyes fajtái kábítószernek minősülnek, el kell rejtőznie annak, aki termeszteni akarja.',
-      ],
-      [
-        'Ezt látjuk e karakteren is: egy sötét ',
-        { constituent: 'barlang', references: '广' },
-        ' legmélyén rejlik egy „',
-        { constituent: 'liget', references: '林' },
-        '”, de fák helyett itt ',
-        { keyword: 'kender' },
-        ' terem.',
-      ],
-    ],
-  },
-  {
-    charChinese: '磨',
-    keyword: 'köszörül',
-    parents: ['麻', '石'],
-    story: [
-      [
-        'E karakteren egy fifikás kábítószer-kereskedőt látunk, aki úgy próbál plusz haszonra szert tenni, hogy egy ',
-        { constituent: 'kövön', references: '石' },
-        'mindenféle növényt',
-        { constituent: 'kender', references: '麻' },
-        'formájúra',
-        { keyword: 'köszörül' },
-      ],
-      [
-        'Legyen bár lapulevél, lóhere vagy sás, ő addig-addig',
-        { keyword: 'köszörüli' },
-        'amíg meg nem kapja a',
-        { constituent: 'kender', references: '麻' },
-        ' jellegzetesen hegyes, recés alakját. A vevők úgysem nézik.',
-      ],
-    ],
-  },
+import { Character } from '../shared/interfaces'
+
+export type DemoContentRelationshipChar = Pick<Character, 'keyword' | 'charChinese'>
+type DemoContentRelationships = { children?: DemoContentRelationshipChar[]; parents?: DemoContentRelationshipChar[] }
+export type DemoContentChar = Pick<Character, 'keyword' | 'charChinese' | 'story'> & DemoContentRelationships
+
+export const demoContent: DemoContentChar[] = [
   {
     charChinese: '月',
-    children: ['朋'],
+    children: [{ charChinese: '朋', keyword: 'társ' }],
     keyword: 'hold',
     story: [['A ', { keyword: 'hold' }, ' stilizált képe. Éppen dagadófélben van, hiszen D alakú.']],
   },
   {
     charChinese: '朋',
-    children: ['崩'],
+    children: [{ charChinese: '崩', keyword: 'összeomlik' }],
     keyword: 'társ',
-    parents: ['月', '月'],
+    parents: [
+      { charChinese: '月', keyword: 'hold' },
+      { charChinese: '月', keyword: 'hold' },
+    ],
     story: [
-      ['Miért csökken és dagad a ', { constituent: 'hold', references: '月' }, '?'],
       [
-        'Nos, a ',
+        'A ',
         { constituent: 'hold', references: '月' },
         ' igazából nem kerek, hanem félgömb alakú. De van egy ',
         { keyword: 'társa' },
@@ -69,21 +33,25 @@ export const DEMO_CONTENT = [
         { keyword: 'társa' },
         ' – csak egy kicsit elbújik a mi ',
         { constituent: 'holdunk', references: '月' },
-        'mögé, így nem látni teljesen.',
+        ' mögé, így nem látni teljesen. Teliholdkor egymás mellé kerül a két ',
+        { keyword: 'társ' },
+        ', kiadva egy egész kört.',
       ],
-      ['Végül teliholdkor egymás mellé kerül a két ', { keyword: 'társ' }, ', kiadva egy egész kört.'],
     ],
   },
   {
     charChinese: '山',
-    children: ['崩'],
+    children: [{ charChinese: '崩', keyword: 'összeomlik' }],
     keyword: 'hegy',
     story: [['Egy ', { keyword: 'hegy' }, ' stilizált képe.']],
   },
   {
     charChinese: '崩',
     keyword: 'összeomlik',
-    parents: ['山', '朋'],
+    parents: [
+      { charChinese: '山', keyword: 'hegy' },
+      { charChinese: '朋', keyword: 'társ' },
+    ],
     story: [
       [
         'Két bányász',
