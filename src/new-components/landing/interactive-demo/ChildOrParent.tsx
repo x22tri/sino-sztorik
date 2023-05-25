@@ -12,6 +12,7 @@ export function ChildOrParent({
   return (
     <Box
       borderRadius={1}
+      className='parent'
       minWidth='72px'
       onClick={() => setDemoedCharChinese(char.charChinese)}
       padding={1}

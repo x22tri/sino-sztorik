@@ -14,10 +14,11 @@ export function DemoedChar({
   return (
     <Box
       bgcolor='background.paper'
+      className='demoed'
       borderRadius={1}
       key={char.charChinese}
       marginX='auto'
-      width='24ch'
+      width='28ch'
       padding={1}
       textAlign='justify'
       typography='chineseText'

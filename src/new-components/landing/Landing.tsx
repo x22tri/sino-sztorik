@@ -21,11 +21,16 @@ export function Landing() {
 
       <Box bgcolor='primary.700' sx={{ backgroundImage: constants.synapsesBackground }}>
         <Grid container rowGap={9} padding={3} spacing={2} sx={{ ...containerStyles }}>
-          <Grid xs={12} md={6}>
+          <Grid
+            xs={12}
+            md={6}
+            component='h1'
+            sx={{ color: 'primary.contrastText', m: 'auto', mt: 8, textAlign: { xs: 'center', md: 'start' } }}
+          >
             <MainHeading />
           </Grid>
 
-          <Grid xs={12} md={6}>
+          <Grid xs={12} md={6} sx={{ display: 'grid', gap: 4, gridTemplateRows: '4em 21em 4em' }}>
             <InteractiveDemo />
           </Grid>
         </Grid>

@@ -28,6 +28,7 @@
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
     "react-string-replace": "^1.1.0",
+    "react-xarrows": "^2.0.2",
     "slate": "^0.73.1",
     "slate-history": "^0.66.0",
     "slate-react": "^0.74.2",

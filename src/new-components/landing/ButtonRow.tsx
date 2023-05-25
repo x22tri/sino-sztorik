@@ -1,6 +1,7 @@
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button } from '@mui/material'
+import { LANDING_HEADER_BUTTON_SIGNUP, LANDING_HEADER_BUTTON_LOGIN } from '../shared/strings'
 
 export function ButtonRow() {
   return (
@@ -15,21 +16,22 @@ function SignupButton() {
   return (
     <Button
       color='white'
+      fullWidth
       size='large'
       variant='contained'
       onClick={() => {}}
       endIcon={<FontAwesomeIcon icon={faArrowRight} transform='shrink-4' />}
-      sx={{ borderRadius: 6, maxWidth: '30ch', width: 1 }}
+      sx={{ borderRadius: 6 }}
     >
-      Kezdés
+      {LANDING_HEADER_BUTTON_SIGNUP}
     </Button>
   )
 }
 
 function LoginButton() {
   return (
-    <Button color='white' size='large' variant='outlined' onClick={() => {}} sx={{ borderRadius: 6, maxWidth: '30ch', width: 1 }}>
-      Már van fiókom
+    <Button color='white' fullWidth size='large' variant='outlined' onClick={() => {}} sx={{ borderRadius: 6 }}>
+      {LANDING_HEADER_BUTTON_LOGIN}
     </Button>
   )
 }

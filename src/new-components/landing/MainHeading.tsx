@@ -4,13 +4,7 @@ import { ButtonRow } from './ButtonRow'
 
 export function MainHeading() {
   return (
-    <Box
-      component='h1'
-      color='primary.contrastText'
-      margin='auto'
-      marginTop={8}
-      sx={{ textAlign: { xs: 'center', md: 'start' } }}
-    >
+    <>
       <Typography component='div' variant='h3'>
         {LANDING_HEADER_FIRST_ROW}
       </Typography>
@@ -23,6 +17,6 @@ export function MainHeading() {
       </Typography>
 
       <ButtonRow />
-    </Box>
+    </>
   )
 }
