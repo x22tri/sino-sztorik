@@ -1,17 +1,12 @@
 import { Box, Link } from '@mui/material'
-import { demoContent } from './demoContent'
-import { Dispatch, Fragment, SetStateAction } from 'react'
+import { Fragment } from 'react'
 import { Segment as SegmentType, StoryParagraphKeys } from '../../shared/interfaces'
 import { Segment } from '../../learn/story/Segment'
+import { useStore } from '../../shared/logic/useStore'
 
-export function StorySegmentResolverDemo({
-  segments,
-  setDemoedCharChinese,
-}: {
-  segments: SegmentType[]
-  setDemoedCharChinese: Dispatch<SetStateAction<string>>
-}) {
+export function StorySegmentResolverDemo({ segments }: { segments: SegmentType[] }) {
   const { KEYWORD, CONSTITUENT } = StoryParagraphKeys
+  const { setDemoedCharChinese } = useStore('interactiveDemo')
 
   return (
     <Box component='p' marginY={1} padding={1} typography='body2'>
@@ -29,13 +24,7 @@ export function StorySegmentResolverDemo({
             <Segment
               key={index}
               text={
-                <Link
-                  color='secondary'
-                  variant='body2'
-                  onClick={() => {
-                    setDemoedCharChinese(demoContent.find(({ charChinese }) => charChinese === segment.references)!.charChinese)
-                  }}
-                >
+                <Link color='secondary' variant='body2' onClick={() => setDemoedCharChinese(segment.references)}>
                   {segment[CONSTITUENT]}
                 </Link>
               }

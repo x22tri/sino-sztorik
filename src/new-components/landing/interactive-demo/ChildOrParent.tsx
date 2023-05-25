@@ -1,27 +1,23 @@
 import { Box, Typography } from '@mui/material'
 import { DemoContentRelationshipChar } from './demoContent'
-import { Dispatch, SetStateAction } from 'react'
+import { useStore } from '../../shared/logic/useStore'
 
-export function ChildOrParent({
-  char,
-  setDemoedCharChinese,
-}: {
-  char: DemoContentRelationshipChar
-  setDemoedCharChinese: Dispatch<SetStateAction<string>>
-}) {
+export function ChildOrParent({ char, id }: { char: DemoContentRelationshipChar; id: string }) {
+  const { setDemoedCharChinese } = useStore('interactiveDemo')
+
   return (
     <Box
       borderRadius={1}
-      className='parent'
       minWidth='72px'
       onClick={() => setDemoedCharChinese(char.charChinese)}
       padding={1}
       textAlign='center'
       sx={{
         transition: ({ constants }) => constants.animationDuration,
-        bgcolor: ({ palette }) => `${palette.background.default}66`,
+        bgcolor: 'primary.300',
         ':hover': { cursor: 'pointer', bgcolor: 'background.paper' },
       }}
+      {...{ id }}
     >
       <Typography variant='chineseText'>{char.charChinese}</Typography>
 

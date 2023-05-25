@@ -4,6 +4,7 @@ import { LESSONS } from '../MOCK_LESSONS'
 import { AssembledLesson, Character } from '../interfaces'
 import { findFlashbackChar } from './findFlashbackChar'
 import { scrollToTop } from '../utility-functions'
+import { DemoContentChar, demoContent } from '../../landing/interactive-demo/demoContent'
 
 const useBoundStore = create<Store>((set, get) => {
   function update<SliceType extends keyof Store>(slice: SliceType, updated: Partial<Store[SliceType]>) {
@@ -31,6 +32,12 @@ const useBoundStore = create<Store>((set, get) => {
           console.log(`${destination} nem található`)
         }
       },
+    },
+
+    interactiveDemo: {
+      setDemoedCharChinese: (char: string) =>
+        update('interactiveDemo', { demoedCharChinese: demoContent.find(({ charChinese }) => charChinese === char)! }),
+      demoedCharChinese: demoContent[1],
     },
 
     mobileDrawer: {
@@ -65,6 +72,7 @@ export function useStore<SliceType extends keyof Store>(slice: SliceType): Store
 type Store = {
   flashback: FlashbackSlice
   mobileDrawer: MobileDrawerSlice
+  interactiveDemo: InteractiveDemoSlice
   learn: LearnSlice
   lessonSelect: LessonSelectSlice
   swiper: SwiperState
@@ -97,4 +105,9 @@ interface MobileDrawerSlice {
 interface SwiperState {
   setSwiperInstance: (swiperInstance: Swiper | undefined) => void
   swiperInstance: Swiper | undefined
+}
+
+interface InteractiveDemoSlice {
+  setDemoedCharChinese: (charChinese: string) => void
+  demoedCharChinese: DemoContentChar
 }
