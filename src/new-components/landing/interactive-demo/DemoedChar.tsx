@@ -3,7 +3,7 @@ import { DemoContentChar } from './demoContent'
 import { Segment as SegmentType } from '../../shared/interfaces'
 import { StorySegmentResolverDemo } from './StorySegmentResolverDemo'
 
-export function DemoedChar({ char }: { char: DemoContentChar }) {
+export function DemoedChar({ char, onLinkClick }: { char: DemoContentChar; onLinkClick: (char: string) => void }) {
   const { charChinese, keyword, story } = char
 
   return (
@@ -31,7 +31,7 @@ export function DemoedChar({ char }: { char: DemoContentChar }) {
       </Typography>
 
       {story.map((paragraph, index) => (
-        <StorySegmentResolverDemo key={index} segments={paragraph as SegmentType[]} />
+        <StorySegmentResolverDemo key={index} segments={paragraph as SegmentType[]} {...{ onLinkClick }} />
       ))}
     </Box>
   )

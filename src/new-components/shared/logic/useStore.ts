@@ -34,12 +34,6 @@ const useBoundStore = create<Store>((set, get) => {
       },
     },
 
-    interactiveDemo: {
-      setDemoedCharChinese: (char: string) =>
-        update('interactiveDemo', { demoedCharChinese: demoContent.find(({ charChinese }) => charChinese === char)! }),
-      demoedCharChinese: demoContent[1],
-    },
-
     mobileDrawer: {
       isOpen: false,
       toggleDrawer: () => set(({ mobileDrawer }) => ({ mobileDrawer: { ...mobileDrawer, isOpen: !mobileDrawer.isOpen } })),
@@ -72,7 +66,6 @@ export function useStore<SliceType extends keyof Store>(slice: SliceType): Store
 type Store = {
   flashback: FlashbackSlice
   mobileDrawer: MobileDrawerSlice
-  interactiveDemo: InteractiveDemoSlice
   learn: LearnSlice
   lessonSelect: LessonSelectSlice
   swiper: SwiperState
@@ -105,9 +98,4 @@ interface MobileDrawerSlice {
 interface SwiperState {
   setSwiperInstance: (swiperInstance: Swiper | undefined) => void
   swiperInstance: Swiper | undefined
-}
-
-interface InteractiveDemoSlice {
-  setDemoedCharChinese: (charChinese: string) => void
-  demoedCharChinese: DemoContentChar
 }

@@ -1,15 +1,22 @@
 import { Box, Typography } from '@mui/material'
 import { DemoContentRelationshipChar } from './demoContent'
-import { useStore } from '../../shared/logic/useStore'
 
-export function ChildOrParent({ char, id }: { char: DemoContentRelationshipChar; id: string }) {
-  const { setDemoedCharChinese } = useStore('interactiveDemo')
+export function ChildOrParent({
+  char,
+  id,
+  onLinkClick,
+}: {
+  char: DemoContentRelationshipChar
+  id: string
+  onLinkClick: (char: string) => void
+}) {
+  const { charChinese, keyword } = char
 
   return (
     <Box
       borderRadius={1}
       minWidth='72px'
-      onClick={() => setDemoedCharChinese(char.charChinese)}
+      onClick={() => onLinkClick(charChinese)}
       padding={1}
       textAlign='center'
       sx={{
@@ -19,9 +26,9 @@ export function ChildOrParent({ char, id }: { char: DemoContentRelationshipChar;
       }}
       {...{ id }}
     >
-      <Typography variant='chineseText'>{char.charChinese}</Typography>
+      <Typography variant='chineseText'>{charChinese}</Typography>
 
-      <Typography variant='h6'>{char.keyword}</Typography>
+      <Typography variant='h6'>{keyword}</Typography>
     </Box>
   )
 }
