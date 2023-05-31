@@ -4,6 +4,13 @@ export const LANDING_HEADER_FIRST_ROW = 'Tanulj meg olvasni'
 export const LANDING_HEADER_SECOND_ROW = 'kínaiul, kín nélkül'
 export const LANDING_HEADER_PARAGRAPH = `A ${APP_TITLE} megtanítja neked a 3000 legfontosabb kínai írásjegyet, magolás helyett könnyen megjegyezhető történetekkel.`
 
+export const LANDING_SECOND_SECTION_TITLE_FIRST_ROW = 'A tanterved kész.'
+export const LANDING_SECOND_SECTION_TITLE_SECOND_ROW = 'És te?'
+export const LANDING_SECOND_SECTION_FIRST_PARAGRAPH =
+  'Sorba rendeztük neked a kínai ábécét az egyszerű karakterektől a bonyolultakig. Mire eljutsz egy karakterig, már az összes alkotóelemét ismerni fogod.'
+export const LANDING_SECOND_SECTION_SECOND_PARAGRAPH =
+  'De nem minden egyszerű karakter gyakori, és nem minden gyakori karakter egyszerű. Velünk azt tanulod meg először, amire szükséged van.'
+
 export const LANDING_HEADER_BUTTON_SIGNUP = 'Kezdés'
 export const LANDING_HEADER_BUTTON_LOGIN = 'Már van fiókom'
 

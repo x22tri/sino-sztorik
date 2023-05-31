@@ -61,6 +61,7 @@ declare module '@mui/material/styles' {
     200?: string
     300?: string
     400?: string
+    500?: string
     700?: string
     800?: string
   }
@@ -70,6 +71,7 @@ declare module '@mui/material/styles' {
     200?: string
     300?: string
     400?: string
+    500?: string
     700?: string
     800?: string
   }
@@ -154,6 +156,7 @@ let theme = responsiveFontSizes(
         200: '#C4D6FD',
         300: '#82A1E5',
         400: '#6598FF',
+        500: '#2952A3',
         700: '#1A3F87',
         800: '#183162',
       },

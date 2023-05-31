@@ -12,7 +12,7 @@ export function DemoedChar({ char, onLinkClick }: { char: DemoContentChar; onLin
       borderRadius={1}
       key={charChinese} // Resets animation on charChinese change.
       marginX='auto'
-      width='28ch'
+      maxWidth='28ch'
       padding={1}
       textAlign='justify'
       typography='chineseText'

@@ -5,14 +5,17 @@ import { ButtonRow } from './ButtonRow'
 export function MainHeading() {
   return (
     <>
-      <Typography component='div' variant='h3'>
-        {LANDING_HEADER_FIRST_ROW}
-      </Typography>
-      <Typography component='div' variant='h2'>
-        {LANDING_HEADER_SECOND_ROW}
-      </Typography>
+      <Box component='h1'>
+        <Typography component='div' variant='h3'>
+          {LANDING_HEADER_FIRST_ROW}
+        </Typography>
 
-      <Typography color='primary.200' marginTop={6} fontSize='60%' maxWidth='48ch' sx={{ marginX: { xs: 'auto', md: 0 } }}>
+        <Typography component='div' variant='h2'>
+          {LANDING_HEADER_SECOND_ROW}
+        </Typography>
+      </Box>
+
+      <Typography color='primary.200' marginTop={6} fontSize='120%' maxWidth='48ch' sx={{ marginX: { xs: 'auto', md: 0 } }}>
         {LANDING_HEADER_PARAGRAPH}
       </Typography>
 
