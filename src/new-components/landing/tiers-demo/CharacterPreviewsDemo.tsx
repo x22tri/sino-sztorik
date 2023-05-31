@@ -3,14 +3,18 @@ import { TiersDemoCharacter } from './TiersDemo'
 
 const charWidth = '42px'
 const minNumberOfColumns = 4
-const maxNumberOfColumns = 8
+const maxNumberOfColumns = 7
 
 export function CharacterPreviewsDemo({ characters, currentTier }: { characters: TiersDemoCharacter[]; currentTier: number }) {
   return (
     <Box display='flex' flexDirection='column' maxWidth='48ch' margin='auto' sx={{ borderRadius: ({ spacing }) => spacing(3) }}>
       <Box
         display='grid'
-        gridTemplateColumns={`repeat(auto-fit, minmax(min(100%/${minNumberOfColumns}, max(${charWidth}, 100%/${maxNumberOfColumns})), 1fr))`}
+        gridTemplateColumns={`repeat(auto-fit, 
+          minmax(min(100%/${minNumberOfColumns}, 
+          max(${charWidth}, 
+          100%/${maxNumberOfColumns + 1})), 
+        1fr))`}
         columnGap={1}
         rowGap={2}
         marginTop={2}

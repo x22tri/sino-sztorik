@@ -4,7 +4,7 @@ import { Character } from '../../shared/interfaces'
 
 const charWidth = '42px'
 const minNumberOfColumns = 4
-const maxNumberOfColumns = 6
+const maxNumberOfColumns = 5
 
 export function CharacterPreviews({ characters }: { characters: Character[] }) {
   return (
@@ -16,7 +16,11 @@ export function CharacterPreviews({ characters }: { characters: Character[] }) {
       <Box display='flex' flexDirection='column' gridArea='chars' sx={{ borderRadius: ({ spacing }) => spacing(3) }}>
         <Box
           display='grid'
-          gridTemplateColumns={`repeat(auto-fit, minmax(min(100%/${minNumberOfColumns}, max(${charWidth}, 100%/${maxNumberOfColumns})), 1fr))`}
+          gridTemplateColumns={`repeat(auto-fit, 
+            minmax(min(100%/${minNumberOfColumns}, 
+            max(${charWidth}, 
+            100%/${maxNumberOfColumns + 1})), 
+          1fr))`}
           columnGap={1}
           rowGap={2}
           marginTop={2}
