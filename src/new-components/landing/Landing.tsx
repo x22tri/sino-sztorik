@@ -1,19 +1,13 @@
-import { AppBar, Box, Toolbar, Typography, useTheme } from '@mui/material'
+import { AppBar, Box, Toolbar, useTheme } from '@mui/material'
 import Grid, { Grid2Props } from '@mui/material/Unstable_Grid2'
 import LogoTitle from '../shared/components/LogoTitle'
 import { FirstSectionText } from './FirstSectionText'
-import { InteractiveDemo } from './interactive-demo/InteractiveDemo'
-import {
-  LANDING_SECOND_SECTION_FIRST_PARAGRAPH,
-  LANDING_SECOND_SECTION_SECOND_PARAGRAPH,
-  LANDING_SECOND_SECTION_TITLE_FIRST_ROW,
-  LANDING_SECOND_SECTION_TITLE_SECOND_ROW,
-} from '../shared/strings'
+import { ConstituentsDemo } from './constituents-demo/ConstituentsDemo'
 import { ReactNode } from 'react'
 import { SecondSectionText } from './SecondSectionText'
 
 export function Landing() {
-  const { constants, palette } = useTheme()
+  const { constants } = useTheme()
 
   const containerStyles = { margin: 'auto', maxWidth: constants.maxContentWidth, width: '100%' }
 
@@ -30,10 +24,10 @@ export function Landing() {
       <Box bgcolor='primary.700' sx={{ backgroundImage: constants.synapsesBackground }}>
         <LandingGrid
           parentProps={containerStyles}
-          demoChildContent={<InteractiveDemo />}
-          demoChildProps={{ sx: { display: 'grid', gap: 4, gridTemplateRows: `4em minmax(21em, max-content) 4em` } }}
+          demoChildContent={<ConstituentsDemo />}
+          demoChildProps={{ display: 'grid', gap: 4, gridTemplateRows: `4em minmax(21em, max-content) 4em` }}
           textChildContent={<FirstSectionText />}
-          textChildProps={{ sx: { color: 'primary.contrastText' } }}
+          textChildProps={{ color: 'primary.contrastText' }}
         />
       </Box>
 

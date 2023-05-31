@@ -5,7 +5,7 @@ import { ChildOrParent } from './ChildOrParent'
 import { DemoedChar } from './DemoedChar'
 import Xarrow, { useXarrow } from 'react-xarrows'
 
-export function InteractiveDemo() {
+export function ConstituentsDemo() {
   const [demoed, setDemoed] = useState(demoContent[1])
   const { palette } = useTheme()
   const updateXarrow = useXarrow()

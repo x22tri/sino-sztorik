@@ -4,7 +4,7 @@ import { LESSONS } from '../MOCK_LESSONS'
 import { AssembledLesson, Character } from '../interfaces'
 import { findFlashbackChar } from './findFlashbackChar'
 import { scrollToTop } from '../utility-functions'
-import { DemoContentChar, demoContent } from '../../landing/interactive-demo/demoContent'
+import { DemoContentChar, demoContent } from '../../landing/constituents-demo/demoContent'
 
 const useBoundStore = create<Store>((set, get) => {
   function update<SliceType extends keyof Store>(slice: SliceType, updated: Partial<Store[SliceType]>) {
