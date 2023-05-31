@@ -5,6 +5,7 @@ import { FirstSectionText } from './FirstSectionText'
 import { ConstituentsDemo } from './constituents-demo/ConstituentsDemo'
 import { ReactNode } from 'react'
 import { SecondSectionText } from './SecondSectionText'
+import { TiersDemo } from './tiers-demo/TiersDemo'
 
 export function Landing() {
   const { constants } = useTheme()
@@ -34,7 +35,8 @@ export function Landing() {
       <Box bgcolor='background.paper'>
         <LandingGrid
           parentProps={{ direction: { xs: 'column', md: 'row-reverse' }, ...containerStyles }}
-          demoChildContent={<>sth</>}
+          demoChildContent={<TiersDemo />}
+          demoChildProps={{ marginTop: { xs: 0, md: 8 } }}
           textChildContent={<SecondSectionText />}
           textChildProps={{ marginTop: 0 }}
         />
