@@ -1,7 +1,7 @@
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button } from '@mui/material'
-import { LANDING_HEADER_BUTTON_SIGNUP, LANDING_HEADER_BUTTON_LOGIN } from '../shared/strings'
+import { LANDING_FIRST_SECTION_BUTTON_SIGNUP, LANDING_FIRST_SECTION_BUTTON_LOGIN } from '../shared/strings'
 
 export function ButtonRow() {
   return (
@@ -23,7 +23,7 @@ function SignupButton() {
       endIcon={<FontAwesomeIcon icon={faArrowRight} transform='shrink-4' />}
       sx={{ borderRadius: 6 }}
     >
-      {LANDING_HEADER_BUTTON_SIGNUP}
+      {LANDING_FIRST_SECTION_BUTTON_SIGNUP}
     </Button>
   )
 }
@@ -31,7 +31,7 @@ function SignupButton() {
 function LoginButton() {
   return (
     <Button color='white' fullWidth size='large' variant='outlined' onClick={() => {}} sx={{ borderRadius: 6 }}>
-      {LANDING_HEADER_BUTTON_LOGIN}
+      {LANDING_FIRST_SECTION_BUTTON_LOGIN}
     </Button>
   )
 }

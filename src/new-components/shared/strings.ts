@@ -1,8 +1,8 @@
 export const APP_TITLE = 'kin.ai'
 
-export const LANDING_HEADER_FIRST_ROW = 'Tanulj meg olvasni'
-export const LANDING_HEADER_SECOND_ROW = 'kínaiul, kín nélkül'
-export const LANDING_HEADER_PARAGRAPH = `A ${APP_TITLE} megtanítja neked a 3000 legfontosabb kínai írásjegyet, magolás helyett könnyen megjegyezhető történetekkel.`
+export const LANDING_FIRST_SECTION_FIRST_ROW = 'Tanulj meg olvasni'
+export const LANDING_FIRST_SECTION_SECOND_ROW = 'kínaiul, kín nélkül'
+export const LANDING_FIRST_SECTION_PARAGRAPH = `A ${APP_TITLE} megtanítja neked a 3000 legfontosabb kínai írásjegyet, magolás helyett könnyen megjegyezhető történetekkel.`
 
 export const LANDING_SECOND_SECTION_TITLE_FIRST_ROW = 'A tanterved kész.'
 export const LANDING_SECOND_SECTION_TITLE_SECOND_ROW = 'És te?'
@@ -11,8 +11,8 @@ export const LANDING_SECOND_SECTION_FIRST_PARAGRAPH =
 export const LANDING_SECOND_SECTION_SECOND_PARAGRAPH =
   'De nem minden egyszerű karakter gyakori, és nem minden gyakori karakter egyszerű. Velünk azt tanulod meg először, amire szükséged van.'
 
-export const LANDING_HEADER_BUTTON_SIGNUP = 'Kezdés'
-export const LANDING_HEADER_BUTTON_LOGIN = 'Már van fiókom'
+export const LANDING_FIRST_SECTION_BUTTON_SIGNUP = 'Kezdés'
+export const LANDING_FIRST_SECTION_BUTTON_LOGIN = 'Már van fiókom'
 
 export const LESSON_LOCKED = 'Még nincs feloldva'
 export const LESSON_UPCOMING = 'Soron következő lecke'
