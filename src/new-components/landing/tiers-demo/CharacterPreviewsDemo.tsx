@@ -29,6 +29,7 @@ export function CharacterPreviewsDemo({ characters, currentTier }: { characters:
               border: ({ palette }) => (tier <= currentTier ? '2px solid transparent' : `2px solid ${palette.grey[100]}`),
               m: 'auto',
               maxWidth: charWidth,
+              transition: ({ constants }) => constants.animationDuration,
               p: 1,
             }}
           >
