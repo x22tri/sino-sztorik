@@ -20,6 +20,9 @@ export const LANDING_THIRD_SECTION_FIRST_PARAGRAPH =
 export const LANDING_THIRD_SECTION_SECOND_PARAGRAPH =
   'Arra is figyelünk, hogy ne keverd össze a karaktert más, hasonló kinézetű vagy jelentésű karakterekkel.'
 
+export const LANDING_BOTTOM_SIGNUP_CTA = 'Vágj bele!'
+export const LANDING_COPYRIGHT = '© Dió Dávid'
+
 export const LESSON_LOCKED = 'Még nincs feloldva'
 export const LESSON_UPCOMING = 'Soron következő lecke'
 export const LESSON_COMPLETED = 'Már megtanult lecke'

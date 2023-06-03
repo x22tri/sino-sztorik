@@ -1,5 +1,6 @@
 import { Box, BoxProps, Typography } from '@mui/material'
 import { SignupButton } from './ButtonRow'
+import { LANDING_BOTTOM_SIGNUP_CTA, LANDING_COPYRIGHT } from '../shared/strings'
 
 export function BottomSignupCTA({ parentProps }: { parentProps: BoxProps }) {
   return (
@@ -14,16 +15,16 @@ export function BottomSignupCTA({ parentProps }: { parentProps: BoxProps }) {
         justifyContent='center'
       >
         <Typography variant='h3' fontWeight='bold'>
-          Vágj bele!
+          {LANDING_BOTTOM_SIGNUP_CTA}
         </Typography>
 
-        <Box flexBasis='20ch'>
+        <Box flexBasis={{ xs: undefined, md: '20ch' }} width={1}>
           <SignupButton color='primary' />
         </Box>
       </Box>
 
       <Box justifyContent='center' textAlign='center' color='text.disabled' marginBottom={2}>
-        © Dió Dávid {new Date().getFullYear()}
+        {LANDING_COPYRIGHT} {new Date().getFullYear()}
       </Box>
     </Box>
   )
