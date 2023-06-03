@@ -24,7 +24,10 @@ const characters = [
   { charChinese: '婴', tier: 1 },
   { charChinese: '樱', tier: 4 },
   { charChinese: '林', tier: 1 },
+  { charChinese: '夕', tier: 1 },
+  { charChinese: '梦', tier: 3 },
   { charChinese: '火', tier: 1 },
+  { charChinese: '炙', tier: 4 },
   { charChinese: '焚', tier: 3 },
   { charChinese: '目', tier: 1 },
   { charChinese: '相', tier: 1 },
@@ -33,7 +36,7 @@ const characters = [
   { charChinese: '未', tier: 1 },
   { charChinese: '朱', tier: 3 },
   { charChinese: '株', tier: 3 },
-] as TiersDemoCharacter[]
+] as TiersDemoCharacter[] // Must be 24 characters.
 
 export function TiersDemo() {
   const [currentTier, setCurrentTier] = useState(1)
@@ -51,10 +54,10 @@ export function TiersDemo() {
   }
 
   return (
-    <Box>
+    <>
       <CharacterPreviewsDemo {...{ characters, currentTier }} />
 
-      <Box marginTop={6} textAlign='center'>
+      <Box marginTop={2} textAlign='center'>
         <IconButton onClick={decrementTier} sx={{ ml: 'auto', visibility: currentTier === 1 ? 'hidden' : 'visible' }}>
           <FontAwesomeIcon icon={faChevronLeft} size='xs' />
         </IconButton>
@@ -82,6 +85,6 @@ export function TiersDemo() {
           )
         })}
       </Box>
-    </Box>
+    </>
   )
 }
