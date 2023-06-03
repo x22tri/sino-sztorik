@@ -1,34 +1,16 @@
 import { Box, Typography, useTheme } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
-import { TiersDemoCharacter } from './TiersDemo'
+import { TiersDemoCharacter } from './tiersDemoContent'
 
 const charWidth = '42px'
-const minNumberOfColumns = 4
-const maxNumberOfColumns = 7
 
 export function CharacterPreviewsDemo({ characters, currentTier }: { characters: TiersDemoCharacter[]; currentTier: number }) {
   const { spacing } = useTheme()
   return (
-    // <Box display='flex' flexDirection='column' maxWidth='48ch' margin='auto'>
-    //   <Box
-    //     display='grid'
-    //     gridTemplateColumns={`repeat(auto-fit,
-    //       minmax(min(100%/${minNumberOfColumns},
-    //       max(${charWidth},
-    //       100%/${maxNumberOfColumns + 1})),
-    //     1fr))`}
-    //     columnGap={1}
-    //     rowGap={2}
-    //     marginTop={2}
-    //     marginX={2}
-    //   >
     <Grid
       container
-      // display='flex'
       rowSpacing={2}
       maxWidth={{ xs: `calc((${charWidth} + ${spacing(1)}) * 6)`, sm: `calc((${charWidth} + ${spacing(1)}) * 8)` }}
-      // justifyItems='center'
-      // justifyContent='center'
       margin='auto'
       width='fit-content'
     >

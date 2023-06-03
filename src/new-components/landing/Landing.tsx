@@ -26,15 +26,34 @@ export function Landing() {
         <LandingGrid
           parentProps={containerStyles}
           demoChildContent={<ConstituentsDemo />}
-          demoChildProps={{ display: 'grid', gap: 4, gridTemplateRows: `4em minmax(21em, max-content) 4em` }}
+          demoChildProps={{
+            display: 'grid',
+            gap: 4,
+            gridTemplateRows: `4em minmax(21em, max-content) 4em`,
+            marginTop: { xs: 4, md: 0 },
+          }}
           textChildContent={<FirstSectionText />}
-          textChildProps={{ color: 'primary.contrastText' }}
+          textChildProps={{ color: 'primary.contrastText', textAlign: { xs: 'center', md: 'start' } }}
         />
       </Box>
 
       <Box bgcolor='background.paper'>
         <LandingGrid
-          parentProps={{ direction: { xs: 'column', md: 'row-reverse' }, ...containerStyles }}
+          parentProps={{
+            direction: { xs: 'column', md: 'row-reverse' },
+            ...containerStyles,
+            paddingTop: { xs: 6, md: 12 },
+            paddingBottom: { xs: 6, md: 16 },
+          }}
+          demoChildContent={<TiersDemo />}
+          demoChildProps={{ marginTop: { xs: 0, md: 8 } }}
+          textChildContent={<SecondSectionText />}
+        />
+      </Box>
+
+      <Box bgcolor='secondary.200'>
+        <LandingGrid
+          parentProps={{ ...containerStyles, paddingTop: { xs: 6, md: 12 }, paddingBottom: { xs: 6, md: 16 } }}
           demoChildContent={<TiersDemo />}
           demoChildProps={{ marginTop: { xs: 0, md: 8 } }}
           textChildContent={<SecondSectionText />}
@@ -59,15 +78,8 @@ function LandingGrid({
   textChildProps?: Grid2Props
 }) {
   return (
-    <Grid container rowGap={9} paddingX={3} paddingY={8} spacing={2} {...parentProps}>
-      <Grid
-        xs={12}
-        md={6}
-        margin='auto'
-        marginTop={{ xs: 2, md: 8 }}
-        textAlign={{ xs: 'center', md: 'start' }}
-        {...textChildProps}
-      >
+    <Grid container paddingX={3} paddingY={8} spacing={2} alignItems='center' {...parentProps}>
+      <Grid xs={12} md={6} {...textChildProps}>
         {textChildContent}
       </Grid>
 
