@@ -15,12 +15,22 @@ export function SimilarAppearanceList({ similarAppearance }: { similarAppearance
   return <CharButtonList characters={similarAppearance} color='primary' />
 }
 
+export function SimilarMeaningListDemo({ similarMeaning }: { similarMeaning: SimilarMeaning[] }) {
+  return <CharButtonList characters={similarMeaning} color='primary' disabled />
+}
+
+export function SimilarAppearanceListDemo({ similarAppearance }: { similarAppearance: SimilarAppearance[] }) {
+  return <CharButtonList characters={similarAppearance} color='primary' disabled />
+}
+
 function CharButtonList({
   color,
   characters,
+  disabled = false,
 }: {
   color: 'primary' | 'secondary'
   characters: ReferencedChar[] | SimilarMeaning[]
+  disabled?: boolean
 }) {
   const { startFlashback } = useStore('flashback')
 
@@ -29,8 +39,15 @@ function CharButtonList({
       {characters.map((character, index) => (
         <ListItem disablePadding key={index}>
           <ListItemButton
-            onClick={() => startFlashback(character.charChinese)}
-            sx={{ borderRadius: 6, ':hover': { bgcolor: color === 'primary' ? 'primary.100' : 'secondary.100' } }}
+            onClick={() => (disabled ? () => {} : startFlashback(character.charChinese))}
+            sx={{
+              borderRadius: 6,
+              ':hover': {
+                bgcolor: disabled ? 'initial' : color === 'primary' ? 'primary.100' : 'secondary.100',
+                cursor: disabled ? 'initial' : 'pointer',
+              },
+            }}
+            // {...{ disabled }}
           >
             <ListItemIcon>
               <Typography variant='chineseText' color={color === 'primary' ? 'primary.main' : 'secondary.main'}>

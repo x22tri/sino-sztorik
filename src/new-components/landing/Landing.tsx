@@ -7,6 +7,7 @@ import { ReactNode } from 'react'
 import { SecondSectionText } from './section-texts/SecondSectionText'
 import { TiersDemo } from './tiers-demo/TiersDemo'
 import { ThirdSectionText } from './section-texts/ThirdSectionText'
+import { SupplementsDemo } from './supplements-demo/SupplementsDemo'
 
 export function Landing() {
   const { constants } = useTheme()
@@ -20,7 +21,6 @@ export function Landing() {
           <LogoTitle />
         </Toolbar>
       </AppBar>
-
       <Toolbar />
 
       <Box bgcolor='primary.700' sx={{ backgroundImage: constants.synapsesBackground }}>
@@ -55,7 +55,7 @@ export function Landing() {
       <Box bgcolor='secondary.200'>
         <LandingGrid
           parentProps={{ ...containerStyles, paddingTop: { xs: 6, md: 12 }, paddingBottom: { xs: 6, md: 16 } }}
-          demoChildContent={<TiersDemo />}
+          demoChildContent={<SupplementsDemo />}
           demoChildProps={{ marginTop: { xs: 0, md: 8 } }}
           textChildContent={<ThirdSectionText />}
           textChildProps={{ marginTop: 0 }}

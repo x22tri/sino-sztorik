@@ -20,13 +20,13 @@ export function CharacterPreviewsDemo({ characters, currentTier }: { characters:
         return (
           <Grid component='span' key={charChinese} xs={3} sm={2}>
             <Typography
+              bgcolor={isEligibleForChar ? 'grey.100' : 'transparent'}
+              color={isEligibleForChar ? 'text.primary' : 'transparent'}
               className='disable-select'
               display='flex'
               justifyContent='center'
               variant='chineseText'
               sx={{
-                bgcolor: isEligibleForChar ? 'grey.50' : 'transparent',
-                color: isEligibleForChar ? 'text.primary' : 'transparent',
                 borderRadius: 2,
                 border: ({ palette }) => (isEligibleForChar ? '2px solid transparent' : `2px solid ${palette.grey[200]}`),
                 m: 'auto',

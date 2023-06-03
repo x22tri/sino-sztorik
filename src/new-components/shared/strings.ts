@@ -16,9 +16,9 @@ export const LANDING_SECOND_SECTION_SECOND_PARAGRAPH =
 export const LANDING_THIRD_SECTION_TITLE_FIRST_ROW = 'A szótár, amire'
 export const LANDING_THIRD_SECTION_TITLE_SECOND_ROW = 'mindig is vágytál'
 export const LANDING_THIRD_SECTION_FIRST_PARAGRAPH =
-  'Ha megtanultad egy karakter alapjelentését, mi megmutatjuk, milyen más karakterekkel párosíthatod, hogy szavakat és kifejezéseket alkoss. Tudásod minden megtanult írásjeggyel hatványozottan nő majd.'
+  'Ha megtanultad egy karakter alapjelentését, mi megmutatjuk, milyen szavakat alkothatsz vele. Tudásod minden megtanult írásjeggyel hatványozottan nő majd.'
 export const LANDING_THIRD_SECTION_SECOND_PARAGRAPH =
-  'Arra is figyelünk, hogy ne keverd össze a karaktert más, jelentésében vagy külalakjában hasonló karakterekkel.'
+  'Arra is figyelünk, hogy ne keverd össze a karaktert más, hasonló kinézetű vagy jelentésű karakterekkel.'
 
 export const LESSON_LOCKED = 'Még nincs feloldva'
 export const LESSON_UPCOMING = 'Soron következő lecke'
