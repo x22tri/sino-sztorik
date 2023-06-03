@@ -12,16 +12,16 @@ export function ButtonRow() {
   )
 }
 
-function SignupButton() {
+export function SignupButton({ color = 'white' }: { color?: 'white' | 'primary' }) {
   return (
     <Button
-      color='white'
       fullWidth
       size='large'
       variant='contained'
       onClick={() => {}}
       endIcon={<FontAwesomeIcon icon={faArrowRight} transform='shrink-4' />}
       sx={{ borderRadius: 6 }}
+      {...{ color }}
     >
       {LANDING_FIRST_SECTION_BUTTON_SIGNUP}
     </Button>
