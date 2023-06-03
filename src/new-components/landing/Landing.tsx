@@ -1,11 +1,12 @@
 import { AppBar, Box, Toolbar, useTheme } from '@mui/material'
 import Grid, { Grid2Props } from '@mui/material/Unstable_Grid2'
 import LogoTitle from '../shared/components/LogoTitle'
-import { FirstSectionText } from './FirstSectionText'
+import { FirstSectionText } from './section-texts/FirstSectionText'
 import { ConstituentsDemo } from './constituents-demo/ConstituentsDemo'
 import { ReactNode } from 'react'
-import { SecondSectionText } from './SecondSectionText'
+import { SecondSectionText } from './section-texts/SecondSectionText'
 import { TiersDemo } from './tiers-demo/TiersDemo'
+import { ThirdSectionText } from './section-texts/ThirdSectionText'
 
 export function Landing() {
   const { constants } = useTheme()
@@ -29,7 +30,7 @@ export function Landing() {
           demoChildProps={{
             display: 'grid',
             gap: 4,
-            gridTemplateRows: `4em minmax(21em, max-content) 4em`,
+            gridTemplateRows: `4em minmax(23em, max-content) 4em`,
             marginTop: { xs: 4, md: 0 },
           }}
           textChildContent={<FirstSectionText />}
@@ -56,7 +57,7 @@ export function Landing() {
           parentProps={{ ...containerStyles, paddingTop: { xs: 6, md: 12 }, paddingBottom: { xs: 6, md: 16 } }}
           demoChildContent={<TiersDemo />}
           demoChildProps={{ marginTop: { xs: 0, md: 8 } }}
-          textChildContent={<SecondSectionText />}
+          textChildContent={<ThirdSectionText />}
           textChildProps={{ marginTop: 0 }}
         />
       </Box>

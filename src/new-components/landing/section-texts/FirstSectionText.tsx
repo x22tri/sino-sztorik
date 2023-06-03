@@ -3,8 +3,8 @@ import {
   LANDING_FIRST_SECTION_FIRST_ROW,
   LANDING_FIRST_SECTION_SECOND_ROW,
   LANDING_FIRST_SECTION_PARAGRAPH,
-} from '../shared/strings'
-import { ButtonRow } from './ButtonRow'
+} from '../../shared/strings'
+import { ButtonRow } from '../ButtonRow'
 
 export function FirstSectionText() {
   return (

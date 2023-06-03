@@ -4,7 +4,7 @@ import {
   LANDING_SECOND_SECTION_TITLE_SECOND_ROW,
   LANDING_SECOND_SECTION_FIRST_PARAGRAPH,
   LANDING_SECOND_SECTION_SECOND_PARAGRAPH,
-} from '../shared/strings'
+} from '../../shared/strings'
 
 export function SecondSectionText() {
   return (
