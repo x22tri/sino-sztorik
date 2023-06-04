@@ -12,7 +12,7 @@ const LanguageContext = createContext({ language: 'hu', changeLanguage: () => un
 export const useLanguageContext = () => useContext(LanguageContext)
 
 export default function LanguageContextProvider({ children }: { children: ReactNode }) {
-  const [language, changeLanguage] = useState<Locales>('en')
+  const [language, changeLanguage] = useState<Locales>('hu')
 
   return <LanguageContext.Provider value={{ language, changeLanguage }}>{children}</LanguageContext.Provider>
 }

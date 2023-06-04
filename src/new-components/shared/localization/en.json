@@ -6,23 +6,94 @@
       "header2": "Chinese without the pain",
       "body": [
         "kin.ai teaches the 3000 most important Chinese characters with easy-to-remember stories instead of rote memorization."
-      ]
+      ],
+      "constituentsDemo": {
+        "companion": {
+          "keyword": "companion",
+          "story": [
+            [
+              "Little-known fact: the ",
+              { "constituent": "moon", "references": "月" },
+              " isn't round, it's actually hemispherical. It also has a ",
+              { "keyword": "companion" },
+              ", another hemispherical ",
+              { "constituent": "moon", "references": "月" },
+              ". During a crescent moon, our ",
+              { "constituent": "moon", "references": "月" },
+              " is alone, but its ",
+              { "keyword": "companion" },
+              " comes to visit every subsequent night—partially hiding behind our ",
+              { "constituent": "moon", "references": "月" },
+              ", so we can't see it fully. Every time, it comes out more and more, until the two ",
+              { "keyword": "companions" },
+              " finally stand side by side during a full moon, forming a full circle."
+            ]
+          ]
+        },
+        "crumble": {
+          "keyword": "to crumble",
+          "story": [
+            [
+              "Two miners, steadfast ",
+              { "constituent": "companions", "references": "朋" },
+              ", saw the ",
+              { "constituent": "mountain", "references": "山" },
+              " start ",
+              { "keyword": "to crumble" },
+              " above them. They realized that if one of them presses itself against the ",
+              { "constituent": "mountain", "references": "山" },
+              ", they can slow the collapse and let the other one escape."
+            ],
+            [
+              "But neither was willing to get out at the expense of the other's life. Thus, the two ",
+              { "constituent": "companions", "references": "朋" },
+              " held hands and let the ",
+              { "constituent": "mountain", "references": "山" },
+              " ",
+              { "keyword": "crumble" },
+              " around them, crushing both."
+            ]
+          ]
+        },
+        "moon": {
+          "keyword": "moon",
+          "story": [["A stylized picture of the ", { "keyword": "moon" }, ", obviously in the Waxing Crescent phase."]]
+        },
+        "mountain": {
+          "keyword": "mountain",
+          "story": [["A stylized picture of a ", { "keyword": "mountain" }, "."]]
+        }
+      }
     },
     "section2": {
       "header1": "Your lesson plan is ready.",
       "header2": "Are you?",
       "body": [
         "We've sorted the Chinese alphabet for you, from the simplest characters to the more complicated ones. By the time you reach a character, you'll have learned all of its parts.",
-        "But not all simple characters are common, and not all common characters are simple. In our course, you'll learn the important stuff first."
-      ]
+        "But not all simple characters are common, and not all common characters are simple. In our course, you'll start with what matters so you can get to reading Chinese texts as soon as possible."
+      ],
+      "tierText": "Tier {0}"
     },
     "section3": {
       "header1": "The dictionary",
       "header2": "you've always wanted",
       "body": [
         "Once you've learned the core meaning of a character, we'll show you the words you can make with it. Your knowledge will grow exponentially with every character you learn.",
-        "We'll also make sure you won't confuse the character with other characters that have a similar appearance or meaning."
-      ]
+        "We'll also make sure you don't confuse the character with other characters that have a similar appearance or meaning."
+      ],
+      "supplementsDemo": {
+        "april": "April",
+        "border": "border",
+        "dubious": "dubious; neither fish nor fowl",
+        "four": "four",
+        "fourBanking": "four (banking)",
+        "month": "(month)",
+        "not": "not",
+        "shape": "shape",
+        "steed": "steed",
+        "three": "three",
+        "quadrilateral": "quadrilateral"
+      }
     },
     "bottomCTA": "Dive right in!",
     "copyright": "© Dávid Dió",

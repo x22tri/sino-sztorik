@@ -6,15 +6,75 @@
       "header2": "kínaiul, kín nélkül",
       "body": [
         "A kin.ai megtanítja neked a 3000 legfontosabb kínai írásjegyet, magolás helyett könnyen megjegyezhető történetekkel."
-      ]
+      ],
+      "constituentsDemo": {
+        "companion": {
+          "keyword": "társ",
+          "story": [
+            [
+              "Kevesen tudják, de a ",
+              { "constituent": "hold", "references": "月" },
+              " igazából nem kerek, hanem félgömb alakú. Viszont van egy ",
+              { "keyword": "társa" },
+              ", egy másik félgömb alakú ",
+              { "constituent": "hold", "references": "月" },
+              ". Félholdkor a mi ",
+              { "constituent": "holdunk", "references": "月" },
+              " egyedül van, de utána minden éjszaka meglátogatja a ",
+              { "keyword": "társa" },
+              " – csak elbújik a mi ",
+              { "constituent": "holdunk", "references": "月" },
+              " mögé, így nem látni teljesen. Minden alkalommal egyre jobban előbújik, míg végül teliholdkor egymás mellé kerül a két ",
+              { "keyword": "társ" },
+              ", kiadva egy egész kört."
+            ]
+          ]
+        },
+        "crumble": {
+          "keyword": "összeomlik",
+          "story": [
+            [
+              "Két bányász",
+              { "constituent": "társ", "references": "朋" },
+              " felett a ",
+              { "constituent": "hegy", "references": "山" },
+              " egyszer elkezdett ",
+              { "keyword": "összeomlani" },
+              ". Rájöttek: ha egyikük megtartja a ",
+              { "constituent": "hegyet", "references": "山" },
+              ", hogy lelassítsa az ",
+              { "keyword": "összeomlást" },
+              ", a másik kimenekülhet."
+            ],
+            [
+              "De egyik sem volt hajlandó kimenekülni a másik élete árán – így a két ",
+              { "constituent": "társ", "references": "朋" },
+              " megfogta egymás kezét és hagyta, hogy a ",
+              { "constituent": "hegy", "references": "山" },
+              " ",
+              { "keyword": "összeomoljon" },
+              " körülöttük, agyonnyomva mind a kettőt."
+            ]
+          ]
+        },
+        "moon": {
+          "keyword": "hold",
+          "story": [["A ", { "keyword": "hold" }, " stilizált képe. Éppen dagadófélben van, hiszen D alakú."]]
+        },
+        "mountain": {
+          "keyword": "hegy",
+          "story": [["Egy ", { "keyword": "hegy" }, " stilizált képe."]]
+        }
+      }
     },
     "section2": {
       "header1": "A tanterved kész.",
       "header2": "És te?",
       "body": [
         "Sorba rendeztük neked a kínai ábécét az egyszerű karakterektől a bonyolultakig. Mire eljutsz egy karakterig, már az összes alkotóelemét ismerni fogod.",
-        "De nem minden egyszerű karakter gyakori, és nem minden gyakori karakter egyszerű. Velünk azt tanulod meg először, amire szükséged van."
-      ]
+        "De nem minden egyszerű karakter gyakori, és nem minden gyakori karakter egyszerű. Velünk azt tanulod meg először, amire szükséged van, hogy minél előbb elkezdhess kínai szövegeket olvasni."
+      ],
+      "tierText": "{0}. kör"
     },
     "section3": {
       "header1": "A szótár, amire",
@@ -22,7 +82,20 @@
       "body": [
         "Ha megtanultad egy karakter alapjelentését, mi megmutatjuk, milyen szavakat alkothatsz vele. Tudásod minden megtanult írásjeggyel hatványozottan nő majd.",
         "Arra is figyelünk, hogy ne keverd össze a karaktert más, hasonló kinézetű vagy jelentésű karakterekkel."
-      ]
+      ],
+      "supplementsDemo": {
+        "april": "április",
+        "border": "határ",
+        "dubious": "kétes; se ilyen, se olyan",
+        "four": "négy",
+        "fourBanking": "négyes",
+        "month": "(hónap)",
+        "not": "nem",
+        "shape": "alak",
+        "steed": "paripa",
+        "three": "három",
+        "quadrilateral": "négyszög"
+      }
     },
     "bottomCTA": "Vágj bele!",
     "copyright": "© Dió Dávid",

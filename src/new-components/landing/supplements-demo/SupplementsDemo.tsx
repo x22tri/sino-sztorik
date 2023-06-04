@@ -1,11 +1,11 @@
 import { Box, Typography } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
-import { supplementsDemoContent } from './supplementsDemoContent'
+import { useSupplementsDemoContent } from './useSupplementsDemoContent'
 import { SimilarDemo } from './SimilarDemo'
 import { PhraseDemo } from './PhraseDemo'
 
 export function SupplementsDemo() {
-  const { charChinese, keyword, phrases, similarAppearance, similarMeaning } = supplementsDemoContent
+  const { charChinese, keyword, phrases, similarAppearance, similarMeaning } = useSupplementsDemoContent()
 
   return (
     <Box bgcolor='background.paper' borderRadius={2} margin='auto' maxWidth='48ch' p={1}>

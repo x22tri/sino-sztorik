@@ -30,7 +30,7 @@ export function Landing() {
           demoProps={{
             display: 'grid',
             gap: 4,
-            gridTemplateRows: `4em minmax(23em, max-content) 4em`,
+            gridTemplateRows: `4em minmax(26em, max-content) 4em`,
             marginTop: { xs: 4, md: 0 },
           }}
           textContent={<FirstSectionText />}

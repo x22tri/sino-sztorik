@@ -1,17 +1,18 @@
 import { Box, useTheme } from '@mui/material'
-import { demoContent } from './demoContent'
+import { useConstituentsDemoContent } from './demoContent'
 import { Fragment, useEffect, useState } from 'react'
 import { ChildOrParent } from './ChildOrParent'
 import { DemoedChar } from './DemoedChar'
 import Xarrow, { useXarrow } from 'react-xarrows'
 
 export function ConstituentsDemo() {
+  const demoContent = useConstituentsDemoContent()
   const [demoed, setDemoed] = useState(demoContent[1])
   const { palette } = useTheme()
   const updateXarrow = useXarrow()
 
   useEffect(() => {
-    updateXarrow()
+    setTimeout(() => updateXarrow(), 0)
   }, [demoed])
 
   function onLinkClick(referencedChar: string) {

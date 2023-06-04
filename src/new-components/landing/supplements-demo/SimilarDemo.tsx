@@ -5,6 +5,7 @@ export function SimilarDemo({ charChinese, keyword }: { charChinese: string; key
     <Box
       alignItems='center'
       display='grid'
+      gap={1}
       justifyContent='center'
       textAlign='center'
       sx={{ gridTemplate: `"not-equal char" ". keyword" / max-content minmax(8ch, max-content)` }}

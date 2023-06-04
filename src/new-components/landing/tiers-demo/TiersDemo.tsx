@@ -4,8 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import { tiersDemoContent } from './tiersDemoContent'
+import useTranslation from '../../shared/localization/useTranslation'
 
 export function TiersDemo() {
+  const strings = useTranslation()
   const [currentTier, setCurrentTier] = useState(1)
 
   function decrementTier() {
@@ -30,7 +32,7 @@ export function TiersDemo() {
         </IconButton>
 
         <Typography marginX={4} variant='overline'>
-          {currentTier}. kör
+          {strings.formatString(strings.landing.section2.tierText, currentTier)}
         </Typography>
 
         <IconButton onClick={incrementTier} sx={{ mr: 'auto', visibility: currentTier === 4 ? 'hidden' : 'visible' }}>
