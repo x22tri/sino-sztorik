@@ -1,0 +1,34 @@
+{
+  "appTitle": "kin.ai",
+  "landing": {
+    "section1": {
+      "header1": "Tanulj meg olvasni",
+      "header2": "kínaiul, kín nélkül",
+      "body": [
+        "A kin.ai megtanítja neked a 3000 legfontosabb kínai írásjegyet, magolás helyett könnyen megjegyezhető történetekkel."
+      ]
+    },
+    "section2": {
+      "header1": "A tanterved kész.",
+      "header2": "És te?",
+      "body": [
+        "Sorba rendeztük neked a kínai ábécét az egyszerű karakterektől a bonyolultakig. Mire eljutsz egy karakterig, már az összes alkotóelemét ismerni fogod.",
+        "De nem minden egyszerű karakter gyakori, és nem minden gyakori karakter egyszerű. Velünk azt tanulod meg először, amire szükséged van."
+      ]
+    },
+    "section3": {
+      "header1": "A szótár, amire",
+      "header2": "mindig is vágytál",
+      "body": [
+        "Ha megtanultad egy karakter alapjelentését, mi megmutatjuk, milyen szavakat alkothatsz vele. Tudásod minden megtanult írásjeggyel hatványozottan nő majd.",
+        "Arra is figyelünk, hogy ne keverd össze a karaktert más, hasonló kinézetű vagy jelentésű karakterekkel."
+      ]
+    },
+    "bottomCTA": "Vágj bele!",
+    "copyright": "© Dió Dávid",
+    "buttons": {
+      "signup": "Kezdés",
+      "login": "Már van fiókom"
+    }
+  }
+}

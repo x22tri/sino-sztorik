@@ -1,0 +1,34 @@
+{
+  "appTitle": "kin.ai",
+  "landing": {
+    "section1": {
+      "header1": "Learn to read",
+      "header2": "Chinese without the pain",
+      "body": [
+        "kin.ai will teach you the 3000 most important Chinese characters with easy-to-remember stories instead of rote memorization."
+      ]
+    },
+    "section2": {
+      "header1": "Your curriculum's ready.",
+      "header2": "Are you?",
+      "body": [
+        "We've ordered the Chinese alphabet for you, from simple characters to the more complicated ones. By the time you reach a character, you'll have learned all the parts that make it up.",
+        "But not all simple characters are common, and not all common characters are simple. We've designed a course where the important stuff comes first."
+      ]
+    },
+    "section3": {
+      "header1": "The dictionary",
+      "header2": "you've always wanted",
+      "body": [
+        "Once you've learned the core meaning of a character, we'll show you the words you can make with it. Your knowledge will grow exponentially with every character you learn.",
+        "We'll also make sure you won't confuse the character with other characters that have a similar appearance or meaning."
+      ]
+    },
+    "bottomCTA": "Dive right in!",
+    "copyright": "© Dávid Dió",
+    "buttons": {
+      "signup": "Start",
+      "login": "I have an account"
+    }
+  }
+}
