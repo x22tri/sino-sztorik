@@ -1,5 +1,5 @@
 import { Box, useTheme } from '@mui/material'
-import { useConstituentsDemoContent } from './demoContent'
+import { useConstituentsDemoContent } from './useConstituentsDemoContent'
 import { Fragment, useEffect, useState } from 'react'
 import { ChildOrParent } from './ChildOrParent'
 import { DemoedChar } from './DemoedChar'

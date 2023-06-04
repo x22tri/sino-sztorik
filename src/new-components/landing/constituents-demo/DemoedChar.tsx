@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material'
-import { DemoContentChar } from './demoContent'
+import { DemoContentChar } from './useConstituentsDemoContent'
 import { Segment as SegmentType } from '../../shared/interfaces'
 import { StorySegmentResolverDemo } from './StorySegmentResolverDemo'
 

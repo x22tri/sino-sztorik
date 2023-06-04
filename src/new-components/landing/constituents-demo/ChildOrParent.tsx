@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material'
-import { DemoContentRelationshipChar } from './demoContent'
+import { DemoContentRelationshipChar } from './useConstituentsDemoContent'
 
 export function ChildOrParent({
   char,
