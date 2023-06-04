@@ -39,7 +39,7 @@ export function CloseLearnButton() {
             width: 400,
           }}
         >
-          <Typography variant='h5' component='h2'>
+          <Typography variant='h5' component='h2' fontWeight='bold'>
             {LEARN_EXIT_MODAL_TITLE}
           </Typography>
 
