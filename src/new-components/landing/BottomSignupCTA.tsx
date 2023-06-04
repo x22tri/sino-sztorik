@@ -1,8 +1,10 @@
 import { Box, BoxProps, Typography } from '@mui/material'
 import { SignupButton } from './ButtonRow'
-import { LANDING_BOTTOM_SIGNUP_CTA, LANDING_COPYRIGHT } from '../shared/strings'
+import useTranslation from '../shared/localization/useTranslation'
 
 export function BottomSignupCTA({ parentProps }: { parentProps: BoxProps }) {
+  const strings = useTranslation()
+
   return (
     <Box paddingX={3} {...parentProps}>
       <Box
@@ -15,7 +17,7 @@ export function BottomSignupCTA({ parentProps }: { parentProps: BoxProps }) {
         justifyContent='center'
       >
         <Typography variant='h3' fontWeight='bold'>
-          {LANDING_BOTTOM_SIGNUP_CTA}
+          {strings.landing.bottomCTA}
         </Typography>
 
         <Box flexBasis={{ xs: undefined, md: '20ch' }} width={1}>
@@ -24,7 +26,7 @@ export function BottomSignupCTA({ parentProps }: { parentProps: BoxProps }) {
       </Box>
 
       <Box justifyContent='center' textAlign='center' color='text.disabled' marginBottom={2}>
-        {LANDING_COPYRIGHT} {new Date().getFullYear()}
+        {strings.landing.copyright} {new Date().getFullYear()}
       </Box>
     </Box>
   )

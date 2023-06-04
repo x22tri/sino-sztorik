@@ -9,6 +9,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { loadLearn } from './shared/logic/loadLearn'
 import { LEARN_PATH, LESSON_SELECT_PATH, REVIEW_PATH, ROOT_PATH } from './shared/paths'
 import { loadReview } from './shared/logic/loadReview'
+import LanguageContextProvider from './shared/localization/LanguageContext'
 
 const router = createBrowserRouter([
   {
@@ -38,8 +39,10 @@ const router = createBrowserRouter([
 function App() {
   return (
     <ThemeProvider {...{ theme }}>
-      <CssBaseline />
-      <RouterProvider {...{ router }} />
+      <LanguageContextProvider>
+        <CssBaseline />
+        <RouterProvider {...{ router }} />
+      </LanguageContextProvider>
     </ThemeProvider>
   )
 }
