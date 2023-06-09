@@ -10,17 +10,16 @@ import LessonSelectContent from './lesson-select-content/LessonSelectContent'
 import { LessonStart } from './lesson-start/LessonStart'
 import { SwiperGrid } from '../shared/components/SwiperGrid'
 import { useLoaderData } from 'react-router-dom'
+import { loadLessonSelect } from '../shared/logic/loadLessonSelect'
 
 export default function LessonSelect() {
-  const lessons = useLoaderData() as AssembledLesson[]
-  const { selectedLessonIndex, selectLessonIndex, setUpcomingLessonIndex } = useStore('lessonSelect')
+  const { lessons, upcomingIndex } = useLoaderData() as ReturnType<typeof loadLessonSelect>
+  const { selectedLessonIndex, selectLessonIndex } = useStore('lessonSelect')
   const [toolbarHeight, setToolbarHeight] = useState(0)
 
   useEffect(() => {
-    const upcoming = lessons.findIndex(({ tierStatuses }) => tierStatuses.includes(LessonStatuses.UPCOMING))
-    setUpcomingLessonIndex(upcoming)
-    selectLessonIndex(upcoming)
-  }, [lessons, selectLessonIndex, setUpcomingLessonIndex])
+    selectLessonIndex(upcomingIndex)
+  }, [selectLessonIndex, upcomingIndex])
 
   return selectedLessonIndex === undefined ? null : (
     <SwiperGrid

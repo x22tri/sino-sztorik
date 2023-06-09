@@ -6,10 +6,11 @@ import { isDisabledLesson } from '../../shared/utility-functions'
 import { useStore } from '../../shared/logic/useStore'
 import { useLoaderData } from 'react-router-dom'
 import { AssembledLesson } from '../../shared/interfaces'
+import { loadLessonSelect } from '../../shared/logic/loadLessonSelect'
 
 export function LessonPickerContent() {
-  const lessons = useLoaderData() as AssembledLesson[]
-  const { selectLessonIndex, selectedLessonIndex, upcomingLessonIndex } = useStore('lessonSelect')
+  const { lessons, upcomingIndex } = useLoaderData() as ReturnType<typeof loadLessonSelect>
+  const { selectLessonIndex, selectedLessonIndex } = useStore('lessonSelect')
   const { toggleDrawer } = useStore('mobileDrawer')
   const { swiperInstance } = useStore('swiper')
   const { constants, palette, spacing, typography } = useTheme()
@@ -23,7 +24,7 @@ export function LessonPickerContent() {
   return (
     <>
       {lessons.map(({ lessonNumber, tierStatuses }, index) => {
-        const isUpcoming = upcomingLessonIndex === index
+        const isUpcoming = upcomingIndex === index
 
         return (
           <ListItem key={index} disablePadding>

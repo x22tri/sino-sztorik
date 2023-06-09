@@ -17,7 +17,6 @@ export function SwiperGrid({
   swiperProps: SwiperProps
 }) {
   const { setSwiperInstance, swiperInstance } = useStore('swiper')
-  const { constants } = useTheme()
 
   useKeydown([
     { on: 'ArrowLeft', do: () => swiperInstance?.slidePrev() },
@@ -29,8 +28,10 @@ export function SwiperGrid({
       display='grid'
       position='relative'
       margin='auto'
-      maxWidth={constants.maxContentWidth}
-      sx={{ gridTemplate: { xs: `"main" / auto`, md: `"drawer main" / ${constants.drawerWidth}px auto` } }}
+      sx={{
+        maxWidth: ({ constants }) => constants.maxContentWidth,
+        gridTemplate: ({ constants }) => ({ xs: `"main" / auto`, md: `"drawer main" / ${constants.drawerWidth}px auto` }),
+      }}
     >
       <SideNav content={sideNav.content} title={sideNav.title} selected={sideNav.selected} />
 
