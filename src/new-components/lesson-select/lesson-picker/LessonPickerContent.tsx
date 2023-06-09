@@ -4,9 +4,12 @@ import { faCircleRight } from '@fortawesome/free-solid-svg-icons'
 import { When } from 'react-if'
 import { isDisabledLesson } from '../../shared/utility-functions'
 import { useStore } from '../../shared/logic/useStore'
+import { useLoaderData } from 'react-router-dom'
+import { AssembledLesson } from '../../shared/interfaces'
 
 export function LessonPickerContent() {
-  const { lessons, selectLessonIndex, selectedLessonIndex, upcomingLessonIndex } = useStore('lessonSelect')
+  const lessons = useLoaderData() as AssembledLesson[]
+  const { selectLessonIndex, selectedLessonIndex, upcomingLessonIndex } = useStore('lessonSelect')
   const { toggleDrawer } = useStore('mobileDrawer')
   const { swiperInstance } = useStore('swiper')
   const { constants, palette, spacing, typography } = useTheme()

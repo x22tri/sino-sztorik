@@ -1,7 +1,6 @@
 import Swiper from 'swiper'
 import { create } from 'zustand'
-import { LESSONS } from '../MOCK_LESSONS'
-import { AssembledLesson, Character } from '../interfaces'
+import { Character } from '../interfaces'
 import { findFlashbackChar } from './findFlashbackChar'
 import { scrollToTop } from '../utility-functions'
 
@@ -44,7 +43,6 @@ const useBoundStore = create<Store>((set, get) => {
     },
 
     lessonSelect: {
-      lessons: LESSONS,
       selectedLessonIndex: undefined,
       selectLessonIndex: (index: number) => update('lessonSelect', { selectedLessonIndex: index }),
       setUpcomingLessonIndex: (index: number) => update('lessonSelect', { upcomingLessonIndex: index }),
@@ -71,7 +69,6 @@ type Store = {
 }
 
 interface LessonSelectSlice {
-  lessons: AssembledLesson[]
   selectedLessonIndex: number | undefined
   selectLessonIndex: (index: number) => void
   setUpcomingLessonIndex: (index: number) => void

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { LessonStatuses } from '../shared/interfaces'
+import { AssembledLesson, LessonStatuses } from '../shared/interfaces'
 import { LessonPickerContent } from './lesson-picker/LessonPickerContent'
 import { LessonPickerTitle } from './lesson-picker/LessonPickerTitle'
 import { useStore } from '../shared/logic/useStore'
@@ -9,9 +9,11 @@ import { LessonSelectAppbar } from './appbar/LessonSelectAppbar'
 import LessonSelectContent from './lesson-select-content/LessonSelectContent'
 import { LessonStart } from './lesson-start/LessonStart'
 import { SwiperGrid } from '../shared/components/SwiperGrid'
+import { useLoaderData } from 'react-router-dom'
 
 export default function LessonSelect() {
-  const { lessons, selectedLessonIndex, selectLessonIndex, setUpcomingLessonIndex } = useStore('lessonSelect')
+  const lessons = useLoaderData() as AssembledLesson[]
+  const { selectedLessonIndex, selectLessonIndex, setUpcomingLessonIndex } = useStore('lessonSelect')
   const { swiperInstance } = useStore('swiper')
   const [toolbarHeight, setToolbarHeight] = useState(0)
 

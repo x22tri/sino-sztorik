@@ -10,6 +10,7 @@ import { loadLearn } from './shared/logic/loadLearn'
 import { LEARN_PATH, LESSON_SELECT_PATH, REVIEW_PATH, ROOT_PATH } from './shared/paths'
 import { loadReview } from './shared/logic/loadReview'
 import LanguageContextProvider from './shared/localization/LanguageContext'
+import { loadLessonSelect } from './shared/logic/loadLessonSelect'
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
     path: LESSON_SELECT_PATH,
     element: <LessonSelect />,
     errorElement: <div>An error occurred on LessonSelect</div>,
+    loader: loadLessonSelect,
   },
   {
     path: LEARN_PATH,
