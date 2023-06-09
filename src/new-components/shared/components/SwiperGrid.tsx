@@ -9,19 +9,20 @@ import { ReactNode } from 'react'
 
 export function SwiperGrid({
   children,
-  keyboardControls,
   sideNav,
   swiperProps,
 }: {
   children: ReactNode
-  keyboardControls: UseKeydownAction[]
   sideNav: { content: JSX.Element; selected: number; title: JSX.Element }
   swiperProps: SwiperProps
 }) {
-  const { setSwiperInstance } = useStore('swiper')
+  const { setSwiperInstance, swiperInstance } = useStore('swiper')
   const { constants } = useTheme()
 
-  useKeydown(keyboardControls)
+  useKeydown([
+    { on: 'ArrowLeft', do: () => swiperInstance?.slidePrev() },
+    { on: 'ArrowRight', do: () => swiperInstance?.slideNext() },
+  ])
 
   return (
     <Box

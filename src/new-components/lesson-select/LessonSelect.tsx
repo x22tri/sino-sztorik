@@ -14,7 +14,6 @@ import { useLoaderData } from 'react-router-dom'
 export default function LessonSelect() {
   const lessons = useLoaderData() as AssembledLesson[]
   const { selectedLessonIndex, selectLessonIndex, setUpcomingLessonIndex } = useStore('lessonSelect')
-  const { swiperInstance } = useStore('swiper')
   const [toolbarHeight, setToolbarHeight] = useState(0)
 
   useEffect(() => {
@@ -23,20 +22,8 @@ export default function LessonSelect() {
     selectLessonIndex(upcoming)
   }, [lessons, selectLessonIndex, setUpcomingLessonIndex])
 
-  function slideNextIfLessonIsEnabled(): void {
-    const currentIndex = swiperInstance?.activeIndex
-
-    if (currentIndex !== undefined && !isDisabledLesson(lessons[currentIndex + 1].tierStatuses)) {
-      swiperInstance?.slideNext()
-    }
-  }
-
   return selectedLessonIndex === undefined ? null : (
     <SwiperGrid
-      keyboardControls={[
-        { on: 'ArrowLeft', do: () => swiperInstance?.slidePrev() },
-        { on: 'ArrowRight', do: () => slideNextIfLessonIsEnabled() },
-      ]}
       sideNav={{
         title: <LessonPickerTitle />,
         content: <LessonPickerContent />,
@@ -49,11 +36,13 @@ export default function LessonSelect() {
     >
       <LessonSelectAppbar {...{ setToolbarHeight, toolbarHeight }} />
 
-      {lessons.map((lesson, index) => (
-        <SwiperSlide key={index}>
-          <LessonSelectContent prevLesson={lessons[index - 1]} nextLesson={lessons[index + 1]} {...{ lesson, toolbarHeight }} />
-        </SwiperSlide>
-      ))}
+      {lessons
+        .filter(({ tierStatuses }) => !isDisabledLesson(tierStatuses))
+        .map((lesson, index) => (
+          <SwiperSlide key={index}>
+            <LessonSelectContent prevLesson={lessons[index - 1]} nextLesson={lessons[index + 1]} {...{ lesson, toolbarHeight }} />
+          </SwiperSlide>
+        ))}
 
       <LessonStart lesson={lessons[selectedLessonIndex]} />
     </SwiperGrid>

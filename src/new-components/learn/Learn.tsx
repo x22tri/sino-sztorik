@@ -28,10 +28,6 @@ export default function Learn() {
 
   return !lesson.characters.length ? null : (
     <SwiperGrid
-      keyboardControls={[
-        { on: 'ArrowLeft', do: () => swiperInstance?.slidePrev() },
-        { on: 'ArrowRight', do: () => swiperInstance?.slideNext() },
-      ]}
       sideNav={{
         title: <CharPickerTitle {...{ contentType, setContentType }} />,
         content: <CharPickerContent {...{ contentType }} />,
