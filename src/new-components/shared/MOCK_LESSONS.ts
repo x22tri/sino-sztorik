@@ -8,7 +8,7 @@ export const LESSONS: AssembledLesson[] = [
     preface:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut tristique ex. Nullam commodo mollis libero, eget sodales ex fringilla eget. Fusce eu odio sit amet ex condimentum rutrum id quis lectus. Cras mattis dui ac finibus gravida. Nam eget tempus tortor. In non bibendum ligula. Quisque eget nunc vitae nisl ultrices fringilla. Curabitur id tempor nisi. Aliquam ac ante scelerisque odio porta pretium et et massa. Vivamus rutrum, neque pellentesque sollicitudin facilisis, tortor nisl semper dolor, eu efficitur nunc turpis dignissim urna. Integer eleifend consectetur dui a laoreet. ',
     tierStatuses: [LessonStatuses.COMPLETED, LessonStatuses.COMPLETED, LessonStatuses.NOT_IN_TIER, LessonStatuses.NOT_IN_TIER],
-    characters: CHARS,
+    characters: [CHARS[0], CHARS[1]],
   },
   {
     lessonNumber: 2,
@@ -16,7 +16,7 @@ export const LESSONS: AssembledLesson[] = [
     preface:
       'Aliquam erat volutpat. Integer tellus sem, maximus sit amet ullamcorper vehicula, mattis egestas lectus. Duis vitae congue neque. Fusce vulputate mauris quis nisl aliquet convallis. Nunc placerat nunc non suscipit aliquet. Aenean vel tellus non ipsum fermentum molestie. Vivamus egestas dictum enim eget dignissim. Vivamus lacinia facilisis odio, sed fermentum est. Proin aliquet eleifend arcu. Aenean efficitur eros sit amet neque ornare tincidunt. Aliquam erat volutpat. Integer tellus sem, maximus sit amet ullamcorper vehicula, mattis egestas lectus. Duis vitae congue neque. Fusce vulputate mauris quis nisl aliquet convallis. Nunc placerat nunc non suscipit aliquet. Aenean vel tellus non ipsum fermentum molestie. Vivamus egestas dictum enim eget dignissim. Vivamus lacinia facilisis odio, sed fermentum est. Proin aliquet eleifend arcu. Aenean efficitur eros sit amet neque ornare tincidunt.',
     tierStatuses: [LessonStatuses.COMPLETED, LessonStatuses.COMPLETED, LessonStatuses.NOT_IN_TIER, LessonStatuses.NOT_IN_TIER],
-    characters: CHARS,
+    characters: [CHARS[2], CHARS[3]],
   },
   {
     lessonNumber: 3,

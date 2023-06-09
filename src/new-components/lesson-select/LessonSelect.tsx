@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { AssembledLesson, LessonStatuses } from '../shared/interfaces'
 import { LessonPickerContent } from './lesson-picker/LessonPickerContent'
 import { LessonPickerTitle } from './lesson-picker/LessonPickerTitle'
 import { useStore } from '../shared/logic/useStore'

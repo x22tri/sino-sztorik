@@ -5,7 +5,6 @@ import { When } from 'react-if'
 import { isDisabledLesson } from '../../shared/utility-functions'
 import { useStore } from '../../shared/logic/useStore'
 import { useLoaderData } from 'react-router-dom'
-import { AssembledLesson } from '../../shared/interfaces'
 import { loadLessonSelect } from '../../shared/logic/loadLessonSelect'
 
 export function LessonPickerContent() {

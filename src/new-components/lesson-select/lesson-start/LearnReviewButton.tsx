@@ -6,17 +6,18 @@ import { LEARN_BUTTON, LEARN_BUTTON_EXPLANATION, REVIEW_BUTTON, REVIEW_BUTTON_EX
 import { LessonStatuses, TierStatuses } from '../../shared/interfaces'
 import { Else, If, Then } from 'react-if'
 import { useOnChange } from '../../shared/hooks/useOnChange'
-import { useNavigate } from 'react-router-dom'
+import { useLoaderData, useNavigate } from 'react-router-dom'
 import { useStore } from '../../shared/logic/useStore'
 import { LEARN_PATH, REVIEW_PATH } from '../../shared/paths'
+import { loadLessonSelect } from '../../shared/logic/loadLessonSelect'
 
 type ButtonOption = { button: string; explanation: string }
 
 const { UPCOMING, COMPLETED } = LessonStatuses
 
 const options: ButtonOption[] = [
-  { button: LEARN_BUTTON, explanation: LEARN_BUTTON_EXPLANATION },
   { button: REVIEW_BUTTON, explanation: REVIEW_BUTTON_EXPLANATION },
+  { button: LEARN_BUTTON, explanation: LEARN_BUTTON_EXPLANATION },
 ]
 
 export function LearnReviewButton({ lessonNumber, tierStatuses }: { lessonNumber: number; tierStatuses: TierStatuses }) {
@@ -25,10 +26,11 @@ export function LearnReviewButton({ lessonNumber, tierStatuses }: { lessonNumber
   const [open, setOpen] = useState(false)
   const [selectedModeIndex, setSelectedModeIndex] = useState(0)
   const { selectedLessonIndex } = useStore('lessonSelect')
+  const { upcomingIndex } = useLoaderData() as ReturnType<typeof loadLessonSelect>
 
   const availableOptions = options.filter(
     ({ button }) =>
-      (button === LEARN_BUTTON && tierStatuses.includes(UPCOMING)) ||
+      (button === LEARN_BUTTON && upcomingIndex === lessonNumber - 1) ||
       (button === REVIEW_BUTTON && tierStatuses.includes(COMPLETED))
   )
 
