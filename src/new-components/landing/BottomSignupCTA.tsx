@@ -2,11 +2,11 @@ import { Box, BoxProps, Typography } from '@mui/material'
 import { SignupButton } from './ButtonRow'
 import useTranslation from '../shared/localization/useTranslation'
 
-export function BottomSignupCTA({ parentProps }: { parentProps: BoxProps }) {
+export function BottomSignupCTA() {
   const strings = useTranslation()
 
   return (
-    <Box paddingX={3} {...parentProps}>
+    <Box paddingX={3} margin='auto' maxWidth={({ constants }) => constants.maxContentWidth} width={1}>
       <Box
         display='flex'
         flexDirection={{ xs: 'column', md: 'row' }}

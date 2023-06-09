@@ -15,7 +15,17 @@ export function LandingGrid({
   textProps?: Grid2Props
 }) {
   return (
-    <Grid container paddingX={3} paddingY={8} spacing={2} alignItems='center' {...parentProps}>
+    <Grid
+      container
+      paddingX={3}
+      paddingY={8}
+      spacing={2}
+      alignItems='center'
+      margin='auto'
+      maxWidth={({ constants }) => constants.maxContentWidth}
+      width={1}
+      {...parentProps}
+    >
       <Grid xs={12} md={6} {...textProps}>
         {textContent}
       </Grid>

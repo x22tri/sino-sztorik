@@ -1,5 +1,4 @@
-import { AppBar, Box, Toolbar, useTheme } from '@mui/material'
-import LogoTitle from '../shared/components/LogoTitle'
+import { Box, useTheme } from '@mui/material'
 import { FirstSectionText } from './section-texts/FirstSectionText'
 import { ConstituentsDemo } from './constituents-demo/ConstituentsDemo'
 import { SecondSectionText } from './section-texts/SecondSectionText'
@@ -8,24 +7,17 @@ import { ThirdSectionText } from './section-texts/ThirdSectionText'
 import { SupplementsDemo } from './supplements-demo/SupplementsDemo'
 import { BottomSignupCTA } from './BottomSignupCTA'
 import { LandingGrid } from './LandingGrid'
+import { LandingAppbar } from './LandingAppbar'
 
 export function Landing() {
   const { constants } = useTheme()
 
-  const containerStyles = { margin: 'auto', maxWidth: constants.maxContentWidth, width: '100%' }
-
   return (
     <>
-      <AppBar elevation={0} sx={{ bgcolor: 'background.paper' }}>
-        <Toolbar sx={containerStyles}>
-          <LogoTitle />
-        </Toolbar>
-      </AppBar>
-      <Toolbar />
+      <LandingAppbar />
 
       <Box bgcolor='primary.700' sx={{ backgroundImage: constants.synapsesBackground }}>
         <LandingGrid
-          parentProps={containerStyles}
           demoContent={<ConstituentsDemo />}
           demoProps={{
             display: 'grid',
@@ -42,7 +34,7 @@ export function Landing() {
         <LandingGrid
           parentProps={{
             direction: { xs: 'column', md: 'row-reverse' },
-            ...containerStyles,
+
             paddingTop: { xs: 6, md: 12 },
             paddingBottom: { xs: 6, md: 16 },
           }}
@@ -54,7 +46,7 @@ export function Landing() {
 
       <Box bgcolor='secondary.200'>
         <LandingGrid
-          parentProps={{ ...containerStyles, paddingTop: { xs: 6, md: 12 }, paddingBottom: { xs: 6, md: 16 } }}
+          parentProps={{ paddingTop: { xs: 6, md: 12 }, paddingBottom: { xs: 6, md: 16 } }}
           demoContent={<SupplementsDemo />}
           demoProps={{ marginTop: { xs: 4, md: 0 } }}
           textContent={<ThirdSectionText />}
@@ -62,7 +54,7 @@ export function Landing() {
       </Box>
 
       <Box bgcolor='background.paper'>
-        <BottomSignupCTA parentProps={containerStyles} />
+        <BottomSignupCTA />
       </Box>
     </>
   )

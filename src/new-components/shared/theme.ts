@@ -78,6 +78,7 @@ declare module '@mui/material/styles' {
 
   interface TypographyVariants {
     chineseText: CSSProperties
+    pinyin: CSSProperties
     titleSubtitle: { title: CSSProperties; subtitle: CSSProperties }
   }
 
@@ -112,6 +113,7 @@ declare module '@mui/material/ButtonGroup' {
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
     chineseText: true
+    pinyin: true
   }
 }
 

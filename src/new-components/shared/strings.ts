@@ -115,3 +115,13 @@ export const INFO_CHIP_REMINDER_EXPLANATION = `E karaktert már bevezettük. Az�
 export const INFO_CHIP_FREQUENCY_EXPLANATION = `Ez a {frequency}. leggyakoribb írásjel a kínaiban, így {frequencyTextLowerCase} karakternek számít.`
 
 export const INFO_CHIP_UNKNOWN_FREQUENCY_EXPLANATION = `Nem tudjuk, milyen gyakori ez az írásjel a kínaiban.`
+
+export const ERROR_AIYA = [
+  { charChinese: '哎', pinyin: 'Āi', keyword: 'Hajjaj!' },
+  { charChinese: '呀', pinyin: 'ya', keyword: 'azta!' },
+  { charChinese: '！' },
+]
+
+export const ERROR_GENERIC_MESSAGE = 'Váratlan hiba történt, ezért most sajnos nem tudjuk megjeleníteni a kért oldalt.'
+
+export const ERROR_BACK_TO_MAIN_PAGE = 'Vissza a főoldalra'
