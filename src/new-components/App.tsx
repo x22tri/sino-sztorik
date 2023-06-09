@@ -17,12 +17,12 @@ const router = createBrowserRouter([
   {
     path: ROOT_PATH,
     element: <Landing />,
-    errorElement: <div>An error occurred on Landing</div>,
+    errorElement: <ErrorPage />,
   },
   {
     path: LESSON_SELECT_PATH,
     element: <LessonSelect />,
-    errorElement: <ErrorPage />,
+    errorElement: <div>An error occurred on Learn</div>,
     loader: loadLessonSelect,
   },
   {

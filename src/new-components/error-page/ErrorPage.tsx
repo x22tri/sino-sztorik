@@ -17,9 +17,9 @@ export function ErrorPage() {
 
         <Button
           color='primary'
+          href='/'
           size='large'
           variant='contained'
-          onClick={() => {}}
           endIcon={<FontAwesomeIcon icon={faArrowRight} transform='shrink-4' />}
           sx={{ borderRadius: 6 }}
         >
