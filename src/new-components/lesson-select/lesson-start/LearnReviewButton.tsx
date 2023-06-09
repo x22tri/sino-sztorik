@@ -13,11 +13,11 @@ import { loadLessonSelect } from '../../shared/logic/loadLessonSelect'
 
 type ButtonOption = { button: string; explanation: string }
 
-const { UPCOMING, COMPLETED } = LessonStatuses
+const { COMPLETED } = LessonStatuses
 
 const options: ButtonOption[] = [
-  { button: REVIEW_BUTTON, explanation: REVIEW_BUTTON_EXPLANATION },
   { button: LEARN_BUTTON, explanation: LEARN_BUTTON_EXPLANATION },
+  { button: REVIEW_BUTTON, explanation: REVIEW_BUTTON_EXPLANATION },
 ]
 
 export function LearnReviewButton({ lessonNumber, tierStatuses }: { lessonNumber: number; tierStatuses: TierStatuses }) {
