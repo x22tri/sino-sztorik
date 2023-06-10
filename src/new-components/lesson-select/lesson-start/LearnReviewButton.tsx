@@ -39,40 +39,33 @@ export function LearnReviewButton() {
 
   return (
     <Unless condition={!learnReviewOptions?.length}>
-      {() => (
-        <>
-          <ButtonWithModeSwitcher
-            onClickModeSwitcher={clickModeSwitcher}
-            {...{ anchorRef, learnReviewOptions, selectedModeIndex }}
-          />
+      <ButtonWithModeSwitcher onClickModeSwitcher={clickModeSwitcher} {...{ anchorRef, learnReviewOptions, selectedModeIndex }} />
 
-          <Menu
-            anchorEl={anchorRef.current}
-            anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-            keepMounted
-            onClose={closeMenu}
-            open={isModeSwitcherOpen}
-            transformOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      <Menu
+        anchorEl={anchorRef.current}
+        anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+        keepMounted
+        onClose={closeMenu}
+        open={isModeSwitcherOpen}
+        transformOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      >
+        {learnReviewOptions.map(({ buttonText, explanation }, index) => (
+          <MenuItem
+            key={index}
+            onClick={() => clickMenuItem(index)}
+            selected={index === selectedModeIndex}
+            sx={{ display: 'block' }}
           >
-            {learnReviewOptions.map(({ buttonText, explanation }, index) => (
-              <MenuItem
-                key={index}
-                onClick={() => clickMenuItem(index)}
-                selected={index === selectedModeIndex}
-                sx={{ display: 'block' }}
-              >
-                <Typography noWrap lineHeight={1}>
-                  {buttonText}
-                </Typography>
+            <Typography noWrap lineHeight={1}>
+              {buttonText}
+            </Typography>
 
-                <Typography color='text.secondary' noWrap variant='caption'>
-                  {explanation}
-                </Typography>
-              </MenuItem>
-            ))}
-          </Menu>
-        </>
-      )}
+            <Typography color='text.secondary' noWrap variant='caption'>
+              {explanation}
+            </Typography>
+          </MenuItem>
+        ))}
+      </Menu>
     </Unless>
   )
 }
