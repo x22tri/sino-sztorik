@@ -13,7 +13,7 @@ export enum LearnReviewOption {
 }
 
 export interface ButtonOption {
-  button: string
+  buttonText: string
   explanation: string
   link: string
 }
@@ -67,7 +67,7 @@ function getLearnReviewOptions({ lessonNumber, tierStatuses }: AssembledLesson) 
 
   if (tierStatuses.includes(UPCOMING)) {
     learnReviewOptions.push({
-      button: LEARN_BUTTON,
+      buttonText: LEARN_BUTTON,
       explanation: LEARN_BUTTON_EXPLANATION,
       link: LEARN_PATH,
     })
@@ -75,7 +75,7 @@ function getLearnReviewOptions({ lessonNumber, tierStatuses }: AssembledLesson) 
 
   if (tierStatuses.includes(COMPLETED)) {
     learnReviewOptions.push({
-      button: REVIEW_BUTTON,
+      buttonText: REVIEW_BUTTON,
       explanation: REVIEW_BUTTON_EXPLANATION,
       link: `${REVIEW_PATH}/${lessonNumber}`,
     })

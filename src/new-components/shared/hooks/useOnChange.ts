@@ -5,12 +5,9 @@ export function useOnChange<T>(value: T, effect: (prev: T, next: T) => void) {
   const callback = useRef(effect)
   callback.current = effect
 
-  useEffect(
-    function onChange() {
-      if (value !== latestValue.current) {
-        callback.current(latestValue.current, value)
-      }
-    },
-    [value]
-  )
+  useEffect(() => {
+    if (value !== latestValue.current) {
+      callback.current(latestValue.current, value)
+    }
+  }, [value])
 }

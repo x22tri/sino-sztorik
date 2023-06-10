@@ -1,6 +1,6 @@
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 import { Button, MenuItem, Typography, Menu, Box } from '@mui/material'
-import { useState, useRef, RefObject } from 'react'
+import { useState, useRef, RefObject, Suspense, useDeferredValue, useEffect } from 'react'
 import { LEARN_BUTTON, LESSON_START_MORE_OPTIONS } from '../../shared/strings'
 import { Unless, When } from 'react-if'
 import { useOnChange } from '../../shared/hooks/useOnChange'
@@ -12,19 +12,21 @@ export function LearnReviewButton() {
   const anchorRef = useRef<HTMLButtonElement>(null)
   const params = useParams<{ lessonNumber: string }>()
   const lessonNumber = Number(params.lessonNumber)
-  const [open, setOpen] = useState(false)
-  const [selectedModeIndex, setSelectedModeIndex] = useState(0)
+  const [isModeSwitcherOpen, toggleModeSwitcher] = useState(false)
   const { learnReviewOptions } = useLoaderData() as LoadLessonSelect
+  const [selectedModeIndex, setSelectedModeIndex] = useState(0)
 
-  const selectedButton = learnReviewOptions[selectedModeIndex]
+  useOnChange(lessonNumber, () => {
+    setSelectedModeIndex(0)
+  })
 
   function clickMenuItem(index: number) {
     setSelectedModeIndex(index)
-    setOpen(false)
+    toggleModeSwitcher(false)
   }
 
   function clickModeSwitcher() {
-    setOpen(prevOpen => !prevOpen)
+    toggleModeSwitcher(prevOpen => !prevOpen)
   }
 
   function closeMenu({ target }: Event) {
@@ -32,18 +34,16 @@ export function LearnReviewButton() {
       return
     }
 
-    setOpen(false)
+    toggleModeSwitcher(false)
   }
 
-  useOnChange(lessonNumber, () => setSelectedModeIndex(0))
-
   return (
-    <Unless condition={!learnReviewOptions?.length || !selectedButton}>
+    <Unless condition={!learnReviewOptions?.length}>
       {() => (
         <>
           <ButtonWithModeSwitcher
             onClickModeSwitcher={clickModeSwitcher}
-            {...{ anchorRef, learnReviewOptions, selectedButton }}
+            {...{ anchorRef, learnReviewOptions, selectedModeIndex }}
           />
 
           <Menu
@@ -51,18 +51,18 @@ export function LearnReviewButton() {
             anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
             keepMounted
             onClose={closeMenu}
+            open={isModeSwitcherOpen}
             transformOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-            {...{ open }}
           >
-            {learnReviewOptions.map(({ button, explanation }, index) => (
+            {learnReviewOptions.map(({ buttonText, explanation }, index) => (
               <MenuItem
-                key={button}
+                key={index}
                 onClick={() => clickMenuItem(index)}
                 selected={index === selectedModeIndex}
                 sx={{ display: 'block' }}
               >
                 <Typography noWrap lineHeight={1}>
-                  {button}
+                  {buttonText}
                 </Typography>
 
                 <Typography color='text.secondary' noWrap variant='caption'>
@@ -80,23 +80,26 @@ export function LearnReviewButton() {
 function ButtonWithModeSwitcher({
   anchorRef,
   learnReviewOptions,
-  selectedButton,
+  selectedModeIndex,
   onClickModeSwitcher,
 }: {
   anchorRef: RefObject<HTMLButtonElement>
   learnReviewOptions: ButtonOption[]
-  selectedButton: ButtonOption
+  selectedModeIndex: number
   onClickModeSwitcher: () => void
 }) {
+  const [{ link, buttonText }, setSelectedButton] = useState(learnReviewOptions[selectedModeIndex])
+
+  useEffect(() => {
+    if (learnReviewOptions[selectedModeIndex]) {
+      setSelectedButton(learnReviewOptions[selectedModeIndex])
+    }
+  }, [learnReviewOptions, selectedModeIndex])
+
   return (
     <Box display='flex' gap={2} sx={{ maxWidth: '300px' }}>
-      <Button
-        component={Link}
-        to={selectedButton.link}
-        variant={selectedButton.button === LEARN_BUTTON ? 'contained' : 'outlined'}
-        sx={{ width: 1 }}
-      >
-        {selectedButton.button}
+      <Button component={Link} to={link} variant={buttonText === LEARN_BUTTON ? 'contained' : 'outlined'} sx={{ width: 1 }}>
+        {buttonText}
       </Button>
 
       <When condition={learnReviewOptions.length > 1}>
