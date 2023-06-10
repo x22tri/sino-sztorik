@@ -10,18 +10,17 @@ const iconWidth = '14px'
 
 export function TierStatusIcons({ tierStatuses }: { tierStatuses: TierStatuses }) {
   const { palette } = useTheme()
-  const iconStyles = { color: palette.text.disabled, width: iconWidth }
 
   const iconDictionary: { [key in LessonStatus]: ReactNode } = {
-    [COMPLETED]: <FontAwesomeIcon icon={faCircleCheck} style={{ ...iconStyles, color: palette.success.main }} />,
+    [COMPLETED]: <FontAwesomeIcon icon={faCircleCheck} style={{ color: palette.success.main, width: iconWidth }} />,
     [NOT_IN_TIER]: (
-      <span className='fa-layers fa-fw' style={iconStyles}>
-        <FontAwesomeIcon icon={faSpinner} rotation={180} style={{ clip: 'rect(10px, 5px, 16px, 0px)', ...iconStyles }} />
-        <FontAwesomeIcon icon={faSpinner} style={iconStyles} />
+      <span className='fa-layers fa-fw' style={{ color: palette.text.disabled, width: iconWidth }}>
+        <FontAwesomeIcon icon={faSpinner} rotation={180} style={{ clip: 'rect(10px, 5px, 16px, 0px)', width: iconWidth }} />
+        <FontAwesomeIcon icon={faSpinner} style={{ width: iconWidth }} />
       </span>
     ),
-    [LOCKED]: <FontAwesomeIcon icon={faCircle} style={iconStyles} />,
-    [UPCOMING]: <FontAwesomeIcon icon={faCircleRight} style={{ ...iconStyles, color: palette.primary.main }} />,
+    [LOCKED]: <FontAwesomeIcon icon={faCircle} style={{ color: palette.text.disabled, width: iconWidth }} />,
+    [UPCOMING]: <FontAwesomeIcon icon={faCircleRight} style={{ color: palette.primary.main, width: iconWidth }} />,
   }
 
   return (
