@@ -1,7 +1,7 @@
 import { Params, redirect } from 'react-router-dom'
 import { LESSONS } from '../MOCK_LESSONS'
 import { AssembledLesson, LessonStatuses, TierStatuses } from '../interfaces'
-import { LESSON_SELECT_PATH } from '../paths'
+import { LEARN_PATH, LESSON_SELECT_PATH, REVIEW_PATH } from '../paths'
 import { isDisabledLesson } from '../utility-functions'
 import { LEARN_BUTTON, LEARN_BUTTON_EXPLANATION, REVIEW_BUTTON, REVIEW_BUTTON_EXPLANATION } from '../strings'
 
@@ -12,7 +12,11 @@ export enum LearnReviewOption {
   Review,
 }
 
-export type ButtonOption = { button: string; explanation: string }
+export interface ButtonOption {
+  button: string
+  explanation: string
+  link: string
+}
 
 export interface LoadLessonSelect {
   learnReviewOptions: ButtonOption[]
@@ -49,7 +53,7 @@ export function loadLessonSelect({ params }: { params: Params }): Response | Loa
 
   const nextLesson = getLessonIfActive(lessons[selectedLessonNumber])
   const prevLesson = getLessonIfActive(lessons[selectedLessonNumber - 2])
-  const learnReviewOptions = getLearnReviewOptions(selectedLesson.tierStatuses)
+  const learnReviewOptions = getLearnReviewOptions(selectedLesson)
 
   return { learnReviewOptions, lessons, nextLesson, prevLesson, selectedLesson, upcomingIndex }
 }
@@ -58,15 +62,23 @@ function getLessonIfActive(lesson: AssembledLesson | null) {
   return lesson && !isDisabledLesson(lesson.tierStatuses) ? lesson : null
 }
 
-function getLearnReviewOptions(tierStatuses: TierStatuses) {
+function getLearnReviewOptions({ lessonNumber, tierStatuses }: AssembledLesson) {
   let learnReviewOptions: ButtonOption[] = []
 
   if (tierStatuses.includes(UPCOMING)) {
-    learnReviewOptions.push({ button: LEARN_BUTTON, explanation: LEARN_BUTTON_EXPLANATION })
+    learnReviewOptions.push({
+      button: LEARN_BUTTON,
+      explanation: LEARN_BUTTON_EXPLANATION,
+      link: LEARN_PATH,
+    })
   }
 
   if (tierStatuses.includes(COMPLETED)) {
-    learnReviewOptions.push({ button: REVIEW_BUTTON, explanation: REVIEW_BUTTON_EXPLANATION })
+    learnReviewOptions.push({
+      button: REVIEW_BUTTON,
+      explanation: REVIEW_BUTTON_EXPLANATION,
+      link: `${REVIEW_PATH}/${lessonNumber}`,
+    })
   }
 
   return learnReviewOptions

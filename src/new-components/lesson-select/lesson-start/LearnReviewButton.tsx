@@ -1,24 +1,22 @@
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { ButtonGroup, Button, MenuItem, Typography, Menu, ButtonProps, ButtonGroupProps } from '@mui/material'
+import { Button, MenuItem, Typography, Menu, Box } from '@mui/material'
 import { useState, useRef, RefObject } from 'react'
-import { LEARN_BUTTON } from '../../shared/strings'
-import { Else, If, Then, Unless } from 'react-if'
+import { LEARN_BUTTON, LESSON_START_MORE_OPTIONS } from '../../shared/strings'
+import { Unless, When } from 'react-if'
 import { useOnChange } from '../../shared/hooks/useOnChange'
-import { useLoaderData, useNavigate, useParams } from 'react-router-dom'
-import { LEARN_PATH, REVIEW_PATH } from '../../shared/paths'
+import { Link, useLoaderData, useParams } from 'react-router-dom'
 import { ButtonOption, LoadLessonSelect } from '../../shared/logic/loadLessonSelect'
+import ToolbarButton from '../../shared/components/ToolbarButton'
 
 export function LearnReviewButton() {
   const anchorRef = useRef<HTMLButtonElement>(null)
-  const navigate = useNavigate()
   const params = useParams<{ lessonNumber: string }>()
   const lessonNumber = Number(params.lessonNumber)
   const [open, setOpen] = useState(false)
   const [selectedModeIndex, setSelectedModeIndex] = useState(0)
   const { learnReviewOptions } = useLoaderData() as LoadLessonSelect
 
-  const selectedButton = learnReviewOptions[selectedModeIndex]?.button
+  const selectedButton = learnReviewOptions[selectedModeIndex]
 
   function clickMenuItem(index: number) {
     setSelectedModeIndex(index)
@@ -37,25 +35,15 @@ export function LearnReviewButton() {
     setOpen(false)
   }
 
-  function startLesson(selectedButton: string) {
-    navigate(selectedButton === LEARN_BUTTON ? LEARN_PATH : `${REVIEW_PATH}/${lessonNumber}`)
-  }
-
   useOnChange(lessonNumber, () => setSelectedModeIndex(0))
 
   return (
-    <Unless condition={!learnReviewOptions?.length}>
+    <Unless condition={!learnReviewOptions?.length || !selectedButton}>
       {() => (
         <>
-          <ButtonOrButtonGroup
-            buttonText={selectedButton}
-            onClickMainButton={() => startLesson(selectedButton)}
+          <ButtonWithModeSwitcher
             onClickModeSwitcher={clickModeSwitcher}
-            stylingProps={{
-              variant: selectedButton === LEARN_BUTTON ? 'contained' : 'outlined',
-              sx: { m: 'auto', width: 1, maxWidth: '300px' },
-            }}
-            {...{ anchorRef, learnReviewOptions }}
+            {...{ anchorRef, learnReviewOptions, selectedButton }}
           />
 
           <Menu
@@ -63,8 +51,8 @@ export function LearnReviewButton() {
             anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
             keepMounted
             onClose={closeMenu}
-            {...{ open }}
             transformOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            {...{ open }}
           >
             {learnReviewOptions.map(({ button, explanation }, index) => (
               <MenuItem
@@ -89,40 +77,37 @@ export function LearnReviewButton() {
   )
 }
 
-function ButtonOrButtonGroup({
+function ButtonWithModeSwitcher({
   anchorRef,
-  buttonText,
   learnReviewOptions,
-  stylingProps,
-  onClickMainButton,
+  selectedButton,
   onClickModeSwitcher,
 }: {
   anchorRef: RefObject<HTMLButtonElement>
-  buttonText: string
   learnReviewOptions: ButtonOption[]
-  stylingProps: ButtonProps | ButtonGroupProps
-  onClickMainButton: () => void
+  selectedButton: ButtonOption
   onClickModeSwitcher: () => void
 }) {
   return (
-    <If condition={learnReviewOptions.length > 1}>
-      <Then>
-        <ButtonGroup {...(stylingProps as ButtonGroupProps)}>
-          <Button onClick={onClickMainButton} sx={{ borderRadius: 6, width: 1 }}>
-            {buttonText}
-          </Button>
+    <Box display='flex' gap={2} sx={{ maxWidth: '300px' }}>
+      <Button
+        component={Link}
+        to={selectedButton.link}
+        variant={selectedButton.button === LEARN_BUTTON ? 'contained' : 'outlined'}
+        sx={{ width: 1 }}
+      >
+        {selectedButton.button}
+      </Button>
 
-          <Button onClick={onClickModeSwitcher} ref={anchorRef} sx={{ borderRadius: 6 }}>
-            <FontAwesomeIcon icon={faEllipsisVertical} />
-          </Button>
-        </ButtonGroup>
-      </Then>
-
-      <Else>
-        <Button {...(stylingProps as ButtonProps)} onClick={onClickMainButton}>
-          {buttonText}
-        </Button>
-      </Else>
-    </If>
+      <When condition={learnReviewOptions.length > 1}>
+        <ToolbarButton
+          icon={faEllipsisVertical}
+          innerRef={anchorRef}
+          onClick={onClickModeSwitcher}
+          size='small'
+          tooltip={LESSON_START_MORE_OPTIONS}
+        />
+      </When>
+    </Box>
   )
 }
