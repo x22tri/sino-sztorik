@@ -6,21 +6,15 @@ import { isDisabledLesson } from '../../shared/utility-functions'
 import { useLargeScreen } from '../../shared/hooks/useLargeScreen'
 import { When } from 'react-if'
 import { CharacterPreviews } from '../lesson-start/CharacterPreviews'
+import { useLoaderData, useRouteLoaderData } from 'react-router-dom'
+import { LoadLessonSelect } from '../../shared/logic/loadLessonSelect'
+import { PrevNextLinks } from '../../shared/components/PrevNextLinks'
 
-export default function LessonSelectContent({
-  nextLesson,
-  lesson,
-  prevLesson,
-  toolbarHeight,
-}: {
-  nextLesson: AssembledLesson | undefined
-  lesson: AssembledLesson
-  prevLesson: AssembledLesson | undefined
-  toolbarHeight: number | undefined
-}) {
-  const { constants } = useTheme()
+export default function LessonSelectContent({ toolbarHeight }: { toolbarHeight: number }) {
   const isLargeScreen = useLargeScreen()
-  const { characters, title, preface } = lesson
+  const { constants } = useTheme()
+  const { nextLesson, prevLesson, selectedLesson } = useLoaderData() as LoadLessonSelect
+  const { characters, title, preface } = selectedLesson
 
   return (
     <Stack
@@ -58,11 +52,7 @@ export default function LessonSelectContent({
         <CharacterPreviews {...{ characters }} />
       </When>
 
-      <PrevNextButtons prev={getTitleIfActive(prevLesson)} next={getTitleIfActive(nextLesson)} />
+      <PrevNextLinks prev={prevLesson} next={nextLesson} />
     </Stack>
   )
-}
-
-function getTitleIfActive(lesson: AssembledLesson | undefined) {
-  return lesson && !isDisabledLesson(lesson.tierStatuses) ? lesson.title : null
 }

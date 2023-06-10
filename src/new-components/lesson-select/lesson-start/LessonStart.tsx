@@ -36,7 +36,7 @@ export function LessonStart({ lesson }: { lesson: AssembledLesson }) {
       <TierStatusIcons {...{ tierStatuses }} />
 
       <When condition={lesson.characters.length}>
-        <LearnReviewButton {...{ lessonNumber, tierStatuses }} />
+        <LearnReviewButton />
 
         <Unless condition={isLargeScreen}>
           <Typography color='text.secondary' justifySelf='flex-end' variant='overline'>

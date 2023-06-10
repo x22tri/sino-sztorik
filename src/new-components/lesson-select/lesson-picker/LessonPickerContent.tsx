@@ -4,33 +4,30 @@ import { faCircleRight } from '@fortawesome/free-solid-svg-icons'
 import { When } from 'react-if'
 import { isDisabledLesson } from '../../shared/utility-functions'
 import { useStore } from '../../shared/logic/useStore'
-import { useLoaderData } from 'react-router-dom'
-import { loadLessonSelect } from '../../shared/logic/loadLessonSelect'
+import { Link, useLoaderData, useParams } from 'react-router-dom'
+import { LoadLessonSelect } from '../../shared/logic/loadLessonSelect'
+import { LESSON_SELECT_PATH } from '../../shared/paths'
 
 export function LessonPickerContent() {
-  const { lessons, upcomingIndex } = useLoaderData() as ReturnType<typeof loadLessonSelect>
-  const { selectLessonIndex, selectedLessonIndex } = useStore('lessonSelect')
+  const params = useParams<{ lessonNumber: string }>()
+  const selectedLessonNumber = Number(params.lessonNumber)
+  const { lessons, upcomingIndex } = useLoaderData() as LoadLessonSelect
   const { toggleDrawer } = useStore('mobileDrawer')
-  const { swiperInstance } = useStore('swiper')
   const { constants, palette, spacing, typography } = useTheme()
-
-  function selectLesson(index: number) {
-    swiperInstance?.slideTo(index)
-    selectLessonIndex(index)
-    toggleDrawer()
-  }
 
   return (
     <>
-      {lessons.map(({ lessonNumber, tierStatuses }, index) => {
+      {lessons.map(({ lessonNumber, tierStatuses, title }, index) => {
         const isUpcoming = upcomingIndex === index
 
         return (
           <ListItem key={index} disablePadding>
             <ListItemButton
+              component={Link}
               disabled={isDisabledLesson(tierStatuses)}
-              onClick={() => selectLesson(index)}
-              selected={selectedLessonIndex === index}
+              onClick={toggleDrawer}
+              to={`${LESSON_SELECT_PATH}/${lessonNumber}`}
+              selected={selectedLessonNumber === lessonNumber}
               sx={{
                 border: isUpcoming ? `2px solid ${palette.primary.main}` : 'none',
                 borderRadius: 6,
@@ -53,7 +50,7 @@ export function LessonPickerContent() {
               </ListItemIcon>
 
               <ListItemText
-                primary={`${lessons[lessonNumber - 1].title}`}
+                primary={title}
                 sx={{ '.MuiListItemText-primary': { ...typography.titleSubtitle.title, fontSize: '90%' } }}
               />
 

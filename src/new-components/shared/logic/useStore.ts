@@ -42,11 +42,6 @@ const useBoundStore = create<Store>((set, get) => {
       selectCharIndex: (index: number) => update('learn', { selectedCharIndex: index }),
     },
 
-    lessonSelect: {
-      selectedLessonIndex: undefined,
-      selectLessonIndex: (index: number) => update('lessonSelect', { selectedLessonIndex: index }),
-    },
-
     swiper: {
       setSwiperInstance: (swiperInstance: Swiper | undefined) => update('swiper', { swiperInstance }),
       swiperInstance: undefined,
@@ -62,13 +57,7 @@ type Store = {
   flashback: FlashbackSlice
   mobileDrawer: MobileDrawerSlice
   learn: LearnSlice
-  lessonSelect: LessonSelectSlice
   swiper: SwiperState
-}
-
-interface LessonSelectSlice {
-  selectedLessonIndex: number | undefined
-  selectLessonIndex: (index: number) => void
 }
 
 interface LearnSlice {
