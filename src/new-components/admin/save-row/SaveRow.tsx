@@ -27,7 +27,9 @@ export function SaveRow() {
       }}
     >
       <Button variant='text'>{ADMIN_CANCEL_SAVE}</Button>
-      <Button variant='contained'>{ADMIN_SAVE_CHANGES}</Button>
+      <Button form='char-form' type='submit' variant='contained'>
+        {ADMIN_SAVE_CHANGES}
+      </Button>
     </Box>
   )
 }

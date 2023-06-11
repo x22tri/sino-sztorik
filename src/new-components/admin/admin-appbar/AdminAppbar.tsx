@@ -3,7 +3,12 @@ import { Box, Button, Toolbar, useTheme } from '@mui/material'
 import { When } from 'react-if'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import ToolbarButton from '../../shared/components/ToolbarButton'
-import { ADMIN_BACK_FROM_SUBMENU, ADMIN_CHARACTER_LIST, LESSON_SELECT_TITLE } from '../../shared/strings'
+import {
+  ADMIN_BACK_FROM_SUBMENU,
+  ADMIN_BACK_FROM_SUBMENU_SHORT,
+  ADMIN_CHARACTER_LIST,
+  LESSON_SELECT_TITLE,
+} from '../../shared/strings'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import { useStore } from '../../shared/logic/useStore'
 import { ProfileMenu } from '../../lesson-select/appbar/ProfileMenu'
@@ -39,52 +44,55 @@ export function AdminAppbar({
   }
 
   return (
-    <Box
-      component='header'
-      position='fixed'
-      sx={{
-        bgcolor: 'background.paper',
-        maxWidth: `calc(${constants.maxContentWidth} - ${drawerWidth}px)`,
-        top: 0,
-        width: `calc(100% - ${drawerWidth}px)`,
-        zIndex: 1,
-      }}
-    >
-      <Toolbar
-        disableGutters
-        {...{ ref }}
+    <>
+      <Box
+        component='header'
+        position='fixed'
         sx={{
-          display: 'grid',
-          justifyContent: 'space-between',
-          gridTemplateColumns: `repeat(${isSmallScreen ? 3 : 2}, 1fr)`,
-          px: { xs: 1, sm: 2 },
+          bgcolor: 'background.paper',
+          maxWidth: `calc(${constants.maxContentWidth} - ${drawerWidth}px)`,
+          top: 0,
+          width: `calc(100% - ${drawerWidth}px)`,
+          zIndex: 1,
         }}
       >
-        <LightenOnHoverButton
-          color='neutral'
-          startIcon={<FontAwesomeIcon icon={faChevronLeft} transform='shrink-3' />}
-          onClick={() => {}}
-          variant='text'
-          sx={{ justifyContent: 'flex-start' }}
+        <Toolbar
+          disableGutters
+          {...{ ref }}
+          sx={{
+            display: 'grid',
+            justifyContent: 'space-between',
+            gridTemplateColumns: `repeat(${isSmallScreen ? 3 : 2}, 1fr)`,
+            px: { xs: 1, sm: 2 },
+          }}
         >
-          {ADMIN_BACK_FROM_SUBMENU}
-        </LightenOnHoverButton>
-
-        <When condition={isSmallScreen}>
-          <Button
-            color='primary'
-            onClick={toggleDrawer}
+          <LightenOnHoverButton
+            color='neutral'
+            startIcon={<FontAwesomeIcon icon={faChevronLeft} transform='shrink-3' />}
+            onClick={() => {}}
             variant='text'
-            sx={{ m: 'auto', width: 'max-content', typography: 'titleSubtitle.subtitle' }}
+            sx={{ justifyContent: 'flex-start' }}
           >
-            {ADMIN_CHARACTER_LIST}
-          </Button>
-        </When>
+            {isSmallScreen ? ADMIN_BACK_FROM_SUBMENU_SHORT : ADMIN_BACK_FROM_SUBMENU}
+          </LightenOnHoverButton>
 
-        <Box marginLeft='auto'>
-          <ProfileMenu />
-        </Box>
-      </Toolbar>
-    </Box>
+          <When condition={isSmallScreen}>
+            <Button
+              color='primary'
+              onClick={toggleDrawer}
+              variant='text'
+              sx={{ m: 'auto', width: 'max-content', typography: 'titleSubtitle.subtitle' }}
+            >
+              {ADMIN_CHARACTER_LIST}
+            </Button>
+          </When>
+
+          <Box marginLeft='auto'>
+            <ProfileMenu />
+          </Box>
+        </Toolbar>
+      </Box>
+      <Toolbar />
+    </>
   )
 }

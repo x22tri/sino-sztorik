@@ -42,6 +42,11 @@ const router = createBrowserRouter([
   {
     path: `${ADMIN_PATH}`,
     element: <Admin />,
+    action: async ({ params, request }) => {
+      let formData = Object.fromEntries(await request.formData())
+      console.log(formData)
+      return null
+    },
   },
 ])
 
