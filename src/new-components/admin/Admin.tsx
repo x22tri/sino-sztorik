@@ -1,6 +1,5 @@
 import { Box } from '@mui/material'
 import { LayoutGrid } from '../shared/components/LayoutGrid'
-import { LandingAppbar } from '../landing/LandingAppbar'
 import { AdminCharPickerContent } from './char-picker/AdminCharPickerContent'
 import { AdminSubmenuTitle } from './AdminSubmenuTitle'
 import { useState } from 'react'
