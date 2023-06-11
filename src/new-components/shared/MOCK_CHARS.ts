@@ -184,3 +184,77 @@ export const CHARS: Character[] = [
     ],
   },
 ]
+
+const CHAR_ENTRY = {
+  charChinese: '早',
+  constituents: [
+    { charChinese: '日', primitiveMeaning: 'nap' },
+    { charChinese: '十', keyword: 'tíz', primitiveMeaning: 'tű' },
+  ],
+  frequency: 462,
+  lessonNumber: 2,
+  keyword: 'korai',
+  occurrences: [
+    {
+      at: { tier: 1, index: 11 },
+      story: [
+        [
+          `Egy `,
+          { constituent: 'nap', references: '日' },
+          ` amely egy `,
+          { constituent: 'tűn', references: '十' },
+          `pihen meg – gyakorlatilag ilyen egy napraforgó, annak vékony szárával és ragyogó virágával.`,
+        ],
+        [
+          `Ismeretes, hogy azért hívjuk a napraforgót napraforgónak, mert követi a `,
+          { constituent: 'nap', references: '日' },
+          `mozgását – magyarán, a kertben a `,
+          { constituent: 'nap', references: '日' },
+          ` erre a virágra süt a leg`,
+          { keyword: 'korábban' },
+          `. Nem csoda hát, hogy a karakter jelentése `,
+          { keyword: '„korai”' },
+          `.`,
+        ],
+      ],
+    },
+    {
+      at: { tier: 2, index: 8 },
+      primitiveMeaning: 'napraforgó',
+      story: [
+        [
+          `Egy `,
+          { constituent: 'nap', references: '日' },
+          ` amely egy `,
+          { constituent: 'tűn', references: '十' },
+          `pihen meg – gyakorlatilag ilyen egy `,
+          { primitive: 'napraforgó' },
+          `, annak vékony szárával és ragyogó virágával.`,
+        ],
+        [
+          `Ismeretes, hogy azért hívjuk a `,
+          { primitive: 'napraforgót napraforgónak' },
+          `, mert követi a `,
+          { constituent: 'nap', references: '日' },
+          `mozgását – magyarán, a kertben a `,
+          { constituent: 'nap', references: '日' },
+          ` erre a virágra süt a leg`,
+          { keyword: 'korábban' },
+          `. Nem csoda hát, hogy a karakter jelentése `,
+          { keyword: '„korai”' },
+          `.`,
+        ],
+      ],
+    },
+  ],
+  pinyin: 'zǎo',
+  phrases: [
+    {
+      characters: [
+        { pinyin: 'zǎo', charChinese: '早', keyword: 'korai', primitiveMeaning: 'napraforgó' },
+        { pinyin: 'ān', charChinese: '安', keyword: 'békés', primitiveMeaning: 'háziasszony' },
+      ],
+      phraseHungarian: 'jó reggelt',
+    },
+  ],
+}

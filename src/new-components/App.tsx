@@ -7,12 +7,13 @@ import Learn from './learn/Learn'
 import LessonSelect from './lesson-select/LessonSelect'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { loadLearn } from './shared/logic/loadLearn'
-import { LEARN_PATH, LESSON_SELECT_PATH, REVIEW_PATH, ROOT_PATH } from './shared/paths'
+import { ADMIN_PATH, LEARN_PATH, LESSON_SELECT_PATH, REVIEW_PATH, ROOT_PATH } from './shared/paths'
 import { loadReview } from './shared/logic/loadReview'
 import LanguageContextProvider from './shared/localization/LanguageContext'
 import { loadLessonSelect } from './shared/logic/loadLessonSelect'
 import { ErrorPage } from './error-page/ErrorPage'
 import LessonSelectContent from './lesson-select/lesson-select-content/LessonSelectContent'
+import { Admin } from './admin/Admin'
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
     element: <Learn />,
     errorElement: <div>An error occurred on Review</div>,
     loader: loadReview,
+  },
+  {
+    path: `${ADMIN_PATH}`,
+    element: <Admin />,
   },
 ])
 

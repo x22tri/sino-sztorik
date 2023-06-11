@@ -42,21 +42,21 @@ export const LESSONS: AssembledLesson[] = [
   {
     lessonNumber: 4,
     title: 'lesson4',
-    preface: 'teszt2',
+    preface: 'teszt4',
     tierStatuses: [LessonStatuses.COMPLETED, LessonStatuses.LOCKED, LessonStatuses.NOT_IN_TIER, LessonStatuses.NOT_IN_TIER],
     characters: [],
   },
   {
     lessonNumber: 5,
     title: 'lesson5',
-    preface: 'teszt2',
+    preface: 'teszt5',
     tierStatuses: [LessonStatuses.COMPLETED, LessonStatuses.LOCKED, LessonStatuses.NOT_IN_TIER, LessonStatuses.NOT_IN_TIER],
     characters: [],
   },
   {
     lessonNumber: 6,
     title: 'lesson6',
-    preface: 'teszt2',
+    preface: 'teszt6',
     tierStatuses: [LessonStatuses.COMPLETED, LessonStatuses.LOCKED, LessonStatuses.NOT_IN_TIER, LessonStatuses.NOT_IN_TIER],
     characters: [],
   },
@@ -89,3 +89,12 @@ export const LESSONS: AssembledLesson[] = [
     characters: [],
   },
 ]
+
+const LESSON_ENTRY = {
+  lessonNumber: 1,
+  title: 'Első lépések',
+  prefaces: [
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut tristique ex. Nullam commodo mollis libero, eget sodales ex fringilla eget. Fusce eu odio sit amet ex condimentum rutrum id quis lectus. Cras mattis dui ac finibus gravida. Nam eget tempus tortor. In non bibendum ligula. Quisque eget nunc vitae nisl ultrices fringilla. Curabitur id tempor nisi. Aliquam ac ante scelerisque odio porta pretium et et massa. Vivamus rutrum, neque pellentesque sollicitudin facilisis, tortor nisl semper dolor, eu efficitur nunc turpis dignissim urna. Integer eleifend consectetur dui a laoreet. ',
+  ],
+  characters: [...CHARS],
+}

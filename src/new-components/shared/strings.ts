@@ -125,3 +125,7 @@ export const ERROR_AIYA = [
 export const ERROR_GENERIC_MESSAGE = 'Váratlan hiba történt, ezért most sajnos nem tudjuk megjeleníteni a kért oldalt.'
 
 export const ERROR_BACK_TO_MAIN_PAGE = 'Vissza a főoldalra'
+
+export const ADMIN_CHARACTER_LIST = 'Karakterek'
+export const ADMIN_LESSON_LIST = 'Leckék'
+export const ADMIN_BACK_FROM_SUBMENU = 'Vissza a kezelőközpontba'
