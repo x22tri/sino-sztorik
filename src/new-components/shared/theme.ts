@@ -13,7 +13,7 @@ declare module '@mui/material/styles' {
       animationDuration: `${number}ms`
       boxShadow: string
       drawerWidth: number
-      lessonStartHeight: `${number}px`
+      bottomToolbarHeight: `${number}px`
       maxContentWidth: `${number}px`
       synapsesBackground: string
     }
@@ -24,7 +24,7 @@ declare module '@mui/material/styles' {
       animationDuration?: `${number}ms`
       boxShadow?: string
       drawerWidth?: number
-      lessonStartHeight?: `${number}px`
+      bottomToolbarHeight?: `${number}px`
       maxContentWidth?: `${number}px`
       synapsesBackground?: string
     }
@@ -211,7 +211,7 @@ theme = createTheme(theme, {
     },
     MuiPopover: { styleOverrides: { paper: { borderRadius: theme.spacing(1.5), boxShadow: theme.constants.boxShadow } } },
   },
-  constants: { lessonStartHeight: theme.spacing(8) },
+  constants: { bottomToolbarHeight: theme.spacing(8) },
 })
 
 export default theme

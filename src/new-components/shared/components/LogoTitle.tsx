@@ -11,14 +11,7 @@ export default function LogoTitle({ noTitle = false }: { noTitle?: boolean }) {
       <img src={logoImage} alt='Logó' width='auto' height='28px' />
 
       <Unless condition={noTitle}>
-        <Typography
-          className='disable-select'
-          color='primary.main'
-          component='a'
-          href='/'
-          variant='h4'
-          sx={{ textDecoration: 'none' }}
-        >
+        <Typography className='disable-select' color='primary.main' variant='h4' sx={{ textDecoration: 'none' }}>
           {APP_TITLE}
         </Typography>
       </Unless>

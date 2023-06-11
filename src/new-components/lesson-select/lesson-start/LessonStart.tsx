@@ -23,7 +23,7 @@ export function LessonStart({ lesson }: { lesson: AssembledLesson }) {
       gap={2}
       gridArea='start'
       gridTemplateColumns={`repeat(3, 1fr)`}
-      height={constants.lessonStartHeight}
+      height={constants.bottomToolbarHeight}
       paddingX={2}
       position='fixed'
       zIndex={1}

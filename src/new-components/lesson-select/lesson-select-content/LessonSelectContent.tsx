@@ -23,8 +23,8 @@ export default function LessonSelectContent({ toolbarHeight }: { toolbarHeight: 
       columnGap={6}
       display='grid'
       marginTop={`${toolbarHeight}px`}
-      marginBottom={constants.lessonStartHeight}
-      minHeight={`calc(100vh - ${toolbarHeight}px - ${constants.lessonStartHeight})`}
+      marginBottom={constants.bottomToolbarHeight}
+      minHeight={`calc(100vh - ${toolbarHeight}px - ${constants.bottomToolbarHeight})`}
       padding={2}
       sx={{
         bgcolor: 'background.paper',

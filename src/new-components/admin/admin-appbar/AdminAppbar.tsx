@@ -1,13 +1,14 @@
-import { faGraduationCap } from '@fortawesome/free-solid-svg-icons'
-import { Box, Toolbar, useTheme } from '@mui/material'
+import { faChevronLeft, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
+import { Box, Button, Toolbar, useTheme } from '@mui/material'
 import { When } from 'react-if'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
-import LogoTitle from '../../shared/components/LogoTitle'
 import ToolbarButton from '../../shared/components/ToolbarButton'
-import { LESSON_SELECT_TITLE } from '../../shared/strings'
+import { ADMIN_BACK_FROM_SUBMENU, ADMIN_CHARACTER_LIST, LESSON_SELECT_TITLE } from '../../shared/strings'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import { useStore } from '../../shared/logic/useStore'
 import { ProfileMenu } from '../../lesson-select/appbar/ProfileMenu'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { LightenOnHoverButton } from '../../shared/components/LightenOnHoverButton'
 
 export function AdminAppbar({
   setToolbarHeight,
@@ -49,14 +50,40 @@ export function AdminAppbar({
         zIndex: 1,
       }}
     >
-      <Toolbar disableGutters {...{ ref }} sx={{ justifyContent: 'space-between', px: { xs: 1, sm: 2 } }}>
+      <Toolbar
+        disableGutters
+        {...{ ref }}
+        sx={{
+          display: 'grid',
+          justifyContent: 'space-between',
+          gridTemplateColumns: `repeat(${isSmallScreen ? 3 : 2}, 1fr)`,
+          px: { xs: 1, sm: 2 },
+        }}
+      >
+        <LightenOnHoverButton
+          color='neutral'
+          startIcon={<FontAwesomeIcon icon={faChevronLeft} transform='shrink-3' />}
+          onClick={() => {}}
+          variant='text'
+          sx={{ justifyContent: 'flex-start' }}
+        >
+          {ADMIN_BACK_FROM_SUBMENU}
+        </LightenOnHoverButton>
+
         <When condition={isSmallScreen}>
-          <ToolbarButton icon={faGraduationCap} onClick={toggleDrawer} tooltip={LESSON_SELECT_TITLE} />
+          <Button
+            color='primary'
+            onClick={toggleDrawer}
+            variant='text'
+            sx={{ m: 'auto', width: 'max-content', typography: 'titleSubtitle.subtitle' }}
+          >
+            {ADMIN_CHARACTER_LIST}
+          </Button>
         </When>
 
-        <LogoTitle />
-
-        <ProfileMenu />
+        <Box marginLeft='auto'>
+          <ProfileMenu />
+        </Box>
       </Toolbar>
     </Box>
   )

@@ -4,6 +4,8 @@ import { AdminCharPickerContent } from './char-picker/AdminCharPickerContent'
 import { AdminSubmenuTitle } from './AdminSubmenuTitle'
 import { useState } from 'react'
 import { AdminAppbar } from './admin-appbar/AdminAppbar'
+import AdminContent from './admin-content/AdminContent'
+import { SaveRow } from './save-row/SaveRow'
 
 export function Admin() {
   const [toolbarHeight, setToolbarHeight] = useState(0)
@@ -18,7 +20,9 @@ export function Admin() {
     >
       <AdminAppbar {...{ setToolbarHeight, toolbarHeight }} />
 
-      <Box>a</Box>
+      <AdminContent {...{ toolbarHeight }} />
+
+      <SaveRow />
     </LayoutGrid>
   )
 }
