@@ -1,5 +1,5 @@
-import { faChevronLeft, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
-import { Box, Button, Toolbar, useTheme } from '@mui/material'
+import { faChevronLeft, faGraduationCap, faLanguage } from '@fortawesome/free-solid-svg-icons'
+import { Box, Button, Toolbar, Typography, useTheme } from '@mui/material'
 import { When } from 'react-if'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import ToolbarButton from '../../shared/components/ToolbarButton'
@@ -53,7 +53,7 @@ export function AdminAppbar({
           maxWidth: `calc(${constants.maxContentWidth} - ${drawerWidth}px)`,
           top: 0,
           width: `calc(100% - ${drawerWidth}px)`,
-          zIndex: 1,
+          zIndex: 1100,
         }}
       >
         <Toolbar
@@ -62,7 +62,7 @@ export function AdminAppbar({
           sx={{
             display: 'grid',
             justifyContent: 'space-between',
-            gridTemplateColumns: `repeat(${isSmallScreen ? 3 : 2}, 1fr)`,
+            gridTemplateColumns: `repeat(3, minmax(max-content, 1fr))`,
             px: { xs: 1, sm: 2 },
           }}
         >
@@ -75,8 +75,7 @@ export function AdminAppbar({
           >
             {isSmallScreen ? ADMIN_BACK_FROM_SUBMENU_SHORT : ADMIN_BACK_FROM_SUBMENU}
           </LightenOnHoverButton>
-
-          <When condition={isSmallScreen}>
+          {/* <When condition={isSmallScreen}>
             <Button
               color='primary'
               onClick={toggleDrawer}
@@ -85,9 +84,22 @@ export function AdminAppbar({
             >
               {ADMIN_CHARACTER_LIST}
             </Button>
-          </When>
+          </When> */}
+          <Box alignItems='center' display='flex' gap={0.5} marginX='auto'>
+            <Typography component='span' variant='h6' fontWeight='bold'>
+              Szerkesztés:
+            </Typography>
 
-          <Box marginLeft='auto'>
+            <Typography component='span' variant='chineseText' fontSize={20} fontWeight='bold' mb={0.5}>
+              早
+            </Typography>
+          </Box>
+
+          <Box display='flex' gap={1} marginLeft='auto'>
+            <When condition={isSmallScreen}>
+              <ToolbarButton icon={faLanguage} onClick={toggleDrawer} tooltip={ADMIN_CHARACTER_LIST} />
+            </When>
+
             <ProfileMenu />
           </Box>
         </Toolbar>

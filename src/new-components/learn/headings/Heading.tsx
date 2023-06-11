@@ -1,8 +1,8 @@
-import Typography from '@mui/material/Typography'
+import Typography, { TypographyProps } from '@mui/material/Typography'
 
-export function Heading({ title }: { title: string }) {
+export function Heading({ styles, title }: { styles?: TypographyProps; title: string }) {
   return (
-    <Typography variant='h5' fontWeight={700} marginY={3}>
+    <Typography variant='h5' fontWeight={700} marginY={3} {...styles}>
       {title}
     </Typography>
   )
