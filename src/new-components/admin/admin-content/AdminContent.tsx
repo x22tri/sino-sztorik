@@ -4,7 +4,8 @@ import { Box, Button, Divider, IconButton, InputAdornment, Stack, TextField, Typ
 import { useFetcher } from 'react-router-dom'
 import { Heading } from '../../learn/headings/Heading'
 import { Subheading } from '../../learn/headings/Subheading'
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
+import ToolbarButton from '../../shared/components/ToolbarButton'
 
 export default function AdminContent({ toolbarHeight }: { toolbarHeight: number }) {
   const { constants, palette, spacing } = useTheme()
@@ -40,15 +41,14 @@ export default function AdminContent({ toolbarHeight }: { toolbarHeight: number 
               }}
             />
 
-            <IconButton
+            <ToolbarButton
               color={isProductivePinyin ? 'primary' : 'inherit'}
+              icon={faVolumeDown}
               onClick={() => toggleProductivePinyin(prev => !prev)}
-              edge='start'
               size='small'
+              tooltip='Produktív fonetikai elem?'
               sx={{ height: 1, position: 'absolute', marginLeft: 0.5, my: 'auto', opacity: isProductivePinyin ? 1 : 0.3 }}
-            >
-              <FontAwesomeIcon icon={faVolumeDown} />
-            </IconButton>
+            ></ToolbarButton>
           </Box>
 
           <Box typography='chineseText' fontSize={120} lineHeight={1}>
@@ -120,6 +120,27 @@ export default function AdminContent({ toolbarHeight }: { toolbarHeight: number 
             size='small'
             sx={{ '.MuiInputBase-root': { borderRadius: ({ spacing }) => spacing(1), minHeight: '20ch' } }}
           />
+        </Box>
+
+        <Box alignItems='center' display='flex' flexDirection='row' mt={2}>
+          <Typography variant='h6' fontWeight='bold' flexGrow={1}>
+            Kifejezések a karakterrel
+          </Typography>
+
+          <Stack
+            color='primary.main'
+            direction='row'
+            divider={<Divider orientation='vertical' flexItem />}
+            spacing={2}
+            flexGrow={1}
+          >
+            {['一早', '早上', '早日'].map((phrase, index) => (
+              <Box component='span' key={index} typography='chineseText' fontSize='inherit'>
+                {phrase}
+              </Box>
+            ))}
+            <Box component='span'>+3</Box>
+          </Stack>
         </Box>
       </fetcher.Form>
     </Stack>

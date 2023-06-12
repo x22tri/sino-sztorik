@@ -89,12 +89,3 @@ export const LESSONS: AssembledLesson[] = [
     characters: [],
   },
 ]
-
-const LESSON_ENTRY = {
-  lessonNumber: 1,
-  title: 'Első lépések',
-  prefaces: [
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut tristique ex. Nullam commodo mollis libero, eget sodales ex fringilla eget. Fusce eu odio sit amet ex condimentum rutrum id quis lectus. Cras mattis dui ac finibus gravida. Nam eget tempus tortor. In non bibendum ligula. Quisque eget nunc vitae nisl ultrices fringilla. Curabitur id tempor nisi. Aliquam ac ante scelerisque odio porta pretium et et massa. Vivamus rutrum, neque pellentesque sollicitudin facilisis, tortor nisl semper dolor, eu efficitur nunc turpis dignissim urna. Integer eleifend consectetur dui a laoreet. ',
-  ],
-  characters: [...CHARS],
-}
