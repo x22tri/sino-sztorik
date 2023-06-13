@@ -146,3 +146,5 @@ const USER_ENTRY = {
   password: 'hashedpw',
   tier: 1,
 }
+
+export {}

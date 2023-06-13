@@ -1,6 +1,6 @@
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 import { Button, MenuItem, Typography, Menu, Box } from '@mui/material'
-import { useState, useRef, RefObject, Suspense, useDeferredValue, useEffect } from 'react'
+import { useState, useRef, RefObject, useEffect } from 'react'
 import { LEARN_BUTTON, LESSON_START_MORE_OPTIONS } from '../../shared/strings'
 import { Unless, When } from 'react-if'
 import { useOnChange } from '../../shared/hooks/useOnChange'

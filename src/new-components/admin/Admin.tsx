@@ -8,8 +8,6 @@ import AdminContent from './admin-content/AdminContent'
 import { SaveRow } from './save-row/SaveRow'
 
 export function Admin() {
-  const [toolbarHeight, setToolbarHeight] = useState(0)
-
   return (
     <LayoutGrid
       sideNav={{
@@ -18,9 +16,9 @@ export function Admin() {
         selected: 0,
       }}
     >
-      <AdminAppbar {...{ setToolbarHeight, toolbarHeight }} />
+      <AdminAppbar />
 
-      <AdminContent {...{ toolbarHeight }} />
+      <AdminContent />
 
       <SaveRow />
     </LayoutGrid>
