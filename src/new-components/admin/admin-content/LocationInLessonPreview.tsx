@@ -1,7 +1,8 @@
 import { Box, Button } from '@mui/material'
+import { When } from 'react-if'
+import ToolbarButton from '../../shared/components/ToolbarButton'
+import { faArrowRightArrowLeft, faPen, faPencil } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFlagCheckered, faHouse } from '@fortawesome/free-solid-svg-icons'
-import { Case, Default, Switch } from 'react-if'
 
 export type LessonPreviewEntry = { charChinese: string; index: number } | null
 
@@ -13,48 +14,49 @@ export function LocationInLessonPreview({
   onClick: () => void
 }) {
   return (
-    <Button {...{ onClick }} sx={{ borderRadius: ({ spacing }) => spacing(1) }}>
-      {lessonPreview.map((entry, entryIndex) => {
-        const isLessonStart = entryIndex === 0 && entry === null
-        const isLessonEnd = entryIndex === 2 && entry === null
+    <>
+      <Button {...{ onClick }} sx={{ borderRadius: ({ spacing }) => spacing(1) }}>
+        {lessonPreview.map((entry, entryIndex) => {
+          const isLessonStart = entryIndex === 1 && lessonPreview[0] === null
+          const isLessonEnd = entryIndex === 1 && lessonPreview[2] === null
 
-        return (
-          <Box
-            alignItems='center'
-            color={entryIndex === 1 ? 'text.primary' : 'text.disabled'}
-            display='flex'
-            flexDirection='column'
-            gap={0.25}
-            key={entryIndex}
-            minWidth='32px'
-          >
-            <Switch>
-              <Case condition={isLessonStart}>
-                <FontAwesomeIcon icon={faHouse} />
-              </Case>
+          if (entry === null) {
+            return null
+          }
 
-              <Case condition={isLessonEnd}>
-                <FontAwesomeIcon icon={faFlagCheckered} />
-              </Case>
-
-              <Case condition={entry?.charChinese && entry.index}>
+          return (
+            <Box
+              alignItems='center'
+              borderLeft={({ palette }) => (isLessonStart ? `2px dotted ${palette.text.disabled}` : undefined)}
+              borderRight={({ palette }) => (isLessonEnd ? `2px dotted ${palette.text.disabled}` : undefined)}
+              color={entryIndex === 1 ? 'text.primary' : 'text.disabled'}
+              display='flex'
+              flexDirection='column'
+              gap={0.25}
+              key={entryIndex}
+              paddingX={1}
+            >
+              <When condition={!!entry.charChinese}>
                 {() => (
                   <>
                     <Box component='span' typography='chineseText'>
-                      {entry!.charChinese}
+                      {entry.charChinese}
                     </Box>
                     <Box component='span' typography='overline' lineHeight={1}>
-                      {entry!.index}
+                      {entry.index}
                     </Box>
                   </>
                 )}
-              </Case>
+              </When>
+            </Box>
+          )
+        })}
+      </Button>
 
-              <Default>?</Default>
-            </Switch>
-          </Box>
-        )
-      })}
-    </Button>
+      {/* <ToolbarButton size='small' icon={faPen} tooltip='Áthelyezés' onClick={() => {}} /> */}
+      <Button size='small' startIcon={<FontAwesomeIcon icon={faArrowRightArrowLeft} />} sx={{ px: 1.5 }}>
+        Áthelyezés
+      </Button>
+    </>
   )
 }

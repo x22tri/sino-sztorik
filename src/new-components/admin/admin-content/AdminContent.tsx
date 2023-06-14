@@ -1,13 +1,15 @@
-import { Stack, Step, StepContent, StepLabel, Stepper, useTheme } from '@mui/material'
+import { Button, Stack, Step, StepContent, StepLabel, Stepper, useTheme } from '@mui/material'
 import { useFetcher } from 'react-router-dom'
 import { Heading } from '../../learn/headings/Heading'
 import { CharacterSection } from './sections/CharacterSection'
 import { useState } from 'react'
-import { faPlusSquare } from '@fortawesome/free-solid-svg-icons'
+import { faPen, faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 import ToolbarButton from '../../shared/components/ToolbarButton'
 import { CHAR_ENTRY } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { Else, If, Then } from 'react-if'
 import { LocationInLessonPreview } from './LocationInLessonPreview'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Subheading } from '../../learn/headings/Subheading'
 
 export default function AdminContent() {
   const fetcher = useFetcher()
@@ -18,6 +20,10 @@ export default function AdminContent() {
 
   function changeTier(index: number) {
     // Fetch data by merging previous tiers.
+    // Idea - have two objects: "previousInfo" and "newInfo".
+    // Add simple boxes with Edit button (pencil) for "previousInfo" properties and textboxes for "newInfo" properties.
+    // Clicking on Edit turns a simple box into a textbox, removes the property from previousInfo and adds it into newInfo.
+    // This character object will then be the basis for rendering below.
     setActiveStep(index)
   }
 
@@ -78,6 +84,13 @@ export default function AdminContent() {
                   </Stack>
                 </Box> */}
               </fetcher.Form>
+
+              <Subheading title='Leckében elfoglalt hely' />
+
+              <LocationInLessonPreview
+                lessonPreview={[{ charChinese: '世', index: 10 }, { charChinese: '早', index: 11 }, null]}
+                onClick={() => changeTier(step - 1)}
+              />
             </StepContent>
           </Step>
         ))}
@@ -102,18 +115,26 @@ function PreviewOrAddButton({
   return (
     <If condition={!!tierVariant}>
       <Then>
-        <LocationInLessonPreview
-          lessonPreview={[{ charChinese: '世', index: 10 }, { charChinese: '早', index: 11 }, null]}
-          onClick={() => changeTier(tier - 1)}
-        />
+        {/* To-Do: Change to StepButton? Add "events"? (Kulcsszó bevezetve: korai) (Alapelem bevezetve: napraforgó) (Emlékeztető) */}
+
+        {tierVariant?.keyword}
+
+        {tierVariant?.primitive}
+
+        <Button onClick={() => changeTier(tier - 1)} size='small' startIcon={<FontAwesomeIcon icon={faPen} />} sx={{ px: 1.5 }}>
+          Módosítás
+        </Button>
+        {/* To-Do: Hide button if current tier? */}
       </Then>
       <Else>
-        <ToolbarButton
-          color='primary'
-          icon={faPlusSquare}
-          tooltip='Új változat hozzáadása'
+        <Button
           onClick={() => changeTier(tier - 1)}
-        />
+          size='small'
+          startIcon={<FontAwesomeIcon icon={faPlusSquare} />}
+          sx={{ px: 1.5 }}
+        >
+          Új változat hozzáadása
+        </Button>
       </Else>
     </If>
   )
