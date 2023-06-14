@@ -1,47 +1,23 @@
-import {
-  Box,
-  Divider,
-  Stack,
-  Step,
-  StepButton,
-  StepContent,
-  StepLabel,
-  Stepper,
-  TextField,
-  Typography,
-  useTheme,
-} from '@mui/material'
+import { Stack, Step, StepContent, StepLabel, Stepper, useTheme } from '@mui/material'
 import { useFetcher } from 'react-router-dom'
 import { Heading } from '../../learn/headings/Heading'
 import { CharacterSection } from './sections/CharacterSection'
 import { useState } from 'react'
-
-const steps = [
-  {
-    label: 'Select campaign settings',
-    description: `For each ad campaign that you create, you can control how much
-              you're willing to spend on clicks and conversions, which networks
-              and geographical locations you want your ads to show on, and more.`,
-  },
-  {
-    label: 'Create an ad group',
-    description: 'An ad group contains one or more ads which target a shared set of keywords.',
-  },
-  {
-    label: 'Create an ad',
-    description: `Try out different ad text to see what brings in the most customers,
-              and learn how to enhance your ads using features like ad extensions.
-              If you run into any problems with your ads, find out how to tell if
-              they're running and how to resolve approval issues.`,
-  },
-]
+import { faPlusSquare } from '@fortawesome/free-solid-svg-icons'
+import ToolbarButton from '../../shared/components/ToolbarButton'
+import { CHAR_ENTRY } from '../../shared/MOCK_DATABASE_ENTRIES'
+import { Else, If, Then } from 'react-if'
+import { LocationInLessonPreview } from './LocationInLessonPreview'
 
 export default function AdminContent() {
   const fetcher = useFetcher()
   const [activeStep, setActiveStep] = useState(0)
   const { constants } = useTheme()
 
+  const character = CHAR_ENTRY
+
   function changeTier(index: number) {
+    // Fetch data by merging previous tiers.
     setActiveStep(index)
   }
 
@@ -61,7 +37,9 @@ export default function AdminContent() {
       <Stepper nonLinear orientation='vertical' {...{ activeStep }}>
         {[1, 2, 3, 4].map((step, index) => (
           <Step key={index}>
-            <StepButton onClick={() => changeTier(index)}>{/* To-Do: add lesson index preview */}</StepButton>
+            <StepLabel>
+              <PreviewOrAddButton tier={step} {...{ character, changeTier }} />
+            </StepLabel>
             <StepContent>
               <fetcher.Form id='char-form' method='post' action='/admin'>
                 <CharacterSection />
@@ -105,5 +83,38 @@ export default function AdminContent() {
         ))}
       </Stepper>
     </Stack>
+  )
+}
+
+function PreviewOrAddButton({
+  character,
+  changeTier,
+  tier,
+}: {
+  character: typeof CHAR_ENTRY
+  changeTier: (index: number) => void
+  tier: number
+}) {
+  const tierVariant = character.variants.find(variant => variant.tier === tier)
+
+  // If tierVariant, fetch lesson preview
+
+  return (
+    <If condition={!!tierVariant}>
+      <Then>
+        <LocationInLessonPreview
+          lessonPreview={[{ charChinese: '世', index: 10 }, { charChinese: '早', index: 11 }, null]}
+          onClick={() => changeTier(tier - 1)}
+        />
+      </Then>
+      <Else>
+        <ToolbarButton
+          color='primary'
+          icon={faPlusSquare}
+          tooltip='Új változat hozzáadása'
+          onClick={() => changeTier(tier - 1)}
+        />
+      </Else>
+    </If>
   )
 }

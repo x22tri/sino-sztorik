@@ -1,4 +1,4 @@
-const CHAR_ENTRY = {
+export const CHAR_ENTRY = {
   charChinese: '早',
   lessonNumber: 2,
   phrases: [1, 2], // An array of phrase ID's.
@@ -66,8 +66,8 @@ const CHAR_ENTRY = {
       tier: 2,
     }, // When there's a "primitive" property on a variant that isn't the first one in the array, a "newPrimitive" flag is added.
     {
-      index: 2,
-      tier: 3,
+      // index: 2,
+      // tier: 3,
     }, // When only these two properties exist on a variant, a "reminder" flag is added.
   ],
 }
