@@ -1,4 +1,24 @@
-export const CHAR_ENTRY = {
+export interface CharacterEntry {
+  charChinese: string
+  lessonNumber: number
+  phrases?: number[]
+  similars?: number[]
+  variants: CharacterEntryVariant[]
+}
+
+export interface CharacterEntryVariant {
+  constituents?: string[]
+  frequency?: number
+  index: number
+  keyword?: string
+  otherUses?: { pinyin: string; meanings: string[] }[]
+  pinyin?: string
+  primitive?: string
+  story?: (string | { constituent: string; references: string } | { keyword: string } | { primitive: string })[][]
+  tier: number
+}
+
+export const CHAR_ENTRY: CharacterEntry = {
   charChinese: '早',
   lessonNumber: 2,
   phrases: [1, 2], // An array of phrase ID's.

@@ -1,15 +1,38 @@
-import { Button, Stack, Step, StepButton, StepContent, StepLabel, Stepper, useTheme } from '@mui/material'
+import {
+  Box,
+  Button,
+  Chip,
+  Stack,
+  Step,
+  StepButton,
+  StepContent,
+  StepLabel,
+  Stepper,
+  useTheme,
+  useThemeProps,
+} from '@mui/material'
 import { useFetcher, useLoaderData } from 'react-router-dom'
 import { Heading } from '../../learn/headings/Heading'
 import { CharacterSection } from './sections/CharacterSection'
 import { useState } from 'react'
-import { faPen, faPlusSquare } from '@fortawesome/free-solid-svg-icons'
+import {
+  IconDefinition,
+  faBookOpen,
+  faChartColumn,
+  faCube,
+  faCubesStacked,
+  faKey,
+  faPen,
+  faPlus,
+  faPlusSquare,
+} from '@fortawesome/free-solid-svg-icons'
 import ToolbarButton from '../../shared/components/ToolbarButton'
-import { CHAR_ENTRY } from '../../shared/MOCK_DATABASE_ENTRIES'
-import { Else, If, Then } from 'react-if'
+import { CHAR_ENTRY, CharacterEntry } from '../../shared/MOCK_DATABASE_ENTRIES'
+import { Case, Else, If, Switch, Then, When } from 'react-if'
 import { LocationInLessonPreview } from './LocationInLessonPreview'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Subheading } from '../../learn/headings/Subheading'
+import { DiffedCharacterEntry, DiffedCharacterEntryVariant } from '../../shared/logic/loadAdminChar'
 
 const CHAR_ENTRY_CONVERTED = {
   charChinese: '早',
@@ -89,7 +112,7 @@ export default function AdminContent() {
   const fetcher = useFetcher()
   const [activeStep, setActiveStep] = useState(-1)
   const { constants } = useTheme()
-  const character = useLoaderData() as typeof CHAR_ENTRY
+  const character = useLoaderData() as DiffedCharacterEntry
 
   function changeTier(index: number) {
     // Fetch data by merging previous tiers.
@@ -108,7 +131,7 @@ export default function AdminContent() {
     return x
   }
 
-  console.log(character)
+  // console.log(character)
 
   // console.log(mergePreviousTiers(CHAR_ENTRY, 3))
 
@@ -128,7 +151,7 @@ export default function AdminContent() {
       <Stepper nonLinear orientation='vertical' {...{ activeStep }}>
         {[1, 2, 3, 4].map((step, index) => (
           <Step key={index}>
-            <PreviewOrAddButton tier={step} {...{ character, changeTier }} />
+            <PreviewOrAddButton tier={step} variant={character.variants[index]} {...{ changeTier }} />
 
             <StepContent>
               <fetcher.Form id='char-form' method='post' action='/admin'>
@@ -184,31 +207,79 @@ export default function AdminContent() {
 }
 
 function PreviewOrAddButton({
-  character,
   changeTier,
   tier,
+  variant,
 }: {
-  character: typeof CHAR_ENTRY
   changeTier: (index: number) => void
   tier: number
+  variant: DiffedCharacterEntryVariant
 }) {
-  const tierVariant = character.variants.find(variant => variant.tier === tier)
+  console.log(variant)
+  const { palette } = useTheme()
 
   // If tierVariant, fetch lesson preview
 
+  function isEmpty(object: object) {
+    return Object.keys(object).length === 2 // "newInfo" and "modifiedInfo"
+  }
+
+  const keyIconDictionary: Partial<Record<keyof DiffedCharacterEntryVariant, IconDefinition>> = {
+    constituents: faCubesStacked,
+    frequency: faChartColumn,
+    keyword: faKey,
+    primitive: faCube,
+    story: faBookOpen,
+  }
+
   return (
-    <If condition={!!tierVariant}>
+    <If condition={!isEmpty(variant)}>
       <Then>
         <StepButton onClick={() => changeTier(tier - 1)}>
-          {/* To-Do: Change to StepButton? Add "events"? (Kulcsszó bevezetve: korai) (Alapelem bevezetve: napraforgó) (Emlékeztető) */}
+          <When condition={variant.newInfo.length > 0}>
+            <Stack alignItems='stretch' direction='row' gap={1}>
+              <FontAwesomeIcon icon={faPlus} size='sm' style={{ alignSelf: 'center' }} />
 
-          {tierVariant?.keyword}
+              {variant.newInfo.map(newInfoKey => (
+                <Switch key={newInfoKey}>
+                  <Case condition={newInfoKey === 'keyword'}>
+                    <Chip
+                      icon={<FontAwesomeIcon color={palette.primary.main} icon={faKey} size='sm' />}
+                      label={variant.keyword}
+                      sx={{ bgcolor: 'primary.100', color: 'primary.main', pointerEvents: 'none' }}
+                    />
+                  </Case>
+                  <Case condition={newInfoKey === 'primitive'}>
+                    <Chip
+                      icon={<FontAwesomeIcon color={palette.secondary.main} icon={faCube} size='sm' />}
+                      label={variant.primitive}
+                      sx={{ bgcolor: 'secondary.100', color: 'secondary.main', pointerEvents: 'none' }}
+                    />
+                  </Case>
+                  <Case condition={newInfoKey === 'story'}>
+                    {/* <Chip icon={<FontAwesomeIcon icon={faCube} size='sm' />} label={variant.primitive} /> */}
+                    <Box
+                      alignItems='center'
+                      display='flex'
+                      bgcolor='grey.200'
+                      borderRadius={({ spacing }) => spacing(2)}
+                      // minWidth='70px'
+                      p={1}
+                      // flex={1}
+                      // height={1}
+                    >
+                      <FontAwesomeIcon icon={faBookOpen} size='sm' />
+                    </Box>
+                  </Case>
+                </Switch>
 
-          {tierVariant?.primitive}
+                // <When condition={newInfoKey in keyIconDictionary} key={newInfoKey}>
+                //   <Chip icon={<FontAwesomeIcon icon={keyIconDictionary[newInfoKey]!} size='sm' />} label={newInfoKey} />
+                // </When>
+              ))}
+            </Stack>
+          </When>
 
-          {/* <Button onClick={() => changeTier(tier - 1)} size='small' startIcon={<FontAwesomeIcon icon={faPen} />} sx={{ px: 1.5 }}>
-          Módosítás
-        </Button> */}
           {/* To-Do: Hide button if current tier? */}
         </StepButton>
       </Then>
