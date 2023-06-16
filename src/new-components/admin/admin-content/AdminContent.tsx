@@ -1,5 +1,5 @@
-import { Button, Stack, Step, StepContent, StepLabel, Stepper, useTheme } from '@mui/material'
-import { useFetcher } from 'react-router-dom'
+import { Button, Stack, Step, StepButton, StepContent, StepLabel, Stepper, useTheme } from '@mui/material'
+import { useFetcher, useLoaderData } from 'react-router-dom'
 import { Heading } from '../../learn/headings/Heading'
 import { CharacterSection } from './sections/CharacterSection'
 import { useState } from 'react'
@@ -11,12 +11,85 @@ import { LocationInLessonPreview } from './LocationInLessonPreview'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Subheading } from '../../learn/headings/Subheading'
 
+const CHAR_ENTRY_CONVERTED = {
+  charChinese: '早',
+  lessonNumber: 2,
+  phrases: [1, 2], // An array of phrase ID's.
+  similars: [3], // An array of "similar" ID's.
+  variants: [
+    {
+      constituents: ['日', '十'], // Call getUnlockedMeanings before presenting to the user.
+      frequency: 462,
+      index: 11,
+      keyword: 'korai',
+      otherUses: [
+        { pinyin: 'zhèng', meanings: ['test1', 'test2'] },
+        { pinyin: 'zhēng', meanings: ['test3'] },
+      ],
+      pinyin: 'zǎo',
+      story: [
+        [
+          `Egy `,
+          { constituent: 'nap', references: '日' },
+          ` amely egy `,
+          { constituent: 'tűn', references: '十' },
+          `pihen meg – gyakorlatilag ilyen egy napraforgó, annak vékony szárával és ragyogó virágával.`,
+        ],
+        [
+          `Ismeretes, hogy azért hívjuk a napraforgót napraforgónak, mert követi a `,
+          { constituent: 'nap', references: '日' },
+          `mozgását – magyarán, a kertben a `,
+          { constituent: 'nap', references: '日' },
+          ` erre a virágra süt a leg`,
+          { keyword: 'korábban' },
+          `. Nem csoda hát, hogy a karakter jelentése `,
+          { keyword: '„korai”' },
+          `.`,
+        ],
+      ],
+      tier: 1,
+    },
+    {
+      index: 8,
+      primitive: 'napraforgó',
+      story: [
+        [
+          `Egy `,
+          { constituent: 'nap', references: '日' },
+          ` amely egy `,
+          { constituent: 'tűn', references: '十' },
+          `pihen meg – gyakorlatilag ilyen egy `,
+          { primitive: 'napraforgó' },
+          `, annak vékony szárával és ragyogó virágával.`,
+        ],
+        [
+          `Ismeretes, hogy azért hívjuk a `,
+          { primitive: 'napraforgót napraforgónak' },
+          `, mert követi a `,
+          { constituent: 'nap', references: '日' },
+          `mozgását – magyarán, a kertben a `,
+          { constituent: 'nap', references: '日' },
+          ` erre a virágra süt a leg`,
+          { keyword: 'korábban' },
+          `. Nem csoda hát, hogy a karakter jelentése `,
+          { keyword: '„korai”' },
+          `.`,
+        ],
+      ],
+      tier: 2,
+    }, // When there's a "primitive" property on a variant that isn't the first one in the array, a "newPrimitive" flag is added.
+    {
+      // index: 2,
+      // tier: 3,
+    }, // When only these two properties exist on a variant, a "reminder" flag is added.
+  ],
+}
+
 export default function AdminContent() {
   const fetcher = useFetcher()
-  const [activeStep, setActiveStep] = useState(0)
+  const [activeStep, setActiveStep] = useState(-1)
   const { constants } = useTheme()
-
-  const character = CHAR_ENTRY
+  const character = useLoaderData() as typeof CHAR_ENTRY
 
   function changeTier(index: number) {
     // Fetch data by merging previous tiers.
@@ -24,8 +97,20 @@ export default function AdminContent() {
     // Add simple boxes with Edit button (pencil) for "previousInfo" properties and textboxes for "newInfo" properties.
     // Clicking on Edit turns a simple box into a textbox, removes the property from previousInfo and adds it into newInfo.
     // This character object will then be the basis for rendering below.
-    setActiveStep(index)
+    setActiveStep(activeStep === index ? -1 : index)
   }
+
+  function mergePreviousTiers(charEntry: typeof CHAR_ENTRY, tierToStopAt: number) {
+    const x = charEntry.variants
+      .slice(0, tierToStopAt)
+      .reduce((previousInfo, newInfo) => Object.assign(previousInfo, newInfo), {})
+    // console.log(x)
+    return x
+  }
+
+  console.log(character)
+
+  // console.log(mergePreviousTiers(CHAR_ENTRY, 3))
 
   return (
     <Stack
@@ -43,9 +128,8 @@ export default function AdminContent() {
       <Stepper nonLinear orientation='vertical' {...{ activeStep }}>
         {[1, 2, 3, 4].map((step, index) => (
           <Step key={index}>
-            <StepLabel>
-              <PreviewOrAddButton tier={step} {...{ character, changeTier }} />
-            </StepLabel>
+            <PreviewOrAddButton tier={step} {...{ character, changeTier }} />
+
             <StepContent>
               <fetcher.Form id='char-form' method='post' action='/admin'>
                 <CharacterSection />
@@ -115,26 +199,30 @@ function PreviewOrAddButton({
   return (
     <If condition={!!tierVariant}>
       <Then>
-        {/* To-Do: Change to StepButton? Add "events"? (Kulcsszó bevezetve: korai) (Alapelem bevezetve: napraforgó) (Emlékeztető) */}
+        <StepButton onClick={() => changeTier(tier - 1)}>
+          {/* To-Do: Change to StepButton? Add "events"? (Kulcsszó bevezetve: korai) (Alapelem bevezetve: napraforgó) (Emlékeztető) */}
 
-        {tierVariant?.keyword}
+          {tierVariant?.keyword}
 
-        {tierVariant?.primitive}
+          {tierVariant?.primitive}
 
-        <Button onClick={() => changeTier(tier - 1)} size='small' startIcon={<FontAwesomeIcon icon={faPen} />} sx={{ px: 1.5 }}>
+          {/* <Button onClick={() => changeTier(tier - 1)} size='small' startIcon={<FontAwesomeIcon icon={faPen} />} sx={{ px: 1.5 }}>
           Módosítás
-        </Button>
-        {/* To-Do: Hide button if current tier? */}
+        </Button> */}
+          {/* To-Do: Hide button if current tier? */}
+        </StepButton>
       </Then>
       <Else>
-        <Button
-          onClick={() => changeTier(tier - 1)}
-          size='small'
-          startIcon={<FontAwesomeIcon icon={faPlusSquare} />}
-          sx={{ px: 1.5 }}
-        >
-          Új változat hozzáadása
-        </Button>
+        <StepLabel>
+          <Button
+            onClick={() => changeTier(tier - 1)}
+            size='small'
+            startIcon={<FontAwesomeIcon icon={faPlusSquare} />}
+            sx={{ px: 1.5 }}
+          >
+            Új változat hozzáadása
+          </Button>
+        </StepLabel>
       </Else>
     </If>
   )

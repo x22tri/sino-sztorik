@@ -14,6 +14,7 @@ import { loadLessonSelect } from './shared/logic/loadLessonSelect'
 import { ErrorPage } from './error-page/ErrorPage'
 import LessonSelectContent from './lesson-select/lesson-select-content/LessonSelectContent'
 import { Admin } from './admin/Admin'
+import { loadAdminChar } from './shared/logic/loadAdminChar'
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,7 @@ const router = createBrowserRouter([
       console.log(formData)
       return null
     },
+    loader: loadAdminChar,
   },
 ])
 

@@ -66,8 +66,8 @@ export const CHAR_ENTRY = {
       tier: 2,
     }, // When there's a "primitive" property on a variant that isn't the first one in the array, a "newPrimitive" flag is added.
     {
-      // index: 2,
-      // tier: 3,
+      index: 2,
+      tier: 4,
     }, // When only these two properties exist on a variant, a "reminder" flag is added.
   ],
 }
