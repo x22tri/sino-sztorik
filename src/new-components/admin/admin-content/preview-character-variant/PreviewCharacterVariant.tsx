@@ -6,6 +6,7 @@ import {
   faCube,
   faCubesStacked,
   faKey,
+  faPen,
   faPlus,
 } from '@fortawesome/free-solid-svg-icons'
 import { Case, Switch, When } from 'react-if'
@@ -14,6 +15,8 @@ import { DiffedCharacterEntryVariant } from '../../../shared/logic/loadAdminChar
 import { FeaturedInfoInLessonChip } from './FeaturedInfoInLessonChip'
 import { InfoInLessonChip } from './InfoInLessonChip'
 import { InfoHeadingIcon } from './InfoHeadingIcon'
+import { CharacterEntryVariant } from '../../../shared/MOCK_DATABASE_ENTRIES'
+import { Fragment } from 'react'
 
 export function PreviewCharacterVariant({
   isActive,
@@ -28,12 +31,28 @@ export function PreviewCharacterVariant({
   const { palette } = useTheme()
 
   // If tierVariant, fetch lesson preview
-  const keyIconDictionary: Partial<Record<keyof DiffedCharacterEntryVariant, IconDefinition>> = {
-    keyword: faKey,
-    primitive: faCube,
-    story: faBookOpen,
-    constituents: faCubesStacked,
-    frequency: faChartColumn,
+  const keyIconDictionary: Partial<Record<keyof DiffedCharacterEntryVariant, JSX.Element>> = {
+    keyword: (
+      <FeaturedInfoInLessonChip
+        bgcolor={palette.primary[100]!}
+        color={palette.primary.main}
+        icon={faKey}
+        label={variant.keyword!}
+        tooltip='Kulcsszó'
+      />
+    ),
+    primitive: (
+      <FeaturedInfoInLessonChip
+        bgcolor={palette.secondary[100]!}
+        color={palette.secondary.main}
+        icon={faCube}
+        label={variant.primitive!}
+        tooltip='Alapelemként'
+      />
+    ),
+    story: <InfoInLessonChip icon={faBookOpen} tooltip='Történet' />,
+    constituents: <InfoInLessonChip icon={faCubesStacked} tooltip='Összetétel' />,
+    frequency: <InfoInLessonChip icon={faChartColumn} tooltip='Gyakoriság' />,
   }
 
   return (
@@ -45,49 +64,27 @@ export function PreviewCharacterVariant({
         mx: 0,
         p: 0,
         transition: ({ constants }) => constants.animationDuration,
+        '.MuiStepLabel-label': { display: 'flex', gap: 1.5 },
         ':hover': { borderBottom: isActive ? undefined : `3px solid ${palette.primary.main}` },
       }}
     >
       <When condition={variant.newInfo.length > 0}>
-        <Stack alignItems='stretch' direction='row' gap={1}>
-          <InfoHeadingIcon icon={faPlus} tooltip='Ebben a körben hozzáadva' />
+        <Stack alignItems='stretch' direction='row' display='inline-flex' gap={1}>
+          <InfoHeadingIcon icon={faPlus} tooltip='Hozzáadva ebben a körben' />
 
-          {variant.newInfo.map(newInfoKey => (
-            <Switch key={newInfoKey}>
-              <Case condition={newInfoKey === 'keyword'}>
-                <FeaturedInfoInLessonChip
-                  bgcolor={palette.primary[100]!}
-                  color={palette.primary.main}
-                  icon={faKey}
-                  label={variant.keyword!}
-                  tooltip='Kulcsszó'
-                />
-              </Case>
-              <Case condition={newInfoKey === 'primitive'}>
-                <FeaturedInfoInLessonChip
-                  bgcolor={palette.secondary[100]!}
-                  color={palette.secondary.main}
-                  icon={faCube}
-                  label={variant.primitive!}
-                  tooltip='Alapelemként'
-                />
-              </Case>
-              <Case condition={newInfoKey === 'story'}>
-                <InfoInLessonChip icon={faBookOpen} tooltip='Történet' />
-              </Case>
-              <Case condition={newInfoKey === 'constituents'}>
-                <InfoInLessonChip icon={faCubesStacked} tooltip='Összetétel' />
-              </Case>
+          {Object.entries(keyIconDictionary).map(([key, value]) =>
+            variant.newInfo.includes(key as keyof CharacterEntryVariant) ? <Fragment {...{ key }}>{value}</Fragment> : false
+          )}
+        </Stack>
+      </When>
 
-              <Case condition={newInfoKey === 'frequency'}>
-                <InfoInLessonChip icon={faChartColumn} tooltip='Gyakoriság' />
-              </Case>
-            </Switch>
+      <When condition={variant.modifiedInfo.length > 0}>
+        <Stack alignItems='stretch' direction='row' display='inline-flex' gap={1}>
+          <InfoHeadingIcon icon={faPen} tooltip='Módosítva ebben a körben' />
 
-            // <When condition={newInfoKey in keyIconDictionary} key={newInfoKey}>
-            //   <Chip icon={<FontAwesomeIcon icon={keyIconDictionary[newInfoKey]!} size='sm' />} label={newInfoKey} />
-            // </When>
-          ))}
+          {Object.entries(keyIconDictionary).map(([key, value]) =>
+            variant.modifiedInfo.includes(key as keyof CharacterEntryVariant) ? <Fragment {...{ key }}>{value}</Fragment> : false
+          )}
         </Stack>
       </When>
     </StepButton>
