@@ -1,4 +1,4 @@
-import { Stack, StepButton, useTheme } from '@mui/material'
+import { Stack, StepButton, Tooltip, useTheme } from '@mui/material'
 import {
   IconDefinition,
   faBookOpen,
@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { DiffedCharacterEntryVariant } from '../../../shared/logic/loadAdminChar'
 import { FeaturedInfoInLessonChip } from './FeaturedInfoInLessonChip'
 import { InfoInLessonChip } from './InfoInLessonChip'
+import { InfoHeadingIcon } from './InfoHeadingIcon'
 
 export function PreviewCharacterVariant({
   isActive,
@@ -44,13 +45,12 @@ export function PreviewCharacterVariant({
         mx: 0,
         p: 0,
         transition: ({ constants }) => constants.animationDuration,
-        zIndex: 2,
         ':hover': { borderBottom: isActive ? undefined : `3px solid ${palette.primary.main}` },
       }}
     >
       <When condition={variant.newInfo.length > 0}>
         <Stack alignItems='stretch' direction='row' gap={1}>
-          <FontAwesomeIcon icon={faPlus} size='sm' style={{ alignSelf: 'center' }} />
+          <InfoHeadingIcon icon={faPlus} tooltip='Ebben a körben hozzáadva' />
 
           {variant.newInfo.map(newInfoKey => (
             <Switch key={newInfoKey}>

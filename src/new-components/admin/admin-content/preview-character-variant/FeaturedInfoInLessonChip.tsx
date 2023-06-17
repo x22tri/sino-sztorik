@@ -32,7 +32,7 @@ const FeaturedInfoInLessonChipForwardRef = forwardRef(
       icon={<FontAwesomeIcon {...{ color, icon }} size='sm' />}
       {...{ label, ref }}
       {...restProps}
-      sx={{ bgcolor, color, cursor: 'pointer', pl: 0.5, zIndex: 6 }}
+      sx={{ bgcolor, color, cursor: 'inherit', pl: 0.5 }}
     />
   )
 )
