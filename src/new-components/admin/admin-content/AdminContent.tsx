@@ -225,17 +225,26 @@ function PreviewOrAddButton({
   }
 
   const keyIconDictionary: Partial<Record<keyof DiffedCharacterEntryVariant, IconDefinition>> = {
-    constituents: faCubesStacked,
-    frequency: faChartColumn,
     keyword: faKey,
     primitive: faCube,
     story: faBookOpen,
+    constituents: faCubesStacked,
+    frequency: faChartColumn,
   }
 
   return (
     <If condition={!isEmpty(variant)}>
       <Then>
-        <StepButton onClick={() => changeTier(tier - 1)}>
+        <StepButton
+          onClick={() => changeTier(tier - 1)}
+          sx={{
+            py: 0,
+            my: 1,
+            transition: ({ constants }) => constants.animationDuration,
+            '.MuiStepIcon-root': { transition: ({ constants }) => constants.animationDuration },
+            ':hover': { borderBottom: `3px solid ${palette.primary.main}` },
+          }}
+        >
           <When condition={variant.newInfo.length > 0}>
             <Stack alignItems='stretch' direction='row' gap={1}>
               <FontAwesomeIcon icon={faPlus} size='sm' style={{ alignSelf: 'center' }} />
@@ -246,28 +255,18 @@ function PreviewOrAddButton({
                     <Chip
                       icon={<FontAwesomeIcon color={palette.primary.main} icon={faKey} size='sm' />}
                       label={variant.keyword}
-                      sx={{ bgcolor: 'primary.100', color: 'primary.main', pointerEvents: 'none' }}
+                      sx={{ bgcolor: 'primary.100', color: 'primary.main', pointerEvents: 'none', pl: 0.5 }}
                     />
                   </Case>
                   <Case condition={newInfoKey === 'primitive'}>
                     <Chip
                       icon={<FontAwesomeIcon color={palette.secondary.main} icon={faCube} size='sm' />}
                       label={variant.primitive}
-                      sx={{ bgcolor: 'secondary.100', color: 'secondary.main', pointerEvents: 'none' }}
+                      sx={{ bgcolor: 'secondary.100', color: 'secondary.main', pointerEvents: 'none', pl: 0.5 }}
                     />
                   </Case>
                   <Case condition={newInfoKey === 'story'}>
-                    {/* <Chip icon={<FontAwesomeIcon icon={faCube} size='sm' />} label={variant.primitive} /> */}
-                    <Box
-                      alignItems='center'
-                      display='flex'
-                      bgcolor='grey.200'
-                      borderRadius={({ spacing }) => spacing(2)}
-                      // minWidth='70px'
-                      p={1}
-                      // flex={1}
-                      // height={1}
-                    >
+                    <Box alignItems='center' display='flex' bgcolor='grey.200' borderRadius={({ spacing }) => spacing(2)} p={1}>
                       <FontAwesomeIcon icon={faBookOpen} size='sm' />
                     </Box>
                   </Case>

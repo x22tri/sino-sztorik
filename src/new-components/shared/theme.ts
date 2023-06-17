@@ -57,6 +57,7 @@ declare module '@mui/material/styles' {
   }
 
   interface PaletteColor {
+    50?: string
     100?: string
     200?: string
     300?: string
@@ -67,6 +68,7 @@ declare module '@mui/material/styles' {
   }
 
   interface SimplePaletteColorOptions {
+    50?: string
     100?: string
     200?: string
     300?: string
@@ -154,6 +156,7 @@ let theme = responsiveFontSizes(
     palette: {
       primary: {
         main: '#3366CC',
+        50: '#EFF3FB',
         100: '#DDE8FF',
         200: '#C4D6FD',
         300: '#82A1E5',
