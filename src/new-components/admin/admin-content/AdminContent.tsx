@@ -6,10 +6,17 @@ import { CHAR_ENTRY } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { Else, If, Then } from 'react-if'
 import { LocationInLessonPreview } from './LocationInLessonPreview'
 import { Subheading } from '../../learn/headings/Subheading'
-import { DiffInfoTier, DiffedCharacterEntry } from '../../shared/logic/loadAdminChar'
+import { DiffInfoTier, DiffedCharacterEntry, DiffedCharacterEntryVariant } from '../../shared/logic/loadAdminChar'
 import { PreviewCharacterVariant } from './preview-character-variant/PreviewCharacterVariant'
 import { AddCharacterVariant } from './add-character-variant/AddCharacterVariant'
 import { ADMIN_CANCEL_SAVE, ADMIN_SAVE_CHANGES } from '../../shared/strings'
+import { FormContainer, useForm } from 'react-hook-form-mui'
+
+export type X = Omit<DiffedCharacterEntryVariant, 'index' | 'tier' | 'newInfo' | 'modifiedInfo'>
+
+export function mergePreviousTiers(charEntry: DiffedCharacterEntry, tierToStopAt: number): X {
+  return charEntry.variants.slice(0, tierToStopAt).reduce((previousInfo, newInfo) => Object.assign(previousInfo, newInfo), {})
+}
 
 export default function AdminContent() {
   const fetcher = useFetcher()
@@ -34,13 +41,6 @@ export default function AdminContent() {
     }
   }
 
-  function mergePreviousTiers(charEntry: typeof CHAR_ENTRY, tierToStopAt: number) {
-    const x = charEntry.variants
-      .slice(0, tierToStopAt)
-      .reduce((previousInfo, newInfo) => Object.assign(previousInfo, newInfo), {})
-    return x
-  }
-
   console.log(diffInfos)
 
   // console.log(mergePreviousTiers(CHAR_ENTRY, 3))
@@ -48,6 +48,16 @@ export default function AdminContent() {
   function isNotPresentInTier(object: object) {
     return Object.keys(object).length === 2 // "newInfo" and "modifiedInfo"
   }
+
+  // const {
+  //   register,
+  //   setValue,
+  //   handleSubmit,
+  //   watch,
+  //   formState: { errors },
+  // } = useForm<DiffedCharacterEntry>()
+
+  // console.log(watch('variants.2.primitive'))
 
   return (
     <Stack
@@ -78,10 +88,13 @@ export default function AdminContent() {
             </If>
 
             <StepContent>
-              <fetcher.Form id='char-form' method='post' action='/admin'>
+              <FormContainer defaultValues={mergePreviousTiers(character, tier)} onSuccess={(data: any) => console.log(data)}>
                 <CharacterSection />
 
-                {/* <Box mt={3}>
+                {/*<fetcher.Form id='char-form' method='post' action='/admin'>
+                
+
+                 <Box mt={3}>
                   <TextField
                     id='story'
                     InputLabelProps={{ shrink: true }}
@@ -113,22 +126,23 @@ export default function AdminContent() {
                     ))}
                     <Box component='span'>+3</Box>
                   </Stack>
-                </Box> */}
-              </fetcher.Form>
+                </Box> 
+              </fetcher.Form>*/}
 
-              <Subheading title='Leckében elfoglalt hely' />
+                <Subheading title='Leckében elfoglalt hely' />
 
-              <LocationInLessonPreview
-                lessonPreview={[{ charChinese: '世', index: 10 }, { charChinese: '早', index: 11 }, null]}
-                onClick={() => {}}
-              />
+                <LocationInLessonPreview
+                  lessonPreview={[{ charChinese: '世', index: 10 }, { charChinese: '早', index: 11 }, null]}
+                  onClick={() => {}}
+                />
 
-              <Box alignItems='center' display='flex' gap={2} justifyContent='flex-end'>
-                <Button variant='text'>{ADMIN_CANCEL_SAVE}</Button>
-                <Button form='char-form' type='submit' variant='contained'>
-                  {ADMIN_SAVE_CHANGES}
-                </Button>
-              </Box>
+                <Box alignItems='center' display='flex' gap={2} justifyContent='flex-end'>
+                  <Button variant='text'>{ADMIN_CANCEL_SAVE}</Button>
+                  <Button type='submit' variant='contained'>
+                    {ADMIN_SAVE_CHANGES}
+                  </Button>
+                </Box>
+              </FormContainer>
             </StepContent>
           </Step>
         ))}

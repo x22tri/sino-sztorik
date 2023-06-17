@@ -21,6 +21,7 @@ export function PreviewCharacterVariant({
         borderRadius: ({ spacing }) => spacing(6),
         boxShadow: ({ constants }) => (isActive ? constants.boxShadow : undefined),
         my: 1,
+        py: 0,
         transition: ({ constants }) => constants.animationDuration,
         '.MuiStepLabel-label': { display: 'flex', gap: 1.5 },
         '.MuiStepLabel-iconContainer': { pr: 0.5 },

@@ -1,4 +1,8 @@
 import { TextField, TextFieldProps, lighten, useTheme } from '@mui/material'
+import { TextFieldElement, useFormContext } from 'react-hook-form-mui'
+import { X, mergePreviousTiers } from './AdminContent'
+import { useLoaderData, useSearchParams } from 'react-router-dom'
+import { DiffedCharacterEntry, DiffInfoTier } from '../../shared/logic/loadAdminChar'
 
 /*
 
@@ -9,12 +13,24 @@ if previous info: disable text field and make BG white, add pen endAdornment tha
 
 */
 
-export function AdminTextField({ label, name, ...restProps }: TextFieldProps) {
+export function AdminTextField({ label, name, ...restProps }: TextFieldProps & { name: string }) {
   const { palette } = useTheme()
   const isModifiedInfo = name === 'frequency'
+  const { character, diffInfos } = useLoaderData() as { character: DiffedCharacterEntry; diffInfos: DiffInfoTier[] }
+  const [searchParams, setSearchParams] = useSearchParams()
+  const activeTier = Number(searchParams.get('tier'))
+
+  const prevTiers = mergePreviousTiers(character, activeTier - 1)
+
+  const methods = useFormContext()
+
+  function hasChangedSinceLastTier(key: keyof X) {
+    return prevTiers[key] === methods.getValues(key)
+  }
 
   return (
-    <TextField
+    <TextFieldElement
+      disabled={hasChangedSinceLastTier(name as keyof X)}
       fullWidth
       id={name}
       InputLabelProps={{ shrink: true }}
@@ -29,6 +45,8 @@ export function AdminTextField({ label, name, ...restProps }: TextFieldProps) {
         },
         ...restProps.sx,
       }}
+      // validation={}
+      // onBlur={e => console.log(e)}
     />
   )
 }

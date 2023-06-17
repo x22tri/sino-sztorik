@@ -7,6 +7,8 @@ import ToolbarButton from '../../../shared/components/ToolbarButton'
 import { AdminTextField } from '../AdminTextField'
 import { useLoaderData, useSearchParams } from 'react-router-dom'
 import { DiffedCharacterEntry, DiffedCharacterEntryVariant, DiffInfoTier } from '../../../shared/logic/loadAdminChar'
+import { useFormContext } from 'react-hook-form-mui'
+import { X, mergePreviousTiers } from '../AdminContent'
 
 export function CharacterSection() {
   const { palette } = useTheme()
@@ -17,25 +19,44 @@ export function CharacterSection() {
 
   const variant = character.variants[activeTier - 1]
 
-  function getDiffedChar(tierToStopAt: number) {}
+  // function getDiffedChar(tierToStopAt: number) {}
 
-  function getDiffedStatuses(tierToStopAt: number) {
-    const x = character.variants.slice(0, tierToStopAt)
+  // function getDiffedStatuses(tierToStopAt: number) {
+  //   const x = character.variants.slice(0, tierToStopAt)
 
-    return x
+  //   return x
+  // }
+
+  // console.log(getDiffedStatuses(activeTier))
+
+  const prevTiers = mergePreviousTiers(character, activeTier - 1)
+
+  const methods = useFormContext()
+
+  function hasChangedSinceLastTier(key: keyof X) {
+    return prevTiers[key] === methods.getValues(key)
   }
 
-  console.log(getDiffedStatuses(activeTier))
+  // console.log(methods.formState.dirtyFields)
+
+  // methods.
+
+  // console.log(methods.watch('primitive'))
 
   return (
     <Box display='flex' flexDirection='column' gap={3}>
       <Subheading title='Karakter' />
-      <AdminTextField label='Kulcsszó' name='keyword' sx={{ '.MuiInputBase-input': { fontWeight: 'bold' } }} />
+      <AdminTextField
+        // disabled={hasChangedSinceLastTier('keyword')}
+        label='Kulcsszó'
+        name='keyword'
+        sx={{ '.MuiInputBase-input': { fontWeight: 'bold' } }}
+      />
 
       <AdminTextField
         color='secondary'
-        // disabled
-        defaultValue={variant.primitive}
+        // disabled={prevTiers.primitive === methods.getValues('primitive')}
+        // onBlur={e => console.log(e)}
         InputProps={{
           startAdornment: (
             <InputAdornment position='start'>
