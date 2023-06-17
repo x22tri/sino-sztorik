@@ -11,7 +11,7 @@ import {
   faPlus,
   faVolumeLow,
 } from '@fortawesome/free-solid-svg-icons'
-import { DiffedCharacterEntryVariant, InfoIntroduction } from '../../../shared/logic/loadAdminChar'
+import { DiffedCharacterEntryVariant, DiffInfo } from '../../../shared/logic/loadAdminChar'
 import { FeaturedInfoInLessonChip } from './FeaturedInfoInLessonChip'
 import { InfoInLessonChip } from './InfoInLessonChip'
 import { InfoIconsHeading } from './InfoIconsHeading'
@@ -34,7 +34,7 @@ function InfoIcons({
 }: {
   headingIcon: IconDefinition
   headingTitle: string
-  infoArray: keyof InfoIntroduction
+  infoArray: keyof DiffInfo
   variant: DiffedCharacterEntryVariant
 }) {
   const { palette } = useTheme()

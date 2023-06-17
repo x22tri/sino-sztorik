@@ -3,12 +3,19 @@ import { LESSONS } from '../MOCK_LESSONS'
 import { LessonStatuses } from '../interfaces'
 import { CHAR_ENTRY, CharacterEntry, CharacterEntryVariant } from '../MOCK_DATABASE_ENTRIES'
 
-export interface InfoIntroduction {
+export interface DiffInfo {
   newInfo: (keyof CharacterEntryVariant)[]
   modifiedInfo: (keyof CharacterEntryVariant)[]
 }
 
-export type DiffedCharacterEntryVariant = CharacterEntryVariant & InfoIntroduction
+export interface DiffInfoTier {
+  newInfo: (keyof CharacterEntryVariant)[]
+  modifiedInfo: (keyof CharacterEntryVariant)[]
+  previousInfo: (keyof CharacterEntryVariant)[]
+  tier: number
+}
+
+export type DiffedCharacterEntryVariant = CharacterEntryVariant & DiffInfo
 
 export interface DiffedCharacterEntry extends CharacterEntry {
   variants: [DiffedCharacterEntryVariant, DiffedCharacterEntryVariant, DiffedCharacterEntryVariant, DiffedCharacterEntryVariant]
@@ -25,9 +32,11 @@ export function loadAdminChar() {
     tier => characterEntry.variants.find(variant => variant.tier === tier) ?? {}
   ) as DiffedCharacterEntryVariant[]
 
+  const diffInfos: DiffInfoTier[] = []
+
   const hashMap: Partial<Record<keyof CharacterEntryVariant, number>> = {}
 
-  sorted.forEach((variant: any) => {
+  for (const [index, variant] of sorted.entries()) {
     const newInfo: any[] = []
     const modifiedInfo: any[] = []
 
@@ -44,8 +53,15 @@ export function loadAdminChar() {
       }
     })
 
-    Object.assign(variant, { newInfo, modifiedInfo })
-  })
+    let previousInfo: (keyof CharacterEntryVariant)[] = []
+    if (variant.tier - 1) {
+      previousInfo = [...sorted[variant.tier - 2].newInfo, ...sorted[variant.tier - 2].modifiedInfo]
+    }
 
-  return { ...characterEntry, variants: sorted }
+    Object.assign(variant, { newInfo, modifiedInfo })
+    // Object.assign(diffInfo, { newInfo, modifiedInfo })
+    diffInfos.push({ newInfo, modifiedInfo, previousInfo, tier: variant.tier })
+  }
+
+  return { character: { ...characterEntry, variants: sorted }, diffInfos }
 }

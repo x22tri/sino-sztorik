@@ -1,4 +1,4 @@
-import { Stack, Step, StepContent, Stepper, useTheme } from '@mui/material'
+import { Box, Button, Stack, Step, StepContent, Stepper, useTheme } from '@mui/material'
 import { useFetcher, useLoaderData, useSearchParams } from 'react-router-dom'
 import { Heading } from '../../learn/headings/Heading'
 import { CharacterSection } from './sections/CharacterSection'
@@ -6,14 +6,15 @@ import { CHAR_ENTRY } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { Else, If, Then } from 'react-if'
 import { LocationInLessonPreview } from './LocationInLessonPreview'
 import { Subheading } from '../../learn/headings/Subheading'
-import { DiffedCharacterEntry } from '../../shared/logic/loadAdminChar'
+import { DiffInfoTier, DiffedCharacterEntry } from '../../shared/logic/loadAdminChar'
 import { PreviewCharacterVariant } from './preview-character-variant/PreviewCharacterVariant'
 import { AddCharacterVariant } from './add-character-variant/AddCharacterVariant'
+import { ADMIN_CANCEL_SAVE, ADMIN_SAVE_CHANGES } from '../../shared/strings'
 
 export default function AdminContent() {
   const fetcher = useFetcher()
   const { constants } = useTheme()
-  const character = useLoaderData() as DiffedCharacterEntry
+  const { character, diffInfos } = useLoaderData() as { character: DiffedCharacterEntry; diffInfos: DiffInfoTier[] }
   const [searchParams, setSearchParams] = useSearchParams()
   const activeTier = Number(searchParams.get('tier'))
 
@@ -40,7 +41,7 @@ export default function AdminContent() {
     return x
   }
 
-  // console.log(character)
+  console.log(diffInfos)
 
   // console.log(mergePreviousTiers(CHAR_ENTRY, 3))
 
@@ -55,7 +56,6 @@ export default function AdminContent() {
       component='main'
       display='flex'
       flexDirection='column'
-      marginBottom={constants.bottomToolbarHeight}
       minHeight={`calc(100vh - ${constants.bottomToolbarHeight})`}
       paddingX={2}
     >
@@ -122,6 +122,13 @@ export default function AdminContent() {
                 lessonPreview={[{ charChinese: '世', index: 10 }, { charChinese: '早', index: 11 }, null]}
                 onClick={() => {}}
               />
+
+              <Box alignItems='center' display='flex' gap={2} justifyContent='flex-end'>
+                <Button variant='text'>{ADMIN_CANCEL_SAVE}</Button>
+                <Button form='char-form' type='submit' variant='contained'>
+                  {ADMIN_SAVE_CHANGES}
+                </Button>
+              </Box>
             </StepContent>
           </Step>
         ))}
