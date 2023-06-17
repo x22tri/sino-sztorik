@@ -107,7 +107,6 @@ export default function AdminContent() {
     const x = charEntry.variants
       .slice(0, tierToStopAt)
       .reduce((previousInfo, newInfo) => Object.assign(previousInfo, newInfo), {})
-    // console.log(x)
     return x
   }
 

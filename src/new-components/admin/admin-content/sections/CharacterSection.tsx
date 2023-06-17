@@ -1,4 +1,4 @@
-import { faCube, faVolumeDown } from '@fortawesome/free-solid-svg-icons'
+import { faCube, faVolumeHigh } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, InputAdornment, useTheme } from '@mui/material'
 import { Subheading } from '../../../learn/headings/Subheading'
@@ -36,7 +36,7 @@ export function CharacterSection() {
               <InputAdornment position='end'>
                 <ToolbarButton
                   color={isProductivePinyin ? 'primary' : 'inherit'}
-                  icon={faVolumeDown}
+                  icon={faVolumeHigh}
                   onClick={() => toggleProductivePinyin(prev => !prev)}
                   size='small'
                   tooltip='Produktív fonetikai elem?'

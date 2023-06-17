@@ -3,10 +3,12 @@ import { LESSONS } from '../MOCK_LESSONS'
 import { LessonStatuses } from '../interfaces'
 import { CHAR_ENTRY, CharacterEntry, CharacterEntryVariant } from '../MOCK_DATABASE_ENTRIES'
 
-export interface DiffedCharacterEntryVariant extends CharacterEntryVariant {
+export interface InfoIntroduction {
   newInfo: (keyof CharacterEntryVariant)[]
   modifiedInfo: (keyof CharacterEntryVariant)[]
 }
+
+export type DiffedCharacterEntryVariant = CharacterEntryVariant & InfoIntroduction
 
 export interface DiffedCharacterEntry extends CharacterEntry {
   variants: [DiffedCharacterEntryVariant, DiffedCharacterEntryVariant, DiffedCharacterEntryVariant, DiffedCharacterEntryVariant]
