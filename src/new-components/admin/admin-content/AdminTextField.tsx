@@ -3,6 +3,7 @@ import { TextFieldElement, useFormContext } from 'react-hook-form-mui'
 import { X, mergePreviousTiers } from './AdminContent'
 import { useLoaderData, useSearchParams } from 'react-router-dom'
 import { DiffedCharacterEntry, DiffInfoTier } from '../../shared/logic/loadAdminChar'
+import { useStore } from '../../shared/logic/useStore'
 
 /*
 
@@ -13,24 +14,17 @@ if previous info: disable text field and make BG white, add pen endAdornment tha
 
 */
 
-export function AdminTextField({ label, name, ...restProps }: TextFieldProps & { name: string }) {
+export function AdminTextField({ label, name, ...restProps }: TextFieldProps & { name: keyof X }) {
   const { palette } = useTheme()
-  const isModifiedInfo = name === 'frequency'
-  const { character, diffInfos } = useLoaderData() as { character: DiffedCharacterEntry; diffInfos: DiffInfoTier[] }
-  const [searchParams, setSearchParams] = useSearchParams()
-  const activeTier = Number(searchParams.get('tier'))
+  const { prevTiers } = useStore('adminChar')
+  const { getValues } = useFormContext()
 
-  const prevTiers = mergePreviousTiers(character, activeTier - 1)
-
-  const methods = useFormContext()
-
-  function hasChangedSinceLastTier(key: keyof X) {
-    return prevTiers[key] === methods.getValues(key)
-  }
+  const isInfoUnchanged = prevTiers?.[name] === getValues(name)
+  const isFieldEnabled = isInfoUnchanged && !!prevTiers?.[name]
 
   return (
     <TextFieldElement
-      disabled={hasChangedSinceLastTier(name as keyof X)}
+      disabled={isFieldEnabled}
       fullWidth
       id={name}
       InputLabelProps={{ shrink: true }}
@@ -40,8 +34,8 @@ export function AdminTextField({ label, name, ...restProps }: TextFieldProps & {
       {...{ label, name }}
       sx={{
         '.MuiFilledInput-root': {
-          bgcolor: isModifiedInfo ? lighten(palette.warning.main, 0.8) : undefined,
-          ':hover': { bgcolor: isModifiedInfo ? lighten(palette.warning.main, 0.7) : undefined },
+          bgcolor: isInfoUnchanged ? undefined : lighten(palette.warning.main, 0.8),
+          ':hover': { bgcolor: isInfoUnchanged ? undefined : lighten(palette.warning.main, 0.7) },
         },
         ...restProps.sx,
       }}

@@ -11,6 +11,7 @@ import { PreviewCharacterVariant } from './preview-character-variant/PreviewChar
 import { AddCharacterVariant } from './add-character-variant/AddCharacterVariant'
 import { ADMIN_CANCEL_SAVE, ADMIN_SAVE_CHANGES } from '../../shared/strings'
 import { FormContainer, useForm } from 'react-hook-form-mui'
+import { CharEditForm } from '../char-edit-form/CharEditForm'
 
 export type X = Omit<DiffedCharacterEntryVariant, 'index' | 'tier' | 'newInfo' | 'modifiedInfo'>
 
@@ -41,23 +42,9 @@ export default function AdminContent() {
     }
   }
 
-  console.log(diffInfos)
-
-  // console.log(mergePreviousTiers(CHAR_ENTRY, 3))
-
   function isNotPresentInTier(object: object) {
     return Object.keys(object).length === 2 // "newInfo" and "modifiedInfo"
   }
-
-  // const {
-  //   register,
-  //   setValue,
-  //   handleSubmit,
-  //   watch,
-  //   formState: { errors },
-  // } = useForm<DiffedCharacterEntry>()
-
-  // console.log(watch('variants.2.primitive'))
 
   return (
     <Stack
@@ -88,61 +75,7 @@ export default function AdminContent() {
             </If>
 
             <StepContent>
-              <FormContainer defaultValues={mergePreviousTiers(character, tier)} onSuccess={(data: any) => console.log(data)}>
-                <CharacterSection />
-
-                {/*<fetcher.Form id='char-form' method='post' action='/admin'>
-                
-
-                 <Box mt={3}>
-                  <TextField
-                    id='story'
-                    InputLabelProps={{ shrink: true }}
-                    fullWidth
-                    label='Történet'
-                    multiline
-                    name='story'
-                    size='small'
-                    sx={{ '.MuiInputBase-root': { borderRadius: ({ spacing }) => spacing(1), minHeight: '20ch' } }}
-                  />
-                </Box>
-
-                <Box alignItems='center' display='flex' flexDirection='row' mt={2}>
-                  <Typography variant='h6' fontWeight='bold' flexGrow={1}>
-                    Kifejezések a karakterrel
-                  </Typography>
-
-                  <Stack
-                    color='primary.main'
-                    direction='row'
-                    divider={<Divider orientation='vertical' flexItem />}
-                    spacing={2}
-                    flexGrow={1}
-                  >
-                    {['一早', '早上', '早日'].map((phrase, index) => (
-                      <Box component='span' key={index} typography='chineseText' fontSize='inherit'>
-                        {phrase}
-                      </Box>
-                    ))}
-                    <Box component='span'>+3</Box>
-                  </Stack>
-                </Box> 
-              </fetcher.Form>*/}
-
-                <Subheading title='Leckében elfoglalt hely' />
-
-                <LocationInLessonPreview
-                  lessonPreview={[{ charChinese: '世', index: 10 }, { charChinese: '早', index: 11 }, null]}
-                  onClick={() => {}}
-                />
-
-                <Box alignItems='center' display='flex' gap={2} justifyContent='flex-end'>
-                  <Button variant='text'>{ADMIN_CANCEL_SAVE}</Button>
-                  <Button type='submit' variant='contained'>
-                    {ADMIN_SAVE_CHANGES}
-                  </Button>
-                </Box>
-              </FormContainer>
+              <CharEditForm />
             </StepContent>
           </Step>
         ))}
