@@ -63,7 +63,7 @@ export default function AdminContent() {
 
       <Stepper nonLinear orientation='vertical' activeStep={activeTier - 1 ?? -1}>
         {[1, 2, 3, 4].map((tier, index) => (
-          <Step key={index}>
+          <Step key={tier}>
             <If condition={!isNotPresentInTier(character.variants[index])}>
               <Then>
                 <PreviewCharacterVariant

@@ -4,7 +4,6 @@ import { DiffedCharacterEntryVariant } from '../../../shared/logic/loadAdminChar
 import { ModifiedInfoIcons, NewInfoIcons } from './InfoIcons'
 import { When } from 'react-if'
 import { InfoIconsHeading } from './InfoIconsHeading'
-import { faCircleXmark } from '@fortawesome/free-regular-svg-icons'
 
 export function PreviewCharacterVariant({
   isActive,

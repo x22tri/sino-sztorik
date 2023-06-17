@@ -11,7 +11,7 @@ export interface DiffInfo {
 export interface DiffInfoTier {
   newInfo: (keyof CharacterEntryVariant)[]
   modifiedInfo: (keyof CharacterEntryVariant)[]
-  previousInfo: (keyof CharacterEntryVariant)[]
+  // previousInfo: (keyof CharacterEntryVariant)[]
   tier: number
 }
 
@@ -53,14 +53,14 @@ export function loadAdminChar() {
       }
     })
 
-    let previousInfo: (keyof CharacterEntryVariant)[] = []
-    if (variant.tier - 1) {
-      previousInfo = [...sorted[variant.tier - 2].newInfo, ...sorted[variant.tier - 2].modifiedInfo]
-    }
+    // let previousInfo: (keyof CharacterEntryVariant)[] = []
+    // if (variant.tier - 1) {
+    //   previousInfo = [...sorted[variant.tier - 2].newInfo, ...sorted[variant.tier - 2].modifiedInfo]
+    // }
 
     Object.assign(variant, { newInfo, modifiedInfo })
     // Object.assign(diffInfo, { newInfo, modifiedInfo })
-    diffInfos.push({ newInfo, modifiedInfo, previousInfo, tier: variant.tier })
+    diffInfos.push({ newInfo, modifiedInfo, tier: variant.tier })
   }
 
   return { character: { ...characterEntry, variants: sorted }, diffInfos }

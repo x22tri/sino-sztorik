@@ -5,10 +5,27 @@ import { Subheading } from '../../../learn/headings/Subheading'
 import { useState } from 'react'
 import ToolbarButton from '../../../shared/components/ToolbarButton'
 import { AdminTextField } from '../AdminTextField'
+import { useLoaderData, useSearchParams } from 'react-router-dom'
+import { DiffedCharacterEntry, DiffedCharacterEntryVariant, DiffInfoTier } from '../../../shared/logic/loadAdminChar'
 
 export function CharacterSection() {
   const { palette } = useTheme()
   const [isProductivePinyin, toggleProductivePinyin] = useState(false)
+  const { character, diffInfos } = useLoaderData() as { character: DiffedCharacterEntry; diffInfos: DiffInfoTier[] }
+  const [searchParams, setSearchParams] = useSearchParams()
+  const activeTier = Number(searchParams.get('tier'))
+
+  const variant = character.variants[activeTier - 1]
+
+  function getDiffedChar(tierToStopAt: number) {}
+
+  function getDiffedStatuses(tierToStopAt: number) {
+    const x = character.variants.slice(0, tierToStopAt)
+
+    return x
+  }
+
+  console.log(getDiffedStatuses(activeTier))
 
   return (
     <Box display='flex' flexDirection='column' gap={3}>
@@ -17,6 +34,8 @@ export function CharacterSection() {
 
       <AdminTextField
         color='secondary'
+        // disabled
+        defaultValue={variant.primitive}
         InputProps={{
           startAdornment: (
             <InputAdornment position='start'>
