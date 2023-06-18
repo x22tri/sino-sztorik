@@ -7,6 +7,7 @@ import { PreviewCharacterVariant } from './preview-character-variant/PreviewChar
 import { AddCharacterVariant } from './add-character-variant/AddCharacterVariant'
 import { CharEditForm } from '../char-edit-form/CharEditForm'
 import { CharacterEntry } from '../../shared/MOCK_DATABASE_ENTRIES'
+import { LocationInLesson } from './LocationInLesson'
 
 export type X = Omit<DiffedCharacterEntryVariant, 'index' | 'tier' | 'newInfo' | 'modifiedInfo'>
 
@@ -37,7 +38,7 @@ export default function AdminContent() {
   }
 
   function isNotPresentInTier(object: object) {
-    return !object || Object.keys(object).length === 0 // "newInfo" and "modifiedInfo"
+    return !object || Object.keys(object).length === 0
   }
 
   return (
@@ -70,6 +71,8 @@ export default function AdminContent() {
             </If>
 
             <StepContent>
+              <LocationInLesson tier={tier} lessonNumber={character.lessonNumber} index={character.variants[tier - 1]?.index} />
+
               <CharEditForm />
             </StepContent>
           </Step>

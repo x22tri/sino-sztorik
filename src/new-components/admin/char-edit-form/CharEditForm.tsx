@@ -2,7 +2,6 @@ import { Box, Button } from '@mui/material'
 import { FormContainer } from 'react-hook-form-mui'
 import { ADMIN_CANCEL_SAVE, ADMIN_SAVE_CHANGES } from '../../shared/strings'
 import { mergePreviousTiers } from '../admin-content/AdminContent'
-import { LocationInLesson } from '../admin-content/LocationInLesson'
 import { CharacterSection } from '../admin-content/sections/CharacterSection'
 import { useLoaderData, useSearchParams } from 'react-router-dom'
 import { DiffedCharacterEntry } from '../../shared/logic/loadAdminChar'
@@ -21,12 +20,6 @@ export function CharEditForm() {
 
   return (
     <>
-      <LocationInLesson
-        tier={activeTier}
-        lessonNumber={character.lessonNumber}
-        index={character.variants[activeTier - 1]?.index ?? 0}
-      />
-
       <FormContainer defaultValues={mergePreviousTiers(character, activeTier)} onSuccess={(data: any) => console.log(data)}>
         <CharacterSection />
 

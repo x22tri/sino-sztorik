@@ -36,7 +36,7 @@ export function loadAdminChar() {
 
   const hashMap: Partial<Record<keyof CharacterEntryVariant, number>> = {}
 
-  for (const [index, variant] of sorted.entries()) {
+  for (const variant of sorted) {
     const newInfo: any[] = []
     const modifiedInfo: any[] = []
 
@@ -53,13 +53,7 @@ export function loadAdminChar() {
       }
     })
 
-    // let previousInfo: (keyof CharacterEntryVariant)[] = []
-    // if (variant.tier - 1) {
-    //   previousInfo = [...sorted[variant.tier - 2].newInfo, ...sorted[variant.tier - 2].modifiedInfo]
-    // }
-
     // Object.assign(variant, { newInfo, modifiedInfo })
-    // Object.assign(diffInfo, { newInfo, modifiedInfo })
     diffInfos.push({ newInfo, modifiedInfo, tier: variant.tier })
   }
 
