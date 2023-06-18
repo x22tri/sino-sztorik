@@ -1,16 +1,12 @@
-import { faCube, faVolumeHigh, faVolumeXmark } from '@fortawesome/free-solid-svg-icons'
+import { faCube } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Box, InputAdornment, Tooltip, useTheme } from '@mui/material'
+import { Box, InputAdornment, useTheme } from '@mui/material'
 import { Subheading } from '../../../learn/headings/Subheading'
-import { useState } from 'react'
-import ToolbarButton from '../../../shared/components/ToolbarButton'
 import { AdminTextField } from '../AdminTextField'
-import { CheckboxElement } from 'react-hook-form-mui'
 import { ProductivePinyinCheckbox } from '../preview-character-variant/ProductivePinyinCheckbox'
 
 export function CharacterSection() {
   const { palette } = useTheme()
-  const [isProductivePinyin, toggleProductivePinyin] = useState(false)
 
   return (
     <Box display='flex' flexDirection='column' gap={3}>
@@ -34,20 +30,6 @@ export function CharacterSection() {
 
       <Box alignItems='center' display='flex' flexDirection='row' gap={2}>
         <AdminTextField
-          // InputProps={{
-          //   endAdornment: (
-          //     <InputAdornment position='end'>
-          //       <ToolbarButton
-          //         color={isProductivePinyin ? 'primary' : 'inherit'}
-          //         icon={faVolumeHigh}
-          //         onClick={() => toggleProductivePinyin(prev => !prev)}
-          //         size='small'
-          //         tooltip='Produktív fonetikai elem?'
-          //         sx={{ opacity: isProductivePinyin ? 1 : 0.3 }}
-          //       ></ToolbarButton>
-          //     </InputAdornment>
-          //   ),
-          // }}
           label='Kiejtés'
           name='pinyin'
           sx={{ '.MuiInputBase-input': { textAlign: 'center', typography: 'pinyin' } }}

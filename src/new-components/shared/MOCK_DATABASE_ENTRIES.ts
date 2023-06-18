@@ -59,7 +59,6 @@ export const CHAR_ENTRY: CharacterEntry = {
     {
       index: 8,
       primitive: 'napraforgó',
-      frequency: 465,
       story: [
         [
           `Egy `,

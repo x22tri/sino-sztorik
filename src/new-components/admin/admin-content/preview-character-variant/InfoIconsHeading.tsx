@@ -8,9 +8,9 @@ export function InfoIconsHeading({ icon, label }: { icon: IconDefinition; label:
 
   return (
     <Chip
-      icon={<FontAwesomeIcon {...{ icon }} size='sm' />}
+      icon={isSmallScreen ? <FontAwesomeIcon {...{ icon }} size='sm' /> : undefined}
       label={isSmallScreen ? undefined : label}
-      sx={{ bgcolor: 'inherit', cursor: 'inherit', '.MuiChip-label': { pr: 0 } }}
+      sx={{ bgcolor: 'inherit', cursor: 'inherit', '.MuiChip-label': { pl: 0, pr: isSmallScreen ? undefined : 0 } }}
     />
   )
 }
