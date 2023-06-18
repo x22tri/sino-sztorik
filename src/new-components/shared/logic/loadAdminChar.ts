@@ -30,7 +30,7 @@ export function loadAdminChar() {
 
   const sorted = new Array(1, 2, 3, 4).map(
     tier => characterEntry.variants.find(variant => variant.tier === tier) ?? {}
-  ) as DiffedCharacterEntryVariant[]
+  ) as CharacterEntryVariant[]
 
   const diffInfos: DiffInfoTier[] = []
 
@@ -58,10 +58,10 @@ export function loadAdminChar() {
     //   previousInfo = [...sorted[variant.tier - 2].newInfo, ...sorted[variant.tier - 2].modifiedInfo]
     // }
 
-    Object.assign(variant, { newInfo, modifiedInfo })
+    // Object.assign(variant, { newInfo, modifiedInfo })
     // Object.assign(diffInfo, { newInfo, modifiedInfo })
     diffInfos.push({ newInfo, modifiedInfo, tier: variant.tier })
   }
 
-  return { character: characterEntry, diffInfos }
+  return { character: { ...characterEntry, variants: sorted }, diffInfos }
 }
