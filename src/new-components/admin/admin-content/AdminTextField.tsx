@@ -17,15 +17,14 @@ if previous info: disable text field and make BG white, add pen endAdornment tha
 */
 
 export function AdminTextField({ label, name, ...restProps }: TextFieldProps & { name: keyof X }) {
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [editedField, setEditedField] = useState<keyof X | null>(null)
   const { palette } = useTheme()
   const { prevTiers } = useStore('adminChar')
   const { getValues } = useFormContext()
-  const [editedField, setEditedField] = useState<keyof X | null>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
-  const { setFocus } = useForm()
 
-  const isFieldNew = (prevTiers?.[name] ?? '') !== getValues(name) && !prevTiers?.[name]
-  const isFieldChanged = (prevTiers?.[name] ?? '') !== getValues(name) && !!prevTiers?.[name]
+  const isFieldNew = !prevTiers?.[name] && getValues(name) && (prevTiers?.[name] ?? '') !== getValues(name)
+  const isFieldChanged = !!prevTiers?.[name] && (prevTiers?.[name] ?? '') !== getValues(name)
   const isFieldDisabled = !isFieldNew && !isFieldChanged && !!prevTiers?.[name] && editedField !== name
 
   const bgcolor = isFieldNew
@@ -41,15 +40,15 @@ export function AdminTextField({ label, name, ...restProps }: TextFieldProps & {
     : undefined
 
   useEffect(() => {
-    if (!isFieldDisabled) {
+    if (editedField && !isFieldDisabled) {
       inputRef?.current?.focus()
     }
-  }, [isFieldDisabled])
+  }, [editedField, isFieldDisabled])
 
   return (
     <Controller
       {...{ name }}
-      render={({ field: { value, onChange, onBlur, ref } }) => (
+      render={({ field: { value, onChange } }) => (
         <TextField
           disabled={isFieldDisabled}
           fullWidth
@@ -60,14 +59,7 @@ export function AdminTextField({ label, name, ...restProps }: TextFieldProps & {
                 <InputAdornment position='end'>
                   <ToolbarButton
                     icon={faPen}
-                    onClick={() => {
-                      setEditedField(name)
-                      // if (editedField) {
-                      //   setFocus(name)
-                      //   console.log(inputRef.current)
-                      //   inputRef.current?.focus()
-                      // }
-                    }}
+                    onClick={() => setEditedField(name)}
                     size='small'
                     tooltip='Szerkesztés'
                   ></ToolbarButton>
