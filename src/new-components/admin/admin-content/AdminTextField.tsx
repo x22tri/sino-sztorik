@@ -24,8 +24,8 @@ export function AdminTextField({ label, name, ...restProps }: TextFieldProps & {
   const inputRef = useRef<HTMLInputElement>(null)
   const { setFocus } = useForm()
 
-  const isFieldNew = prevTiers?.[name] !== getValues(name) && !prevTiers?.[name]
-  const isFieldChanged = prevTiers?.[name] !== getValues(name) && !!prevTiers?.[name]
+  const isFieldNew = (prevTiers?.[name] ?? '') !== getValues(name) && !prevTiers?.[name]
+  const isFieldChanged = (prevTiers?.[name] ?? '') !== getValues(name) && !!prevTiers?.[name]
   const isFieldDisabled = !isFieldNew && !isFieldChanged && !!prevTiers?.[name] && editedField !== name
 
   const bgcolor = isFieldNew
@@ -40,9 +40,15 @@ export function AdminTextField({ label, name, ...restProps }: TextFieldProps & {
     ? lighten(palette.warning.main, 0.7)
     : undefined
 
+  useEffect(() => {
+    if (!isFieldDisabled) {
+      inputRef?.current?.focus()
+    }
+  }, [isFieldDisabled])
+
   return (
     <Controller
-      name={name}
+      {...{ name }}
       render={({ field: { value, onChange, onBlur, ref } }) => (
         <TextField
           disabled={isFieldDisabled}
@@ -56,9 +62,11 @@ export function AdminTextField({ label, name, ...restProps }: TextFieldProps & {
                     icon={faPen}
                     onClick={() => {
                       setEditedField(name)
-                      setFocus(name)
-                      console.log(inputRef.current)
-                      inputRef.current?.focus()
+                      // if (editedField) {
+                      //   setFocus(name)
+                      //   console.log(inputRef.current)
+                      //   inputRef.current?.focus()
+                      // }
                     }}
                     size='small'
                     tooltip='Szerkesztés'
@@ -69,9 +77,9 @@ export function AdminTextField({ label, name, ...restProps }: TextFieldProps & {
           }}
           InputLabelProps={{ shrink: true }}
           onBlur={() => setEditedField(null)}
+          onChange={event => onChange(name === 'frequency' && event.target.value ? +event.target.value : event.target.value)}
           onClick={() => setEditedField(name)}
           inputRef={inputRef}
-          onChange={event => onChange(event.target.value)}
           size='small'
           variant='filled'
           {...restProps}
