@@ -5,7 +5,7 @@ import {
   faChartColumn,
   faCommentDots,
   faCube,
-  faCubesStacked,
+  faCubes,
   faKey,
   faPen,
   faPlus,
@@ -60,7 +60,7 @@ function InfoIcons({
     ),
     pinyin: <InfoInLessonChip icon={faVolumeLow} tooltip='Kiejtés' />,
     frequency: <InfoInLessonChip icon={faChartColumn} tooltip='Gyakoriság' />,
-    constituents: <InfoInLessonChip icon={faCubesStacked} tooltip='Összetétel' />,
+    constituents: <InfoInLessonChip icon={faCubes} tooltip='Összetétel' />,
     story: <InfoInLessonChip icon={faBookOpen} tooltip='Történet' />,
     otherUses: <InfoInLessonChip icon={faCommentDots} tooltip='Egyéb jelentések' />,
   }

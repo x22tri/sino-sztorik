@@ -12,7 +12,7 @@ export function CharacterSection() {
 
   return (
     <Box display='flex' flexDirection='column' gap={3}>
-      <Subheading title='Karakter' />
+      <Subheading title='Karakter' styles={{ mt: 0 }} />
       <AdminTextField label='Kulcsszó' name='keyword' sx={{ '.MuiInputBase-input': { fontWeight: 'bold' } }} />
 
       <AdminTextField

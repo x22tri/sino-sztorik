@@ -1,9 +1,8 @@
 import { Box, Button } from '@mui/material'
 import { FormContainer } from 'react-hook-form-mui'
-import { Subheading } from '../../learn/headings/Subheading'
 import { ADMIN_CANCEL_SAVE, ADMIN_SAVE_CHANGES } from '../../shared/strings'
 import { mergePreviousTiers } from '../admin-content/AdminContent'
-import { LocationInLessonPreview } from '../admin-content/LocationInLessonPreview'
+import { LocationInLesson } from '../admin-content/LocationInLesson'
 import { CharacterSection } from '../admin-content/sections/CharacterSection'
 import { useLoaderData, useSearchParams } from 'react-router-dom'
 import { DiffedCharacterEntry } from '../../shared/logic/loadAdminChar'
@@ -21,22 +20,23 @@ export function CharEditForm() {
   }, [activeTier])
 
   return (
-    <FormContainer defaultValues={mergePreviousTiers(character, activeTier)} onSuccess={(data: any) => console.log(data)}>
-      <CharacterSection />
-
-      <Subheading title='Leckében elfoglalt hely' />
-
-      <LocationInLessonPreview
-        lessonPreview={[{ charChinese: '世', index: 10 }, { charChinese: '早', index: 11 }, null]}
-        onClick={() => {}}
+    <>
+      <LocationInLesson
+        tier={activeTier}
+        lessonNumber={character.lessonNumber}
+        index={character.variants[activeTier - 1]?.index ?? 0}
       />
 
-      <Box alignItems='center' display='flex' gap={2} justifyContent='flex-end'>
-        <Button variant='text'>{ADMIN_CANCEL_SAVE}</Button>
-        <Button type='submit' variant='contained'>
-          {ADMIN_SAVE_CHANGES}
-        </Button>
-      </Box>
-    </FormContainer>
+      <FormContainer defaultValues={mergePreviousTiers(character, activeTier)} onSuccess={(data: any) => console.log(data)}>
+        <CharacterSection />
+
+        <Box alignItems='center' display='flex' gap={2} justifyContent='flex-end'>
+          <Button variant='text'>{ADMIN_CANCEL_SAVE}</Button>
+          <Button type='submit' variant='contained'>
+            {ADMIN_SAVE_CHANGES}
+          </Button>
+        </Box>
+      </FormContainer>
+    </>
   )
 }
