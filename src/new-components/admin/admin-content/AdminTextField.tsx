@@ -1,10 +1,10 @@
 import { InputAdornment, TextField, TextFieldProps, lighten, useTheme } from '@mui/material'
-import { Controller, useFormContext } from 'react-hook-form-mui'
+import { Controller, useForm, useFormContext } from 'react-hook-form-mui'
 import { X } from './AdminContent'
 import { useStore } from '../../shared/logic/useStore'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 import ToolbarButton from '../../shared/components/ToolbarButton'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Unless, When } from 'react-if'
 
 /*
@@ -21,7 +21,8 @@ export function AdminTextField({ label, name, ...restProps }: TextFieldProps & {
   const { prevTiers } = useStore('adminChar')
   const { getValues } = useFormContext()
   const [editedField, setEditedField] = useState<keyof X | null>(null)
-  const inputRef = useRef<HTMLInputElement>()
+  const inputRef = useRef<HTMLInputElement>(null)
+  const { setFocus } = useForm()
 
   const isFieldNew = prevTiers?.[name] !== getValues(name) && !prevTiers?.[name]
   const isFieldChanged = prevTiers?.[name] !== getValues(name) && !!prevTiers?.[name]
@@ -39,12 +40,10 @@ export function AdminTextField({ label, name, ...restProps }: TextFieldProps & {
     ? lighten(palette.warning.main, 0.7)
     : undefined
 
-  function checkIfFieldChanged() {}
-
   return (
     <Controller
       name={name}
-      render={({ field: { value, onChange, onBlur, ref }, fieldState: { error } }) => (
+      render={({ field: { value, onChange, onBlur, ref } }) => (
         <TextField
           disabled={isFieldDisabled}
           fullWidth
@@ -57,6 +56,8 @@ export function AdminTextField({ label, name, ...restProps }: TextFieldProps & {
                     icon={faPen}
                     onClick={() => {
                       setEditedField(name)
+                      setFocus(name)
+                      console.log(inputRef.current)
                       inputRef.current?.focus()
                     }}
                     size='small'
@@ -67,14 +68,14 @@ export function AdminTextField({ label, name, ...restProps }: TextFieldProps & {
             ),
           }}
           InputLabelProps={{ shrink: true }}
-          onBlur={() => {
-            setEditedField(null)
-          }}
+          onBlur={() => setEditedField(null)}
+          onClick={() => setEditedField(name)}
+          inputRef={inputRef}
+          onChange={event => onChange(event.target.value)}
           size='small'
           variant='filled'
           {...restProps}
-          {...{ inputRef, label, name, value }}
-          onChange={event => onChange(event.target.value)}
+          {...{ label, name, value }}
           sx={{ flexShrink: 1, '.MuiFilledInput-root': { bgcolor, ':hover': { bgcolor: hoverBgColor } }, ...restProps.sx }}
         />
       )}
