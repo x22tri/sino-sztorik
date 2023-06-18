@@ -5,36 +5,26 @@ import { DragDropContext, Draggable } from 'react-beautiful-dnd'
 import { StrictModeDroppable } from './StrictModeDroppable'
 import { Box } from '@mui/material'
 
-// const initial = Array.from({ length: 10 }, (v, k) => k).map(k => {
-//   const custom: any = {
-//     id: `id-${k}`,
-//     content: `Quote ${k}`,
-//   }
+type RecipeStep = { id: string; content: string }
 
-//   return custom
-// })
-
-type Item = { id: string; content: string }
-
-const initial: Item[] = [
+const initial: RecipeStep[] = [
   { id: 'id-1', content: '' },
   { id: 'id-2', content: 'korai' },
   { id: 'id-3', content: 'napraforgó' },
   { id: 'id-4', content: '(Emlékeztető)' },
 ]
 
-const grid = 8
-const reorder = (list: any, startIndex: number, endIndex: number) => {
+const reorder = (list: RecipeStep[], startIndex: number, endIndex: number) => {
   const result = Array.from(list)
   const [removed] = result.splice(startIndex, 1)
   result.splice(endIndex, 0, removed)
 
-  return result as Item[]
+  return result
 }
 
-function Quote({ quote, index }: { quote: any; index: number }) {
+function Step({ step, index }: { step: RecipeStep; index: number }) {
   return (
-    <Draggable draggableId={quote.id} index={index}>
+    <Draggable draggableId={step.id} index={index}>
       {({ draggableProps, dragHandleProps, innerRef }) => (
         <Box
           bgcolor='primary.main'
@@ -44,22 +34,27 @@ function Quote({ quote, index }: { quote: any; index: number }) {
           ref={innerRef}
           p={2}
           textAlign='center'
+          width={1}
           {...draggableProps}
           {...dragHandleProps}
         >
-          {quote.content}
+          {step.content}
         </Box>
       )}
     </Draggable>
   )
 }
 
-const QuoteList = memo(({ quotes }: { quotes: any }) =>
-  quotes.map((quote: Item, index: number) => <Quote quote={quote} index={index} key={quote.id} />)
-)
+const StepList = memo(({ steps }: { steps: RecipeStep[] }) => (
+  <>
+    {steps.map((step: RecipeStep, index: number) => (
+      <Step key={step.id} {...{ index, step }} />
+    ))}
+  </>
+))
 
 export function TimelineDragAndDrop() {
-  const [state, setState] = useState({ quotes: initial })
+  const [state, setState] = useState({ steps: initial })
 
   function onDragEnd(result: any) {
     if (!result.destination) {
@@ -70,9 +65,9 @@ export function TimelineDragAndDrop() {
       return
     }
 
-    const quotes = reorder(state.quotes, result.source.index, result.destination.index)
+    const steps = reorder(state.steps, result.source.index, result.destination.index)
 
-    setState({ quotes })
+    setState({ steps })
   }
 
   return (
@@ -80,7 +75,7 @@ export function TimelineDragAndDrop() {
       <StrictModeDroppable droppableId='list'>
         {provided => (
           <div ref={provided.innerRef} {...provided.droppableProps}>
-            <QuoteList quotes={state.quotes} />
+            <StepList steps={state.steps} />
             {provided.placeholder}
           </div>
         )}
