@@ -19,12 +19,25 @@ export function AdminTextField({ label, name, ...restProps }: TextFieldProps & {
   const { prevTiers } = useStore('adminChar')
   const { getValues } = useFormContext()
 
-  const isInfoUnchanged = prevTiers?.[name] === getValues(name)
-  const isFieldEnabled = isInfoUnchanged && !!prevTiers?.[name]
+  const isFieldNew = prevTiers?.[name] !== getValues(name) && !prevTiers?.[name]
+  const isFieldChanged = prevTiers?.[name] !== getValues(name) && !!prevTiers?.[name]
+  const isFieldDisabled = !isFieldNew && !isFieldChanged && !!prevTiers?.[name]
+
+  const bgcolor = isFieldNew
+    ? lighten(palette.success.main, 0.8)
+    : isFieldChanged
+    ? lighten(palette.warning.main, 0.8)
+    : undefined
+
+  const hoverBgColor = isFieldNew
+    ? lighten(palette.success.main, 0.7)
+    : isFieldChanged
+    ? lighten(palette.warning.main, 0.7)
+    : undefined
 
   return (
     <TextFieldElement
-      disabled={isFieldEnabled}
+      disabled={isFieldDisabled}
       fullWidth
       id={name}
       InputLabelProps={{ shrink: true }}
@@ -32,15 +45,9 @@ export function AdminTextField({ label, name, ...restProps }: TextFieldProps & {
       variant='filled'
       {...restProps}
       {...{ label, name }}
-      sx={{
-        '.MuiFilledInput-root': {
-          bgcolor: isInfoUnchanged ? undefined : lighten(palette.warning.main, 0.8),
-          ':hover': { bgcolor: isInfoUnchanged ? undefined : lighten(palette.warning.main, 0.7) },
-        },
-        ...restProps.sx,
-      }}
+      sx={{ '.MuiFilledInput-root': { bgcolor, ':hover': { bgcolor: hoverBgColor } }, ...restProps.sx }}
       // validation={}
-      // onBlur={e => console.log(e)}
+      onBlur={e => console.log(e)}
     />
   )
 }
