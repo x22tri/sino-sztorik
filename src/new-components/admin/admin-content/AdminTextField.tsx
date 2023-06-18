@@ -45,7 +45,7 @@ export function AdminTextField({ label, name, ...restProps }: TextFieldProps & {
       variant='filled'
       {...restProps}
       {...{ label, name }}
-      sx={{ '.MuiFilledInput-root': { bgcolor, ':hover': { bgcolor: hoverBgColor } }, ...restProps.sx }}
+      sx={{ flexShrink: 1, '.MuiFilledInput-root': { bgcolor, ':hover': { bgcolor: hoverBgColor } }, ...restProps.sx }}
       // validation={}
       onBlur={e => console.log(e)}
     />
