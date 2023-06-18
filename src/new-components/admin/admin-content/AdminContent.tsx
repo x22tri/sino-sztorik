@@ -8,6 +8,7 @@ import { AddCharacterVariant } from './add-character-variant/AddCharacterVariant
 import { CharEditForm } from '../char-edit-form/CharEditForm'
 import { CharacterEntry } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { LocationInLesson } from './LocationInLesson'
+import { TimelineDragAndDrop } from '../timeline-drag-and-drop/TimelineDragAndDrop'
 
 export type X = Omit<DiffedCharacterEntryVariant, 'index' | 'tier' | 'newInfo' | 'modifiedInfo'>
 
@@ -53,7 +54,9 @@ export default function AdminContent() {
     >
       <Heading title='Idővonal' />
 
-      <Stepper nonLinear orientation='vertical' activeStep={activeTier - 1 ?? -1}>
+      <TimelineDragAndDrop />
+
+      {/* <Stepper nonLinear orientation='vertical' activeStep={activeTier - 1 ?? -1}>
         {[1, 2, 3, 4].map((tier, index) => (
           <Step key={tier}>
             <If condition={!isNotPresentInTier(character.variants[index])}>
@@ -77,7 +80,7 @@ export default function AdminContent() {
             </StepContent>
           </Step>
         ))}
-      </Stepper>
+      </Stepper> */}
     </Stack>
   )
 }
