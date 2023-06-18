@@ -18,15 +18,7 @@ import { InfoIconsHeading } from './InfoIconsHeading'
 import { CharacterEntryVariant } from '../../../shared/MOCK_DATABASE_ENTRIES'
 import { Fragment } from 'react'
 
-export function NewInfoIcons({ variant }: { variant: DiffedCharacterEntryVariant }) {
-  return <InfoIcons headingIcon={faPlus} headingTitle='Hozzáadva:' infoArray='newInfo' {...{ variant }} />
-}
-
-export function ModifiedInfoIcons({ variant }: { variant: DiffedCharacterEntryVariant }) {
-  return <InfoIcons headingIcon={faPen} headingTitle='Módosítva:' infoArray='modifiedInfo' {...{ variant }} />
-}
-
-function InfoIcons({
+export function InfoIcons({
   headingIcon,
   headingTitle,
   infoArray,
@@ -34,12 +26,12 @@ function InfoIcons({
 }: {
   headingIcon: IconDefinition
   headingTitle: string
-  infoArray: keyof DiffInfo
-  variant: DiffedCharacterEntryVariant
+  infoArray: (keyof CharacterEntryVariant)[]
+  variant: CharacterEntryVariant
 }) {
   const { palette } = useTheme()
 
-  const keyIconDictionary: Partial<Record<keyof DiffedCharacterEntryVariant, JSX.Element>> = {
+  const keyIconDictionary: Partial<Record<keyof CharacterEntryVariant, JSX.Element>> = {
     keyword: (
       <FeaturedInfoInLessonChip
         bgcolor={palette.primary[100]!}
@@ -70,7 +62,7 @@ function InfoIcons({
       <InfoIconsHeading icon={headingIcon} label={headingTitle} />
 
       {Object.entries(keyIconDictionary).map(([key, value]) =>
-        variant[infoArray].includes(key as keyof CharacterEntryVariant) ? <Fragment {...{ key }}>{value}</Fragment> : false
+        infoArray.includes(key as keyof CharacterEntryVariant) ? <Fragment {...{ key }}>{value}</Fragment> : false
       )}
     </Stack>
   )

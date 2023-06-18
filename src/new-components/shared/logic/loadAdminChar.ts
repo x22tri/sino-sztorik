@@ -63,5 +63,5 @@ export function loadAdminChar() {
     diffInfos.push({ newInfo, modifiedInfo, tier: variant.tier })
   }
 
-  return { character: { ...characterEntry, variants: sorted }, diffInfos }
+  return { character: characterEntry, diffInfos }
 }

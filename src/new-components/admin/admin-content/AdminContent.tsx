@@ -1,17 +1,12 @@
-import { Box, Button, Stack, Step, StepContent, Stepper, useTheme } from '@mui/material'
+import { Stack, Step, StepContent, Stepper, useTheme } from '@mui/material'
 import { useFetcher, useLoaderData, useSearchParams } from 'react-router-dom'
 import { Heading } from '../../learn/headings/Heading'
-import { CharacterSection } from './sections/CharacterSection'
-import { CHAR_ENTRY } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { Else, If, Then } from 'react-if'
-import { LocationInLessonPreview } from './LocationInLesson'
-import { Subheading } from '../../learn/headings/Subheading'
 import { DiffInfoTier, DiffedCharacterEntry, DiffedCharacterEntryVariant } from '../../shared/logic/loadAdminChar'
 import { PreviewCharacterVariant } from './preview-character-variant/PreviewCharacterVariant'
 import { AddCharacterVariant } from './add-character-variant/AddCharacterVariant'
-import { ADMIN_CANCEL_SAVE, ADMIN_SAVE_CHANGES } from '../../shared/strings'
-import { FormContainer, useForm } from 'react-hook-form-mui'
 import { CharEditForm } from '../char-edit-form/CharEditForm'
+import { CharacterEntry } from '../../shared/MOCK_DATABASE_ENTRIES'
 
 export type X = Omit<DiffedCharacterEntryVariant, 'index' | 'tier' | 'newInfo' | 'modifiedInfo'>
 
@@ -20,9 +15,8 @@ export function mergePreviousTiers(charEntry: DiffedCharacterEntry, tierToStopAt
 }
 
 export default function AdminContent() {
-  const fetcher = useFetcher()
   const { constants } = useTheme()
-  const { character, diffInfos } = useLoaderData() as { character: DiffedCharacterEntry; diffInfos: DiffInfoTier[] }
+  const { character, diffInfos } = useLoaderData() as { character: CharacterEntry; diffInfos: DiffInfoTier[] }
   const [searchParams, setSearchParams] = useSearchParams()
   const activeTier = Number(searchParams.get('tier'))
 
@@ -43,7 +37,7 @@ export default function AdminContent() {
   }
 
   function isNotPresentInTier(object: object) {
-    return Object.keys(object).length === 2 // "newInfo" and "modifiedInfo"
+    return !object || Object.keys(object).length === 0 // "newInfo" and "modifiedInfo"
   }
 
   return (
@@ -67,6 +61,7 @@ export default function AdminContent() {
                   isActive={tier === activeTier}
                   variant={character.variants[index]}
                   onClick={() => changeTier(tier)}
+                  diffInfo={diffInfos[index]}
                 />
               </Then>
               <Else>
