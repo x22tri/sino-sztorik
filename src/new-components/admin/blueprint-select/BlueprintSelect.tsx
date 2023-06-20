@@ -2,29 +2,27 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
-import { ReactNode, useState } from 'react'
-import { Typography, useTheme } from '@mui/material'
+import { Dispatch, ReactNode, SetStateAction, useState } from 'react'
+import { Box, List, ListItemButton, ListItemIcon, ListItemText, Menu, MenuList, Typography, useTheme } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle } from '@fortawesome/free-solid-svg-icons'
-
-export enum Blueprint {
-  KeywordOnly = 'KeywordOnly',
-  PrimitiveOnly = 'PrimitiveOnly',
-  KeywordAndPrimitive = 'KeywordAndPrimitive',
-  DelayedKeyword = 'DelayedKeyword',
-  DelayedPrimitive = 'DelayedPrimitive',
-  KeywordWithDelayedExposition = 'KeywordWithDelayedExposition',
-}
+import { Blueprint } from '../Blueprint'
+import { Subheading } from '../../learn/headings/Subheading'
 
 const iconWidth = '12px'
 const iconWidthSmall = '8px'
 
-export function BlueprintSelect() {
+export function BlueprintSelect({
+  blueprint,
+  setBlueprint,
+}: {
+  blueprint: Blueprint
+  setBlueprint: Dispatch<SetStateAction<Blueprint>>
+}) {
   const { palette } = useTheme()
-  const [blueprint, setBlueprint] = useState(Blueprint.KeywordOnly)
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setBlueprint(event.target.value as Blueprint)
+  const handleChange = (value: Blueprint) => {
+    setBlueprint(value)
   }
 
   const blueprintStrings: Record<Blueprint, { string: string; icon: ReactNode }> = {
@@ -43,7 +41,7 @@ export function BlueprintSelect() {
           <FontAwesomeIcon
             icon={faCircle}
             rotation={270}
-            style={{ clip: 'rect(0px, 14px, 8px, 0px)', color: palette.primary.main, width: iconWidth }}
+            style={{ clip: 'rect(0px, 14px, 9px, 0px)', color: palette.primary.main, width: iconWidth }}
           />
           <FontAwesomeIcon
             icon={faCircle}
@@ -83,7 +81,7 @@ export function BlueprintSelect() {
         <span className='fa-fw' style={{ width: iconWidth }}>
           <FontAwesomeIcon
             icon={faCircle}
-            style={{ color: palette.primary.light, marginLeft: '-3px', marginRight: '1px', width: iconWidthSmall }}
+            style={{ color: palette.primary[200], marginLeft: '-3px', marginRight: '1px', width: iconWidthSmall }}
           />
           <FontAwesomeIcon icon={faCircle} style={{ color: palette.primary.main, width: iconWidthSmall }} />
         </span>
@@ -92,18 +90,45 @@ export function BlueprintSelect() {
   }
 
   return (
-    <FormControl variant='filled' sx={{ mb: 6, minWidth: 120 }}>
-      <InputLabel shrink>Séma</InputLabel>
-      <Select displayEmpty value={blueprint} onChange={handleChange}>
+    <Box display='flex' flexDirection='column' width={{ xs: 1, md: 0.7 }}>
+      <Subheading title='Sémák' />
+      {/* <FormControl variant='filled'>
+
+        <InputLabel shrink>Séma</InputLabel>
+
+        <Select
+          displayEmpty
+          value={blueprint}
+          onChange={handleChange}
+          MenuProps={{ sx: { '.MuiPaper-root': { borderTopLeftRadius: 0, borderTopRightRadius: 0 } } }}
+        >
+          {Object.entries(blueprintStrings).map(([value, { icon, string }]) => (
+            <MenuItem key={value} {...{ value }}>
+              {icon}
+              <Typography display='inline-flex' marginLeft={1}>
+                {string}
+              </Typography>
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
+      <Typography variant='body2'>Magyarázat</Typography> */}
+      <List>
         {Object.entries(blueprintStrings).map(([value, { icon, string }]) => (
-          <MenuItem key={value} {...{ value }}>
-            {icon}
-            <Typography display='inline-flex' marginLeft={1}>
-              {string}
-            </Typography>
-          </MenuItem>
+          <ListItemButton
+            key={value}
+            onClick={() => handleChange(value as Blueprint)}
+            selected={blueprint === value}
+            {...{ value }}
+            sx={{ borderRadius: ({ spacing }) => spacing(6) }}
+          >
+            <ListItemIcon sx={{ display: 'inline-block' }}>{icon}</ListItemIcon>
+
+            <ListItemText primary={string} />
+          </ListItemButton>
         ))}
-      </Select>
-    </FormControl>
+      </List>
+    </Box>
   )
 }

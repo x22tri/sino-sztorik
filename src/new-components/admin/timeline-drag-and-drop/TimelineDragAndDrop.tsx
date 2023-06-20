@@ -6,6 +6,7 @@ import { StrictModeDroppable } from './StrictModeDroppable'
 import { Box, IconButton, Stack, Typography } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook, faBookOpen } from '@fortawesome/free-solid-svg-icons'
+import { Subheading } from '../../learn/headings/Subheading'
 
 type RecipeStep = { id: string; content: string }
 
@@ -31,7 +32,7 @@ function Step({ id, content, index }: { id: string; content: string; index: numb
         <Box
           alignItems='center'
           bgcolor='primary.main'
-          borderRadius={({ spacing }) => spacing(6)}
+          borderRadius={({ spacing }) => spacing(1)}
           // boxSizing='content-box'
           display='flex'
           mb={1}
@@ -81,24 +82,28 @@ export function TimelineDragAndDrop() {
   }
 
   return (
-    <Box display='flex'>
-      <Stack>
-        {[1, 2, 3, 4].map(tier => (
-          <Box alignItems='center' display='flex' key={tier} mb={1} minHeight='72px' p={2}>
-            {tier}
-          </Box>
-        ))}
-      </Stack>
-      <DragDropContext {...{ onDragEnd }}>
-        <StrictModeDroppable droppableId='list'>
-          {({ droppableProps, innerRef, placeholder }) => (
-            <Box ref={innerRef} width={1} {...droppableProps}>
-              <StepList steps={state.steps} />
-              {placeholder}
+    <Box width={1}>
+      <Subheading title='Sorrend' />
+
+      <Box display='flex' marginTop={3} width={1}>
+        <Stack>
+          {[1, 2, 3, 4].map(tier => (
+            <Box alignItems='center' display='flex' key={tier} mb={1} minHeight='72px' p={2}>
+              {tier}
             </Box>
-          )}
-        </StrictModeDroppable>
-      </DragDropContext>
+          ))}
+        </Stack>
+        <DragDropContext {...{ onDragEnd }}>
+          <StrictModeDroppable droppableId='list'>
+            {({ droppableProps, innerRef, placeholder }) => (
+              <Box ref={innerRef} width={1} {...droppableProps}>
+                <StepList steps={state.steps} />
+                {placeholder}
+              </Box>
+            )}
+          </StrictModeDroppable>
+        </DragDropContext>
+      </Box>
     </Box>
   )
 }

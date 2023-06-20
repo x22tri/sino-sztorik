@@ -1,4 +1,7 @@
+import { Blueprint } from '../admin/Blueprint'
+
 export interface CharacterEntry {
+  blueprint: Blueprint
   charChinese: string
   lessonNumber: number
   phrases?: number[]
@@ -19,6 +22,7 @@ export interface CharacterEntryVariant {
 }
 
 export const CHAR_ENTRY: CharacterEntry = {
+  blueprint: Blueprint.DelayedPrimitive,
   charChinese: '早',
   lessonNumber: 2,
   phrases: [1, 2], // An array of phrase ID's.

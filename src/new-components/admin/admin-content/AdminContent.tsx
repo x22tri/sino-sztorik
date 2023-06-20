@@ -1,4 +1,4 @@
-import { Stack, Step, StepContent, Stepper, useTheme } from '@mui/material'
+import { Box, Stack, Step, StepContent, Stepper, Typography, useTheme } from '@mui/material'
 import { useFetcher, useLoaderData, useSearchParams } from 'react-router-dom'
 import { Heading } from '../../learn/headings/Heading'
 import { Else, If, Then } from 'react-if'
@@ -10,6 +10,8 @@ import { CharacterEntry } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { LocationInLesson } from './LocationInLesson'
 import { TimelineDragAndDrop } from '../timeline-drag-and-drop/TimelineDragAndDrop'
 import { BlueprintSelect } from '../blueprint-select/BlueprintSelect'
+import { useState } from 'react'
+import { Blueprint } from '../Blueprint'
 
 export type X = Omit<DiffedCharacterEntryVariant, 'index' | 'tier' | 'newInfo' | 'modifiedInfo'>
 
@@ -22,6 +24,7 @@ export default function AdminContent() {
   const { character, diffInfos } = useLoaderData() as { character: CharacterEntry; diffInfos: DiffInfoTier[] }
   const [searchParams, setSearchParams] = useSearchParams()
   const activeTier = Number(searchParams.get('tier'))
+  const [blueprint, setBlueprint] = useState(character.blueprint)
 
   function changeTier(tier: number) {
     // Fetch data by merging previous tiers.
@@ -55,9 +58,15 @@ export default function AdminContent() {
     >
       <Heading title='Idővonal' />
 
-      <BlueprintSelect />
+      <Typography marginBottom={3}>
+        Válaszd ki, milyen séma szerint szeretnéd bevezetni a karaktert, majd szükség szerint rendezd át a sorrendet.
+      </Typography>
 
-      <TimelineDragAndDrop />
+      <Box display='flex' flexDirection={{ xs: 'column', md: 'row' }} gap={2}>
+        <BlueprintSelect {...{ blueprint, setBlueprint }} />
+
+        <TimelineDragAndDrop />
+      </Box>
 
       {/* <Stepper nonLinear orientation='vertical' activeStep={activeTier - 1 ?? -1}>
         {[1, 2, 3, 4].map((tier, index) => (
