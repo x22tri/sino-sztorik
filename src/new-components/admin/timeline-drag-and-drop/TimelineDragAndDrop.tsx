@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom'
 import styled from '@emotion/styled'
 import { DragDropContext, Draggable } from 'react-beautiful-dnd'
 import { StrictModeDroppable } from './StrictModeDroppable'
-import { Box } from '@mui/material'
+import { Box, IconButton, Stack, Typography } from '@mui/material'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBook, faBookOpen } from '@fortawesome/free-solid-svg-icons'
 
 type RecipeStep = { id: string; content: string }
 
-const initial: RecipeStep[] = [
+const initialSteps: RecipeStep[] = [
   { id: 'id-1', content: '' },
   { id: 'id-2', content: 'korai' },
   { id: 'id-3', content: 'napraforgó' },
@@ -22,13 +24,16 @@ const reorder = (list: RecipeStep[], startIndex: number, endIndex: number) => {
   return result
 }
 
-function Step({ step, index }: { step: RecipeStep; index: number }) {
+function Step({ id, content, index }: { id: string; content: string; index: number }) {
   return (
-    <Draggable draggableId={step.id} index={index}>
+    <Draggable draggableId={id} index={index}>
       {({ draggableProps, dragHandleProps, innerRef }) => (
         <Box
+          alignItems='center'
           bgcolor='primary.main'
-          borderRadius={({ spacing }) => spacing(1)}
+          borderRadius={({ spacing }) => spacing(6)}
+          // boxSizing='content-box'
+          display='flex'
           mb={1}
           minHeight='60px'
           ref={innerRef}
@@ -37,8 +42,13 @@ function Step({ step, index }: { step: RecipeStep; index: number }) {
           width={1}
           {...draggableProps}
           {...dragHandleProps}
+          sx={{ cursor: 'grab' }}
         >
-          {step.content}
+          <Typography margin='auto'>{content}</Typography>
+
+          <IconButton onClick={() => console.log('x')} sx={{ justifySelf: 'flex-end' }}>
+            <FontAwesomeIcon icon={faBookOpen} />
+          </IconButton>
         </Box>
       )}
     </Draggable>
@@ -47,14 +57,14 @@ function Step({ step, index }: { step: RecipeStep; index: number }) {
 
 const StepList = memo(({ steps }: { steps: RecipeStep[] }) => (
   <>
-    {steps.map((step: RecipeStep, index: number) => (
-      <Step key={step.id} {...{ index, step }} />
+    {steps.map(({ content, id }: RecipeStep, index: number) => (
+      <Step key={id} {...{ content, id, index }} />
     ))}
   </>
 ))
 
 export function TimelineDragAndDrop() {
-  const [state, setState] = useState({ steps: initial })
+  const [state, setState] = useState({ steps: initialSteps })
 
   function onDragEnd(result: any) {
     if (!result.destination) {
@@ -71,15 +81,24 @@ export function TimelineDragAndDrop() {
   }
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <StrictModeDroppable droppableId='list'>
-        {provided => (
-          <div ref={provided.innerRef} {...provided.droppableProps}>
-            <StepList steps={state.steps} />
-            {provided.placeholder}
-          </div>
-        )}
-      </StrictModeDroppable>
-    </DragDropContext>
+    <Box display='flex' width={1}>
+      <Stack>
+        {[1, 2, 3, 4].map(tier => (
+          <Box alignItems='center' display='flex' key={tier} mb={1} minHeight='72px' p={2}>
+            {tier}
+          </Box>
+        ))}
+      </Stack>
+      <DragDropContext {...{ onDragEnd }}>
+        <StrictModeDroppable droppableId='list'>
+          {({ droppableProps, innerRef, placeholder }) => (
+            <Box ref={innerRef} width={1} {...droppableProps}>
+              <StepList steps={state.steps} />
+              {placeholder}
+            </Box>
+          )}
+        </StrictModeDroppable>
+      </DragDropContext>
+    </Box>
   )
 }
