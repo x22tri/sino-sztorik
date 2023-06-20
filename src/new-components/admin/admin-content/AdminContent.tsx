@@ -9,6 +9,7 @@ import { CharEditForm } from '../char-edit-form/CharEditForm'
 import { CharacterEntry } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { LocationInLesson } from './LocationInLesson'
 import { TimelineDragAndDrop } from '../timeline-drag-and-drop/TimelineDragAndDrop'
+import { BlueprintSelect } from '../blueprint-select/BlueprintSelect'
 
 export type X = Omit<DiffedCharacterEntryVariant, 'index' | 'tier' | 'newInfo' | 'modifiedInfo'>
 
@@ -53,6 +54,8 @@ export default function AdminContent() {
       paddingX={2}
     >
       <Heading title='Idővonal' />
+
+      <BlueprintSelect />
 
       <TimelineDragAndDrop />
 

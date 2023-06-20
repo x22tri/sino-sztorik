@@ -81,7 +81,7 @@ export function TimelineDragAndDrop() {
   }
 
   return (
-    <Box display='flex' width={1}>
+    <Box display='flex'>
       <Stack>
         {[1, 2, 3, 4].map(tier => (
           <Box alignItems='center' display='flex' key={tier} mb={1} minHeight='72px' p={2}>

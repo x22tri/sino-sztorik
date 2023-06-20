@@ -39,7 +39,7 @@ export function LearnReviewButton() {
 
   return (
     <Unless condition={!learnReviewOptions?.length}>
-      <ButtonWithModeSwitcher onClickModeSwitcher={clickModeSwitcher} {...{ anchorRef, learnReviewOptions, selectedModeIndex }} />
+      <ButtonWithModeSwitcher {...{ anchorRef, clickModeSwitcher, learnReviewOptions, selectedModeIndex }} />
 
       <Menu
         anchorEl={anchorRef.current}
@@ -74,12 +74,12 @@ function ButtonWithModeSwitcher({
   anchorRef,
   learnReviewOptions,
   selectedModeIndex,
-  onClickModeSwitcher,
+  clickModeSwitcher,
 }: {
   anchorRef: RefObject<HTMLButtonElement>
   learnReviewOptions: ButtonOption[]
   selectedModeIndex: number
-  onClickModeSwitcher: () => void
+  clickModeSwitcher: () => void
 }) {
   const [{ link, buttonText }, setSelectedButton] = useState(learnReviewOptions[selectedModeIndex])
 
@@ -99,7 +99,7 @@ function ButtonWithModeSwitcher({
         <ToolbarButton
           icon={faEllipsisVertical}
           innerRef={anchorRef}
-          onClick={onClickModeSwitcher}
+          onClick={clickModeSwitcher}
           size='small'
           tooltip={LESSON_START_MORE_OPTIONS}
         />
