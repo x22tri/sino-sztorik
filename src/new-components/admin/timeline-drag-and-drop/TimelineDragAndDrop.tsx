@@ -8,16 +8,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook, faBookOpen } from '@fortawesome/free-solid-svg-icons'
 import { Subheading } from '../../learn/headings/Subheading'
 
-type RecipeStep = { id: string; content: string }
+export type BlueprintStep = { id: string; content: string }
 
-const initialSteps: RecipeStep[] = [
-  { id: 'id-1', content: '' },
-  { id: 'id-2', content: 'korai' },
-  { id: 'id-3', content: 'napraforgó' },
-  { id: 'id-4', content: '(Emlékeztető)' },
-]
-
-const reorder = (list: RecipeStep[], startIndex: number, endIndex: number) => {
+const reorder = (list: BlueprintStep[], startIndex: number, endIndex: number) => {
   const result = Array.from(list)
   const [removed] = result.splice(startIndex, 1)
   result.splice(endIndex, 0, removed)
@@ -56,16 +49,16 @@ function Step({ id, content, index }: { id: string; content: string; index: numb
   )
 }
 
-const StepList = memo(({ steps }: { steps: RecipeStep[] }) => (
+const StepList = memo(({ steps }: { steps: BlueprintStep[] }) => (
   <>
-    {steps.map(({ content, id }: RecipeStep, index: number) => (
+    {steps.map(({ content, id }: BlueprintStep, index: number) => (
       <Step key={id} {...{ content, id, index }} />
     ))}
   </>
 ))
 
-export function TimelineDragAndDrop() {
-  const [state, setState] = useState({ steps: initialSteps })
+export function TimelineDragAndDrop({ blueprintSteps }: { blueprintSteps: BlueprintStep[] }) {
+  const [state, setState] = useState({ steps: blueprintSteps })
 
   function onDragEnd(result: any) {
     if (!result.destination) {
@@ -78,6 +71,8 @@ export function TimelineDragAndDrop() {
 
     const steps = reorder(state.steps, result.source.index, result.destination.index)
 
+    console.log(steps)
+
     setState({ steps })
   }
 
@@ -85,7 +80,7 @@ export function TimelineDragAndDrop() {
     <Box width={1}>
       <Subheading title='Sorrend' />
 
-      <Box display='flex' marginTop={3} width={1}>
+      <Box display='flex' marginTop={2} width={1}>
         <Stack>
           {[1, 2, 3, 4].map(tier => (
             <Box alignItems='center' display='flex' key={tier} mb={1} minHeight='72px' p={2}>

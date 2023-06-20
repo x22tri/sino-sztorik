@@ -1,9 +1,5 @@
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
-import { Dispatch, ReactNode, SetStateAction, useState } from 'react'
-import { Box, List, ListItemButton, ListItemIcon, ListItemText, Menu, MenuList, Typography, useTheme } from '@mui/material'
+import { Dispatch, ReactNode, SetStateAction } from 'react'
+import { Box, List, ListItemButton, ListItemIcon, ListItemText, Palette, useTheme } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle } from '@fortawesome/free-solid-svg-icons'
 import { Blueprint } from '../Blueprint'
@@ -20,12 +16,37 @@ export function BlueprintSelect({
   setBlueprint: Dispatch<SetStateAction<Blueprint>>
 }) {
   const { palette } = useTheme()
+  const blueprintStrings = getBlueprintStrings(palette)
 
   const handleChange = (value: Blueprint) => {
     setBlueprint(value)
   }
 
-  const blueprintStrings: Record<Blueprint, { string: string; icon: ReactNode }> = {
+  return (
+    <Box display='flex' flexDirection='column' width={{ xs: 1, md: 0.7 }}>
+      <Subheading title='Sémák' />
+
+      <List>
+        {Object.entries(blueprintStrings).map(([value, { icon, string }]) => (
+          <ListItemButton
+            key={value}
+            onClick={() => handleChange(value as Blueprint)}
+            selected={blueprint === value}
+            {...{ value }}
+            sx={{ borderRadius: ({ spacing }) => spacing(6) }}
+          >
+            <ListItemIcon sx={{ display: 'inline-block' }}>{icon}</ListItemIcon>
+
+            <ListItemText primary={string} />
+          </ListItemButton>
+        ))}
+      </List>
+    </Box>
+  )
+}
+
+function getBlueprintStrings(palette: Palette): Record<Blueprint, { string: string; icon: ReactNode }> {
+  return {
     KeywordOnly: {
       string: 'Csak kulcsszó',
       icon: <FontAwesomeIcon icon={faCircle} style={{ color: palette.primary.main, width: iconWidth }} />,
@@ -88,47 +109,4 @@ export function BlueprintSelect({
       ),
     },
   }
-
-  return (
-    <Box display='flex' flexDirection='column' width={{ xs: 1, md: 0.7 }}>
-      <Subheading title='Sémák' />
-      {/* <FormControl variant='filled'>
-
-        <InputLabel shrink>Séma</InputLabel>
-
-        <Select
-          displayEmpty
-          value={blueprint}
-          onChange={handleChange}
-          MenuProps={{ sx: { '.MuiPaper-root': { borderTopLeftRadius: 0, borderTopRightRadius: 0 } } }}
-        >
-          {Object.entries(blueprintStrings).map(([value, { icon, string }]) => (
-            <MenuItem key={value} {...{ value }}>
-              {icon}
-              <Typography display='inline-flex' marginLeft={1}>
-                {string}
-              </Typography>
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-
-      <Typography variant='body2'>Magyarázat</Typography> */}
-      <List>
-        {Object.entries(blueprintStrings).map(([value, { icon, string }]) => (
-          <ListItemButton
-            key={value}
-            onClick={() => handleChange(value as Blueprint)}
-            selected={blueprint === value}
-            {...{ value }}
-            sx={{ borderRadius: ({ spacing }) => spacing(6) }}
-          >
-            <ListItemIcon sx={{ display: 'inline-block' }}>{icon}</ListItemIcon>
-
-            <ListItemText primary={string} />
-          </ListItemButton>
-        ))}
-      </List>
-    </Box>
-  )
 }

@@ -8,7 +8,7 @@ import { AddCharacterVariant } from './add-character-variant/AddCharacterVariant
 import { CharEditForm } from '../char-edit-form/CharEditForm'
 import { CharacterEntry } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { LocationInLesson } from './LocationInLesson'
-import { TimelineDragAndDrop } from '../timeline-drag-and-drop/TimelineDragAndDrop'
+import { BlueprintStep, TimelineDragAndDrop } from '../timeline-drag-and-drop/TimelineDragAndDrop'
 import { BlueprintSelect } from '../blueprint-select/BlueprintSelect'
 import { useState } from 'react'
 import { Blueprint } from '../Blueprint'
@@ -25,6 +25,8 @@ export default function AdminContent() {
   const [searchParams, setSearchParams] = useSearchParams()
   const activeTier = Number(searchParams.get('tier'))
   const [blueprint, setBlueprint] = useState(character.blueprint)
+
+  console.log(character)
 
   function changeTier(tier: number) {
     // Fetch data by merging previous tiers.
@@ -46,6 +48,8 @@ export default function AdminContent() {
     return !object || Object.keys(object).length === 0
   }
 
+  const blueprintSteps = getBlueprintSteps(blueprint, character)
+
   return (
     <Stack
       boxSizing='border-box'
@@ -65,7 +69,7 @@ export default function AdminContent() {
       <Box display='flex' flexDirection={{ xs: 'column', md: 'row' }} gap={2}>
         <BlueprintSelect {...{ blueprint, setBlueprint }} />
 
-        <TimelineDragAndDrop />
+        <TimelineDragAndDrop {...{ blueprintSteps }} />
       </Box>
 
       {/* <Stepper nonLinear orientation='vertical' activeStep={activeTier - 1 ?? -1}>
@@ -95,4 +99,26 @@ export default function AdminContent() {
       </Stepper> */}
     </Stack>
   )
+}
+
+function getBlueprintSteps(blueprint: Blueprint, character: CharacterEntry): BlueprintStep[] {
+  return character.variants.map((variant, index) => {
+    if ('keyword' in variant && 'primitive' in variant) {
+      return { id: `id-${index}`, content: variant.keyword! + ' | ' + variant.primitive! }
+    }
+
+    if ('keyword' in variant) {
+      return { id: `id-${index}`, content: variant.keyword! }
+    }
+
+    if ('primitive' in variant) {
+      return { id: `id-${index}`, content: variant.primitive! }
+    }
+
+    if ('reminder' in variant) {
+      return { id: `id-${index}`, content: '(Emlékeztető)' }
+    }
+
+    return { id: `id-${index}`, content: '' }
+  })
 }

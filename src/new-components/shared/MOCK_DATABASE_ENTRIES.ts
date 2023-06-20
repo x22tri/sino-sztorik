@@ -17,6 +17,7 @@ export interface CharacterEntryVariant {
   otherUses?: { pinyin: string; meanings: string[] }[]
   pinyin?: string
   primitive?: string
+  reminder?: boolean
   story?: (string | { constituent: string; references: string } | { keyword: string } | { primitive: string })[][]
   tier: number
 }
@@ -91,8 +92,9 @@ export const CHAR_ENTRY: CharacterEntry = {
     }, // When there's a "primitive" property on a variant that isn't the first one in the array, a "newPrimitive" flag is added.
     {
       index: 2,
+      reminder: true,
       tier: 4,
-    }, // When only these two properties exist on a variant, a "reminder" flag is added.
+    },
   ],
 }
 
