@@ -1,4 +1,4 @@
-import { Box, Stack, Step, StepContent, Stepper, Typography, useTheme } from '@mui/material'
+import { Box, Divider, Palette, Stack, Step, StepContent, Stepper, Typography, useTheme } from '@mui/material'
 import { useFetcher, useLoaderData, useSearchParams } from 'react-router-dom'
 import { Heading } from '../../learn/headings/Heading'
 import { Else, If, Then } from 'react-if'
@@ -8,10 +8,12 @@ import { AddCharacterVariant } from './add-character-variant/AddCharacterVariant
 import { CharEditForm } from '../char-edit-form/CharEditForm'
 import { CharacterEntry, CharacterEntryVariant } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { LocationInLesson } from './LocationInLesson'
-import { BlueprintStep, TimelineDragAndDrop } from '../timeline-drag-and-drop/TimelineDragAndDrop'
+import { BlueprintStep, BlueprintStepType, TimelineDragAndDrop } from '../timeline-drag-and-drop/TimelineDragAndDrop'
 import { BlueprintSelect } from '../blueprint-select/BlueprintSelect'
 import { useState } from 'react'
 import { Blueprint } from '../Blueprint'
+import { faCube } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export type X = Omit<DiffedCharacterEntryVariant, 'index' | 'tier' | 'newInfo' | 'modifiedInfo'>
 
@@ -102,56 +104,101 @@ export default function AdminContent() {
 }
 
 export function getBlueprintSteps({ variants }: CharacterEntry): BlueprintStep[] {
-  return variants.map((variant, index) => {
-    if ('keyword' in variant && 'primitive' in variant) {
-      return { id: `id-${index}`, variant, type: 'keywordAndPrimitive' }
-    }
+  return variants.map((variant, index) => ({ id: `id-${index}`, ...getBlueprintStep(variant, index, variants) }))
 
-    if ('keyword' in variant) {
-      return index === findLastIndex(variants, v => 'keyword' in v)
-        ? { id: `id-${index}`, variant, type: 'keyword' }
-        : { id: `id-${index}`, variant, type: 'keywordUnexpounded' }
-    }
+  //   if ('keyword' in variant && 'primitive' in variant) {
+  //     return { id: `id-${index}`, variant, type: 'keywordAndPrimitive' }
+  //   }
 
-    if ('primitive' in variant) {
-      return { id: `id-${index}`, variant, type: 'primitive' }
-    }
+  //   if ('keyword' in variant) {
+  //     return index === findLastIndex(variants, v => 'keyword' in v)
+  //       ? { id: `id-${index}`, variant, type: 'keyword' }
+  //       : { id: `id-${index}`, variant, type: 'keywordUnexpounded' }
+  //   }
 
-    if ('reminder' in variant) {
-      const previousTiers = mergePreviousTiers(variants, index + 1)
+  //   if ('primitive' in variant) {
+  //     return { id: `id-${index}`, variant, type: 'primitive' }
+  //   }
 
-      return { id: `id-${index}`, variant, type: 'reminder' }
-    }
+  //   if ('reminder' in variant) {
+  //     const previousTiers = mergePreviousTiers(variants, index + 1)
 
-    return { id: `id-${index}`, variant, type: 'unset' }
-  })
+  //     return { id: `id-${index}`, variant, type: 'reminder' }
+  //   }
+
+  //   return { id: `id-${index}`, variant, type: 'unset' }
+  // })
 }
 
-// export function getBlueprintStep(variant: CharacterEntryVariant) {
-//     if ('keyword' in variant && 'primitive' in variant) {
-//       return { id: `id-${index}`, variant, type: 'keywordAndPrimitive' }
-//     }
+function getKeyword(variant: CharacterEntryVariant) {
+  return (
+    <Typography fontWeight='bold' margin='auto'>
+      {variant.keyword}
+    </Typography>
+  )
+}
 
-//     if ('keyword' in variant) {
-//       return index ===
-//         variants
-//           .slice()
-//           .reverse()
-//           .findIndex(v => 'keyword' in v)
-//         ? { id: `id-${index}`, variant, type: 'keywordUnexpounded' }
-//         : { id: `id-${index}`, variant, type: 'keyword' }
-//     }
+function getKeywordAndPrimitive(palette: Palette, variant: CharacterEntryVariant) {
+  return (
+    <Box alignItems='center' display='flex' margin='auto'>
+      <Typography fontWeight='bold'>{variant.keyword}</Typography>
+      <Divider flexItem orientation='vertical' sx={{ borderColor: palette.secondary.contrastText, mx: 1 }} />
+      <FontAwesomeIcon color={palette.secondary.contrastText} icon={faCube} style={{ marginRight: '4px' }} />
+      <Typography fontStyle='italic'>{variant.primitive}</Typography>
+    </Box>
+  )
+}
 
-//     if ('primitive' in variant) {
-//       return {variant, type: 'primitive' }
-//     }
+function getPrimitive(palette: Palette, variant: CharacterEntryVariant) {
+  return (
+    <Typography fontStyle='italic' margin='auto'>
+      <FontAwesomeIcon color={palette.secondary.contrastText} icon={faCube} style={{ marginRight: '4px' }} />
+      {variant.primitive}
+    </Typography>
+  )
+}
 
-//     if ('reminder' in variant) {
-//       return { variant, type: 'reminder' }
-//     }
+function getUnset() {
+  return <Box margin='auto' />
+}
 
-//     return { variant, type: 'unset' }
-// }
+export function getBlueprintStep(
+  variant: CharacterEntryVariant,
+  index: number,
+  allVariants: CharacterEntryVariant[],
+  isReminder: boolean = false
+): {
+  variant: CharacterEntryVariant
+  type: BlueprintStepType
+  isReminder: boolean // To-Do: add parentheses around content when isReminder
+} {
+  if ('keyword' in variant && 'primitive' in variant) {
+    return { variant, type: 'keywordAndPrimitive', isReminder }
+  }
+
+  if ('keyword' in variant) {
+    if (isReminder) {
+      return index > findLastIndex(allVariants, v => 'keyword' in v)
+        ? { variant, type: 'keyword', isReminder }
+        : { variant, type: 'keywordUnexpounded', isReminder }
+    }
+
+    return index === findLastIndex(allVariants, v => 'keyword' in v)
+      ? { variant, type: 'keyword', isReminder }
+      : { variant, type: 'keywordUnexpounded', isReminder }
+  }
+
+  if ('primitive' in variant) {
+    return { variant, type: 'primitive', isReminder }
+  }
+
+  if ('reminder' in variant) {
+    const previousTiers = mergePreviousTiers(allVariants, index + 1) as CharacterEntryVariant
+    return getBlueprintStep(previousTiers, index, allVariants, true)
+  }
+
+  return { variant, type: 'unset', isReminder }
+}
 
 /**
  * Returns the index of the last element in the array where predicate is true, and -1

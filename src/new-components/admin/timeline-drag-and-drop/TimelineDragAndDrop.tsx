@@ -9,7 +9,7 @@ import { faBook, faBookOpen, faCube } from '@fortawesome/free-solid-svg-icons'
 import { Subheading } from '../../learn/headings/Subheading'
 import { CharacterEntry, CharacterEntryVariant } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { Blueprint } from '../Blueprint'
-import { getBlueprintSteps, mergePreviousTiers } from '../admin-content/AdminContent'
+import { X, getBlueprintSteps, mergePreviousTiers } from '../admin-content/AdminContent'
 
 export type BlueprintStepType = 'keyword' | 'primitive' | 'unset' | 'reminder' | 'keywordUnexpounded' | 'keywordAndPrimitive'
 
@@ -17,6 +17,7 @@ export type BlueprintStep = {
   id: string
   variant: CharacterEntryVariant
   type: BlueprintStepType
+  isReminder?: boolean
 }
 
 function reorder(list: BlueprintStep[], startIndex: number, endIndex: number) {
@@ -125,8 +126,8 @@ function Step({ index, step, steps }: { index: number; step: BlueprintStep; step
 
   // }
 
-  console.log(soFar)
-  console.log(reminderContentType)
+  // console.log(soFar)
+  // console.log(reminderContentType)
 
   stylesMap.reminder = !reminderContentType
     ? { sx: {}, content: null }
@@ -195,7 +196,7 @@ export function TimelineDragAndDrop({
     setState({ steps })
   }
 
-  // console.log(state)
+  console.log(state)
 
   return (
     <Box width={1}>
