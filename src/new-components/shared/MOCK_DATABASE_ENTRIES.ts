@@ -63,7 +63,8 @@ export const CHAR_ENTRY: CharacterEntry = {
     },
     {
       index: 8,
-      primitive: 'napraforgó',
+      // keyword: 'test',
+      keyword: 'napraforgó',
       story: [
         [
           `Egy `,

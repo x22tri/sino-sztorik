@@ -15,12 +15,15 @@ export function CharEditForm() {
   const activeTier = Number(searchParams.get('tier'))
 
   useEffect(() => {
-    setPrevTiers(!!(activeTier - 1) ? mergePreviousTiers(character, activeTier - 1) : {})
+    setPrevTiers(!!(activeTier - 1) ? mergePreviousTiers(character.variants, activeTier - 1) : {})
   }, [activeTier])
 
   return (
     <>
-      <FormContainer defaultValues={mergePreviousTiers(character, activeTier)} onSuccess={(data: any) => console.log(data)}>
+      <FormContainer
+        defaultValues={mergePreviousTiers(character.variants, activeTier)}
+        onSuccess={(data: any) => console.log(data)}
+      >
         <CharacterSection />
 
         <Box alignItems='center' display='flex' gap={2} justifyContent='flex-end' marginTop={10}>

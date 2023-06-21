@@ -6,7 +6,7 @@ import { DiffInfoTier, DiffedCharacterEntry, DiffedCharacterEntryVariant } from 
 import { PreviewCharacterVariant } from './preview-character-variant/PreviewCharacterVariant'
 import { AddCharacterVariant } from './add-character-variant/AddCharacterVariant'
 import { CharEditForm } from '../char-edit-form/CharEditForm'
-import { CharacterEntry } from '../../shared/MOCK_DATABASE_ENTRIES'
+import { CharacterEntry, CharacterEntryVariant } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { LocationInLesson } from './LocationInLesson'
 import { BlueprintStep, TimelineDragAndDrop } from '../timeline-drag-and-drop/TimelineDragAndDrop'
 import { BlueprintSelect } from '../blueprint-select/BlueprintSelect'
@@ -15,8 +15,8 @@ import { Blueprint } from '../Blueprint'
 
 export type X = Omit<DiffedCharacterEntryVariant, 'index' | 'tier' | 'newInfo' | 'modifiedInfo'>
 
-export function mergePreviousTiers(charEntry: DiffedCharacterEntry, tierToStopAt: number): X {
-  return charEntry.variants.slice(0, tierToStopAt).reduce((previousInfo, newInfo) => Object.assign(previousInfo, newInfo), {})
+export function mergePreviousTiers(variants: CharacterEntryVariant[], tierToStopAt: number): X {
+  return variants.slice(0, tierToStopAt).reduce((previousInfo, newInfo) => Object.assign(previousInfo, newInfo), {})
 }
 
 export default function AdminContent() {
@@ -26,7 +26,7 @@ export default function AdminContent() {
   const activeTier = Number(searchParams.get('tier'))
   const [blueprint, setBlueprint] = useState(character.blueprint)
 
-  console.log(character)
+  // console.log(character)
 
   function changeTier(tier: number) {
     // Fetch data by merging previous tiers.
@@ -48,7 +48,7 @@ export default function AdminContent() {
     return !object || Object.keys(object).length === 0
   }
 
-  const blueprintSteps = getBlueprintSteps(blueprint, character)
+  const blueprintSteps = getBlueprintSteps(character)
 
   return (
     <Stack
@@ -69,7 +69,7 @@ export default function AdminContent() {
       <Box display='flex' flexDirection={{ xs: 'column', md: 'row' }} gap={2}>
         <BlueprintSelect {...{ blueprint, setBlueprint }} />
 
-        <TimelineDragAndDrop {...{ blueprintSteps }} />
+        <TimelineDragAndDrop {...{ blueprintSteps, getBlueprintSteps }} />
       </Box>
 
       {/* <Stepper nonLinear orientation='vertical' activeStep={activeTier - 1 ?? -1}>
@@ -101,24 +101,70 @@ export default function AdminContent() {
   )
 }
 
-function getBlueprintSteps(blueprint: Blueprint, character: CharacterEntry): BlueprintStep[] {
-  return character.variants.map((variant, index) => {
+export function getBlueprintSteps({ variants }: CharacterEntry): BlueprintStep[] {
+  return variants.map((variant, index) => {
     if ('keyword' in variant && 'primitive' in variant) {
-      return { id: `id-${index}`, content: variant.keyword! + ' | ' + variant.primitive! }
+      return { id: `id-${index}`, variant, type: 'keywordAndPrimitive' }
     }
 
     if ('keyword' in variant) {
-      return { id: `id-${index}`, content: variant.keyword! }
+      return index === findLastIndex(variants, v => 'keyword' in v)
+        ? { id: `id-${index}`, variant, type: 'keyword' }
+        : { id: `id-${index}`, variant, type: 'keywordUnexpounded' }
     }
 
     if ('primitive' in variant) {
-      return { id: `id-${index}`, content: variant.primitive! }
+      return { id: `id-${index}`, variant, type: 'primitive' }
     }
 
     if ('reminder' in variant) {
-      return { id: `id-${index}`, content: '(Emlékeztető)' }
+      const previousTiers = mergePreviousTiers(variants, index + 1)
+
+      return { id: `id-${index}`, variant, type: 'reminder' }
     }
 
-    return { id: `id-${index}`, content: '' }
+    return { id: `id-${index}`, variant, type: 'unset' }
   })
+}
+
+// export function getBlueprintStep(variant: CharacterEntryVariant) {
+//     if ('keyword' in variant && 'primitive' in variant) {
+//       return { id: `id-${index}`, variant, type: 'keywordAndPrimitive' }
+//     }
+
+//     if ('keyword' in variant) {
+//       return index ===
+//         variants
+//           .slice()
+//           .reverse()
+//           .findIndex(v => 'keyword' in v)
+//         ? { id: `id-${index}`, variant, type: 'keywordUnexpounded' }
+//         : { id: `id-${index}`, variant, type: 'keyword' }
+//     }
+
+//     if ('primitive' in variant) {
+//       return {variant, type: 'primitive' }
+//     }
+
+//     if ('reminder' in variant) {
+//       return { variant, type: 'reminder' }
+//     }
+
+//     return { variant, type: 'unset' }
+// }
+
+/**
+ * Returns the index of the last element in the array where predicate is true, and -1
+ * otherwise.
+ * @param array The source array to search in
+ * @param predicate find calls predicate once for each element of the array, in descending
+ * order, until it finds one where predicate returns true. If such an element is found,
+ * findLastIndex immediately returns that element index. Otherwise, findLastIndex returns -1.
+ */
+export function findLastIndex<T>(array: Array<T>, predicate: (value: T, index: number, obj: T[]) => boolean): number {
+  let l = array.length
+  while (l--) {
+    if (predicate(array[l], l, array)) return l
+  }
+  return -1
 }
