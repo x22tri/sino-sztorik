@@ -26,36 +26,43 @@ export function StepContent({
       return (
         <StepContentWrapper
           sx={{
-            background: isReminder ? '#7C91BC' : palette.primary.main,
-            color: palette.primary.contrastText,
+            background: isReminder ? palette.background.paper : palette.primary.main,
+            color: isReminder ? palette.primary.main : palette.primary.contrastText,
+            border: isReminder ? `3px solid ${palette.primary.main}` : undefined,
             justifyContent: 'center',
           }}
           {...{ provided }}
         >
-          <ParenthesesWrapper {...{ isReminder }}>
+          <Box alignItems='center' display='flex' flexDirection='column'>
             <Typography fontWeight='bold' margin='auto'>
               {mergedChar.keyword}
             </Typography>
-          </ParenthesesWrapper>
+
+            <When condition={isReminder}>
+              <ReminderLabel />
+            </When>
+          </Box>
         </StepContentWrapper>
       )
     case 'primitive':
       return (
         <StepContentWrapper
-          sx={{ background: isReminder ? '#9577A9' : palette.secondary.main, color: palette.secondary.contrastText }}
+          sx={{
+            background: isReminder ? palette.background.paper : palette.secondary.main,
+            color: isReminder ? palette.secondary.main : palette.secondary.contrastText,
+            border: isReminder ? `3px solid ${palette.secondary.main}` : undefined,
+          }}
           {...{ provided }}
         >
-          <Box display='flex' flexDirection='column' margin='auto'>
-            <ParenthesesWrapper {...{ isReminder }}>
-              <Typography fontStyle='italic' margin='auto'>
-                <FontAwesomeIcon
-                  color={palette.secondary.contrastText}
-                  icon={faCube}
-                  style={{ marginRight: '4px', marginLeft: '2px' }}
-                />
-                {mergedChar.primitive!}
-              </Typography>
-            </ParenthesesWrapper>
+          <Box alignItems='center' display='flex' flexDirection='column' margin='auto'>
+            <Typography fontStyle='italic' margin='auto'>
+              <FontAwesomeIcon
+                color={isReminder ? palette.secondary.main : palette.secondary.contrastText}
+                icon={faCube}
+                style={{ marginRight: '4px' }}
+              />
+              {mergedChar.primitive!}
+            </Typography>
 
             <When condition={isReminder}>
               <ReminderLabel />
@@ -70,7 +77,7 @@ export function StepContent({
             background: palette.grey[50],
             color: palette.text.disabled,
             outline: `2px dashed ${palette.text.disabled}`,
-            outlineOffset: '-4px',
+            outlineOffset: '-6px',
           }}
           {...{ provided }}
         >
@@ -83,21 +90,43 @@ export function StepContent({
           sx={{
             justifyContent: 'center',
             background: isReminder
-              ? `linear-gradient(150deg, ${palette.primary[400]} 25%, ${palette.secondary[400]} 75%)`
+              ? palette.background.paper
               : `linear-gradient(150deg, ${palette.primary.main} 25%, ${palette.secondary.main} 75%)`,
-            color: palette.secondary.contrastText,
+            color: isReminder ? palette.primary.main : palette.secondary.contrastText,
+            borderTop: isReminder ? `3px solid ${palette.primary.main}` : undefined,
+            borderLeft: isReminder ? `3px solid ${palette.primary.main}` : undefined,
+            borderBottom: isReminder ? `3px solid ${palette.secondary.main}` : undefined,
+            borderRight: isReminder ? `3px solid ${palette.secondary.main}` : undefined,
           }}
           {...{ provided }}
         >
-          <ParenthesesWrapper {...{ isReminder }}>
-            <Typography fontWeight='bold'>{mergedChar.keyword}</Typography>
+          <Box>
+            <Box alignItems='center' display='flex' flexDirection='row'>
+              <Typography color={isReminder ? palette.primary.main : palette.primary.contrastText} fontWeight='bold'>
+                {mergedChar.keyword}
+              </Typography>
 
-            <Divider flexItem orientation='vertical' sx={{ borderColor: palette.secondary.contrastText, mx: 1 }} />
+              <Divider
+                flexItem
+                orientation='vertical'
+                sx={{ borderColor: isReminder ? palette.text.disabled : palette.secondary.contrastText, mx: 1 }}
+              />
 
-            <FontAwesomeIcon color={palette.secondary.contrastText} icon={faCube} style={{ marginRight: '4px' }} />
+              <FontAwesomeIcon
+                color={isReminder ? palette.secondary.main : palette.secondary.contrastText}
+                icon={faCube}
+                style={{ marginRight: '4px' }}
+              />
 
-            <Typography fontStyle='italic'>{mergedChar.primitive}</Typography>
-          </ParenthesesWrapper>
+              <Typography color={isReminder ? palette.secondary.main : palette.secondary.contrastText} fontStyle='italic'>
+                {mergedChar.primitive}
+              </Typography>
+            </Box>
+
+            <When condition={isReminder}>
+              <ReminderLabel />
+            </When>
+          </Box>
         </StepContentWrapper>
       )
     case 'keywordUnexpounded':
@@ -132,23 +161,6 @@ function StepContentWrapper({ children, provided, ...restProps }: BoxProps & { p
     >
       {children}
     </Box>
-  )
-}
-
-function ParenthesesWrapper({ children, isReminder }: { children: JSX.Element | JSX.Element[]; isReminder: boolean }) {
-  return (
-    <Wrap
-      if={isReminder}
-      with={children => (
-        <Box alignItems='center' display='flex'>
-          &#40;&nbsp;
-          {children}
-          &nbsp;&#41;
-        </Box>
-      )}
-    >
-      {children}
-    </Wrap>
   )
 }
 
