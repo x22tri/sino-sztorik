@@ -71,7 +71,7 @@ export default function AdminContent() {
       <Box display='flex' flexDirection={{ xs: 'column', md: 'row' }} gap={2}>
         <BlueprintSelect {...{ blueprint, setBlueprint }} />
 
-        <TimelineDragAndDrop {...{ blueprintSteps, getBlueprintSteps }} />
+        <TimelineDragAndDrop {...{ blueprintSteps, getBlueprintSteps, character }} />
       </Box>
 
       {/* <Stepper nonLinear orientation='vertical' activeStep={activeTier - 1 ?? -1}>
@@ -104,30 +104,33 @@ export default function AdminContent() {
 }
 
 export function getBlueprintSteps({ variants }: CharacterEntry): BlueprintStep[] {
-  return variants.map((variant, index) => ({ id: `id-${index}`, ...getBlueprintStep(variant, index, variants) }))
+  return variants.map((variant, index) => {
+    // (
+    // { id: `id-${index}`, ...getBlueprintStep(variant, index, variants) }
+    // ))
 
-  //   if ('keyword' in variant && 'primitive' in variant) {
-  //     return { id: `id-${index}`, variant, type: 'keywordAndPrimitive' }
-  //   }
+    if ('keyword' in variant && 'primitive' in variant) {
+      return { id: `id-${index}`, variant, type: 'keywordAndPrimitive' }
+    }
 
-  //   if ('keyword' in variant) {
-  //     return index === findLastIndex(variants, v => 'keyword' in v)
-  //       ? { id: `id-${index}`, variant, type: 'keyword' }
-  //       : { id: `id-${index}`, variant, type: 'keywordUnexpounded' }
-  //   }
+    if ('keyword' in variant) {
+      return index === findLastIndex(variants, v => 'keyword' in v)
+        ? { id: `id-${index}`, variant, type: 'keyword' }
+        : { id: `id-${index}`, variant, type: 'keywordUnexpounded' }
+    }
 
-  //   if ('primitive' in variant) {
-  //     return { id: `id-${index}`, variant, type: 'primitive' }
-  //   }
+    if ('primitive' in variant) {
+      return { id: `id-${index}`, variant, type: 'primitive' }
+    }
 
-  //   if ('reminder' in variant) {
-  //     const previousTiers = mergePreviousTiers(variants, index + 1)
+    if ('reminder' in variant) {
+      const previousTiers = mergePreviousTiers(variants, index + 1)
 
-  //     return { id: `id-${index}`, variant, type: 'reminder' }
-  //   }
+      return { id: `id-${index}`, variant, type: 'reminder' }
+    }
 
-  //   return { id: `id-${index}`, variant, type: 'unset' }
-  // })
+    return { id: `id-${index}`, variant, type: 'unset' }
+  })
 }
 
 function getKeyword(variant: CharacterEntryVariant) {
