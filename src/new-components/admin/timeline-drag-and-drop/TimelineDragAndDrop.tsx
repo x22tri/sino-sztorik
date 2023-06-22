@@ -26,13 +26,14 @@ function reorder(list: BlueprintStep[], startIndex: number, endIndex: number) {
 
 function Step({ index, step, steps, mergedChar }: { index: number; step: BlueprintStep; steps: BlueprintStep[]; mergedChar: X }) {
   const { id, type } = step
+  const isReminder = type === 'reminder'
 
-  const contentType = type === 'reminder' ? getReminderContentType(steps, index) : type
+  const contentType = isReminder ? getReminderContentType(steps, index) : type
 
   return (
     <Draggable draggableId={id} isDragDisabled={type === 'unset'} {...{ index }}>
       {provided => (
-        <StepContent type={contentType} {...{ mergedChar, provided }} />
+        <StepContent type={contentType} {...{ isReminder, mergedChar, provided }} />
 
         // <IconButton onClick={() => console.log('x')} sx={{ justifySelf: 'flex-end' }}>
         //       <FontAwesomeIcon icon={faTrash} />
@@ -89,7 +90,7 @@ export function TimelineDragAndDrop({
       <Box display='flex' marginTop={2} width={1}>
         <Stack>
           {[1, 2, 3, 4].map(tier => (
-            <Box alignItems='center' display='flex' key={tier} mb={1} minHeight='72px' p={2}>
+            <Box alignItems='center' display='flex' key={tier} mb={1} minHeight='96px' p={2}>
               {tier}
             </Box>
           ))}

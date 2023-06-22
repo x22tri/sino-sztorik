@@ -165,7 +165,7 @@ let theme = responsiveFontSizes(
         700: '#1A3F87',
         800: '#183162',
       },
-      secondary: { main: '#7613B8', 100: '#F6EDFD', 200: '#EEDAFB' },
+      secondary: { main: '#7613B8', 100: '#F6EDFD', 200: '#EEDAFB', 400: '#A134EA' },
       neutral: { main: grey[600], contrastText: grey[50], light: grey[200] },
       white: { main: common.white, contrastText: grey[900] },
       warning: { light: '#FFF4EA', main: '#ffa726', dark: '#D25B00' },
@@ -187,13 +187,6 @@ theme = createTheme(theme, {
     MuiButton: {
       styleOverrides: { root: { borderRadius: theme.spacing(6) } },
       variants: [
-        // {
-        //   props: { color: 'primary', variant: 'outlined' },
-        //   style: {
-        //     border: `2px solid ${theme.palette.primary.main}`,
-        //     ':hover': { border: `2px solid ${theme.palette.primary.main}` },
-        //   },
-        // },
         { props: { variant: 'outlined' }, style: { borderWidth: '2px', ':hover': { borderWidth: '2px' } } },
         { props: { color: 'primary' }, style: { borderColor: theme.palette.primary.main } },
         { props: { color: 'white' }, style: { borderColor: theme.palette.white.main } },

@@ -16,5 +16,7 @@ export function getReminderContentType(steps: BlueprintStep[], index: number): B
     return 'primitive'
   }
 
+  console.log(steps)
+  console.log(index)
   throw new Error('Reminder could not get type.')
 }
