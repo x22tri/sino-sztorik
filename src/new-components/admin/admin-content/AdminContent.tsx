@@ -105,102 +105,26 @@ export default function AdminContent() {
 
 export function getBlueprintSteps({ variants }: CharacterEntry): BlueprintStep[] {
   return variants.map((variant, index) => {
-    // (
-    // { id: `id-${index}`, ...getBlueprintStep(variant, index, variants) }
-    // ))
-
     if ('keyword' in variant && 'primitive' in variant) {
-      return { id: `id-${index}`, variant, type: 'keywordAndPrimitive' }
+      return { id: `id-${index}`, type: 'keywordAndPrimitive' }
     }
 
     if ('keyword' in variant) {
       return index === findLastIndex(variants, v => 'keyword' in v)
-        ? { id: `id-${index}`, variant, type: 'keyword' }
-        : { id: `id-${index}`, variant, type: 'keywordUnexpounded' }
+        ? { id: `id-${index}`, type: 'keyword' }
+        : { id: `id-${index}`, type: 'keywordUnexpounded' }
     }
 
     if ('primitive' in variant) {
-      return { id: `id-${index}`, variant, type: 'primitive' }
+      return { id: `id-${index}`, type: 'primitive' }
     }
 
     if ('reminder' in variant) {
-      const previousTiers = mergePreviousTiers(variants, index + 1)
-
-      return { id: `id-${index}`, variant, type: 'reminder' }
+      return { id: `id-${index}`, type: 'reminder' }
     }
 
-    return { id: `id-${index}`, variant, type: 'unset' }
+    return { id: `id-${index}`, type: 'unset' }
   })
-}
-
-function getKeyword(variant: CharacterEntryVariant) {
-  return (
-    <Typography fontWeight='bold' margin='auto'>
-      {variant.keyword}
-    </Typography>
-  )
-}
-
-function getKeywordAndPrimitive(palette: Palette, variant: CharacterEntryVariant) {
-  return (
-    <Box alignItems='center' display='flex' margin='auto'>
-      <Typography fontWeight='bold'>{variant.keyword}</Typography>
-      <Divider flexItem orientation='vertical' sx={{ borderColor: palette.secondary.contrastText, mx: 1 }} />
-      <FontAwesomeIcon color={palette.secondary.contrastText} icon={faCube} style={{ marginRight: '4px' }} />
-      <Typography fontStyle='italic'>{variant.primitive}</Typography>
-    </Box>
-  )
-}
-
-function getPrimitive(palette: Palette, variant: CharacterEntryVariant) {
-  return (
-    <Typography fontStyle='italic' margin='auto'>
-      <FontAwesomeIcon color={palette.secondary.contrastText} icon={faCube} style={{ marginRight: '4px' }} />
-      {variant.primitive}
-    </Typography>
-  )
-}
-
-function getUnset() {
-  return <Box margin='auto' />
-}
-
-export function getBlueprintStep(
-  variant: CharacterEntryVariant,
-  index: number,
-  allVariants: CharacterEntryVariant[],
-  isReminder: boolean = false
-): {
-  variant: CharacterEntryVariant
-  type: BlueprintStepType
-  isReminder: boolean // To-Do: add parentheses around content when isReminder
-} {
-  if ('keyword' in variant && 'primitive' in variant) {
-    return { variant, type: 'keywordAndPrimitive', isReminder }
-  }
-
-  if ('keyword' in variant) {
-    if (isReminder) {
-      return index > findLastIndex(allVariants, v => 'keyword' in v)
-        ? { variant, type: 'keyword', isReminder }
-        : { variant, type: 'keywordUnexpounded', isReminder }
-    }
-
-    return index === findLastIndex(allVariants, v => 'keyword' in v)
-      ? { variant, type: 'keyword', isReminder }
-      : { variant, type: 'keywordUnexpounded', isReminder }
-  }
-
-  if ('primitive' in variant) {
-    return { variant, type: 'primitive', isReminder }
-  }
-
-  if ('reminder' in variant) {
-    const previousTiers = mergePreviousTiers(allVariants, index + 1) as CharacterEntryVariant
-    return getBlueprintStep(previousTiers, index, allVariants, true)
-  }
-
-  return { variant, type: 'unset', isReminder }
 }
 
 /**
