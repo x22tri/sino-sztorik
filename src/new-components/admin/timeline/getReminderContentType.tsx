@@ -1,4 +1,4 @@
-import { BlueprintStep, BlueprintStepType } from './TimelineDragAndDrop'
+import { BlueprintStep, BlueprintStepType } from './Timeline'
 
 export function getReminderContentType(steps: BlueprintStep[], index: number): BlueprintStepType {
   const previousTiers = steps.slice(0, index).map(step => step.type)

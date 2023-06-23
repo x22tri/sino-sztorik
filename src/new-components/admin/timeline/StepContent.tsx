@@ -1,24 +1,12 @@
-import { faBook, faBookOpen, faCube } from '@fortawesome/free-solid-svg-icons'
+import { faBell, faBookOpen, faChevronDown, faChevronUp, faCube, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Typography, Box, Divider, BoxProps, useTheme, Button } from '@mui/material'
+import { Typography, Box, Divider, BoxProps, useTheme, Button, IconButton } from '@mui/material'
 import { DraggableProvided } from 'react-beautiful-dnd'
 import { X } from '../admin-content/AdminContent'
-import { BlueprintStepType } from './TimelineDragAndDrop'
-import { ReactNode } from 'react'
-import { Wrap } from '../../shared/utility-components'
+import { BlueprintStepType } from './Timeline'
 import { When } from 'react-if'
 
-export function StepContent({
-  isReminder,
-  mergedChar,
-  provided,
-  type,
-}: {
-  isReminder: boolean
-  mergedChar: X
-  provided: DraggableProvided
-  type: BlueprintStepType
-}) {
+export function StepContent({ isReminder, mergedChar, type }: { isReminder: boolean; mergedChar: X; type: BlueprintStepType }) {
   const { palette } = useTheme()
 
   switch (type) {
@@ -31,7 +19,6 @@ export function StepContent({
             border: isReminder ? `3px solid ${palette.primary.main}` : undefined,
             justifyContent: 'center',
           }}
-          {...{ provided }}
         >
           <Box alignItems='center' display='flex' flexDirection='column'>
             <Typography fontWeight='bold' margin='auto'>
@@ -52,7 +39,6 @@ export function StepContent({
             color: isReminder ? palette.secondary.main : palette.secondary.contrastText,
             border: isReminder ? `3px solid ${palette.secondary.main}` : undefined,
           }}
-          {...{ provided }}
         >
           <Box alignItems='center' display='flex' flexDirection='column' margin='auto'>
             <Typography fontStyle='italic' margin='auto'>
@@ -79,7 +65,6 @@ export function StepContent({
             outline: `2px dashed ${palette.text.disabled}`,
             outlineOffset: '-6px',
           }}
-          {...{ provided }}
         >
           <Box margin='auto' />
         </StepContentWrapper>
@@ -88,7 +73,6 @@ export function StepContent({
       return (
         <StepContentWrapper
           sx={{
-            justifyContent: 'center',
             background: isReminder
               ? palette.background.paper
               : `linear-gradient(150deg, ${palette.primary.main} 25%, ${palette.secondary.main} 75%)`,
@@ -98,7 +82,6 @@ export function StepContent({
             borderBottom: isReminder ? `3px solid ${palette.secondary.main}` : undefined,
             borderRight: isReminder ? `3px solid ${palette.secondary.main}` : undefined,
           }}
-          {...{ provided }}
         >
           <Box>
             <Box alignItems='center' display='flex' flexDirection='row'>
@@ -131,36 +114,57 @@ export function StepContent({
       )
     case 'keywordUnexpounded':
       return (
-        <StepContentWrapper sx={{ bgcolor: palette.primary[100]!, color: palette.primary.main }} {...{ provided }}>
-          <Typography fontWeight='bold' margin='auto'>
-            {mergedChar.keyword}
-          </Typography>
+        <StepContentWrapper sx={{ bgcolor: palette.primary[100]!, color: palette.primary.main }}>
+          <Typography fontWeight='bold'>{mergedChar.keyword}</Typography>
         </StepContentWrapper>
       )
     default:
       return <></>
   }
 }
-function StepContentWrapper({ children, provided, ...restProps }: BoxProps & { provided: DraggableProvided }) {
-  const { draggableProps, dragHandleProps, innerRef } = provided
-
+function StepContentWrapper({ children, ...restProps }: BoxProps) {
   return (
     <Box
       alignItems='center'
       borderRadius={({ spacing }) => spacing(6)}
       display='flex'
-      mb={1}
-      minHeight='96px'
-      p={2}
-      ref={innerRef}
+      p={1}
       textAlign='center'
       width={1}
-      {...draggableProps}
-      {...dragHandleProps}
       {...restProps}
     >
-      {children}
+      <CourseLocationButton />
+
+      <Box margin='auto'>{children}</Box>
+
+      <DeleteVariantButton />
     </Box>
+  )
+}
+
+function CourseLocationButton() {
+  return (
+    <Box display='flex' flexDirection='column' minWidth='64px'>
+      <IconButton onClick={() => {}} size='small'>
+        <FontAwesomeIcon icon={faChevronUp} />
+      </IconButton>
+
+      <Button variant='text' size='small' onClick={() => {}} sx={{ py: 0 }}>
+        1/1/1
+      </Button>
+
+      <IconButton onClick={() => {}} size='small'>
+        <FontAwesomeIcon icon={faChevronDown} />
+      </IconButton>
+    </Box>
+  )
+}
+
+function DeleteVariantButton() {
+  return (
+    <IconButton onClick={() => {}} size='small' sx={{ minWidth: '64px' }}>
+      <FontAwesomeIcon icon={faTrash} />
+    </IconButton>
   )
 }
 
@@ -195,8 +199,9 @@ function AddStoryButton() {
 
 function ReminderLabel() {
   return (
-    <Typography variant='button' sx={{ opacity: 0.8 }}>
-      Emlékeztető
-    </Typography>
+    <Box alignItems='center' display='flex' gap={0.5} justifyContent='center' sx={{ opacity: 0.8 }}>
+      <FontAwesomeIcon icon={faBell} transform='shrink-3' />
+      <Typography variant='button'>Emlékeztető</Typography>
+    </Box>
   )
 }

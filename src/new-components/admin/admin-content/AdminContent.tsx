@@ -8,12 +8,13 @@ import { AddCharacterVariant } from './add-character-variant/AddCharacterVariant
 import { CharEditForm } from '../char-edit-form/CharEditForm'
 import { CharacterEntry, CharacterEntryVariant } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { LocationInLesson } from './LocationInLesson'
-import { BlueprintStep, BlueprintStepType, TimelineDragAndDrop } from '../timeline-drag-and-drop/TimelineDragAndDrop'
+import { BlueprintStep, BlueprintStepType, Timeline } from '../timeline/Timeline'
 import { BlueprintSelect } from '../blueprint-select/BlueprintSelect'
 import { useState } from 'react'
 import { Blueprint } from '../Blueprint'
 import { faCube } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { findLastIndex } from '../../shared/utility-functions'
 
 export type X = Omit<DiffedCharacterEntryVariant, 'index' | 'tier' | 'newInfo' | 'modifiedInfo'>
 
@@ -71,7 +72,7 @@ export default function AdminContent() {
       <Box display='flex' flexDirection={{ xs: 'column', md: 'row' }} gap={2}>
         <BlueprintSelect {...{ blueprint, setBlueprint }} />
 
-        <TimelineDragAndDrop {...{ blueprintSteps, getBlueprintSteps, character }} />
+        <Timeline {...{ blueprintSteps, getBlueprintSteps, character }} />
       </Box>
 
       {/* <Stepper nonLinear orientation='vertical' activeStep={activeTier - 1 ?? -1}>
@@ -125,20 +126,4 @@ export function getBlueprintSteps({ variants }: CharacterEntry): BlueprintStep[]
 
     return { id: `id-${index}`, type: 'unset' }
   })
-}
-
-/**
- * Returns the index of the last element in the array where predicate is true, and -1
- * otherwise.
- * @param array The source array to search in
- * @param predicate find calls predicate once for each element of the array, in descending
- * order, until it finds one where predicate returns true. If such an element is found,
- * findLastIndex immediately returns that element index. Otherwise, findLastIndex returns -1.
- */
-export function findLastIndex<T>(array: Array<T>, predicate: (value: T, index: number, obj: T[]) => boolean): number {
-  let l = array.length
-  while (l--) {
-    if (predicate(array[l], l, array)) return l
-  }
-  return -1
 }

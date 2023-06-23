@@ -1,4 +1,3 @@
-import { useTheme } from '@mui/material'
 import { LessonStatuses, TierStatuses } from './interfaces'
 
 const { UPCOMING, COMPLETED } = LessonStatuses
@@ -11,12 +10,18 @@ export function isDisabledLesson(tierStatuses: TierStatuses) {
   return !(tierStatuses.includes(UPCOMING) || tierStatuses.includes(COMPLETED))
 }
 
-export function useNavButtonStyling() {
-  const { constants } = useTheme()
-
-  return {
-    transition: constants.animationDuration,
-    '@media (hover: hover)': { '&:hover': { backgroundColor: 'transparent', color: 'grey[500]', cursor: 'pointer' } },
-    '&:active': { backgroundColor: 'transparent', color: 'primary.main' },
+/**
+ * Returns the index of the last element in the array where predicate is true, and -1
+ * otherwise.
+ * @param array The source array to search in
+ * @param predicate find calls predicate once for each element of the array, in descending
+ * order, until it finds one where predicate returns true. If such an element is found,
+ * findLastIndex immediately returns that element index. Otherwise, findLastIndex returns -1.
+ */
+export function findLastIndex<T>(array: Array<T>, predicate: (value: T, index: number, obj: T[]) => boolean): number {
+  let l = array.length
+  while (l--) {
+    if (predicate(array[l], l, array)) return l
   }
+  return -1
 }
