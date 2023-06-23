@@ -209,7 +209,7 @@ function CourseLocationButton({
       </IconButton>
 
       <Button variant='text' size='small' onClick={() => {}} sx={{ py: 0, visibility: tier ? 'default' : 'hidden' }}>
-        {tier}/{lessonNumber}/{index}
+        {tier}/{lessonNumber}/{index ?? '?'}
       </Button>
 
       <IconButton onClick={() => {}} size='small' sx={{ visibility: canMoveDown ? 'default' : 'hidden' }}>
