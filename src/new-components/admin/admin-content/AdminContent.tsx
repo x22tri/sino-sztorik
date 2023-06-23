@@ -106,24 +106,19 @@ export default function AdminContent() {
 
 export function getBlueprintSteps({ variants }: CharacterEntry): BlueprintStep[] {
   return variants.map((variant, index) => {
-    if ('keyword' in variant && 'primitive' in variant) {
-      return { id: `id-${index}`, type: 'keywordAndPrimitive' }
-    }
+    const type =
+      'keyword' in variant && 'primitive' in variant
+        ? 'keywordAndPrimitive'
+        : 'keyword' in variant
+        ? index === findLastIndex(variants, v => 'keyword' in v)
+          ? 'keyword'
+          : 'keywordUnexpounded'
+        : 'primitive' in variant
+        ? 'primitive'
+        : 'reminder' in variant
+        ? 'reminder'
+        : 'unset'
 
-    if ('keyword' in variant) {
-      return index === findLastIndex(variants, v => 'keyword' in v)
-        ? { id: `id-${index}`, type: 'keyword' }
-        : { id: `id-${index}`, type: 'keywordUnexpounded' }
-    }
-
-    if ('primitive' in variant) {
-      return { id: `id-${index}`, type: 'primitive' }
-    }
-
-    if ('reminder' in variant) {
-      return { id: `id-${index}`, type: 'reminder' }
-    }
-
-    return { id: `id-${index}`, type: 'unset' }
+    return { id: `id-${index}`, variant, type }
   })
 }

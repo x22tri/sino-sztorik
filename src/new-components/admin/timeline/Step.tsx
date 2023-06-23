@@ -3,11 +3,41 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Typography, Box, Divider, BoxProps, useTheme, Button, IconButton } from '@mui/material'
 import { DraggableProvided } from 'react-beautiful-dnd'
 import { X } from '../admin-content/AdminContent'
-import { BlueprintStepType } from './Timeline'
+import { BlueprintStep, BlueprintStepType } from './Timeline'
 import { When } from 'react-if'
+import { getReminderContentType } from './getReminderContentType'
+import { CharacterEntry } from '../../shared/MOCK_DATABASE_ENTRIES'
 
-export function StepContent({ isReminder, mergedChar, type }: { isReminder: boolean; mergedChar: X; type: BlueprintStepType }) {
+export function Step({
+  character,
+  index,
+  mergedChar,
+  step,
+  steps,
+}: {
+  character: CharacterEntry
+  index: number
+  mergedChar: X
+  step: BlueprintStep
+  steps: BlueprintStep[]
+}) {
   const { palette } = useTheme()
+
+  const isReminder = step.type === 'reminder'
+
+  const type = isReminder ? getReminderContentType(steps, index) : step.type
+
+  const canMoveUp = index !== 0 && type !== 'unset'
+
+  const canMoveDown = index !== steps.length - 1 && type !== 'unset'
+
+  const canBeDeleted = type !== 'unset'
+
+  const location = {
+    tier: step.variant.tier,
+    lessonNumber: character.lessonNumber,
+    index: step.variant.index,
+  }
 
   switch (type) {
     case 'keyword':
@@ -19,6 +49,7 @@ export function StepContent({ isReminder, mergedChar, type }: { isReminder: bool
             border: isReminder ? `3px solid ${palette.primary.main}` : undefined,
             justifyContent: 'center',
           }}
+          {...{ canMoveUp, canMoveDown, canBeDeleted, location }}
         >
           <Box alignItems='center' display='flex' flexDirection='column'>
             <Typography fontWeight='bold' margin='auto'>
@@ -39,6 +70,7 @@ export function StepContent({ isReminder, mergedChar, type }: { isReminder: bool
             color: isReminder ? palette.secondary.main : palette.secondary.contrastText,
             border: isReminder ? `3px solid ${palette.secondary.main}` : undefined,
           }}
+          {...{ canMoveUp, canMoveDown, canBeDeleted, location }}
         >
           <Box alignItems='center' display='flex' flexDirection='column' margin='auto'>
             <Typography fontStyle='italic' margin='auto'>
@@ -65,6 +97,7 @@ export function StepContent({ isReminder, mergedChar, type }: { isReminder: bool
             outline: `2px dashed ${palette.text.disabled}`,
             outlineOffset: '-6px',
           }}
+          {...{ canMoveUp, canMoveDown, canBeDeleted, location }}
         >
           <Box margin='auto' />
         </StepContentWrapper>
@@ -82,6 +115,7 @@ export function StepContent({ isReminder, mergedChar, type }: { isReminder: bool
             borderBottom: isReminder ? `3px solid ${palette.secondary.main}` : undefined,
             borderRight: isReminder ? `3px solid ${palette.secondary.main}` : undefined,
           }}
+          {...{ canMoveUp, canMoveDown, canBeDeleted, location }}
         >
           <Box>
             <Box alignItems='center' display='flex' flexDirection='row'>
@@ -114,7 +148,10 @@ export function StepContent({ isReminder, mergedChar, type }: { isReminder: bool
       )
     case 'keywordUnexpounded':
       return (
-        <StepContentWrapper sx={{ bgcolor: palette.primary[100]!, color: palette.primary.main }}>
+        <StepContentWrapper
+          sx={{ bgcolor: palette.primary[100]!, color: palette.primary.main }}
+          {...{ canMoveUp, canMoveDown, canBeDeleted, location }}
+        >
           <Typography fontWeight='bold'>{mergedChar.keyword}</Typography>
         </StepContentWrapper>
       )
@@ -122,7 +159,19 @@ export function StepContent({ isReminder, mergedChar, type }: { isReminder: bool
       return <></>
   }
 }
-function StepContentWrapper({ children, ...restProps }: BoxProps) {
+function StepContentWrapper({
+  canMoveUp,
+  canMoveDown,
+  canBeDeleted,
+  location,
+  children,
+  ...restProps
+}: BoxProps & {
+  canMoveUp: boolean
+  canMoveDown: boolean
+  canBeDeleted: boolean
+  location: { tier: number; lessonNumber: number; index: number }
+}) {
   return (
     <Box
       alignItems='center'
@@ -133,36 +182,46 @@ function StepContentWrapper({ children, ...restProps }: BoxProps) {
       width={1}
       {...restProps}
     >
-      <CourseLocationButton />
+      <CourseLocationButton {...{ canMoveUp, canMoveDown, location }} />
 
       <Box margin='auto'>{children}</Box>
 
-      <DeleteVariantButton />
+      <DeleteVariantButton {...{ canBeDeleted }} />
     </Box>
   )
 }
 
-function CourseLocationButton() {
+function CourseLocationButton({
+  canMoveUp,
+  canMoveDown,
+  location,
+}: {
+  canMoveUp: boolean
+  canMoveDown: boolean
+  location: { tier: number; lessonNumber: number; index: number }
+}) {
+  const { tier, lessonNumber, index } = location
+
   return (
     <Box display='flex' flexDirection='column' minWidth='64px'>
-      <IconButton onClick={() => {}} size='small'>
+      <IconButton onClick={() => {}} size='small' sx={{ visibility: canMoveUp ? 'default' : 'hidden' }}>
         <FontAwesomeIcon icon={faChevronUp} />
       </IconButton>
 
-      <Button variant='text' size='small' onClick={() => {}} sx={{ py: 0 }}>
-        1/1/1
+      <Button variant='text' size='small' onClick={() => {}} sx={{ py: 0, visibility: tier ? 'default' : 'hidden' }}>
+        {tier}/{lessonNumber}/{index}
       </Button>
 
-      <IconButton onClick={() => {}} size='small'>
+      <IconButton onClick={() => {}} size='small' sx={{ visibility: canMoveDown ? 'default' : 'hidden' }}>
         <FontAwesomeIcon icon={faChevronDown} />
       </IconButton>
     </Box>
   )
 }
 
-function DeleteVariantButton() {
+function DeleteVariantButton({ canBeDeleted }: { canBeDeleted: boolean }) {
   return (
-    <IconButton onClick={() => {}} size='small' sx={{ minWidth: '64px' }}>
+    <IconButton onClick={() => {}} size='small' sx={{ minWidth: '64px', visibility: canBeDeleted ? 'default' : 'hidden' }}>
       <FontAwesomeIcon icon={faTrash} />
     </IconButton>
   )

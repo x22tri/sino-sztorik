@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { Box, Stack } from '@mui/material'
 import { Subheading } from '../../learn/headings/Subheading'
-import { CharacterEntry } from '../../shared/MOCK_DATABASE_ENTRIES'
+import { CharacterEntry, CharacterEntryVariant } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { X, mergePreviousTiers } from '../admin-content/AdminContent'
-import { StepContent } from './StepContent'
-import { getReminderContentType } from './getReminderContentType'
+import { Step } from './Step'
 
 export type BlueprintStepType = 'keyword' | 'primitive' | 'unset' | 'reminder' | 'keywordUnexpounded' | 'keywordAndPrimitive'
 
 export type BlueprintStep = {
   id: string
+  variant: CharacterEntryVariant
   type: BlueprintStepType
   isReminder?: boolean
 }
@@ -21,14 +21,6 @@ function reorder(list: BlueprintStep[], startIndex: number, endIndex: number) {
   result.splice(endIndex, 0, removed)
 
   return result
-}
-
-function Step({ index, step, steps, mergedChar }: { index: number; step: BlueprintStep; steps: BlueprintStep[]; mergedChar: X }) {
-  const isReminder = step.type === 'reminder'
-
-  const contentType = isReminder ? getReminderContentType(steps, index) : step.type
-
-  return <StepContent type={contentType} {...{ isReminder, mergedChar }} />
 }
 
 export function Timeline({
@@ -53,7 +45,7 @@ export function Timeline({
 
       <Stack gap={1} marginTop={2} width={1}>
         {steps.map((step: BlueprintStep, index: number) => (
-          <Step key={step.id} {...{ index, step, steps, mergedChar }} />
+          <Step key={step.id} {...{ character, index, step, steps, mergedChar }} />
         ))}
       </Stack>
     </Box>
