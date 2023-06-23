@@ -22,6 +22,10 @@ export function mergePreviousTiers(variants: CharacterEntryVariant[], tierToStop
   return variants.slice(0, tierToStopAt).reduce((previousInfo, newInfo) => Object.assign(previousInfo, newInfo), {})
 }
 
+export function isNotPresentInTier(object: object) {
+  return !object || Object.keys(object).length === 0
+}
+
 export default function AdminContent() {
   const { constants } = useTheme()
   const { character, diffInfos } = useLoaderData() as { character: CharacterEntry; diffInfos: DiffInfoTier[] }
@@ -45,10 +49,6 @@ export default function AdminContent() {
     } else {
       setSearchParams({ tier: String(tier) })
     }
-  }
-
-  function isNotPresentInTier(object: object) {
-    return !object || Object.keys(object).length === 0
   }
 
   const blueprintSteps = getBlueprintSteps(character)

@@ -12,12 +12,16 @@ export function Step({
   character,
   index,
   mergedChar,
+  moveUp,
+  moveDown,
   step,
   steps,
 }: {
   character: CharacterEntry
   index: number
   mergedChar: X
+  moveUp: (source: number) => void
+  moveDown: (source: number) => void
   step: BlueprintStep
   steps: BlueprintStep[]
 }) {
@@ -33,11 +37,9 @@ export function Step({
 
   const canBeDeleted = type !== 'unset'
 
-  const location = {
-    tier: step.variant.tier,
-    lessonNumber: character.lessonNumber,
-    index: step.variant.index,
-  }
+  const tier = step.variant.tier
+  const lessonNumber = character.lessonNumber
+  const indexInLesson = step.variant.index
 
   switch (type) {
     case 'keyword':
@@ -49,7 +51,7 @@ export function Step({
             border: isReminder ? `3px solid ${palette.primary.main}` : undefined,
             justifyContent: 'center',
           }}
-          {...{ canMoveUp, canMoveDown, canBeDeleted, location }}
+          {...{ canMoveUp, canMoveDown, canBeDeleted, index, tier, lessonNumber, indexInLesson, moveUp, moveDown }}
         >
           <Box alignItems='center' display='flex' flexDirection='column'>
             <Typography fontWeight='bold' margin='auto'>
@@ -70,7 +72,7 @@ export function Step({
             color: isReminder ? palette.secondary.main : palette.secondary.contrastText,
             border: isReminder ? `3px solid ${palette.secondary.main}` : undefined,
           }}
-          {...{ canMoveUp, canMoveDown, canBeDeleted, location }}
+          {...{ canMoveUp, canMoveDown, canBeDeleted, tier, lessonNumber, indexInLesson, index, moveUp, moveDown }}
         >
           <Box alignItems='center' display='flex' flexDirection='column' margin='auto'>
             <Typography fontStyle='italic' margin='auto'>
@@ -97,7 +99,7 @@ export function Step({
             outline: `2px dashed ${palette.text.disabled}`,
             outlineOffset: '-6px',
           }}
-          {...{ canMoveUp, canMoveDown, canBeDeleted, location }}
+          {...{ canMoveUp, canMoveDown, canBeDeleted, tier, lessonNumber, indexInLesson, index, moveUp, moveDown }}
         >
           <Box margin='auto' />
         </StepContentWrapper>
@@ -115,7 +117,7 @@ export function Step({
             borderBottom: isReminder ? `3px solid ${palette.secondary.main}` : undefined,
             borderRight: isReminder ? `3px solid ${palette.secondary.main}` : undefined,
           }}
-          {...{ canMoveUp, canMoveDown, canBeDeleted, location }}
+          {...{ canMoveUp, canMoveDown, canBeDeleted, tier, lessonNumber, indexInLesson, index, moveUp, moveDown }}
         >
           <Box>
             <Box alignItems='center' display='flex' flexDirection='row'>
@@ -150,7 +152,7 @@ export function Step({
       return (
         <StepContentWrapper
           sx={{ bgcolor: palette.primary[100]!, color: palette.primary.main }}
-          {...{ canMoveUp, canMoveDown, canBeDeleted, location }}
+          {...{ canMoveUp, canMoveDown, canBeDeleted, tier, lessonNumber, indexInLesson, index, moveUp, moveDown }}
         >
           <Typography fontWeight='bold'>{mergedChar.keyword}</Typography>
         </StepContentWrapper>
@@ -163,26 +165,28 @@ function StepContentWrapper({
   canMoveUp,
   canMoveDown,
   canBeDeleted,
-  location,
+  tier,
+  lessonNumber,
+  indexInLesson,
+  index,
+  moveUp,
+  moveDown,
   children,
   ...restProps
 }: BoxProps & {
   canMoveUp: boolean
   canMoveDown: boolean
   canBeDeleted: boolean
-  location: { tier: number; lessonNumber: number; index: number }
+  tier: number
+  lessonNumber: number
+  indexInLesson: number
+  index: number
+  moveUp: (source: number) => void
+  moveDown: (source: number) => void
 }) {
   return (
-    <Box
-      alignItems='center'
-      borderRadius={({ spacing }) => spacing(6)}
-      display='flex'
-      p={1}
-      textAlign='center'
-      width={1}
-      {...restProps}
-    >
-      <CourseLocationButton {...{ canMoveUp, canMoveDown, location }} />
+    <Box borderRadius={({ spacing }) => spacing(6)} display='flex' p={1} {...restProps}>
+      <ReorderButton {...{ canMoveUp, canMoveDown, tier, lessonNumber, indexInLesson, index, moveUp, moveDown }} />
 
       <Box margin='auto'>{children}</Box>
 
@@ -191,28 +195,36 @@ function StepContentWrapper({
   )
 }
 
-function CourseLocationButton({
+function ReorderButton({
   canMoveUp,
   canMoveDown,
-  location,
+  tier,
+  lessonNumber,
+  indexInLesson,
+  index,
+  moveUp,
+  moveDown,
 }: {
   canMoveUp: boolean
   canMoveDown: boolean
-  location: { tier: number; lessonNumber: number; index: number }
+  tier: number
+  lessonNumber: number
+  indexInLesson: number
+  index: number
+  moveUp: (source: number) => void
+  moveDown: (source: number) => void
 }) {
-  const { tier, lessonNumber, index } = location
-
   return (
     <Box display='flex' flexDirection='column' minWidth='64px'>
-      <IconButton onClick={() => {}} size='small' sx={{ visibility: canMoveUp ? 'default' : 'hidden' }}>
+      <IconButton onClick={() => moveUp(index)} size='small' sx={{ visibility: canMoveUp ? 'default' : 'hidden' }}>
         <FontAwesomeIcon icon={faChevronUp} />
       </IconButton>
 
       <Button variant='text' size='small' onClick={() => {}} sx={{ py: 0, visibility: tier ? 'default' : 'hidden' }}>
-        {tier}/{lessonNumber}/{index ?? '?'}
+        {tier}/{lessonNumber}/{indexInLesson ?? '?'}
       </Button>
 
-      <IconButton onClick={() => {}} size='small' sx={{ visibility: canMoveDown ? 'default' : 'hidden' }}>
+      <IconButton onClick={() => moveDown(index)} size='small' sx={{ visibility: canMoveDown ? 'default' : 'hidden' }}>
         <FontAwesomeIcon icon={faChevronDown} />
       </IconButton>
     </Box>

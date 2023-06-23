@@ -16,9 +16,17 @@ export type BlueprintStep = {
 
 function reorder(list: BlueprintStep[], startIndex: number, endIndex: number) {
   const result = Array.from(list)
-  const [removed] = result.splice(startIndex, 1)
 
-  result.splice(endIndex, 0, removed)
+  if (!(result[endIndex].type === 'unset')) {
+    result[endIndex] = {
+      ...result[endIndex],
+      variant: { ...result[endIndex].variant, tier: startIndex + 1 },
+    }
+  }
+
+  const [moved] = result.splice(startIndex, 1)
+
+  result.splice(endIndex, 0, { ...moved, variant: { ...moved.variant, tier: endIndex + 1 } })
 
   return result
 }
@@ -39,13 +47,23 @@ export function Timeline({
     setSteps(reorderedSteps)
   }
 
+  function moveUp(startIndex: number) {
+    const reorderedSteps = reorder(steps, startIndex, startIndex - 1)
+    setSteps(reorderedSteps)
+  }
+
+  function moveDown(startIndex: number) {
+    const reorderedSteps = reorder(steps, startIndex, startIndex + 1)
+    setSteps(reorderedSteps)
+  }
+
   return (
     <Box width={1}>
       <Subheading title='Sorrend' />
 
       <Stack gap={1} marginTop={2} width={1}>
         {steps.map((step: BlueprintStep, index: number) => (
-          <Step key={step.id} {...{ character, index, step, steps, mergedChar }} />
+          <Step key={step.id} {...{ character, index, step, steps, mergedChar, moveUp, moveDown }} />
         ))}
       </Stack>
     </Box>
