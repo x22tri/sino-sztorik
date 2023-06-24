@@ -38,6 +38,7 @@ import { PotentialOccurrence, SortedCharacterEntry, SortedOccurrences } from '..
 export function Step({
   character,
   index,
+  deleteEntry,
   moveUp,
   moveDown,
   step,
@@ -45,6 +46,7 @@ export function Step({
 }: {
   character: SortedCharacterEntry
   index: number
+  deleteEntry: (source: number) => void
   moveUp: (source: number) => void
   moveDown: (source: number) => void
   step: PotentialOccurrence
@@ -63,11 +65,7 @@ export function Step({
     contentType !== 'unset' &&
     !(steps[index + 1].type === 'reminder' && !getReminderContentType(steps, index))
 
-  const canBeDeleted =
-    // true ||
-    contentType !== 'unset' &&
-    !(step.type === 'keyword' && 'keyword' in character) &&
-    !(step.type === 'primitive' && 'primitive' in character)
+  const canBeDeleted = contentType !== 'unset'
 
   const canAddKeyword = steps.find(step => step.type === 'keyword') === undefined
 
@@ -109,6 +107,7 @@ export function Step({
             canCombineDown,
             canAddStory,
             canEditStory,
+            deleteEntry,
             index,
             tier,
             lessonNumber,
@@ -142,6 +141,7 @@ export function Step({
             canCombineDown,
             canAddStory,
             canEditStory,
+            deleteEntry,
             tier,
             lessonNumber,
             indexInLesson,
@@ -181,6 +181,7 @@ export function Step({
             canCombineDown,
             canAddStory,
             canEditStory,
+            deleteEntry,
             tier,
             lessonNumber,
             indexInLesson,
@@ -213,6 +214,7 @@ export function Step({
             canCombineDown,
             canAddStory,
             canEditStory,
+            deleteEntry,
             tier,
             lessonNumber,
             indexInLesson,
@@ -260,6 +262,7 @@ export function Step({
             canCombineDown,
             canAddStory,
             canEditStory,
+            deleteEntry,
             tier,
             lessonNumber,
             indexInLesson,
@@ -285,6 +288,7 @@ function StepContentWrapper({
   canCombineDown,
   canAddStory,
   canEditStory,
+  deleteEntry,
   tier,
   lessonNumber,
   indexInLesson,
@@ -301,6 +305,7 @@ function StepContentWrapper({
   canCombineDown: boolean
   canAddStory: boolean
   canEditStory: boolean
+  deleteEntry: (source: number) => void
   tier: number
   lessonNumber: number
   indexInLesson: number
@@ -316,7 +321,7 @@ function StepContentWrapper({
 
       <Box margin='auto'>{children}</Box>
 
-      <Actions {...{ canAddStory, canEditStory, canBeDeleted }} />
+      <Actions {...{ canAddStory, canEditStory, canBeDeleted, deleteEntry, index }} />
     </Box>
   )
 }
@@ -402,17 +407,21 @@ function Actions({
   canAddStory,
   canBeDeleted,
   canEditStory,
+  deleteEntry,
+  index,
 }: {
   canAddStory: boolean
   canBeDeleted: boolean
   canEditStory: boolean
+  deleteEntry: (source: number) => void
+  index: number
 }) {
   return (
     <Stack alignItems='center' divider={<Divider flexItem />} gap={1} justifyContent='center' minWidth='64px'>
       {!canBeDeleted ? (
         false
       ) : (
-        <ToolbarButton icon={faTrash} tooltip='Karakter törlése a körből' onClick={() => {}} sx={{ p: 0 }} />
+        <ToolbarButton icon={faTrash} tooltip='Karakter törlése a körből' onClick={() => deleteEntry(index)} sx={{ p: 0 }} />
       )}
 
       {!canAddStory ? false : <AddNewVariantButton icon={faBookOpen} tooltip='Történet hozzáadása' onClick={() => {}} />}

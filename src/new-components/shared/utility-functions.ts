@@ -25,3 +25,23 @@ export function findLastIndex<T>(array: Array<T>, predicate: (value: T, index: n
   }
   return -1
 }
+
+/**
+ * Returns the indexes of all elements in the array where predicate is true, [] otherwise.
+ * @param array The source array to search in
+ * @param predicate find calls predicate once for each element of the array, in descending
+ * order, until it finds one where predicate returns true. If such an element is found,
+ * it is added to indexes and the function continues.
+ */
+export function findAllIndexes<T>(array: Array<T>, predicate: (value: T, index: number, obj: T[]) => boolean): number[] {
+  const indexes = []
+  let l = -1
+
+  while (l++ < array.length - 1) {
+    if (predicate(array[l], l, array)) {
+      indexes.push(l)
+    }
+  }
+
+  return indexes
+}
