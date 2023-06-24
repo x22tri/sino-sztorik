@@ -28,7 +28,9 @@ export interface DiffedCharacterEntry extends CharacterEntry {
   variants: [DiffedCharacterEntryVariant, DiffedCharacterEntryVariant, DiffedCharacterEntryVariant, DiffedCharacterEntryVariant]
 }
 
-export type PotentialOccurrence = Occurrence | { tier: number; type: 'unset' }
+export type Unset = { tier: number; type: 'unset' }
+
+export type PotentialOccurrence = Occurrence | Unset
 
 export type SortedOccurrences = [PotentialOccurrence, PotentialOccurrence, PotentialOccurrence, PotentialOccurrence]
 

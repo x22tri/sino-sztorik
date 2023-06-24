@@ -39,14 +39,12 @@ export function Step({
   character,
   index,
   deleteEntry,
-
   step,
   steps,
 }: {
   character: SortedCharacterEntry
   index: number
   deleteEntry: (source: number) => void
-
   step: PotentialOccurrence
   steps: SortedOccurrences
 }) {
@@ -58,13 +56,15 @@ export function Step({
 
   const canBeDeleted = contentType !== 'unset'
 
-  const canAddKeyword = steps.find(step => step.type === 'keyword') === undefined
+  const canAddKeyword = !steps.some(step => step.type === 'keyword') && !steps.some(step => step.type === 'keywordAndPrimitive')
 
-  const canAddPrimitive = steps.find(step => step.type === 'primitive') === undefined
+  const canAddPrimitive =
+    !steps.some(step => step.type === 'primitive') && !steps.some(step => step.type === 'keywordAndPrimitive')
 
   const canAddReminder = getReminderContentType(steps, index) !== null
 
-  const canAddStory = (step.type === 'keyword' || step.type === 'primitive') && !('story' in step)
+  const canAddStory =
+    (step.type === 'keyword' || step.type === 'primitive' || step.type === 'keywordAndPrimitive') && !('story' in step)
 
   const canEditStory = 'story' in step
 
@@ -84,9 +84,9 @@ export function Step({
           }}
           {...{
             canBeDeleted,
-
             canAddStory,
             canEditStory,
+            contentType,
             deleteEntry,
             index,
             tier,
@@ -116,6 +116,7 @@ export function Step({
 
             canAddStory,
             canEditStory,
+            contentType,
             deleteEntry,
             tier,
             lessonNumber,
@@ -151,6 +152,7 @@ export function Step({
 
             canAddStory,
             canEditStory,
+            contentType,
             deleteEntry,
             tier,
             lessonNumber,
@@ -179,6 +181,7 @@ export function Step({
 
             canAddStory,
             canEditStory,
+            contentType,
             deleteEntry,
             tier,
             lessonNumber,
@@ -221,6 +224,7 @@ export function Step({
             canBeDeleted,
             canAddStory,
             canEditStory,
+            contentType,
             deleteEntry,
             tier,
             lessonNumber,
@@ -242,6 +246,7 @@ function StepContentWrapper({
 
   canAddStory,
   canEditStory,
+  contentType,
   deleteEntry,
   tier,
   lessonNumber,
@@ -255,6 +260,7 @@ function StepContentWrapper({
 
   canAddStory: boolean
   canEditStory: boolean
+  contentType: BlueprintStepType | null
   deleteEntry: (source: number) => void
   tier: number
   lessonNumber: number
@@ -271,7 +277,9 @@ function StepContentWrapper({
       {...restProps}
       sx={{ grid: `"location content actions" auto / 1fr 4fr 1fr`, ...restProps.sx }}
     >
-      <CourseLocation {...{ tier, lessonNumber, indexInLesson }} />
+      <When condition={contentType !== 'unset'}>
+        <CourseLocation {...{ tier, lessonNumber, indexInLesson }} />
+      </When>
 
       <Box margin='auto' gridArea='content'>
         {children}
@@ -284,11 +292,9 @@ function StepContentWrapper({
 
 function CourseLocation({ tier, lessonNumber, indexInLesson }: { tier: number; lessonNumber: number; indexInLesson: number }) {
   return (
-    <When condition={indexInLesson}>
-      <Button variant='text' size='small' onClick={() => {}} sx={{ p: 0 }}>
-        {tier}/{lessonNumber}/{indexInLesson}
-      </Button>
-    </When>
+    <Button variant='text' size='small' onClick={() => {}} sx={{ height: 'fit-content', alignSelf: 'center' }}>
+      {tier}/{lessonNumber}/{indexInLesson}
+    </Button>
   )
 }
 
