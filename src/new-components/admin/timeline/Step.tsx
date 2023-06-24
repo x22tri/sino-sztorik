@@ -1,3 +1,4 @@
+import { Dispatch, ElementType, ForwardedRef, MouseEvent, SetStateAction, forwardRef, useState } from 'react'
 import {
   IconDefinition,
   faBell,
@@ -10,14 +11,26 @@ import {
   faTrash,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Typography, Box, Divider, BoxProps, useTheme, Button, IconButton, Stack, Tooltip } from '@mui/material'
+import {
+  Typography,
+  Box,
+  Divider,
+  BoxProps,
+  useTheme,
+  Button,
+  IconButton,
+  Stack,
+  Tooltip,
+  Toolbar,
+  IconButtonProps,
+} from '@mui/material'
 import { DraggableProvided } from 'react-beautiful-dnd'
-import { X } from '../admin-content/AdminContent'
+import { X, mergePreviousTiers } from '../admin-content/AdminContent'
 import { BlueprintStep, BlueprintStepType } from './Timeline'
 import { When } from 'react-if'
 import { getReminderContentType } from './getReminderContentType'
-import { CharacterEntry } from '../../shared/MOCK_DATABASE_ENTRIES'
-import ToolbarButton from '../../shared/components/ToolbarButton'
+import { CharacterEntry, CharacterEntryVariant } from '../../shared/MOCK_DATABASE_ENTRIES'
+import ToolbarButton, { FadeControlledToolbarButton } from '../../shared/components/ToolbarButton'
 
 export function Step({
   character,
@@ -40,25 +53,35 @@ export function Step({
 
   const isReminder = step.type === 'reminder'
 
-  const type = isReminder ? getReminderContentType(steps, index) : step.type
+  const contentType = isReminder ? getReminderContentType(steps, index) : step.type
 
-  const canMoveUp = index !== 0 && type !== 'unset'
+  const canMoveUp = index !== 0 && contentType !== 'unset' && !(isReminder && !getReminderContentType(steps, index - 1))
 
-  const canMoveDown = index !== steps.length - 1 && type !== 'unset'
+  const canMoveDown =
+    index !== steps.length - 1 &&
+    contentType !== 'unset' &&
+    !(steps[index + 1].type === 'reminder' && !getReminderContentType(steps, index))
 
-  const canBeDeleted = type !== 'unset'
+  const canBeDeleted =
+    contentType !== 'unset' &&
+    !(step.type === 'keyword' && 'keyword' in mergedChar) &&
+    !(step.type === 'primitive' && 'primitive' in mergedChar)
 
   const canAddKeyword = steps.find(step => step.type === 'keyword') === undefined
 
   const canAddPrimitive = steps.find(step => step.type === 'primitive') === undefined
 
-  const canAddReminder = true
+  const canAddReminder = getReminderContentType(steps, index) !== null
+
+  const canAddStory = (step.type === 'keyword' || step.type === 'primitive') && !('story' in step.variant)
+
+  const canEditStory = 'story' in step.variant
 
   const tier = step.variant.tier
   const lessonNumber = character.lessonNumber
   const indexInLesson = step.variant.index
 
-  switch (type) {
+  switch (contentType) {
     case 'keyword':
       return (
         <StepContentWrapper
@@ -75,9 +98,7 @@ export function Step({
               {mergedChar.keyword}
             </Typography>
 
-            <When condition={isReminder}>
-              <ReminderLabel />
-            </When>
+            <BottomRow {...{ canAddStory, canEditStory, isReminder }} />
           </Box>
         </StepContentWrapper>
       )
@@ -101,9 +122,7 @@ export function Step({
               {mergedChar.primitive!}
             </Typography>
 
-            <When condition={isReminder}>
-              <ReminderLabel />
-            </When>
+            <BottomRow {...{ canAddStory, canEditStory, isReminder }} />
           </Box>
         </StepContentWrapper>
       )
@@ -118,7 +137,6 @@ export function Step({
           }}
           {...{ canMoveUp, canMoveDown, canBeDeleted, tier, lessonNumber, indexInLesson, index, moveUp, moveDown }}
         >
-          {/* <Box margin='auto' /> */}
           <AddNewVariantButtons {...{ canAddKeyword, canAddPrimitive, canAddReminder }} />
         </StepContentWrapper>
       )
@@ -160,9 +178,7 @@ export function Step({
               </Typography>
             </Box>
 
-            <When condition={isReminder}>
-              <ReminderLabel />
-            </When>
+            <BottomRow {...{ canAddStory, canEditStory, isReminder }} />
           </Box>
         </StepContentWrapper>
       )
@@ -173,6 +189,8 @@ export function Step({
           {...{ canMoveUp, canMoveDown, canBeDeleted, tier, lessonNumber, indexInLesson, index, moveUp, moveDown }}
         >
           <Typography fontWeight='bold'>{mergedChar.keyword}</Typography>
+
+          <BottomRow {...{ canAddStory, canEditStory, isReminder }} />
         </StepContentWrapper>
       )
     default:
@@ -204,7 +222,7 @@ function StepContentWrapper({
 }) {
   return (
     <Box borderRadius={({ spacing }) => spacing(6)} display='flex' p={1} {...restProps}>
-      <ReorderButton {...{ canMoveUp, canMoveDown, tier, lessonNumber, indexInLesson, index, moveUp, moveDown }} />
+      <ReorderButtons {...{ canMoveUp, canMoveDown, tier, lessonNumber, indexInLesson, index, moveUp, moveDown }} />
 
       <Box margin='auto'>{children}</Box>
 
@@ -213,7 +231,7 @@ function StepContentWrapper({
   )
 }
 
-function ReorderButton({
+function ReorderButtons({
   canMoveUp,
   canMoveDown,
   tier,
@@ -234,17 +252,25 @@ function ReorderButton({
 }) {
   return (
     <Box display='flex' flexDirection='column' minWidth='64px'>
-      <IconButton onClick={() => moveUp(index)} size='small' sx={{ visibility: canMoveUp ? 'default' : 'hidden' }}>
-        <FontAwesomeIcon icon={faChevronUp} />
-      </IconButton>
+      <FadeControlledToolbarButton
+        tooltip='Mozgatás felfelé'
+        icon={faChevronUp}
+        onClick={() => moveUp(index)}
+        size='small'
+        sx={{ visibility: canMoveUp ? 'default' : 'hidden' }}
+      />
 
       <Button variant='text' size='small' onClick={() => {}} sx={{ py: 0, visibility: tier ? 'default' : 'hidden' }}>
         {tier}/{lessonNumber}/{indexInLesson ?? '?'}
       </Button>
 
-      <IconButton onClick={() => moveDown(index)} size='small' sx={{ visibility: canMoveDown ? 'default' : 'hidden' }}>
-        <FontAwesomeIcon icon={faChevronDown} />
-      </IconButton>
+      <FadeControlledToolbarButton
+        tooltip='Mozgatás lefelé'
+        icon={faChevronDown}
+        onClick={() => moveDown(index)}
+        size='small'
+        sx={{ visibility: canMoveDown ? 'default' : 'hidden' }}
+      />
     </Box>
   )
 }
@@ -257,42 +283,54 @@ function DeleteVariantButton({ canBeDeleted }: { canBeDeleted: boolean }) {
   )
 }
 
-function EditStoryButton() {
-  return (
-    <Button
-      color='white'
-      size='small'
-      variant='text'
-      onClick={() => {}}
-      sx={{ opacity: 0.8, lineHeight: 1, ':hover': { opacity: 1 } }}
-    >
-      Történet szerkesztése
-    </Button>
-  )
-}
+function BottomRow({
+  canAddStory,
+  canEditStory,
+  isReminder,
+}: {
+  canAddStory: boolean
+  canEditStory: boolean
+  isReminder: boolean
+}) {
+  if (canAddStory) {
+    return (
+      <Button
+        color='white'
+        size='small'
+        variant='text'
+        startIcon={<FontAwesomeIcon icon={faBookOpen} transform='shrink-4' />}
+        onClick={() => {}}
+        sx={{ opacity: 0.8, lineHeight: 1, '.MuiButton-startIcon': { marginRight: '2px' }, ':hover': { opacity: 1 } }}
+      >
+        Történet hozzáadása
+      </Button>
+    )
+  }
 
-function AddStoryButton() {
-  return (
-    <Button
-      color='white'
-      size='small'
-      variant='text'
-      startIcon={<FontAwesomeIcon icon={faBookOpen} transform='shrink-4' />}
-      onClick={() => {}}
-      sx={{ opacity: 0.8, lineHeight: 1, '.MuiButton-startIcon': { marginRight: '2px' }, ':hover': { opacity: 1 } }}
-    >
-      Történet hozzáadása
-    </Button>
-  )
-}
+  if (canEditStory) {
+    return (
+      <Button
+        color='white'
+        size='small'
+        variant='text'
+        onClick={() => {}}
+        sx={{ opacity: 0.8, lineHeight: 1, ':hover': { opacity: 1 } }}
+      >
+        Történet szerkesztése
+      </Button>
+    )
+  }
 
-function ReminderLabel() {
-  return (
-    <Box alignItems='center' display='flex' gap={0.5} justifyContent='center' sx={{ opacity: 0.8 }}>
-      <FontAwesomeIcon icon={faBell} transform='shrink-3' />
-      <Typography variant='button'>Emlékeztető</Typography>
-    </Box>
-  )
+  if (isReminder) {
+    return (
+      <Box alignItems='center' display='flex' gap={0.5} justifyContent='center' sx={{ opacity: 0.8 }}>
+        <FontAwesomeIcon icon={faBell} transform='shrink-3' />
+        <Typography variant='button'>Emlékeztető</Typography>
+      </Box>
+    )
+  }
+
+  return null
 }
 
 function AddNewVariantButtons({

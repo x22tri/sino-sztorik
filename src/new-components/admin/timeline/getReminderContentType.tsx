@@ -1,6 +1,6 @@
 import { BlueprintStep, BlueprintStepType } from './Timeline'
 
-export function getReminderContentType(steps: BlueprintStep[], index: number): BlueprintStepType {
+export function getReminderContentType(steps: BlueprintStep[], index: number): BlueprintStepType | null {
   const previousTiers = steps.slice(0, index).map(step => step.type)
 
   if (previousTiers.includes('keyword')) {
@@ -16,7 +16,5 @@ export function getReminderContentType(steps: BlueprintStep[], index: number): B
     return 'primitive'
   }
 
-  console.log(steps)
-  console.log(index)
-  throw new Error('Reminder could not get type.')
+  return null
 }

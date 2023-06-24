@@ -11,7 +11,6 @@ export type BlueprintStep = {
   id: string
   variant: CharacterEntryVariant
   type: BlueprintStepType
-  isReminder?: boolean
 }
 
 function reorder(list: BlueprintStep[], startIndex: number, endIndex: number) {
