@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { Box, Stack } from '@mui/material'
 import { Subheading } from '../../learn/headings/Subheading'
-import { CharacterEntry, CharacterEntryVariant } from '../../shared/MOCK_DATABASE_ENTRIES'
+import { CharacterEntry, CharacterEntryV2, CharacterEntryVariant } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { X, mergePreviousTiers } from '../admin-content/AdminContent'
 import { Step } from './Step'
+import { PotentialOccurrence, SortedCharacterEntry, SortedOccurrences } from '../../shared/logic/loadAdminChar'
 
 export type BlueprintStepType = 'keyword' | 'primitive' | 'unset' | 'reminder' | 'keywordUnexpounded' | 'keywordAndPrimitive'
 
@@ -13,38 +14,23 @@ export type BlueprintStep = {
   type: BlueprintStepType
 }
 
-function reorder(list: BlueprintStep[], startIndex: number, endIndex: number) {
+// export type Sorted
+
+function reorder(list: SortedOccurrences, startIndex: number, endIndex: number) {
   const result = Array.from(list)
 
-  if (!(result[endIndex].type === 'unset')) {
-    result[endIndex] = {
-      ...result[endIndex],
-      variant: { ...result[endIndex].variant, tier: startIndex + 1 },
-    }
-  }
+  result[endIndex] = { ...result[endIndex], tier: startIndex + 1 }
 
   const [moved] = result.splice(startIndex, 1)
 
-  result.splice(endIndex, 0, { ...moved, variant: { ...moved.variant, tier: endIndex + 1 } })
+  result.splice(endIndex, 0, { ...moved, tier: endIndex + 1 })
 
-  return result
+  return result as SortedOccurrences
 }
 
-export function Timeline({
-  blueprintSteps,
-  character,
-}: {
-  blueprintSteps: BlueprintStep[]
-  getBlueprintSteps({ variants }: CharacterEntry): BlueprintStep[]
-  character: CharacterEntry
-}) {
-  const [steps, setSteps] = useState(blueprintSteps)
-  const mergedChar = mergePreviousTiers(character.variants, 4)
-
-  function onDragEnd(result: any) {
-    const reorderedSteps = reorder(steps, result.source.index, result.destination.index)
-    setSteps(reorderedSteps)
-  }
+export function Timeline({ character }: { character: SortedCharacterEntry }) {
+  const [steps, setSteps] = useState(character.occurrences)
+  // const mergedChar = mergePreviousTiers(character.variants, 4)
 
   function moveUp(startIndex: number) {
     const reorderedSteps = reorder(steps, startIndex, startIndex - 1)
@@ -61,8 +47,8 @@ export function Timeline({
       <Subheading title='Sorrend' />
 
       <Stack gap={1} marginTop={2} width={1}>
-        {steps.map((step: BlueprintStep, index: number) => (
-          <Step key={step.id} {...{ character, index, step, steps, mergedChar, moveUp, moveDown }} />
+        {steps.map((step: PotentialOccurrence, index: number) => (
+          <Step key={index} {...{ character, index, step, steps, moveUp, moveDown }} />
         ))}
       </Stack>
     </Box>

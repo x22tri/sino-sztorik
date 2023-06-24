@@ -5,8 +5,10 @@ import {
   faBookOpen,
   faChevronDown,
   faChevronUp,
+  faCodeMerge,
   faCube,
   faKey,
+  faPen,
   faPlus,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons'
@@ -27,27 +29,26 @@ import {
 import { DraggableProvided } from 'react-beautiful-dnd'
 import { X, mergePreviousTiers } from '../admin-content/AdminContent'
 import { BlueprintStep, BlueprintStepType } from './Timeline'
-import { When } from 'react-if'
+import { Else, If, Then, When } from 'react-if'
 import { getReminderContentType } from './getReminderContentType'
 import { CharacterEntry, CharacterEntryVariant } from '../../shared/MOCK_DATABASE_ENTRIES'
 import ToolbarButton, { FadeControlledToolbarButton } from '../../shared/components/ToolbarButton'
+import { PotentialOccurrence, SortedCharacterEntry, SortedOccurrences } from '../../shared/logic/loadAdminChar'
 
 export function Step({
   character,
   index,
-  mergedChar,
   moveUp,
   moveDown,
   step,
   steps,
 }: {
-  character: CharacterEntry
+  character: SortedCharacterEntry
   index: number
-  mergedChar: X
   moveUp: (source: number) => void
   moveDown: (source: number) => void
-  step: BlueprintStep
-  steps: BlueprintStep[]
+  step: PotentialOccurrence
+  steps: SortedOccurrences
 }) {
   const { palette } = useTheme()
 
@@ -63,9 +64,10 @@ export function Step({
     !(steps[index + 1].type === 'reminder' && !getReminderContentType(steps, index))
 
   const canBeDeleted =
+    // true ||
     contentType !== 'unset' &&
-    !(step.type === 'keyword' && 'keyword' in mergedChar) &&
-    !(step.type === 'primitive' && 'primitive' in mergedChar)
+    !(step.type === 'keyword' && 'keyword' in character) &&
+    !(step.type === 'primitive' && 'primitive' in character)
 
   const canAddKeyword = steps.find(step => step.type === 'keyword') === undefined
 
@@ -73,13 +75,21 @@ export function Step({
 
   const canAddReminder = getReminderContentType(steps, index) !== null
 
-  const canAddStory = (step.type === 'keyword' || step.type === 'primitive') && !('story' in step.variant)
+  const canAddStory = (step.type === 'keyword' || step.type === 'primitive') && !('story' in step)
 
-  const canEditStory = 'story' in step.variant
+  const canEditStory = 'story' in step
 
-  const tier = step.variant.tier
+  const canCombineUp =
+    (step.type === 'keyword' && steps[index - 1]?.type === 'primitive') ||
+    (step.type === 'primitive' && steps[index - 1]?.type === 'keyword')
+
+  const canCombineDown =
+    (step.type === 'keyword' && steps[index + 1]?.type === 'primitive') ||
+    (step.type === 'primitive' && steps[index + 1]?.type === 'keyword')
+
+  const tier = step.tier
   const lessonNumber = character.lessonNumber
-  const indexInLesson = step.variant.index
+  const indexInLesson = 'index' in step ? step.index : 0
 
   switch (contentType) {
     case 'keyword':
@@ -91,14 +101,28 @@ export function Step({
             border: isReminder ? `3px solid ${palette.primary.main}` : undefined,
             justifyContent: 'center',
           }}
-          {...{ canMoveUp, canMoveDown, canBeDeleted, index, tier, lessonNumber, indexInLesson, moveUp, moveDown }}
+          {...{
+            canMoveUp,
+            canMoveDown,
+            canBeDeleted,
+            canCombineUp,
+            canCombineDown,
+            canAddStory,
+            canEditStory,
+            index,
+            tier,
+            lessonNumber,
+            indexInLesson,
+            moveUp,
+            moveDown,
+          }}
         >
           <Box alignItems='center' display='flex' flexDirection='column'>
             <Typography fontWeight='bold' margin='auto'>
-              {mergedChar.keyword}
+              {character.keyword}
             </Typography>
 
-            <BottomRow {...{ canAddStory, canEditStory, isReminder }} />
+            {/* <BottomRow {...{ canAddStory, canEditStory, isReminder }} /> */}
           </Box>
         </StepContentWrapper>
       )
@@ -110,7 +134,21 @@ export function Step({
             color: isReminder ? palette.secondary.main : palette.secondary.contrastText,
             border: isReminder ? `3px solid ${palette.secondary.main}` : undefined,
           }}
-          {...{ canMoveUp, canMoveDown, canBeDeleted, tier, lessonNumber, indexInLesson, index, moveUp, moveDown }}
+          {...{
+            canMoveUp,
+            canMoveDown,
+            canBeDeleted,
+            canCombineUp,
+            canCombineDown,
+            canAddStory,
+            canEditStory,
+            tier,
+            lessonNumber,
+            indexInLesson,
+            index,
+            moveUp,
+            moveDown,
+          }}
         >
           <Box alignItems='center' display='flex' flexDirection='column' margin='auto'>
             <Typography fontStyle='italic' margin='auto'>
@@ -119,10 +157,10 @@ export function Step({
                 icon={faCube}
                 style={{ marginRight: '4px' }}
               />
-              {mergedChar.primitive!}
+              {character.primitive!}
             </Typography>
 
-            <BottomRow {...{ canAddStory, canEditStory, isReminder }} />
+            {/* <BottomRow {...{ canAddStory, canEditStory, isReminder }} /> */}
           </Box>
         </StepContentWrapper>
       )
@@ -135,7 +173,21 @@ export function Step({
             outline: `2px dashed ${palette.text.disabled}`,
             outlineOffset: '-6px',
           }}
-          {...{ canMoveUp, canMoveDown, canBeDeleted, tier, lessonNumber, indexInLesson, index, moveUp, moveDown }}
+          {...{
+            canMoveUp,
+            canMoveDown,
+            canBeDeleted,
+            canCombineUp,
+            canCombineDown,
+            canAddStory,
+            canEditStory,
+            tier,
+            lessonNumber,
+            indexInLesson,
+            index,
+            moveUp,
+            moveDown,
+          }}
         >
           <AddNewVariantButtons {...{ canAddKeyword, canAddPrimitive, canAddReminder }} />
         </StepContentWrapper>
@@ -153,12 +205,26 @@ export function Step({
             borderBottom: isReminder ? `3px solid ${palette.secondary.main}` : undefined,
             borderRight: isReminder ? `3px solid ${palette.secondary.main}` : undefined,
           }}
-          {...{ canMoveUp, canMoveDown, canBeDeleted, tier, lessonNumber, indexInLesson, index, moveUp, moveDown }}
+          {...{
+            canMoveUp,
+            canMoveDown,
+            canBeDeleted,
+            canCombineUp,
+            canCombineDown,
+            canAddStory,
+            canEditStory,
+            tier,
+            lessonNumber,
+            indexInLesson,
+            index,
+            moveUp,
+            moveDown,
+          }}
         >
           <Box>
             <Box alignItems='center' display='flex' flexDirection='row'>
               <Typography color={isReminder ? palette.primary.main : palette.primary.contrastText} fontWeight='bold'>
-                {mergedChar.keyword}
+                {character.keyword}
               </Typography>
 
               <Divider
@@ -174,11 +240,11 @@ export function Step({
               />
 
               <Typography color={isReminder ? palette.secondary.main : palette.secondary.contrastText} fontStyle='italic'>
-                {mergedChar.primitive}
+                {character.primitive}
               </Typography>
             </Box>
 
-            <BottomRow {...{ canAddStory, canEditStory, isReminder }} />
+            {/* <BottomRow {...{ canAddStory, canEditStory, isReminder }} /> */}
           </Box>
         </StepContentWrapper>
       )
@@ -186,11 +252,25 @@ export function Step({
       return (
         <StepContentWrapper
           sx={{ bgcolor: palette.primary[100]!, color: palette.primary.main }}
-          {...{ canMoveUp, canMoveDown, canBeDeleted, tier, lessonNumber, indexInLesson, index, moveUp, moveDown }}
+          {...{
+            canMoveUp,
+            canMoveDown,
+            canBeDeleted,
+            canCombineUp,
+            canCombineDown,
+            canAddStory,
+            canEditStory,
+            tier,
+            lessonNumber,
+            indexInLesson,
+            index,
+            moveUp,
+            moveDown,
+          }}
         >
-          <Typography fontWeight='bold'>{mergedChar.keyword}</Typography>
+          <Typography fontWeight='bold'>{character.keyword}</Typography>
 
-          <BottomRow {...{ canAddStory, canEditStory, isReminder }} />
+          {/* <BottomRow {...{ canAddStory, canEditStory, isReminder }} /> */}
         </StepContentWrapper>
       )
     default:
@@ -201,6 +281,10 @@ function StepContentWrapper({
   canMoveUp,
   canMoveDown,
   canBeDeleted,
+  canCombineUp,
+  canCombineDown,
+  canAddStory,
+  canEditStory,
   tier,
   lessonNumber,
   indexInLesson,
@@ -213,6 +297,10 @@ function StepContentWrapper({
   canMoveUp: boolean
   canMoveDown: boolean
   canBeDeleted: boolean
+  canCombineUp: boolean
+  canCombineDown: boolean
+  canAddStory: boolean
+  canEditStory: boolean
   tier: number
   lessonNumber: number
   indexInLesson: number
@@ -222,11 +310,13 @@ function StepContentWrapper({
 }) {
   return (
     <Box borderRadius={({ spacing }) => spacing(6)} display='flex' p={1} {...restProps}>
-      <ReorderButtons {...{ canMoveUp, canMoveDown, tier, lessonNumber, indexInLesson, index, moveUp, moveDown }} />
+      <ReorderButtons
+        {...{ canMoveUp, canMoveDown, canCombineUp, canCombineDown, tier, lessonNumber, indexInLesson, index, moveUp, moveDown }}
+      />
 
       <Box margin='auto'>{children}</Box>
 
-      <DeleteVariantButton {...{ canBeDeleted }} />
+      <Actions {...{ canAddStory, canEditStory, canBeDeleted }} />
     </Box>
   )
 }
@@ -234,6 +324,8 @@ function StepContentWrapper({
 function ReorderButtons({
   canMoveUp,
   canMoveDown,
+  canCombineUp,
+  canCombineDown,
   tier,
   lessonNumber,
   indexInLesson,
@@ -243,6 +335,8 @@ function ReorderButtons({
 }: {
   canMoveUp: boolean
   canMoveDown: boolean
+  canCombineUp: boolean
+  canCombineDown: boolean
   tier: number
   lessonNumber: number
   indexInLesson: number
@@ -251,17 +345,38 @@ function ReorderButtons({
   moveDown: (source: number) => void
 }) {
   return (
-    <Box display='flex' flexDirection='column' minWidth='64px'>
+    <Box
+      display='grid'
+      sx={{
+        grid: `".      moveUp   combineUp" auto
+               "lesson lesson   lesson" auto
+               ".      moveDown combineDown" auto
+                / 1fr 1fr 1fr`,
+      }}
+    >
       <FadeControlledToolbarButton
         tooltip='Mozgatás felfelé'
         icon={faChevronUp}
         onClick={() => moveUp(index)}
         size='small'
-        sx={{ visibility: canMoveUp ? 'default' : 'hidden' }}
+        sx={{ visibility: canMoveUp ? 'default' : 'hidden', gridArea: 'moveUp' }}
       />
 
-      <Button variant='text' size='small' onClick={() => {}} sx={{ py: 0, visibility: tier ? 'default' : 'hidden' }}>
-        {tier}/{lessonNumber}/{indexInLesson ?? '?'}
+      <FadeControlledToolbarButton
+        tooltip='Kombinálás felfelé'
+        icon={faCodeMerge}
+        onClick={() => moveUp(index)}
+        size='small'
+        sx={{ visibility: canCombineUp ? 'default' : 'hidden', gridArea: 'combineUp' }}
+      />
+
+      <Button
+        variant='text'
+        size='small'
+        onClick={() => {}}
+        sx={{ p: 0, visibility: indexInLesson ? 'default' : 'hidden', gridArea: 'lesson' }}
+      >
+        {tier}/{lessonNumber}/{indexInLesson}
       </Button>
 
       <FadeControlledToolbarButton
@@ -269,69 +384,98 @@ function ReorderButtons({
         icon={faChevronDown}
         onClick={() => moveDown(index)}
         size='small'
-        sx={{ visibility: canMoveDown ? 'default' : 'hidden' }}
+        sx={{ visibility: canMoveDown ? 'default' : 'hidden', gridArea: 'moveDown' }}
+      />
+
+      <FadeControlledToolbarButton
+        tooltip='Kombinálás lefelé'
+        icon={faCodeMerge}
+        onClick={() => moveDown(index)}
+        size='small'
+        sx={{ visibility: canCombineDown ? 'default' : 'hidden', gridArea: 'combineDown' }}
       />
     </Box>
   )
 }
 
-function DeleteVariantButton({ canBeDeleted }: { canBeDeleted: boolean }) {
+function Actions({
+  canAddStory,
+  canBeDeleted,
+  canEditStory,
+}: {
+  canAddStory: boolean
+  canBeDeleted: boolean
+  canEditStory: boolean
+}) {
   return (
-    <IconButton onClick={() => {}} size='small' sx={{ minWidth: '64px', visibility: canBeDeleted ? 'default' : 'hidden' }}>
-      <FontAwesomeIcon icon={faTrash} />
-    </IconButton>
+    <Stack alignItems='center' divider={<Divider flexItem />} gap={1} justifyContent='center' minWidth='64px'>
+      {!canBeDeleted ? (
+        false
+      ) : (
+        <ToolbarButton icon={faTrash} tooltip='Karakter törlése a körből' onClick={() => {}} sx={{ p: 0 }} />
+      )}
+
+      {!canAddStory ? false : <AddNewVariantButton icon={faBookOpen} tooltip='Történet hozzáadása' onClick={() => {}} />}
+
+      {!canEditStory ? (
+        false
+      ) : (
+        <AddNewVariantButton icon={faBookOpen} mode='edit' tooltip='Történet szerkesztése' onClick={() => {}} />
+      )}
+    </Stack>
   )
 }
 
-function BottomRow({
-  canAddStory,
-  canEditStory,
-  isReminder,
-}: {
-  canAddStory: boolean
-  canEditStory: boolean
-  isReminder: boolean
-}) {
-  if (canAddStory) {
-    return (
-      <Button
-        color='white'
-        size='small'
-        variant='text'
-        startIcon={<FontAwesomeIcon icon={faBookOpen} transform='shrink-4' />}
-        onClick={() => {}}
-        sx={{ opacity: 0.8, lineHeight: 1, '.MuiButton-startIcon': { marginRight: '2px' }, ':hover': { opacity: 1 } }}
-      >
-        Történet hozzáadása
-      </Button>
-    )
-  }
+// function BottomRow({
+//   canAddStory,
+//   canEditStory,
+//   isReminder,
+// }: {
+//   canAddStory: boolean
+//   canEditStory: boolean
+//   isReminder: boolean
+// }) {
+//   if (canAddStory) {
+//     return (
+//       <Button
+//         color='white'
+//         size='small'
+//         variant='text'
+//         startIcon={<FontAwesomeIcon icon={faBookOpen} transform='shrink-4' />}
+//         onClick={() => {}}
+//         sx={{ opacity: 0.8, lineHeight: 1, '.MuiButton-startIcon': { marginRight: '2px' }, ':hover': { opacity: 1 } }}
+//       >
+//         Történet hozzáadása
+//       </Button>
+//     )
+//   }
 
-  if (canEditStory) {
-    return (
-      <Button
-        color='white'
-        size='small'
-        variant='text'
-        onClick={() => {}}
-        sx={{ opacity: 0.8, lineHeight: 1, ':hover': { opacity: 1 } }}
-      >
-        Történet szerkesztése
-      </Button>
-    )
-  }
+//   if (canEditStory) {
+//     return (
+//       <Button
+//         color='white'
+//         size='small'
+//         variant='text'
+//         startIcon={<FontAwesomeIcon icon={faPen} transform='shrink-4' />}
+//         onClick={() => {}}
+//         sx={{ opacity: 0.8, lineHeight: 1, '.MuiButton-startIcon': { marginRight: '2px' }, ':hover': { opacity: 1 } }}
+//       >
+//         Történet szerkesztése
+//       </Button>
+//     )
+//   }
 
-  if (isReminder) {
-    return (
-      <Box alignItems='center' display='flex' gap={0.5} justifyContent='center' sx={{ opacity: 0.8 }}>
-        <FontAwesomeIcon icon={faBell} transform='shrink-3' />
-        <Typography variant='button'>Emlékeztető</Typography>
-      </Box>
-    )
-  }
+//   if (isReminder) {
+//     return (
+//       <Box alignItems='center' display='flex' gap={0.5} justifyContent='center' sx={{ opacity: 0.8 }}>
+//         <FontAwesomeIcon icon={faBell} transform='shrink-3' />
+//         <Typography variant='button'>Emlékeztető</Typography>
+//       </Box>
+//     )
+//   }
 
-  return null
-}
+//   return null
+// }
 
 function AddNewVariantButtons({
   canAddKeyword,
@@ -353,14 +497,23 @@ function AddNewVariantButtons({
   )
 }
 
-function AddNewVariantButton({ icon, tooltip, onClick }: { icon: IconDefinition; tooltip: string; onClick: () => void }) {
+function AddNewVariantButton({
+  icon,
+  tooltip,
+  mode = 'add',
+  onClick,
+}: {
+  icon: IconDefinition
+  tooltip: string
+  mode?: 'add' | 'edit'
+  onClick: () => void
+}) {
   return (
     <Tooltip title={tooltip}>
-      <IconButton {...{ onClick }} sx={{ color: 'text.disabled' }}>
-        <span className='fa-layers'>
-          <FontAwesomeIcon {...{ icon }} />
-          <FontAwesomeIcon icon={faPlus} transform='shrink-6 up-8 right-10' />
-        </span>
+      <IconButton className='fa-layers' {...{ onClick }} sx={{ color: 'text.disabled', justifyContent: 'center' }}>
+        <FontAwesomeIcon className='fa-fw' {...{ icon }} transform='left-4' />
+
+        <FontAwesomeIcon icon={mode === 'add' ? faPlus : faPen} transform='shrink-6 up-8 right-8' />
       </IconButton>
     </Tooltip>
   )

@@ -2,11 +2,16 @@ import { Box, Divider, Palette, Stack, Step, StepContent, Stepper, Typography, u
 import { useFetcher, useLoaderData, useSearchParams } from 'react-router-dom'
 import { Heading } from '../../learn/headings/Heading'
 import { Else, If, Then } from 'react-if'
-import { DiffInfoTier, DiffedCharacterEntry, DiffedCharacterEntryVariant } from '../../shared/logic/loadAdminChar'
+import {
+  DiffInfoTier,
+  DiffedCharacterEntry,
+  DiffedCharacterEntryVariant,
+  SortedCharacterEntry,
+} from '../../shared/logic/loadAdminChar'
 import { PreviewCharacterVariant } from './preview-character-variant/PreviewCharacterVariant'
 import { AddCharacterVariant } from './add-character-variant/AddCharacterVariant'
 import { CharEditForm } from '../char-edit-form/CharEditForm'
-import { CharacterEntry, CharacterEntryVariant } from '../../shared/MOCK_DATABASE_ENTRIES'
+import { CharacterEntry, CharacterEntryV2, CharacterEntryVariant } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { LocationInLesson } from './LocationInLesson'
 import { BlueprintStep, BlueprintStepType, Timeline } from '../timeline/Timeline'
 import { BlueprintSelect } from '../blueprint-select/BlueprintSelect'
@@ -28,10 +33,10 @@ export function isNotPresentInTier(object: object) {
 
 export default function AdminContent() {
   const { constants } = useTheme()
-  const { character, diffInfos } = useLoaderData() as { character: CharacterEntry; diffInfos: DiffInfoTier[] }
+  const { character } = useLoaderData() as { character: SortedCharacterEntry }
   const [searchParams, setSearchParams] = useSearchParams()
   const activeTier = Number(searchParams.get('tier'))
-  const [blueprint, setBlueprint] = useState(character.blueprint)
+  const [blueprint, setBlueprint] = useState(Blueprint.DelayedPrimitive)
 
   // console.log(character)
 
@@ -51,7 +56,7 @@ export default function AdminContent() {
     }
   }
 
-  const blueprintSteps = getBlueprintSteps(character)
+  // const blueprintSteps = getBlueprintSteps(character)
 
   return (
     <Stack
@@ -72,7 +77,7 @@ export default function AdminContent() {
       <Box display='flex' flexDirection={{ xs: 'column', md: 'row' }} gap={2}>
         <BlueprintSelect {...{ blueprint, setBlueprint }} />
 
-        <Timeline {...{ blueprintSteps, getBlueprintSteps, character }} />
+        <Timeline {...{ character }} />
       </Box>
 
       {/* <Stepper nonLinear orientation='vertical' activeStep={activeTier - 1 ?? -1}>
@@ -104,21 +109,21 @@ export default function AdminContent() {
   )
 }
 
-export function getBlueprintSteps({ variants }: CharacterEntry): BlueprintStep[] {
-  return variants.map((variant, index) => {
-    const type =
-      'keyword' in variant && 'primitive' in variant
-        ? 'keywordAndPrimitive'
-        : 'keyword' in variant
-        ? index === findLastIndex(variants, v => 'keyword' in v)
-          ? 'keyword'
-          : 'keywordUnexpounded'
-        : 'primitive' in variant
-        ? 'primitive'
-        : 'reminder' in variant
-        ? 'reminder'
-        : 'unset'
+// export function getBlueprintSteps(character: CharacterEntryV2): BlueprintStep[] {
+//   return variants.map((variant, index) => {
+//     const type =
+//       'keyword' in variant && 'primitive' in variant
+//         ? 'keywordAndPrimitive'
+//         : 'keyword' in variant
+//         ? index === findLastIndex(variants, v => 'keyword' in v)
+//           ? 'keyword'
+//           : 'keywordUnexpounded'
+//         : 'primitive' in variant
+//         ? 'primitive'
+//         : 'reminder' in variant
+//         ? 'reminder'
+//         : 'unset'
 
-    return { id: `id-${index}`, variant, type }
-  })
-}
+//     return { id: `id-${index}`, variant, type }
+//   })
+// }

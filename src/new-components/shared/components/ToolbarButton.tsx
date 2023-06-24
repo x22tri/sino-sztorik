@@ -29,7 +29,7 @@ export default function ToolbarButton<B extends ElementType>({
 const IconButtonForwardRef = forwardRef(
   ({ icon, onClick, ...restProps }: IconButtonProps & { icon: IconDefinition }, ref: ForwardedRef<HTMLButtonElement>) => (
     <IconButton {...restProps} sx={{ ...restProps.sx }} {...{ onClick, ref }}>
-      <FontAwesomeIcon {...{ icon }} />
+      <FontAwesomeIcon className='fa-fw' {...{ icon }} />
     </IconButton>
   )
 )
