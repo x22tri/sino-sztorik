@@ -50,8 +50,6 @@ export const CHAR_ENTRY_V2: CharacterEntryV2 = {
   frequency: 462,
   lessonNumber: 2,
   keyword: 'korai',
-  phrases: [1, 2], // An array of phrase ID's.
-  similars: [3], // An array of "similar" ID's.
   occurrences: [
     {
       index: 11,
@@ -117,8 +115,10 @@ export const CHAR_ENTRY_V2: CharacterEntryV2 = {
     { pinyin: 'zhèng', meanings: ['test1', 'test2'] },
     { pinyin: 'zhēng', meanings: ['test3'] },
   ],
+  phrases: [1, 2], // An array of phrase ID's.
   pinyin: 'zǎo',
   primitive: 'napraforgó',
+  similars: [3], // An array of "similar" ID's.
 }
 
 export const CHAR_ENTRY: CharacterEntry = {

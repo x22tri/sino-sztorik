@@ -1,11 +1,12 @@
 import { ElementType, ForwardedRef, MouseEvent, forwardRef, useState } from 'react'
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome'
 import Tooltip from '@mui/material/Tooltip'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
 
 export default function ToolbarButton<B extends ElementType>({
   icon,
+  iconProps,
   innerRef,
   tooltip,
   onClick,
@@ -14,6 +15,7 @@ export default function ToolbarButton<B extends ElementType>({
   B,
   {
     icon: IconDefinition
+    iconProps?: Omit<FontAwesomeIconProps, 'icon'>
     innerRef?: ForwardedRef<HTMLButtonElement>
     tooltip: string
     onClick: (event: MouseEvent<HTMLElement>) => any
@@ -21,15 +23,23 @@ export default function ToolbarButton<B extends ElementType>({
 >) {
   return (
     <Tooltip title={tooltip}>
-      <IconButtonForwardRef ref={innerRef} {...{ icon, onClick }} {...restProps} />
+      <IconButtonForwardRef ref={innerRef} {...{ icon, iconProps, onClick }} {...restProps} />
     </Tooltip>
   )
 }
 
 const IconButtonForwardRef = forwardRef(
-  ({ icon, onClick, ...restProps }: IconButtonProps & { icon: IconDefinition }, ref: ForwardedRef<HTMLButtonElement>) => (
+  (
+    {
+      icon,
+      iconProps,
+      onClick,
+      ...restProps
+    }: IconButtonProps & { icon: IconDefinition; iconProps?: Omit<FontAwesomeIconProps, 'icon'> },
+    ref: ForwardedRef<HTMLButtonElement>
+  ) => (
     <IconButton {...restProps} sx={{ ...restProps.sx }} {...{ onClick, ref }}>
-      <FontAwesomeIcon className='fa-fw' {...{ icon }} />
+      <FontAwesomeIcon className='fa-fw' {...iconProps} {...{ icon }} />
     </IconButton>
   )
 )

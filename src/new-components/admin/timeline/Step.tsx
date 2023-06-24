@@ -39,16 +39,14 @@ export function Step({
   character,
   index,
   deleteEntry,
-  moveUp,
-  moveDown,
+
   step,
   steps,
 }: {
   character: SortedCharacterEntry
   index: number
   deleteEntry: (source: number) => void
-  moveUp: (source: number) => void
-  moveDown: (source: number) => void
+
   step: PotentialOccurrence
   steps: SortedOccurrences
 }) {
@@ -57,13 +55,6 @@ export function Step({
   const isReminder = step.type === 'reminder'
 
   const contentType = isReminder ? getReminderContentType(steps, index) : step.type
-
-  const canMoveUp = index !== 0 && contentType !== 'unset' && !(isReminder && !getReminderContentType(steps, index - 1))
-
-  const canMoveDown =
-    index !== steps.length - 1 &&
-    contentType !== 'unset' &&
-    !(steps[index + 1].type === 'reminder' && !getReminderContentType(steps, index))
 
   const canBeDeleted = contentType !== 'unset'
 
@@ -76,14 +67,6 @@ export function Step({
   const canAddStory = (step.type === 'keyword' || step.type === 'primitive') && !('story' in step)
 
   const canEditStory = 'story' in step
-
-  const canCombineUp =
-    (step.type === 'keyword' && steps[index - 1]?.type === 'primitive') ||
-    (step.type === 'primitive' && steps[index - 1]?.type === 'keyword')
-
-  const canCombineDown =
-    (step.type === 'keyword' && steps[index + 1]?.type === 'primitive') ||
-    (step.type === 'primitive' && steps[index + 1]?.type === 'keyword')
 
   const tier = step.tier
   const lessonNumber = character.lessonNumber
@@ -100,11 +83,8 @@ export function Step({
             justifyContent: 'center',
           }}
           {...{
-            canMoveUp,
-            canMoveDown,
             canBeDeleted,
-            canCombineUp,
-            canCombineDown,
+
             canAddStory,
             canEditStory,
             deleteEntry,
@@ -112,8 +92,6 @@ export function Step({
             tier,
             lessonNumber,
             indexInLesson,
-            moveUp,
-            moveDown,
           }}
         >
           <Box alignItems='center' display='flex' flexDirection='column'>
@@ -134,11 +112,8 @@ export function Step({
             border: isReminder ? `3px solid ${palette.secondary.main}` : undefined,
           }}
           {...{
-            canMoveUp,
-            canMoveDown,
             canBeDeleted,
-            canCombineUp,
-            canCombineDown,
+
             canAddStory,
             canEditStory,
             deleteEntry,
@@ -146,8 +121,6 @@ export function Step({
             lessonNumber,
             indexInLesson,
             index,
-            moveUp,
-            moveDown,
           }}
         >
           <Box alignItems='center' display='flex' flexDirection='column' margin='auto'>
@@ -174,11 +147,8 @@ export function Step({
             outlineOffset: '-6px',
           }}
           {...{
-            canMoveUp,
-            canMoveDown,
             canBeDeleted,
-            canCombineUp,
-            canCombineDown,
+
             canAddStory,
             canEditStory,
             deleteEntry,
@@ -186,11 +156,9 @@ export function Step({
             lessonNumber,
             indexInLesson,
             index,
-            moveUp,
-            moveDown,
           }}
         >
-          <AddNewVariantButtons {...{ canAddKeyword, canAddPrimitive, canAddReminder }} />
+          <AddNews {...{ canAddKeyword, canAddPrimitive, canAddReminder }} />
         </StepContentWrapper>
       )
     case 'keywordAndPrimitive':
@@ -207,11 +175,8 @@ export function Step({
             borderRight: isReminder ? `3px solid ${palette.secondary.main}` : undefined,
           }}
           {...{
-            canMoveUp,
-            canMoveDown,
             canBeDeleted,
-            canCombineUp,
-            canCombineDown,
+
             canAddStory,
             canEditStory,
             deleteEntry,
@@ -219,8 +184,6 @@ export function Step({
             lessonNumber,
             indexInLesson,
             index,
-            moveUp,
-            moveDown,
           }}
         >
           <Box>
@@ -255,11 +218,7 @@ export function Step({
         <StepContentWrapper
           sx={{ bgcolor: palette.primary[100]!, color: palette.primary.main }}
           {...{
-            canMoveUp,
-            canMoveDown,
             canBeDeleted,
-            canCombineUp,
-            canCombineDown,
             canAddStory,
             canEditStory,
             deleteEntry,
@@ -267,8 +226,6 @@ export function Step({
             lessonNumber,
             indexInLesson,
             index,
-            moveUp,
-            moveDown,
           }}
         >
           <Typography fontWeight='bold'>{character.keyword}</Typography>
@@ -281,11 +238,8 @@ export function Step({
   }
 }
 function StepContentWrapper({
-  canMoveUp,
-  canMoveDown,
   canBeDeleted,
-  canCombineUp,
-  canCombineDown,
+
   canAddStory,
   canEditStory,
   deleteEntry,
@@ -293,16 +247,12 @@ function StepContentWrapper({
   lessonNumber,
   indexInLesson,
   index,
-  moveUp,
-  moveDown,
+
   children,
   ...restProps
 }: BoxProps & {
-  canMoveUp: boolean
-  canMoveDown: boolean
   canBeDeleted: boolean
-  canCombineUp: boolean
-  canCombineDown: boolean
+
   canAddStory: boolean
   canEditStory: boolean
   deleteEntry: (source: number) => void
@@ -310,96 +260,35 @@ function StepContentWrapper({
   lessonNumber: number
   indexInLesson: number
   index: number
-  moveUp: (source: number) => void
-  moveDown: (source: number) => void
 }) {
   return (
-    <Box borderRadius={({ spacing }) => spacing(6)} display='flex' p={1} {...restProps}>
-      <ReorderButtons
-        {...{ canMoveUp, canMoveDown, canCombineUp, canCombineDown, tier, lessonNumber, indexInLesson, index, moveUp, moveDown }}
-      />
+    <Box
+      borderRadius={({ spacing }) => spacing(6)}
+      display='grid'
+      minHeight={({ spacing }) => spacing(10)}
+      pr={3}
+      pl={2}
+      {...restProps}
+      sx={{ grid: `"location content actions" auto / 1fr 4fr 1fr`, ...restProps.sx }}
+    >
+      <CourseLocation {...{ tier, lessonNumber, indexInLesson }} />
 
-      <Box margin='auto'>{children}</Box>
+      <Box margin='auto' gridArea='content'>
+        {children}
+      </Box>
 
       <Actions {...{ canAddStory, canEditStory, canBeDeleted, deleteEntry, index }} />
     </Box>
   )
 }
 
-function ReorderButtons({
-  canMoveUp,
-  canMoveDown,
-  canCombineUp,
-  canCombineDown,
-  tier,
-  lessonNumber,
-  indexInLesson,
-  index,
-  moveUp,
-  moveDown,
-}: {
-  canMoveUp: boolean
-  canMoveDown: boolean
-  canCombineUp: boolean
-  canCombineDown: boolean
-  tier: number
-  lessonNumber: number
-  indexInLesson: number
-  index: number
-  moveUp: (source: number) => void
-  moveDown: (source: number) => void
-}) {
+function CourseLocation({ tier, lessonNumber, indexInLesson }: { tier: number; lessonNumber: number; indexInLesson: number }) {
   return (
-    <Box
-      display='grid'
-      sx={{
-        grid: `".      moveUp   combineUp" auto
-               "lesson lesson   lesson" auto
-               ".      moveDown combineDown" auto
-                / 1fr 1fr 1fr`,
-      }}
-    >
-      <FadeControlledToolbarButton
-        tooltip='Mozgatás felfelé'
-        icon={faChevronUp}
-        onClick={() => moveUp(index)}
-        size='small'
-        sx={{ visibility: canMoveUp ? 'default' : 'hidden', gridArea: 'moveUp' }}
-      />
-
-      <FadeControlledToolbarButton
-        tooltip='Kombinálás felfelé'
-        icon={faCodeMerge}
-        onClick={() => moveUp(index)}
-        size='small'
-        sx={{ visibility: canCombineUp ? 'default' : 'hidden', gridArea: 'combineUp' }}
-      />
-
-      <Button
-        variant='text'
-        size='small'
-        onClick={() => {}}
-        sx={{ p: 0, visibility: indexInLesson ? 'default' : 'hidden', gridArea: 'lesson' }}
-      >
+    <When condition={indexInLesson}>
+      <Button variant='text' size='small' onClick={() => {}} sx={{ p: 0 }}>
         {tier}/{lessonNumber}/{indexInLesson}
       </Button>
-
-      <FadeControlledToolbarButton
-        tooltip='Mozgatás lefelé'
-        icon={faChevronDown}
-        onClick={() => moveDown(index)}
-        size='small'
-        sx={{ visibility: canMoveDown ? 'default' : 'hidden', gridArea: 'moveDown' }}
-      />
-
-      <FadeControlledToolbarButton
-        tooltip='Kombinálás lefelé'
-        icon={faCodeMerge}
-        onClick={() => moveDown(index)}
-        size='small'
-        sx={{ visibility: canCombineDown ? 'default' : 'hidden', gridArea: 'combineDown' }}
-      />
-    </Box>
+    </When>
   )
 }
 
@@ -417,76 +306,25 @@ function Actions({
   index: number
 }) {
   return (
-    <Stack alignItems='center' divider={<Divider flexItem />} gap={1} justifyContent='center' minWidth='64px'>
+    <Stack alignItems='center' direction='row' gap={1} justifyContent='flex-end'>
+      {!canAddStory ? false : <AddNew icon={faBookOpen} isAction tooltip='Történet hozzáadása' onClick={() => {}} />}
+
+      {!canEditStory ? (
+        false
+      ) : (
+        <AddNew icon={faBookOpen} isAction mode='edit' tooltip='Történet szerkesztése' onClick={() => {}} />
+      )}
+
       {!canBeDeleted ? (
         false
       ) : (
         <ToolbarButton icon={faTrash} tooltip='Karakter törlése a körből' onClick={() => deleteEntry(index)} sx={{ p: 0 }} />
       )}
-
-      {!canAddStory ? false : <AddNewVariantButton icon={faBookOpen} tooltip='Történet hozzáadása' onClick={() => {}} />}
-
-      {!canEditStory ? (
-        false
-      ) : (
-        <AddNewVariantButton icon={faBookOpen} mode='edit' tooltip='Történet szerkesztése' onClick={() => {}} />
-      )}
     </Stack>
   )
 }
 
-// function BottomRow({
-//   canAddStory,
-//   canEditStory,
-//   isReminder,
-// }: {
-//   canAddStory: boolean
-//   canEditStory: boolean
-//   isReminder: boolean
-// }) {
-//   if (canAddStory) {
-//     return (
-//       <Button
-//         color='white'
-//         size='small'
-//         variant='text'
-//         startIcon={<FontAwesomeIcon icon={faBookOpen} transform='shrink-4' />}
-//         onClick={() => {}}
-//         sx={{ opacity: 0.8, lineHeight: 1, '.MuiButton-startIcon': { marginRight: '2px' }, ':hover': { opacity: 1 } }}
-//       >
-//         Történet hozzáadása
-//       </Button>
-//     )
-//   }
-
-//   if (canEditStory) {
-//     return (
-//       <Button
-//         color='white'
-//         size='small'
-//         variant='text'
-//         startIcon={<FontAwesomeIcon icon={faPen} transform='shrink-4' />}
-//         onClick={() => {}}
-//         sx={{ opacity: 0.8, lineHeight: 1, '.MuiButton-startIcon': { marginRight: '2px' }, ':hover': { opacity: 1 } }}
-//       >
-//         Történet szerkesztése
-//       </Button>
-//     )
-//   }
-
-//   if (isReminder) {
-//     return (
-//       <Box alignItems='center' display='flex' gap={0.5} justifyContent='center' sx={{ opacity: 0.8 }}>
-//         <FontAwesomeIcon icon={faBell} transform='shrink-3' />
-//         <Typography variant='button'>Emlékeztető</Typography>
-//       </Box>
-//     )
-//   }
-
-//   return null
-// }
-
-function AddNewVariantButtons({
+function AddNews({
   canAddKeyword,
   canAddPrimitive,
   canAddReminder,
@@ -497,32 +335,38 @@ function AddNewVariantButtons({
 }) {
   return (
     <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={2}>
-      {!canAddKeyword ? false : <AddNewVariantButton icon={faKey} tooltip='Kulcsszó hozzáadása' onClick={() => {}} />}
+      {!canAddKeyword ? false : <AddNew icon={faKey} tooltip='Kulcsszó hozzáadása' onClick={() => {}} />}
 
-      {!canAddPrimitive ? false : <AddNewVariantButton icon={faCube} tooltip='Alapelem hozzáadása' onClick={() => {}} />}
+      {!canAddPrimitive ? false : <AddNew icon={faCube} tooltip='Alapelem hozzáadása' onClick={() => {}} />}
 
-      {!canAddReminder ? false : <AddNewVariantButton icon={faBell} tooltip='Emlékeztető hozzáadása' onClick={() => {}} />}
+      {!canAddReminder ? false : <AddNew icon={faBell} tooltip='Emlékeztető hozzáadása' onClick={() => {}} />}
     </Stack>
   )
 }
 
-function AddNewVariantButton({
+function AddNew({
   icon,
+  isAction = false,
   tooltip,
   mode = 'add',
   onClick,
 }: {
   icon: IconDefinition
+  isAction?: boolean
   tooltip: string
   mode?: 'add' | 'edit'
   onClick: () => void
 }) {
   return (
     <Tooltip title={tooltip}>
-      <IconButton className='fa-layers' {...{ onClick }} sx={{ color: 'text.disabled', justifyContent: 'center' }}>
+      <IconButton
+        className='fa-layers'
+        {...{ onClick }}
+        sx={{ color: isAction ? undefined : 'text.disabled', justifyContent: 'center' }}
+      >
         <FontAwesomeIcon className='fa-fw' {...{ icon }} transform='left-4' />
 
-        <FontAwesomeIcon icon={mode === 'add' ? faPlus : faPen} transform='shrink-6 up-8 right-8' />
+        <FontAwesomeIcon icon={mode === 'add' ? faPlus : faPen} transform='shrink-6 up-9 right-9' />
       </IconButton>
     </Tooltip>
   )

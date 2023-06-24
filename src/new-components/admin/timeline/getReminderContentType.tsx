@@ -21,5 +21,5 @@ export function getReminderContentType(steps: PotentialOccurrence[], index: numb
     return 'primitive'
   }
 
-  return 'unset'
+  return null
 }
