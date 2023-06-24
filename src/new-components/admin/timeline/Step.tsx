@@ -58,13 +58,11 @@ export function Step({
 
   const canAddKeyword = !steps.some(step => step.type === 'keyword') && !steps.some(step => step.type === 'keywordAndPrimitive')
 
-  const canAddPrimitive =
-    !steps.some(step => step.type === 'primitive') && !steps.some(step => step.type === 'keywordAndPrimitive')
+  const canAddPrimitive = !steps.some(step => ['keyword', 'primitive', 'keywordAndPrimitive'].includes(step.type))
 
   const canAddReminder = getReminderContentType(steps, index) !== null
 
-  const canAddStory =
-    (step.type === 'keyword' || step.type === 'primitive' || step.type === 'keywordAndPrimitive') && !('story' in step)
+  const canAddStory = !('story' in step) && ['keyword', 'primitive', 'keywordAndPrimitive'].includes(step.type)
 
   const canEditStory = 'story' in step
 
@@ -77,7 +75,7 @@ export function Step({
       return (
         <StepContentWrapper
           sx={{
-            background: isReminder ? palette.background.paper : palette.primary.main,
+            background: isReminder ? palette.background.paper : palette.primary[200]!,
             color: isReminder ? palette.primary.main : palette.primary.contrastText,
             border: isReminder ? `3px solid ${palette.primary.main}` : undefined,
             justifyContent: 'center',
@@ -98,8 +96,6 @@ export function Step({
             <Typography fontWeight='bold' margin='auto'>
               {character.keyword}
             </Typography>
-
-            {/* <BottomRow {...{ canAddStory, canEditStory, isReminder }} /> */}
           </Box>
         </StepContentWrapper>
       )
@@ -107,7 +103,7 @@ export function Step({
       return (
         <StepContentWrapper
           sx={{
-            background: isReminder ? palette.background.paper : palette.secondary.main,
+            background: isReminder ? palette.background.paper : palette.secondary[200]!,
             color: isReminder ? palette.secondary.main : palette.secondary.contrastText,
             border: isReminder ? `3px solid ${palette.secondary.main}` : undefined,
           }}
@@ -133,8 +129,6 @@ export function Step({
               />
               {character.primitive!}
             </Typography>
-
-            {/* <BottomRow {...{ canAddStory, canEditStory, isReminder }} /> */}
           </Box>
         </StepContentWrapper>
       )
@@ -169,7 +163,7 @@ export function Step({
           sx={{
             background: isReminder
               ? palette.background.paper
-              : `linear-gradient(150deg, ${palette.primary.main} 25%, ${palette.secondary.main} 75%)`,
+              : `linear-gradient(150deg, ${palette.primary[200]} 25%, ${palette.secondary[200]} 75%)`,
             color: isReminder ? palette.primary.main : palette.secondary.contrastText,
             borderTop: isReminder ? `3px solid ${palette.primary.main}` : undefined,
             borderLeft: isReminder ? `3px solid ${palette.primary.main}` : undefined,
@@ -211,8 +205,6 @@ export function Step({
                 {character.primitive}
               </Typography>
             </Box>
-
-            {/* <BottomRow {...{ canAddStory, canEditStory, isReminder }} /> */}
           </Box>
         </StepContentWrapper>
       )
@@ -233,8 +225,6 @@ export function Step({
           }}
         >
           <Typography fontWeight='bold'>{character.keyword}</Typography>
-
-          {/* <BottomRow {...{ canAddStory, canEditStory, isReminder }} /> */}
         </StepContentWrapper>
       )
     default:
@@ -312,7 +302,7 @@ function Actions({
   index: number
 }) {
   return (
-    <Stack alignItems='center' direction='row' gap={1} justifyContent='flex-end'>
+    <Stack alignItems='center' direction='row' gap={1.5} justifyContent='flex-end'>
       {!canAddStory ? false : <AddNew icon={faBookOpen} isAction tooltip='Történet hozzáadása' onClick={() => {}} />}
 
       {!canEditStory ? (
