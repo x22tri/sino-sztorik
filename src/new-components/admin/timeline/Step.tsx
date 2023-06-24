@@ -1,12 +1,23 @@
-import { faBell, faBookOpen, faChevronDown, faChevronUp, faCube, faTrash } from '@fortawesome/free-solid-svg-icons'
+import {
+  IconDefinition,
+  faBell,
+  faBookOpen,
+  faChevronDown,
+  faChevronUp,
+  faCube,
+  faKey,
+  faPlus,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Typography, Box, Divider, BoxProps, useTheme, Button, IconButton } from '@mui/material'
+import { Typography, Box, Divider, BoxProps, useTheme, Button, IconButton, Stack, Tooltip } from '@mui/material'
 import { DraggableProvided } from 'react-beautiful-dnd'
 import { X } from '../admin-content/AdminContent'
 import { BlueprintStep, BlueprintStepType } from './Timeline'
 import { When } from 'react-if'
 import { getReminderContentType } from './getReminderContentType'
 import { CharacterEntry } from '../../shared/MOCK_DATABASE_ENTRIES'
+import ToolbarButton from '../../shared/components/ToolbarButton'
 
 export function Step({
   character,
@@ -36,6 +47,12 @@ export function Step({
   const canMoveDown = index !== steps.length - 1 && type !== 'unset'
 
   const canBeDeleted = type !== 'unset'
+
+  const canAddKeyword = steps.find(step => step.type === 'keyword') === undefined
+
+  const canAddPrimitive = steps.find(step => step.type === 'primitive') === undefined
+
+  const canAddReminder = true
 
   const tier = step.variant.tier
   const lessonNumber = character.lessonNumber
@@ -101,7 +118,8 @@ export function Step({
           }}
           {...{ canMoveUp, canMoveDown, canBeDeleted, tier, lessonNumber, indexInLesson, index, moveUp, moveDown }}
         >
-          <Box margin='auto' />
+          {/* <Box margin='auto' /> */}
+          <AddNewVariantButtons {...{ canAddKeyword, canAddPrimitive, canAddReminder }} />
         </StepContentWrapper>
       )
     case 'keywordAndPrimitive':
@@ -274,5 +292,38 @@ function ReminderLabel() {
       <FontAwesomeIcon icon={faBell} transform='shrink-3' />
       <Typography variant='button'>Emlékeztető</Typography>
     </Box>
+  )
+}
+
+function AddNewVariantButtons({
+  canAddKeyword,
+  canAddPrimitive,
+  canAddReminder,
+}: {
+  canAddKeyword: boolean
+  canAddPrimitive: boolean
+  canAddReminder: boolean
+}) {
+  return (
+    <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={2}>
+      {!canAddKeyword ? false : <AddNewVariantButton icon={faKey} tooltip='Kulcsszó hozzáadása' onClick={() => {}} />}
+
+      {!canAddPrimitive ? false : <AddNewVariantButton icon={faCube} tooltip='Alapelem hozzáadása' onClick={() => {}} />}
+
+      {!canAddReminder ? false : <AddNewVariantButton icon={faBell} tooltip='Emlékeztető hozzáadása' onClick={() => {}} />}
+    </Stack>
+  )
+}
+
+function AddNewVariantButton({ icon, tooltip, onClick }: { icon: IconDefinition; tooltip: string; onClick: () => void }) {
+  return (
+    <Tooltip title={tooltip}>
+      <IconButton {...{ onClick }} sx={{ color: 'text.disabled' }}>
+        <span className='fa-layers'>
+          <FontAwesomeIcon {...{ icon }} />
+          <FontAwesomeIcon icon={faPlus} transform='shrink-6 up-8 right-10' />
+        </span>
+      </IconButton>
+    </Tooltip>
   )
 }
