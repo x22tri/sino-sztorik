@@ -97,6 +97,7 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
           <Button onClick={() => setOccurrences(savedOccurrences)} variant='text'>
             {ADMIN_CANCEL_SAVE}
           </Button>
+
           <Button onClick={() => saveOccurrences(occurrences)} type='submit' variant='contained'>
             {ADMIN_SAVE_CHANGES}
           </Button>
