@@ -31,7 +31,7 @@ export function OccurrenceContent({
       )
     case 'unset':
       return <AddOccurrenceOptions {...{ occurrences, index }} />
-    case 'keywordUnexpounded':
+    case 'keywordLite':
       return <Keyword keyword={character.keyword!} />
     default:
       return <></>

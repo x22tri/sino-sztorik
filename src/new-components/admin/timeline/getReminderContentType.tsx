@@ -9,7 +9,7 @@ export function getReminderContentType(occurrences: PotentialOccurrence[], index
   }
 
   if (previousTiers.includes('keyword')) {
-    // Check for unexpounded?
+    // Check for keywordLite?
     if (previousTiers.includes('primitive')) {
       return 'keywordAndPrimitive'
     } else {

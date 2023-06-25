@@ -7,7 +7,7 @@ import { Unless, When } from 'react-if'
 import { findAllIndexes } from '../../shared/utility-functions'
 import { ReorderButtonRow } from './ReorderButtonRow'
 
-export type BlueprintStepType = 'keyword' | 'primitive' | 'unset' | 'reminder' | 'keywordUnexpounded' | 'keywordAndPrimitive'
+export type BlueprintStepType = 'keyword' | 'primitive' | 'unset' | 'reminder' | 'keywordLite' | 'keywordAndPrimitive'
 
 export type BlueprintStep = {
   id: string
@@ -67,6 +67,8 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
 
     setOccurrences(result)
   }
+
+  function addEntry(atIndex: number, type: BlueprintStepType) {}
 
   return (
     <Box width={1}>
