@@ -7,7 +7,7 @@ import { Unless, When } from 'react-if'
 import { findAllIndexes } from '../../shared/utility-functions'
 import { ReorderButtonRow } from './ReorderButtonRow'
 
-export type BlueprintStepType = 'keyword' | 'primitive' | 'unset' | 'reminder' | 'keywordLite' | 'keywordAndPrimitive'
+export type BlueprintStepType = 'keyword' | 'keywordAndPrimitive' | 'keywordLite' | 'primitive' | 'reminder' | 'unset'
 
 export type BlueprintStep = {
   id: string
@@ -49,9 +49,11 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
   function splitEntries(topIndex: number) {
     const result = Array.from(occurrences) as SortedOccurrences
 
-    result[topIndex] = { ...(result[topIndex] as OccurrenceType), type: 'keyword' }
+    const story = (result[topIndex] as OccurrenceType).story ?? (result[topIndex + 1] as OccurrenceType).story ?? undefined
 
-    result[topIndex + 1] = { index: 0, tier: topIndex + 2, type: 'primitive' }
+    result[topIndex] = { ...(result[topIndex] as OccurrenceType), type: 'keyword', story }
+
+    result[topIndex + 1] = { index: 0, tier: topIndex + 2, type: 'primitive', story }
 
     setOccurrences(result)
   }

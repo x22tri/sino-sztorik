@@ -1,5 +1,5 @@
 import { faBell } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome'
 import { Box, useTheme, Tooltip, SxProps } from '@mui/material'
 import { BlueprintStepType } from './Timeline'
 import { When } from 'react-if'
@@ -8,6 +8,7 @@ import { PotentialOccurrence, SortedCharacterEntry, SortedOccurrences } from '..
 import { OccurrenceContent } from './OccurrenceContent'
 import { CourseLocation } from './CourseLocation'
 import { Actions } from './Actions'
+import { forwardRef, ForwardedRef } from 'react'
 
 export function Occurrence({
   addEntry,
@@ -60,6 +61,20 @@ export function Occurrence({
   )
 }
 
+function ReminderIcon() {
+  const { palette } = useTheme()
+
+  return (
+    <Tooltip title='Emlékeztető'>
+      <IconForwardRef color={palette.warning.main} icon={faBell} transform='shrink-4' style={{ marginRight: '4px' }} />
+    </Tooltip>
+  )
+}
+
+const IconForwardRef = forwardRef((props: FontAwesomeIconProps, ref: ForwardedRef<HTMLOrSVGElement>) => {
+  return <FontAwesomeIcon forwardedRef={ref} {...props}></FontAwesomeIcon>
+})
+
 function useStepContentStyles(isReminder: boolean, type: BlueprintStepType | null): SxProps {
   const { palette } = useTheme()
 
@@ -97,16 +112,4 @@ function useStepContentStyles(isReminder: boolean, type: BlueprintStepType | nul
         return {}
     }
   }
-}
-
-function ReminderIcon() {
-  const { palette } = useTheme()
-
-  return (
-    <Tooltip title='Emlékeztető'>
-      <span>
-        <FontAwesomeIcon color={palette.warning.main} icon={faBell} transform='shrink-4' style={{ marginRight: '4px' }} />
-      </span>
-    </Tooltip>
-  )
 }
