@@ -1,11 +1,12 @@
 import { Fragment, useState } from 'react'
-import { Box, Stack } from '@mui/material'
+import { Box, Button, Stack } from '@mui/material'
 import { CharacterEntryVariant, Occurrence as OccurrenceType } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { Occurrence } from './Occurrence'
 import { PotentialOccurrence, SortedCharacterEntry, SortedOccurrences } from '../../shared/logic/loadAdminChar'
 import { Unless, When } from 'react-if'
 import { findAllIndexes } from '../../shared/utility-functions'
 import { ReorderButtonRow } from './ReorderButtonRow'
+import { ADMIN_CANCEL_SAVE, ADMIN_SAVE_CHANGES } from '../../shared/strings'
 
 export type BlueprintStepType = 'keyword' | 'keywordAndPrimitive' | 'keywordLite' | 'primitive' | 'reminder' | 'unset'
 
@@ -17,6 +18,7 @@ export type BlueprintStep = {
 
 export function Timeline({ character }: { character: SortedCharacterEntry }) {
   const [occurrences, setOccurrences] = useState(character.occurrences)
+  const [savedOccurrences, saveOccurrences] = useState<SortedOccurrences>([...character.occurrences])
 
   function deleteEntry(atIndex: number) {
     const result = Array.from(occurrences) as SortedOccurrences
@@ -90,6 +92,15 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
             </Unless>
           </Fragment>
         ))}
+
+        <Box alignItems='center' display='flex' gap={2} justifyContent='flex-end' marginTop={10}>
+          <Button onClick={() => setOccurrences(savedOccurrences)} variant='text'>
+            {ADMIN_CANCEL_SAVE}
+          </Button>
+          <Button onClick={() => saveOccurrences(occurrences)} type='submit' variant='contained'>
+            {ADMIN_SAVE_CHANGES}
+          </Button>
+        </Box>
       </Stack>
       Problémák:
       <When
