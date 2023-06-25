@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react'
 import { Box, Stack } from '@mui/material'
-import { CharacterEntryVariant, Occurrence } from '../../shared/MOCK_DATABASE_ENTRIES'
-import { Step } from './Step'
+import { CharacterEntryVariant, Occurrence as OccurrenceType } from '../../shared/MOCK_DATABASE_ENTRIES'
+import { Occurrence } from './Occurrence'
 import { PotentialOccurrence, SortedCharacterEntry, SortedOccurrences } from '../../shared/logic/loadAdminChar'
 import { Unless, When } from 'react-if'
 import { findAllIndexes } from '../../shared/utility-functions'
@@ -39,7 +39,7 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
   function mergeEntries(topIndex: number) {
     const result = Array.from(occurrences) as SortedOccurrences
 
-    result[topIndex] = { ...(result[topIndex] as Occurrence), type: 'keywordAndPrimitive' }
+    result[topIndex] = { ...(result[topIndex] as OccurrenceType), type: 'keywordAndPrimitive' }
 
     result[topIndex + 1] = { tier: topIndex + 1, type: 'unset' }
 
@@ -49,7 +49,7 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
   function splitEntries(topIndex: number, direction: 'up' | 'down') {
     const result = Array.from(occurrences) as SortedOccurrences
 
-    result[topIndex] = { ...(result[topIndex] as Occurrence), type: 'keyword' }
+    result[topIndex] = { ...(result[topIndex] as OccurrenceType), type: 'keyword' }
 
     result[topIndex + 1] = { index: 0, tier: topIndex + 2, type: 'primitive' }
 
@@ -71,9 +71,9 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
   return (
     <Box width={1}>
       <Stack marginTop={2} width={1}>
-        {occurrences.map((step: PotentialOccurrence, index: number) => (
+        {occurrences.map((occurrence: PotentialOccurrence, index: number) => (
           <Fragment key={index}>
-            <Step steps={occurrences} {...{ character, deleteEntry, index, step }} />
+            <Occurrence {...{ character, deleteEntry, index, occurrence, occurrences }} />
 
             <Unless condition={index === occurrences.length - 1}>
               <ReorderButtonRow {...{ index, occurrences, switchEntries, mergeEntries, splitEntries }} />
