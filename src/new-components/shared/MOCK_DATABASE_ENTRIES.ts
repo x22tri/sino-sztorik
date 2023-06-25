@@ -52,7 +52,7 @@ export interface FullOccurrence extends BaseOccurrence {
   story: (string | { constituent: string; references: string } | { keyword: string } | { primitive: string })[][]
 }
 
-export type ReminderOccurrence = BaseOccurrence
+export interface ReminderOccurrence extends BaseOccurrence {}
 
 export interface WithheldKeywordOccurrence extends BaseOccurrence {
   withhold: 'keyword'

@@ -1,14 +1,5 @@
 import { SortedOccurrences } from '../../shared/logic/loadAdminChar'
 
-enum Blueprint {
-  KeywordOnly = 'KeywordOnly',
-  PrimitiveOnly = 'PrimitiveOnly',
-  KeywordAndPrimitive = 'KeywordAndPrimitive',
-  DelayedKeyword = 'DelayedKeyword',
-  DelayedPrimitive = 'DelayedPrimitive',
-  KeywordWithDelayedExposition = 'KeywordWithDelayedExposition',
-}
-
 export function getFullOccurrences(occurrences: SortedOccurrences) {
   /* 
 

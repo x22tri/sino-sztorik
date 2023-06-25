@@ -3,8 +3,7 @@ import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontaw
 import { Box, useTheme, Tooltip, SxProps } from '@mui/material'
 import { BlueprintStepType } from './Timeline'
 import { When } from 'react-if'
-import { getReminderContentType } from './getReminderContentType'
-import { PotentialOccurrence, SortedCharacterEntry, SortedOccurrences } from '../../shared/logic/loadAdminChar'
+import { SortedCharacterEntry, SortedOccurrence, SortedOccurrences, isReminder, isUnset } from '../../shared/logic/loadAdminChar'
 import { OccurrenceContent } from './OccurrenceContent'
 import { CourseLocation } from './CourseLocation'
 import { Actions } from './Actions'
@@ -22,14 +21,36 @@ export function Occurrence({
   character: SortedCharacterEntry
   index: number
   deleteEntry: (source: number) => void
-  occurrence: PotentialOccurrence
+  occurrence: SortedOccurrence
   occurrences: SortedOccurrences
 }) {
-  const isReminder = occurrence.type === 'reminder'
+  const reminder = isReminder(occurrence)
 
-  const contentType = isReminder ? getReminderContentType(occurrences, index) : occurrence.type
+  const currentOccurrence = occurrences[index]
 
-  const sx = useStepContentStyles(isReminder, contentType)
+  // const contentType = isReminder ? getReminderContentType(occurrences, index) : occurrence.type
+
+  // const sx = useStepContentStyles(isReminder, contentType)
+
+  // let contentType: any
+
+  // if ('withhold' in currentOccurrence) {
+  //   if (currentOccurrence.withhold === 'keyword') {
+  //     contentType = 'primitive'
+  //   }
+
+  //   if (currentOccurrence.withhold === 'primitive') {
+  //     contentType = 'keyword'
+  //   }
+
+  //   if (currentOccurrence.withhold === 'constituents') {
+  //     contentType = 'keywordLite'
+  //   }
+  // }
+
+  // if (reminder) {
+
+  // }
 
   return (
     <Box
@@ -38,9 +59,13 @@ export function Occurrence({
       minHeight={({ spacing }) => spacing(10)}
       pr={3}
       pl={2}
-      sx={{ grid: `"location content actions" auto / 1fr 7fr 1fr`, ...sx }}
+      sx={{
+        grid: `"location content actions" auto / 1fr 7fr 1fr`,
+        // ...sx
+        bgcolor: 'lightgrey',
+      }}
     >
-      <When condition={contentType !== 'unset'}>
+      <When condition={!isUnset(occurrence)}>
         <CourseLocation
           tier={occurrence.tier}
           lessonNumber={character.lessonNumber}
@@ -49,17 +74,21 @@ export function Occurrence({
       </When>
 
       <Box alignItems='center' display='flex' margin='auto' gridArea='content'>
-        <When condition={isReminder}>
+        <When condition={reminder}>
           <ReminderIcon />
         </When>
 
-        <OccurrenceContent type={contentType} {...{ addEntry, character, index, occurrences }} />
+        <OccurrenceContent {...{ addEntry, character, index, occurrences }} />
       </Box>
 
-      <Actions {...{ occurrence, contentType, deleteEntry, index }} />
+      <Actions {...{ occurrence, deleteEntry, index }} />
     </Box>
   )
 }
+
+// function getContentType(occurrences: PotentialOccurrence[], index: number) {
+//   const currentOccurrence = occurrences[index]
+// }
 
 function ReminderIcon() {
   const { palette } = useTheme()

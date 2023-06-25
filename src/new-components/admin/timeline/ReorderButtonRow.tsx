@@ -1,16 +1,18 @@
 import { Divider, Stack } from '@mui/material'
-import { SortedOccurrences } from '../../shared/logic/loadAdminChar'
+import { SortedCharacterEntry, SortedOccurrences, isReminder, isUnset } from '../../shared/logic/loadAdminChar'
 import ToolbarButton from '../../shared/components/ToolbarButton'
 import { faArrowRightArrowLeft, faCodeFork, faCodeMerge } from '@fortawesome/free-solid-svg-icons'
-import { getReminderContentType } from './getReminderContentType'
+import { getReminderContentType, isValidTierForReminder } from './getReminderContentType'
 
 export function ReorderButtonRow({
+  character,
   index,
   occurrences,
   switchEntries,
   mergeEntries,
   splitEntries,
 }: {
+  character: SortedCharacterEntry
   index: number
   occurrences: SortedOccurrences
   switchEntries: (topIndex: number) => void
@@ -20,17 +22,26 @@ export function ReorderButtonRow({
   const top = occurrences[index]
   const bottom = occurrences[index + 1]
 
-  const canSwitch = !(
-    (top.type === 'unset' && bottom.type === 'unset') ||
-    (bottom.type === 'reminder' && !getReminderContentType(occurrences, index))
-  )
+  // const canSwitch = !(
+  //   (top.type === 'unset' && bottom.type === 'unset') ||
+  //   (bottom.type === 'reminder' && !getReminderContentType(occurrences, index))
+  // )
 
-  const canMerge =
-    (top.type === 'keyword' && bottom.type === 'primitive') || (top.type === 'primitive' && bottom.type === 'keyword')
+  // const canMerge =
+  //   (top.type === 'keyword' && bottom.type === 'primitive') || (top.type === 'primitive' && bottom.type === 'keyword')
 
-  const canSplitDown = top.type === 'keywordAndPrimitive' && bottom.type === 'unset'
+  // const canSplitDown = top.type === 'keywordAndPrimitive' && bottom.type === 'unset'
 
-  const canSplitUp = top.type === 'unset' && bottom.type === 'keywordAndPrimitive'
+  // const canSplitUp = top.type === 'unset' && bottom.type === 'keywordAndPrimitive'
+
+  const canSwitch =
+    isUnset(top) || isUnset(bottom) || isReminder(top) || (isReminder(bottom) && isValidTierForReminder(occurrences, index))
+
+  const canMerge = false
+
+  const canSplitDown = false
+
+  const canSplitUp = false
 
   return (
     <Stack direction='row' justifyContent='center' gap={1} minHeight='48px'>

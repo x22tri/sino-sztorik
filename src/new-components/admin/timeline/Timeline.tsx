@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react'
 import { Box, Button, Stack } from '@mui/material'
 import { CharacterEntryVariant, Occurrence as OccurrenceType } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { Occurrence } from './Occurrence'
-import { PotentialOccurrence, SortedCharacterEntry, SortedOccurrences } from '../../shared/logic/loadAdminChar'
+import { SortedCharacterEntry, SortedOccurrence, SortedOccurrences } from '../../shared/logic/loadAdminChar'
 import { Unless, When } from 'react-if'
 import { findAllIndexes } from '../../shared/utility-functions'
 import { ReorderButtonRow } from './ReorderButtonRow'
@@ -23,17 +23,17 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
   function deleteEntry(atIndex: number) {
     const result = Array.from(occurrences) as SortedOccurrences
 
-    const [deleted] = result.splice(atIndex, 1, { tier: atIndex + 1, type: 'unset' })
+    const [deleted] = result.splice(atIndex, 1, { tier: atIndex + 1 })
 
-    if (
-      result.some(({ type }) => type === 'reminder') &&
-      ['keyword', 'primitive', 'keywordAndPrimitive'].includes(deleted.type) &&
-      !result.some(({ type }) => ['keyword', 'primitive', 'keywordAndPrimitive'].includes(type))
-    ) {
-      const reminderIndexes = findAllIndexes(result, ({ type }) => type === 'reminder')
+    // if (
+    //   result.some(({ type }) => type === 'reminder') &&
+    //   ['keyword', 'primitive', 'keywordAndPrimitive'].includes(deleted.type) &&
+    //   !result.some(({ type }) => ['keyword', 'primitive', 'keywordAndPrimitive'].includes(type))
+    // ) {
+    //   const reminderIndexes = findAllIndexes(result, ({ type }) => type === 'reminder')
 
-      reminderIndexes.map(reminderIndex => result.splice(reminderIndex, 1, { tier: reminderIndex + 1, type: 'unset' }))
-    }
+    //   reminderIndexes.map(reminderIndex => result.splice(reminderIndex, 1, { tier: reminderIndex + 1, type: 'unset' }))
+    // }
 
     setOccurrences(result)
   }
@@ -41,9 +41,9 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
   function mergeEntries(topIndex: number) {
     const result = Array.from(occurrences) as SortedOccurrences
 
-    result[topIndex] = { ...(result[topIndex] as OccurrenceType), type: 'keywordAndPrimitive' }
+    // result[topIndex] = { ...(result[topIndex] as OccurrenceType), type: 'keywordAndPrimitive' }
 
-    result[topIndex + 1] = { tier: topIndex + 1, type: 'unset' }
+    // result[topIndex + 1] = { tier: topIndex + 1, type: 'unset' }
 
     setOccurrences(result)
   }
@@ -51,11 +51,11 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
   function splitEntries(topIndex: number) {
     const result = Array.from(occurrences) as SortedOccurrences
 
-    const story = (result[topIndex] as OccurrenceType).story ?? (result[topIndex + 1] as OccurrenceType).story ?? undefined
+    // const story = (result[topIndex] as OccurrenceType).story ?? (result[topIndex + 1] as OccurrenceType).story ?? undefined
 
-    result[topIndex] = { ...(result[topIndex] as OccurrenceType), type: 'keyword', story }
+    // result[topIndex] = { ...(result[topIndex] as OccurrenceType), type: 'keyword', story }
 
-    result[topIndex + 1] = { index: 0, tier: topIndex + 2, type: 'primitive', story }
+    // result[topIndex + 1] = { index: 0, tier: topIndex + 2, type: 'primitive', story }
 
     setOccurrences(result)
   }
@@ -75,7 +75,7 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
   function addEntry(atIndex: number, type: BlueprintStepType) {
     const result = Array.from(occurrences) as SortedOccurrences
 
-    result[atIndex] = { tier: atIndex + 1, index: 0, type }
+    // result[atIndex] = { tier: atIndex + 1, index: 0, type }
 
     setOccurrences(result)
   }
@@ -83,12 +83,12 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
   return (
     <Box width={1}>
       <Stack marginTop={2} width={1}>
-        {occurrences.map((occurrence: PotentialOccurrence, index: number) => (
+        {occurrences.map((occurrence: SortedOccurrence, index: number) => (
           <Fragment key={index}>
             <Occurrence {...{ addEntry, character, deleteEntry, index, occurrence, occurrences }} />
 
             <Unless condition={index === occurrences.length - 1}>
-              <ReorderButtonRow {...{ index, occurrences, switchEntries, mergeEntries, splitEntries }} />
+              <ReorderButtonRow {...{ character, index, occurrences, switchEntries, mergeEntries, splitEntries }} />
             </Unless>
           </Fragment>
         ))}
@@ -101,10 +101,14 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
           <Button onClick={() => saveOccurrences(occurrences)} type='submit' variant='contained'>
             {ADMIN_SAVE_CHANGES}
           </Button>
+
+          <Button onClick={() => {}} color='secondary' variant='contained'>
+            Változatok vizualizálása
+          </Button>
         </Box>
       </Stack>
       Problémák:
-      <When
+      {/* <When
         condition={!occurrences.some(step => ['keyword', 'keywordAndPrimitive'].includes(step.type)) && 'keyword' in character}
       >
         Kulcsszó nincs elhelyezve
@@ -126,7 +130,7 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
       <When condition={occurrences.some(step => step.type !== 'unset' && step.index === 0)}>
         Egy vagy több előfordulás nincs elhelyezve a leckében (Teendő: mozgatásnál, szétválasztásnál stb. a szerver lekéri, hogy
         az adott körben hanyadik a karakter az adott körbe tartozó karakterek szűrésével, így ennek nem kellene előfordulnia)
-      </When>
+      </When> */}
     </Box>
   )
 }
