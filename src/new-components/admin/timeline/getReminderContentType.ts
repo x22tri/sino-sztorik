@@ -6,6 +6,7 @@ import {
   isFullOccurrence,
   isReminder,
   isUnset,
+  isWithheldConstituentsOccurrence,
   isWithheldKeywordOccurrence,
   isWithheldPrimitiveOccurrence,
 } from '../../shared/logic/loadAdminChar'
@@ -37,6 +38,10 @@ export function getReminderContentType(
 
   if (previousTiers.some(occurrence => isWithheldPrimitiveOccurrence(occurrence))) {
     return 'keyword'
+  }
+
+  if (previousTiers.some(occurrence => isWithheldConstituentsOccurrence(occurrence))) {
+    return 'keywordLite'
   }
 
   throw new Error('Reminder type invalid.')

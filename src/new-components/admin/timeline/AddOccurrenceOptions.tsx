@@ -1,4 +1,4 @@
-import { faKey, faCube, faBell, IconDefinition, faPlus, faPen, faStar } from '@fortawesome/free-solid-svg-icons'
+import { faKey, faCube, faBell, IconDefinition, faPlus, faPen, faStar, faPersonRunning } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Stack, Divider, Tooltip, IconButton } from '@mui/material'
 import { SortedCharacterEntry, SortedOccurrences, isFullOccurrence, isWithheldOccurrence } from '../../shared/logic/loadAdminChar'
@@ -23,46 +23,18 @@ export function AddOccurrenceOptions({
 
   const canAddReminder = isValidTierForReminder(occurrences, index)
 
-  const canAddWithheldPrimitiveOccurrence =
+  const primitiveInChar = 'primitive' in character
+
+  const canAddWithheldBase =
     'keyword' in character &&
-    'primitive' in character &&
     !occurrences.some(occurrence => isWithheldOccurrence(occurrence)) &&
     occurrences.some((occurrence, i) => i > index && isFullOccurrence(occurrence))
 
-  const canAddWithheldKeywordOccurrence =
-    'keyword' in character &&
-    'primitive' in character &&
-    !occurrences.some(occurrence => isWithheldOccurrence(occurrence)) &&
-    occurrences.some((occurrence, i) => i > index && isFullOccurrence(occurrence))
+  const canAddWithheldPrimitiveOccurrence = canAddWithheldBase && primitiveInChar
 
-  const canAddWithheldConstituentsOccurrence =
-    'keyword' in character &&
-    !('primitive' in character) &&
-    !occurrences.some(occurrence => isWithheldOccurrence(occurrence)) &&
-    occurrences.some((occurrence, i) => i > index && isFullOccurrence(occurrence))
+  const canAddWithheldKeywordOccurrence = canAddWithheldPrimitiveOccurrence
 
-  /* 
-  
-  should be:
-   canAddFullOccurrence = if occurrences does not include one already (whether keyword, primitive or k/p depends on what char has)
-    the icon, tooltip and OccurrenceContent should reflect that
-    and if no withheld are present after
-
-  canAddReminderOccurrence = if previous occurrences include at least one non-unset
-
-  canAddWithheldKeywordOccurrence = if keyword in char and primitive in char
-  and occurrences do not have a withheld occurrence already
-  (if later occurrences don't have a full occurrence, validation problem occurs)
-
-  canAddWithheldPrimitiveOccurrence = if keyword in char and primitive in char
-  and occurrences do not have a withheld occurrence already
-  (if later occurrences don't have a full occurrence, validation problem occurs)
-
-  canAddWithheldConstituentsOccurrence = if keyword in char and no primitive in char
-  and occurrences do not have a withheld occurrence already
-  (if later occurrences don't have a full occurrence, validation problem occurs)
-  
-  */
+  const canAddWithheldConstituentsOccurrence = canAddWithheldBase && !primitiveInChar
 
   return (
     <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={2}>
@@ -86,10 +58,24 @@ export function AddOccurrenceOptions({
         />
       )}
 
+      {!canAddWithheldConstituentsOccurrence ? (
+        false
+      ) : (
+        <AddOccurrence
+          icon={faPersonRunning}
+          tooltip='Először csak felületes bevezetés'
+          onClick={() => addEntry(index, 'withheldConstituents')}
+        />
+      )}
+
       {!canAddFullOccurrence ? (
         false
       ) : (
-        <AddOccurrence icon={faStar} tooltip='Karakter bevezetése ebben a körben' onClick={() => addEntry(index, 'full')} />
+        <AddOccurrence
+          icon={faStar}
+          tooltip='Teljes karakter bevezetése ebben a körben'
+          onClick={() => addEntry(index, 'full')}
+        />
       )}
 
       {!canAddReminder ? (

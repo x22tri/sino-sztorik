@@ -43,6 +43,10 @@ export function Occurrence({
       ? getReminderContentType(character, occurrences, index)
       : isUnset(currentOccurrence)
       ? 'unset'
+      : !('keyword' in character)
+      ? 'primitive'
+      : !('primitive' in character)
+      ? 'keyword'
       : 'keywordAndPrimitive'
 
   const sx = useStepContentStyles(reminder, contentType)
@@ -98,6 +102,8 @@ function useStepContentStyles(isReminder: boolean, type: BlueprintStepType | nul
     switch (type) {
       case 'keyword':
         return { background: palette.background.paper, border: `3px solid ${palette.primary.main}` }
+      case 'keywordLite':
+        return { background: palette.background.paper, border: `3px solid ${palette.primary[100]}` }
       case 'primitive':
         return { background: palette.background.paper, border: `3px solid ${palette.secondary.main}` }
       case 'keywordAndPrimitive':
@@ -113,6 +119,8 @@ function useStepContentStyles(isReminder: boolean, type: BlueprintStepType | nul
     switch (type) {
       case 'keyword':
         return { background: palette.primary[200]!, color: palette.primary.main }
+      case 'keywordLite':
+        return { background: palette.primary[50]!, color: palette.primary.main }
       case 'primitive':
         return { background: palette.secondary[200]!, color: palette.secondary.main }
       case 'keywordAndPrimitive':
