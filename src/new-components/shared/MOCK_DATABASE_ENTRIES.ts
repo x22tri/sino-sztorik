@@ -1,5 +1,4 @@
 import { Blueprint } from '../admin/Blueprint'
-import { BlueprintStepType } from '../admin/timeline/Timeline'
 
 export interface CharacterEntryV2 {
   charChinese: string
@@ -33,7 +32,7 @@ export interface Occurrence {
   index: number
   story?: (string | { constituent: string; references: string } | { keyword: string } | { primitive: string })[][]
   tier: number
-  type: BlueprintStepType
+  type: OccurrencePresentation
 }
 
 export type OccurrenceV3 =
@@ -43,7 +42,9 @@ export type OccurrenceV3 =
   | WithheldPrimitiveOccurrence
   | WithheldConstituentsOccurrence
 
-export type OccurrenceEnum = 'full' | 'reminder' | 'withheldKeyword' | 'withheldPrimitive' | 'withheldConstituents'
+export type OccurrenceType = 'full' | 'reminder' | 'withheldKeyword' | 'withheldPrimitive' | 'withheldConstituents'
+
+export type OccurrencePresentation = 'keyword' | 'keywordAndPrimitive' | 'keywordLite' | 'primitive' | 'reminder' | 'unset'
 
 export interface BaseOccurrence {
   index: number

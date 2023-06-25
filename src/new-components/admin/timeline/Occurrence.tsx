@@ -1,14 +1,13 @@
 import { faBell } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome'
 import { Box, useTheme, Tooltip, SxProps } from '@mui/material'
-import { BlueprintStepType } from './Timeline'
 import { When } from 'react-if'
 import { SortedCharacterEntry, SortedOccurrence, SortedOccurrences, isReminder, isUnset } from '../../shared/logic/loadAdminChar'
 import { OccurrenceContent } from './OccurrenceContent'
 import { CourseLocation } from './CourseLocation'
 import { Actions } from './Actions'
 import { forwardRef, ForwardedRef } from 'react'
-import { OccurrenceEnum } from '../../shared/MOCK_DATABASE_ENTRIES'
+import { OccurrenceType, OccurrencePresentation } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { getReminderContentType } from './getReminderContentType'
 
 export function Occurrence({
@@ -19,7 +18,7 @@ export function Occurrence({
   occurrence,
   occurrences,
 }: {
-  addEntry: (atIndex: number, type: OccurrenceEnum) => void
+  addEntry: (atIndex: number, type: OccurrenceType) => void
   character: SortedCharacterEntry
   index: number
   deleteEntry: (source: number) => void
@@ -30,7 +29,7 @@ export function Occurrence({
 
   const currentOccurrence = occurrences[index]
 
-  const contentType: BlueprintStepType =
+  const contentType: OccurrencePresentation =
     'withhold' in currentOccurrence
       ? currentOccurrence.withhold === 'keyword'
         ? 'primitive'
@@ -95,7 +94,7 @@ const IconForwardRef = forwardRef((props: FontAwesomeIconProps, ref: ForwardedRe
   return <FontAwesomeIcon forwardedRef={ref} {...props}></FontAwesomeIcon>
 })
 
-function useStepContentStyles(isReminder: boolean, type: BlueprintStepType | null): SxProps {
+function useStepContentStyles(isReminder: boolean, type: OccurrencePresentation | null): SxProps {
   const { palette } = useTheme()
 
   if (isReminder) {

@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react'
 import { Box, Button, Stack } from '@mui/material'
-import { CharacterEntryVariant, OccurrenceEnum, Occurrence as OccurrenceType } from '../../shared/MOCK_DATABASE_ENTRIES'
+import { OccurrenceType } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { Occurrence } from './Occurrence'
 import {
   SortedCharacterEntry,
@@ -11,17 +11,8 @@ import {
   isWithheldPrimitiveOccurrence,
 } from '../../shared/logic/loadAdminChar'
 import { Unless, When } from 'react-if'
-import { findAllIndexes } from '../../shared/utility-functions'
 import { ReorderButtonRow } from './ReorderButtonRow'
 import { ADMIN_CANCEL_SAVE, ADMIN_SAVE_CHANGES } from '../../shared/strings'
-
-export type BlueprintStepType = 'keyword' | 'keywordAndPrimitive' | 'keywordLite' | 'primitive' | 'reminder' | 'unset'
-
-export type BlueprintStep = {
-  id: string
-  variant: CharacterEntryVariant
-  type: BlueprintStepType
-}
 
 export function Timeline({ character }: { character: SortedCharacterEntry }) {
   const [occurrences, setOccurrences] = useState(character.occurrences)
@@ -30,39 +21,7 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
   function deleteEntry(atIndex: number) {
     const result = Array.from(occurrences) as SortedOccurrences
 
-    const [deleted] = result.splice(atIndex, 1, { tier: atIndex + 1 })
-
-    // if (
-    //   result.some(({ type }) => type === 'reminder') &&
-    //   ['keyword', 'primitive', 'keywordAndPrimitive'].includes(deleted.type) &&
-    //   !result.some(({ type }) => ['keyword', 'primitive', 'keywordAndPrimitive'].includes(type))
-    // ) {
-    //   const reminderIndexes = findAllIndexes(result, ({ type }) => type === 'reminder')
-
-    //   reminderIndexes.map(reminderIndex => result.splice(reminderIndex, 1, { tier: reminderIndex + 1, type: 'unset' }))
-    // }
-
-    setOccurrences(result)
-  }
-
-  function mergeEntries(topIndex: number) {
-    const result = Array.from(occurrences) as SortedOccurrences
-
-    // result[topIndex] = { ...(result[topIndex] as OccurrenceType), type: 'keywordAndPrimitive' }
-
-    // result[topIndex + 1] = { tier: topIndex + 1, type: 'unset' }
-
-    setOccurrences(result)
-  }
-
-  function splitEntries(topIndex: number) {
-    const result = Array.from(occurrences) as SortedOccurrences
-
-    // const story = (result[topIndex] as OccurrenceType).story ?? (result[topIndex + 1] as OccurrenceType).story ?? undefined
-
-    // result[topIndex] = { ...(result[topIndex] as OccurrenceType), type: 'keyword', story }
-
-    // result[topIndex + 1] = { index: 0, tier: topIndex + 2, type: 'primitive', story }
+    result.splice(atIndex, 1, { tier: atIndex + 1 })
 
     setOccurrences(result)
   }
@@ -79,24 +38,25 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
     setOccurrences(result)
   }
 
-  function addEntry(atIndex: number, type: OccurrenceEnum) {
+  function addEntry(atIndex: number, type: OccurrenceType) {
     const result = Array.from(occurrences) as SortedOccurrences
+    const tier = atIndex + 1
 
     switch (type) {
       case 'full':
-        result[atIndex] = { index: 0, story: [], tier: atIndex + 1 }
+        result[atIndex] = { index: 0, story: [], tier }
         break
       case 'reminder':
-        result[atIndex] = { index: 0, tier: atIndex + 1 }
+        result[atIndex] = { index: 0, tier }
         break
       case 'withheldKeyword':
-        result[atIndex] = { index: 0, story: [], tier: atIndex + 1, withhold: 'keyword' }
+        result[atIndex] = { index: 0, story: [], tier, withhold: 'keyword' }
         break
       case 'withheldPrimitive':
-        result[atIndex] = { index: 0, story: [], tier: atIndex + 1, withhold: 'primitive' }
+        result[atIndex] = { index: 0, story: [], tier, withhold: 'primitive' }
         break
       case 'withheldConstituents':
-        result[atIndex] = { index: 0, story: [], tier: atIndex + 1, withhold: 'constituents' }
+        result[atIndex] = { index: 0, story: [], tier, withhold: 'constituents' }
         break
       default:
         return
@@ -113,7 +73,7 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
             <Occurrence {...{ addEntry, character, deleteEntry, index, occurrence, occurrences }} />
 
             <Unless condition={index === occurrences.length - 1}>
-              <ReorderButtonRow {...{ character, index, occurrences, switchEntries, mergeEntries, splitEntries }} />
+              <ReorderButtonRow {...{ index, occurrences, switchEntries }} />
             </Unless>
           </Fragment>
         ))}

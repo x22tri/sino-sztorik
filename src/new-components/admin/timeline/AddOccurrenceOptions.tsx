@@ -2,9 +2,8 @@ import { faKey, faCube, faBell, IconDefinition, faPlus, faPen, faStar, faPersonR
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Stack, Divider, Tooltip, IconButton } from '@mui/material'
 import { SortedCharacterEntry, SortedOccurrences, isFullOccurrence, isWithheldOccurrence } from '../../shared/logic/loadAdminChar'
-import { BlueprintStepType } from './Timeline'
-import { getReminderContentType, isValidTierForReminder } from './getReminderContentType'
-import { OccurrenceEnum } from '../../shared/MOCK_DATABASE_ENTRIES'
+import { isValidTierForReminder } from './getReminderContentType'
+import { OccurrenceType } from '../../shared/MOCK_DATABASE_ENTRIES'
 
 export function AddOccurrenceOptions({
   addEntry,
@@ -12,7 +11,7 @@ export function AddOccurrenceOptions({
   occurrences,
   index,
 }: {
-  addEntry: (atIndex: number, type: OccurrenceEnum) => void
+  addEntry: (atIndex: number, type: OccurrenceType) => void
   character: SortedCharacterEntry
   occurrences: SortedOccurrences
   index: number

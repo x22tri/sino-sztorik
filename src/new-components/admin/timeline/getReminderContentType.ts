@@ -1,8 +1,7 @@
-import { CharacterEntryV3 } from '../../shared/MOCK_DATABASE_ENTRIES'
+import { OccurrencePresentation } from '../../shared/MOCK_DATABASE_ENTRIES'
 import {
   SortedCharacterEntry,
   SortedOccurrence,
-  SortedOccurrences,
   isFullOccurrence,
   isReminder,
   isUnset,
@@ -11,13 +10,12 @@ import {
   isWithheldPrimitiveOccurrence,
 } from '../../shared/logic/loadAdminChar'
 import { findAllIndexes } from '../../shared/utility-functions'
-import { BlueprintStepType } from './Timeline'
 
 export function getReminderContentType(
   character: SortedCharacterEntry,
   occurrences: SortedOccurrence[],
   index: number
-): BlueprintStepType {
+): OccurrencePresentation {
   const previousTiers = occurrences.slice(0, index)
 
   if (!('keyword' in character) && previousTiers.some(occurrence => isFullOccurrence(occurrence))) {
