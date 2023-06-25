@@ -165,7 +165,7 @@ let theme = responsiveFontSizes(
         700: '#1A3F87',
         800: '#183162',
       },
-      secondary: { main: '#7613B8', 100: '#F6EDFD', 200: '#EEDAFB', 400: '#A134EA' },
+      secondary: { main: '#7613B8', 100: '#F6EDFD', 200: '#EEDAFB', 300: '#C37EF1', 400: '#A134EA' },
       neutral: { main: grey[600], contrastText: grey[50], light: grey[200] },
       white: { main: common.white, contrastText: grey[900] },
       warning: { light: '#FFF4EA', main: '#ffa726', dark: '#D25B00' },

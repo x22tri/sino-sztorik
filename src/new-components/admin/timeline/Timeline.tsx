@@ -83,24 +83,21 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
       </Stack>
       Problémák:
       <When
-        condition={
-          !occurrences.some(step => step.type === 'keyword' || step.type === 'keywordAndPrimitive') && 'keyword' in character
-        }
+        condition={!occurrences.some(step => ['keyword', 'keywordAndPrimitive'].includes(step.type)) && 'keyword' in character}
       >
         Kulcsszó nincs elhelyezve
       </When>
       <When
         condition={
-          !occurrences.some(step => step.type === 'primitive' || step.type === 'keywordAndPrimitive') && 'primitive' in character
+          !occurrences.some(step => ['primitive', 'keywordAndPrimitive'].includes(step.type)) && 'primitive' in character
         }
       >
         Alapelem nincs elhelyezve
       </When>
       <When
-        condition={
-          occurrences.some(step => step.type === 'primitive' || step.type === 'keywordAndPrimitive' || step.type === 'keyword') &&
-          !('story' in character)
-        }
+        condition={occurrences.some(
+          step => ['keyword', 'primitive', 'keywordAndPrimitive'].includes(step.type) && !('story' in step)
+        )}
       >
         Egy vagy több előfordulásnál nincs történet
       </When>

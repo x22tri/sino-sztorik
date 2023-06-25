@@ -34,6 +34,7 @@ import { getReminderContentType } from './getReminderContentType'
 import { CharacterEntry, CharacterEntryVariant } from '../../shared/MOCK_DATABASE_ENTRIES'
 import ToolbarButton, { FadeControlledToolbarButton } from '../../shared/components/ToolbarButton'
 import { PotentialOccurrence, SortedCharacterEntry, SortedOccurrences } from '../../shared/logic/loadAdminChar'
+import { Link } from 'react-router-dom'
 
 export function Step({
   character,
@@ -54,18 +55,6 @@ export function Step({
 
   const contentType = isReminder ? getReminderContentType(steps, index) : step.type
 
-  const canBeDeleted = contentType !== 'unset'
-
-  const canAddKeyword = !steps.some(step => step.type === 'keyword') && !steps.some(step => step.type === 'keywordAndPrimitive')
-
-  const canAddPrimitive = !steps.some(step => ['keyword', 'primitive', 'keywordAndPrimitive'].includes(step.type))
-
-  const canAddReminder = getReminderContentType(steps, index) !== null
-
-  const canAddStory = !('story' in step) && ['keyword', 'primitive', 'keywordAndPrimitive'].includes(step.type)
-
-  const canEditStory = 'story' in step
-
   const tier = step.tier
   const lessonNumber = character.lessonNumber
   const indexInLesson = 'index' in step ? step.index : 0
@@ -76,23 +65,25 @@ export function Step({
         <StepContentWrapper
           sx={{
             background: isReminder ? palette.background.paper : palette.primary[200]!,
-            color: isReminder ? palette.primary.main : palette.primary.contrastText,
+            color: palette.primary.main,
             border: isReminder ? `3px solid ${palette.primary.main}` : undefined,
             justifyContent: 'center',
           }}
           {...{
-            canBeDeleted,
-            canAddStory,
-            canEditStory,
             contentType,
             deleteEntry,
             index,
             tier,
             lessonNumber,
             indexInLesson,
+            step,
           }}
         >
-          <Box alignItems='center' display='flex' flexDirection='column'>
+          <Box alignItems='center' display='flex'>
+            <When condition={isReminder}>
+              <ReminderIcon />
+            </When>
+
             <Typography fontWeight='bold' margin='auto'>
               {character.keyword}
             </Typography>
@@ -104,29 +95,26 @@ export function Step({
         <StepContentWrapper
           sx={{
             background: isReminder ? palette.background.paper : palette.secondary[200]!,
-            color: isReminder ? palette.secondary.main : palette.secondary.contrastText,
+            color: palette.secondary.main,
             border: isReminder ? `3px solid ${palette.secondary.main}` : undefined,
           }}
           {...{
-            canBeDeleted,
-
-            canAddStory,
-            canEditStory,
             contentType,
             deleteEntry,
             tier,
             lessonNumber,
             indexInLesson,
             index,
+            step,
           }}
         >
-          <Box alignItems='center' display='flex' flexDirection='column' margin='auto'>
+          <Box alignItems='center' display='flex'>
+            <When condition={isReminder}>
+              <ReminderIcon />
+            </When>
+
             <Typography fontStyle='italic' margin='auto'>
-              <FontAwesomeIcon
-                color={isReminder ? palette.secondary.main : palette.secondary.contrastText}
-                icon={faCube}
-                style={{ marginRight: '4px' }}
-              />
+              <FontAwesomeIcon color={palette.secondary.main} icon={faCube} style={{ marginRight: '4px' }} />
               {character.primitive!}
             </Typography>
           </Box>
@@ -142,19 +130,16 @@ export function Step({
             outlineOffset: '-6px',
           }}
           {...{
-            canBeDeleted,
-
-            canAddStory,
-            canEditStory,
             contentType,
             deleteEntry,
             tier,
             lessonNumber,
             indexInLesson,
             index,
+            step,
           }}
         >
-          <AddNews {...{ canAddKeyword, canAddPrimitive, canAddReminder }} />
+          <AddNews {...{ steps, index }} />
         </StepContentWrapper>
       )
     case 'keywordAndPrimitive':
@@ -164,47 +149,37 @@ export function Step({
             background: isReminder
               ? palette.background.paper
               : `linear-gradient(150deg, ${palette.primary[200]} 25%, ${palette.secondary[200]} 75%)`,
-            color: isReminder ? palette.primary.main : palette.secondary.contrastText,
-            borderTop: isReminder ? `3px solid ${palette.primary.main}` : undefined,
-            borderLeft: isReminder ? `3px solid ${palette.primary.main}` : undefined,
-            borderBottom: isReminder ? `3px solid ${palette.secondary.main}` : undefined,
-            borderRight: isReminder ? `3px solid ${palette.secondary.main}` : undefined,
+            border: '3px solid',
+            borderColor: !isReminder
+              ? undefined
+              : `${palette.primary.main} ${palette.secondary.main} ${palette.secondary.main} ${palette.primary.main}`,
           }}
           {...{
-            canBeDeleted,
-
-            canAddStory,
-            canEditStory,
             contentType,
             deleteEntry,
             tier,
             lessonNumber,
             indexInLesson,
             index,
+            step,
           }}
         >
-          <Box>
-            <Box alignItems='center' display='flex' flexDirection='row'>
-              <Typography color={isReminder ? palette.primary.main : palette.primary.contrastText} fontWeight='bold'>
-                {character.keyword}
-              </Typography>
+          <Box alignItems='center' display='flex'>
+            <When condition={isReminder}>
+              <ReminderIcon />
+            </When>
 
-              <Divider
-                flexItem
-                orientation='vertical'
-                sx={{ borderColor: isReminder ? palette.text.disabled : palette.secondary.contrastText, mx: 1 }}
-              />
+            <Typography color={palette.primary.main} fontWeight='bold'>
+              {character.keyword}
+            </Typography>
 
-              <FontAwesomeIcon
-                color={isReminder ? palette.secondary.main : palette.secondary.contrastText}
-                icon={faCube}
-                style={{ marginRight: '4px' }}
-              />
+            <Divider flexItem orientation='vertical' sx={{ borderColor: palette.text.disabled, mx: 1 }} />
 
-              <Typography color={isReminder ? palette.secondary.main : palette.secondary.contrastText} fontStyle='italic'>
-                {character.primitive}
-              </Typography>
-            </Box>
+            <FontAwesomeIcon color={palette.secondary.main} icon={faCube} style={{ marginRight: '4px' }} />
+
+            <Typography color={palette.secondary.main} fontStyle='italic'>
+              {character.primitive}
+            </Typography>
           </Box>
         </StepContentWrapper>
       )
@@ -213,49 +188,59 @@ export function Step({
         <StepContentWrapper
           sx={{ bgcolor: palette.primary[100]!, color: palette.primary.main }}
           {...{
-            canBeDeleted,
-            canAddStory,
-            canEditStory,
             contentType,
             deleteEntry,
             tier,
             lessonNumber,
             indexInLesson,
             index,
+            step,
           }}
         >
-          <Typography fontWeight='bold'>{character.keyword}</Typography>
+          <Box alignItems='center' display='flex'>
+            <When condition={isReminder}>
+              <ReminderIcon />
+            </When>
+
+            <Typography fontWeight='bold'>{character.keyword}</Typography>
+          </Box>
         </StepContentWrapper>
       )
     default:
       return <></>
   }
 }
-function StepContentWrapper({
-  canBeDeleted,
 
-  canAddStory,
-  canEditStory,
+function ReminderIcon() {
+  const { palette } = useTheme()
+
+  return (
+    <Tooltip title='Emlékeztető'>
+      <span>
+        <FontAwesomeIcon color={palette.warning.main} icon={faBell} transform='shrink-4' style={{ marginRight: '4px' }} />
+      </span>
+    </Tooltip>
+  )
+}
+
+function StepContentWrapper({
   contentType,
   deleteEntry,
   tier,
   lessonNumber,
   indexInLesson,
   index,
-
+  step,
   children,
   ...restProps
 }: BoxProps & {
-  canBeDeleted: boolean
-
-  canAddStory: boolean
-  canEditStory: boolean
   contentType: BlueprintStepType | null
   deleteEntry: (source: number) => void
   tier: number
   lessonNumber: number
   indexInLesson: number
   index: number
+  step: PotentialOccurrence
 }) {
   return (
     <Box
@@ -265,7 +250,7 @@ function StepContentWrapper({
       pr={3}
       pl={2}
       {...restProps}
-      sx={{ grid: `"location content actions" auto / 1fr 4fr 1fr`, ...restProps.sx }}
+      sx={{ grid: `"location content actions" auto / 1fr 7fr 1fr`, ...restProps.sx }}
     >
       <When condition={contentType !== 'unset'}>
         <CourseLocation {...{ tier, lessonNumber, indexInLesson }} />
@@ -275,32 +260,42 @@ function StepContentWrapper({
         {children}
       </Box>
 
-      <Actions {...{ canAddStory, canEditStory, canBeDeleted, deleteEntry, index }} />
+      <Actions {...{ step, contentType, deleteEntry, index }} />
     </Box>
   )
 }
 
 function CourseLocation({ tier, lessonNumber, indexInLesson }: { tier: number; lessonNumber: number; indexInLesson: number }) {
   return (
-    <Button variant='text' size='small' onClick={() => {}} sx={{ height: 'fit-content', alignSelf: 'center' }}>
+    <Button
+      component={Link}
+      to={`/admin/lessons/${lessonNumber}`}
+      variant='text'
+      size='small'
+      sx={{ alignSelf: 'center', height: 'fit-content' }}
+    >
       {tier}/{lessonNumber}/{indexInLesson}
     </Button>
   )
 }
 
 function Actions({
-  canAddStory,
-  canBeDeleted,
-  canEditStory,
+  step,
+  contentType,
   deleteEntry,
   index,
 }: {
-  canAddStory: boolean
-  canBeDeleted: boolean
-  canEditStory: boolean
+  step: PotentialOccurrence
+  contentType: BlueprintStepType | null
   deleteEntry: (source: number) => void
   index: number
 }) {
+  const canAddStory = !('story' in step) && ['keyword', 'primitive', 'keywordAndPrimitive'].includes(step.type)
+
+  const canEditStory = 'story' in step
+
+  const canBeDeleted = contentType !== 'unset'
+
   return (
     <Stack alignItems='center' direction='row' gap={1.5} justifyContent='flex-end'>
       {!canAddStory ? false : <AddNew icon={faBookOpen} isAction tooltip='Történet hozzáadása' onClick={() => {}} />}
@@ -320,15 +315,13 @@ function Actions({
   )
 }
 
-function AddNews({
-  canAddKeyword,
-  canAddPrimitive,
-  canAddReminder,
-}: {
-  canAddKeyword: boolean
-  canAddPrimitive: boolean
-  canAddReminder: boolean
-}) {
+function AddNews({ steps, index }: { steps: SortedOccurrences; index: number }) {
+  const canAddKeyword = !steps.some(step => step.type === 'keyword') && !steps.some(step => step.type === 'keywordAndPrimitive')
+
+  const canAddPrimitive = !steps.some(step => ['keyword', 'primitive', 'keywordAndPrimitive'].includes(step.type))
+
+  const canAddReminder = getReminderContentType(steps, index) !== null
+
   return (
     <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={2}>
       {!canAddKeyword ? false : <AddNew icon={faKey} tooltip='Kulcsszó hozzáadása' onClick={() => {}} />}

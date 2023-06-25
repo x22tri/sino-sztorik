@@ -70,10 +70,6 @@ export default function AdminContent() {
     >
       <Heading title='Idővonal' />
 
-      <Typography marginBottom={3}>
-        Válaszd ki, milyen séma szerint szeretnéd bevezetni a karaktert, majd szükség szerint rendezd át a sorrendet.
-      </Typography>
-
       <Box display='flex' flexDirection={{ xs: 'column', md: 'row' }} gap={2}>
         <BlueprintSelect {...{ blueprint, setBlueprint }} />
 
