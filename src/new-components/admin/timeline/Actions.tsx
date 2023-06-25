@@ -15,9 +15,9 @@ export function Actions({
   occurrence: SortedOccurrence
 }) {
   // const canAddStory = !('story' in occurrence) && ['keyword', 'primitive', 'keywordAndPrimitive'].includes(occurrence.type)
-  const canAddStory = false
+  const canAddStory = 'story' in occurrence && occurrence.story.length === 0
 
-  const canEditStory = 'story' in occurrence
+  const canEditStory = 'story' in occurrence && occurrence.story.length !== 0
 
   const canBeDeleted = !isUnset(occurrence)
   // cannot be deleted if later reminder would be the first non-unset element upon deletion

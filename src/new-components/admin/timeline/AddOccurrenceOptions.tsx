@@ -1,9 +1,10 @@
-import { faKey, faCube, faBell, IconDefinition, faPlus, faPen } from '@fortawesome/free-solid-svg-icons'
+import { faKey, faCube, faBell, IconDefinition, faPlus, faPen, faStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Stack, Divider, Tooltip, IconButton } from '@mui/material'
-import { SortedCharacterEntry, SortedOccurrences } from '../../shared/logic/loadAdminChar'
+import { SortedCharacterEntry, SortedOccurrences, isFullOccurrence, isWithheldOccurrence } from '../../shared/logic/loadAdminChar'
 import { BlueprintStepType } from './Timeline'
 import { getReminderContentType, isValidTierForReminder } from './getReminderContentType'
+import { OccurrenceEnum } from '../../shared/MOCK_DATABASE_ENTRIES'
 
 export function AddOccurrenceOptions({
   addEntry,
@@ -11,7 +12,7 @@ export function AddOccurrenceOptions({
   occurrences,
   index,
 }: {
-  addEntry: (atIndex: number, type: BlueprintStepType) => void
+  addEntry: (atIndex: number, type: OccurrenceEnum) => void
   character: SortedCharacterEntry
   occurrences: SortedOccurrences
   index: number
@@ -22,7 +23,17 @@ export function AddOccurrenceOptions({
   // const canAddPrimitive = !occurrences.some(({ type }) => ['primitive', 'keywordAndPrimitive'].includes(type))
   const canAddPrimitive = false
 
+  const canAddFullOccurrence =
+    !occurrences.some(occurrence => isFullOccurrence(occurrence)) &&
+    !occurrences.some((occurrence, i) => i > index && isWithheldOccurrence(occurrence))
+
   const canAddReminder = isValidTierForReminder(occurrences, index)
+
+  const canAddWithheldKeywordOccurrence = false
+
+  const canAddWithheldPrimitiveOccurrence = false
+
+  const canAddWithheldConstituentsOccurrence = false
   // const canAddReminder = false
 
   /* 
@@ -30,8 +41,9 @@ export function AddOccurrenceOptions({
   should be:
    canAddFullOccurrence = if occurrences does not include one already (whether keyword, primitive or k/p depends on what char has)
     the icon, tooltip and OccurrenceContent should reflect that
+    and if no withheld are present after
 
-  canAddReminderOccurrence = if previous occurrences include at least one non-reminder
+  canAddReminderOccurrence = if previous occurrences include at least one non-unset
 
   canAddWithheldKeywordOccurrence = if keyword in char and primitive in char
   and occurrences do not have a withheld occurrence already
@@ -49,7 +61,7 @@ export function AddOccurrenceOptions({
 
   return (
     <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={2}>
-      {!canAddKeyword ? (
+      {/* {!canAddKeyword ? (
         false
       ) : (
         <AddOccurrence icon={faKey} tooltip='Kulcsszó hozzáadása' onClick={() => addEntry(index, 'keyword')} />
@@ -59,6 +71,12 @@ export function AddOccurrenceOptions({
         false
       ) : (
         <AddOccurrence icon={faCube} tooltip='Alapelem hozzáadása' onClick={() => addEntry(index, 'primitive')} />
+      )} */}
+
+      {!canAddFullOccurrence ? (
+        false
+      ) : (
+        <AddOccurrence icon={faStar} tooltip='Karakter bevezetése ebben a körben' onClick={() => addEntry(index, 'full')} />
       )}
 
       {!canAddReminder ? (

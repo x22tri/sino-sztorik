@@ -36,7 +36,7 @@ export function getReminderContentType(
   character: SortedCharacterEntry,
   occurrences: SortedOccurrence[],
   index: number
-): BlueprintStepType | null {
+): BlueprintStepType {
   const previousTiers = occurrences.slice(0, index)
 
   if (!('keyword' in character) && previousTiers.some(occurrence => isFullOccurrence(occurrence))) {
@@ -59,7 +59,7 @@ export function getReminderContentType(
     return 'keyword'
   }
 
-  return null
+  throw new Error('Reminder type invalid.')
 }
 
 export function isValidTierForReminder(occurrences: SortedOccurrence[], index: number) {

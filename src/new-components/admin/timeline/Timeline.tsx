@@ -1,8 +1,8 @@
 import { Fragment, useState } from 'react'
 import { Box, Button, Stack } from '@mui/material'
-import { CharacterEntryVariant, Occurrence as OccurrenceType } from '../../shared/MOCK_DATABASE_ENTRIES'
+import { CharacterEntryVariant, OccurrenceEnum, Occurrence as OccurrenceType } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { Occurrence } from './Occurrence'
-import { SortedCharacterEntry, SortedOccurrence, SortedOccurrences } from '../../shared/logic/loadAdminChar'
+import { SortedCharacterEntry, SortedOccurrence, SortedOccurrences, isFullOccurrence } from '../../shared/logic/loadAdminChar'
 import { Unless, When } from 'react-if'
 import { findAllIndexes } from '../../shared/utility-functions'
 import { ReorderButtonRow } from './ReorderButtonRow'
@@ -72,10 +72,28 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
     setOccurrences(result)
   }
 
-  function addEntry(atIndex: number, type: BlueprintStepType) {
+  function addEntry(atIndex: number, type: OccurrenceEnum) {
     const result = Array.from(occurrences) as SortedOccurrences
 
-    // result[atIndex] = { tier: atIndex + 1, index: 0, type }
+    switch (type) {
+      case 'full':
+        result[atIndex] = { index: 0, story: [], tier: atIndex + 1 }
+        break
+      case 'reminder':
+        result[atIndex] = { index: 0, tier: atIndex + 1 }
+        break
+      case 'withheldKeyword':
+        result[atIndex] = { index: 0, story: [], tier: atIndex + 1, withhold: 'keyword' }
+        break
+      case 'withheldPrimitive':
+        result[atIndex] = { index: 0, story: [], tier: atIndex + 1, withhold: 'primitive' }
+        break
+      case 'withheldConstituents':
+        result[atIndex] = { index: 0, story: [], tier: atIndex + 1, withhold: 'constituents' }
+        break
+      default:
+        return
+    }
 
     setOccurrences(result)
   }
@@ -108,26 +126,16 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
         </Box>
       </Stack>
       Problémák:
-      {/* <When
-        condition={!occurrences.some(step => ['keyword', 'keywordAndPrimitive'].includes(step.type)) && 'keyword' in character}
-      >
-        Kulcsszó nincs elhelyezve
-      </When>
-      <When
-        condition={
-          !occurrences.some(step => ['primitive', 'keywordAndPrimitive'].includes(step.type)) && 'primitive' in character
-        }
-      >
-        Alapelem nincs elhelyezve
-      </When>
-      <When
-        condition={occurrences.some(
-          step => ['keyword', 'primitive', 'keywordAndPrimitive'].includes(step.type) && !('story' in step)
-        )}
-      >
+      <When condition={occurrences.some(occurrence => 'story' in occurrence && occurrence.story.length === 0)}>
         Egy vagy több előfordulásnál nincs történet
       </When>
-      <When condition={occurrences.some(step => step.type !== 'unset' && step.index === 0)}>
+      <When condition={'keyword' in character && !occurrences.some(occurrence => isFullOccurrence(occurrence))}>
+        Kulcsszó nincs bevezetve
+      </When>
+      <When condition={'primitive' in character && !occurrences.some(occurrence => isFullOccurrence(occurrence))}>
+        Alapelem nincs bevezetve
+      </When>
+      {/* <When condition={occurrences.some(step => step.type !== 'unset' && step.index === 0)}>
         Egy vagy több előfordulás nincs elhelyezve a leckében (Teendő: mozgatásnál, szétválasztásnál stb. a szerver lekéri, hogy
         az adott körben hanyadik a karakter az adott körbe tartozó karakterek szűrésével, így ennek nem kellene előfordulnia)
       </When> */}

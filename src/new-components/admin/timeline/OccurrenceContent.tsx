@@ -13,82 +13,40 @@ import {
 import { BlueprintStepType } from './Timeline'
 import { AddOccurrenceOptions } from './AddOccurrenceOptions'
 import { getReminderContentType } from './getReminderContentType'
+import { OccurrenceEnum } from '../../shared/MOCK_DATABASE_ENTRIES'
 
 export function OccurrenceContent({
   addEntry,
   character,
   index,
   occurrences,
+  type,
 }: {
-  addEntry: (atIndex: number, type: BlueprintStepType) => void
+  addEntry: (atIndex: number, type: OccurrenceEnum) => void
   character: SortedCharacterEntry
   index: number
   occurrences: SortedOccurrences
+  type: BlueprintStepType
 }) {
-  const currentOccurrence = occurrences[index]
-
-  if ('withhold' in currentOccurrence) {
-    if (currentOccurrence.withhold === 'keyword') {
-      return <Primitive primitive={character.primitive!} />
-    }
-
-    if (currentOccurrence.withhold === 'primitive') {
+  switch (type) {
+    case 'keyword':
+    case 'keywordLite':
       return <Keyword keyword={character.keyword!} />
-    }
+    case 'primitive':
+      return <Primitive primitive={character.primitive!} />
+    case 'keywordAndPrimitive':
+      return (
+        <>
+          <Keyword keyword={character.keyword!} />
+          <Divider flexItem orientation='vertical' sx={{ borderColor: 'text.disabled', mx: 1 }} />
+          <Primitive primitive={character.primitive!} />
+        </>
+      )
+    case 'unset':
+      return <AddOccurrenceOptions {...{ addEntry, character, occurrences, index }} />
+    default:
+      return <></>
   }
-
-  if (isReminder(currentOccurrence)) {
-    const reminderContentType = getReminderContentType(character, occurrences, index)
-
-    switch (reminderContentType) {
-      case 'keyword':
-        return <Keyword keyword={character.keyword!} />
-      case 'primitive':
-        return <Primitive primitive={character.primitive!} />
-      case 'keywordAndPrimitive':
-        return (
-          <>
-            <Keyword keyword={character.keyword!} />
-            <Divider flexItem orientation='vertical' sx={{ borderColor: 'text.disabled', mx: 1 }} />
-            <Primitive primitive={character.primitive!} />
-          </>
-        )
-      default:
-        throw new Error('Reminder content invalid.')
-    }
-  }
-
-  if (isUnset(currentOccurrence)) {
-    return <AddOccurrenceOptions {...{ addEntry, character, occurrences, index }} />
-  }
-
-  return (
-    <>
-      <Keyword keyword={character.keyword!} />
-      <Divider flexItem orientation='vertical' sx={{ borderColor: 'text.disabled', mx: 1 }} />
-      <Primitive primitive={character.primitive!} />
-    </>
-  )
-
-  // switch (type) {
-  //   case 'keyword':
-  //     return <Keyword keyword={character.keyword!} />
-  //   case 'primitive':
-  //     return <Primitive primitive={character.primitive!} />
-  //   case 'keywordAndPrimitive':
-  //     return (
-  //       <>
-  //         <Keyword keyword={character.keyword!} />
-  //         <Divider flexItem orientation='vertical' sx={{ borderColor: 'text.disabled', mx: 1 }} />
-  //         <Primitive primitive={character.primitive!} />
-  //       </>
-  //     )
-  //   case 'unset':
-  //     return <AddOccurrenceOptions {...{ addEntry, occurrences, index }} />
-  //   case 'keywordLite':
-  //     return <Keyword keyword={character.keyword!} />
-  //   default:
-  //     return <></>
 }
 export function Keyword({ keyword }: { keyword: string }) {
   const { palette } = useTheme()

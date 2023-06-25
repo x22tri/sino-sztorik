@@ -43,6 +43,8 @@ export type OccurrenceV3 =
   | WithheldPrimitiveOccurrence
   | WithheldConstituentsOccurrence
 
+export type OccurrenceEnum = 'full' | 'reminder' | 'withheldKeyword' | 'withheldPrimitive' | 'withheldConstituents'
+
 export interface BaseOccurrence {
   index: number
   tier: number
@@ -68,8 +70,6 @@ export interface WithheldConstituentsOccurrence extends BaseOccurrence {
   withhold: 'constituents'
   story: (string | { keyword: string })[][]
 }
-
-export type WithholdType = 'keyword' | 'constituents' | 'primitive'
 
 export interface CharacterEntry {
   blueprint: Blueprint

@@ -8,6 +8,8 @@ import { OccurrenceContent } from './OccurrenceContent'
 import { CourseLocation } from './CourseLocation'
 import { Actions } from './Actions'
 import { forwardRef, ForwardedRef } from 'react'
+import { OccurrenceEnum } from '../../shared/MOCK_DATABASE_ENTRIES'
+import { getReminderContentType } from './getReminderContentType'
 
 export function Occurrence({
   addEntry,
@@ -17,7 +19,7 @@ export function Occurrence({
   occurrence,
   occurrences,
 }: {
-  addEntry: (atIndex: number, type: BlueprintStepType) => void
+  addEntry: (atIndex: number, type: OccurrenceEnum) => void
   character: SortedCharacterEntry
   index: number
   deleteEntry: (source: number) => void
@@ -28,29 +30,22 @@ export function Occurrence({
 
   const currentOccurrence = occurrences[index]
 
-  // const contentType = isReminder ? getReminderContentType(occurrences, index) : occurrence.type
+  const contentType: BlueprintStepType =
+    'withhold' in currentOccurrence
+      ? currentOccurrence.withhold === 'keyword'
+        ? 'primitive'
+        : currentOccurrence.withhold === 'primitive'
+        ? 'keyword'
+        : currentOccurrence.withhold === 'constituents'
+        ? 'keywordLite'
+        : 'unset' // Should not happen
+      : reminder
+      ? getReminderContentType(character, occurrences, index)
+      : isUnset(currentOccurrence)
+      ? 'unset'
+      : 'keywordAndPrimitive'
 
-  // const sx = useStepContentStyles(isReminder, contentType)
-
-  // let contentType: any
-
-  // if ('withhold' in currentOccurrence) {
-  //   if (currentOccurrence.withhold === 'keyword') {
-  //     contentType = 'primitive'
-  //   }
-
-  //   if (currentOccurrence.withhold === 'primitive') {
-  //     contentType = 'keyword'
-  //   }
-
-  //   if (currentOccurrence.withhold === 'constituents') {
-  //     contentType = 'keywordLite'
-  //   }
-  // }
-
-  // if (reminder) {
-
-  // }
+  const sx = useStepContentStyles(reminder, contentType)
 
   return (
     <Box
@@ -59,11 +54,7 @@ export function Occurrence({
       minHeight={({ spacing }) => spacing(10)}
       pr={3}
       pl={2}
-      sx={{
-        grid: `"location content actions" auto / 1fr 7fr 1fr`,
-        // ...sx
-        bgcolor: 'lightgrey',
-      }}
+      sx={{ grid: `"location content actions" auto / 1fr 7fr 1fr`, ...sx }}
     >
       <When condition={!isUnset(occurrence)}>
         <CourseLocation
@@ -78,17 +69,13 @@ export function Occurrence({
           <ReminderIcon />
         </When>
 
-        <OccurrenceContent {...{ addEntry, character, index, occurrences }} />
+        <OccurrenceContent type={contentType} {...{ addEntry, character, index, occurrences }} />
       </Box>
 
       <Actions {...{ occurrence, deleteEntry, index }} />
     </Box>
   )
 }
-
-// function getContentType(occurrences: PotentialOccurrence[], index: number) {
-//   const currentOccurrence = occurrences[index]
-// }
 
 function ReminderIcon() {
   const { palette } = useTheme()
