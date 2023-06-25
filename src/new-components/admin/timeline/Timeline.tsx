@@ -24,11 +24,11 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
     const [deleted] = result.splice(atIndex, 1, { tier: atIndex + 1, type: 'unset' })
 
     if (
-      result.some(occurrence => occurrence.type === 'reminder') &&
+      result.some(({ type }) => type === 'reminder') &&
       ['keyword', 'primitive', 'keywordAndPrimitive'].includes(deleted.type) &&
-      !result.some(occurrence => ['keyword', 'primitive', 'keywordAndPrimitive'].includes(occurrence.type))
+      !result.some(({ type }) => ['keyword', 'primitive', 'keywordAndPrimitive'].includes(type))
     ) {
-      const reminderIndexes = findAllIndexes(result, occurrence => occurrence.type === 'reminder')
+      const reminderIndexes = findAllIndexes(result, ({ type }) => type === 'reminder')
 
       reminderIndexes.map(reminderIndex => result.splice(reminderIndex, 1, { tier: reminderIndex + 1, type: 'unset' }))
     }
@@ -46,7 +46,7 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
     setOccurrences(result)
   }
 
-  function splitEntries(topIndex: number, direction: 'up' | 'down') {
+  function splitEntries(topIndex: number) {
     const result = Array.from(occurrences) as SortedOccurrences
 
     result[topIndex] = { ...(result[topIndex] as OccurrenceType), type: 'keyword' }
@@ -68,14 +68,20 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
     setOccurrences(result)
   }
 
-  function addEntry(atIndex: number, type: BlueprintStepType) {}
+  function addEntry(atIndex: number, type: BlueprintStepType) {
+    const result = Array.from(occurrences) as SortedOccurrences
+
+    result[atIndex] = { tier: atIndex + 1, index: 0, type }
+
+    setOccurrences(result)
+  }
 
   return (
     <Box width={1}>
       <Stack marginTop={2} width={1}>
         {occurrences.map((occurrence: PotentialOccurrence, index: number) => (
           <Fragment key={index}>
-            <Occurrence {...{ character, deleteEntry, index, occurrence, occurrences }} />
+            <Occurrence {...{ addEntry, character, deleteEntry, index, occurrence, occurrences }} />
 
             <Unless condition={index === occurrences.length - 1}>
               <ReorderButtonRow {...{ index, occurrences, switchEntries, mergeEntries, splitEntries }} />

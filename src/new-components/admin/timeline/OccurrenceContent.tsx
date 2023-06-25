@@ -6,11 +6,13 @@ import { AddOccurrenceOptions } from './AddOccurrenceOptions'
 import { BlueprintStepType } from './Timeline'
 
 export function OccurrenceContent({
+  addEntry,
   character,
   index,
   occurrences,
   type,
 }: {
+  addEntry: (atIndex: number, type: BlueprintStepType) => void
   character: SortedCharacterEntry
   index: number
   occurrences: SortedOccurrences
@@ -30,7 +32,7 @@ export function OccurrenceContent({
         </>
       )
     case 'unset':
-      return <AddOccurrenceOptions {...{ occurrences, index }} />
+      return <AddOccurrenceOptions {...{ addEntry, occurrences, index }} />
     case 'keywordLite':
       return <Keyword keyword={character.keyword!} />
     default:

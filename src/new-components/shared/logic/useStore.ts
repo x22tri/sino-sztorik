@@ -3,7 +3,6 @@ import { create } from 'zustand'
 import { Character } from '../interfaces'
 import { findFlashbackChar } from './findFlashbackChar'
 import { scrollToTop } from '../utility-functions'
-import { X } from '../../admin/admin-content/AdminContent'
 
 const useBoundStore = create<Store>((set, get) => {
   function update<SliceType extends keyof Store>(slice: SliceType, updated: Partial<Store[SliceType]>) {
@@ -11,11 +10,6 @@ const useBoundStore = create<Store>((set, get) => {
   }
 
   return {
-    adminChar: {
-      prevTiers: undefined,
-      setPrevTiers: (prevTiers: X) => update('adminChar', { prevTiers }),
-    },
-
     flashback: {
       exitFlashback: () => {
         update('flashback', { flashbackChar: undefined })
@@ -60,16 +54,10 @@ export function useStore<SliceType extends keyof Store>(slice: SliceType): Store
 }
 
 type Store = {
-  adminChar: AdminCharState
   flashback: FlashbackSlice
   learn: LearnSlice
   mobileDrawer: MobileDrawerSlice
   swiper: SwiperState
-}
-
-interface AdminCharState {
-  prevTiers: X | undefined
-  setPrevTiers: (prevTiers: X) => void
 }
 
 interface FlashbackSlice {

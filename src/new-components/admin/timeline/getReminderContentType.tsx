@@ -2,7 +2,7 @@ import { PotentialOccurrence } from '../../shared/logic/loadAdminChar'
 import { BlueprintStepType } from './Timeline'
 
 export function getReminderContentType(occurrences: PotentialOccurrence[], index: number): BlueprintStepType | null {
-  const previousTiers = occurrences.slice(0, index).map(occurrence => occurrence.type)
+  const previousTiers = occurrences.slice(0, index).map(({ type }) => type)
 
   if (previousTiers.includes('keywordAndPrimitive')) {
     return 'keywordAndPrimitive'

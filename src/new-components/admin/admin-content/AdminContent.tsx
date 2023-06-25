@@ -1,18 +1,12 @@
 import { Stack, useTheme } from '@mui/material'
 import { useLoaderData } from 'react-router-dom'
 import { Heading } from '../../learn/headings/Heading'
-import { DiffedCharacterEntryVariant, SortedCharacterEntry } from '../../shared/logic/loadAdminChar'
+import { SortedCharacterEntry } from '../../shared/logic/loadAdminChar'
 import { CharacterEntryVariant } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { Timeline } from '../timeline/Timeline'
 
-export type X = Omit<DiffedCharacterEntryVariant, 'index' | 'tier' | 'newInfo' | 'modifiedInfo'>
-
-export function mergePreviousTiers(variants: CharacterEntryVariant[], tierToStopAt: number): X {
+export function mergePreviousTiers(variants: CharacterEntryVariant[], tierToStopAt: number) {
   return variants.slice(0, tierToStopAt).reduce((previousInfo, newInfo) => Object.assign(previousInfo, newInfo), {})
-}
-
-export function isNotPresentInTier(object: object) {
-  return !object || Object.keys(object).length === 0
 }
 
 export default function AdminContent() {

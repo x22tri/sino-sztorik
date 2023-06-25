@@ -9,14 +9,14 @@ import { useEffect } from 'react'
 import { useStore } from '../../shared/logic/useStore'
 
 export function CharEditForm() {
-  const { setPrevTiers } = useStore('adminChar')
+  // const { setPrevTiers } = useStore('adminChar')
   const { character } = useLoaderData() as { character: DiffedCharacterEntry }
   const [searchParams] = useSearchParams()
   const activeTier = Number(searchParams.get('tier'))
 
-  useEffect(() => {
-    setPrevTiers(!!(activeTier - 1) ? mergePreviousTiers(character.variants, activeTier - 1) : {})
-  }, [activeTier])
+  // useEffect(() => {
+  //   setPrevTiers(!!(activeTier - 1) ? mergePreviousTiers(character.variants, activeTier - 1) : {})
+  // }, [activeTier])
 
   return (
     <>
@@ -24,7 +24,7 @@ export function CharEditForm() {
         defaultValues={mergePreviousTiers(character.variants, activeTier)}
         onSuccess={(data: any) => console.log(data)}
       >
-        <CharacterSection />
+        {/* <CharacterSection /> */}
 
         <Box alignItems='center' display='flex' gap={2} justifyContent='flex-end' marginTop={10}>
           <Button variant='text'>{ADMIN_CANCEL_SAVE}</Button>

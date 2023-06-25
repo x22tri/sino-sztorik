@@ -10,12 +10,14 @@ import { CourseLocation } from './CourseLocation'
 import { Actions } from './Actions'
 
 export function Occurrence({
+  addEntry,
   character,
   index,
   deleteEntry,
   occurrence,
   occurrences,
 }: {
+  addEntry: (atIndex: number, type: BlueprintStepType) => void
   character: SortedCharacterEntry
   index: number
   deleteEntry: (source: number) => void
@@ -50,7 +52,7 @@ export function Occurrence({
           <ReminderIcon />
         </When>
 
-        <OccurrenceContent type={contentType} {...{ character, index, occurrences }} />
+        <OccurrenceContent type={contentType} {...{ addEntry, character, index, occurrences }} />
       </Box>
 
       <Actions {...{ occurrence, contentType, deleteEntry, index }} />

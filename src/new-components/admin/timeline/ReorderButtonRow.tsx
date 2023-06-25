@@ -15,7 +15,7 @@ export function ReorderButtonRow({
   occurrences: SortedOccurrences
   switchEntries: (topIndex: number) => void
   mergeEntries: (topIndex: number) => void
-  splitEntries: (topIndex: number, direction: 'up' | 'down') => void
+  splitEntries: (topIndex: number) => void
 }) {
   const top = occurrences[index]
   const bottom = occurrences[index + 1]
@@ -50,7 +50,7 @@ export function ReorderButtonRow({
       {!canSplitUp ? (
         false
       ) : (
-        <ToolbarButton icon={faCodeFork} tooltip='Szétválasztás felfelé' onClick={() => splitEntries(index, 'up')} />
+        <ToolbarButton icon={faCodeFork} tooltip='Szétválasztás felfelé' onClick={() => splitEntries(index)} />
       )}
 
       {!canSplitDown ? (
@@ -60,7 +60,7 @@ export function ReorderButtonRow({
           icon={faCodeFork}
           iconProps={{ rotation: 180 }}
           tooltip='Szétválasztás lefelé'
-          onClick={() => splitEntries(index, 'down')}
+          onClick={() => splitEntries(index)}
         />
       )}
     </Stack>

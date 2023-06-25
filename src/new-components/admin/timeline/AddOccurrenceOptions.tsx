@@ -3,21 +3,42 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Stack, Divider, Tooltip, IconButton } from '@mui/material'
 import { SortedOccurrences } from '../../shared/logic/loadAdminChar'
 import { getReminderContentType } from './getReminderContentType'
+import { BlueprintStepType } from './Timeline'
 
-export function AddOccurrenceOptions({ occurrences, index }: { occurrences: SortedOccurrences; index: number }) {
+export function AddOccurrenceOptions({
+  addEntry,
+  occurrences,
+  index,
+}: {
+  addEntry: (atIndex: number, type: BlueprintStepType) => void
+  occurrences: SortedOccurrences
+  index: number
+}) {
   const canAddKeyword = !occurrences.some(({ type }) => ['keyword', 'keywordAndPrimitive'].includes(type))
 
-  const canAddPrimitive = !occurrences.some(({ type }) => ['keyword', 'primitive', 'keywordAndPrimitive'].includes(type))
+  const canAddPrimitive = !occurrences.some(({ type }) => ['primitive', 'keywordAndPrimitive'].includes(type))
 
   const canAddReminder = getReminderContentType(occurrences, index) !== null
 
   return (
     <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={2}>
-      {!canAddKeyword ? false : <AddOccurrence icon={faKey} tooltip='Kulcsszó hozzáadása' onClick={() => {}} />}
+      {!canAddKeyword ? (
+        false
+      ) : (
+        <AddOccurrence icon={faKey} tooltip='Kulcsszó hozzáadása' onClick={() => addEntry(index, 'keyword')} />
+      )}
 
-      {!canAddPrimitive ? false : <AddOccurrence icon={faCube} tooltip='Alapelem hozzáadása' onClick={() => {}} />}
+      {!canAddPrimitive ? (
+        false
+      ) : (
+        <AddOccurrence icon={faCube} tooltip='Alapelem hozzáadása' onClick={() => addEntry(index, 'primitive')} />
+      )}
 
-      {!canAddReminder ? false : <AddOccurrence icon={faBell} tooltip='Emlékeztető hozzáadása' onClick={() => {}} />}
+      {!canAddReminder ? (
+        false
+      ) : (
+        <AddOccurrence icon={faBell} tooltip='Emlékeztető hozzáadása' onClick={() => addEntry(index, 'reminder')} />
+      )}
     </Stack>
   )
 }
