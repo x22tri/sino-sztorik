@@ -3,23 +3,29 @@ import { Stack } from '@mui/material'
 import { BlueprintStepType } from './Timeline'
 import ToolbarButton from '../../shared/components/ToolbarButton'
 import { AddOccurrence } from './AddOccurrenceOptions'
-import { SortedOccurrence, isUnset } from '../../shared/logic/loadAdminChar'
+import { SortedOccurrence, SortedOccurrences, isReminder, isUnset } from '../../shared/logic/loadAdminChar'
+import { noOrphanedRemindersIfTierWasDeleted } from './getReminderContentType'
 
 export function Actions({
   deleteEntry,
   index,
   occurrence,
+  occurrences,
 }: {
   deleteEntry: (source: number) => void
   index: number
   occurrence: SortedOccurrence
+  occurrences: SortedOccurrences
 }) {
-  // const canAddStory = !('story' in occurrence) && ['keyword', 'primitive', 'keywordAndPrimitive'].includes(occurrence.type)
   const canAddStory = 'story' in occurrence && occurrence.story.length === 0
 
   const canEditStory = 'story' in occurrence && occurrence.story.length !== 0
 
-  const canBeDeleted = !isUnset(occurrence)
+  const canBeDeleted = !isUnset(occurrence) && noOrphanedRemindersIfTierWasDeleted(occurrences, index)
+  // occurrences.findIndex((occurrence, i) => {
+  //   // console.log(i, index, occurrence)
+  //   return i !== index && !(isUnset(occurrence) || isReminder(occurrence))
+  // }) !== -1
   // cannot be deleted if later reminder would be the first non-unset element upon deletion
 
   return (

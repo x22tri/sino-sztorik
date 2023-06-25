@@ -35,7 +35,9 @@ export function ReorderButtonRow({
   // const canSplitUp = top.type === 'unset' && bottom.type === 'keywordAndPrimitive'
 
   const canSwitch =
-    isUnset(top) || isUnset(bottom) || isReminder(top) || (isReminder(bottom) && isValidTierForReminder(occurrences, index))
+    !(isUnset(top) && isUnset(bottom)) &&
+    !(isReminder(top) && isReminder(bottom)) &&
+    (isUnset(top) || isUnset(bottom) || isReminder(top) || (isReminder(bottom) && isValidTierForReminder(occurrences, index)))
 
   const canMerge = false
 

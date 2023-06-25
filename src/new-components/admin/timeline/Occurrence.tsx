@@ -72,7 +72,7 @@ export function Occurrence({
         <OccurrenceContent type={contentType} {...{ addEntry, character, index, occurrences }} />
       </Box>
 
-      <Actions {...{ occurrence, deleteEntry, index }} />
+      <Actions {...{ occurrence, occurrences, deleteEntry, index }} />
     </Box>
   )
 }

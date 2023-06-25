@@ -2,7 +2,14 @@ import { Fragment, useState } from 'react'
 import { Box, Button, Stack } from '@mui/material'
 import { CharacterEntryVariant, OccurrenceEnum, Occurrence as OccurrenceType } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { Occurrence } from './Occurrence'
-import { SortedCharacterEntry, SortedOccurrence, SortedOccurrences, isFullOccurrence } from '../../shared/logic/loadAdminChar'
+import {
+  SortedCharacterEntry,
+  SortedOccurrence,
+  SortedOccurrences,
+  isFullOccurrence,
+  isWithheldKeywordOccurrence,
+  isWithheldPrimitiveOccurrence,
+} from '../../shared/logic/loadAdminChar'
 import { Unless, When } from 'react-if'
 import { findAllIndexes } from '../../shared/utility-functions'
 import { ReorderButtonRow } from './ReorderButtonRow'
@@ -129,10 +136,20 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
       <When condition={occurrences.some(occurrence => 'story' in occurrence && occurrence.story.length === 0)}>
         Egy vagy több előfordulásnál nincs történet
       </When>
-      <When condition={'keyword' in character && !occurrences.some(occurrence => isFullOccurrence(occurrence))}>
+      <When
+        condition={
+          'keyword' in character &&
+          !occurrences.some(occurrence => isFullOccurrence(occurrence) || isWithheldPrimitiveOccurrence(occurrence))
+        }
+      >
         Kulcsszó nincs bevezetve
       </When>
-      <When condition={'primitive' in character && !occurrences.some(occurrence => isFullOccurrence(occurrence))}>
+      <When
+        condition={
+          'primitive' in character &&
+          !occurrences.some(occurrence => isFullOccurrence(occurrence) || isWithheldKeywordOccurrence(occurrence))
+        }
+      >
         Alapelem nincs bevezetve
       </When>
       {/* <When condition={occurrences.some(step => step.type !== 'unset' && step.index === 0)}>

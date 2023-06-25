@@ -17,24 +17,29 @@ export function AddOccurrenceOptions({
   occurrences: SortedOccurrences
   index: number
 }) {
-  // const canAddKeyword = !occurrences.some(({ type }) => ['keyword', 'keywordAndPrimitive'].includes(type))
-  const canAddKeyword = false
-
-  // const canAddPrimitive = !occurrences.some(({ type }) => ['primitive', 'keywordAndPrimitive'].includes(type))
-  const canAddPrimitive = false
-
   const canAddFullOccurrence =
     !occurrences.some(occurrence => isFullOccurrence(occurrence)) &&
     !occurrences.some((occurrence, i) => i > index && isWithheldOccurrence(occurrence))
 
   const canAddReminder = isValidTierForReminder(occurrences, index)
 
-  const canAddWithheldKeywordOccurrence = false
+  const canAddWithheldPrimitiveOccurrence =
+    'keyword' in character &&
+    'primitive' in character &&
+    !occurrences.some(occurrence => isWithheldOccurrence(occurrence)) &&
+    occurrences.some((occurrence, i) => i > index && isFullOccurrence(occurrence))
 
-  const canAddWithheldPrimitiveOccurrence = false
+  const canAddWithheldKeywordOccurrence =
+    'keyword' in character &&
+    'primitive' in character &&
+    !occurrences.some(occurrence => isWithheldOccurrence(occurrence)) &&
+    occurrences.some((occurrence, i) => i > index && isFullOccurrence(occurrence))
 
-  const canAddWithheldConstituentsOccurrence = false
-  // const canAddReminder = false
+  const canAddWithheldConstituentsOccurrence =
+    'keyword' in character &&
+    !('primitive' in character) &&
+    !occurrences.some(occurrence => isWithheldOccurrence(occurrence)) &&
+    occurrences.some((occurrence, i) => i > index && isFullOccurrence(occurrence))
 
   /* 
   
@@ -61,17 +66,25 @@ export function AddOccurrenceOptions({
 
   return (
     <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={2}>
-      {/* {!canAddKeyword ? (
+      {!canAddWithheldPrimitiveOccurrence ? (
         false
       ) : (
-        <AddOccurrence icon={faKey} tooltip='Kulcsszó hozzáadása' onClick={() => addEntry(index, 'keyword')} />
+        <AddOccurrence
+          icon={faKey}
+          tooltip='Először csak a kulcsszó bevezetése'
+          onClick={() => addEntry(index, 'withheldPrimitive')}
+        />
       )}
 
-      {!canAddPrimitive ? (
+      {!canAddWithheldKeywordOccurrence ? (
         false
       ) : (
-        <AddOccurrence icon={faCube} tooltip='Alapelem hozzáadása' onClick={() => addEntry(index, 'primitive')} />
-      )} */}
+        <AddOccurrence
+          icon={faCube}
+          tooltip='Először csak az alapelem bevezetése'
+          onClick={() => addEntry(index, 'withheldKeyword')}
+        />
+      )}
 
       {!canAddFullOccurrence ? (
         false
