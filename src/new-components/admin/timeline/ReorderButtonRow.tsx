@@ -1,5 +1,7 @@
 import { Stack } from '@mui/material'
-import { SortedOccurrences, isReminder, isUnset } from '../../shared/logic/loadAdminChar'
+import { SortedOccurrences } from '../../shared/logic/loadAdminChar'
+import { isReminder } from '../utils/occurrence-utils'
+import { isUnset } from '../utils/occurrence-utils'
 import ToolbarButton from '../../shared/components/ToolbarButton'
 import { faArrowRightArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { isValidTierForReminder } from './getReminderContentType'

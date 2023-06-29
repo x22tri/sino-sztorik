@@ -16,6 +16,7 @@ export interface CharacterEntryV2 {
 
 export interface CharacterEntryV3 {
   charChinese: string
+  explanation?: string
   lessonNumber: number
   phrases?: number[]
   similars?: number[]

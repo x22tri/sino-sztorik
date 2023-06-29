@@ -2,17 +2,15 @@ import { Fragment, useState } from 'react'
 import { Box, Button, Stack } from '@mui/material'
 import { OccurrenceType } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { Occurrence } from './Occurrence'
-import {
-  SortedCharacterEntry,
-  SortedOccurrence,
-  SortedOccurrences,
-  isFullOccurrence,
-  isWithheldKeywordOccurrence,
-  isWithheldPrimitiveOccurrence,
-} from '../../shared/logic/loadAdminChar'
+import { SortedCharacterEntry, SortedOccurrence, SortedOccurrences } from '../../shared/logic/loadAdminChar'
+import { isWithheldPrimitiveOccurrence } from '../utils/occurrence-utils'
+import { isWithheldKeywordOccurrence } from '../utils/occurrence-utils'
+import { isFullOccurrence } from '../utils/occurrence-utils'
+import { isUnset } from '../utils/occurrence-utils'
 import { Unless, When } from 'react-if'
 import { ReorderButtonRow } from './ReorderButtonRow'
 import { ADMIN_CANCEL_SAVE, ADMIN_SAVE_CHANGES } from '../../shared/strings'
+import { getCharVariantsFromOccurrences } from './getCharVariantsFromOccurrences'
 
 export function Timeline({ character }: { character: SortedCharacterEntry }) {
   const [occurrences, setOccurrences] = useState(character.occurrences)
@@ -87,7 +85,7 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
             {ADMIN_SAVE_CHANGES}
           </Button>
 
-          <Button onClick={() => {}} color='secondary' variant='contained'>
+          <Button onClick={() => getCharVariantsFromOccurrences(character, occurrences)} color='secondary' variant='contained'>
             Változatok vizualizálása
           </Button>
         </Box>
@@ -112,10 +110,10 @@ export function Timeline({ character }: { character: SortedCharacterEntry }) {
       >
         Alapelem nincs bevezetve
       </When>
-      {/* <When condition={occurrences.some(step => step.type !== 'unset' && step.index === 0)}>
-        Egy vagy több előfordulás nincs elhelyezve a leckében (Teendő: mozgatásnál, szétválasztásnál stb. a szerver lekéri, hogy
-        az adott körben hanyadik a karakter az adott körbe tartozó karakterek szűrésével, így ennek nem kellene előfordulnia)
-      </When> */}
+      <When condition={occurrences.some(occurrence => 'index' in occurrence && occurrence.index === 0)}>
+        Egy vagy több előfordulás nincs elhelyezve a leckében (Teendő: a kezelőközpont megnyitásakor a szerver lekéri, hogy az
+        adott körben hanyadik a karakter az adott körbe tartozó karakterek szűrésével, így ennek nem kellene előfordulnia)
+      </When>
     </Box>
   )
 }

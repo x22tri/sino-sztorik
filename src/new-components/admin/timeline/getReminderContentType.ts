@@ -1,14 +1,11 @@
 import { OccurrencePresentation } from '../../shared/MOCK_DATABASE_ENTRIES'
-import {
-  SortedCharacterEntry,
-  SortedOccurrence,
-  isFullOccurrence,
-  isReminder,
-  isUnset,
-  isWithheldConstituentsOccurrence,
-  isWithheldKeywordOccurrence,
-  isWithheldPrimitiveOccurrence,
-} from '../../shared/logic/loadAdminChar'
+import { SortedCharacterEntry, SortedOccurrence } from '../../shared/logic/loadAdminChar'
+import { isWithheldConstituentsOccurrence } from '../utils/occurrence-utils'
+import { isWithheldPrimitiveOccurrence } from '../utils/occurrence-utils'
+import { isWithheldKeywordOccurrence } from '../utils/occurrence-utils'
+import { isFullOccurrence } from '../utils/occurrence-utils'
+import { isReminder } from '../utils/occurrence-utils'
+import { isUnset } from '../utils/occurrence-utils'
 import { findAllIndexes } from '../../shared/utility-functions'
 
 export function getReminderContentType(

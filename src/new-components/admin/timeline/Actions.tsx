@@ -2,7 +2,9 @@ import { faBookOpen, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { Stack } from '@mui/material'
 import ToolbarButton from '../../shared/components/ToolbarButton'
 import { AddOccurrence } from './AddOccurrenceOptions'
-import { SortedOccurrence, SortedOccurrences, isReminder, isUnset } from '../../shared/logic/loadAdminChar'
+import { SortedOccurrence, SortedOccurrences } from '../../shared/logic/loadAdminChar'
+import { isReminder } from '../utils/occurrence-utils'
+import { isUnset } from '../utils/occurrence-utils'
 import { noOrphanedRemindersIfTierWasDeleted } from './getReminderContentType'
 
 export function Actions({

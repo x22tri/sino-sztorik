@@ -7,11 +7,8 @@ import {
   faCube,
   faCubes,
   faKey,
-  faPen,
-  faPlus,
   faVolumeLow,
 } from '@fortawesome/free-solid-svg-icons'
-import { DiffedCharacterEntryVariant, DiffInfo } from '../../../shared/logic/loadAdminChar'
 import { FeaturedInfoInLessonChip } from './FeaturedInfoInLessonChip'
 import { InfoInLessonChip } from './InfoInLessonChip'
 import { InfoIconsHeading } from './InfoIconsHeading'

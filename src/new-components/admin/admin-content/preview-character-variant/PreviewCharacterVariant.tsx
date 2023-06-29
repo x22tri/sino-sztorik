@@ -1,19 +1,12 @@
 import { StepButton } from '@mui/material'
-import { faCopy, faPen, faPlus } from '@fortawesome/free-solid-svg-icons'
-import { DiffInfoTier } from '../../../shared/logic/loadAdminChar'
-import { InfoIcons } from './InfoIcons'
-import { When } from 'react-if'
-import { InfoIconsHeading } from './InfoIconsHeading'
 import { CharacterEntryVariant } from '../../../shared/MOCK_DATABASE_ENTRIES'
 
 export function PreviewCharacterVariant({
   isActive,
-  diffInfo,
   onClick,
   variant,
 }: {
   isActive: boolean
-  diffInfo: DiffInfoTier
   onClick: () => void
   variant: CharacterEntryVariant
 }) {
@@ -30,7 +23,7 @@ export function PreviewCharacterVariant({
         ':hover': { boxShadow: ({ constants }) => constants.boxShadow },
       }}
     >
-      <When condition={diffInfo.newInfo.length > 0}>
+      {/* <When condition={diffInfo.newInfo.length > 0}>
         <InfoIcons headingIcon={faPlus} headingTitle='Hozzáadva:' infoArray={diffInfo.newInfo} {...{ variant }} />
       </When>
 
@@ -40,7 +33,7 @@ export function PreviewCharacterVariant({
 
       <When condition={diffInfo.newInfo.length === 0 && diffInfo.modifiedInfo.length === 0}>
         <InfoIconsHeading icon={faCopy} label='Nincs változtatás' />
-      </When>
+      </When> */}
     </StepButton>
   )
 }
