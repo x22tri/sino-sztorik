@@ -24,6 +24,7 @@ export function Admin() {
 
   const [charFormErrors, setCharFormErrors] = useState<{ [key in CharFormError]: boolean }>({
     [CharFormError.FrequencyNotANumber]: false,
+    [CharFormError.FrequencyNotPresentWithKeyword]: false,
     [CharFormError.NoKeywordOrPrimitive]: false,
   })
   const [timelineErrors, setTimelineErrors] = useState<TimelineError[]>([])

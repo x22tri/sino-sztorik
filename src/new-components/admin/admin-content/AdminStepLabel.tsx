@@ -10,6 +10,7 @@ export enum TimelineError {
 
 export enum CharFormError {
   FrequencyNotANumber = 'FrequencyNotANumber',
+  FrequencyNotPresentWithKeyword = 'FrequencyNotPresentWithKeyword',
   NoKeywordOrPrimitive = 'NoKeywordOrPrimitive',
 }
 

@@ -1,4 +1,4 @@
-import { FormProvider, useForm } from 'react-hook-form'
+import { FormProvider, useForm, useWatch } from 'react-hook-form'
 import { CharacterSection } from '../admin-content/sections/CharacterSection'
 import { CharFormData } from '../../shared/logic/loadAdminChar'
 import { ConstituentsSection } from '../admin-content/sections/ConstituentsSection'
@@ -18,11 +18,6 @@ export function CharForm({
   setCharFormErrors: Dispatch<SetStateAction<{ [key in CharFormError]: boolean }>>
 }) {
   const methods = useForm({ defaultValues: { ...charFormData } })
-  const localFormState = methods.watch()
-
-  useCharFormErrors(localFormState, setCharFormErrors)
-
-  // To-Do: Set up validation on the individual fields' onChange events?
 
   function onSubmit(data: any) {
     console.log(data)
@@ -31,7 +26,7 @@ export function CharForm({
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <CharacterSection />
+        <CharacterSection {...{ setCharFormErrors }} />
 
         <ConstituentsSection />
 

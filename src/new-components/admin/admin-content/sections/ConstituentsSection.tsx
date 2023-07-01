@@ -1,4 +1,4 @@
-import { faTrash, faX } from '@fortawesome/free-solid-svg-icons'
+import { faClose } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, IconButton, InputLabel, Tooltip, Typography, useTheme } from '@mui/material'
 import { Controller } from 'react-hook-form'
@@ -39,7 +39,7 @@ function Constituent({ charChinese }: { charChinese: string }) {
     >
       <Tooltip title='Alapelem törlése'>
         <IconButton color='error' size='small' sx={{ position: 'absolute', top: -6, right: -6 }}>
-          <FontAwesomeIcon icon={faTrash} transform='shrink-9' />
+          <FontAwesomeIcon icon={faClose} transform='shrink-8' />
         </IconButton>
       </Tooltip>
 

@@ -82,5 +82,6 @@ const timelineErrorStrings: Record<TimelineError, string> = {
 
 const charFormErrorStrings: Record<CharFormError, string> = {
   FrequencyNotANumber: 'A gyakoriságot számmal kell megadni',
+  FrequencyNotPresentWithKeyword: 'Ha van kulcsszó, kötelező megadni gyakoriságot is',
   NoKeywordOrPrimitive: 'Kötelező megadni kulcsszót és/vagy alapelemet',
 }
