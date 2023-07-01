@@ -1,16 +1,10 @@
-import { Dispatch, Fragment, SetStateAction, useState } from 'react'
-import { Box, Button, Stack } from '@mui/material'
+import { Dispatch, Fragment, SetStateAction } from 'react'
+import { Stack } from '@mui/material'
 import { OccurrenceType } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { Occurrence } from './Occurrence'
 import { SortedCharacterEntry, SortedOccurrence, SortedOccurrences } from '../../shared/logic/loadAdminChar'
-import { isWithheldPrimitiveOccurrence } from '../utils/occurrence-utils'
-import { isWithheldKeywordOccurrence } from '../utils/occurrence-utils'
-import { isFullOccurrence } from '../utils/occurrence-utils'
-import { isUnset } from '../utils/occurrence-utils'
-import { Unless, When } from 'react-if'
+import { Unless } from 'react-if'
 import { ReorderButtonRow } from './ReorderButtonRow'
-import { ADMIN_CANCEL_SAVE, ADMIN_SAVE_CHANGES } from '../../shared/strings'
-import { getCharVariantsFromOccurrences } from './getCharVariantsFromOccurrences'
 
 export function Timeline({
   character,
@@ -21,8 +15,6 @@ export function Timeline({
   occurrences: SortedOccurrences
   setOccurrences: Dispatch<SetStateAction<SortedOccurrences>>
 }) {
-  // const [savedOccurrences, saveOccurrences] = useState<SortedOccurrences>([...character.occurrences])
-
   function deleteEntry(atIndex: number) {
     const result = Array.from(occurrences) as SortedOccurrences
 
@@ -81,20 +73,6 @@ export function Timeline({
           </Unless>
         </Fragment>
       ))}
-
-      {/* <Box alignItems='center' display='flex' gap={2} justifyContent='flex-end' marginTop={10}>
-        <Button onClick={() => setOccurrences(savedOccurrences)} variant='text'>
-          {ADMIN_CANCEL_SAVE}
-        </Button>
-
-        <Button onClick={() => saveOccurrences(occurrences)} type='submit' variant='contained'>
-          {ADMIN_SAVE_CHANGES}
-        </Button>
-
-        <Button onClick={() => getCharVariantsFromOccurrences(character, occurrences)} color='secondary' variant='contained'>
-          Változatok vizualizálása
-        </Button>
-      </Box> */}
     </Stack>
   )
 }

@@ -15,6 +15,7 @@ export function Admin() {
 
   const { character } = useLoaderData() as { character: SortedCharacterEntry }
   const [occurrences, setOccurrences] = useState(character.occurrences)
+  const [savedOccurrences, saveOccurrences] = useState<SortedOccurrences>([...character.occurrences])
 
   const [timelineErrors, setTimelineErrors] = useState<TimelineError[]>([])
 
@@ -32,7 +33,7 @@ export function Admin() {
 
       <AdminContent {...{ activeStep, character, occurrences, setOccurrences, timelineErrors, toolbarHeight }} />
 
-      <AdminBottomNav {...{ activeStep, setActiveStep }} />
+      <AdminBottomNav isFinalCheckDisabled={!!timelineErrors.length} {...{ activeStep, setActiveStep }} />
     </LayoutGrid>
   )
 }
