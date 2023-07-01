@@ -1,5 +1,7 @@
 import { CharacterEntryV3, OccurrenceType } from '../../shared/MOCK_DATABASE_ENTRIES'
-import { CharFormData, SortedOccurrence, TimelineData } from '../../shared/logic/loadAdminChar'
+import { SortedOccurrence } from '../../shared/MOCK_DATABASE_ENTRIES'
+import { TimelineData } from '../../shared/logic/loadAdminChar'
+import { CharFormData } from '../../shared/logic/loadAdminChar'
 import { getOccurrenceType } from '../utils/occurrence-utils'
 import { isUnset } from '../utils/occurrence-utils'
 

@@ -1,5 +1,6 @@
 import { OccurrencePresentation } from '../../shared/MOCK_DATABASE_ENTRIES'
-import { CharFormData, SortedOccurrence } from '../../shared/logic/loadAdminChar'
+import { SortedOccurrence } from '../../shared/MOCK_DATABASE_ENTRIES'
+import { CharFormData, TimelineData } from '../../shared/logic/loadAdminChar'
 import { isWithheldConstituentsOccurrence } from '../utils/occurrence-utils'
 import { isWithheldPrimitiveOccurrence } from '../utils/occurrence-utils'
 import { isWithheldKeywordOccurrence } from '../utils/occurrence-utils'
@@ -10,10 +11,10 @@ import { findAllIndexes } from '../../shared/utility-functions'
 
 export function getReminderContentType(
   character: CharFormData,
-  occurrences: SortedOccurrence[],
+  timelineData: TimelineData,
   index: number
 ): OccurrencePresentation {
-  const previousTiers = occurrences.slice(0, index)
+  const previousTiers = timelineData.slice(0, index)
 
   if (!('keyword' in character) && previousTiers.some(occurrence => isFullOccurrence(occurrence))) {
     return 'primitive'

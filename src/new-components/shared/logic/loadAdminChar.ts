@@ -1,8 +1,6 @@
-import { CHAR_ENTRY_V3, CharacterEntryV3, OccurrenceV3 } from '../MOCK_DATABASE_ENTRIES'
-
-export type UnsetOccurrence = { tier: number }
-
-export type SortedOccurrence = OccurrenceV3 | UnsetOccurrence
+import { SortedOccurrence } from '../MOCK_DATABASE_ENTRIES'
+import { CharacterEntryV3 } from '../MOCK_DATABASE_ENTRIES'
+import { CHAR_ENTRY_V3 } from '../MOCK_DATABASE_ENTRIES'
 
 export type CharFormData = Omit<CharacterEntryV3, 'occurrences'>
 
@@ -15,11 +13,9 @@ export function loadAdminChar(): { charFormData: CharFormData; timelineData: Tim
     throw new Response('Character not found in the database', { status: 404 })
   }
 
-  const timelineData = new Array(1, 2, 3, 4).map(
-    x => characterEntry.occurrences.find(({ tier }) => tier === x) ?? { tier: x }
-  ) as TimelineData
-
   const { occurrences, ...charFormData } = characterEntry
 
-  return { charFormData: charFormData as CharFormData, timelineData }
+  const timelineData = new Array(1, 2, 3, 4).map(tier => occurrences.find(occurrence => occurrence.tier === tier) ?? { tier })
+
+  return { charFormData: charFormData as CharFormData, timelineData: timelineData as TimelineData }
 }

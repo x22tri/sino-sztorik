@@ -1,5 +1,6 @@
 import { Box, Step, StepLabel, Stepper, useTheme } from '@mui/material'
-import { CharFormData, TimelineData } from '../../shared/logic/loadAdminChar'
+import { TimelineData } from '../../shared/logic/loadAdminChar'
+import { CharFormData } from '../../shared/logic/loadAdminChar'
 import { CharacterEntryVariant } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { Timeline } from '../timeline/Timeline'
 import { Dispatch, SetStateAction } from 'react'
@@ -34,7 +35,6 @@ export default function AdminContent({
       minHeight={`calc(100vh - ${toolbarHeight}px - ${constants.bottomToolbarHeight})`}
       marginBottom={constants.bottomToolbarHeight}
       padding={2}
-      width={1}
     >
       <Stepper {...{ activeStep }} sx={{ minHeight: spacing(6), mb: 2 }}>
         <Step>

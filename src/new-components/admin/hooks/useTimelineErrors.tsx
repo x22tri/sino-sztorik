@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useEffect } from 'react'
-import { CharFormData, TimelineData } from '../../shared/logic/loadAdminChar'
+import { TimelineData } from '../../shared/logic/loadAdminChar'
+import { CharFormData } from '../../shared/logic/loadAdminChar'
 import { isFullOccurrence, isWithheldPrimitiveOccurrence, isWithheldKeywordOccurrence } from '../utils/occurrence-utils'
 import { TimelineError } from '../admin-content/AdminStepLabel'
 

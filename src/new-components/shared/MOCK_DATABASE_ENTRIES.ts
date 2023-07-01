@@ -47,6 +47,9 @@ export type OccurrenceType = 'full' | 'reminder' | 'withheldKeyword' | 'withheld
 
 export type OccurrencePresentation = 'keyword' | 'keywordAndPrimitive' | 'keywordLite' | 'primitive' | 'reminder' | 'unset'
 
+export type SortedOccurrence = OccurrenceV3 | UnsetOccurrence
+export type UnsetOccurrence = { tier: number }
+
 export interface BaseOccurrence {
   index: number
   tier: number
@@ -397,5 +400,3 @@ const USER_ENTRY = {
   password: 'hashedpw',
   tier: 1,
 }
-
-export {}

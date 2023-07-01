@@ -1,4 +1,5 @@
-import { SortedOccurrence, UnsetOccurrence } from '../../shared/logic/loadAdminChar'
+import { UnsetOccurrence } from '../../shared/MOCK_DATABASE_ENTRIES'
+import { SortedOccurrence } from '../../shared/MOCK_DATABASE_ENTRIES'
 import {
   ReminderOccurrence,
   FullOccurrence,

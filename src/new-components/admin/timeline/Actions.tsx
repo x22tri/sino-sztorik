@@ -2,10 +2,10 @@ import { faBookOpen, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { Stack } from '@mui/material'
 import ToolbarButton from '../../shared/components/ToolbarButton'
 import { AddOccurrence } from './AddOccurrenceOptions'
-import { SortedOccurrence, TimelineData } from '../../shared/logic/loadAdminChar'
-import { isReminder } from '../utils/occurrence-utils'
+import { SortedOccurrence } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { isUnset } from '../utils/occurrence-utils'
 import { noOrphanedRemindersIfTierWasDeleted } from './getReminderContentType'
+import { TimelineData } from '../../shared/logic/loadAdminChar'
 
 export function Actions({
   deleteEntry,
