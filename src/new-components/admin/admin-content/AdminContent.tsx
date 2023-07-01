@@ -4,7 +4,7 @@ import { CharFormData } from '../../shared/logic/loadAdminChar'
 import { CharacterEntryVariant } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { Timeline } from '../timeline/Timeline'
 import { Dispatch, SetStateAction } from 'react'
-import { AdminStepLabel, CharFormError, TimelineError } from './AdminStepLabel'
+import { AdminStepLabel, AdminStepLabel2, CharFormError, TimelineError } from './AdminStepLabel'
 import { Case, Default, Switch } from 'react-if'
 import { CharForm } from '../char-form/CharForm'
 import { ADMIN_CHAR_EDIT_STEP_ONE, ADMIN_CHAR_EDIT_STEP_THREE, ADMIN_CHAR_EDIT_STEP_TWO } from '../../shared/strings'
@@ -15,16 +15,20 @@ export default function AdminContent({
   charFormErrors,
   timelineData,
   setCharFormData,
+  setCharFormErrors,
   setTimelineData,
+  setTimelineErrors,
   timelineErrors,
   toolbarHeight,
 }: {
   activeStep: number
   charFormData: CharFormData
-  charFormErrors: CharFormError[]
+  charFormErrors: { [key in CharFormError]: boolean }
   timelineData: TimelineData
   setCharFormData: Dispatch<SetStateAction<CharFormData>>
+  setCharFormErrors: Dispatch<SetStateAction<{ [key in CharFormError]: boolean }>>
   setTimelineData: Dispatch<SetStateAction<TimelineData>>
+  setTimelineErrors: Dispatch<SetStateAction<TimelineError[]>>
   timelineErrors: TimelineError[]
   toolbarHeight: number
 }) {
@@ -40,7 +44,7 @@ export default function AdminContent({
     >
       <Stepper {...{ activeStep }} sx={{ minHeight: spacing(6), mb: 2 }}>
         <Step>
-          <AdminStepLabel errors={charFormErrors} errorMessages={charFormErrorStrings} title={ADMIN_CHAR_EDIT_STEP_ONE} />
+          <AdminStepLabel2 errors={charFormErrors} errorMessages={charFormErrorStrings} title={ADMIN_CHAR_EDIT_STEP_ONE} />
         </Step>
 
         <Step>
@@ -54,11 +58,11 @@ export default function AdminContent({
 
       <Switch>
         <Case condition={activeStep === 0}>
-          <CharForm {...{ charFormData, setCharFormData }} />
+          <CharForm {...{ charFormData, setCharFormData, setCharFormErrors }} />
         </Case>
 
         <Case condition={activeStep === 1}>
-          <Timeline {...{ charFormData, timelineData, setTimelineData }} />
+          <Timeline {...{ charFormData, timelineData, setTimelineData, setTimelineErrors }} />
         </Case>
 
         <Case condition={activeStep === 2}></Case>

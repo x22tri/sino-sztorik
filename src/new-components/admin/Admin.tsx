@@ -10,7 +10,7 @@ import { TimelineData } from '../shared/logic/loadAdminChar'
 import { CharFormData } from '../shared/logic/loadAdminChar'
 import { CharFormError, TimelineError } from './admin-content/AdminStepLabel'
 import { useTimelineErrors } from './hooks/useTimelineErrors'
-import { useCharFormErrors } from './hooks/useCharFormErrors'
+import { getCharFormErrors, useCharFormErrors } from './hooks/useCharFormErrors'
 
 export function Admin() {
   const [activeStep, setActiveStep] = useState(0)
@@ -22,11 +22,11 @@ export function Admin() {
   const [savedCharForm, saveCharForm] = useState<CharFormData>({ ...loaderData.charFormData })
   const [savedOccurrences, saveOccurrences] = useState<TimelineData>({ ...loaderData.timelineData })
 
-  const [charFormErrors, setCharFormErrors] = useState<CharFormError[]>([])
+  const [charFormErrors, setCharFormErrors] = useState<{ [key in CharFormError]: boolean }>({
+    [CharFormError.FrequencyNotANumber]: false,
+    [CharFormError.NoKeywordOrPrimitive]: false,
+  })
   const [timelineErrors, setTimelineErrors] = useState<TimelineError[]>([])
-
-  useCharFormErrors(charFormData, setCharFormErrors)
-  useTimelineErrors(charFormData, timelineData, setTimelineErrors)
 
   return (
     <LayoutGrid
@@ -44,7 +44,9 @@ export function Admin() {
           charFormData,
           charFormErrors,
           setCharFormData,
+          setCharFormErrors,
           setTimelineData,
+          setTimelineErrors,
           timelineData,
           timelineErrors,
           toolbarHeight,
@@ -52,7 +54,7 @@ export function Admin() {
       />
 
       <AdminBottomNav
-        isFinalCheckDisabled={charFormErrors.length > 0 || timelineErrors.length > 0}
+        isFinalCheckDisabled={getCharFormErrors(charFormErrors).length > 0 || timelineErrors.length > 0}
         {...{ activeStep, setActiveStep }}
       />
     </LayoutGrid>
