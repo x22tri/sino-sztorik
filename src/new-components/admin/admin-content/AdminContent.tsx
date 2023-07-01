@@ -6,6 +6,7 @@ import { Timeline } from '../timeline/Timeline'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { isFullOccurrence, isWithheldKeywordOccurrence, isWithheldPrimitiveOccurrence } from '../utils/occurrence-utils'
 import { AdminStepLabel } from './AdminStepLabel'
+import { Case, Default, Switch } from 'react-if'
 
 export function mergePreviousTiers(variants: CharacterEntryVariant[], tierToStopAt: number) {
   return variants.slice(0, tierToStopAt).reduce((previousInfo, newInfo) => Object.assign(previousInfo, newInfo), {})
@@ -18,21 +19,30 @@ export enum TimelineError {
   CourseLocationNotSet = 'CourseLocationNotSet',
 }
 
-export default function AdminContent() {
+export default function AdminContent({
+  activeStep,
+  character,
+  occurrences,
+  setOccurrences,
+  timelineErrors,
+  toolbarHeight,
+}: {
+  activeStep: number
+  character: SortedCharacterEntry
+  occurrences: SortedOccurrences
+  setOccurrences: Dispatch<SetStateAction<SortedOccurrences>>
+  timelineErrors: TimelineError[]
+  toolbarHeight: number
+}) {
   const { constants, palette, spacing } = useTheme()
-  const { character } = useLoaderData() as { character: SortedCharacterEntry }
-  const [occurrences, setOccurrences] = useState(character.occurrences)
-  const [activeStep, setActiveStep] = useState(1)
-  const [timelineErrors, setTimelineErrors] = useState<TimelineError[]>([])
-
-  useTimelineErrors(character, occurrences, setTimelineErrors)
 
   return (
     <Box
       bgcolor='background.paper'
       component='main'
-      minHeight={`calc(100vh - ${constants.bottomToolbarHeight})`}
-      paddingX={2}
+      minHeight={`calc(100vh - ${toolbarHeight}px - ${constants.bottomToolbarHeight})`}
+      marginBottom={constants.bottomToolbarHeight}
+      padding={2}
       width={1}
     >
       <Stepper {...{ activeStep }}>
@@ -49,51 +59,16 @@ export default function AdminContent() {
         </Step>
       </Stepper>
 
-      <Timeline {...{ character, occurrences, setOccurrences }} />
+      <Switch>
+        <Case condition={activeStep === 0}>Űrlap</Case>
+        <Case condition={activeStep === 1}>
+          <Timeline {...{ character, occurrences, setOccurrences }} />
+        </Case>
+        <Case condition={activeStep === 2}></Case>
+        <Default>Hiba</Default>
+      </Switch>
     </Box>
-
-    // <StepContent>
-    //       <Timeline {...{ character, occurrences, setOccurrences }} />
-    //     </StepContent>
-
-    // {activeStep === 0 ? 'Űrlap' : false}
-
-    // {activeStep === 1 ? <Timeline {...{ character, occurrences, setOccurrences }} /> : false}
   )
-}
-
-function useTimelineErrors(
-  character: SortedCharacterEntry,
-  occurrences: SortedOccurrences,
-  setTimelineErrors: Dispatch<SetStateAction<TimelineError[]>>
-) {
-  useEffect(() => {
-    const errors: TimelineError[] = []
-
-    if (occurrences.some(occurrence => 'story' in occurrence && occurrence.story.length === 0)) {
-      errors.push(TimelineError.MissingStory)
-    }
-
-    if (
-      'keyword' in character &&
-      !occurrences.some(occurrence => isFullOccurrence(occurrence) || isWithheldPrimitiveOccurrence(occurrence))
-    ) {
-      errors.push(TimelineError.KeywordNotIntroduced)
-    }
-
-    if (
-      'primitive' in character &&
-      !occurrences.some(occurrence => isFullOccurrence(occurrence) || isWithheldKeywordOccurrence(occurrence))
-    ) {
-      errors.push(TimelineError.PrimitiveNotIntroduced)
-    }
-
-    if (occurrences.some(occurrence => 'index' in occurrence && occurrence.index === 0)) {
-      errors.push(TimelineError.CourseLocationNotSet)
-    }
-
-    setTimelineErrors(errors)
-  }, [character, occurrences])
 }
 
 const timelineErrorStrings: Record<TimelineError, string> = {

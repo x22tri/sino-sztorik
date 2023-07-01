@@ -21,7 +21,7 @@ export function Timeline({
   occurrences: SortedOccurrences
   setOccurrences: Dispatch<SetStateAction<SortedOccurrences>>
 }) {
-  const [savedOccurrences, saveOccurrences] = useState<SortedOccurrences>([...character.occurrences])
+  // const [savedOccurrences, saveOccurrences] = useState<SortedOccurrences>([...character.occurrences])
 
   function deleteEntry(atIndex: number) {
     const result = Array.from(occurrences) as SortedOccurrences
@@ -82,7 +82,7 @@ export function Timeline({
         </Fragment>
       ))}
 
-      <Box alignItems='center' display='flex' gap={2} justifyContent='flex-end' marginTop={10}>
+      {/* <Box alignItems='center' display='flex' gap={2} justifyContent='flex-end' marginTop={10}>
         <Button onClick={() => setOccurrences(savedOccurrences)} variant='text'>
           {ADMIN_CANCEL_SAVE}
         </Button>
@@ -94,7 +94,7 @@ export function Timeline({
         <Button onClick={() => getCharVariantsFromOccurrences(character, occurrences)} color='secondary' variant='contained'>
           Változatok vizualizálása
         </Button>
-      </Box>
+      </Box> */}
     </Stack>
   )
 }

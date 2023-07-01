@@ -8,12 +8,35 @@ import { useStore } from '../../shared/logic/useStore'
 import { ProfileMenu } from '../../lesson-select/appbar/ProfileMenu'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LightenOnHoverButton } from '../../shared/components/LightenOnHoverButton'
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 
-export function AdminAppbar({}: {}) {
+export function AdminAppbar({
+  setToolbarHeight,
+  toolbarHeight,
+}: {
+  setToolbarHeight: Dispatch<SetStateAction<number>>
+  toolbarHeight: number
+}) {
   const { constants } = useTheme()
-  const { toggleDrawer } = useStore('mobileDrawer')
   const isSmallScreen = useSmallScreen()
+  const ref = useRef<HTMLDivElement | null>(null)
+  const { toggleDrawer } = useStore('mobileDrawer')
+  const resizeObserver = new ResizeObserver(handleToolbarResized)
   const drawerWidth = isSmallScreen ? 0 : constants.drawerWidth
+
+  useEffect(() => {
+    if (ref?.current) {
+      resizeObserver.observe(ref.current)
+    }
+
+    return () => resizeObserver.disconnect()
+  })
+
+  function handleToolbarResized() {
+    if (ref?.current && ref.current.offsetHeight !== toolbarHeight) {
+      setToolbarHeight(ref.current.offsetHeight)
+    }
+  }
 
   return (
     <>
@@ -36,6 +59,7 @@ export function AdminAppbar({}: {}) {
             gridTemplateColumns: `repeat(3, minmax(max-content, 1fr))`,
             px: { xs: 1, sm: 2 },
           }}
+          {...{ ref }}
         >
           <LightenOnHoverButton
             color='neutral'
