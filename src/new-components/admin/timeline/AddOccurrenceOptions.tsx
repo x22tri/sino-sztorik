@@ -1,7 +1,7 @@
 import { faKey, faCube, faBell, IconDefinition, faPlus, faPen, faStar, faPersonRunning } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Stack, Divider, Tooltip, IconButton } from '@mui/material'
-import { SortedCharacterEntry, SortedOccurrences } from '../../shared/logic/loadAdminChar'
+import { CharFormData, TimelineData } from '../../shared/logic/loadAdminChar'
 import { isWithheldOccurrence } from '../utils/occurrence-utils'
 import { isFullOccurrence } from '../utils/occurrence-utils'
 import { isValidTierForReminder } from './getReminderContentType'
@@ -9,27 +9,27 @@ import { OccurrenceType } from '../../shared/MOCK_DATABASE_ENTRIES'
 
 export function AddOccurrenceOptions({
   addEntry,
-  character,
-  occurrences,
+  charFormData,
+  timelineData,
   index,
 }: {
   addEntry: (atIndex: number, type: OccurrenceType) => void
-  character: SortedCharacterEntry
-  occurrences: SortedOccurrences
+  charFormData: CharFormData
+  timelineData: TimelineData
   index: number
 }) {
   const canAddFullOccurrence =
-    !occurrences.some(occurrence => isFullOccurrence(occurrence)) &&
-    !occurrences.some((occurrence, i) => i > index && isWithheldOccurrence(occurrence))
+    !timelineData.some(occurrence => isFullOccurrence(occurrence)) &&
+    !timelineData.some((occurrence, i) => i > index && isWithheldOccurrence(occurrence))
 
-  const canAddReminder = isValidTierForReminder(occurrences, index)
+  const canAddReminder = isValidTierForReminder(timelineData, index)
 
-  const primitiveInChar = 'primitive' in character
+  const primitiveInChar = 'primitive' in charFormData
 
   const canAddWithheldBase =
-    'keyword' in character &&
-    !occurrences.some(occurrence => isWithheldOccurrence(occurrence)) &&
-    occurrences.some((occurrence, i) => i > index && isFullOccurrence(occurrence))
+    'keyword' in charFormData &&
+    !timelineData.some(occurrence => isWithheldOccurrence(occurrence)) &&
+    timelineData.some((occurrence, i) => i > index && isFullOccurrence(occurrence))
 
   const canAddWithheldPrimitiveOccurrence = canAddWithheldBase && primitiveInChar
 

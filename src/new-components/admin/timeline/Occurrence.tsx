@@ -2,7 +2,7 @@ import { faBell } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome'
 import { Box, useTheme, Tooltip, SxProps } from '@mui/material'
 import { When } from 'react-if'
-import { SortedCharacterEntry, SortedOccurrence, SortedOccurrences } from '../../shared/logic/loadAdminChar'
+import { CharFormData, SortedOccurrence, TimelineData } from '../../shared/logic/loadAdminChar'
 import { isReminder } from '../utils/occurrence-utils'
 import { isUnset } from '../utils/occurrence-utils'
 import { OccurrenceContent } from './OccurrenceContent'
@@ -14,22 +14,22 @@ import { getReminderContentType } from './getReminderContentType'
 
 export function Occurrence({
   addEntry,
-  character,
+  charFormData,
   index,
   deleteEntry,
   occurrence,
-  occurrences,
+  timelineData,
 }: {
   addEntry: (atIndex: number, type: OccurrenceType) => void
-  character: SortedCharacterEntry
+  charFormData: CharFormData
   index: number
   deleteEntry: (source: number) => void
   occurrence: SortedOccurrence
-  occurrences: SortedOccurrences
+  timelineData: TimelineData
 }) {
   const reminder = isReminder(occurrence)
 
-  const currentOccurrence = occurrences[index]
+  const currentOccurrence = timelineData[index]
 
   const contentType: OccurrencePresentation =
     'withhold' in currentOccurrence
@@ -41,12 +41,12 @@ export function Occurrence({
         ? 'keywordLite'
         : 'unset' // Should not happen
       : reminder
-      ? getReminderContentType(character, occurrences, index)
+      ? getReminderContentType(charFormData, timelineData, index)
       : isUnset(currentOccurrence)
       ? 'unset'
-      : !('keyword' in character)
+      : !('keyword' in charFormData)
       ? 'primitive'
-      : !('primitive' in character)
+      : !('primitive' in charFormData)
       ? 'keyword'
       : 'keywordAndPrimitive'
 
@@ -64,7 +64,7 @@ export function Occurrence({
       <When condition={!isUnset(occurrence)}>
         <CourseLocation
           tier={occurrence.tier}
-          lessonNumber={character.lessonNumber}
+          lessonNumber={charFormData.lessonNumber}
           indexInLesson={'index' in occurrence ? occurrence.index : 0}
         />
       </When>
@@ -74,10 +74,10 @@ export function Occurrence({
           <ReminderIcon />
         </When>
 
-        <OccurrenceContent type={contentType} {...{ addEntry, character, index, occurrences }} />
+        <OccurrenceContent type={contentType} {...{ addEntry, charFormData, index, timelineData }} />
       </Box>
 
-      <Actions {...{ occurrence, occurrences, deleteEntry, index }} />
+      <Actions {...{ occurrence, timelineData, deleteEntry, index }} />
     </Box>
   )
 }

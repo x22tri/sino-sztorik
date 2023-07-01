@@ -1,39 +1,39 @@
 import { faCube } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Divider, Typography, useTheme } from '@mui/material'
-import { SortedCharacterEntry, SortedOccurrences } from '../../shared/logic/loadAdminChar'
+import { CharFormData, TimelineData } from '../../shared/logic/loadAdminChar'
 import { AddOccurrenceOptions } from './AddOccurrenceOptions'
 import { OccurrenceType, OccurrencePresentation } from '../../shared/MOCK_DATABASE_ENTRIES'
 
 export function OccurrenceContent({
   addEntry,
-  character,
+  charFormData,
   index,
-  occurrences,
+  timelineData,
   type,
 }: {
   addEntry: (atIndex: number, type: OccurrenceType) => void
-  character: SortedCharacterEntry
+  charFormData: CharFormData
   index: number
-  occurrences: SortedOccurrences
+  timelineData: TimelineData
   type: OccurrencePresentation
 }) {
   switch (type) {
     case 'keyword':
     case 'keywordLite':
-      return <Keyword keyword={character.keyword!} />
+      return <Keyword keyword={charFormData.keyword!} />
     case 'primitive':
-      return <Primitive primitive={character.primitive!} />
+      return <Primitive primitive={charFormData.primitive!} />
     case 'keywordAndPrimitive':
       return (
         <>
-          <Keyword keyword={character.keyword!} />
+          <Keyword keyword={charFormData.keyword!} />
           <Divider flexItem orientation='vertical' sx={{ borderColor: 'text.disabled', mx: 1 }} />
-          <Primitive primitive={character.primitive!} />
+          <Primitive primitive={charFormData.primitive!} />
         </>
       )
     case 'unset':
-      return <AddOccurrenceOptions {...{ addEntry, character, occurrences, index }} />
+      return <AddOccurrenceOptions {...{ addEntry, charFormData, timelineData, index }} />
     default:
       return <></>
   }

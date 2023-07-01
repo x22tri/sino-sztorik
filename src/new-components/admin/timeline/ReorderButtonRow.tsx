@@ -1,5 +1,5 @@
 import { Stack } from '@mui/material'
-import { SortedOccurrences } from '../../shared/logic/loadAdminChar'
+import { TimelineData } from '../../shared/logic/loadAdminChar'
 import { isReminder } from '../utils/occurrence-utils'
 import { isUnset } from '../utils/occurrence-utils'
 import ToolbarButton from '../../shared/components/ToolbarButton'
@@ -8,20 +8,20 @@ import { isValidTierForReminder } from './getReminderContentType'
 
 export function ReorderButtonRow({
   index,
-  occurrences,
+  timelineData,
   switchEntries,
 }: {
   index: number
-  occurrences: SortedOccurrences
+  timelineData: TimelineData
   switchEntries: (topIndex: number) => void
 }) {
-  const top = occurrences[index]
-  const bottom = occurrences[index + 1]
+  const top = timelineData[index]
+  const bottom = timelineData[index + 1]
 
   const canSwitch =
     !(isUnset(top) && isUnset(bottom)) &&
     !(isReminder(top) && isReminder(bottom)) &&
-    (isUnset(top) || isUnset(bottom) || isReminder(top) || (isReminder(bottom) && isValidTierForReminder(occurrences, index)))
+    (isUnset(top) || isUnset(bottom) || isReminder(top) || (isReminder(bottom) && isValidTierForReminder(timelineData, index)))
 
   return (
     <Stack direction='row' justifyContent='center' gap={1} minHeight='48px'>

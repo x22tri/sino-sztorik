@@ -2,29 +2,29 @@ import { Dispatch, Fragment, SetStateAction } from 'react'
 import { Stack } from '@mui/material'
 import { OccurrenceType } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { Occurrence } from './Occurrence'
-import { SortedCharacterEntry, SortedOccurrence, SortedOccurrences } from '../../shared/logic/loadAdminChar'
+import { CharFormData, SortedOccurrence, TimelineData } from '../../shared/logic/loadAdminChar'
 import { Unless } from 'react-if'
 import { ReorderButtonRow } from './ReorderButtonRow'
 
 export function Timeline({
-  character,
-  occurrences,
-  setOccurrences,
+  charFormData,
+  timelineData,
+  setTimelineData,
 }: {
-  character: SortedCharacterEntry
-  occurrences: SortedOccurrences
-  setOccurrences: Dispatch<SetStateAction<SortedOccurrences>>
+  charFormData: CharFormData
+  timelineData: TimelineData
+  setTimelineData: Dispatch<SetStateAction<TimelineData>>
 }) {
   function deleteEntry(atIndex: number) {
-    const result = Array.from(occurrences) as SortedOccurrences
+    const result = Array.from(timelineData) as TimelineData
 
     result.splice(atIndex, 1, { tier: atIndex + 1 })
 
-    setOccurrences(result)
+    setTimelineData(result)
   }
 
   function switchEntries(topIndex: number) {
-    const result = Array.from(occurrences) as SortedOccurrences
+    const result = Array.from(timelineData) as TimelineData
 
     result[topIndex + 1] = { ...result[topIndex + 1], tier: topIndex + 1 }
 
@@ -32,11 +32,11 @@ export function Timeline({
 
     result.splice(topIndex + 1, 0, { ...moved, tier: topIndex + 2 })
 
-    setOccurrences(result)
+    setTimelineData(result)
   }
 
   function addEntry(atIndex: number, type: OccurrenceType) {
-    const result = Array.from(occurrences) as SortedOccurrences
+    const result = Array.from(timelineData) as TimelineData
     const tier = atIndex + 1
 
     switch (type) {
@@ -56,20 +56,20 @@ export function Timeline({
         result[atIndex] = { index: 0, story: [], tier, withhold: 'constituents' }
         break
       default:
-        return
+        throw new Error('Tried to add unknown entry type.')
     }
 
-    setOccurrences(result)
+    setTimelineData(result)
   }
 
   return (
     <Stack marginTop={2}>
-      {occurrences.map((occurrence: SortedOccurrence, index: number) => (
+      {timelineData.map((occurrence: SortedOccurrence, index: number) => (
         <Fragment key={index}>
-          <Occurrence {...{ addEntry, character, deleteEntry, index, occurrence, occurrences }} />
+          <Occurrence {...{ addEntry, charFormData, deleteEntry, index, occurrence, timelineData }} />
 
-          <Unless condition={index === occurrences.length - 1}>
-            <ReorderButtonRow {...{ index, occurrences, switchEntries }} />
+          <Unless condition={index === timelineData.length - 1}>
+            <ReorderButtonRow {...{ index, timelineData, switchEntries }} />
           </Unless>
         </Fragment>
       ))}

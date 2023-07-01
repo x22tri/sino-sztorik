@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction, useEffect } from 'react'
-import { SortedCharacterEntry } from '../../shared/logic/loadAdminChar'
+import { CharFormData } from '../../shared/logic/loadAdminChar'
 import { CharFormError } from '../admin-content/AdminStepLabel'
 
-export function useCharFormErrors(character: SortedCharacterEntry, setCharFormErrors: Dispatch<SetStateAction<CharFormError[]>>) {
+export function useCharFormErrors(character: CharFormData, setCharFormErrors: Dispatch<SetStateAction<CharFormError[]>>) {
   useEffect(() => {
     const detectedCharFormErrors = checkForCharFormErrors(character)
 
@@ -10,7 +10,7 @@ export function useCharFormErrors(character: SortedCharacterEntry, setCharFormEr
   }, [character])
 }
 
-function checkForCharFormErrors(character: SortedCharacterEntry) {
+function checkForCharFormErrors(character: CharFormData) {
   const detectedCharFormErrors: CharFormError[] = []
 
   if (!('keyword' in character || 'primitive' in character)) {

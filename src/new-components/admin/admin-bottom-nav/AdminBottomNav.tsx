@@ -18,9 +18,12 @@ export function AdminBottomNav({
 }) {
   const { constants, palette } = useTheme()
   const isSmallScreen = useSmallScreen()
-
   const drawerWidth = isSmallScreen ? 0 : constants.drawerWidth
-  const isStepForwardButtonDisabled = activeStep === 1 && isFinalCheckDisabled
+
+  const isCurrentStepCharForm = activeStep === 0
+  const isCurrentStepTimeline = activeStep === 1
+  const isCurrentStepFinalCheck = activeStep === 2
+  const isStepForwardButtonDisabled = isCurrentStepTimeline && isFinalCheckDisabled
 
   function stepBack() {
     setActiveStep(prev => prev - 1)
@@ -54,15 +57,15 @@ export function AdminBottomNav({
       <RevertChangesButton />
 
       <Stack direction='row' gap={2} gridArea='navigate' marginLeft='auto'>
-        <When condition={activeStep !== 0}>
-          <StepBackButton onClick={stepBack} text={activeStep === 1 ? ADMIN_CHAR_EDIT_STEP_ONE : ADMIN_CHAR_EDIT_STEP_TWO} />
+        <When condition={!isCurrentStepCharForm}>
+          <StepBackButton onClick={stepBack} text={isCurrentStepTimeline ? ADMIN_CHAR_EDIT_STEP_ONE : ADMIN_CHAR_EDIT_STEP_TWO} />
         </When>
 
-        <If condition={activeStep !== 2}>
+        <If condition={!isCurrentStepFinalCheck}>
           <Then>
             <StepForwardButton
               onClick={stepForward}
-              text={activeStep === 0 ? ADMIN_CHAR_EDIT_STEP_TWO : ADMIN_CHAR_EDIT_STEP_THREE}
+              text={isCurrentStepCharForm ? ADMIN_CHAR_EDIT_STEP_TWO : ADMIN_CHAR_EDIT_STEP_THREE}
               {...{ isStepForwardButtonDisabled }}
             />
           </Then>

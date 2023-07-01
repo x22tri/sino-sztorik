@@ -1,5 +1,5 @@
 import { OccurrencePresentation } from '../../shared/MOCK_DATABASE_ENTRIES'
-import { SortedCharacterEntry, SortedOccurrence } from '../../shared/logic/loadAdminChar'
+import { CharFormData, SortedOccurrence } from '../../shared/logic/loadAdminChar'
 import { isWithheldConstituentsOccurrence } from '../utils/occurrence-utils'
 import { isWithheldPrimitiveOccurrence } from '../utils/occurrence-utils'
 import { isWithheldKeywordOccurrence } from '../utils/occurrence-utils'
@@ -9,7 +9,7 @@ import { isUnset } from '../utils/occurrence-utils'
 import { findAllIndexes } from '../../shared/utility-functions'
 
 export function getReminderContentType(
-  character: SortedCharacterEntry,
+  character: CharFormData,
   occurrences: SortedOccurrence[],
   index: number
 ): OccurrencePresentation {

@@ -1,5 +1,5 @@
 import { CharacterEntryV3, OccurrenceType } from '../../shared/MOCK_DATABASE_ENTRIES'
-import { SortedCharacterEntry, SortedOccurrence, SortedOccurrences } from '../../shared/logic/loadAdminChar'
+import { CharFormData, SortedOccurrence, TimelineData } from '../../shared/logic/loadAdminChar'
 import { getOccurrenceType } from '../utils/occurrence-utils'
 import { isUnset } from '../utils/occurrence-utils'
 
@@ -7,8 +7,8 @@ export function mergePreviousTiers(variants: SortedOccurrence[], tierToStopAt: n
   return variants.slice(0, tierToStopAt).reduce((previousInfo, newInfo) => Object.assign(previousInfo, newInfo), {})
 }
 
-export function getCharVariantsFromOccurrences(character: SortedCharacterEntry, occurrences: SortedOccurrences) {
-  const occurrencePropertyMap: Partial<Record<OccurrenceType, (keyof CharacterEntryV3)[]>> = {
+export function getCharVariantsFromOccurrences(character: CharFormData, occurrences: TimelineData) {
+  const occurrencePropertyMap: Partial<Record<OccurrenceType, (keyof CharFormData)[]>> = {
     withheldKeyword: ['explanation', 'frequency', 'keyword', 'otherUses', 'pinyin', 'phrases', 'similars'],
     withheldPrimitive: ['primitive'],
     withheldConstituents: ['constituents', 'explanation', 'otherUses', 'phrases', 'similars'],
@@ -16,7 +16,7 @@ export function getCharVariantsFromOccurrences(character: SortedCharacterEntry, 
 
   const noUnsets = occurrences.filter(occurrence => !isUnset(occurrence))
 
-  let res: (Omit<CharacterEntryV3, 'occurrences'> & SortedOccurrence)[] = []
+  let res: (CharFormData & SortedOccurrence)[] = []
 
   noUnsets.forEach((noUnsetOccurrence, index) => {
     const baseChar = structuredClone(character)

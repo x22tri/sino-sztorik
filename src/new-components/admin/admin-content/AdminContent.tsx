@@ -1,38 +1,31 @@
 import { Box, Step, StepLabel, Stepper, useTheme } from '@mui/material'
-import { useLoaderData } from 'react-router-dom'
-import { SortedCharacterEntry, SortedOccurrences } from '../../shared/logic/loadAdminChar'
+import { CharFormData, TimelineData } from '../../shared/logic/loadAdminChar'
 import { CharacterEntryVariant } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { Timeline } from '../timeline/Timeline'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { isFullOccurrence, isWithheldKeywordOccurrence, isWithheldPrimitiveOccurrence } from '../utils/occurrence-utils'
+import { Dispatch, SetStateAction } from 'react'
 import { AdminStepLabel, CharFormError, TimelineError } from './AdminStepLabel'
 import { Case, Default, Switch } from 'react-if'
-import { CharacterSection } from './sections/CharacterSection'
 import { CharEditForm } from '../char-edit-form/CharEditForm'
 import { ADMIN_CHAR_EDIT_STEP_ONE, ADMIN_CHAR_EDIT_STEP_THREE, ADMIN_CHAR_EDIT_STEP_TWO } from '../../shared/strings'
 
-export function mergePreviousTiers(variants: CharacterEntryVariant[], tierToStopAt: number) {
-  return variants.slice(0, tierToStopAt).reduce((previousInfo, newInfo) => Object.assign(previousInfo, newInfo), {})
-}
-
 export default function AdminContent({
   activeStep,
-  character,
+  charFormData,
   charFormErrors,
-  occurrences,
-  setOccurrences,
+  timelineData,
+  setTimelineData,
   timelineErrors,
   toolbarHeight,
 }: {
   activeStep: number
-  character: SortedCharacterEntry
+  charFormData: CharFormData
   charFormErrors: CharFormError[]
-  occurrences: SortedOccurrences
-  setOccurrences: Dispatch<SetStateAction<SortedOccurrences>>
+  timelineData: TimelineData
+  setTimelineData: Dispatch<SetStateAction<TimelineData>>
   timelineErrors: TimelineError[]
   toolbarHeight: number
 }) {
-  const { constants, palette, spacing } = useTheme()
+  const { constants, spacing } = useTheme()
 
   return (
     <Box
@@ -59,11 +52,11 @@ export default function AdminContent({
 
       <Switch>
         <Case condition={activeStep === 0}>
-          <CharEditForm />
+          <CharEditForm {...{ charFormData }} />
         </Case>
 
         <Case condition={activeStep === 1}>
-          <Timeline {...{ character, occurrences, setOccurrences }} />
+          <Timeline {...{ charFormData, timelineData, setTimelineData }} />
         </Case>
 
         <Case condition={activeStep === 2}></Case>

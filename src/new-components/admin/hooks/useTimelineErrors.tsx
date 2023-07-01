@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction, useEffect } from 'react'
-import { SortedCharacterEntry, SortedOccurrences } from '../../shared/logic/loadAdminChar'
+import { CharFormData, TimelineData } from '../../shared/logic/loadAdminChar'
 import { isFullOccurrence, isWithheldPrimitiveOccurrence, isWithheldKeywordOccurrence } from '../utils/occurrence-utils'
 import { TimelineError } from '../admin-content/AdminStepLabel'
 
 export function useTimelineErrors(
-  character: SortedCharacterEntry,
-  occurrences: SortedOccurrences,
+  character: CharFormData,
+  occurrences: TimelineData,
   setTimelineErrors: Dispatch<SetStateAction<TimelineError[]>>
 ) {
   useEffect(() => {
@@ -15,7 +15,7 @@ export function useTimelineErrors(
   }, [character, occurrences])
 }
 
-function checkForTimelineErrors(character: SortedCharacterEntry, occurrences: SortedOccurrences) {
+function checkForTimelineErrors(character: CharFormData, occurrences: TimelineData) {
   const detectedTimelineErrors: TimelineError[] = []
 
   if (occurrences.some(occurrence => 'story' in occurrence && occurrence.story.length === 0)) {
