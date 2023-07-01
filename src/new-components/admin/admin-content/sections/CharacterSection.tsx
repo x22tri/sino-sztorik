@@ -1,7 +1,6 @@
 import { faCube } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, InputAdornment, useTheme } from '@mui/material'
-import { Subheading } from '../../../learn/headings/Subheading'
 import { AdminTextField } from '../AdminTextField'
 import { ProductivePinyinCheckbox } from '../preview-character-variant/ProductivePinyinCheckbox'
 

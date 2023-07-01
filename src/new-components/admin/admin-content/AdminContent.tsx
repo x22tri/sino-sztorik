@@ -6,7 +6,7 @@ import { Timeline } from '../timeline/Timeline'
 import { Dispatch, SetStateAction } from 'react'
 import { AdminStepLabel, CharFormError, TimelineError } from './AdminStepLabel'
 import { Case, Default, Switch } from 'react-if'
-import { CharEditForm } from '../char-edit-form/CharEditForm'
+import { CharForm } from '../char-form/CharForm'
 import { ADMIN_CHAR_EDIT_STEP_ONE, ADMIN_CHAR_EDIT_STEP_THREE, ADMIN_CHAR_EDIT_STEP_TWO } from '../../shared/strings'
 
 export default function AdminContent({
@@ -14,6 +14,7 @@ export default function AdminContent({
   charFormData,
   charFormErrors,
   timelineData,
+  setCharFormData,
   setTimelineData,
   timelineErrors,
   toolbarHeight,
@@ -22,6 +23,7 @@ export default function AdminContent({
   charFormData: CharFormData
   charFormErrors: CharFormError[]
   timelineData: TimelineData
+  setCharFormData: Dispatch<SetStateAction<CharFormData>>
   setTimelineData: Dispatch<SetStateAction<TimelineData>>
   timelineErrors: TimelineError[]
   toolbarHeight: number
@@ -52,7 +54,7 @@ export default function AdminContent({
 
       <Switch>
         <Case condition={activeStep === 0}>
-          <CharEditForm {...{ charFormData }} />
+          <CharForm {...{ charFormData, setCharFormData }} />
         </Case>
 
         <Case condition={activeStep === 1}>
@@ -75,5 +77,6 @@ const timelineErrorStrings: Record<TimelineError, string> = {
 }
 
 const charFormErrorStrings: Record<CharFormError, string> = {
+  FrequencyNotANumber: 'A gyakoriságot számmal kell megadni',
   NoKeywordOrPrimitive: 'Kötelező megadni kulcsszót és/vagy alapelemet',
 }

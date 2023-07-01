@@ -1,5 +1,5 @@
 import { FormControl, FormGroup, FormControlLabel, Checkbox } from '@mui/material'
-import { Controller } from 'react-hook-form-mui'
+import { Controller } from 'react-hook-form'
 
 export function ProductivePinyinCheckbox() {
   return (

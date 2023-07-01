@@ -1,5 +1,5 @@
 import { InputAdornment, TextField, TextFieldProps, lighten, useTheme } from '@mui/material'
-import { Controller, useFormContext } from 'react-hook-form-mui'
+import { Controller, useFormContext } from 'react-hook-form'
 import { useStore } from '../../shared/logic/useStore'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 import ToolbarButton from '../../shared/components/ToolbarButton'
@@ -63,7 +63,7 @@ export function AdminTextField({ label, name, ...restProps }: TextFieldProps & {
           }}
           InputLabelProps={{ shrink: true }}
           onBlur={() => setEditedField(null)}
-          onChange={event => onChange(name === 'frequency' && event.target.value ? +event.target.value : event.target.value)}
+          onChange={event => onChange(event.target.value)}
           onClick={() => setEditedField(name)}
           inputRef={inputRef}
           size='small'

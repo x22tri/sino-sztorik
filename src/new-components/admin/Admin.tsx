@@ -39,10 +39,22 @@ export function Admin() {
       <AdminAppbar {...{ setToolbarHeight, toolbarHeight }} />
 
       <AdminContent
-        {...{ activeStep, charFormData, charFormErrors, timelineData, setTimelineData, timelineErrors, toolbarHeight }}
+        {...{
+          activeStep,
+          charFormData,
+          charFormErrors,
+          setCharFormData,
+          setTimelineData,
+          timelineData,
+          timelineErrors,
+          toolbarHeight,
+        }}
       />
 
-      <AdminBottomNav isFinalCheckDisabled={!!timelineErrors.length} {...{ activeStep, setActiveStep }} />
+      <AdminBottomNav
+        isFinalCheckDisabled={charFormErrors.length > 0 || timelineErrors.length > 0}
+        {...{ activeStep, setActiveStep }}
+      />
     </LayoutGrid>
   )
 }
