@@ -5,6 +5,7 @@ import { Else, If, Then, When } from 'react-if'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight, faSave, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { Wrap } from '../../shared/utility-components'
+import { ADMIN_CHAR_EDIT_STEP_ONE, ADMIN_CHAR_EDIT_STEP_THREE, ADMIN_CHAR_EDIT_STEP_TWO } from '../../shared/strings'
 
 export function AdminBottomNav({
   activeStep,
@@ -54,14 +55,14 @@ export function AdminBottomNav({
 
       <Stack direction='row' gap={2} gridArea='navigate' marginLeft='auto'>
         <When condition={activeStep !== 0}>
-          <StepBackButton onClick={stepBack} text={activeStep === 1 ? 'Karakter' : 'Idővonal'} />
+          <StepBackButton onClick={stepBack} text={activeStep === 1 ? ADMIN_CHAR_EDIT_STEP_ONE : ADMIN_CHAR_EDIT_STEP_TWO} />
         </When>
 
         <If condition={activeStep !== 2}>
           <Then>
             <StepForwardButton
               onClick={stepForward}
-              text={activeStep === 0 ? 'Idővonal' : 'Ellenőrzés'}
+              text={activeStep === 0 ? ADMIN_CHAR_EDIT_STEP_TWO : ADMIN_CHAR_EDIT_STEP_THREE}
               {...{ isStepForwardButtonDisabled }}
             />
           </Then>

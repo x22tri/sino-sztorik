@@ -2,23 +2,28 @@ import { LayoutGrid } from '../shared/components/LayoutGrid'
 import { AdminCharPickerContent } from './char-picker/AdminCharPickerContent'
 import { AdminSubmenuTitle } from './AdminSubmenuTitle'
 import { AdminAppbar } from './admin-appbar/AdminAppbar'
-import AdminContent, { TimelineError } from './admin-content/AdminContent'
+import AdminContent from './admin-content/AdminContent'
 import { AdminBottomNav } from './admin-bottom-nav/AdminBottomNav'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useLoaderData } from 'react-router-dom'
 import { SortedCharacterEntry, SortedOccurrences } from '../shared/logic/loadAdminChar'
-import { isFullOccurrence, isWithheldPrimitiveOccurrence, isWithheldKeywordOccurrence } from './utils/occurrence-utils'
+import { CharFormError, TimelineError } from './admin-content/AdminStepLabel'
+import { useTimelineErrors } from './hooks/useTimelineErrors'
+import { useCharFormErrors } from './hooks/useCharFormErrors'
 
 export function Admin() {
-  const [activeStep, setActiveStep] = useState(1)
+  const [activeStep, setActiveStep] = useState(0)
   const [toolbarHeight, setToolbarHeight] = useState(0)
 
-  const { character } = useLoaderData() as { character: SortedCharacterEntry }
+  const char = useLoaderData() as { character: SortedCharacterEntry }
+  const [character, setCharacter] = useState(char.character)
   const [occurrences, setOccurrences] = useState(character.occurrences)
   const [savedOccurrences, saveOccurrences] = useState<SortedOccurrences>([...character.occurrences])
 
+  const [charFormErrors, setCharFormErrors] = useState<CharFormError[]>([])
   const [timelineErrors, setTimelineErrors] = useState<TimelineError[]>([])
 
+  useCharFormErrors(character, setCharFormErrors)
   useTimelineErrors(character, occurrences, setTimelineErrors)
 
   return (
@@ -31,43 +36,9 @@ export function Admin() {
     >
       <AdminAppbar {...{ setToolbarHeight, toolbarHeight }} />
 
-      <AdminContent {...{ activeStep, character, occurrences, setOccurrences, timelineErrors, toolbarHeight }} />
+      <AdminContent {...{ activeStep, character, charFormErrors, occurrences, setOccurrences, timelineErrors, toolbarHeight }} />
 
       <AdminBottomNav isFinalCheckDisabled={!!timelineErrors.length} {...{ activeStep, setActiveStep }} />
     </LayoutGrid>
   )
-}
-
-function useTimelineErrors(
-  character: SortedCharacterEntry,
-  occurrences: SortedOccurrences,
-  setTimelineErrors: Dispatch<SetStateAction<TimelineError[]>>
-) {
-  useEffect(() => {
-    const errors: TimelineError[] = []
-
-    if (occurrences.some(occurrence => 'story' in occurrence && occurrence.story.length === 0)) {
-      errors.push(TimelineError.MissingStory)
-    }
-
-    if (
-      'keyword' in character &&
-      !occurrences.some(occurrence => isFullOccurrence(occurrence) || isWithheldPrimitiveOccurrence(occurrence))
-    ) {
-      errors.push(TimelineError.KeywordNotIntroduced)
-    }
-
-    if (
-      'primitive' in character &&
-      !occurrences.some(occurrence => isFullOccurrence(occurrence) || isWithheldKeywordOccurrence(occurrence))
-    ) {
-      errors.push(TimelineError.PrimitiveNotIntroduced)
-    }
-
-    if (occurrences.some(occurrence => 'index' in occurrence && occurrence.index === 0)) {
-      errors.push(TimelineError.CourseLocationNotSet)
-    }
-
-    setTimelineErrors(errors)
-  }, [character, occurrences])
 }

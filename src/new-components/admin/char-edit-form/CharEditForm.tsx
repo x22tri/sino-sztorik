@@ -21,18 +21,8 @@ export function CharEditForm() {
 
   return (
     <>
-      <FormContainer
-        // defaultValues={mergePreviousTiers(character.occ, activeTier)}
-        onSuccess={(data: any) => console.log(data)}
-      >
-        {/* <CharacterSection /> */}
-
-        <Box alignItems='center' display='flex' gap={2} justifyContent='flex-end' marginTop={10}>
-          <Button variant='text'>{ADMIN_CANCEL_SAVE}</Button>
-          <Button type='submit' variant='contained'>
-            {ADMIN_SAVE_CHANGES}
-          </Button>
-        </Box>
+      <FormContainer defaultValues={character} onSuccess={(data: any) => console.log(data)}>
+        <CharacterSection />
       </FormContainer>
     </>
   )

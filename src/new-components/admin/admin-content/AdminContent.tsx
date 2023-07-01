@@ -5,23 +5,20 @@ import { CharacterEntryVariant } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { Timeline } from '../timeline/Timeline'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { isFullOccurrence, isWithheldKeywordOccurrence, isWithheldPrimitiveOccurrence } from '../utils/occurrence-utils'
-import { AdminStepLabel } from './AdminStepLabel'
+import { AdminStepLabel, CharFormError, TimelineError } from './AdminStepLabel'
 import { Case, Default, Switch } from 'react-if'
+import { CharacterSection } from './sections/CharacterSection'
+import { CharEditForm } from '../char-edit-form/CharEditForm'
+import { ADMIN_CHAR_EDIT_STEP_ONE, ADMIN_CHAR_EDIT_STEP_THREE, ADMIN_CHAR_EDIT_STEP_TWO } from '../../shared/strings'
 
 export function mergePreviousTiers(variants: CharacterEntryVariant[], tierToStopAt: number) {
   return variants.slice(0, tierToStopAt).reduce((previousInfo, newInfo) => Object.assign(previousInfo, newInfo), {})
 }
 
-export enum TimelineError {
-  MissingStory = 'MissingStory',
-  KeywordNotIntroduced = 'KeywordNotIntroduced',
-  PrimitiveNotIntroduced = 'PrimitiveNotIntroduced',
-  CourseLocationNotSet = 'CourseLocationNotSet',
-}
-
 export default function AdminContent({
   activeStep,
   character,
+  charFormErrors,
   occurrences,
   setOccurrences,
   timelineErrors,
@@ -29,6 +26,7 @@ export default function AdminContent({
 }: {
   activeStep: number
   character: SortedCharacterEntry
+  charFormErrors: CharFormError[]
   occurrences: SortedOccurrences
   setOccurrences: Dispatch<SetStateAction<SortedOccurrences>>
   timelineErrors: TimelineError[]
@@ -45,26 +43,31 @@ export default function AdminContent({
       padding={2}
       width={1}
     >
-      <Stepper {...{ activeStep }}>
+      <Stepper {...{ activeStep }} sx={{ minHeight: spacing(6), mb: 2 }}>
         <Step>
-          <StepLabel>Karakter</StepLabel>
+          <AdminStepLabel errors={charFormErrors} errorMessages={charFormErrorStrings} title={ADMIN_CHAR_EDIT_STEP_ONE} />
         </Step>
 
         <Step>
-          <AdminStepLabel errorsArray={timelineErrors} errorMessages={timelineErrorStrings} title='Idővonal' />
+          <AdminStepLabel errors={timelineErrors} errorMessages={timelineErrorStrings} title={ADMIN_CHAR_EDIT_STEP_TWO} />
         </Step>
 
         <Step>
-          <StepLabel>Ellenőrzés</StepLabel>
+          <StepLabel>{ADMIN_CHAR_EDIT_STEP_THREE}</StepLabel>
         </Step>
       </Stepper>
 
       <Switch>
-        <Case condition={activeStep === 0}>Űrlap</Case>
+        <Case condition={activeStep === 0}>
+          <CharEditForm />
+        </Case>
+
         <Case condition={activeStep === 1}>
           <Timeline {...{ character, occurrences, setOccurrences }} />
         </Case>
+
         <Case condition={activeStep === 2}></Case>
+
         <Default>Hiba</Default>
       </Switch>
     </Box>
@@ -76,4 +79,8 @@ const timelineErrorStrings: Record<TimelineError, string> = {
   KeywordNotIntroduced: 'A kulcsszó nincs bevezetve',
   PrimitiveNotIntroduced: 'Az alapelem nincs bevezetve',
   CourseLocationNotSet: 'Legalább egy előfordulás nincs elhelyezve a leckében',
+}
+
+const charFormErrorStrings: Record<CharFormError, string> = {
+  NoKeywordOrPrimitive: 'Kötelező megadni kulcsszót és/vagy alapelemet',
 }

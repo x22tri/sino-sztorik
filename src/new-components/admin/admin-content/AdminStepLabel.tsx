@@ -2,26 +2,30 @@ import { Step, StepLabel, Typography, Popover, useTheme } from '@mui/material'
 import { MouseEvent, TouchEvent, useState } from 'react'
 
 export enum TimelineError {
-  MissingStory = 'MissingStory',
-  KeywordNotIntroduced = 'KeywordNotIntroduced',
-  PrimitiveNotIntroduced = 'PrimitiveNotIntroduced',
   CourseLocationNotSet = 'CourseLocationNotSet',
+  KeywordNotIntroduced = 'KeywordNotIntroduced',
+  MissingStory = 'MissingStory',
+  PrimitiveNotIntroduced = 'PrimitiveNotIntroduced',
 }
 
-export function AdminStepLabel({
-  errorsArray,
+export enum CharFormError {
+  NoKeywordOrPrimitive = 'NoKeywordOrPrimitive',
+}
+
+export function AdminStepLabel<T extends string>({
+  errors,
   errorMessages,
   title,
 }: {
-  errorsArray: TimelineError[]
-  errorMessages: Record<TimelineError, string>
+  errors: T[]
+  errorMessages: Record<T, string>
   title: string
 }) {
   const { constants, palette, spacing } = useTheme()
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null)
 
   function openPopover(event: MouseEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>) {
-    if (!errorsArray.length) {
+    if (!errors.length) {
       return
     }
 
@@ -37,14 +41,8 @@ export function AdminStepLabel({
       <StepLabel
         onMouseEnter={openPopover}
         onMouseLeave={closePopover}
-        optional={
-          !errorsArray.length ? (
-            false
-          ) : (
-            <Typography variant='caption' color='error'>{`${errorsArray.length} probléma`}</Typography>
-          )
-        }
-        error={!!errorsArray.length}
+        optional={!errors.length ? false : <Typography variant='caption' color='error'>{`${errors.length} probléma`}</Typography>}
+        error={!!errors.length}
         sx={{ '.MuiStepLabel-labelContainer': { lineHeight: 0.8 } }}
       >
         {title}
@@ -68,7 +66,7 @@ export function AdminStepLabel({
         sx={{ pointerEvents: 'none', marginTop: spacing(1) }}
         {...{ anchorEl }}
       >
-        {errorsArray.map((error, index) => (
+        {errors.map((error, index) => (
           <Typography key={index} variant='body2' lineHeight={2} maxWidth='48ch'>
             • {errorMessages[error]}
           </Typography>
