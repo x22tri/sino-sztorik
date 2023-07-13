@@ -6,8 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight, faSave, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { Wrap } from '../../shared/utility-components'
 import { ADMIN_CHAR_EDIT_STEP_ONE, ADMIN_CHAR_EDIT_STEP_THREE, ADMIN_CHAR_EDIT_STEP_TWO } from '../../shared/strings'
-import { CharAdminErrorContext } from '../char-admin-error-context/CharAdminErrorContext'
-import { getCharFormErrors } from '../hooks/useCharFormErrors'
+import { CharAdminErrorContext, getCharAdminErrors } from '../char-admin-error-context/CharAdminErrorContext'
 
 export function AdminBottomNav({
   activeStep,
@@ -16,11 +15,11 @@ export function AdminBottomNav({
   activeStep: number
   setActiveStep: Dispatch<SetStateAction<number>>
 }) {
-  const { constants, palette } = useTheme()
   const isSmallScreen = useSmallScreen()
+  const { constants, palette } = useTheme()
   const { charFormErrors, timelineErrors } = useContext(CharAdminErrorContext)
   const drawerWidth = isSmallScreen ? 0 : constants.drawerWidth
-  const isFinalCheckDisabled = getCharFormErrors(charFormErrors).length > 0 || timelineErrors.length > 0
+  const isFinalCheckDisabled = getCharAdminErrors(charFormErrors).length > 0 || getCharAdminErrors(timelineErrors).length > 0
 
   const isCurrentStepCharForm = activeStep === 0
   const isCurrentStepTimeline = activeStep === 1

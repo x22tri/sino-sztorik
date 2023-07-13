@@ -7,19 +7,16 @@ import { TimelineData } from '../../shared/logic/loadAdminChar'
 import { CharFormData } from '../../shared/logic/loadAdminChar'
 import { Unless } from 'react-if'
 import { ReorderButtonRow } from './ReorderButtonRow'
-import { TimelineError } from '../admin-content/AdminStepLabel'
 import { useTimelineErrors } from '../hooks/useTimelineErrors'
 
 export function Timeline({
   charFormData,
   timelineData,
   setTimelineData,
-  setTimelineErrors,
 }: {
   charFormData: CharFormData
   timelineData: TimelineData
   setTimelineData: Dispatch<SetStateAction<TimelineData>>
-  setTimelineErrors: Dispatch<SetStateAction<TimelineError[]>>
 }) {
   function deleteEntry(atIndex: number) {
     const result = Array.from(timelineData) as TimelineData
@@ -68,7 +65,7 @@ export function Timeline({
     setTimelineData(result)
   }
 
-  useTimelineErrors(charFormData, timelineData, setTimelineErrors)
+  useTimelineErrors(charFormData, timelineData)
 
   return (
     <Stack marginTop={2}>

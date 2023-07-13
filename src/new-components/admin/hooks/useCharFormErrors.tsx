@@ -1,50 +1,36 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { useContext } from 'react'
 import { CharFormData } from '../../shared/logic/loadAdminChar'
 import { CharFormError } from '../admin-content/AdminStepLabel'
 import { useLazyEffect } from '../../shared/hooks/useLazyEffect'
 import { valueof } from '../../shared/interfaces'
+import { CharAdminErrorContext } from '../char-admin-error-context/CharAdminErrorContext'
+import { hasNoKeyword, hasNoPrimitive } from '../utils/char-form-utils'
 
-export function useCharFormErrors(
-  charFormData: CharFormData,
-  setCharFormErrors: Dispatch<SetStateAction<{ [key in CharFormError]: boolean }>>
-) {
+export function useCharFormErrors(charFormData: CharFormData) {
   const { frequency, keyword, primitive } = charFormData
 
-  useRegisterError(setCharFormErrors, {
+  useRegisterError({
     condition: 'frequency' in charFormData && Number.isNaN(+frequency!),
     dependencies: [frequency],
     error: CharFormError.FrequencyNotANumber,
   })
 
-  useRegisterError(setCharFormErrors, {
+  useRegisterError({
     condition: +frequency! === 0 && !!keyword,
     dependencies: [keyword, frequency],
     error: CharFormError.FrequencyNotPresentWithKeyword,
   })
 
-  useRegisterError(setCharFormErrors, {
+  useRegisterError({
     condition: hasNoKeyword(charFormData) && hasNoPrimitive(charFormData),
     dependencies: [keyword, primitive],
     error: CharFormError.NoKeywordOrPrimitive,
   })
 }
 
-export function getCharFormErrors(errors: { [key in CharFormError]: boolean }) {
-  return Object.entries(errors).flatMap(([key, value]) => (value ? (key as CharFormError) : []))
-}
+function useRegisterError(errorConfig: { condition: boolean; dependencies: valueof<CharFormData>[]; error: CharFormError }) {
+  const { setCharFormErrors } = useContext(CharAdminErrorContext)
 
-function hasNoKeyword(character: CharFormData) {
-  return !('keyword' in character) || character.keyword === ''
-}
-
-function hasNoPrimitive(character: CharFormData) {
-  return !('primitive' in character) || character.primitive === ''
-}
-
-function useRegisterError(
-  setCharFormErrors: Dispatch<SetStateAction<{ [key in CharFormError]: boolean }>>,
-  errorConfig: { condition: boolean; dependencies: valueof<CharFormData>[]; error: CharFormError }
-) {
   useLazyEffect(() => {
     setCharFormErrors(prev => ({ ...prev, [errorConfig.error]: errorConfig.condition }))
   }, errorConfig.dependencies)

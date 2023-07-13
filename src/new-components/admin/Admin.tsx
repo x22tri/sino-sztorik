@@ -8,9 +8,6 @@ import { useState } from 'react'
 import { useLoaderData } from 'react-router-dom'
 import { TimelineData } from '../shared/logic/loadAdminChar'
 import { CharFormData } from '../shared/logic/loadAdminChar'
-import { CharFormError, TimelineError } from './admin-content/AdminStepLabel'
-import { useTimelineErrors } from './hooks/useTimelineErrors'
-import { getCharFormErrors, useCharFormErrors } from './hooks/useCharFormErrors'
 import { CharAdminErrorContext, useCharAdminErrors } from './char-admin-error-context/CharAdminErrorContext'
 
 export function Admin() {
@@ -36,20 +33,7 @@ export function Admin() {
       <CharAdminErrorContext.Provider value={{ charFormErrors, timelineErrors, setCharFormErrors, setTimelineErrors }}>
         <AdminAppbar {...{ setToolbarHeight, toolbarHeight }} />
 
-        <AdminContent
-          {...{
-            activeStep,
-            charFormData,
-            charFormErrors,
-            setCharFormData,
-            setCharFormErrors,
-            setTimelineData,
-            setTimelineErrors,
-            timelineData,
-            timelineErrors,
-            toolbarHeight,
-          }}
-        />
+        <AdminContent {...{ activeStep, charFormData, setCharFormData, setTimelineData, timelineData, toolbarHeight }} />
 
         <AdminBottomNav {...{ activeStep, setActiveStep }} />
       </CharAdminErrorContext.Provider>

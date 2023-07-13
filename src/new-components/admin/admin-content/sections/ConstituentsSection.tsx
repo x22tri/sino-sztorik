@@ -6,8 +6,6 @@ import { Controller } from 'react-hook-form'
 const charWidth = '42px'
 
 export function ConstituentsSection() {
-  const { palette } = useTheme()
-
   return (
     <Box mt={3}>
       <InputLabel shrink sx={{ ml: 1.5 }}>

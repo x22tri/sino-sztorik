@@ -3,18 +3,14 @@ import { CharFormError, TimelineError } from '../admin-content/AdminStepLabel'
 
 type CharAdminErrorContextType = {
   charFormErrors: { [key in CharFormError]: boolean }
-  timelineErrors: TimelineError[]
+  timelineErrors: { [key in TimelineError]: boolean }
   setCharFormErrors: Dispatch<SetStateAction<{ [key in CharFormError]: boolean }>>
-  setTimelineErrors: Dispatch<SetStateAction<TimelineError[]>>
+  setTimelineErrors: Dispatch<SetStateAction<{ [key in TimelineError]: boolean }>>
 }
 
 export const CharAdminErrorContext = createContext<CharAdminErrorContextType>({
-  charFormErrors: {
-    [CharFormError.FrequencyNotANumber]: false,
-    [CharFormError.FrequencyNotPresentWithKeyword]: false,
-    [CharFormError.NoKeywordOrPrimitive]: false,
-  },
-  timelineErrors: [],
+  charFormErrors: {} as { [key in CharFormError]: boolean },
+  timelineErrors: {} as { [key in TimelineError]: boolean },
   setCharFormErrors: () => {},
   setTimelineErrors: () => {},
 })
@@ -26,7 +22,16 @@ export function useCharAdminErrors() {
     [CharFormError.NoKeywordOrPrimitive]: false,
   })
 
-  const [timelineErrors, setTimelineErrors] = useState<TimelineError[]>([])
+  const [timelineErrors, setTimelineErrors] = useState<{ [key in TimelineError]: boolean }>({
+    [TimelineError.MissingStory]: false,
+    [TimelineError.KeywordNotIntroduced]: false,
+    [TimelineError.PrimitiveNotIntroduced]: false,
+    [TimelineError.CourseLocationNotSet]: false,
+  })
 
   return { charFormErrors, timelineErrors, setCharFormErrors, setTimelineErrors }
+}
+
+export function getCharAdminErrors<T extends string>(errors: { [key in T]: boolean }) {
+  return Object.entries(errors).flatMap(([key, value]) => (value ? (key as T) : []))
 }

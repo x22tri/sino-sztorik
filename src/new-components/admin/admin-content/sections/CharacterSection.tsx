@@ -3,9 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, InputAdornment, useTheme } from '@mui/material'
 import { AdminTextField } from '../AdminTextField'
 import { ProductivePinyinCheckbox } from '../preview-character-variant/ProductivePinyinCheckbox'
-import { useFormContext, useWatch } from 'react-hook-form'
-import { Dispatch, SetStateAction, useEffect } from 'react'
-import { CharFormError } from '../AdminStepLabel'
 
 export function CharacterSection({}: {}) {
   const { palette } = useTheme()
