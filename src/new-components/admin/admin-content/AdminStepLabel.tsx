@@ -1,5 +1,7 @@
 import { Step, StepLabel, Typography, Popover, useTheme } from '@mui/material'
-import { MouseEvent, TouchEvent, useState } from 'react'
+import { MouseEvent, TouchEvent, useContext, useState } from 'react'
+import { ADMIN_CHAR_EDIT_STEP_ONE, ADMIN_CHAR_EDIT_STEP_TWO } from '../../shared/strings'
+import { CharAdminErrorContext } from '../char-admin-error-context/CharAdminErrorContext'
 
 export enum TimelineError {
   CourseLocationNotSet = 'CourseLocationNotSet',
@@ -8,10 +10,35 @@ export enum TimelineError {
   PrimitiveNotIntroduced = 'PrimitiveNotIntroduced',
 }
 
+const timelineErrorStrings: Record<TimelineError, string> = {
+  CourseLocationNotSet: 'Legalább egy előfordulás nincs elhelyezve a leckében',
+  KeywordNotIntroduced: 'A kulcsszó nincs bevezetve',
+  MissingStory: 'Nincs történet legalább egy előfordulásnál',
+  PrimitiveNotIntroduced: 'Az alapelem nincs bevezetve',
+}
+
 export enum CharFormError {
   FrequencyNotANumber = 'FrequencyNotANumber',
   FrequencyNotPresentWithKeyword = 'FrequencyNotPresentWithKeyword',
   NoKeywordOrPrimitive = 'NoKeywordOrPrimitive',
+}
+
+const charFormErrorStrings: Record<CharFormError, string> = {
+  FrequencyNotANumber: 'A gyakoriságot számmal kell megadni',
+  FrequencyNotPresentWithKeyword: 'Ha van kulcsszó, kötelező megadni gyakoriságot is',
+  NoKeywordOrPrimitive: 'Kötelező megadni kulcsszót és/vagy alapelemet',
+}
+
+export function CharFormAdminStepLabel() {
+  const { charFormErrors } = useContext(CharAdminErrorContext)
+
+  return <AdminStepLabel2 errors={charFormErrors} errorMessages={charFormErrorStrings} title={ADMIN_CHAR_EDIT_STEP_ONE} />
+}
+
+export function TimelineAdminStepLabel() {
+  const { timelineErrors } = useContext(CharAdminErrorContext)
+
+  return <AdminStepLabel errors={timelineErrors} errorMessages={timelineErrorStrings} title={ADMIN_CHAR_EDIT_STEP_TWO} />
 }
 
 export function AdminStepLabel<T extends string>({

@@ -1,35 +1,51 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { CharFormData } from '../../shared/logic/loadAdminChar'
 import { CharFormError } from '../admin-content/AdminStepLabel'
-import { hasNoKeyword, hasNoPrimitive } from '../utils/char-form-utils'
+import { useLazyEffect } from '../../shared/hooks/useLazyEffect'
+import { valueof } from '../../shared/interfaces'
 
 export function useCharFormErrors(
-  character: CharFormData,
+  charFormData: CharFormData,
   setCharFormErrors: Dispatch<SetStateAction<{ [key in CharFormError]: boolean }>>
 ) {
-  // const [frequencyNotANumber, setFrequencyNotANumber] = useState(false)
-  // const [noKeywordOrPrimitive, setNoKeywordOrPrimitive] = useState(false)
+  const { frequency, keyword, primitive } = charFormData
 
-  // const [errors, setErrors] = useState({
-  //   [CharFormError.FrequencyNotANumber]: false,
-  //   [CharFormError.NoKeywordOrPrimitive]: false,
-  // })
+  useRegisterError(setCharFormErrors, {
+    condition: 'frequency' in charFormData && Number.isNaN(+frequency!),
+    dependencies: [frequency],
+    error: CharFormError.FrequencyNotANumber,
+  })
 
-  useEffect(() => {
-    setCharFormErrors(prev => ({
-      ...prev,
-      [CharFormError.FrequencyNotANumber]: 'frequency' in character && Number.isNaN(+character.frequency!),
-    }))
-  }, [character.frequency])
+  useRegisterError(setCharFormErrors, {
+    condition: +frequency! === 0 && !!keyword,
+    dependencies: [keyword, frequency],
+    error: CharFormError.FrequencyNotPresentWithKeyword,
+  })
 
-  useEffect(() => {
-    setCharFormErrors(prev => ({
-      ...prev,
-      [CharFormError.NoKeywordOrPrimitive]: hasNoKeyword(character) && hasNoPrimitive(character),
-    }))
-  }, [character.keyword, character.primitive])
+  useRegisterError(setCharFormErrors, {
+    condition: hasNoKeyword(charFormData) && hasNoPrimitive(charFormData),
+    dependencies: [keyword, primitive],
+    error: CharFormError.NoKeywordOrPrimitive,
+  })
 }
 
 export function getCharFormErrors(errors: { [key in CharFormError]: boolean }) {
   return Object.entries(errors).flatMap(([key, value]) => (value ? (key as CharFormError) : []))
+}
+
+function hasNoKeyword(character: CharFormData) {
+  return !('keyword' in character) || character.keyword === ''
+}
+
+function hasNoPrimitive(character: CharFormData) {
+  return !('primitive' in character) || character.primitive === ''
+}
+
+function useRegisterError(
+  setCharFormErrors: Dispatch<SetStateAction<{ [key in CharFormError]: boolean }>>,
+  errorConfig: { condition: boolean; dependencies: valueof<CharFormData>[]; error: CharFormError }
+) {
+  useLazyEffect(() => {
+    setCharFormErrors(prev => ({ ...prev, [errorConfig.error]: errorConfig.condition }))
+  }, errorConfig.dependencies)
 }

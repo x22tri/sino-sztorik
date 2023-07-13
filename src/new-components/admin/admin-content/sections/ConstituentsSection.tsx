@@ -17,7 +17,7 @@ export function ConstituentsSection() {
         name='constituents'
         render={({ field: { value, onChange } }) => {
           return (
-            <Box display='flex' gap={2}>
+            <Box display='flex' gap={2} ml={1}>
               {(value as string[]).map((constituent, index) => (
                 <Constituent charChinese={constituent} key={index} />
               ))}

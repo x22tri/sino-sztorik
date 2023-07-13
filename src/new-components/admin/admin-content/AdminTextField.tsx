@@ -9,62 +9,62 @@ import { CharacterEntryV3 } from '../../shared/MOCK_DATABASE_ENTRIES'
 
 export function AdminTextField({ label, name, ...restProps }: TextFieldProps & { name: keyof CharacterEntryV3 }) {
   const inputRef = useRef<HTMLInputElement>(null)
-  const [editedField, setEditedField] = useState<keyof CharacterEntryV3 | null>(null)
-  const { palette } = useTheme()
+  // const [editedField, setEditedField] = useState<keyof CharacterEntryV3 | null>(null)
+  // const { palette } = useTheme()
   // const { getValues } = useFormContext()
 
   // const isFieldNew = !prevTiers?.[name] && getValues(name) && (prevTiers?.[name] ?? '') !== getValues(name)
   // const isFieldChanged = !!prevTiers?.[name] && (prevTiers?.[name] ?? '') !== getValues(name)
   // const isFieldDisabled = !isFieldNew && !isFieldChanged && !!prevTiers?.[name] && editedField !== name
 
-  const isFieldNew = false
-  const isFieldChanged = false
-  const isFieldDisabled = false
+  // const isFieldNew = false
+  // const isFieldChanged = false
+  // const isFieldDisabled = false
 
-  const bgcolor = isFieldNew
-    ? lighten(palette.success.main, 0.8)
-    : isFieldChanged
-    ? lighten(palette.warning.main, 0.8)
-    : undefined
+  // const bgcolor = isFieldNew
+  //   ? lighten(palette.success.main, 0.8)
+  //   : isFieldChanged
+  //   ? lighten(palette.warning.main, 0.8)
+  //   : undefined
 
-  const hoverBgColor = isFieldNew
-    ? lighten(palette.success.main, 0.7)
-    : isFieldChanged
-    ? lighten(palette.warning.main, 0.7)
-    : undefined
+  // const hoverBgColor = isFieldNew
+  //   ? lighten(palette.success.main, 0.7)
+  //   : isFieldChanged
+  //   ? lighten(palette.warning.main, 0.7)
+  //   : undefined
 
-  useEffect(() => {
-    if (editedField && !isFieldDisabled) {
-      inputRef?.current?.focus()
-    }
-  }, [editedField, isFieldDisabled])
+  // useEffect(() => {
+  //   if (editedField && !isFieldDisabled) {
+  //     inputRef?.current?.focus()
+  //   }
+  // }, [editedField, isFieldDisabled])
 
   return (
     <Controller
       {...{ name }}
       render={({ field: { value, onChange } }) => (
         <TextField
-          disabled={isFieldDisabled}
+          // disabled={isFieldDisabled}
           fullWidth
           id={name}
-          InputProps={{
-            endAdornment: (
-              <When condition={isFieldDisabled}>
-                <InputAdornment position='end'>
-                  <ToolbarButton
-                    icon={faPen}
-                    onClick={() => setEditedField(name)}
-                    size='small'
-                    tooltip='Szerkesztés'
-                  ></ToolbarButton>
-                </InputAdornment>
-              </When>
-            ),
-          }}
+          // InputProps={{
+          //   endAdornment: (
+          //     <When condition={isFieldDisabled}>
+          //       <InputAdornment position='end'>
+          //         <ToolbarButton
+          //           icon={faPen}
+          //           // onClick={() => setEditedField(name)}
+          //           size='small'
+          //           tooltip='Szerkesztés'
+          //         ></ToolbarButton>
+          //       </InputAdornment>
+          //     </When>
+          //   ),
+          // }}
           InputLabelProps={{ shrink: true }}
-          onBlur={() => setEditedField(null)}
+          // onBlur={() => setEditedField(null)}
           onChange={event => onChange(event.target.value)}
-          onClick={() => setEditedField(name)}
+          // onClick={() => setEditedField(name)}
           inputRef={inputRef}
           size='small'
           variant='filled'
@@ -72,8 +72,8 @@ export function AdminTextField({ label, name, ...restProps }: TextFieldProps & {
           {...{ label, name, value }}
           sx={{
             flexShrink: 1,
-            '.MuiFilledInput-root': { bgcolor, ':hover': { bgcolor: hoverBgColor } },
-            '.Mui-disabled': { bgcolor: 'inherit', color: 'inherit' },
+            // '.MuiFilledInput-root': { bgcolor, ':hover': { bgcolor: hoverBgColor } },
+            // '.Mui-disabled': { bgcolor: 'inherit', color: 'inherit' },
             ...restProps.sx,
           }}
         />

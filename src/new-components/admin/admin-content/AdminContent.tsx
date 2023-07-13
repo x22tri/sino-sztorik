@@ -3,33 +3,41 @@ import { TimelineData } from '../../shared/logic/loadAdminChar'
 import { CharFormData } from '../../shared/logic/loadAdminChar'
 import { CharacterEntryVariant } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { Timeline } from '../timeline/Timeline'
-import { Dispatch, SetStateAction } from 'react'
-import { AdminStepLabel, AdminStepLabel2, CharFormError, TimelineError } from './AdminStepLabel'
+import { Dispatch, SetStateAction, useContext } from 'react'
+import {
+  AdminStepLabel,
+  AdminStepLabel2,
+  CharFormAdminStepLabel,
+  CharFormError,
+  TimelineAdminStepLabel,
+  TimelineError,
+} from './AdminStepLabel'
 import { Case, Default, Switch } from 'react-if'
 import { CharForm } from '../char-form/CharForm'
 import { ADMIN_CHAR_EDIT_STEP_ONE, ADMIN_CHAR_EDIT_STEP_THREE, ADMIN_CHAR_EDIT_STEP_TWO } from '../../shared/strings'
+import { CharAdminErrorContext } from '../char-admin-error-context/CharAdminErrorContext'
 
 export default function AdminContent({
   activeStep,
   charFormData,
-  charFormErrors,
+  // charFormErrors,
   timelineData,
   setCharFormData,
   setCharFormErrors,
   setTimelineData,
   setTimelineErrors,
-  timelineErrors,
+  // timelineErrors,
   toolbarHeight,
 }: {
   activeStep: number
   charFormData: CharFormData
-  charFormErrors: { [key in CharFormError]: boolean }
+  // charFormErrors: { [key in CharFormError]: boolean }
   timelineData: TimelineData
   setCharFormData: Dispatch<SetStateAction<CharFormData>>
   setCharFormErrors: Dispatch<SetStateAction<{ [key in CharFormError]: boolean }>>
   setTimelineData: Dispatch<SetStateAction<TimelineData>>
   setTimelineErrors: Dispatch<SetStateAction<TimelineError[]>>
-  timelineErrors: TimelineError[]
+  // timelineErrors: TimelineError[]
   toolbarHeight: number
 }) {
   const { constants, spacing } = useTheme()
@@ -44,11 +52,11 @@ export default function AdminContent({
     >
       <Stepper {...{ activeStep }} sx={{ minHeight: spacing(6), mb: 2 }}>
         <Step>
-          <AdminStepLabel2 errors={charFormErrors} errorMessages={charFormErrorStrings} title={ADMIN_CHAR_EDIT_STEP_ONE} />
+          <CharFormAdminStepLabel />
         </Step>
 
         <Step>
-          <AdminStepLabel errors={timelineErrors} errorMessages={timelineErrorStrings} title={ADMIN_CHAR_EDIT_STEP_TWO} />
+          <TimelineAdminStepLabel />
         </Step>
 
         <Step>
@@ -71,17 +79,4 @@ export default function AdminContent({
       </Switch>
     </Box>
   )
-}
-
-const timelineErrorStrings: Record<TimelineError, string> = {
-  MissingStory: 'Nincs történet legalább egy előfordulásnál',
-  KeywordNotIntroduced: 'A kulcsszó nincs bevezetve',
-  PrimitiveNotIntroduced: 'Az alapelem nincs bevezetve',
-  CourseLocationNotSet: 'Legalább egy előfordulás nincs elhelyezve a leckében',
-}
-
-const charFormErrorStrings: Record<CharFormError, string> = {
-  FrequencyNotANumber: 'A gyakoriságot számmal kell megadni',
-  FrequencyNotPresentWithKeyword: 'Ha van kulcsszó, kötelező megadni gyakoriságot is',
-  NoKeywordOrPrimitive: 'Kötelező megadni kulcsszót és/vagy alapelemet',
 }

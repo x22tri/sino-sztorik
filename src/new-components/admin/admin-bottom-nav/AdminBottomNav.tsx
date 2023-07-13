@@ -1,24 +1,26 @@
 import { Box, Button, Stack, Tooltip, useTheme } from '@mui/material'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useContext } from 'react'
 import { Else, If, Then, When } from 'react-if'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight, faSave, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { Wrap } from '../../shared/utility-components'
 import { ADMIN_CHAR_EDIT_STEP_ONE, ADMIN_CHAR_EDIT_STEP_THREE, ADMIN_CHAR_EDIT_STEP_TWO } from '../../shared/strings'
+import { CharAdminErrorContext } from '../char-admin-error-context/CharAdminErrorContext'
+import { getCharFormErrors } from '../hooks/useCharFormErrors'
 
 export function AdminBottomNav({
   activeStep,
   setActiveStep,
-  isFinalCheckDisabled,
 }: {
   activeStep: number
   setActiveStep: Dispatch<SetStateAction<number>>
-  isFinalCheckDisabled: boolean
 }) {
   const { constants, palette } = useTheme()
   const isSmallScreen = useSmallScreen()
+  const { charFormErrors, timelineErrors } = useContext(CharAdminErrorContext)
   const drawerWidth = isSmallScreen ? 0 : constants.drawerWidth
+  const isFinalCheckDisabled = getCharFormErrors(charFormErrors).length > 0 || timelineErrors.length > 0
 
   const isCurrentStepCharForm = activeStep === 0
   const isCurrentStepTimeline = activeStep === 1

@@ -7,28 +7,8 @@ import { useFormContext, useWatch } from 'react-hook-form'
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import { CharFormError } from '../AdminStepLabel'
 
-export function CharacterSection({
-  setCharFormErrors,
-}: {
-  setCharFormErrors: Dispatch<SetStateAction<{ [key in CharFormError]: boolean }>>
-}) {
+export function CharacterSection({}: {}) {
   const { palette } = useTheme()
-
-  const keyword = useWatch({ name: 'keyword' })
-  const frequency = useWatch({ name: 'frequency' })
-  const primitive = useWatch({ name: 'primitive' })
-
-  useEffect(() => {
-    setCharFormErrors(prev => ({ ...prev, [CharFormError.FrequencyNotANumber]: Number.isNaN(+frequency) }))
-  }, [frequency])
-
-  useEffect(() => {
-    setCharFormErrors(prev => ({ ...prev, [CharFormError.FrequencyNotPresentWithKeyword]: +frequency === 0 && !!keyword }))
-  }, [frequency, keyword])
-
-  useEffect(() => {
-    setCharFormErrors(prev => ({ ...prev, [CharFormError.NoKeywordOrPrimitive]: !keyword && !primitive }))
-  }, [keyword, primitive])
 
   return (
     <Box display='flex' flexDirection='column' gap={3}>

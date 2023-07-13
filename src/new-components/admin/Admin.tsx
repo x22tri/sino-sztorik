@@ -11,6 +11,7 @@ import { CharFormData } from '../shared/logic/loadAdminChar'
 import { CharFormError, TimelineError } from './admin-content/AdminStepLabel'
 import { useTimelineErrors } from './hooks/useTimelineErrors'
 import { getCharFormErrors, useCharFormErrors } from './hooks/useCharFormErrors'
+import { CharAdminErrorContext, useCharAdminErrors } from './char-admin-error-context/CharAdminErrorContext'
 
 export function Admin() {
   const [activeStep, setActiveStep] = useState(0)
@@ -22,12 +23,7 @@ export function Admin() {
   const [savedCharForm, saveCharForm] = useState<CharFormData>({ ...loaderData.charFormData })
   const [savedOccurrences, saveOccurrences] = useState<TimelineData>({ ...loaderData.timelineData })
 
-  const [charFormErrors, setCharFormErrors] = useState<{ [key in CharFormError]: boolean }>({
-    [CharFormError.FrequencyNotANumber]: false,
-    [CharFormError.FrequencyNotPresentWithKeyword]: false,
-    [CharFormError.NoKeywordOrPrimitive]: false,
-  })
-  const [timelineErrors, setTimelineErrors] = useState<TimelineError[]>([])
+  const { charFormErrors, timelineErrors, setCharFormErrors, setTimelineErrors } = useCharAdminErrors()
 
   return (
     <LayoutGrid
@@ -37,27 +33,26 @@ export function Admin() {
         selected: 0,
       }}
     >
-      <AdminAppbar {...{ setToolbarHeight, toolbarHeight }} />
+      <CharAdminErrorContext.Provider value={{ charFormErrors, timelineErrors, setCharFormErrors, setTimelineErrors }}>
+        <AdminAppbar {...{ setToolbarHeight, toolbarHeight }} />
 
-      <AdminContent
-        {...{
-          activeStep,
-          charFormData,
-          charFormErrors,
-          setCharFormData,
-          setCharFormErrors,
-          setTimelineData,
-          setTimelineErrors,
-          timelineData,
-          timelineErrors,
-          toolbarHeight,
-        }}
-      />
+        <AdminContent
+          {...{
+            activeStep,
+            charFormData,
+            charFormErrors,
+            setCharFormData,
+            setCharFormErrors,
+            setTimelineData,
+            setTimelineErrors,
+            timelineData,
+            timelineErrors,
+            toolbarHeight,
+          }}
+        />
 
-      <AdminBottomNav
-        isFinalCheckDisabled={getCharFormErrors(charFormErrors).length > 0 || timelineErrors.length > 0}
-        {...{ activeStep, setActiveStep }}
-      />
+        <AdminBottomNav {...{ activeStep, setActiveStep }} />
+      </CharAdminErrorContext.Provider>
     </LayoutGrid>
   )
 }
