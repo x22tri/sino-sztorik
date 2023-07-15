@@ -5,38 +5,50 @@ import { isFullOccurrence, isWithheldPrimitiveOccurrence, isWithheldKeywordOccur
 import { TimelineError } from '../admin-content/AdminStepLabel'
 import { useLazyEffect } from '../../shared/hooks/useLazyEffect'
 import { CharAdminErrorContext } from '../char-admin-error-context/CharAdminErrorContext'
-import { hasNoKeyword, hasNoPrimitive } from '../utils/char-form-utils'
+import { isPresent } from '../utils/char-form-utils'
 
 export function useTimelineErrors(charFormData: CharFormData, occurrences: TimelineData) {
   useRegisterError({
-    condition: occurrences.some(o => 'story' in o && o.story.length === 0),
+    condition: occurrences.some(occurrence => 'story' in occurrence && occurrence.story.length === 0),
     dependencies: [occurrences],
     error: TimelineError.MissingStory,
   })
 
   useRegisterError({
-    condition: !hasNoKeyword(charFormData) && !occurrences.some(o => isFullOccurrence(o) || isWithheldPrimitiveOccurrence(o)),
+    condition:
+      isPresent(charFormData, 'keyword') &&
+      !occurrences.some(occurrence => isFullOccurrence(occurrence) || isWithheldPrimitiveOccurrence(occurrence)),
     dependencies: [charFormData.keyword, occurrences],
     error: TimelineError.KeywordNotIntroduced,
   })
 
   useRegisterError({
-    condition: !hasNoPrimitive(charFormData) && !occurrences.some(o => isFullOccurrence(o) || isWithheldKeywordOccurrence(o)),
+    condition:
+      isPresent(charFormData, 'primitive') &&
+      !occurrences.some(occurrence => isFullOccurrence(occurrence) || isWithheldKeywordOccurrence(occurrence)),
     dependencies: [charFormData.primitive, occurrences],
     error: TimelineError.PrimitiveNotIntroduced,
   })
 
   useRegisterError({
-    condition: occurrences.some(o => 'index' in o && o.index === 0),
+    condition: occurrences.some(occurrence => 'index' in occurrence && occurrence.index === 0),
     dependencies: [occurrences],
     error: TimelineError.CourseLocationNotSet,
   })
 }
 
-function useRegisterError(errorConfig: { condition: boolean; dependencies: DependencyList; error: TimelineError }) {
+function useRegisterError({
+  condition,
+  dependencies,
+  error,
+}: {
+  condition: boolean
+  dependencies: DependencyList
+  error: TimelineError
+}) {
   const { setTimelineErrors } = useContext(CharAdminErrorContext)
 
   useLazyEffect(() => {
-    setTimelineErrors(prev => ({ ...prev, [errorConfig.error]: errorConfig.condition }))
-  }, errorConfig.dependencies)
+    setTimelineErrors(prev => ({ ...prev, [error]: { value: condition } }))
+  }, dependencies)
 }

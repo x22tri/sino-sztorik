@@ -13,6 +13,7 @@ import { Actions } from './Actions'
 import { forwardRef, ForwardedRef } from 'react'
 import { OccurrenceType, OccurrencePresentation } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { getReminderContentType } from './getReminderContentType'
+import { isPresent } from '../utils/char-form-utils'
 
 export function Occurrence({
   addEntry,
@@ -46,9 +47,9 @@ export function Occurrence({
       ? getReminderContentType(charFormData, timelineData, index)
       : isUnset(currentOccurrence)
       ? 'unset'
-      : !('keyword' in charFormData)
+      : !isPresent(charFormData, 'keyword')
       ? 'primitive'
-      : !('primitive' in charFormData)
+      : !isPresent(charFormData, 'primitive')
       ? 'keyword'
       : 'keywordAndPrimitive'
 

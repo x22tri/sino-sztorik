@@ -107,13 +107,19 @@ export enum CharFormError {
   KeywordAndFrequencyGoHandInHand = 'KeywordAndFrequencyGoHandInHand',
   NoKeywordOrPrimitive = 'NoKeywordOrPrimitive',
   KeywordAndPinyinGoHandInHand = 'KeywordAndPinyinGoHandInHand',
-  NoProductivePhoneticWithoutPronunciation = 'NoProductivePhoneticWithoutPronunciation',
+  NoProductivePhoneticWithoutPinyin = 'NoProductivePhoneticWithoutPinyin',
+  WithheldConstituentsButNoConstituents = 'WithheldConstituentsButNoConstituents',
+  WithheldMeaningButNoKeywordOrPrimitive = 'WithheldMeaningButNoKeywordOrPrimitive',
 }
 
 const charFormErrorStrings: Record<CharFormError, string> = {
   FrequencyNotANumber: 'A gyakoriságot számmal kell megadni',
   KeywordAndFrequencyGoHandInHand: 'Vagy kulcsszót és gyakoriságot is meg kell adni, vagy egyiket sem',
-  NoKeywordOrPrimitive: 'Kötelező megadni kulcsszót és/vagy alapelemet',
   KeywordAndPinyinGoHandInHand: 'Vagy kulcsszót és kiejtést is meg kell adni, vagy egyiket sem',
-  NoProductivePhoneticWithoutPronunciation: 'Kiejtés nélkül egy karakter nem lehet hangjelölő',
+  NoKeywordOrPrimitive: 'Kötelező megadni kulcsszót és/vagy alapelemet',
+  NoProductivePhoneticWithoutPinyin: 'Kiejtés nélkül egy karakter nem lehet hangjelölő',
+  WithheldConstituentsButNoConstituents:
+    'Összetétel nélkül nem vezethető be a karakter késleltetett összetétellel a idővonalban. Ha ki akarod törölni a karakter összetételét, előbb töröld az összetétel nélküli bevezetést az idővonalból.',
+  WithheldMeaningButNoKeywordOrPrimitive:
+    'Csak úgy választható el a kulcsszó és az alapelem az idővonalban, ha kulcsszó és alapelem is meg van adva. Ha ki akarod törölni az egyiket, előbb töröld annak önálló bevezetését az idővonalból.',
 }

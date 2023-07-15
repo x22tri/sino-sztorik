@@ -25,10 +25,9 @@ export function useCharAdminErrors() {
     [CharFormError.KeywordAndFrequencyGoHandInHand]: { value: false, dependencies: [] as unknown as keyof CharFormData[] },
     [CharFormError.NoKeywordOrPrimitive]: { value: false, dependencies: [] as unknown as keyof CharFormData[] },
     [CharFormError.KeywordAndPinyinGoHandInHand]: { value: false, dependencies: [] as unknown as keyof CharFormData[] },
-    [CharFormError.NoProductivePhoneticWithoutPronunciation]: {
-      value: false,
-      dependencies: [] as unknown as keyof CharFormData[],
-    },
+    [CharFormError.NoProductivePhoneticWithoutPinyin]: { value: false, dependencies: [] as unknown as keyof CharFormData[] },
+    [CharFormError.WithheldConstituentsButNoConstituents]: { value: false, dependencies: [] as unknown as keyof CharFormData[] },
+    [CharFormError.WithheldMeaningButNoKeywordOrPrimitive]: { value: false, dependencies: [] as unknown as keyof CharFormData[] },
   })
 
   const [timelineErrors, setTimelineErrors] = useState<{

@@ -22,6 +22,8 @@ export function Timeline({
 
     result.splice(atIndex, 1, { tier: atIndex + 1 })
 
+    console.log(result)
+
     setTimelineData(result)
   }
 
@@ -66,7 +68,7 @@ export function Timeline({
 
   const charFormData = useWatch() as CharFormData
 
-  useTimelineErrors(charFormData, timelineData)
+  // useTimelineErrors(charFormData, timelineData)
 
   return (
     <Stack marginTop={2}>

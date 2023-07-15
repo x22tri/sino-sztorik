@@ -8,9 +8,6 @@ import { Dispatch, SetStateAction } from 'react'
 
 export function CharForm({ saveCharForm }: { saveCharForm: Dispatch<SetStateAction<CharFormData>> }) {
   const { handleSubmit } = useFormContext()
-  const latestData = useWatch() as CharFormData
-
-  useCharFormErrors(latestData)
 
   function onSubmit(data: any) {
     saveCharForm(data)

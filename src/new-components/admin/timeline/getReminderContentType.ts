@@ -8,6 +8,7 @@ import { isFullOccurrence } from '../utils/occurrence-utils'
 import { isReminder } from '../utils/occurrence-utils'
 import { isUnset } from '../utils/occurrence-utils'
 import { findAllIndexes } from '../../shared/utility-functions'
+import { isPresent } from '../utils/char-form-utils'
 
 export function getReminderContentType(
   character: CharFormData,
@@ -16,11 +17,11 @@ export function getReminderContentType(
 ): OccurrencePresentation {
   const previousTiers = timelineData.slice(0, index)
 
-  if (!('keyword' in character) && previousTiers.some(occurrence => isFullOccurrence(occurrence))) {
+  if (!isPresent(character, 'keyword') && previousTiers.some(occurrence => isFullOccurrence(occurrence))) {
     return 'primitive'
   }
 
-  if (!('primitive' in character) && previousTiers.some(occurrence => isFullOccurrence(occurrence))) {
+  if (!isPresent(character, 'primitive') && previousTiers.some(occurrence => isFullOccurrence(occurrence))) {
     return 'keyword'
   }
 

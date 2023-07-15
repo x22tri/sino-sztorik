@@ -6,6 +6,7 @@ import { isWithheldOccurrence } from '../utils/occurrence-utils'
 import { isFullOccurrence } from '../utils/occurrence-utils'
 import { isValidTierForReminder } from './getReminderContentType'
 import { OccurrenceType } from '../../shared/MOCK_DATABASE_ENTRIES'
+import { isPresent } from '../utils/char-form-utils'
 
 export function AddOccurrenceOptions({
   addEntry,
@@ -24,10 +25,10 @@ export function AddOccurrenceOptions({
 
   const canAddReminder = isValidTierForReminder(timelineData, index)
 
-  const primitiveInChar = 'primitive' in charFormData
+  const primitiveInChar = isPresent(charFormData, 'primitive')
 
   const canAddWithheldBase =
-    'keyword' in charFormData &&
+    isPresent(charFormData, 'keyword') &&
     !timelineData.some(occurrence => isWithheldOccurrence(occurrence)) &&
     timelineData.some((occurrence, i) => i > index && isFullOccurrence(occurrence))
 
