@@ -3,12 +3,12 @@ import { Stack } from '@mui/material'
 import { OccurrenceType } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { Occurrence } from './Occurrence'
 import { SortedOccurrence } from '../../shared/MOCK_DATABASE_ENTRIES'
-import { TimelineData } from '../../shared/logic/loadAdminChar'
+import { CalculatedIndexes, TimelineData } from '../../shared/logic/loadAdminChar'
 import { CharFormData } from '../../shared/logic/loadAdminChar'
 import { Unless } from 'react-if'
 import { ReorderButtonRow } from './ReorderButtonRow'
-import { useTimelineErrors } from '../hooks/useTimelineErrors'
 import { useWatch } from 'react-hook-form'
+import { useLoaderData } from 'react-router-dom'
 
 export function Timeline({
   timelineData,
@@ -17,12 +17,12 @@ export function Timeline({
   timelineData: TimelineData
   setTimelineData: Dispatch<SetStateAction<TimelineData>>
 }) {
+  const { calculatedIndexes } = useLoaderData() as { calculatedIndexes: CalculatedIndexes }
+
   function deleteEntry(atIndex: number) {
     const result = Array.from(timelineData) as TimelineData
 
     result.splice(atIndex, 1, { tier: atIndex + 1 })
-
-    console.log(result)
 
     setTimelineData(result)
   }
@@ -42,22 +42,23 @@ export function Timeline({
   function addEntry(atIndex: number, type: OccurrenceType) {
     const result = Array.from(timelineData) as TimelineData
     const tier = atIndex + 1
+    const calculatedIndex = calculatedIndexes[atIndex]
 
     switch (type) {
       case 'full':
-        result[atIndex] = { index: 0, story: [], tier }
+        result[atIndex] = { index: calculatedIndex, story: [], tier }
         break
       case 'reminder':
-        result[atIndex] = { index: 0, tier }
+        result[atIndex] = { index: calculatedIndex, tier }
         break
       case 'withheldKeyword':
-        result[atIndex] = { index: 0, story: [], tier, withhold: 'keyword' }
+        result[atIndex] = { index: calculatedIndex, story: [], tier, withhold: 'keyword' }
         break
       case 'withheldPrimitive':
-        result[atIndex] = { index: 0, story: [], tier, withhold: 'primitive' }
+        result[atIndex] = { index: calculatedIndex, story: [], tier, withhold: 'primitive' }
         break
       case 'withheldConstituents':
-        result[atIndex] = { index: 0, story: [], tier, withhold: 'constituents' }
+        result[atIndex] = { index: calculatedIndex, story: [], tier, withhold: 'constituents' }
         break
       default:
         throw new Error('Tried to add unknown entry type.')
@@ -74,7 +75,10 @@ export function Timeline({
     <Stack marginTop={2}>
       {timelineData.map((occurrence: SortedOccurrence, index: number) => (
         <Fragment key={index}>
-          <Occurrence {...{ addEntry, charFormData, deleteEntry, index, occurrence, timelineData }} />
+          <Occurrence
+            calculatedIndex={calculatedIndexes[index]}
+            {...{ addEntry, charFormData, deleteEntry, index, occurrence, timelineData }}
+          />
 
           <Unless condition={index === timelineData.length - 1}>
             <ReorderButtonRow {...{ index, timelineData, switchEntries }} />

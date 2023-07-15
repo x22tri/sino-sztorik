@@ -11,55 +11,60 @@ import {
 } from '../utils/occurrence-utils'
 
 export function useCharFormErrors(charFormData: CharFormData, timelineData: TimelineData) {
-  useRegisterError(charFormData, {
+  useRegisterError(charFormData, timelineData, {
     condition: charFormData.frequency !== undefined && Number.isNaN(+charFormData.frequency),
     dependencies: ['frequency'],
     error: CharFormError.FrequencyNotANumber,
   })
 
-  useRegisterError(charFormData, {
+  useRegisterError(charFormData, timelineData, {
     condition: isPresent(charFormData, 'keyword') !== isPresent(charFormData, 'frequency'),
     dependencies: ['keyword', 'frequency'],
     error: CharFormError.KeywordAndFrequencyGoHandInHand,
   })
 
-  useRegisterError(charFormData, {
+  useRegisterError(charFormData, timelineData, {
     condition: !isPresent(charFormData, 'keyword') && !isPresent(charFormData, 'primitive'),
     dependencies: ['keyword', 'primitive'],
     error: CharFormError.NoKeywordOrPrimitive,
   })
 
-  useRegisterError(charFormData, {
+  useRegisterError(charFormData, timelineData, {
     condition: isPresent(charFormData, 'keyword') !== isPresent(charFormData, 'pinyin'),
     dependencies: ['keyword', 'pinyin'],
     error: CharFormError.KeywordAndPinyinGoHandInHand,
   })
 
-  // useRegisterError({
-  //   condition: charFormData.productivePinyin && !isPresent(charFormData, 'pinyin'),
-  //   dependencies: [productivePinyin, pinyin],
-  //   error: CharFormError.NoProductivePhoneticWithoutPronunciation,
-  // })
+  useRegisterError(charFormData, timelineData, {
+    condition: charFormData.productivePinyin === true && !isPresent(charFormData, 'pinyin'),
+    dependencies: ['productivePinyin', 'pinyin'],
+    error: CharFormError.NoProductivePhoneticWithoutPinyin,
+  })
 
-  useRegisterError(charFormData, {
+  useRegisterError(charFormData, timelineData, {
     condition:
       (!isPresent(charFormData, 'keyword') || !isPresent(charFormData, 'primitive')) &&
       timelineData.some(occurrence => isWithheldPrimitiveOccurrence(occurrence)),
-    dependencies: ['keyword', 'primitive'],
+    dependencies: ['keyword', 'primitive', 'timelineData'],
     error: CharFormError.WithheldMeaningButNoKeywordOrPrimitive,
   })
 
-  useRegisterError(charFormData, {
+  useRegisterError(charFormData, timelineData, {
     condition:
       !charFormData['constituents']?.length && timelineData.some(occurrence => isWithheldConstituentsOccurrence(occurrence)),
-    dependencies: ['constituents'],
+    dependencies: ['constituents', 'timelineData'],
     error: CharFormError.WithheldConstituentsButNoConstituents,
   })
 }
 
 function useRegisterError(
   charFormData: CharFormData,
-  { condition, dependencies, error }: { condition: boolean; dependencies: (keyof CharFormData)[]; error: CharFormError }
+  timelineData: TimelineData,
+  {
+    condition,
+    dependencies,
+    error,
+  }: { condition: boolean; dependencies: (keyof CharFormData | 'timelineData')[]; error: CharFormError }
 ) {
   const { setCharFormErrors } = useContext(CharAdminErrorContext)
 
@@ -67,6 +72,6 @@ function useRegisterError(
     () => {
       setCharFormErrors(prev => ({ ...prev, [error]: { value: condition, dependencies } }))
     },
-    dependencies.map(dependency => charFormData[dependency])
+    dependencies.map(dependency => (dependency !== 'timelineData' ? charFormData[dependency] : timelineData))
   )
 }

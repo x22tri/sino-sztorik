@@ -27,6 +27,7 @@ export interface CharacterEntryV3 {
   otherUses?: { pinyin: string; meanings: string[] }[]
   pinyin?: string
   primitive?: string
+  productivePinyin?: boolean
 }
 
 export interface Occurrence {
@@ -48,30 +49,32 @@ export type OccurrenceType = 'full' | 'reminder' | 'withheldKeyword' | 'withheld
 export type OccurrencePresentation = 'keyword' | 'keywordAndPrimitive' | 'keywordLite' | 'primitive' | 'reminder' | 'unset'
 
 export type SortedOccurrence = OccurrenceV3 | UnsetOccurrence
-export type UnsetOccurrence = { tier: number }
 
-export interface BaseOccurrence {
-  index: number
+export interface UnsetOccurrence {
   tier: number
 }
 
-export interface FullOccurrence extends BaseOccurrence {
+export interface SetOccurrence extends UnsetOccurrence {
+  index: number
+}
+
+export interface FullOccurrence extends SetOccurrence {
   story: (string | { constituent: string; references: string } | { keyword: string } | { primitive: string })[][]
 }
 
-export interface ReminderOccurrence extends BaseOccurrence {}
+export interface ReminderOccurrence extends SetOccurrence {}
 
-export interface WithheldKeywordOccurrence extends BaseOccurrence {
+export interface WithheldKeywordOccurrence extends SetOccurrence {
   withhold: 'keyword'
   story: (string | { constituent: string; references: string } | { primitive: string })[][]
 }
 
-export interface WithheldPrimitiveOccurrence extends BaseOccurrence {
+export interface WithheldPrimitiveOccurrence extends SetOccurrence {
   withhold: 'primitive'
   story: (string | { constituent: string; references: string } | { keyword: string })[][]
 }
 
-export interface WithheldConstituentsOccurrence extends BaseOccurrence {
+export interface WithheldConstituentsOccurrence extends SetOccurrence {
   withhold: 'constituents'
   story: (string | { keyword: string })[][]
 }
@@ -326,7 +329,7 @@ export const CHAR_ENTRY: CharacterEntry = {
   ],
 }
 
-const LESSON_ENTRY = {
+export const LESSON_ENTRY = {
   characters: [
     { charChinese: '古', tier: 1 }, // Call getUnlockedMeanings upon hover.
     { charChinese: '咕', tier: 2 },

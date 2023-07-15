@@ -6,7 +6,7 @@ import AdminContent from './admin-content/AdminContent'
 import { AdminBottomNav } from './admin-bottom-nav/AdminBottomNav'
 import { useState } from 'react'
 import { useLoaderData } from 'react-router-dom'
-import { TimelineData } from '../shared/logic/loadAdminChar'
+import { CalculatedIndexes, TimelineData } from '../shared/logic/loadAdminChar'
 import { CharFormData } from '../shared/logic/loadAdminChar'
 import { CharAdminErrorContext, useCharAdminErrors } from './char-admin-error-context/CharAdminErrorContext'
 import { FormProvider, useForm } from 'react-hook-form'
@@ -16,7 +16,11 @@ export function Admin() {
   const [activeStep, setActiveStep] = useState(0)
   const [toolbarHeight, setToolbarHeight] = useState(0)
 
-  const loaderData = useLoaderData() as { charFormData: CharFormData; timelineData: TimelineData }
+  const loaderData = useLoaderData() as {
+    charFormData: CharFormData
+    timelineData: TimelineData
+    calculatedIndexes: CalculatedIndexes
+  }
   const formMethods = useForm({ defaultValues: { ...loaderData.charFormData } })
   const [timelineData, setTimelineData] = useState(loaderData.timelineData)
   const [savedCharForm, saveCharForm] = useState<CharFormData>({ ...loaderData.charFormData })

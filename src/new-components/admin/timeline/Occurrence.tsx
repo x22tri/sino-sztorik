@@ -17,6 +17,7 @@ import { isPresent } from '../utils/char-form-utils'
 
 export function Occurrence({
   addEntry,
+  calculatedIndex,
   charFormData,
   index,
   deleteEntry,
@@ -24,6 +25,7 @@ export function Occurrence({
   timelineData,
 }: {
   addEntry: (atIndex: number, type: OccurrenceType) => void
+  calculatedIndex: number
   charFormData: CharFormData
   index: number
   deleteEntry: (source: number) => void
@@ -68,7 +70,8 @@ export function Occurrence({
         <CourseLocation
           tier={occurrence.tier}
           lessonNumber={charFormData.lessonNumber}
-          indexInLesson={'index' in occurrence ? occurrence.index : 0}
+          savedIndex={'index' in occurrence ? occurrence.index : undefined}
+          {...{ calculatedIndex }}
         />
       </When>
 
