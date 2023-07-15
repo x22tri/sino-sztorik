@@ -2,6 +2,7 @@ import { StepLabel, Typography, Popover, useTheme } from '@mui/material'
 import { MouseEvent, TouchEvent, useContext, useState } from 'react'
 import { ADMIN_CHAR_EDIT_STEP_ONE, ADMIN_CHAR_EDIT_STEP_TWO } from '../../shared/strings'
 import { CharAdminErrorContext } from '../char-admin-error-context/CharAdminErrorContext'
+import { valueof } from '../../shared/interfaces'
 
 export function CharFormAdminStepLabel() {
   const { charFormErrors } = useContext(CharAdminErrorContext)
@@ -20,14 +21,14 @@ export function AdminStepLabel<T extends string>({
   errorMessages,
   title,
 }: {
-  errors: { [key in T]: boolean }
+  errors: { [key in T]: { value: boolean } }
   errorMessages: Record<T, string>
   title: string
 }) {
   const { constants, palette, spacing } = useTheme()
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null)
 
-  const errorsArray = Object.entries(errors).flatMap(([key, value]) => (value ? (key as T) : []))
+  const errorsArray = Object.entries(errors).flatMap(([key, val]) => ((val as any).value ? (key as T) : []))
 
   function openPopover(event: MouseEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>) {
     if (!errorsArray.length) {
@@ -103,12 +104,16 @@ const timelineErrorStrings: Record<TimelineError, string> = {
 
 export enum CharFormError {
   FrequencyNotANumber = 'FrequencyNotANumber',
-  FrequencyNotPresentWithKeyword = 'FrequencyNotPresentWithKeyword',
+  KeywordAndFrequencyGoHandInHand = 'KeywordAndFrequencyGoHandInHand',
   NoKeywordOrPrimitive = 'NoKeywordOrPrimitive',
+  KeywordAndPinyinGoHandInHand = 'KeywordAndPinyinGoHandInHand',
+  NoProductivePhoneticWithoutPronunciation = 'NoProductivePhoneticWithoutPronunciation',
 }
 
 const charFormErrorStrings: Record<CharFormError, string> = {
   FrequencyNotANumber: 'A gyakoriságot számmal kell megadni',
-  FrequencyNotPresentWithKeyword: 'Ha van kulcsszó, kötelező megadni gyakoriságot is',
+  KeywordAndFrequencyGoHandInHand: 'Vagy kulcsszót és gyakoriságot is meg kell adni, vagy egyiket sem',
   NoKeywordOrPrimitive: 'Kötelező megadni kulcsszót és/vagy alapelemet',
+  KeywordAndPinyinGoHandInHand: 'Vagy kulcsszót és kiejtést is meg kell adni, vagy egyiket sem',
+  NoProductivePhoneticWithoutPronunciation: 'Kiejtés nélkül egy karakter nem lehet hangjelölő',
 }

@@ -1,7 +1,6 @@
 import { Box, Button, Stack, Tooltip, useTheme } from '@mui/material'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { Dispatch, SetStateAction, useContext } from 'react'
-import { Else, If, Then, When } from 'react-if'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight, faSave, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { Wrap } from '../../shared/utility-components'
@@ -18,13 +17,9 @@ export function AdminBottomNav({
   const isSmallScreen = useSmallScreen()
   const { constants, palette } = useTheme()
   const { charFormErrors, timelineErrors } = useContext(CharAdminErrorContext)
+
   const drawerWidth = isSmallScreen ? 0 : constants.drawerWidth
   const isFinalCheckDisabled = getCharAdminErrors(charFormErrors).length > 0 || getCharAdminErrors(timelineErrors).length > 0
-
-  const isCurrentStepCharForm = activeStep === 0
-  const isCurrentStepTimeline = activeStep === 1
-  const isCurrentStepFinalCheck = activeStep === 2
-  const isStepForwardButtonDisabled = isCurrentStepTimeline && isFinalCheckDisabled
 
   function stepBack() {
     setActiveStep(prev => prev - 1)
@@ -58,26 +53,49 @@ export function AdminBottomNav({
       <RevertChangesButton />
 
       <Stack direction='row' gap={2} gridArea='navigate' marginLeft='auto'>
-        <When condition={!isCurrentStepCharForm}>
-          <StepBackButton onClick={stepBack} text={isCurrentStepTimeline ? ADMIN_CHAR_EDIT_STEP_ONE : ADMIN_CHAR_EDIT_STEP_TWO} />
-        </When>
-
-        <If condition={!isCurrentStepFinalCheck}>
-          <Then>
-            <StepForwardButton
-              onClick={stepForward}
-              text={isCurrentStepCharForm ? ADMIN_CHAR_EDIT_STEP_TWO : ADMIN_CHAR_EDIT_STEP_THREE}
-              {...{ isStepForwardButtonDisabled }}
-            />
-          </Then>
-
-          <Else>
-            <SaveChangesButton onClick={saveChanges} />
-          </Else>
-        </If>
+        <Buttons {...{ activeStep, isFinalCheckDisabled, saveChanges, stepBack, stepForward }} />
       </Stack>
     </Box>
   )
+}
+
+function Buttons({
+  activeStep,
+  isFinalCheckDisabled,
+  saveChanges,
+  stepBack,
+  stepForward,
+}: {
+  activeStep: number
+  isFinalCheckDisabled: boolean
+  saveChanges: () => void
+  stepBack: () => void
+  stepForward: () => void
+}) {
+  switch (activeStep) {
+    case 0:
+      return <StepForwardButton onClick={stepForward} text={ADMIN_CHAR_EDIT_STEP_TWO} />
+    case 1:
+      return (
+        <>
+          <StepBackButton onClick={stepBack} text={ADMIN_CHAR_EDIT_STEP_ONE} />
+          <StepForwardButton
+            onClick={stepForward}
+            text={ADMIN_CHAR_EDIT_STEP_THREE}
+            isStepForwardButtonDisabled={isFinalCheckDisabled}
+          />
+        </>
+      )
+    case 2:
+      return (
+        <>
+          <StepBackButton onClick={stepBack} text={ADMIN_CHAR_EDIT_STEP_TWO} />
+          <SaveChangesButton onClick={saveChanges} />
+        </>
+      )
+    default:
+      throw new Error('Unknown step.')
+  }
 }
 
 function RevertChangesButton() {
@@ -110,11 +128,11 @@ function StepBackButton({ onClick, text }: { onClick: () => void; text: string }
 }
 
 function StepForwardButton({
-  isStepForwardButtonDisabled,
+  isStepForwardButtonDisabled = false,
   onClick,
   text,
 }: {
-  isStepForwardButtonDisabled: boolean
+  isStepForwardButtonDisabled?: boolean
   onClick: () => void
   text: string
 }) {

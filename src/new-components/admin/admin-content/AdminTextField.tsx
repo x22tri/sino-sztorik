@@ -3,22 +3,20 @@ import { Controller, useFormContext } from 'react-hook-form'
 import { useStore } from '../../shared/logic/useStore'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 import ToolbarButton from '../../shared/components/ToolbarButton'
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { When } from 'react-if'
 import { CharacterEntryV3 } from '../../shared/MOCK_DATABASE_ENTRIES'
+import { CharAdminErrorContext, getCharAdminErrors } from '../char-admin-error-context/CharAdminErrorContext'
 
 export function AdminTextField({ label, name, ...restProps }: TextFieldProps & { name: keyof CharacterEntryV3 }) {
   const inputRef = useRef<HTMLInputElement>(null)
   // const [editedField, setEditedField] = useState<keyof CharacterEntryV3 | null>(null)
-  // const { palette } = useTheme()
+  const { palette } = useTheme()
+  const { charFormErrors } = useContext(CharAdminErrorContext)
   // const { getValues } = useFormContext()
 
-  // const isFieldNew = !prevTiers?.[name] && getValues(name) && (prevTiers?.[name] ?? '') !== getValues(name)
-  // const isFieldChanged = !!prevTiers?.[name] && (prevTiers?.[name] ?? '') !== getValues(name)
   // const isFieldDisabled = !isFieldNew && !isFieldChanged && !!prevTiers?.[name] && editedField !== name
 
-  // const isFieldNew = false
-  // const isFieldChanged = false
   // const isFieldDisabled = false
 
   // const bgcolor = isFieldNew
@@ -44,23 +42,9 @@ export function AdminTextField({ label, name, ...restProps }: TextFieldProps & {
       {...{ name }}
       render={({ field: { value, onChange } }) => (
         <TextField
-          // disabled={isFieldDisabled}
+          error={isFieldErrored(charFormErrors, name)}
           fullWidth
           id={name}
-          // InputProps={{
-          //   endAdornment: (
-          //     <When condition={isFieldDisabled}>
-          //       <InputAdornment position='end'>
-          //         <ToolbarButton
-          //           icon={faPen}
-          //           // onClick={() => setEditedField(name)}
-          //           size='small'
-          //           tooltip='Szerkesztés'
-          //         ></ToolbarButton>
-          //       </InputAdornment>
-          //     </When>
-          //   ),
-          // }}
           InputLabelProps={{ shrink: true }}
           // onBlur={() => setEditedField(null)}
           onChange={event => onChange(event.target.value)}
@@ -72,6 +56,7 @@ export function AdminTextField({ label, name, ...restProps }: TextFieldProps & {
           {...{ label, name, value }}
           sx={{
             flexShrink: 1,
+            '.Mui-error': { '&.MuiInputBase-root': { bgcolor: palette.error[100] } },
             // '.MuiFilledInput-root': { bgcolor, ':hover': { bgcolor: hoverBgColor } },
             // '.Mui-disabled': { bgcolor: 'inherit', color: 'inherit' },
             ...restProps.sx,
@@ -82,6 +67,13 @@ export function AdminTextField({ label, name, ...restProps }: TextFieldProps & {
   )
 }
 
-// export function AdminTextField({ label, name, ...restProps }: TextFieldProps & { name: keyof CharacterEntryV2 }) {
-//   return <></>
-// }
+function isFieldErrored<T extends string, U extends object>(
+  errors: {
+    [key in T]: { value: boolean; dependencies: keyof U[] }
+  },
+  fieldName: keyof U
+) {
+  return (Object.values(errors) as { value: boolean; dependencies: (keyof U)[] }[]).some(
+    ({ value, dependencies }) => value && dependencies.includes(fieldName)
+  )
+}

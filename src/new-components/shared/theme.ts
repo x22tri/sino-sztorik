@@ -169,6 +169,7 @@ let theme = responsiveFontSizes(
       neutral: { main: grey[600], contrastText: grey[50], light: grey[200] },
       white: { main: common.white, contrastText: grey[900] },
       warning: { light: '#FFF4EA', main: '#ffa726', dark: '#D25B00' },
+      error: { main: '#d32f2f', 100: '#FFE0E0' },
       background: { default: '#FDFDFD' },
       frequency: {
         veryCommon: '#d03738',

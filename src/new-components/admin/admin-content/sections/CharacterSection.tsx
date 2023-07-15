@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, InputAdornment, useTheme } from '@mui/material'
 import { AdminTextField } from '../AdminTextField'
 import { ProductivePinyinCheckbox } from '../preview-character-variant/ProductivePinyinCheckbox'
+import { useContext } from 'react'
+import { CharAdminErrorContext } from '../../char-admin-error-context/CharAdminErrorContext'
 
 export function CharacterSection({}: {}) {
   const { palette } = useTheme()

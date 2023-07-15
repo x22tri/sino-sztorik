@@ -7,3 +7,7 @@ export function hasNoKeyword(character: CharFormData) {
 export function hasNoPrimitive(character: CharFormData) {
   return !('primitive' in character) || character.primitive === ''
 }
+
+export function isPresent(character: CharFormData, key: string) {
+  return key in character && character[key as keyof CharFormData] !== ''
+}
