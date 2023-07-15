@@ -10,16 +10,14 @@ import { ADMIN_CHAR_EDIT_STEP_THREE } from '../../shared/strings'
 
 export default function AdminContent({
   activeStep,
-  charFormData,
   timelineData,
-  setCharFormData,
+  saveCharForm,
   setTimelineData,
   toolbarHeight,
 }: {
   activeStep: number
-  charFormData: CharFormData
   timelineData: TimelineData
-  setCharFormData: Dispatch<SetStateAction<CharFormData>>
+  saveCharForm: Dispatch<SetStateAction<CharFormData>>
   setTimelineData: Dispatch<SetStateAction<TimelineData>>
   toolbarHeight: number
 }) {
@@ -49,11 +47,11 @@ export default function AdminContent({
 
       <Switch>
         <Case condition={activeStep === 0}>
-          <CharForm {...{ charFormData, setCharFormData }} />
+          <CharForm {...{ saveCharForm }} />
         </Case>
 
         <Case condition={activeStep === 1}>
-          <Timeline {...{ charFormData, timelineData, setTimelineData }} />
+          <Timeline {...{ timelineData, setTimelineData }} />
         </Case>
 
         <Case condition={activeStep === 2}></Case>

@@ -2,7 +2,6 @@ import { useContext } from 'react'
 import { CharFormData } from '../../shared/logic/loadAdminChar'
 import { CharFormError } from '../admin-content/AdminStepLabel'
 import { useLazyEffect } from '../../shared/hooks/useLazyEffect'
-import { valueof } from '../../shared/interfaces'
 import { CharAdminErrorContext } from '../char-admin-error-context/CharAdminErrorContext'
 import { isPresent } from '../utils/char-form-utils'
 
@@ -32,25 +31,22 @@ export function useCharFormErrors(charFormData: CharFormData) {
   })
 
   // useRegisterError({
-  //   condition: isPresent(charFormData, 'isProductive') && !isPresent(charFormData, 'pinyin'),
-  //   dependencies: [isProductive, pinyin],
+  //   condition: charFormData.productivePinyin && !isPresent(charFormData, 'pinyin'),
+  //   dependencies: [productivePinyin, pinyin],
   //   error: CharFormError.NoProductivePhoneticWithoutPronunciation,
   // })
 }
 
 function useRegisterError(
   charFormData: CharFormData,
-  errorConfig: { condition: boolean; dependencies: string[]; error: CharFormError }
+  { condition, dependencies, error }: { condition: boolean; dependencies: (keyof CharFormData)[]; error: CharFormError }
 ) {
   const { setCharFormErrors } = useContext(CharAdminErrorContext)
 
   useLazyEffect(
     () => {
-      setCharFormErrors(prev => ({
-        ...prev,
-        [errorConfig.error]: { value: errorConfig.condition, dependencies: errorConfig.dependencies },
-      }))
+      setCharFormErrors(prev => ({ ...prev, [error]: { value: condition, dependencies } }))
     },
-    errorConfig.dependencies.map(dep => charFormData[dep as keyof CharFormData])
+    dependencies.map(dependency => charFormData[dependency])
   )
 }

@@ -8,13 +8,12 @@ import { CharFormData } from '../../shared/logic/loadAdminChar'
 import { Unless } from 'react-if'
 import { ReorderButtonRow } from './ReorderButtonRow'
 import { useTimelineErrors } from '../hooks/useTimelineErrors'
+import { useWatch } from 'react-hook-form'
 
 export function Timeline({
-  charFormData,
   timelineData,
   setTimelineData,
 }: {
-  charFormData: CharFormData
   timelineData: TimelineData
   setTimelineData: Dispatch<SetStateAction<TimelineData>>
 }) {
@@ -64,6 +63,8 @@ export function Timeline({
 
     setTimelineData(result)
   }
+
+  const charFormData = useWatch() as CharFormData
 
   useTimelineErrors(charFormData, timelineData)
 

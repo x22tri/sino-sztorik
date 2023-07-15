@@ -3,41 +3,55 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, InputAdornment, useTheme } from '@mui/material'
 import { AdminTextField } from '../AdminTextField'
 import { ProductivePinyinCheckbox } from '../preview-character-variant/ProductivePinyinCheckbox'
-import { useContext } from 'react'
-import { CharAdminErrorContext } from '../../char-admin-error-context/CharAdminErrorContext'
 
 export function CharacterSection({}: {}) {
-  const { palette } = useTheme()
-
   return (
     <Box display='flex' flexDirection='column' gap={3}>
-      <AdminTextField label='Kulcsszó' name='keyword' sx={{ '.MuiInputBase-input': { fontWeight: 'bold' } }} />
+      <KeywordField />
 
-      <AdminTextField
-        color='secondary'
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position='start'>
-              <FontAwesomeIcon color={palette.secondary.main} icon={faCube} />
-            </InputAdornment>
-          ),
-        }}
-        label='Alapelemként'
-        name='primitive'
-        sx={{ '.MuiInputBase-input': { fontStyle: 'italic' } }}
-      />
+      <PrimitiveField />
 
       <Box alignItems='center' display='flex' flexDirection='row' gap={2}>
-        <AdminTextField
-          label='Kiejtés'
-          name='pinyin'
-          sx={{ '.MuiInputBase-input': { textAlign: 'center', typography: 'pinyin' } }}
-        />
+        <PinyinField />
 
         <ProductivePinyinCheckbox />
 
-        <AdminTextField inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} label='Gyakoriság' name='frequency' />
+        <FrequencyField />
       </Box>
     </Box>
   )
+}
+
+function KeywordField() {
+  return <AdminTextField label='Kulcsszó' name='keyword' sx={{ '.MuiInputBase-input': { fontWeight: 'bold' } }} />
+}
+
+function PrimitiveField() {
+  const { palette } = useTheme()
+
+  return (
+    <AdminTextField
+      color='secondary'
+      InputProps={{
+        startAdornment: (
+          <InputAdornment position='start'>
+            <FontAwesomeIcon color={palette.secondary.main} icon={faCube} />
+          </InputAdornment>
+        ),
+      }}
+      label='Alapelemként'
+      name='primitive'
+      sx={{ '.MuiInputBase-input': { fontStyle: 'italic' } }}
+    />
+  )
+}
+
+function PinyinField() {
+  return (
+    <AdminTextField label='Kiejtés' name='pinyin' sx={{ '.MuiInputBase-input': { textAlign: 'center', typography: 'pinyin' } }} />
+  )
+}
+
+function FrequencyField() {
+  return <AdminTextField label='Gyakoriság' name='frequency' />
 }
