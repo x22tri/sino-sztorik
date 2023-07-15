@@ -1,8 +1,7 @@
 import { Box, Button, Popover, Typography, useTheme } from '@mui/material'
 import { Link } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faWarning } from '@fortawesome/free-solid-svg-icons'
 import { MouseEvent, TouchEvent, useState } from 'react'
+import { When } from 'react-if'
 
 export function CourseLocation({
   calculatedIndex,
@@ -36,7 +35,6 @@ export function CourseLocation({
     <Box alignSelf='center'>
       <Button
         component={Link}
-        endIcon={!discrepancyDetected ? null : <FontAwesomeIcon color={palette.warning.main} icon={faWarning} />}
         to={`/admin/lessons/${lessonNumber}`}
         onMouseEnter={openPopover}
         onMouseLeave={closePopover}
@@ -44,7 +42,17 @@ export function CourseLocation({
         size='small'
         sx={{ minWidth: 0, px: 1 }}
       >
-        {tier}/{lessonNumber}/{calculatedIndex}
+        {tier}/{lessonNumber}/{calculatedIndex}{' '}
+        <When condition={discrepancyDetected}>
+          <Typography
+            component='span'
+            color='warning.main'
+            variant='button'
+            sx={{ ml: 0.5, textDecoration: 'line-through 1.5px' }}
+          >
+            {`(${savedIndex})`}
+          </Typography>
+        </When>
       </Button>
 
       <Popover

@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { CharFormData, TimelineData } from '../../shared/logic/loadAdminChar'
 import { CharFormError } from '../admin-content/AdminStepLabel'
-import { useLazyEffect } from '../../shared/hooks/useLazyEffect'
+import { useDebouncedEffect } from '../../shared/hooks/useDebouncedEffect'
 import { CharAdminErrorContext } from '../char-admin-error-context/CharAdminErrorContext'
 import { isPresent } from '../utils/char-form-utils'
 import {
@@ -68,7 +68,7 @@ function useRegisterError(
 ) {
   const { setCharFormErrors } = useContext(CharAdminErrorContext)
 
-  useLazyEffect(
+  useDebouncedEffect(
     () => {
       setCharFormErrors(prev => ({ ...prev, [error]: { value: condition, dependencies } }))
     },

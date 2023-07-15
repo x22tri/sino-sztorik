@@ -30,11 +30,19 @@ export function Timeline({
   function switchEntries(topIndex: number) {
     const result = Array.from(timelineData) as TimelineData
 
-    result[topIndex + 1] = { ...result[topIndex + 1], tier: topIndex + 1 }
+    result[topIndex + 1] = {
+      ...result[topIndex + 1],
+      ...('index' in result[topIndex + 1] && { index: calculatedIndexes[topIndex] }),
+      tier: topIndex + 1,
+    }
 
     const [moved] = result.splice(topIndex, 1)
 
-    result.splice(topIndex + 1, 0, { ...moved, tier: topIndex + 2 })
+    result.splice(topIndex + 1, 0, {
+      ...moved,
+      ...('index' in moved && { index: calculatedIndexes[topIndex + 1] }),
+      tier: topIndex + 2,
+    })
 
     setTimelineData(result)
   }

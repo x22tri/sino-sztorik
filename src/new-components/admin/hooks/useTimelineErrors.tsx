@@ -3,7 +3,7 @@ import { TimelineData } from '../../shared/logic/loadAdminChar'
 import { CharFormData } from '../../shared/logic/loadAdminChar'
 import { isFullOccurrence, isWithheldPrimitiveOccurrence, isWithheldKeywordOccurrence } from '../utils/occurrence-utils'
 import { TimelineError } from '../admin-content/AdminStepLabel'
-import { useLazyEffect } from '../../shared/hooks/useLazyEffect'
+import { useDebouncedEffect } from '../../shared/hooks/useDebouncedEffect'
 import { CharAdminErrorContext } from '../char-admin-error-context/CharAdminErrorContext'
 import { isPresent } from '../utils/char-form-utils'
 
@@ -48,7 +48,7 @@ function useRegisterError({
 }) {
   const { setTimelineErrors } = useContext(CharAdminErrorContext)
 
-  useLazyEffect(() => {
+  useDebouncedEffect(() => {
     setTimelineErrors(prev => ({ ...prev, [error]: { value: condition } }))
   }, dependencies)
 }

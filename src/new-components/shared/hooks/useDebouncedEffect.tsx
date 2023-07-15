@@ -1,7 +1,7 @@
 import { DependencyList, EffectCallback, useCallback, useEffect, useRef } from 'react'
-import { debounce } from '@mui/material'
+import debounce from 'lodash.debounce'
 
-export function useLazyEffect(effect: EffectCallback, deps: DependencyList = [], wait = 300) {
+export function useDebouncedEffect(effect: EffectCallback, deps: DependencyList = [], wait = 300) {
   const cleanUp = useRef<void | (() => void)>()
 
   const effectRef = useRef<EffectCallback>()
@@ -9,12 +9,16 @@ export function useLazyEffect(effect: EffectCallback, deps: DependencyList = [],
   effectRef.current = useCallback(effect, deps)
 
   const lazyEffect = useCallback(
-    debounce(() => {
-      if (cleanUp.current instanceof Function) {
-        cleanUp.current()
-      }
-      cleanUp.current = effectRef.current?.()
-    }, wait),
+    debounce(
+      () => {
+        if (cleanUp.current instanceof Function) {
+          cleanUp.current()
+        }
+        cleanUp.current = effectRef.current?.()
+      },
+      wait,
+      { leading: true }
+    ),
     []
   )
 
