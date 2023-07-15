@@ -10,21 +10,20 @@ import { CalculatedIndexes, TimelineData } from '../shared/logic/loadAdminChar'
 import { CharFormData } from '../shared/logic/loadAdminChar'
 import { CharAdminErrorContext, useCharAdminErrors } from './char-admin-error-context/CharAdminErrorContext'
 import { FormProvider, useForm } from 'react-hook-form'
-import { useCharFormErrors } from './hooks/useCharFormErrors'
 
 export function Admin() {
   const [activeStep, setActiveStep] = useState(0)
   const [toolbarHeight, setToolbarHeight] = useState(0)
 
   const loaderData = useLoaderData() as {
+    calculatedIndexes: CalculatedIndexes
     charFormData: CharFormData
     timelineData: TimelineData
-    calculatedIndexes: CalculatedIndexes
   }
   const formMethods = useForm({ defaultValues: { ...loaderData.charFormData } })
-  const [timelineData, setTimelineData] = useState(loaderData.timelineData)
   const [savedCharForm, saveCharForm] = useState<CharFormData>({ ...loaderData.charFormData })
-  const [savedOccurrences, saveOccurrences] = useState<TimelineData>({ ...loaderData.timelineData })
+  const [timelineData, setTimelineData] = useState(loaderData.timelineData)
+  const [savedTimelineData, saveTimelineData] = useState<TimelineData>({ ...loaderData.timelineData })
 
   const { charFormErrors, timelineErrors, setCharFormErrors, setTimelineErrors } = useCharAdminErrors()
 

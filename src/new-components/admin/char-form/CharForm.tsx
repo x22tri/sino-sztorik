@@ -20,9 +20,9 @@ export function CharForm({ saveCharForm }: { saveCharForm: Dispatch<SetStateActi
 
       <ConstituentsSection />
 
-      <Box mt={10}>
-        <button type='submit'>Log current values</button>
-      </Box>
+      {/* <Box mt={10}>
+        <button onClick={onSubmit}>Log current values</button>
+      </Box> */}
     </form>
   )
 }
