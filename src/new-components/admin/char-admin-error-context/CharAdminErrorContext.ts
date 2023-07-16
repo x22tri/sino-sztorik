@@ -28,6 +28,8 @@ export function useCharAdminErrors() {
     [CharFormError.NoProductivePhoneticWithoutPinyin]: { value: false, dependencies: [] as unknown as keyof CharFormData[] },
     [CharFormError.WithheldConstituentsButNoConstituents]: { value: false, dependencies: [] as unknown as keyof CharFormData[] },
     [CharFormError.WithheldMeaningButNoKeywordOrPrimitive]: { value: false, dependencies: [] as unknown as keyof CharFormData[] },
+    [CharFormError.OtherUseCannotBeEmpty]: { value: false, dependencies: [] as unknown as keyof CharFormData[] },
+    [CharFormError.PrimitiveCannotHaveOtherUses]: { value: false, dependencies: [] as unknown as keyof CharFormData[] },
   })
 
   const [timelineErrors, setTimelineErrors] = useState<{

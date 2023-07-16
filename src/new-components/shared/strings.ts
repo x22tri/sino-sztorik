@@ -134,6 +134,6 @@ export const ADMIN_ADD_CHARACTER = 'Új karakter'
 export const ADMIN_SAVE_CHANGES = 'Változtatások mentése'
 export const ADMIN_CANCEL_SAVE = 'Elvetés'
 
-export const ADMIN_CHAR_EDIT_STEP_ONE = 'Alapadatok'
+export const ADMIN_CHAR_EDIT_STEP_ONE = 'Adatok megadása'
 export const ADMIN_CHAR_EDIT_STEP_TWO = 'Idővonal'
 export const ADMIN_CHAR_EDIT_STEP_THREE = 'Ellenőrzés'

@@ -110,6 +110,8 @@ export enum CharFormError {
   NoProductivePhoneticWithoutPinyin = 'NoProductivePhoneticWithoutPinyin',
   WithheldConstituentsButNoConstituents = 'WithheldConstituentsButNoConstituents',
   WithheldMeaningButNoKeywordOrPrimitive = 'WithheldMeaningButNoKeywordOrPrimitive',
+  OtherUseCannotBeEmpty = 'OtherUseCannotBeEmpty',
+  PrimitiveCannotHaveOtherUses = 'PrimitiveCannotHaveOtherUses',
 }
 
 const charFormErrorStrings: Record<CharFormError, string> = {
@@ -122,4 +124,6 @@ const charFormErrorStrings: Record<CharFormError, string> = {
     'Összetétel nélkül nem vezethető be a karakter késleltetett összetétellel az idővonalban',
   WithheldMeaningButNoKeywordOrPrimitive:
     'A kulcsszó és az alapelem szét van választva az idővonalban, de hiányzik a kulcsszó és/vagy az alapelem',
+  OtherUseCannotBeEmpty: 'Minden egyéb jelentéshez meg kell adni kiejtést és jelentést is',
+  PrimitiveCannotHaveOtherUses: 'Egy karakternek nem lehet egyéb jelentése, ha csak alapelemként létezik',
 }

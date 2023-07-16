@@ -67,7 +67,7 @@ export function AdminTextField({ label, name, ...restProps }: TextFieldProps & {
   )
 }
 
-function isFieldErrored<T extends string, U extends object>(
+export function isFieldErrored<T extends string, U extends object>(
   errors: {
     [key in T]: { value: boolean; dependencies: keyof U[] }
   },

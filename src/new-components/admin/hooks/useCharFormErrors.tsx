@@ -55,6 +55,14 @@ export function useCharFormErrors(charFormData: CharFormData, timelineData: Time
     dependencies: ['constituents', 'timelineData'],
     error: CharFormError.WithheldConstituentsButNoConstituents,
   })
+
+  useRegisterError(charFormData, timelineData, {
+    condition:
+      !!charFormData['otherUses']?.length &&
+      charFormData.otherUses.some(({ pinyin, meanings }) => pinyin === '' || meanings.some(meaning => meaning === '')),
+    dependencies: ['otherUses'],
+    error: CharFormError.OtherUseCannotBeEmpty,
+  })
 }
 
 function useRegisterError(

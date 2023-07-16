@@ -14,6 +14,8 @@ export interface CharacterEntryV2 {
   primitive?: string
 }
 
+export type OtherUse = { pinyin: string; meanings: string[] }
+
 export interface CharacterEntryV3 {
   charChinese: string
   explanation?: string
@@ -24,7 +26,7 @@ export interface CharacterEntryV3 {
   frequency?: number
   keyword?: string
   occurrences: OccurrenceV3[]
-  otherUses?: { pinyin: string; meanings: string[] }[]
+  otherUses?: OtherUse[]
   pinyin?: string
   primitive?: string
   productivePinyin?: boolean

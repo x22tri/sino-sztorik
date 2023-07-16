@@ -1,10 +1,11 @@
-import { FormProvider, useForm, useFormContext, useFormState, useWatch } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import { CharacterSection } from '../admin-content/sections/CharacterSection'
 import { CharFormData } from '../../shared/logic/loadAdminChar'
 import { ConstituentsSection } from '../admin-content/sections/ConstituentsSection'
 import { Box } from '@mui/material'
-import { useCharFormErrors } from '../hooks/useCharFormErrors'
 import { Dispatch, SetStateAction } from 'react'
+import { OtherUsesSection } from '../admin-content/sections/OtherUsesSection'
+import { Subheading } from '../../learn/headings/Subheading'
 
 export function CharForm({ saveCharForm }: { saveCharForm: Dispatch<SetStateAction<CharFormData>> }) {
   const { handleSubmit } = useFormContext()
@@ -16,13 +17,18 @@ export function CharForm({ saveCharForm }: { saveCharForm: Dispatch<SetStateActi
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <Subheading styles={{ marginBottom: 2, marginTop: 0 }} title='Alapadatok' />
       <CharacterSection />
 
+      <Subheading styles={{ marginBottom: 2, marginTop: 6 }} title='Összetétel' />
       <ConstituentsSection />
 
-      {/* <Box mt={10}>
+      <Subheading styles={{ marginBottom: 2, marginTop: 6 }} title='Egyéb jelentései' />
+      <OtherUsesSection />
+
+      <Box mt={10}>
         <button onClick={onSubmit}>Log current values</button>
-      </Box> */}
+      </Box>
     </form>
   )
 }

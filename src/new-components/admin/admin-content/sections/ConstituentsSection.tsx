@@ -1,4 +1,4 @@
-import { faClose, faCube } from '@fortawesome/free-solid-svg-icons'
+import { faClose, faCube, faTrash, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   Autocomplete,
@@ -18,6 +18,7 @@ import { When } from 'react-if'
 import { Character } from '../../../shared/interfaces'
 import { useState } from 'react'
 import { matchSorter } from 'match-sorter'
+import { Subheading } from '../../../learn/headings/Subheading'
 
 const charWidth = '42px'
 
@@ -42,46 +43,40 @@ export function ConstituentsSection() {
   }
 
   return (
-    <Box mt={3}>
-      <InputLabel shrink sx={{ ml: 1.5 }}>
-        Összetétel
-      </InputLabel>
+    <Box display='flex' gap={2}>
+      <Controller
+        name='constituents'
+        render={({ field: { value } }) => (
+          <Box display={value.length ? 'flex' : 'none'} gap={2}>
+            {(value as string[]).map((constituent, index) => (
+              <Constituent charChinese={constituent} key={index} {...{ index, removeConstituent }} />
+            ))}
+          </Box>
+        )}
+      />
 
-      <Box display='flex' gap={2}>
-        <Controller
-          name='constituents'
-          render={({ field: { value } }) => (
-            <Box display={value.length ? 'flex' : 'none'} gap={2} ml={1}>
-              {(value as string[]).map((constituent, index) => (
-                <Constituent charChinese={constituent} key={index} {...{ index, removeConstituent }} />
-              ))}
-            </Box>
-          )}
-        />
-
-        <Autocomplete
-          disableClearable
-          getOptionLabel={option => (option as Character).charChinese}
-          isOptionEqualToValue={(option, newValue) => option.id === newValue.id}
-          noOptionsText='Nincs találat'
-          options={CHARS.map(char => char)}
-          onChange={(_, newValue, reason) => addConstituent(newValue as Character, reason)}
-          onInputChange={(_, newValue, reason) => setInputValue(reason === 'input' ? newValue : '')}
-          renderInput={params => (
-            <TextField
-              {...params}
-              InputLabelProps={{ shrink: true }}
-              fullWidth
-              size='small'
-              variant='filled'
-              label='Alapelem keresése...'
-            />
-          )}
-          renderOption={(props, option) => <SearchRow {...props} {...{ props, option }} />}
-          sx={{ width: '100%' }}
-          {...{ filterOptions, inputValue }}
-        />
-      </Box>
+      <Autocomplete
+        disableClearable
+        getOptionLabel={option => (option as Character).charChinese}
+        isOptionEqualToValue={(option, newValue) => option.id === newValue.id}
+        noOptionsText='Nincs találat'
+        options={CHARS.map(char => char)}
+        onChange={(_, newValue, reason) => addConstituent(newValue as Character, reason)}
+        onInputChange={(_, newValue, reason) => setInputValue(reason === 'input' ? newValue : '')}
+        renderInput={params => (
+          <TextField
+            {...params}
+            InputLabelProps={{ shrink: true }}
+            fullWidth
+            size='small'
+            variant='filled'
+            label='Alapelem keresése...'
+          />
+        )}
+        renderOption={(props, option) => <SearchRow {...props} {...{ props, option }} />}
+        sx={{ width: '100%' }}
+        {...{ filterOptions, inputValue }}
+      />
     </Box>
   )
 }
@@ -109,7 +104,7 @@ function Constituent({
           size='small'
           sx={{ position: 'absolute', top: -6, right: -6 }}
         >
-          <FontAwesomeIcon icon={faClose} transform='shrink-8' />
+          <FontAwesomeIcon icon={faTrashAlt} transform='shrink-9' />
         </IconButton>
       </Tooltip>
 
