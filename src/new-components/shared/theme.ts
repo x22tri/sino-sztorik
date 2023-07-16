@@ -122,6 +122,14 @@ declare module '@mui/material/Typography' {
 let theme = responsiveFontSizes(
   createTheme({
     components: {
+      MuiAutocomplete: {
+        styleOverrides: {
+          listbox: {
+            '& .MuiAutocomplete-option[aria-selected="true"]': { backgroundColor: 'initial' },
+            '& .MuiAutocomplete-option[aria-selected="true"].Mui-focused': { backgroundColor: 'rgba(0, 0, 0, 0.04)' },
+          },
+        },
+      },
       MuiButtonBase: { defaultProps: { disableRipple: true } },
       MuiButton: { defaultProps: { disableElevation: true } },
       MuiButtonGroup: { defaultProps: { disableElevation: true, disableRipple: true } },

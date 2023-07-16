@@ -171,7 +171,7 @@ export const CHAR_ENTRY_V3: CharacterEntryV3 = {
     { pinyin: 'zhēng', meanings: ['test3'] },
   ],
   phrases: [1, 2], // An array of phrase ID's.
-  pinyin: 'zǎo',
+  pinyin: 'zӑo',
   primitive: 'napraforgó',
   similars: [3], // An array of "similar" ID's.
 }
