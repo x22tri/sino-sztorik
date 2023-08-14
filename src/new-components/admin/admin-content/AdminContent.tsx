@@ -8,8 +8,7 @@ import { Case, Default, Switch } from 'react-if'
 import { CharForm } from '../char-form/CharForm'
 import { ADMIN_CHAR_EDIT_STEP_THREE } from '../../shared/strings'
 import { useWatch } from 'react-hook-form'
-import { useCharFormErrors } from '../hooks/useCharFormErrors'
-import { useTimelineErrors } from '../hooks/useTimelineErrors'
+import { useRegisterCharAdminErrors } from '../hooks/useRegisterCharAdminErrors'
 
 export default function AdminContent({
   activeStep,
@@ -27,8 +26,8 @@ export default function AdminContent({
   const { constants, spacing } = useTheme()
 
   const charFormData = useWatch() as CharFormData
-  useCharFormErrors(charFormData, timelineData)
-  useTimelineErrors(charFormData, timelineData)
+
+  useRegisterCharAdminErrors(charFormData, timelineData)
 
   return (
     <Box
