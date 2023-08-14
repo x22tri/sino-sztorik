@@ -1,4 +1,4 @@
-import { faClose, faCube, faTrash, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { faCube, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   Autocomplete,
@@ -6,7 +6,6 @@ import {
   Box,
   Divider,
   IconButton,
-  InputLabel,
   TextField,
   Tooltip,
   Typography,
@@ -18,7 +17,6 @@ import { When } from 'react-if'
 import { Character } from '../../../shared/interfaces'
 import { useState } from 'react'
 import { matchSorter } from 'match-sorter'
-import { Subheading } from '../../../learn/headings/Subheading'
 
 const charWidth = '42px'
 
@@ -104,7 +102,7 @@ function Constituent({
           size='small'
           sx={{ position: 'absolute', top: -6, right: -6 }}
         >
-          <FontAwesomeIcon icon={faTrashAlt} transform='shrink-9' />
+          <FontAwesomeIcon icon={faTrash} transform='shrink-9' />
         </IconButton>
       </Tooltip>
 

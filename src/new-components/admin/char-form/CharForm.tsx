@@ -2,7 +2,6 @@ import { useFormContext } from 'react-hook-form'
 import { CharacterSection } from '../admin-content/sections/CharacterSection'
 import { CharFormData } from '../../shared/logic/loadAdminChar'
 import { ConstituentsSection } from '../admin-content/sections/ConstituentsSection'
-import { Box } from '@mui/material'
 import { Dispatch, SetStateAction } from 'react'
 import { OtherUsesSection } from '../admin-content/sections/OtherUsesSection'
 import { Subheading } from '../../learn/headings/Subheading'
@@ -26,9 +25,7 @@ export function CharForm({ saveCharForm }: { saveCharForm: Dispatch<SetStateActi
       <Subheading styles={{ marginBottom: 2, marginTop: 6 }} title='Egyéb jelentései' />
       <OtherUsesSection />
 
-      <Box mt={10}>
-        <button onClick={onSubmit}>Log current values</button>
-      </Box>
+      <button onClick={onSubmit}>Log current values</button>
     </form>
   )
 }

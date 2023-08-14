@@ -2,7 +2,7 @@ import { Box, Button, IconButton, Stack, SxProps, TextField, useTheme } from '@m
 import { Control, Controller, FieldValues, useFieldArray, useFormContext } from 'react-hook-form'
 import { OtherUse } from '../../../shared/interfaces'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 export function OtherUsesSection() {
   const { control } = useFormContext()
@@ -65,7 +65,7 @@ const OtherUseEntry = ({
             InputProps={{
               endAdornment: (
                 <IconButton color='error' onClick={() => removeOtherUseEntry(index)}>
-                  <FontAwesomeIcon icon={faTrashAlt} size='xs' />
+                  <FontAwesomeIcon icon={faTrash} size='xs' />
                 </IconButton>
               ),
             }}
@@ -97,7 +97,7 @@ const OtherUseEntry = ({
                     onClick={() => removeOtherUseMeaning(meaningIndex)}
                     sx={{ visibility: fields.length === 1 ? 'hidden' : 'visible' }}
                   >
-                    <FontAwesomeIcon icon={faTrashAlt} size='xs' />
+                    <FontAwesomeIcon icon={faTrash} size='xs' />
                   </IconButton>
                 ),
               }}
