@@ -9,6 +9,8 @@ import { CharForm } from '../char-form/CharForm'
 import { ADMIN_CHAR_EDIT_STEP_THREE } from '../../shared/strings'
 import { useWatch } from 'react-hook-form'
 import { useRegisterCharAdminErrors } from '../hooks/useRegisterCharAdminErrors'
+import LearnContent from '../../learn/LearnContent'
+import { CHARS } from '../../shared/MOCK_CHARS'
 
 export default function AdminContent({
   activeStep,
@@ -60,7 +62,9 @@ export default function AdminContent({
           <Timeline {...{ timelineData, setTimelineData }} />
         </Case>
 
-        <Case condition={activeStep === 2}></Case>
+        <Case condition={activeStep === 2}>
+          <LearnContent lessonChar={CHARS[0]} index={0} toolbarHeight={2} />
+        </Case>
 
         <Default>Hiba</Default>
       </Switch>

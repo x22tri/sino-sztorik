@@ -3,10 +3,9 @@ import { Button } from '@mui/material'
 import { AssembledLesson, Character } from '../shared/interfaces'
 import { PrevNextButtons } from '../shared/components/PrevNextButtons'
 import { LEARN_FINISH_LESSON_BUTTON } from '../shared/strings'
-import { When } from 'react-if'
+import { Unless } from 'react-if'
 import { useStore } from '../shared/logic/useStore'
 import { useLoaderData } from 'react-router-dom'
-import { useLargeScreen } from '../shared/hooks/useLargeScreen'
 import {
   ConstituentsSection,
   SimilarAppearanceSection,
@@ -27,7 +26,6 @@ export default function LearnContent({
   toolbarHeight: number
 }) {
   const lesson = useLoaderData() as AssembledLesson
-  const isLargeScreen = useLargeScreen()
   const { flashbackChar } = useStore('flashback')
 
   const prevChar = lesson.characters[index - 1]?.charChinese ?? null
@@ -60,35 +58,18 @@ export default function LearnContent({
       <Box gridArea='learn'>
         <CharacterSection {...{ currentChar }} />
 
-        <When condition={!isLargeScreen}>
-          <ConstituentsSection {...{ constituents }} />
-        </When>
+        <ConstituentsSection {...{ constituents }} />
 
         <StorySection {...{ story }} />
 
-        <When condition={!isLargeScreen}>
-          <PhrasesAndOtherUsesSection currentChar={charChinese} {...{ otherUses, phrases }} />
+        <PhrasesAndOtherUsesSection currentChar={charChinese} {...{ otherUses, phrases }} />
 
-          <SimilarMeaningSection {...{ similarMeaning }} />
+        <SimilarMeaningSection {...{ similarMeaning }} />
 
-          <SimilarAppearanceSection {...{ similarAppearance }} />
-        </When>
+        <SimilarAppearanceSection {...{ similarAppearance }} />
       </Box>
 
-      <When condition={isLargeScreen}>
-        <Box gridArea='aside'>
-          {/* Keep elements below in sync with duplicates above until CSS Grid Masonry is supported widely */}
-          <ConstituentsSection {...{ constituents }} />
-
-          <PhrasesAndOtherUsesSection currentChar={charChinese} {...{ otherUses, phrases }} />
-
-          <SimilarMeaningSection {...{ similarMeaning }} />
-
-          <SimilarAppearanceSection {...{ similarAppearance }} />
-        </Box>
-      </When>
-
-      <When condition={!flashbackChar}>
+      <Unless condition={!!flashbackChar}>
         <PrevNextButtons
           customEndElement={
             <Button variant='contained' href={LESSON_SELECT_PATH} sx={{ borderRadius: 6 }}>
@@ -98,7 +79,7 @@ export default function LearnContent({
           prev={prevChar}
           next={nextChar}
         />
-      </When>
+      </Unless>
     </Box>
   )
 }
