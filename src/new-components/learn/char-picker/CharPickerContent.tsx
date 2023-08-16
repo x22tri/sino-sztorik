@@ -3,10 +3,10 @@ import { Else, If, Then } from 'react-if'
 import { KeywordPrimitiveRow } from '../../shared/components/KeywordPrimitiveRow'
 import { useStore } from '../../shared/logic/useStore'
 import { useLoaderData } from 'react-router-dom'
-import { AssembledLesson } from '../../shared/interfaces'
+import { LoadLearn } from '../../shared/logic/loadLearn'
 
 export function CharPickerContent({ contentType }: { contentType: 'characters' | 'preface' }) {
-  const lesson = useLoaderData() as AssembledLesson
+  const { lesson } = useLoaderData() as LoadLearn
   const { constants, palette, spacing } = useTheme()
   const { selectCharIndex, selectedCharIndex } = useStore('learn')
   const { toggleDrawer } = useStore('mobileDrawer')

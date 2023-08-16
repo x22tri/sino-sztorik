@@ -15,6 +15,7 @@ import { AssembledLesson } from '../../shared/interfaces'
 import { ExitFlashbackButton } from './ExitFlashbackButton'
 import { FlashbackModeTitle } from './FlashbackModeTitle'
 import { useVerySmallScreen } from '../../shared/hooks/useVerySmallScreen'
+import { LoadLearn } from '../../shared/logic/loadLearn'
 
 export function LearnAppbar({
   lessonLength,
@@ -27,7 +28,7 @@ export function LearnAppbar({
 }) {
   const isVerySmallScreen = useVerySmallScreen()
   const isSmallScreen = useSmallScreen()
-  const lesson = useLoaderData() as AssembledLesson
+  const { lesson } = useLoaderData() as LoadLearn
   const ref = useRef<HTMLDivElement | null>(null)
   const resizeObserver = new ResizeObserver(handleToolbarResized)
   const [lessonProgress, setLessonProgress] = useState(0)
@@ -39,8 +40,8 @@ export function LearnAppbar({
   const drawerWidth = isSmallScreen ? 0 : constants.drawerWidth
 
   useEffect(() => {
-    swiperInstance?.on('activeIndexChange', () => setLessonProgress(calculateProgress(lessonLength, swiperInstance?.activeIndex)))
-  }, [lessonLength, swiperInstance])
+    setLessonProgress(calculateProgress(lessonLength, selectedCharIndex))
+  }, [lessonLength, selectedCharIndex])
 
   useEffect(() => {
     if (ref?.current) {

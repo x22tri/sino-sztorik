@@ -9,6 +9,7 @@ import { CharacterPreviews } from '../lesson-start/CharacterPreviews'
 import { useLoaderData, useRouteLoaderData } from 'react-router-dom'
 import { LoadLessonSelect } from '../../shared/logic/loadLessonSelect'
 import { PrevNextLinks } from '../../shared/components/PrevNextLinks'
+import { LESSON_SELECT_PATH } from '../../shared/paths'
 
 export default function LessonSelectContent({ toolbarHeight }: { toolbarHeight: number }) {
   const isLargeScreen = useLargeScreen()
@@ -52,7 +53,12 @@ export default function LessonSelectContent({ toolbarHeight }: { toolbarHeight: 
         <CharacterPreviews {...{ characters }} />
       </When>
 
-      <PrevNextLinks prev={prevLesson} next={nextLesson} />
+      <PrevNextLinks
+        prevTitle={prevLesson?.title}
+        prevTo={`${LESSON_SELECT_PATH}/${prevLesson?.lessonNumber}`}
+        nextTitle={nextLesson?.title}
+        nextTo={`${LESSON_SELECT_PATH}/${nextLesson?.lessonNumber}`}
+      />
     </Stack>
   )
 }

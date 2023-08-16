@@ -10,12 +10,20 @@ import { Link } from 'react-router-dom'
 
 export function PrevNextLinks({
   customEndElement,
-  prev,
-  next,
+  prevOnClick,
+  prevTitle,
+  prevTo,
+  nextOnClick,
+  nextTitle,
+  nextTo,
 }: {
   customEndElement?: JSX.Element
-  prev: AssembledLesson | null
-  next: AssembledLesson | null
+  prevOnClick?: () => void
+  prevTitle: string | undefined
+  prevTo?: string
+  nextOnClick?: () => void
+  nextTitle: string | undefined
+  nextTo?: string
 }) {
   return (
     <Box
@@ -26,37 +34,39 @@ export function PrevNextLinks({
       marginTop={8}
       sx={{ flexDirection: { xs: 'column', md: 'row' } }}
     >
-      <When condition={!!prev}>
+      <When condition={!!prevTitle}>
         {() => (
           <Button
             color='neutral'
-            component={Link}
-            to={`${LESSON_SELECT_PATH}/${prev!.lessonNumber}`}
+            component={!!prevTo ? Link : Button}
+            onClick={prevOnClick}
+            to={prevTo}
             startIcon={<FontAwesomeIcon icon={faChevronLeft} transform='shrink-4' />}
             size='large'
             variant='text'
             sx={{ mr: 'auto', px: 2 }}
           >
-            <TitleSubtitle title={PREV_NEXT_BUTTONS_PREV} subtitle={prev!.title} subtitleStyles={{ lineHeight: 'initial' }} />
+            <TitleSubtitle title={PREV_NEXT_BUTTONS_PREV} subtitle={prevTitle!} subtitleStyles={{ lineHeight: 'initial' }} />
           </Button>
         )}
       </When>
 
-      <If condition={!!next}>
+      <If condition={!!nextTitle}>
         <Then>
           {() => (
             <Button
               color='neutral'
-              component={Link}
+              component={!!nextTo ? Link : Button}
               endIcon={<FontAwesomeIcon icon={faChevronRight} transform='shrink-4' />}
-              to={`${LESSON_SELECT_PATH}/${next!.lessonNumber}`}
+              onClick={nextOnClick}
+              to={nextTo}
               size='large'
               variant='text'
               sx={{ ml: 'auto', px: 2 }}
             >
               <TitleSubtitle
                 title={PREV_NEXT_BUTTONS_NEXT}
-                subtitle={next!.title}
+                subtitle={nextTitle!}
                 containerStyles={{ alignItems: 'flex-end' }}
                 subtitleStyles={{ lineHeight: 'initial' }}
               />

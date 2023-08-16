@@ -1,11 +1,9 @@
 import Box from '@mui/material/Box'
 import { Button } from '@mui/material'
-import { AssembledLesson, Character } from '../shared/interfaces'
-import { PrevNextButtons } from '../shared/components/PrevNextButtons'
+import { Character } from '../shared/interfaces'
 import { LEARN_FINISH_LESSON_BUTTON } from '../shared/strings'
 import { Unless } from 'react-if'
 import { useStore } from '../shared/logic/useStore'
-import { useLoaderData } from 'react-router-dom'
 import {
   ConstituentsSection,
   SimilarAppearanceSection,
@@ -15,23 +13,34 @@ import { StorySection } from './learn-content-sections/LearnContentSections'
 import { CharacterSection } from './learn-content-sections/LearnContentSections'
 import { PhrasesAndOtherUsesSection } from './learn-content-sections/LearnContentSections'
 import { LESSON_SELECT_PATH } from '../shared/paths'
+import { PrevNextLinks } from '../shared/components/PrevNextLinks'
 
 export default function LearnContent({
   lessonChar,
-  index,
+  nextChar,
+  prevChar,
+  selectCharIndex,
+  selectedCharIndex,
   toolbarHeight,
 }: {
   lessonChar: Character
-  index: number
+  nextChar: string | undefined
+  prevChar: string | undefined
+  selectCharIndex: (index: number) => void
+  selectedCharIndex: number
   toolbarHeight: number
 }) {
-  const lesson = useLoaderData() as AssembledLesson
   const { flashbackChar } = useStore('flashback')
 
-  const prevChar = lesson.characters[index - 1]?.charChinese ?? null
-  const nextChar = lesson.characters[index + 1]?.charChinese ?? null
   const currentChar = flashbackChar ?? lessonChar
+
+  if (!currentChar) {
+    return null
+  }
+
   const { charChinese, constituents, otherUses, phrases, similarAppearance, similarMeaning, story } = currentChar
+
+  window.scrollTo({ top: 0 })
 
   return (
     <Box
@@ -70,14 +79,16 @@ export default function LearnContent({
       </Box>
 
       <Unless condition={!!flashbackChar}>
-        <PrevNextButtons
+        <PrevNextLinks
           customEndElement={
             <Button variant='contained' href={LESSON_SELECT_PATH} sx={{ borderRadius: 6 }}>
               {LEARN_FINISH_LESSON_BUTTON}
             </Button>
           }
-          prev={prevChar}
-          next={nextChar}
+          prevTitle={prevChar}
+          prevOnClick={() => selectCharIndex(selectedCharIndex - 1)}
+          nextTitle={nextChar}
+          nextOnClick={() => selectCharIndex(selectedCharIndex + 1)}
         />
       </Unless>
     </Box>

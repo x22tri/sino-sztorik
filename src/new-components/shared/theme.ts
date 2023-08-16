@@ -133,6 +133,7 @@ let theme = responsiveFontSizes(
       MuiButtonBase: { defaultProps: { disableRipple: true } },
       MuiButton: { defaultProps: { disableElevation: true } },
       MuiButtonGroup: { defaultProps: { disableElevation: true, disableRipple: true } },
+      MuiLinearProgress: { styleOverrides: { bar: { transition: 'transform .2s linear' } } },
       MuiLink: { defaultProps: { underline: 'none' } },
       MuiIconButton: { styleOverrides: { root: { '&:hover': { backgroundColor: 'transparent', opacity: 0.8 } } } },
       MuiTooltip: {

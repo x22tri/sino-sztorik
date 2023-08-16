@@ -63,7 +63,14 @@ export default function AdminContent({
         </Case>
 
         <Case condition={activeStep === 2}>
-          <LearnContent lessonChar={CHARS[0]} index={0} toolbarHeight={2} />
+          <LearnContent
+            lessonChar={CHARS[0]}
+            nextChar=''
+            prevChar=''
+            selectCharIndex={(index: number) => {}}
+            selectedCharIndex={0}
+            toolbarHeight={2}
+          />
         </Case>
 
         <Default>Hiba</Default>

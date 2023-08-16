@@ -2,7 +2,6 @@ import Swiper from 'swiper'
 import { create } from 'zustand'
 import { Character } from '../interfaces'
 import { findFlashbackChar } from './findFlashbackChar'
-import { scrollToTop } from '../utility-functions'
 
 const useBoundStore = create<Store>((set, get) => {
   function update<SliceType extends keyof Store>(slice: SliceType, updated: Partial<Store[SliceType]>) {
@@ -14,7 +13,7 @@ const useBoundStore = create<Store>((set, get) => {
       exitFlashback: () => {
         update('flashback', { flashbackChar: undefined })
         get().swiper.swiperInstance?.enable()
-        scrollToTop()
+        window.scrollTo({ top: 0 })
         setTimeout(() => get().swiper.swiperInstance?.updateAutoHeight(), 200)
       },
       flashbackChar: undefined,
@@ -24,7 +23,7 @@ const useBoundStore = create<Store>((set, get) => {
         if (foundFlashbackChar) {
           update('flashback', { flashbackChar: foundFlashbackChar })
           get().swiper.swiperInstance?.disable()
-          scrollToTop()
+          window.scrollTo({ top: 0 })
           setTimeout(() => get().swiper.swiperInstance?.updateAutoHeight(), 200)
         } else {
           console.log(`${destination} nem található`)

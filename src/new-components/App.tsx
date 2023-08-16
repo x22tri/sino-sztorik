@@ -29,7 +29,7 @@ const router = createBrowserRouter([
     loader: ({ params }) => loadLessonSelect({ params }),
   },
   {
-    path: LEARN_PATH,
+    path: `${LEARN_PATH}`,
     element: <Learn />,
     errorElement: <div>An error occurred on Learn</div>,
     loader: loadLearn,
