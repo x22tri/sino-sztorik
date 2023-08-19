@@ -1,16 +1,12 @@
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, Stack, Typography, useTheme } from '@mui/material'
 import { CHARACTERS_IN_LESSON_LABEL, CHARACTER_AMOUNT_LABEL } from '../../shared/strings'
 import { Character, LessonStatuses, TierStatuses } from '../../shared/interfaces'
 import { iconDictionary } from '../lesson-picker/TierStatusIcons'
 import { Fragment } from 'react'
 
-const charWidth = '42px'
-const minNumberOfColumns = 4
-const maxNumberOfColumns = 5
-
-const { NOT_IN_TIER, LOCKED, UPCOMING, COMPLETED } = LessonStatuses
-
 export function CharacterPreviews({ characters, tierStatuses }: { characters: Character[]; tierStatuses: TierStatuses }) {
+  const { palette } = useTheme()
+
   return (
     <Stack mt={2} p={1.5} gap={1}>
       <Typography variant='h6'>A lecke előfordulásai</Typography>
@@ -45,7 +41,7 @@ export function CharacterPreviews({ characters, tierStatuses }: { characters: Ch
             key={charChinese}
             component='span'
             variant='chineseText'
-            sx={{ bgcolor: 'grey.50', borderRadius: 2, maxWidth: charWidth, p: 1 }}
+            sx={{ bgcolor: 'grey.100', borderRadius: 2, border: `1px solid ${palette.grey[200]}`, p: 1 }}
           >
             {charChinese}
           </Typography>

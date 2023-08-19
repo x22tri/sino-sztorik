@@ -1,4 +1,4 @@
-import { Box, useTheme } from '@mui/material'
+import { Box, Typography, useTheme } from '@mui/material'
 import { Dispatch, SetStateAction } from 'react'
 import { TitleSubtitle } from '../../shared/components/TitleSubtitle'
 import { LEARN_LESSON_CHARACTERS_TOOLTIP, LEARN_LESSON_PREFACE_TOOLTIP, LESSON_NUMBER_SUFFIX_APPBAR } from '../../shared/strings'
@@ -21,20 +21,22 @@ export function CharPickerTitle({
   const { palette, spacing } = useTheme()
 
   return (
-    <Box
-      alignItems='center'
-      display='flex'
-      justifyContent='space-between'
-      minHeight={`${spacing(8)}`}
-      paddingX={`${spacing(2)}`}
-      borderBottom={`1px solid ${palette.grey[200]}`}
-    >
-      <TitleSubtitle title={lesson.lessonNumber + LESSON_NUMBER_SUFFIX_APPBAR} subtitle={lesson.title ?? ''} />
+    <Box alignItems='center' display='flex' justifyContent='space-between' minHeight={`${spacing(8)}`} px={`${spacing(2)}`}>
+      <Box alignItems='flex-start' display='flex' flexDirection='column'>
+        <Typography component='span' typography='h6' color='text.secondary'>
+          {lesson.lessonNumber + LESSON_NUMBER_SUFFIX_APPBAR}
+        </Typography>
+
+        <Typography component='span' typography='h5' fontWeight='bold' lineHeight={1}>
+          {lesson.title}
+        </Typography>
+      </Box>
 
       <If condition={contentType === 'characters'}>
         <Then>
           <ToolbarButton icon={faNewspaper} onClick={() => setContentType('preface')} tooltip={LEARN_LESSON_PREFACE_TOOLTIP} />
         </Then>
+
         <Else>
           <ToolbarButton
             icon={faLanguage}

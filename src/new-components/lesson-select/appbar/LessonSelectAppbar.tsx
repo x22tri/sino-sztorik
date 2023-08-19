@@ -9,33 +9,32 @@ import { LESSON_SELECT_TITLE } from '../../shared/strings'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import { useStore } from '../../shared/logic/useStore'
 
-export function LessonSelectAppbar({
-  setToolbarHeight,
-  toolbarHeight,
-}: {
-  setToolbarHeight: Dispatch<SetStateAction<number>>
-  toolbarHeight: number
+export function LessonSelectAppbar({}: // setToolbarHeight,
+// toolbarHeight,
+{
+  // setToolbarHeight: Dispatch<SetStateAction<number>>
+  // toolbarHeight: number
 }) {
   const { constants, palette } = useTheme()
   const isSmallScreen = useSmallScreen()
   const ref = useRef<HTMLDivElement | null>(null)
   const { toggleDrawer } = useStore('mobileDrawer')
-  const resizeObserver = new ResizeObserver(handleToolbarResized)
+  // const resizeObserver = new ResizeObserver(handleToolbarResized)
   const drawerWidth = isSmallScreen ? 0 : constants.drawerWidth
 
-  useEffect(() => {
-    if (ref?.current) {
-      resizeObserver.observe(ref.current)
-    }
+  // useEffect(() => {
+  //   if (ref?.current) {
+  //     resizeObserver.observe(ref.current)
+  //   }
 
-    return () => resizeObserver.disconnect()
-  })
+  //   return () => resizeObserver.disconnect()
+  // })
 
-  function handleToolbarResized() {
-    if (ref?.current && ref.current.offsetHeight !== toolbarHeight) {
-      setToolbarHeight(ref.current.offsetHeight)
-    }
-  }
+  // function handleToolbarResized() {
+  //   if (ref?.current && ref.current.offsetHeight !== toolbarHeight) {
+  //     setToolbarHeight(ref.current.offsetHeight)
+  //   }
+  // }
 
   return (
     // <Box
@@ -53,7 +52,7 @@ export function LessonSelectAppbar({
       <AppBar
         elevation={0}
         sx={{
-          bgcolor: 'background.paper',
+          bgcolor: 'background.default',
           // borderBottom: `1px solid ${palette.grey[200]}`
         }}
         position='fixed'

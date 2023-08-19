@@ -25,8 +25,8 @@ export const LANDING_COPYRIGHT = '© Dió Dávid'
 
 export const LESSON_LOCKED = 'Még nincs feloldva'
 export const LESSON_UPCOMING = 'Soron következő lecke'
-export const LESSON_COMPLETED = 'Már megtanult lecke'
-export const LESSON_NOT_IN_TIER = 'Ebben a körben nincs ilyen lecke'
+export const LESSON_COMPLETED = 'Már megtanulva'
+export const LESSON_NOT_IN_TIER = 'Nem szerepel'
 
 export const LOADING_PLACEHOLDER = 'Betöltés...'
 

@@ -18,9 +18,7 @@ export function KeywordPrimitiveRow({
 
   return (
     <ListItemText
-      sx={{
-        '.MuiListItemText-primary': { display: 'flex', flexDirection: 'row', fontSize: small ? '90%' : undefined, gap: 1 },
-      }}
+      sx={{ '.MuiListItemText-primary': { display: 'flex', flexDirection: 'row', fontSize: small ? '90%' : undefined, gap: 1 } }}
     >
       <When condition={keyword}>
         <Typography component='span' fontWeight={emphasizePrimitive ? 'normal' : 'bold'} fontSize='inherit'>

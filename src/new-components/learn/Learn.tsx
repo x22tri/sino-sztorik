@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { CharPickerContent } from './char-picker/CharPickerContent'
 import { CharPickerTitle } from './char-picker/CharPickerTitle'
 import { useStore } from '../shared/logic/useStore'
-import { useLoaderData } from 'react-router-dom'
+import { redirect, useLoaderData } from 'react-router-dom'
 import { LayoutGrid } from '../shared/components/LayoutGrid'
 import { LoadLearn } from '../shared/logic/loadLearn'
 
@@ -20,25 +20,27 @@ export default function Learn() {
   const nextChar = lesson.characters[selectedCharIndex + 1] ?? null
 
   if (!lesson.characters.length) {
-    return null
+    throw new Error()
   }
 
   return (
-    <LayoutGrid
-      sideNav={{
-        title: <CharPickerTitle {...{ contentType, setContentType }} />,
-        content: <CharPickerContent {...{ contentType }} />,
-        selected: selectedCharIndex,
-      }}
-    >
-      <LearnAppbar lessonLength={CHARS.length} {...{ toolbarHeight, setToolbarHeight }} />
+    <>
+      <LearnAppbar lessonLength={CHARS.length} />
 
-      <LearnContent
-        lessonChar={selectedChar}
-        prevChar={prevChar?.charChinese}
-        nextChar={nextChar?.charChinese}
-        {...{ selectCharIndex, selectedCharIndex, toolbarHeight }}
-      />
-    </LayoutGrid>
+      <LayoutGrid
+        sideNav={{
+          title: <CharPickerTitle {...{ contentType, setContentType }} />,
+          content: <CharPickerContent {...{ contentType }} />,
+          selected: selectedCharIndex,
+        }}
+      >
+        <LearnContent
+          lessonChar={selectedChar}
+          prevChar={prevChar?.charChinese}
+          nextChar={nextChar?.charChinese}
+          {...{ selectCharIndex, selectedCharIndex, toolbarHeight }}
+        />
+      </LayoutGrid>
+    </>
   )
 }

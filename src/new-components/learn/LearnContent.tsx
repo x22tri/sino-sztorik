@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box'
-import { Button } from '@mui/material'
+import { Button, Stack, useTheme } from '@mui/material'
 import { Character } from '../shared/interfaces'
 import { LEARN_FINISH_LESSON_BUTTON } from '../shared/strings'
 import { Unless } from 'react-if'
@@ -14,6 +14,7 @@ import { CharacterSection } from './learn-content-sections/LearnContentSections'
 import { PhrasesAndOtherUsesSection } from './learn-content-sections/LearnContentSections'
 import { LESSON_SELECT_PATH } from '../shared/paths'
 import { PrevNextLinks } from '../shared/components/PrevNextLinks'
+import { useSmallScreen } from '../shared/hooks/useSmallScreen'
 
 export default function LearnContent({
   lessonChar,
@@ -30,7 +31,9 @@ export default function LearnContent({
   selectedCharIndex: number
   toolbarHeight: number
 }) {
+  const { constants, spacing } = useTheme()
   const { flashbackChar } = useStore('flashback')
+  const isSmallScreen = useSmallScreen()
 
   const currentChar = flashbackChar ?? lessonChar
 
@@ -43,54 +46,40 @@ export default function LearnContent({
   window.scrollTo({ top: 0 })
 
   return (
-    <Box
-      boxSizing='border-box'
-      component='main'
-      columnGap={6}
-      display='grid'
-      marginTop={`${toolbarHeight}px`}
-      minHeight={`calc(100vh - ${toolbarHeight}px)`}
-      padding={2}
-      paddingTop={0}
-      sx={{
-        bgcolor: 'background.paper',
-        grid: {
-          xs: `"learn" auto
-               "prev-next" max-content
-               / auto`,
-          lg: `"learn aside" max-content
-               "prev-next prev-next" auto
-               / 3fr 1fr`,
-        },
-      }}
-    >
-      <Box gridArea='learn'>
-        <CharacterSection {...{ currentChar }} />
+    <Box display='grid' gridTemplateColumns={{ xs: 'auto', lg: '3fr 1fr' }}>
+      <Stack component='main' p={2}>
+        <Box p={{ xs: 2, md: 4 }} boxShadow={constants.boxShadow} borderRadius={spacing(2)}>
+          <CharacterSection {...{ currentChar }} />
 
-        <ConstituentsSection {...{ constituents }} />
+          <ConstituentsSection {...{ constituents }} />
 
-        <StorySection {...{ story }} />
+          <StorySection {...{ story }} />
 
-        <PhrasesAndOtherUsesSection currentChar={charChinese} {...{ otherUses, phrases }} />
+          <PhrasesAndOtherUsesSection currentChar={charChinese} {...{ otherUses, phrases }} />
 
-        <SimilarMeaningSection {...{ similarMeaning }} />
+          <SimilarMeaningSection {...{ similarMeaning }} />
 
-        <SimilarAppearanceSection {...{ similarAppearance }} />
-      </Box>
+          <SimilarAppearanceSection {...{ similarAppearance }} />
+        </Box>
 
-      <Unless condition={!!flashbackChar}>
-        <PrevNextLinks
-          customEndElement={
-            <Button variant='contained' href={LESSON_SELECT_PATH} sx={{ borderRadius: 6 }}>
-              {LEARN_FINISH_LESSON_BUTTON}
-            </Button>
-          }
-          prevTitle={prevChar}
-          prevOnClick={() => selectCharIndex(selectedCharIndex - 1)}
-          nextTitle={nextChar}
-          nextOnClick={() => selectCharIndex(selectedCharIndex + 1)}
-        />
-      </Unless>
+        <Unless condition={!!flashbackChar}>
+          <PrevNextLinks
+            customEndElement={
+              <Button
+                variant='contained'
+                href={LESSON_SELECT_PATH}
+                sx={{ borderRadius: 6, width: isSmallScreen ? 1 : undefined }}
+              >
+                {LEARN_FINISH_LESSON_BUTTON}
+              </Button>
+            }
+            prevTitle={prevChar}
+            prevOnClick={() => selectCharIndex(selectedCharIndex - 1)}
+            nextTitle={nextChar}
+            nextOnClick={() => selectCharIndex(selectedCharIndex + 1)}
+          />
+        </Unless>
+      </Stack>
     </Box>
   )
 }

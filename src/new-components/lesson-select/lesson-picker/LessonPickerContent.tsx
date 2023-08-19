@@ -50,10 +50,7 @@ export function LessonPickerContent() {
                 {`${lessonNumber})`}
               </ListItemIcon>
 
-              <ListItemText
-                primary={title}
-                // sx={{ '.MuiListItemText-primary': { ...typography.titleSubtitle.title, fontSize: '90%' } }}
-              />
+              <ListItemText primary={title} sx={{ '.MuiListItemText-primary': { fontSize: '90%', fontWeight: 'bold' } }} />
 
               <When condition={isUpcoming}>
                 <ListItemIcon sx={{ justifyContent: 'end', minWidth: 0 }}>

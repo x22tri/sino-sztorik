@@ -9,14 +9,14 @@ import { LoadLessonSelect } from '../shared/logic/loadLessonSelect'
 import { LayoutGrid } from '../shared/components/LayoutGrid'
 
 export default function LessonSelect() {
-  const { selectedLesson } = useLoaderData() as LoadLessonSelect
-  const [toolbarHeight, setToolbarHeight] = useState(0)
+  // const { selectedLesson } = useLoaderData() as LoadLessonSelect
+  // const [toolbarHeight, setToolbarHeight] = useState(0)
   const params = useParams<{ lessonNumber: string }>()
   const lessonNumber = Number(params.lessonNumber)
 
   return (
     <>
-      <LessonSelectAppbar {...{ setToolbarHeight, toolbarHeight }} />
+      <LessonSelectAppbar />
 
       <LayoutGrid
         sideNav={{
@@ -25,10 +25,8 @@ export default function LessonSelect() {
           selected: lessonNumber - 1,
         }}
       >
-        <LessonSelectContent {...{ toolbarHeight }} />
+        <LessonSelectContent />
       </LayoutGrid>
-
-      {/* <LessonStart lesson={selectedLesson} /> */}
     </>
   )
 }
