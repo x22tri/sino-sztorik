@@ -8,6 +8,7 @@ import { Else, If, Then } from 'react-if'
 import { faLanguage } from '@fortawesome/free-solid-svg-icons'
 import { useLoaderData } from 'react-router-dom'
 import { AssembledLesson } from '../../shared/interfaces'
+import { LoadLearn } from '../../shared/logic/loadLearn'
 
 export function CharPickerTitle({
   contentType,
@@ -16,7 +17,7 @@ export function CharPickerTitle({
   contentType: 'characters' | 'preface'
   setContentType: Dispatch<SetStateAction<'characters' | 'preface'>>
 }) {
-  const lesson = useLoaderData() as AssembledLesson
+  const { lesson } = useLoaderData() as LoadLearn
   const { palette, spacing } = useTheme()
 
   return (

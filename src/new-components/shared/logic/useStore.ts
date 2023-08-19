@@ -1,4 +1,3 @@
-import Swiper from 'swiper'
 import { create } from 'zustand'
 import { Character } from '../interfaces'
 import { findFlashbackChar } from './findFlashbackChar'
@@ -12,9 +11,7 @@ const useBoundStore = create<Store>((set, get) => {
     flashback: {
       exitFlashback: () => {
         update('flashback', { flashbackChar: undefined })
-        get().swiper.swiperInstance?.enable()
         window.scrollTo({ top: 0 })
-        setTimeout(() => get().swiper.swiperInstance?.updateAutoHeight(), 200)
       },
       flashbackChar: undefined,
       startFlashback: (destination: string) => {
@@ -22,9 +19,7 @@ const useBoundStore = create<Store>((set, get) => {
 
         if (foundFlashbackChar) {
           update('flashback', { flashbackChar: foundFlashbackChar })
-          get().swiper.swiperInstance?.disable()
           window.scrollTo({ top: 0 })
-          setTimeout(() => get().swiper.swiperInstance?.updateAutoHeight(), 200)
         } else {
           console.log(`${destination} nem található`)
         }
@@ -40,11 +35,6 @@ const useBoundStore = create<Store>((set, get) => {
       selectedCharIndex: 0,
       selectCharIndex: (index: number) => update('learn', { selectedCharIndex: index }),
     },
-
-    swiper: {
-      setSwiperInstance: (swiperInstance: Swiper | undefined) => update('swiper', { swiperInstance }),
-      swiperInstance: undefined,
-    },
   }
 })
 
@@ -56,7 +46,6 @@ type Store = {
   flashback: FlashbackSlice
   learn: LearnSlice
   mobileDrawer: MobileDrawerSlice
-  swiper: SwiperState
 }
 
 interface FlashbackSlice {
@@ -73,9 +62,4 @@ interface LearnSlice {
 interface MobileDrawerSlice {
   isOpen: boolean
   toggleDrawer: () => void
-}
-
-interface SwiperState {
-  setSwiperInstance: (swiperInstance: Swiper | undefined) => void
-  swiperInstance: Swiper | undefined
 }

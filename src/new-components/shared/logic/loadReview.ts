@@ -8,5 +8,5 @@ export function loadReview({ params }: LoaderFunctionArgs) {
     return redirect('/')
   }
 
-  return lesson
+  return { lesson }
 }

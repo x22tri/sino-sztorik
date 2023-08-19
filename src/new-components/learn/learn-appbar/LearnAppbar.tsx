@@ -11,7 +11,6 @@ import { faChalkboard } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useStore } from '../../shared/logic/useStore'
 import { useLoaderData } from 'react-router-dom'
-import { AssembledLesson } from '../../shared/interfaces'
 import { ExitFlashbackButton } from './ExitFlashbackButton'
 import { FlashbackModeTitle } from './FlashbackModeTitle'
 import { useVerySmallScreen } from '../../shared/hooks/useVerySmallScreen'
@@ -35,7 +34,6 @@ export function LearnAppbar({
   const { flashbackChar } = useStore('flashback')
   const { selectedCharIndex } = useStore('learn')
   const { toggleDrawer } = useStore('mobileDrawer')
-  const { swiperInstance } = useStore('swiper')
   const { constants, spacing } = useTheme()
   const drawerWidth = isSmallScreen ? 0 : constants.drawerWidth
 

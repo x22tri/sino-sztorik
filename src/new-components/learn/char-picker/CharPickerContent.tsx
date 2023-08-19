@@ -10,10 +10,8 @@ export function CharPickerContent({ contentType }: { contentType: 'characters' |
   const { constants, palette, spacing } = useTheme()
   const { selectCharIndex, selectedCharIndex } = useStore('learn')
   const { toggleDrawer } = useStore('mobileDrawer')
-  const { swiperInstance } = useStore('swiper')
 
   function selectChar(index: number) {
-    swiperInstance?.slideTo(index)
     selectCharIndex(index)
     toggleDrawer()
   }

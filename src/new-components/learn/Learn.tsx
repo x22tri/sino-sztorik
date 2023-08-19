@@ -1,4 +1,3 @@
-import 'swiper/css'
 import { CHARS } from '../shared/MOCK_CHARS'
 import LearnContent from './LearnContent'
 import { LearnAppbar } from './learn-appbar/LearnAppbar'
