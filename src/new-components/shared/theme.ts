@@ -119,7 +119,7 @@ declare module '@mui/material/Typography' {
   }
 }
 
-let theme = responsiveFontSizes(
+export let theme = responsiveFontSizes(
   createTheme({
     components: {
       MuiAutocomplete: {

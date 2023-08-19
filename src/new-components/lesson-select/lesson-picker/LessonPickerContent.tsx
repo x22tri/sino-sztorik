@@ -33,7 +33,7 @@ export function LessonPickerContent() {
                 borderRadius: 6,
                 color: 'text.secondary',
                 // height: spacing(6),
-                mx: 0.5,
+                mx: 1,
                 my: 0.25,
                 transition: constants.animationDuration,
                 ':hover': { bgcolor: isUpcoming ? `${palette.primary.main}11` : undefined },

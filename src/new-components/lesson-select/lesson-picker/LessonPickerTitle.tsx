@@ -6,7 +6,7 @@ export function LessonPickerTitle() {
 
   return (
     <Box p={2} pb={1}>
-      <Typography variant='h5' fontWeight='bold' color={palette.grey[700]}>
+      <Typography variant='h5' fontWeight='bold'>
         {LESSON_SELECT_TITLE}
       </Typography>
     </Box>

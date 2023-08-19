@@ -50,7 +50,14 @@ export function LessonSelectAppbar({
     //   }}
     // >
     <>
-      <AppBar elevation={0} sx={{ bgcolor: 'background.paper', borderBottom: `1px solid ${palette.grey[200]}` }} position='fixed'>
+      <AppBar
+        elevation={0}
+        sx={{
+          bgcolor: 'background.paper',
+          // borderBottom: `1px solid ${palette.grey[200]}`
+        }}
+        position='fixed'
+      >
         <Toolbar
           disableGutters
           {...{ ref }}

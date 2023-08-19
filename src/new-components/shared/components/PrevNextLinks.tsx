@@ -31,7 +31,8 @@ export function PrevNextLinks({
       display='flex'
       gridArea='prev-next'
       width='100%'
-      marginTop={8}
+      pt={8}
+      mt='auto'
       sx={{ flexDirection: { xs: 'column', md: 'row' } }}
     >
       <When condition={!!prevTitle}>
