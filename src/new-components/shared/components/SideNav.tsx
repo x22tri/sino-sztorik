@@ -50,7 +50,6 @@ export function SideNav({ content, selected, title }: { content: JSX.Element; se
           top: isSmallScreen ? 0 : 64,
           position: 'fixed',
           width: `${constants.drawerWidth}px`,
-          // borderRight: `1px solid ${palette.grey[200]}`,
         }}
       >
         {content}

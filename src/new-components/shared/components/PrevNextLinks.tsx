@@ -29,10 +29,10 @@ export function PrevNextLinks({
     <Box
       alignItems='flex-end'
       display='flex'
+      gap={1}
       gridArea='prev-next'
       width='100%'
-      pt={8}
-      mt='auto'
+      mt={2}
       sx={{ flexDirection: { xs: 'column', md: 'row' } }}
     >
       <When condition={!!prevTitle}>
@@ -45,7 +45,7 @@ export function PrevNextLinks({
             startIcon={<FontAwesomeIcon icon={faChevronLeft} transform='shrink-4' />}
             size='large'
             variant='text'
-            sx={{ mr: 'auto', px: 2 }}
+            sx={{ justifyContent: 'flex-start', mr: 'auto', px: 2, width: { xs: 1, md: 'max-content' } }}
           >
             <TitleSubtitle title={PREV_NEXT_BUTTONS_PREV} subtitle={prevTitle!} subtitleStyles={{ lineHeight: 'initial' }} />
           </Button>
@@ -63,7 +63,7 @@ export function PrevNextLinks({
               to={nextTo}
               size='large'
               variant='text'
-              sx={{ ml: 'auto', px: 2 }}
+              sx={{ justifyContent: 'flex-end', ml: 'auto', px: 2, width: { xs: 1, md: 'max-content' } }}
             >
               <TitleSubtitle
                 title={PREV_NEXT_BUTTONS_NEXT}

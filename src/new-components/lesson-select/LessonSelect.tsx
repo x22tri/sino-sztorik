@@ -17,6 +17,7 @@ export default function LessonSelect() {
   return (
     <>
       <LessonSelectAppbar {...{ setToolbarHeight, toolbarHeight }} />
+
       <LayoutGrid
         sideNav={{
           title: <LessonPickerTitle />,
@@ -25,9 +26,9 @@ export default function LessonSelect() {
         }}
       >
         <LessonSelectContent {...{ toolbarHeight }} />
-
-        <LessonStart lesson={selectedLesson} />
       </LayoutGrid>
+
+      {/* <LessonStart lesson={selectedLesson} /> */}
     </>
   )
 }

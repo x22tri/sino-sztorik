@@ -29,21 +29,22 @@ export function LessonStart({ lesson }: { lesson: AssembledLesson }) {
       zIndex={1}
       sx={{
         bgcolor: 'background.paper',
-        maxWidth: `calc(${constants.maxContentWidth} - ${drawerWidth}px)`,
-        width: `calc(100% - ${drawerWidth}px)`,
+        width: 1,
+        // maxWidth: `calc(${constants.maxContentWidth} - ${drawerWidth}px)`,
+        // width: `calc(100% - ${drawerWidth}px)`,
       }}
     >
-      <TierStatusIcons {...{ tierStatuses }} />
+      {/* <TierStatusIcons {...{ tierStatuses }} /> */}
 
-      <When condition={lesson.characters.length}>
-        <LearnReviewButton />
+      {/* <When condition={lesson.characters.length}> */}
+      <LearnReviewButton />
 
-        <Unless condition={isLargeScreen}>
+      {/* <Unless condition={isLargeScreen}>
           <Typography color='text.secondary' justifySelf='flex-end' variant='overline'>
             {characters.length} {CHARACTER_AMOUNT_LABEL}
           </Typography>
-        </Unless>
-      </When>
+        </Unless> */}
+      {/* </When> */}
     </Box>
   )
 }

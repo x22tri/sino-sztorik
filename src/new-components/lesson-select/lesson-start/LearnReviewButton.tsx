@@ -1,5 +1,5 @@
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
-import { Button, MenuItem, Typography, Menu, Box } from '@mui/material'
+import { Button, MenuItem, Typography, Menu, Box, useTheme } from '@mui/material'
 import { useState, useRef, RefObject, useEffect } from 'react'
 import { LEARN_BUTTON, LESSON_START_MORE_OPTIONS } from '../../shared/strings'
 import { Unless, When } from 'react-if'
@@ -82,6 +82,7 @@ function ButtonWithModeSwitcher({
   clickModeSwitcher: () => void
 }) {
   const [{ link, buttonText }, setSelectedButton] = useState(learnReviewOptions[selectedModeIndex])
+  const { palette } = useTheme()
 
   useEffect(() => {
     if (learnReviewOptions[selectedModeIndex]) {
@@ -90,18 +91,20 @@ function ButtonWithModeSwitcher({
   }, [learnReviewOptions, selectedModeIndex])
 
   return (
-    <Box display='flex' gap={2} sx={{ maxWidth: '300px' }}>
+    <Box display='flex' gap={1} sx={{ maxWidth: { xs: undefined, lg: '300px' }, mx: 'auto' }}>
       <Button component={Link} to={link} variant={buttonText === LEARN_BUTTON ? 'contained' : 'outlined'} sx={{ width: 1 }}>
         {buttonText}
       </Button>
 
       <When condition={learnReviewOptions.length > 1}>
         <ToolbarButton
+          color='primary'
           icon={faEllipsisVertical}
           innerRef={anchorRef}
           onClick={clickModeSwitcher}
           size='small'
           tooltip={LESSON_START_MORE_OPTIONS}
+          sx={{ border: `2px solid ${palette.primary.main}` }}
         />
       </When>
     </Box>

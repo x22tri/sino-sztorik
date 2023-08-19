@@ -1,5 +1,5 @@
 import Typography from '@mui/material/Typography'
-import { Box, Divider, Stack, useTheme } from '@mui/material'
+import { Box, Card, Divider, Stack, useTheme } from '@mui/material'
 import { useLargeScreen } from '../../shared/hooks/useLargeScreen'
 import { When } from 'react-if'
 import { CharacterPreviews } from '../lesson-start/CharacterPreviews'
@@ -9,12 +9,15 @@ import { PrevNextLinks } from '../../shared/components/PrevNextLinks'
 import { LESSON_SELECT_PATH } from '../../shared/paths'
 import { TierStatusIcons } from '../lesson-picker/TierStatusIcons'
 import { CHARACTER_AMOUNT_LABEL } from '../../shared/strings'
+import { LearnReviewButton } from '../lesson-start/LearnReviewButton'
+import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 
 export default function LessonSelectContent({ toolbarHeight }: { toolbarHeight: number }) {
+  const isSmallScreen = useSmallScreen()
   const isLargeScreen = useLargeScreen()
-  const { constants } = useTheme()
+  const { constants, spacing } = useTheme()
   const { nextLesson, prevLesson, selectedLesson } = useLoaderData() as LoadLessonSelect
-  const { characters, tierStatuses, title, preface } = selectedLesson
+  const { characters, tierStatuses, title, preface, lessonNumber } = selectedLesson
 
   return (
     <Box display='grid' gridTemplateColumns={{ xs: 'auto', lg: '3fr 1fr' }}>
@@ -24,8 +27,8 @@ export default function LessonSelectContent({ toolbarHeight }: { toolbarHeight: 
         columnGap={6}
         // display='grid'
         // marginTop={`${toolbarHeight}px`}
-        marginBottom={constants.bottomToolbarHeight}
-        minHeight={`calc(100vh - ${toolbarHeight}px - ${constants.bottomToolbarHeight})`}
+        // marginBottom={constants.bottomToolbarHeight}
+        minHeight={`calc(100vh - ${toolbarHeight}px)`}
         padding={2}
         sx={{
           bgcolor: 'background.paper',
@@ -41,29 +44,42 @@ export default function LessonSelectContent({ toolbarHeight }: { toolbarHeight: 
           // },
         }}
       >
-        <Typography gridArea='title' textAlign='center' variant='h4' fontSize='175% !important'>
-          {title}
-        </Typography>
+        <Box p={{ xs: 2, md: 4 }} boxShadow={constants.boxShadow} borderRadius={spacing(2)}>
+          <Typography color='text.secondary' textAlign='center' variant='h6' mt={{ xs: 2, md: 0 }}>
+            {lessonNumber}. lecke
+          </Typography>
 
-        <When condition={!isLargeScreen}>
-          <Stack
-            alignItems='center'
-            direction='row'
-            divider={<Divider flexItem orientation='vertical' sx={{ mx: 2 }} />}
-            mx='auto'
-            mt={1}
-          >
-            <TierStatusIcons {...{ tierStatuses }} />
+          <Typography textAlign='center' variant='h4' fontSize='175% !important'>
+            {title}
+          </Typography>
 
-            <Typography color='text.secondary' variant='h6'>
-              {characters.length} {CHARACTER_AMOUNT_LABEL}
-            </Typography>
-          </Stack>
-        </When>
+          <When condition={!isLargeScreen}>
+            <Stack
+              alignItems='center'
+              justifyContent='center'
+              direction='row'
+              divider={<Divider flexItem orientation='vertical' sx={{ mx: 2 }} />}
+              mx='auto'
+              mt={1}
+            >
+              <TierStatusIcons {...{ tierStatuses }} />
 
-        <Typography component='p' gridArea='preface' marginTop={3}>
-          {preface}
-        </Typography>
+              <Typography color='text.secondary' variant='h6'>
+                {characters.length} {CHARACTER_AMOUNT_LABEL}
+              </Typography>
+            </Stack>
+          </When>
+
+          <Typography component='p' gridArea='preface' marginY={3}>
+            {preface}
+          </Typography>
+
+          <LearnReviewButton />
+        </Box>
+
+        {/* <When condition={isSmallScreen}>
+          <LearnReviewButton />
+        </When> */}
 
         <PrevNextLinks
           prevTitle={prevLesson?.title}
