@@ -1,5 +1,5 @@
 import { faGraduationCap } from '@fortawesome/free-solid-svg-icons'
-import { Box, Toolbar, useTheme } from '@mui/material'
+import { AppBar, Box, Toolbar, useTheme } from '@mui/material'
 import { When } from 'react-if'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import LogoTitle from '../../shared/components/LogoTitle'
@@ -16,7 +16,7 @@ export function LessonSelectAppbar({
   setToolbarHeight: Dispatch<SetStateAction<number>>
   toolbarHeight: number
 }) {
-  const { constants } = useTheme()
+  const { constants, palette } = useTheme()
   const isSmallScreen = useSmallScreen()
   const ref = useRef<HTMLDivElement | null>(null)
   const { toggleDrawer } = useStore('mobileDrawer')
@@ -38,26 +38,41 @@ export function LessonSelectAppbar({
   }
 
   return (
-    <Box
-      component='header'
-      position='fixed'
-      sx={{
-        bgcolor: 'background.paper',
-        maxWidth: `calc(${constants.maxContentWidth} - ${drawerWidth}px)`,
-        top: 0,
-        width: `calc(100% - ${drawerWidth}px)`,
-        zIndex: 1,
-      }}
-    >
-      <Toolbar disableGutters {...{ ref }} sx={{ justifyContent: 'space-between', px: { xs: 1, sm: 2 } }}>
-        <When condition={isSmallScreen}>
-          <ToolbarButton icon={faGraduationCap} onClick={toggleDrawer} tooltip={LESSON_SELECT_TITLE} />
-        </When>
+    // <Box
+    //   component='header'
+    //   position='fixed'
+    //   sx={{
+    //     bgcolor: 'background.paper',
+    //     // maxWidth: `calc(${constants.maxContentWidth} - ${drawerWidth}px)`,
+    //     top: 0,
+    //     // width: `calc(100% - ${drawerWidth}px)`,
+    //     zIndex: 1,
+    //   }}
+    // >
+    <>
+      <AppBar elevation={0} sx={{ bgcolor: 'background.paper', borderBottom: `1px solid ${palette.grey[200]}` }} position='fixed'>
+        <Toolbar
+          disableGutters
+          {...{ ref }}
+          sx={{
+            justifyContent: 'space-between',
+            m: 'auto',
+            width: 1,
+            maxWidth: constants.maxContentWidth,
+            px: { xs: 1, sm: 2 },
+          }}
+        >
+          <When condition={isSmallScreen}>
+            <ToolbarButton icon={faGraduationCap} onClick={toggleDrawer} tooltip={LESSON_SELECT_TITLE} />
+          </When>
 
-        <LogoTitle />
+          <LogoTitle />
 
-        <ProfileMenu />
-      </Toolbar>
-    </Box>
+          <ProfileMenu />
+        </Toolbar>
+      </AppBar>
+      <Toolbar />
+    </>
+    // </Box>
   )
 }

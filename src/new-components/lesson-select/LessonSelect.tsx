@@ -15,18 +15,19 @@ export default function LessonSelect() {
   const lessonNumber = Number(params.lessonNumber)
 
   return (
-    <LayoutGrid
-      sideNav={{
-        title: <LessonPickerTitle />,
-        content: <LessonPickerContent />,
-        selected: lessonNumber - 1,
-      }}
-    >
+    <>
       <LessonSelectAppbar {...{ setToolbarHeight, toolbarHeight }} />
+      <LayoutGrid
+        sideNav={{
+          title: <LessonPickerTitle />,
+          content: <LessonPickerContent />,
+          selected: lessonNumber - 1,
+        }}
+      >
+        <LessonSelectContent {...{ toolbarHeight }} />
 
-      <LessonSelectContent {...{ toolbarHeight }} />
-
-      <LessonStart lesson={selectedLesson} />
-    </LayoutGrid>
+        <LessonStart lesson={selectedLesson} />
+      </LayoutGrid>
+    </>
   )
 }

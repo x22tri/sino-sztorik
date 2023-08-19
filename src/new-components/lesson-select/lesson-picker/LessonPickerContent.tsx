@@ -29,11 +29,12 @@ export function LessonPickerContent() {
               to={`${LESSON_SELECT_PATH}/${lessonNumber}`}
               selected={selectedLessonNumber === lessonNumber}
               sx={{
-                border: isUpcoming ? `2px solid ${palette.primary.main}` : 'none',
+                // border: isUpcoming ? `2px solid ${palette.primary.main}` : 'none',
                 borderRadius: 6,
                 color: 'text.secondary',
-                height: spacing(6),
-                m: 1,
+                // height: spacing(6),
+                mx: 0.5,
+                my: 0.25,
                 transition: constants.animationDuration,
                 ':hover': { bgcolor: isUpcoming ? `${palette.primary.main}11` : undefined },
                 '&.Mui-selected': {
@@ -51,7 +52,7 @@ export function LessonPickerContent() {
 
               <ListItemText
                 primary={title}
-                sx={{ '.MuiListItemText-primary': { ...typography.titleSubtitle.title, fontSize: '90%' } }}
+                // sx={{ '.MuiListItemText-primary': { ...typography.titleSubtitle.title, fontSize: '90%' } }}
               />
 
               <When condition={isUpcoming}>

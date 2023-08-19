@@ -35,7 +35,7 @@ export const LEARN_BUTTON_EXPLANATION = 'Új karakterek tanulása'
 export const REVIEW_BUTTON = 'Ismétlés'
 export const REVIEW_BUTTON_EXPLANATION = 'Előző körök karaktereinek átnézése'
 
-export const LESSON_SELECT_TITLE = 'Leckeválasztó'
+export const LESSON_SELECT_TITLE = 'Leckék'
 export const CHARACTER_SEARCH_TITLE = 'Karakterkereső'
 
 export const LESSON_START_MORE_OPTIONS = 'További lehetőségek'

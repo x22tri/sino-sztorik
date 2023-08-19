@@ -2,7 +2,7 @@ import { useState, MouseEvent } from 'react'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { TOP_NAV_TOOLTIP, TOP_NAV_ACCOUNT, TOP_NAV_LOGOUT } from '../../shared/strings'
-import { faArrowRightFromBracket, faBars, faGear } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRightFromBracket, faBars, faGear, faUser } from '@fortawesome/free-solid-svg-icons'
 import ToolbarButton from '../../shared/components/ToolbarButton'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -18,7 +18,7 @@ export function ProfileMenu() {
 
   return (
     <>
-      <ToolbarButton icon={faBars} onClick={openMenu} tooltip={TOP_NAV_TOOLTIP} />
+      <ToolbarButton icon={faUser} onClick={openMenu} tooltip={TOP_NAV_TOOLTIP} />
 
       <Menu
         anchorEl={anchor}

@@ -13,7 +13,7 @@ export function SideNav({ content, selected, title }: { content: JSX.Element; se
   const isSmallScreen = useSmallScreen()
   const ref = useRef<HTMLUListElement>(null)
   const { isOpen, toggleDrawer } = useStore('mobileDrawer')
-  const { constants } = useTheme()
+  const { constants, palette } = useTheme()
   const { height } = useWindowSize()
 
   function scrollToItem(index: number): void {
@@ -47,9 +47,10 @@ export function SideNav({ content, selected, title }: { content: JSX.Element; se
           bottom: 0,
           gridArea: 'drawer',
           overflowY: 'auto',
-          top: 0,
+          top: 64,
           position: 'fixed',
           width: `${constants.drawerWidth}px`,
+          borderRight: `1px solid ${palette.grey[200]}`,
         }}
       >
         {content}

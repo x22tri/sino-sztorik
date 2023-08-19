@@ -20,7 +20,7 @@ export default function LessonSelectContent({ toolbarHeight }: { toolbarHeight: 
       component='main'
       columnGap={6}
       display='grid'
-      marginTop={`${toolbarHeight}px`}
+      // marginTop={`${toolbarHeight}px`}
       marginBottom={constants.bottomToolbarHeight}
       minHeight={`calc(100vh - ${toolbarHeight}px - ${constants.bottomToolbarHeight})`}
       padding={2}
