@@ -14,11 +14,11 @@ export function CharacterPreviewsDemo({ characters, currentTier }: { characters:
       margin='auto'
       width='fit-content'
     >
-      {characters.map(({ charChinese, tier }) => {
+      {characters.map(({ glyph, tier }) => {
         const isEligibleForChar = tier <= currentTier
 
         return (
-          <Grid component='span' key={charChinese} xs={3} sm={2}>
+          <Grid component='span' key={glyph} xs={3} sm={2}>
             <Typography
               bgcolor={isEligibleForChar ? 'grey.100' : 'transparent'}
               color={isEligibleForChar ? 'text.primary' : 'transparent'}
@@ -36,7 +36,7 @@ export function CharacterPreviewsDemo({ characters, currentTier }: { characters:
                 p: 1,
               }}
             >
-              {charChinese}
+              {glyph}
             </Typography>
           </Grid>
         )

@@ -26,7 +26,7 @@ export function ConstituentsSection() {
 
   function addConstituent(newValue: Character, reason: AutocompleteChangeReason) {
     if (reason === 'selectOption') {
-      setValue('constituents', [...getValues('constituents'), newValue.charChinese])
+      setValue('constituents', [...getValues('constituents'), newValue.glyph])
     }
   }
 
@@ -37,7 +37,7 @@ export function ConstituentsSection() {
   }
 
   function filterOptions(options: Character[], { inputValue }: { inputValue: string }) {
-    return matchSorter(options, inputValue, { keys: ['charChinese', 'primitiveMeaning', 'keyword'] })
+    return matchSorter(options, inputValue, { keys: ['glyph', 'primitiveMeaning', 'keyword'] })
   }
 
   return (
@@ -47,7 +47,7 @@ export function ConstituentsSection() {
         render={({ field: { value } }) => (
           <Box display={value.length ? 'flex' : 'none'} gap={2}>
             {(value as string[]).map((constituent, index) => (
-              <Constituent charChinese={constituent} key={index} {...{ index, removeConstituent }} />
+              <Constituent glyph={constituent} key={index} {...{ index, removeConstituent }} />
             ))}
           </Box>
         )}
@@ -55,7 +55,7 @@ export function ConstituentsSection() {
 
       <Autocomplete
         disableClearable
-        getOptionLabel={option => (option as Character).charChinese}
+        getOptionLabel={option => (option as Character).glyph}
         isOptionEqualToValue={(option, newValue) => option.id === newValue.id}
         noOptionsText='Nincs találat'
         options={CHARS.map(char => char)}
@@ -80,11 +80,11 @@ export function ConstituentsSection() {
 }
 
 function Constituent({
-  charChinese,
+  glyph,
   index,
   removeConstituent,
 }: {
-  charChinese: string
+  glyph: string
   index: number
   removeConstituent: (index: number) => void
 }) {
@@ -106,7 +106,7 @@ function Constituent({
         </IconButton>
       </Tooltip>
 
-      {charChinese}
+      {glyph}
     </Typography>
   )
 }
@@ -117,7 +117,7 @@ function SearchRow({ props, option }: { props: React.HTMLAttributes<HTMLLIElemen
   return (
     <Box component='li' display='flex' {...props} sx={{ '&.Mui-selected': { bgcolor: 'red' } }}>
       <Typography component='span' variant='chineseText' fontSize='120%' mr={2}>
-        {option.charChinese}
+        {option.glyph}
       </Typography>
 
       <When condition={'keyword' in option}>

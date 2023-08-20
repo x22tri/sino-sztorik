@@ -1,7 +1,7 @@
 import { Blueprint } from '../admin/Blueprint'
 
 export interface CharacterEntryV2 {
-  charChinese: string
+  glyph: string
   lessonNumber: number
   phrases?: number[]
   similars?: number[]
@@ -17,7 +17,7 @@ export interface CharacterEntryV2 {
 export type OtherUse = { pinyin: string; meanings: string[] }
 
 export interface CharacterEntryV3 {
-  charChinese: string
+  glyph: string
   explanation?: string
   lessonNumber: number
   phrases?: number[]
@@ -83,7 +83,7 @@ export interface WithheldConstituentsOccurrence extends SetOccurrence {
 
 export interface CharacterEntry {
   blueprint: Blueprint
-  charChinese: string
+  glyph: string
   lessonNumber: number
   phrases?: number[]
   similars?: number[]
@@ -104,7 +104,7 @@ export interface CharacterEntryVariant {
 }
 
 export const CHAR_ENTRY_V3: CharacterEntryV3 = {
-  charChinese: '早',
+  glyph: '早',
   constituents: ['日', '十'], // Call getUnlockedMeanings before presenting to the user.
   frequency: 462,
   lessonNumber: 2,
@@ -179,7 +179,7 @@ export const CHAR_ENTRY_V3: CharacterEntryV3 = {
 }
 
 export const CHAR_ENTRY_V2: CharacterEntryV2 = {
-  charChinese: '早',
+  glyph: '早',
   constituents: ['日', '十'], // Call getUnlockedMeanings before presenting to the user.
   frequency: 462,
   lessonNumber: 2,
@@ -257,7 +257,7 @@ export const CHAR_ENTRY_V2: CharacterEntryV2 = {
 
 export const CHAR_ENTRY: CharacterEntry = {
   blueprint: Blueprint.DelayedPrimitive,
-  charChinese: '早',
+  glyph: '早',
   lessonNumber: 2,
   phrases: [1, 2], // An array of phrase ID's.
   similars: [3], // An array of "similar" ID's.
@@ -333,9 +333,9 @@ export const CHAR_ENTRY: CharacterEntry = {
 
 export const LESSON_ENTRY = {
   characters: [
-    { charChinese: '古', tier: 1 }, // Call getUnlockedMeanings upon hover.
-    { charChinese: '咕', tier: 2 },
-    { charChinese: '早', tier: 1 },
+    { glyph: '古', tier: 1 }, // Call getUnlockedMeanings upon hover.
+    { glyph: '咕', tier: 2 },
+    { glyph: '早', tier: 1 },
   ],
   lessonNumber: 2,
   title: 'Több, mint a részek összege',
@@ -347,8 +347,8 @@ export const LESSON_ENTRY = {
 
 const PHRASE_ENTRY = {
   characters: [
-    { charChinese: '早', pinyin: 'zǎo' }, // Call getUnlockedMeanings before presenting to the user in Character Finder.
-    { charChinese: '安', pinyin: 'ān' },
+    { glyph: '早', pinyin: 'zǎo' }, // Call getUnlockedMeanings before presenting to the user in Character Finder.
+    { glyph: '安', pinyin: 'ān' },
   ],
   meaning: 'jó reggelt',
   id: 1,
@@ -358,8 +358,8 @@ const PHRASE_ENTRY = {
 
 const SIMILAR_ENTRY = {
   characters: [
-    { charChinese: '妻', pinyin: 'qī', unlockedAt: { tier: 1, lesson: 53, index: 11 } },
-    { charChinese: '安', pinyin: 'ān', similarToPrimitive: true, unlockedAt: { tier: 2, lesson: 12, index: 18 } }, // First occurrence of primitive
+    { glyph: '妻', pinyin: 'qī', unlockedAt: { tier: 1, lesson: 53, index: 11 } },
+    { glyph: '安', pinyin: 'ān', similarToPrimitive: true, unlockedAt: { tier: 2, lesson: 12, index: 18 } }, // First occurrence of primitive
   ],
   id: 1,
   type: 'meaning',
@@ -371,9 +371,9 @@ const SIMILAR_ENTRY = {
 
 const SIMILAR_ENTRY_2 = {
   characters: [
-    { charChinese: '的', pinyin: 'de', unlockedAt: { tier: 1, lesson: 5, index: 10 } }, // Call getUnlockedMeanings.
-    { charChinese: '其', pinyin: 'qí', unlockedAt: { tier: 1, lesson: 80, index: 6 } },
-    { charChinese: '之', pinyin: 'zhī', unlockedAt: { tier: 1, lesson: 56, index: 5 } },
+    { glyph: '的', pinyin: 'de', unlockedAt: { tier: 1, lesson: 5, index: 10 } }, // Call getUnlockedMeanings.
+    { glyph: '其', pinyin: 'qí', unlockedAt: { tier: 1, lesson: 80, index: 6 } },
+    { glyph: '之', pinyin: 'zhī', unlockedAt: { tier: 1, lesson: 56, index: 5 } },
   ],
   id: 2,
   type: 'meaning',
@@ -381,8 +381,8 @@ const SIMILAR_ENTRY_2 = {
 
 const SIMILAR_ENTRY_3 = {
   characters: [
-    { charChinese: '早', pinyin: 'zǎo', unlockedAt: { tier: 1, lesson: 2, index: 11 } },
-    { charChinese: '晨', pinyin: 'chén', unlockedAt: { tier: 2, lesson: 90, index: 2 } },
+    { glyph: '早', pinyin: 'zǎo', unlockedAt: { tier: 1, lesson: 2, index: 11 } },
+    { glyph: '晨', pinyin: 'chén', unlockedAt: { tier: 2, lesson: 90, index: 2 } },
   ],
   id: 3,
   type: 'meaning',
@@ -390,8 +390,8 @@ const SIMILAR_ENTRY_3 = {
 
 const SIMILAR_ENTRY_4 = {
   characters: [
-    { charChinese: '叨', pinyin: 'dāo', unlockedAt: { tier: 2, lesson: 6, index: 3 } },
-    { charChinese: '召', pinyin: 'zhào', unlockedAt: { tier: 2, lesson: 6, index: 5 } },
+    { glyph: '叨', pinyin: 'dāo', unlockedAt: { tier: 2, lesson: 6, index: 3 } },
+    { glyph: '召', pinyin: 'zhào', unlockedAt: { tier: 2, lesson: 6, index: 5 } },
   ],
   id: 3,
   type: 'appearance',

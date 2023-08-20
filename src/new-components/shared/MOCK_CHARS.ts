@@ -2,14 +2,14 @@ import { Character } from './interfaces'
 
 export const CHARS: Character[] = [
   {
-    charChinese: '一',
+    glyph: '一',
     frequency: 2,
     id: 1,
     keyword: 'egy',
     pinyin: 'yī',
     primitiveMeaning: 'plafon, padló',
     reminder: true,
-    similarMeaning: [{ charChinese: '壹', keyword: 'egyes' }],
+    similarMeaning: [{ glyph: '壹', keyword: 'egyes' }],
     story: [
       [
         'Az ',
@@ -35,7 +35,7 @@ export const CHARS: Character[] = [
     ],
   },
   {
-    charChinese: '止',
+    glyph: '止',
     frequency: 596,
     id: 2,
     keyword: 'megáll',
@@ -45,8 +45,8 @@ export const CHARS: Character[] = [
         phraseChinese: '停止',
         phraseHungarian: 'abbahagy; abbamarad',
         characters: [
-          { pinyin: 'tíng', charChinese: '停', keyword: 'leáll' },
-          { pinyin: 'zhĭ', charChinese: '止', keyword: 'megáll', primitiveMeaning: 'lábnyom' },
+          { pinyin: 'tíng', glyph: '停', keyword: 'leáll' },
+          { pinyin: 'zhĭ', glyph: '止', keyword: 'megáll', primitiveMeaning: 'lábnyom' },
         ],
       },
     ],
@@ -64,15 +64,15 @@ export const CHARS: Character[] = [
     ],
   },
   {
-    charChinese: '正',
+    glyph: '正',
     constituents: [
       {
-        charChinese: '一',
+        glyph: '一',
         keyword: 'egy',
         primitiveMeaning: 'plafon, padló',
       },
       {
-        charChinese: '止',
+        glyph: '止',
         keyword: 'megáll',
         primitiveMeaning: 'lábnyom',
       },
@@ -91,42 +91,42 @@ export const CHARS: Character[] = [
         phraseChinese: '正好',
         phraseHungarian: 'pont jó',
         characters: [
-          { pinyin: 'zhèng', charChinese: '正', keyword: 'helyes', primitiveMeaning: 'ortopéd cipő' },
-          { pinyin: 'hăo', charChinese: '好', keyword: 'jó' },
+          { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitiveMeaning: 'ortopéd cipő' },
+          { pinyin: 'hăo', glyph: '好', keyword: 'jó' },
         ],
       },
       {
         phraseChinese: '真正',
         phraseHungarian: 'valódi',
         characters: [
-          { pinyin: 'zhēn', charChinese: '真', keyword: 'tényleg', primitiveMeaning: 'hazugságvizsgáló' },
-          { pinyin: 'zhèng', charChinese: '正', keyword: 'helyes', primitiveMeaning: 'ortopéd cipő' },
+          { pinyin: 'zhēn', glyph: '真', keyword: 'tényleg', primitiveMeaning: 'hazugságvizsgáló' },
+          { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitiveMeaning: 'ortopéd cipő' },
         ],
       },
       {
         phraseChinese: '光明正大',
         phraseHungarian: 'tisztességes, elvhű',
         characters: [
-          { pinyin: 'guāng', charChinese: '光', keyword: 'sugár' },
-          { pinyin: 'míng', charChinese: '明', keyword: 'világos' },
-          { pinyin: 'zhèng', charChinese: '正', keyword: 'helyes', primitiveMeaning: 'ortopéd cipő' },
-          { pinyin: 'dà', charChinese: '大', keyword: 'nagy', primitiveMeaning: 'bernáthegyi' },
+          { pinyin: 'guāng', glyph: '光', keyword: 'sugár' },
+          { pinyin: 'míng', glyph: '明', keyword: 'világos' },
+          { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitiveMeaning: 'ortopéd cipő' },
+          { pinyin: 'dà', glyph: '大', keyword: 'nagy', primitiveMeaning: 'bernáthegyi' },
         ],
       },
       {
         phraseChinese: '正视',
         phraseHungarian: 'szemtől szemben kiáll ellene',
         characters: [
-          { pinyin: 'zhèng', charChinese: '正', keyword: 'helyes', primitiveMeaning: 'ortopéd cipő' },
-          { pinyin: 'shì', charChinese: '视', keyword: 'megszemlél' },
+          { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitiveMeaning: 'ortopéd cipő' },
+          { pinyin: 'shì', glyph: '视', keyword: 'megszemlél' },
         ],
       },
       {
         phraseChinese: '正则',
         phraseHungarian: 'szabályos (síkidom)',
         characters: [
-          { pinyin: 'zhèng', charChinese: '正', keyword: 'helyes', primitiveMeaning: 'ortopéd cipő' },
-          { pinyin: 'zé', charChinese: '则', keyword: 'szabály' },
+          { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitiveMeaning: 'ortopéd cipő' },
+          { pinyin: 'zé', glyph: '则', keyword: 'szabály' },
         ],
       },
     ],
@@ -152,10 +152,10 @@ export const CHARS: Character[] = [
     ],
   },
   {
-    charChinese: '证',
+    glyph: '证',
     constituents: [
-      { charChinese: '讠', primitiveMeaning: 'szavak' },
-      { charChinese: '正', keyword: 'helyes', primitiveMeaning: 'ortopéd cipő' },
+      { glyph: '讠', primitiveMeaning: 'szavak' },
+      { glyph: '正', keyword: 'helyes', primitiveMeaning: 'ortopéd cipő' },
     ],
     frequency: 373,
     id: 4,

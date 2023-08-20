@@ -55,7 +55,7 @@ export interface AssembledLesson {
 
 export type UseKeydownAction = { on: string; do: () => void }
 
-export type ReferencedChar = Pick<Character, 'keyword' | 'primitiveMeaning'> & Pick<Character, 'charChinese'>
+export type ReferencedChar = Pick<Character, 'keyword' | 'primitiveMeaning'> & Pick<Character, 'glyph'>
 
 export interface Phrase {
   phraseChinese: string
@@ -73,7 +73,7 @@ export type SimilarMeaning = ReferencedChar & { similarToPrimitive?: boolean }
 export type SimilarAppearance = ReferencedChar
 
 export interface Character {
-  charChinese: string
+  glyph: string
   constituents?: ReferencedChar[]
   explanation?: string
   frequency?: number

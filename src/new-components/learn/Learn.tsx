@@ -36,8 +36,8 @@ export default function Learn() {
       >
         <LearnContent
           lessonChar={selectedChar}
-          prevChar={prevChar?.charChinese}
-          nextChar={nextChar?.charChinese}
+          prevChar={prevChar?.glyph}
+          nextChar={nextChar?.glyph}
           {...{ selectCharIndex, selectedCharIndex, toolbarHeight }}
         />
       </LayoutGrid>

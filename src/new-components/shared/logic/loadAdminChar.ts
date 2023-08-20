@@ -33,8 +33,7 @@ function calculateIndexesInLesson(character: CharacterEntryV3) {
 
   return new Array(1, 2, 3, 4).map(
     tier =>
-      lesson.characters
-        .filter(c => c.tier === tier || c.charChinese === character.charChinese)
-        .findIndex(c => c.charChinese === character.charChinese) + 1
+      lesson.characters.filter(c => c.tier === tier || c.glyph === character.glyph).findIndex(c => c.glyph === character.glyph) +
+      1
   ) as CalculatedIndexes
 }

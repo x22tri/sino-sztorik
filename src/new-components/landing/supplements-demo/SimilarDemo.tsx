@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material'
 
-export function SimilarDemo({ charChinese, keyword }: { charChinese: string; keyword: string }) {
+export function SimilarDemo({ glyph, keyword }: { glyph: string; keyword: string }) {
   return (
     <Box
       alignItems='center'
@@ -15,7 +15,7 @@ export function SimilarDemo({ charChinese, keyword }: { charChinese: string; key
       </Typography>
 
       <Typography component='span' gridArea='char' variant='chineseText'>
-        {charChinese}
+        {glyph}
       </Typography>
 
       <Typography component='span' gridArea='keyword' variant='h5' fontWeight='bold'>

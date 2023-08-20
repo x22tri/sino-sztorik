@@ -4,13 +4,13 @@ import { Segment as SegmentType } from '../../shared/interfaces'
 import { StorySegmentResolverDemo } from './StorySegmentResolverDemo'
 
 export function DemoedChar({ char, onLinkClick }: { char: DemoContentChar; onLinkClick: (char: string) => void }) {
-  const { charChinese, keyword, story } = char
+  const { glyph, keyword, story } = char
 
   return (
     <Box
       bgcolor='background.paper'
       borderRadius={1}
-      key={charChinese} // Resets animation on charChinese change.
+      key={glyph} // Resets animation on glyph change.
       marginX='auto'
       maxWidth='28ch'
       padding={1}
@@ -23,7 +23,7 @@ export function DemoedChar({ char, onLinkClick }: { char: DemoContentChar; onLin
       }}
     >
       <Typography display='flex' justifyContent='center' variant='chineseText' fontSize={80} width={1}>
-        {charChinese}
+        {glyph}
       </Typography>
 
       <Typography display='flex' justifyContent='center' variant='h4'>

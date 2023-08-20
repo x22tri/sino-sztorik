@@ -5,13 +5,13 @@ import { faCube } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export function ChineseCharLink({
-  charChinese,
+  glyph,
   currentChar,
   keyword,
   pinyin,
   primitiveMeaning,
 }: {
-  charChinese: string
+  glyph: string
   currentChar: string
   keyword?: string
   pinyin?: string
@@ -21,21 +21,21 @@ export function ChineseCharLink({
   const [open, setOpen] = useState(false)
   const { constants, spacing } = useTheme()
 
-  const isCurrentChar = currentChar === charChinese
+  const isCurrentChar = currentChar === glyph
 
   return (
     <>
       <Box component='ruby' minWidth='42px' textAlign='center'>
         <Link
           display='inline-block'
-          onClick={() => console.log(`navigate to ${charChinese}`)}
+          onClick={() => console.log(`navigate to ${glyph}`)}
           onMouseEnter={() => setOpen(true)}
           onMouseLeave={() => setOpen(false)}
           ref={anchorEl}
           typography='chineseText'
           fontWeight={isCurrentChar ? 500 : 400}
         >
-          {charChinese}
+          {glyph}
         </Link>
         <rp>(</rp>
         <Box component='rt' fontWeight={isCurrentChar ? 500 : 400} typography='pinyin' marginBottom={spacing(1)}>

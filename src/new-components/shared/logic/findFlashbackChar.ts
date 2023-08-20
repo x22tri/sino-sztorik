@@ -2,7 +2,7 @@ import { CHARS } from '../MOCK_CHARS'
 import { Character } from '../interfaces'
 
 export function findFlashbackChar(char: string): Character | null {
-  const charInLesson = CHARS.find(({ charChinese }) => charChinese === char)
+  const charInLesson = CHARS.find(({ glyph }) => glyph === char)
 
   if (charInLesson) {
     return charInLesson

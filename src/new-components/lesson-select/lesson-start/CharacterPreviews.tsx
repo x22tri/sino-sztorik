@@ -36,14 +36,14 @@ export function CharacterPreviews({ characters, tierStatuses }: { characters: Ch
       </Typography>
 
       <Box display='flex' flexWrap='wrap' gap={3} sx={{ borderRadius: ({ spacing }) => spacing(3) }}>
-        {characters.map(({ charChinese }) => (
+        {characters.map(({ glyph }) => (
           <Typography
-            key={charChinese}
+            key={glyph}
             component='span'
             variant='chineseText'
             sx={{ bgcolor: 'grey.100', borderRadius: 2, border: `1px solid ${palette.grey[200]}`, p: 1 }}
           >
-            {charChinese}
+            {glyph}
           </Typography>
         ))}
       </Box>

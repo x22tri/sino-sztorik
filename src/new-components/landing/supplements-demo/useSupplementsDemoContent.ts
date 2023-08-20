@@ -6,15 +6,15 @@ export function useSupplementsDemoContent() {
   const { supplementsDemo } = strings.landing.section3
 
   return {
-    charChinese: '四',
+    glyph: '四',
     keyword: supplementsDemo.four,
     phrases: [
       {
         phraseChinese: '四月',
         phraseHungarian: supplementsDemo.april,
         characters: [
-          { pinyin: 'sì', charChinese: '四', keyword: supplementsDemo.four },
-          { pinyin: 'yuè', charChinese: '月', keyword: supplementsDemo.month },
+          { pinyin: 'sì', glyph: '四', keyword: supplementsDemo.four },
+          { pinyin: 'yuè', glyph: '月', keyword: supplementsDemo.month },
         ],
       },
 
@@ -22,9 +22,9 @@ export function useSupplementsDemoContent() {
         phraseChinese: '四边形',
         phraseHungarian: supplementsDemo.quadrilateral,
         characters: [
-          { pinyin: 'sì', charChinese: '四', keyword: supplementsDemo.four },
-          { pinyin: 'biān', charChinese: '边', keyword: supplementsDemo.border },
-          { pinyin: 'xíng', charChinese: '形', keyword: supplementsDemo.shape },
+          { pinyin: 'sì', glyph: '四', keyword: supplementsDemo.four },
+          { pinyin: 'biān', glyph: '边', keyword: supplementsDemo.border },
+          { pinyin: 'xíng', glyph: '形', keyword: supplementsDemo.shape },
         ],
       },
 
@@ -32,14 +32,14 @@ export function useSupplementsDemoContent() {
         phraseChinese: '不三不四',
         phraseHungarian: supplementsDemo.dubious,
         characters: [
-          { pinyin: 'bù', charChinese: '不', keyword: supplementsDemo.not },
-          { pinyin: 'sān', charChinese: '三', keyword: supplementsDemo.three },
-          { pinyin: 'bù', charChinese: '不', keyword: supplementsDemo.not },
-          { pinyin: 'sì', charChinese: '四', keyword: supplementsDemo.four },
+          { pinyin: 'bù', glyph: '不', keyword: supplementsDemo.not },
+          { pinyin: 'sān', glyph: '三', keyword: supplementsDemo.three },
+          { pinyin: 'bù', glyph: '不', keyword: supplementsDemo.not },
+          { pinyin: 'sì', glyph: '四', keyword: supplementsDemo.four },
         ],
       },
     ],
-    similarMeaning: { charChinese: '肆', keyword: supplementsDemo.fourBanking },
-    similarAppearance: { charChinese: '匹', keyword: supplementsDemo.steed },
+    similarMeaning: { glyph: '肆', keyword: supplementsDemo.fourBanking },
+    similarAppearance: { glyph: '匹', keyword: supplementsDemo.steed },
   }
 }

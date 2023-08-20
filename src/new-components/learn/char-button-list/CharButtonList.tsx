@@ -39,7 +39,7 @@ function CharButtonList({
       {characters.map((character, index) => (
         <ListItem disablePadding key={index}>
           <ListItemButton
-            onClick={() => (disabled ? () => {} : startFlashback(character.charChinese))}
+            onClick={() => (disabled ? () => {} : startFlashback(character.glyph))}
             sx={{
               borderRadius: 6,
               ':hover': {
@@ -51,7 +51,7 @@ function CharButtonList({
           >
             <ListItemIcon>
               <Typography variant='chineseText' color={color === 'primary' ? 'primary.main' : 'secondary.main'}>
-                {character.charChinese}
+                {character.glyph}
               </Typography>
             </ListItemIcon>
 

@@ -7,7 +7,7 @@ export function PhraseDemo({ characters, phraseHungarian }: { characters: Refere
   return (
     <Box py={2} sx={{ borderTop: ({ palette }) => `1px solid ${palette.grey[300]}` }}>
       <Box display='flex' flexDirection='row' maxWidth='30ch' mx='auto'>
-        {characters.map(({ charChinese, keyword }, charIndex) => (
+        {characters.map(({ glyph, keyword }, charIndex) => (
           <Fragment key={charIndex}>
             <Unless condition={charIndex === 0}>
               <Typography component='span' color='grey.300'>
@@ -17,7 +17,7 @@ export function PhraseDemo({ characters, phraseHungarian }: { characters: Refere
 
             <Box display='flex' width={1} textAlign='center' flexDirection='column'>
               <Typography component='span' gridArea='char' variant='chineseText'>
-                {charChinese}
+                {glyph}
               </Typography>
 
               <Typography component='span' gridArea='char' variant='h5' fontWeight='bold'>

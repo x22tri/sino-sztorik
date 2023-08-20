@@ -15,7 +15,7 @@ export function AdminCharPickerContent() {
 
   return (
     <>
-      {characters.map(({ charChinese, keyword, primitiveMeaning }, index) => (
+      {characters.map(({ glyph, keyword, primitiveMeaning }, index) => (
         <ListItem key={index} disablePadding>
           <ListItemButton
             // onClick={() => selectChar(index)}
@@ -40,7 +40,7 @@ export function AdminCharPickerContent() {
                 fontSize: '100%',
               }}
             >
-              {charChinese}
+              {glyph}
             </ListItemIcon>
 
             <KeywordPrimitiveRow small {...{ keyword, primitiveMeaning }} />

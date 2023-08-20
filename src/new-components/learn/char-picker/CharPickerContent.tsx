@@ -19,7 +19,7 @@ export function CharPickerContent({ contentType }: { contentType: 'characters' |
   return (
     <If condition={contentType === 'characters'}>
       <Then>
-        {lesson.characters.map(({ charChinese, keyword, primitiveMeaning }, index) => (
+        {lesson.characters.map(({ glyph, keyword, primitiveMeaning }, index) => (
           <ListItem key={index} disablePadding>
             <ListItemButton
               onClick={() => selectChar(index)}
@@ -44,7 +44,7 @@ export function CharPickerContent({ contentType }: { contentType: 'characters' |
                   fontSize: '100%',
                 }}
               >
-                {charChinese}
+                {glyph}
               </ListItemIcon>
 
               <KeywordPrimitiveRow small {...{ keyword, primitiveMeaning }} />

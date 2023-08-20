@@ -41,7 +41,7 @@ export default function LearnContent({
     return null
   }
 
-  const { charChinese, constituents, otherUses, phrases, similarAppearance, similarMeaning, story } = currentChar
+  const { glyph, constituents, otherUses, phrases, similarAppearance, similarMeaning, story } = currentChar
 
   window.scrollTo({ top: 0 })
 
@@ -55,7 +55,7 @@ export default function LearnContent({
 
           <StorySection {...{ story }} />
 
-          <PhrasesAndOtherUsesSection currentChar={charChinese} {...{ otherUses, phrases }} />
+          <PhrasesAndOtherUsesSection currentChar={glyph} {...{ otherUses, phrases }} />
 
           <SimilarMeaningSection {...{ similarMeaning }} />
 

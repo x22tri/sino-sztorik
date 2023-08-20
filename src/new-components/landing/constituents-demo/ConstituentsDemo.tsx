@@ -16,7 +16,7 @@ export function ConstituentsDemo() {
   }, [demoed])
 
   function onLinkClick(referencedChar: string) {
-    setDemoed(demoContent.find(({ charChinese }) => charChinese === referencedChar)!)
+    setDemoed(demoContent.find(({ glyph }) => glyph === referencedChar)!)
   }
 
   return (

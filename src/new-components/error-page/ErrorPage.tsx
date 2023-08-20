@@ -33,7 +33,7 @@ export function ErrorPage() {
 function Aiya() {
   return (
     <Box display='flex' flexDirection='row' gap={5} mt={6}>
-      {ERROR_AIYA.map(({ charChinese, keyword, pinyin }, index) => (
+      {ERROR_AIYA.map(({ glyph, keyword, pinyin }, index) => (
         <Box
           alignItems='center'
           display='grid'
@@ -41,7 +41,7 @@ function Aiya() {
           textAlign='center'
           sx={{
             grid: `"pinyin" auto
-                   "charChinese" auto
+                   "glyph" auto
                    "keyword" auto
                    / auto`,
           }}
@@ -52,8 +52,8 @@ function Aiya() {
             </Typography>
           </When>
 
-          <Typography gridArea='charChinese' variant='chineseText' fontWeight='bold' fontSize={86}>
-            {charChinese}
+          <Typography gridArea='glyph' variant='chineseText' fontWeight='bold' fontSize={86}>
+            {glyph}
           </Typography>
 
           <When condition={keyword}>

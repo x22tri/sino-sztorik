@@ -10,13 +10,13 @@ export function ChildOrParent({
   id: string
   onLinkClick: (char: string) => void
 }) {
-  const { charChinese, keyword } = char
+  const { glyph, keyword } = char
 
   return (
     <Box
       borderRadius={1}
       minWidth='72px'
-      onClick={() => onLinkClick(charChinese)}
+      onClick={() => onLinkClick(glyph)}
       padding={1}
       textAlign='center'
       sx={{
@@ -26,7 +26,7 @@ export function ChildOrParent({
       }}
       {...{ id }}
     >
-      <Typography variant='chineseText'>{charChinese}</Typography>
+      <Typography variant='chineseText'>{glyph}</Typography>
 
       <Typography variant='h6'>{keyword}</Typography>
     </Box>

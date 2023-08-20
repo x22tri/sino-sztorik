@@ -29,8 +29,8 @@ export function CharacterSection({ currentChar }: { currentChar: Character }) {
 
   return (
     <>
-      <Box display='flex' justifyContent='space-between' alignItems='center'>
-        <Heading title={LEARN_HEADING_CHARACTER} styles={{ mt: 0 }} />
+      <Box alignItems='center' display='flex' justifyContent='space-between' mb={3}>
+        <Heading title={LEARN_HEADING_CHARACTER} styles={{ my: 0 }} />
 
         <When condition={frequency}>
           <Frequency frequency={frequency!} />

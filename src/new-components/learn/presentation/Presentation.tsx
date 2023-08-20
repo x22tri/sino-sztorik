@@ -9,7 +9,7 @@ import { SpotlightWrapper } from './SpotlightWrapper'
 
 export function Presentation({ currentChar }: { currentChar: Character }) {
   const { palette, spacing } = useTheme()
-  const { charChinese, explanation, keyword, pinyin, primitiveMeaning } = currentChar
+  const { glyph, explanation, keyword, pinyin, primitiveMeaning } = currentChar
 
   return (
     <Box display='flex' flexDirection='column' alignItems='center' marginBottom={4}>
@@ -24,7 +24,7 @@ export function Presentation({ currentChar }: { currentChar: Character }) {
         spotlightIf='reminder'
         {...{ currentChar }}
       >
-        {charChinese}
+        {glyph}
       </SpotlightWrapper>
 
       <When condition={keyword}>

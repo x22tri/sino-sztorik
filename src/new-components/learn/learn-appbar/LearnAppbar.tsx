@@ -113,7 +113,7 @@ export function LearnAppbar({
 
             <Else>
               <Box display='grid' width='100%' sx={{ gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(3, 1fr)' } }}>
-                <ExitFlashbackButton charChinese={lesson.characters[selectedCharIndex].charChinese} />
+                <ExitFlashbackButton glyph={lesson.characters[selectedCharIndex].glyph} />
 
                 <When condition={!isVerySmallScreen}>
                   <FlashbackModeTitle />
