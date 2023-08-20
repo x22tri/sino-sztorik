@@ -4,12 +4,20 @@ import { KeywordPrimitiveRow } from '../../shared/components/KeywordPrimitiveRow
 import { useStore } from '../../shared/logic/useStore'
 import { useLoaderData } from 'react-router-dom'
 import { LoadLearn } from '../../shared/logic/loadLearn'
+import { useDrawer } from '../../shared/hooks/useDrawer'
 
-export function CharPickerContent({ contentType }: { contentType: 'characters' | 'preface' }) {
+export function CharPickerContent({
+  contentType,
+}: // toggleDrawer,
+{
+  contentType: 'characters' | 'preface'
+  // toggleDrawer: () => void
+}) {
   const { lesson } = useLoaderData() as LoadLearn
   const { constants, palette, spacing } = useTheme()
   const { selectCharIndex, selectedCharIndex } = useStore('learn')
-  const { toggleDrawer } = useStore('mobileDrawer')
+  // const { toggleDrawer } = useStore('mobileDrawer')
+  const { toggleDrawer } = useDrawer()
 
   function selectChar(index: number) {
     selectCharIndex(index)
@@ -27,8 +35,8 @@ export function CharPickerContent({ contentType }: { contentType: 'characters' |
               sx={{
                 borderRadius: 6,
                 color: 'text.secondary',
-                height: spacing(6),
-                m: 1,
+                mx: 1,
+                my: 0.25,
                 transition: constants.animationDuration,
                 '&.Mui-selected': { color: 'text.primary', bgcolor: palette.grey[200] },
               }}

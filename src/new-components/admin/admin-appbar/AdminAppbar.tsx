@@ -4,7 +4,6 @@ import { When } from 'react-if'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import ToolbarButton from '../../shared/components/ToolbarButton'
 import { ADMIN_BACK_FROM_SUBMENU, ADMIN_BACK_FROM_SUBMENU_SHORT, ADMIN_CHARACTER_LIST } from '../../shared/strings'
-import { useStore } from '../../shared/logic/useStore'
 import { ProfileMenu } from '../../lesson-select/appbar/ProfileMenu'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LightenOnHoverButton } from '../../shared/components/LightenOnHoverButton'
@@ -13,14 +12,15 @@ import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 export function AdminAppbar({
   setToolbarHeight,
   toolbarHeight,
+  toggleDrawer,
 }: {
   setToolbarHeight: Dispatch<SetStateAction<number>>
   toolbarHeight: number
+  toggleDrawer: () => void
 }) {
   const { constants } = useTheme()
   const isSmallScreen = useSmallScreen()
   const ref = useRef<HTMLDivElement | null>(null)
-  const { toggleDrawer } = useStore('mobileDrawer')
   const resizeObserver = new ResizeObserver(handleToolbarResized)
   const drawerWidth = isSmallScreen ? 0 : constants.drawerWidth
 

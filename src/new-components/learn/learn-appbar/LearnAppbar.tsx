@@ -15,13 +15,17 @@ import { ExitFlashbackButton } from './ExitFlashbackButton'
 import { FlashbackModeTitle } from './FlashbackModeTitle'
 import { useVerySmallScreen } from '../../shared/hooks/useVerySmallScreen'
 import { LoadLearn } from '../../shared/logic/loadLearn'
+import { useDrawer } from '../../shared/hooks/useDrawer'
 
 export function LearnAppbar({
   lessonLength,
-}: // setToolbarHeight,
+  toggleDrawer,
+}: //
+// setToolbarHeight,
 // toolbarHeight,
 {
   lessonLength: number
+  toggleDrawer: () => void
   // setToolbarHeight: Dispatch<SetStateAction<number>>
   // toolbarHeight: number
 }) {
@@ -33,7 +37,7 @@ export function LearnAppbar({
   const [lessonProgress, setLessonProgress] = useState(0)
   const { flashbackChar } = useStore('flashback')
   const { selectedCharIndex } = useStore('learn')
-  const { toggleDrawer } = useStore('mobileDrawer')
+  // const { toggleDrawer } = useStore('mobileDrawer')
   const { constants, spacing } = useTheme()
   const drawerWidth = isSmallScreen ? 0 : constants.drawerWidth
 
@@ -41,21 +45,7 @@ export function LearnAppbar({
     setLessonProgress(calculateProgress(lessonLength, selectedCharIndex))
   }, [lessonLength, selectedCharIndex])
 
-  // useEffect(() => {
-  //   if (ref?.current) {
-  //     resizeObserver.observe(ref?.current)
-  //   }
-
-  //   return () => {
-  //     resizeObserver.disconnect()
-  //   }
-  // })
-
-  // function handleToolbarResized() {
-  //   if (ref?.current && ref?.current.offsetHeight !== toolbarHeight) {
-  //     setToolbarHeight(ref?.current.offsetHeight)
-  //   }
-  // }
+  // console.log(isDrawerOpen)
 
   return (
     <>

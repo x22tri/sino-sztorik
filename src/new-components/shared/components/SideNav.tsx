@@ -2,17 +2,29 @@ import { Box, Drawer, List, useTheme } from '@mui/material'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { Wrap } from '../../shared/utility-components'
 import { useWindowSize } from '../hooks/useWindowSize'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useOnChange } from '../hooks/useOnChange'
 import { useStore } from '../logic/useStore'
+import { useDrawer } from '../hooks/useDrawer'
 
 const itemHeight = 64
 const gap = 0
 
-export function SideNav({ content, selected, title }: { content: JSX.Element; selected: number; title: JSX.Element }) {
+export function SideNav({
+  content,
+  selected,
+  title,
+  isDrawerOpen,
+  toggleDrawer,
+}: {
+  content: JSX.Element
+  selected: number
+  title: JSX.Element
+  isDrawerOpen: boolean
+  toggleDrawer: () => void
+}) {
   const isSmallScreen = useSmallScreen()
   const ref = useRef<HTMLUListElement>(null)
-  const { isOpen, toggleDrawer } = useStore('mobileDrawer')
   const { constants, palette } = useTheme()
   const { height } = useWindowSize()
 
@@ -31,7 +43,7 @@ export function SideNav({ content, selected, title }: { content: JSX.Element; se
       if={isSmallScreen}
       with={children => (
         <Drawer
-          open={isOpen}
+          open={isDrawerOpen}
           onClose={toggleDrawer}
           variant='temporary'
           sx={{ '& .MuiDrawer-paper': { boxSizing: 'border-box', width: `${constants.drawerWidth}px` } }}

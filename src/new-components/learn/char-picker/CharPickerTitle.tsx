@@ -21,7 +21,7 @@ export function CharPickerTitle({
   const { palette, spacing } = useTheme()
 
   return (
-    <Box alignItems='center' display='flex' justifyContent='space-between' minHeight={`${spacing(8)}`} px={`${spacing(2)}`}>
+    <Box alignItems='center' display='flex' justifyContent='space-between' px={2} pt={2} pb={1}>
       <Box alignItems='flex-start' display='flex' flexDirection='column'>
         <Typography component='span' typography='h6' color='text.secondary'>
           {lesson.lessonNumber + LESSON_NUMBER_SUFFIX_APPBAR}

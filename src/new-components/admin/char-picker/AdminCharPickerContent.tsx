@@ -11,7 +11,6 @@ export function AdminCharPickerContent() {
   const characters = CHARS
   const { constants, palette, spacing } = useTheme()
   //   const { selectCharIndex, selectedCharIndex } = useStore('learn')
-  const { toggleDrawer } = useStore('mobileDrawer')
 
   return (
     <>

@@ -26,11 +26,6 @@ const useBoundStore = create<Store>((set, get) => {
       },
     },
 
-    mobileDrawer: {
-      isOpen: false,
-      toggleDrawer: () => set(({ mobileDrawer }) => ({ mobileDrawer: { ...mobileDrawer, isOpen: !mobileDrawer.isOpen } })),
-    },
-
     learn: {
       selectedCharIndex: 0,
       selectCharIndex: (index: number) => update('learn', { selectedCharIndex: index }),
@@ -45,7 +40,6 @@ export function useStore<SliceType extends keyof Store>(slice: SliceType): Store
 type Store = {
   flashback: FlashbackSlice
   learn: LearnSlice
-  mobileDrawer: MobileDrawerSlice
 }
 
 interface FlashbackSlice {
@@ -57,9 +51,4 @@ interface FlashbackSlice {
 interface LearnSlice {
   selectedCharIndex: number
   selectCharIndex: (index: number) => void
-}
-
-interface MobileDrawerSlice {
-  isOpen: boolean
-  toggleDrawer: () => void
 }

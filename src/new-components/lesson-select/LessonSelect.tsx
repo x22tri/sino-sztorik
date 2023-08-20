@@ -1,29 +1,27 @@
-import { useState } from 'react'
 import { LessonPickerContent } from './lesson-picker/LessonPickerContent'
 import { LessonPickerTitle } from './lesson-picker/LessonPickerTitle'
 import { LessonSelectAppbar } from './appbar/LessonSelectAppbar'
 import LessonSelectContent from './lesson-select-content/LessonSelectContent'
-import { LessonStart } from './lesson-start/LessonStart'
-import { useLoaderData, useParams } from 'react-router-dom'
-import { LoadLessonSelect } from '../shared/logic/loadLessonSelect'
+import { useParams } from 'react-router-dom'
 import { LayoutGrid } from '../shared/components/LayoutGrid'
+import { useDrawer } from '../shared/hooks/useDrawer'
 
 export default function LessonSelect() {
-  // const { selectedLesson } = useLoaderData() as LoadLessonSelect
-  // const [toolbarHeight, setToolbarHeight] = useState(0)
   const params = useParams<{ lessonNumber: string }>()
   const lessonNumber = Number(params.lessonNumber)
+  const { isDrawerOpen, toggleDrawer } = useDrawer()
 
   return (
     <>
-      <LessonSelectAppbar />
+      <LessonSelectAppbar {...{ toggleDrawer }} />
 
       <LayoutGrid
         sideNav={{
           title: <LessonPickerTitle />,
-          content: <LessonPickerContent />,
+          content: <LessonPickerContent {...{ toggleDrawer }} />,
           selected: lessonNumber - 1,
         }}
+        {...{ isDrawerOpen, toggleDrawer }}
       >
         <LessonSelectContent />
       </LayoutGrid>

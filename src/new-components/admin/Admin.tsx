@@ -10,10 +10,12 @@ import { CalculatedIndexes, TimelineData } from '../shared/logic/loadAdminChar'
 import { CharFormData } from '../shared/logic/loadAdminChar'
 import { CharAdminErrorContext, useCharAdminErrors } from './char-admin-error-context/CharAdminErrorContext'
 import { FormProvider, useForm } from 'react-hook-form'
+import { useDrawer } from '../shared/hooks/useDrawer'
 
 export function Admin() {
   const [activeStep, setActiveStep] = useState(0)
   const [toolbarHeight, setToolbarHeight] = useState(0)
+  const { isDrawerOpen, toggleDrawer } = useDrawer()
 
   const loaderData = useLoaderData() as {
     calculatedIndexes: CalculatedIndexes
@@ -34,9 +36,10 @@ export function Admin() {
         content: <AdminCharPickerContent />,
         selected: 0,
       }}
+      {...{ isDrawerOpen, toggleDrawer }}
     >
       <CharAdminErrorContext.Provider value={{ charFormErrors, timelineErrors, setCharFormErrors, setTimelineErrors }}>
-        <AdminAppbar {...{ setToolbarHeight, toolbarHeight }} />
+        <AdminAppbar {...{ setToolbarHeight, toolbarHeight, toggleDrawer }} />
 
         <FormProvider {...formMethods}>
           <AdminContent {...{ activeStep, saveCharForm, setTimelineData, timelineData, toolbarHeight }} />

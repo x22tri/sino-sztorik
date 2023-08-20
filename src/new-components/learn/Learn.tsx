@@ -8,10 +8,13 @@ import { useStore } from '../shared/logic/useStore'
 import { redirect, useLoaderData } from 'react-router-dom'
 import { LayoutGrid } from '../shared/components/LayoutGrid'
 import { LoadLearn } from '../shared/logic/loadLearn'
+import { useDrawer } from '../shared/hooks/useDrawer'
 
 export default function Learn() {
   const { lesson } = useLoaderData() as LoadLearn
   const [toolbarHeight, setToolbarHeight] = useState(0)
+  // const [isDrawerOpen, toggleDrawer] = useState(false)
+  const { isDrawerOpen, toggleDrawer } = useDrawer()
   const [contentType, setContentType] = useState<'characters' | 'preface'>('characters')
   const { selectCharIndex, selectedCharIndex } = useStore('learn')
 
@@ -25,7 +28,7 @@ export default function Learn() {
 
   return (
     <>
-      <LearnAppbar lessonLength={CHARS.length} />
+      <LearnAppbar lessonLength={CHARS.length} {...{ toggleDrawer }} />
 
       <LayoutGrid
         sideNav={{
@@ -33,6 +36,7 @@ export default function Learn() {
           content: <CharPickerContent {...{ contentType }} />,
           selected: selectedCharIndex,
         }}
+        {...{ isDrawerOpen, toggleDrawer }}
       >
         <LearnContent
           lessonChar={selectedChar}

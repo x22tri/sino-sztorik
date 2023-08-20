@@ -9,54 +9,14 @@ import { LESSON_SELECT_TITLE } from '../../shared/strings'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import { useStore } from '../../shared/logic/useStore'
 
-export function LessonSelectAppbar({}: // setToolbarHeight,
-// toolbarHeight,
-{
-  // setToolbarHeight: Dispatch<SetStateAction<number>>
-  // toolbarHeight: number
-}) {
-  const { constants, palette } = useTheme()
+export function LessonSelectAppbar({ toggleDrawer }: { toggleDrawer: () => void }) {
+  const { constants } = useTheme()
   const isSmallScreen = useSmallScreen()
   const ref = useRef<HTMLDivElement | null>(null)
-  const { toggleDrawer } = useStore('mobileDrawer')
-  // const resizeObserver = new ResizeObserver(handleToolbarResized)
-  const drawerWidth = isSmallScreen ? 0 : constants.drawerWidth
-
-  // useEffect(() => {
-  //   if (ref?.current) {
-  //     resizeObserver.observe(ref.current)
-  //   }
-
-  //   return () => resizeObserver.disconnect()
-  // })
-
-  // function handleToolbarResized() {
-  //   if (ref?.current && ref.current.offsetHeight !== toolbarHeight) {
-  //     setToolbarHeight(ref.current.offsetHeight)
-  //   }
-  // }
 
   return (
-    // <Box
-    //   component='header'
-    //   position='fixed'
-    //   sx={{
-    //     bgcolor: 'background.paper',
-    //     // maxWidth: `calc(${constants.maxContentWidth} - ${drawerWidth}px)`,
-    //     top: 0,
-    //     // width: `calc(100% - ${drawerWidth}px)`,
-    //     zIndex: 1,
-    //   }}
-    // >
     <>
-      <AppBar
-        elevation={0}
-        sx={{
-          bgcolor: 'background.default',
-          // borderBottom: `1px solid ${palette.grey[200]}`
-        }}
-        position='fixed'
-      >
+      <AppBar elevation={0} sx={{ bgcolor: 'background.default' }} position='fixed'>
         <Toolbar
           disableGutters
           {...{ ref }}
@@ -79,6 +39,5 @@ export function LessonSelectAppbar({}: // setToolbarHeight,
       </AppBar>
       <Toolbar />
     </>
-    // </Box>
   )
 }

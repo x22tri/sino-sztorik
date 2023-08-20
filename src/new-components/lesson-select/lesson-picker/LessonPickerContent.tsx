@@ -8,11 +8,10 @@ import { Link, useLoaderData, useParams } from 'react-router-dom'
 import { LoadLessonSelect } from '../../shared/logic/loadLessonSelect'
 import { LESSON_SELECT_PATH } from '../../shared/paths'
 
-export function LessonPickerContent() {
+export function LessonPickerContent({ toggleDrawer }: { toggleDrawer: () => void }) {
   const params = useParams<{ lessonNumber: string }>()
   const selectedLessonNumber = Number(params.lessonNumber)
   const { lessons, upcomingIndex } = useLoaderData() as LoadLessonSelect
-  const { toggleDrawer } = useStore('mobileDrawer')
   const { constants, palette, spacing, typography } = useTheme()
 
   return (
@@ -29,10 +28,8 @@ export function LessonPickerContent() {
               to={`${LESSON_SELECT_PATH}/${lessonNumber}`}
               selected={selectedLessonNumber === lessonNumber}
               sx={{
-                // border: isUpcoming ? `2px solid ${palette.primary.main}` : 'none',
                 borderRadius: 6,
                 color: 'text.secondary',
-                // height: spacing(6),
                 mx: 1,
                 my: 0.25,
                 transition: constants.animationDuration,
