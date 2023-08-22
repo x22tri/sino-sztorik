@@ -8,7 +8,7 @@ export function CharacterPreviews({ characters, tierStatuses }: { characters: Ch
   const { palette } = useTheme()
 
   return (
-    <Stack mt={2} p={1.5} gap={1}>
+    <Stack gap={1}>
       <Typography variant='h6'>A lecke előfordulásai</Typography>
 
       <Stack

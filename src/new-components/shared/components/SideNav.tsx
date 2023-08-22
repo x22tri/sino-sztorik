@@ -1,11 +1,9 @@
-import { Box, Drawer, List, useTheme } from '@mui/material'
+import { Drawer, List, useTheme } from '@mui/material'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { Wrap } from '../../shared/utility-components'
 import { useWindowSize } from '../hooks/useWindowSize'
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import { useOnChange } from '../hooks/useOnChange'
-import { useStore } from '../logic/useStore'
-import { useDrawer } from '../hooks/useDrawer'
 
 const itemHeight = 64
 const gap = 0
@@ -25,7 +23,7 @@ export function SideNav({
 }) {
   const isSmallScreen = useSmallScreen()
   const ref = useRef<HTMLUListElement>(null)
-  const { constants, palette } = useTheme()
+  const { constants } = useTheme()
   const { height } = useWindowSize()
 
   function scrollToItem(index: number): void {
@@ -55,14 +53,7 @@ export function SideNav({
       <List
         subheader={title}
         {...{ ref }}
-        sx={{
-          bottom: 0,
-          gridArea: 'drawer',
-          overflowY: 'auto',
-          top: isSmallScreen ? 0 : 64,
-          position: 'fixed',
-          width: `${constants.drawerWidth}px`,
-        }}
+        sx={{ bottom: 0, overflowY: 'auto', top: isSmallScreen ? 0 : 64, position: 'fixed', width: `${constants.drawerWidth}px` }}
       >
         {content}
       </List>

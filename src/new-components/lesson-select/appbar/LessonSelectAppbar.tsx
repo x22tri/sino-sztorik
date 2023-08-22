@@ -16,7 +16,7 @@ export function LessonSelectAppbar({ toggleDrawer }: { toggleDrawer: () => void 
 
   return (
     <>
-      <AppBar elevation={0} sx={{ bgcolor: 'background.default' }} position='fixed'>
+      <AppBar elevation={0} sx={{ bgcolor: 'background.default' }}>
         <Toolbar
           disableGutters
           {...{ ref }}
