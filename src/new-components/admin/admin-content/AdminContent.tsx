@@ -69,7 +69,6 @@ export default function AdminContent({
             prevChar=''
             selectCharIndex={(index: number) => {}}
             selectedCharIndex={0}
-            toolbarHeight={2}
           />
         </Case>
 

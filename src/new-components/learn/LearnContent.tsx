@@ -22,14 +22,12 @@ export default function LearnContent({
   prevChar,
   selectCharIndex,
   selectedCharIndex,
-  toolbarHeight,
 }: {
   lessonChar: Character
   nextChar: string | undefined
   prevChar: string | undefined
   selectCharIndex: (index: number) => void
   selectedCharIndex: number
-  toolbarHeight: number
 }) {
   const { constants, spacing } = useTheme()
   const { flashbackChar } = useStore('flashback')
@@ -46,40 +44,34 @@ export default function LearnContent({
   window.scrollTo({ top: 0 })
 
   return (
-    <Box display='grid' gridTemplateColumns={{ xs: 'auto', lg: '3fr 1fr' }}>
-      <Stack component='main' p={2}>
-        <Box p={{ xs: 2, md: 4 }} boxShadow={constants.boxShadow} borderRadius={spacing(2)}>
-          <CharacterSection {...{ currentChar }} />
+    <>
+      <Box p={{ xs: 2, md: 4 }} boxShadow={constants.boxShadow} borderRadius={spacing(2)}>
+        <CharacterSection {...{ currentChar }} />
 
-          <ConstituentsSection {...{ constituents }} />
+        <ConstituentsSection {...{ constituents }} />
 
-          <StorySection {...{ story }} />
+        <StorySection {...{ story }} />
 
-          <PhrasesAndOtherUsesSection currentChar={glyph} {...{ otherUses, phrases }} />
+        <PhrasesAndOtherUsesSection currentChar={glyph} {...{ otherUses, phrases }} />
 
-          <SimilarMeaningSection {...{ similarMeaning }} />
+        <SimilarMeaningSection {...{ similarMeaning }} />
 
-          <SimilarAppearanceSection {...{ similarAppearance }} />
-        </Box>
+        <SimilarAppearanceSection {...{ similarAppearance }} />
+      </Box>
 
-        <Unless condition={!!flashbackChar}>
-          <PrevNextLinks
-            customEndElement={
-              <Button
-                variant='contained'
-                href={LESSON_SELECT_PATH}
-                sx={{ borderRadius: 6, width: isSmallScreen ? 1 : undefined }}
-              >
-                {LEARN_FINISH_LESSON_BUTTON}
-              </Button>
-            }
-            prevTitle={prevChar}
-            prevOnClick={() => selectCharIndex(selectedCharIndex - 1)}
-            nextTitle={nextChar}
-            nextOnClick={() => selectCharIndex(selectedCharIndex + 1)}
-          />
-        </Unless>
-      </Stack>
-    </Box>
+      <Unless condition={!!flashbackChar}>
+        <PrevNextLinks
+          customEndElement={
+            <Button variant='contained' href={LESSON_SELECT_PATH} sx={{ borderRadius: 6, width: isSmallScreen ? 1 : undefined }}>
+              {LEARN_FINISH_LESSON_BUTTON}
+            </Button>
+          }
+          prevTitle={prevChar}
+          prevOnClick={() => selectCharIndex(selectedCharIndex - 1)}
+          nextTitle={nextChar}
+          nextOnClick={() => selectCharIndex(selectedCharIndex + 1)}
+        />
+      </Unless>
+    </>
   )
 }

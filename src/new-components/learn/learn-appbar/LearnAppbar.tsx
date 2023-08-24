@@ -15,37 +15,18 @@ import { ExitFlashbackButton } from './ExitFlashbackButton'
 import { FlashbackModeTitle } from './FlashbackModeTitle'
 import { useVerySmallScreen } from '../../shared/hooks/useVerySmallScreen'
 import { LoadLearn } from '../../shared/logic/loadLearn'
-import { useDrawer } from '../../shared/hooks/useDrawer'
 
-export function LearnAppbar({
-  lessonLength,
-  toggleDrawer,
-}: //
-// setToolbarHeight,
-// toolbarHeight,
-{
-  lessonLength: number
-  toggleDrawer: () => void
-  // setToolbarHeight: Dispatch<SetStateAction<number>>
-  // toolbarHeight: number
-}) {
+export function LearnAppbar({ lessonLength, toggleDrawer }: { lessonLength: number; toggleDrawer: () => void }) {
   const isVerySmallScreen = useVerySmallScreen()
   const isSmallScreen = useSmallScreen()
-  const { lesson } = useLoaderData() as LoadLearn
   const ref = useRef<HTMLDivElement | null>(null)
-  // const resizeObserver = new ResizeObserver(handleToolbarResized)
   const [lessonProgress, setLessonProgress] = useState(0)
+  const { lesson } = useLoaderData() as LoadLearn
   const { flashbackChar } = useStore('flashback')
   const { selectedCharIndex } = useStore('learn')
-  // const { toggleDrawer } = useStore('mobileDrawer')
   const { constants, spacing } = useTheme()
-  const drawerWidth = isSmallScreen ? 0 : constants.drawerWidth
 
-  useEffect(() => {
-    setLessonProgress(calculateProgress(lessonLength, selectedCharIndex))
-  }, [lessonLength, selectedCharIndex])
-
-  // console.log(isDrawerOpen)
+  useEffect(() => setLessonProgress(calculateProgress(lessonLength, selectedCharIndex)), [lessonLength, selectedCharIndex])
 
   return (
     <>
@@ -80,6 +61,7 @@ export function LearnAppbar({
                         style={{ marginLeft: spacing(0.5) }}
                       >
                         <FontAwesomeIcon icon={faChalkboard} />
+
                         <Typography component='span' fontWeight='bold' fontSize='45%' marginBottom='2px'>
                           {lesson.lessonNumber}
                         </Typography>

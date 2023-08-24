@@ -2,7 +2,6 @@ import Typography from '@mui/material/Typography'
 import { Box, Divider, Stack, useTheme } from '@mui/material'
 import { useLargeScreen } from '../../shared/hooks/useLargeScreen'
 import { When } from 'react-if'
-import { CharacterPreviews } from '../lesson-start/CharacterPreviews'
 import { useLoaderData, useLocation } from 'react-router-dom'
 import { LoadLessonSelect } from '../../shared/logic/loadLessonSelect'
 import { PrevNextLinks } from '../../shared/components/PrevNextLinks'
@@ -11,10 +10,8 @@ import { TierStatusIcons } from '../lesson-picker/TierStatusIcons'
 import { CHARACTER_AMOUNT_LABEL } from '../../shared/strings'
 import { LearnReviewButton } from '../lesson-start/LearnReviewButton'
 import { useEffect } from 'react'
-import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 
 export default function LessonSelectContent() {
-  const isSmallScreen = useSmallScreen()
   const isLargeScreen = useLargeScreen()
   const { constants, spacing } = useTheme()
   const { pathname } = useLocation()
@@ -24,10 +21,7 @@ export default function LessonSelectContent() {
   useEffect(() => window.scrollTo({ top: 0 }), [pathname])
 
   return (
-    // <Box display='grid' gridTemplateColumns={{ xs: 'auto', lg: '3fr 1fr' }}>
     <>
-      {/* <Box display='grid' gridTemplateColumns={{ xs: 'auto', lg: '3fr 1fr' }}> */}
-      {/* <Stack component='main' p={2}> */}
       <Box p={{ xs: 2, md: 4 }} boxShadow={constants.boxShadow} borderRadius={spacing(2)}>
         <Typography color='text.secondary' textAlign='center' variant='h6' mt={{ xs: 2, md: 0 }}>
           {lessonNumber}. lecke
@@ -66,11 +60,6 @@ export default function LessonSelectContent() {
         nextTitle={nextLesson?.title}
         nextTo={`${LESSON_SELECT_PATH}/${nextLesson?.lessonNumber}`}
       />
-      {/* </Stack> */}
-
-      {/* <When condition={isLargeScreen && characters.length}>
-        <CharacterPreviews {...{ characters, tierStatuses }} />
-      </When> */}
     </>
   )
 }
