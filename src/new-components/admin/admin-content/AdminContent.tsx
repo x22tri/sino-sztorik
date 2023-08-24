@@ -9,8 +9,7 @@ import { CharForm } from '../char-form/CharForm'
 import { ADMIN_CHAR_EDIT_STEP_THREE } from '../../shared/strings'
 import { useWatch } from 'react-hook-form'
 import { useRegisterCharAdminErrors } from '../hooks/useRegisterCharAdminErrors'
-import LearnContent from '../../learn/LearnContent'
-import { CHARS } from '../../shared/MOCK_CHARS'
+import { FinalCheck } from './final-check/FinalCheck'
 
 export default function AdminContent({
   activeStep,
@@ -63,13 +62,7 @@ export default function AdminContent({
         </Case>
 
         <Case condition={activeStep === 2}>
-          <LearnContent
-            lessonChar={CHARS[0]}
-            nextChar=''
-            prevChar=''
-            selectCharIndex={(index: number) => {}}
-            selectedCharIndex={0}
-          />
+          <FinalCheck />
         </Case>
 
         <Default>Hiba</Default>
