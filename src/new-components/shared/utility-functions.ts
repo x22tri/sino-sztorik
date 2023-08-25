@@ -10,6 +10,14 @@ export function isDisabledLesson(tierStatuses: TierStatuses) {
   return !(tierStatuses.includes(UPCOMING) || tierStatuses.includes(COMPLETED))
 }
 
+export function isUpcomingLesson(tierStatuses: TierStatuses) {
+  return tierStatuses.includes(UPCOMING)
+}
+
+export function isCompletedLesson(tierStatuses: TierStatuses) {
+  return tierStatuses.includes(COMPLETED) && !tierStatuses.includes(UPCOMING)
+}
+
 /**
  * Returns the index of the last element in the array where predicate is true, -1 otherwise.
  * @param array The source array to search in
