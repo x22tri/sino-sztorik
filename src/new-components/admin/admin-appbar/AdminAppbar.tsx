@@ -1,5 +1,5 @@
 import { faChevronLeft, faLanguage } from '@fortawesome/free-solid-svg-icons'
-import { Box, Toolbar, Typography, useTheme } from '@mui/material'
+import { AppBar, Box, Toolbar, Typography, useTheme } from '@mui/material'
 import { When } from 'react-if'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import ToolbarButton from '../../shared/components/ToolbarButton'
@@ -40,24 +40,17 @@ export function AdminAppbar({
 
   return (
     <>
-      <Box
-        component='header'
-        position='fixed'
-        sx={{
-          bgcolor: 'background.paper',
-          maxWidth: `calc(${constants.maxContentWidth} - ${drawerWidth}px)`,
-          top: 0,
-          width: `calc(100% - ${drawerWidth}px)`,
-          zIndex: 1100,
-        }}
-      >
+      <AppBar elevation={0} sx={{ bgcolor: 'background.default' }}>
         <Toolbar
           disableGutters
           sx={{
             display: 'grid',
             justifyContent: 'space-between',
             gridTemplateColumns: `repeat(3, minmax(max-content, 1fr))`,
+            m: 'auto',
+            maxWidth: constants.maxContentWidth,
             px: { xs: 1, sm: 2 },
+            width: 1,
           }}
           {...{ ref }}
         >
@@ -71,7 +64,7 @@ export function AdminAppbar({
             {isSmallScreen ? ADMIN_BACK_FROM_SUBMENU_SHORT : ADMIN_BACK_FROM_SUBMENU}
           </LightenOnHoverButton>
 
-          <Box alignItems='center' display='flex' gap={0.5} marginX='auto'>
+          <Box alignItems='center' display='flex' color='text.primary' gap={0.5} marginX='auto'>
             <Typography component='span' variant='h6' fontWeight='bold'>
               Szerkesztés:
             </Typography>
@@ -89,7 +82,7 @@ export function AdminAppbar({
             <ProfileMenu />
           </Box>
         </Toolbar>
-      </Box>
+      </AppBar>
       <Toolbar />
     </>
   )

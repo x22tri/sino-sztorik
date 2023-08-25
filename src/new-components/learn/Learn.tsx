@@ -48,7 +48,7 @@ export default function Learn() {
             title={<CharPickerTitle {...{ contentType, setContentType }} />}
             selected={selectedCharIndex}
             {...{ isDrawerOpen, toggleDrawer }}
-          />{' '}
+          />
         </Box>
 
         <Stack component='main' gridArea='main' p={2}>

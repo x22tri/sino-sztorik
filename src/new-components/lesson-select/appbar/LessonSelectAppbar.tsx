@@ -23,9 +23,9 @@ export function LessonSelectAppbar({ toggleDrawer }: { toggleDrawer: () => void 
           sx={{
             justifyContent: 'space-between',
             m: 'auto',
-            width: 1,
             maxWidth: constants.maxContentWidth,
             px: { xs: 1, sm: 2 },
+            width: 1,
           }}
         >
           <When condition={isSmallScreen}>
