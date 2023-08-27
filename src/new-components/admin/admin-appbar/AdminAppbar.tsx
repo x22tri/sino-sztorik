@@ -8,6 +8,7 @@ import { ProfileMenu } from '../../lesson-select/appbar/ProfileMenu'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LightenOnHoverButton } from '../../shared/components/LightenOnHoverButton'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
+import LogoTitle from '../../shared/components/LogoTitle'
 
 export function AdminAppbar({
   setToolbarHeight,
@@ -44,9 +45,8 @@ export function AdminAppbar({
         <Toolbar
           disableGutters
           sx={{
-            display: 'grid',
+            display: 'flex',
             justifyContent: 'space-between',
-            gridTemplateColumns: `repeat(3, minmax(max-content, 1fr))`,
             m: 'auto',
             maxWidth: constants.maxContentWidth,
             px: { xs: 1, sm: 2 },
@@ -54,33 +54,13 @@ export function AdminAppbar({
           }}
           {...{ ref }}
         >
-          <LightenOnHoverButton
-            color='neutral'
-            startIcon={<FontAwesomeIcon icon={faChevronLeft} transform='shrink-3' />}
-            onClick={() => {}}
-            variant='text'
-            sx={{ justifyContent: 'flex-start' }}
-          >
-            {isSmallScreen ? ADMIN_BACK_FROM_SUBMENU_SHORT : ADMIN_BACK_FROM_SUBMENU}
-          </LightenOnHoverButton>
+          <When condition={isSmallScreen}>
+            <ToolbarButton icon={faLanguage} onClick={toggleDrawer} tooltip={ADMIN_CHARACTER_LIST} />
+          </When>
 
-          <Box alignItems='center' display='flex' color='text.primary' gap={0.5} marginX='auto'>
-            <Typography component='span' variant='h6' fontWeight='bold'>
-              Szerkesztés:
-            </Typography>
+          <LogoTitle />
 
-            <Typography component='span' variant='chineseText' fontSize={20} fontWeight='bold' mb={0.5}>
-              早
-            </Typography>
-          </Box>
-
-          <Box display='flex' gap={1} marginLeft='auto'>
-            <When condition={isSmallScreen}>
-              <ToolbarButton icon={faLanguage} onClick={toggleDrawer} tooltip={ADMIN_CHARACTER_LIST} />
-            </When>
-
-            <ProfileMenu />
-          </Box>
+          <ProfileMenu />
         </Toolbar>
       </AppBar>
       <Toolbar />

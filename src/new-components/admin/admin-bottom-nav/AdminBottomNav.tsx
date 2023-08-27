@@ -15,7 +15,7 @@ export function AdminBottomNav({
   setActiveStep: Dispatch<SetStateAction<number>>
 }) {
   const isSmallScreen = useSmallScreen()
-  const { constants, palette } = useTheme()
+  const { constants, palette, spacing } = useTheme()
   const { charFormErrors, timelineErrors } = useContext(CharAdminErrorContext)
 
   const drawerWidth = isSmallScreen ? 0 : constants.drawerWidth
@@ -23,10 +23,12 @@ export function AdminBottomNav({
 
   function stepBack() {
     setActiveStep(prev => prev - 1)
+    window.scrollTo({ top: 0 })
   }
 
   function stepForward() {
     setActiveStep(prev => prev + 1)
+    window.scrollTo({ top: 0 })
   }
 
   function saveChanges() {
@@ -46,8 +48,8 @@ export function AdminBottomNav({
       sx={{
         bgcolor: 'background.paper',
         grid: `"revert navigate" auto / max-content auto`,
-        maxWidth: `calc(${constants.maxContentWidth} - ${drawerWidth}px)`,
-        width: `calc(100% - ${drawerWidth}px)`,
+        maxWidth: `calc(${constants.maxContentWidth} - ${drawerWidth}px - ${spacing(4)})`,
+        width: `calc(100% - ${drawerWidth}px - ${spacing(4)})`,
       }}
     >
       <RevertChangesButton />

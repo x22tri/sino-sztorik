@@ -28,7 +28,6 @@ export function Admin() {
   const [savedCharForm, saveCharForm] = useState<CharFormData>({ ...loaderData.charFormData })
   const [timelineData, setTimelineData] = useState(loaderData.timelineData)
   const [savedTimelineData, saveTimelineData] = useState<TimelineData>({ ...loaderData.timelineData })
-
   const { charFormErrors, timelineErrors, setCharFormErrors, setTimelineErrors } = useCharAdminErrors()
 
   return (
@@ -46,16 +45,16 @@ export function Admin() {
           },
         }}
       >
-        <Box component='nav' gridArea='nav'>
-          <SideNav
-            content={<AdminCharPickerContent />}
-            title={<AdminSubmenuTitle />}
-            selected={0}
-            {...{ isDrawerOpen, toggleDrawer }}
-          />
-        </Box>
-
         <CharAdminErrorContext.Provider value={{ charFormErrors, timelineErrors, setCharFormErrors, setTimelineErrors }}>
+          <Box component='nav' gridArea='nav'>
+            <SideNav
+              content={<AdminCharPickerContent {...{ activeStep }} />}
+              title={<AdminSubmenuTitle glyph={loaderData.charFormData.glyph} />}
+              selected={0}
+              {...{ isDrawerOpen, toggleDrawer }}
+            />
+          </Box>
+
           <Box component='main' gridArea='main' p={2}>
             <FormProvider {...formMethods}>
               <AdminContent {...{ activeStep, saveCharForm, setTimelineData, timelineData, toolbarHeight }} />

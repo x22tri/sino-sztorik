@@ -1,4 +1,4 @@
-import { Box, Step, StepLabel, Stepper, useTheme } from '@mui/material'
+import { Box, Breadcrumbs, Link, Step, StepLabel, Stepper, Typography, useTheme } from '@mui/material'
 import { TimelineData } from '../../shared/logic/loadAdminChar'
 import { CharFormData } from '../../shared/logic/loadAdminChar'
 import { Timeline } from '../timeline/Timeline'
@@ -6,10 +6,13 @@ import { Dispatch, SetStateAction } from 'react'
 import { CharFormAdminStepLabel, TimelineAdminStepLabel } from './AdminStepLabel'
 import { Case, Default, Switch } from 'react-if'
 import { CharForm } from '../char-form/CharForm'
-import { ADMIN_CHAR_EDIT_STEP_THREE } from '../../shared/strings'
+import { ADMIN_CHAR_EDIT_STEP_ONE, ADMIN_CHAR_EDIT_STEP_THREE, ADMIN_CHAR_EDIT_STEP_TWO } from '../../shared/strings'
 import { useWatch } from 'react-hook-form'
 import { useRegisterCharAdminErrors } from '../hooks/useRegisterCharAdminErrors'
 import { FinalCheck } from './final-check/FinalCheck'
+import { Heading } from '../../learn/headings/Heading'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCaretRight, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
 export default function AdminContent({
   activeStep,
@@ -38,35 +41,37 @@ export default function AdminContent({
       marginBottom={constants.bottomToolbarHeight}
       padding={2}
     >
-      <Stepper {...{ activeStep }} sx={{ minHeight: spacing(6), mb: 2 }}>
-        <Step>
-          <CharFormAdminStepLabel />
-        </Step>
-
-        <Step>
-          <TimelineAdminStepLabel />
-        </Step>
-
-        <Step>
-          <StepLabel>{ADMIN_CHAR_EDIT_STEP_THREE}</StepLabel>
-        </Step>
-      </Stepper>
-
+      <Breadcrumbs aria-label='breadcrumb' separator={<FontAwesomeIcon icon={faChevronRight} size='xs' />}>
+        <BreadcrumbLink href='/' text='Kezelőközpont' />
+        <BreadcrumbLink href='/characters' text='Karakterek' />
+        <Typography color='text.primary'>Karakter szerkesztése</Typography>
+      </Breadcrumbs>
       <Switch>
         <Case condition={activeStep === 0}>
+          <Heading title={ADMIN_CHAR_EDIT_STEP_ONE} />
           <CharForm {...{ saveCharForm }} />
         </Case>
 
         <Case condition={activeStep === 1}>
+          <Heading title={ADMIN_CHAR_EDIT_STEP_TWO} />
           <Timeline {...{ timelineData, setTimelineData }} />
         </Case>
 
         <Case condition={activeStep === 2}>
+          <Heading title={ADMIN_CHAR_EDIT_STEP_THREE} />
           <FinalCheck />
         </Case>
 
         <Default>Hiba</Default>
       </Switch>
     </Box>
+  )
+}
+
+function BreadcrumbLink({ href, text }: { href: string; text: string }) {
+  return (
+    <Link color='inherit' underline='hover' {...{ href }} sx={{ ':hover': { backgroundColor: 'inherit' } }}>
+      {text}
+    </Link>
   )
 }
