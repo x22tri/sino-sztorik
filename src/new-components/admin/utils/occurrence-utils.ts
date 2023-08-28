@@ -1,4 +1,4 @@
-import { UnsetOccurrence } from '../../shared/MOCK_DATABASE_ENTRIES'
+import { OccurrenceV3, UnsetOccurrence } from '../../shared/MOCK_DATABASE_ENTRIES'
 import { SortedOccurrence } from '../../shared/MOCK_DATABASE_ENTRIES'
 import {
   ReminderOccurrence,
@@ -11,6 +11,9 @@ import {
 
 export function isUnset(occurrence: SortedOccurrence): occurrence is UnsetOccurrence {
   return !('index' in occurrence)
+}
+export function isSet(occurrence: SortedOccurrence): occurrence is OccurrenceV3 {
+  return 'index' in occurrence
 }
 export function isReminder(occurrence: SortedOccurrence): occurrence is ReminderOccurrence {
   return !('story' in occurrence) && 'index' in occurrence

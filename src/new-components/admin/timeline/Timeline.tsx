@@ -77,6 +77,8 @@ export function Timeline({
 
   const charFormData = useWatch() as CharFormData
 
+  // console.log(timelineData)
+
   // useTimelineErrors(charFormData, timelineData)
 
   return (

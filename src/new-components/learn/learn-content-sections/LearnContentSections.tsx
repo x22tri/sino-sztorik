@@ -44,7 +44,7 @@ export function CharacterSection({ currentChar }: { currentChar: Character }) {
 
 export function ConstituentsSection({ constituents }: { constituents?: ReferencedChar[] }) {
   return (
-    <When condition={!!constituents}>
+    <When condition={!!constituents?.length}>
       <Subheading title={LEARN_SUBHEADING_CONSTITUENTS} />
       <ConstituentList constituents={constituents!} />
     </When>

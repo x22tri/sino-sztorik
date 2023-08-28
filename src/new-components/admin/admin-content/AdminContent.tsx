@@ -59,7 +59,7 @@ export default function AdminContent({
 
         <Case condition={activeStep === 2}>
           <Heading title={ADMIN_CHAR_EDIT_STEP_THREE} />
-          <FinalCheck />
+          <FinalCheck {...{ charFormData, timelineData }} />
         </Case>
 
         <Default>Hiba</Default>
