@@ -6,12 +6,12 @@ import { When } from 'react-if'
 export function KeywordPrimitiveRow({
   emphasizePrimitive = false,
   keyword,
-  primitiveMeaning,
+  primitive,
   small = false,
 }: {
   emphasizePrimitive?: boolean
   keyword?: string
-  primitiveMeaning?: string
+  primitive?: string
   small?: boolean
 }) {
   const { palette, spacing } = useTheme()
@@ -26,11 +26,11 @@ export function KeywordPrimitiveRow({
         </Typography>
       </When>
 
-      <When condition={keyword && primitiveMeaning}>
+      <When condition={keyword && primitive}>
         <Divider orientation='vertical' flexItem />
       </When>
 
-      <When condition={primitiveMeaning}>
+      <When condition={primitive}>
         <Typography component='span' fontStyle='italic' fontSize='inherit' fontWeight={emphasizePrimitive ? 'bold' : 'normal'}>
           <FontAwesomeIcon
             color={palette.secondary.main}
@@ -38,7 +38,7 @@ export function KeywordPrimitiveRow({
             size='xs'
             style={{ marginBottom: '2px', marginRight: spacing(0.5), verticalAlign: 'middle' }}
           />
-          {primitiveMeaning}
+          {primitive}
         </Typography>
       </When>
     </ListItemText>

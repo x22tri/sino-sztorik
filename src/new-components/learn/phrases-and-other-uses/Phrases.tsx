@@ -9,8 +9,8 @@ export function Phrases({ currentChar, phrases }: { currentChar: string; phrases
       {phrases.map(({ characters, phraseHungarian }, index) => (
         <Fragment key={index}>
           <Box display='flex'>
-            {characters.map(({ glyph, keyword, pinyin, primitiveMeaning }, charIndex) => (
-              <ChineseCharLink key={charIndex} {...{ glyph, currentChar, keyword, pinyin, primitiveMeaning }} />
+            {characters.map(({ glyph, keyword, pinyin, primitive }, charIndex) => (
+              <ChineseCharLink key={charIndex} {...{ glyph, currentChar, keyword, pinyin, primitive }} />
             ))}
           </Box>
           {phraseHungarian}

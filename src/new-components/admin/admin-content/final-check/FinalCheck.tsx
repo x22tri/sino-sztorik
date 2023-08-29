@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import LearnContent from '../../../learn/LearnContent'
 import { CharFormData, TimelineData } from '../../../shared/logic/loadAdminChar'
-import { OtherUse, Paragraph, Phrase, ReferencedChar, SimilarAppearance, SimilarMeaning } from '../../../shared/interfaces'
+import { Character, OtherUse, Phrase, ReferencedChar, SimilarAppearance, SimilarMeaning } from '../../../shared/interfaces'
 import {
   isReminder,
   isSet,
@@ -14,40 +14,21 @@ import { PrevNextLinks } from '../../../shared/components/PrevNextLinks'
 import { findLastIndex } from '../../../shared/utility-functions'
 import {
   FullOccurrence,
-  OccurrenceV3,
-  ReminderOccurrence,
   SortedOccurrence,
   WithheldConstituentsOccurrence,
   WithheldKeywordOccurrence,
   WithheldPrimitiveOccurrence,
 } from '../../../shared/MOCK_DATABASE_ENTRIES'
 
-export interface UnsubmittedCharacter {
-  glyph: string
-  constituents?: ReferencedChar[]
-  explanation?: string
-  frequency?: number
-  keyword?: string
-  newPrimitive?: boolean
-  otherUses?: OtherUse[]
-  phrases?: Phrase[]
-  pinyin?: string
-  prequel?: boolean
-  productivePhonetic?: boolean
-  primitive?: string
-  reminder?: boolean
-  similarAppearance?: SimilarAppearance[]
-  similarMeaning?: SimilarMeaning[]
-  story: Paragraph[]
-}
+export type UnsubmittedCharacter = Omit<Character, 'id'>
 
 export function FinalCheck({ charFormData, timelineData }: { charFormData: CharFormData; timelineData: TimelineData }) {
   const [selectedTierIndex, selectTierIndex] = useState(0)
 
-  function assembleEntry(): any[] {
-    const result: any[] = []
+  function assembleEntry(): (UnsubmittedCharacter | null)[] {
+    const result: (UnsubmittedCharacter | null)[] = []
 
-    const x = new Array(1, 2, 3, 4).map(tier => {
+    new Array(1, 2, 3, 4).forEach(tier => {
       const occurrence = timelineData[tier - 1]
 
       const variant = {
@@ -109,8 +90,6 @@ export function FinalCheck({ charFormData, timelineData }: { charFormData: CharF
 
   const selectedChar = lesson.characters[selectedTierIndex]
 
-  assembleEntry()
-
   if (selectedChar === null) {
     return (
       <>
@@ -128,7 +107,7 @@ export function FinalCheck({ charFormData, timelineData }: { charFormData: CharF
 
   return (
     <LearnContent
-      lessonChar={selectedChar}
+      lessonChar={selectedChar as Character}
       prevChar={selectedTierIndex !== 0 ? `${selectedTierIndex + 1}. kör` : undefined}
       nextChar={selectedTierIndex !== 3 ? `${selectedTierIndex + 2}. kör` : undefined}
       selectCharIndex={(index: number) => selectTierIndex(index)}

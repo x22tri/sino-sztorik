@@ -37,7 +37,7 @@ export function ConstituentsSection() {
   }
 
   function filterOptions(options: Character[], { inputValue }: { inputValue: string }) {
-    return matchSorter(options, inputValue, { keys: ['glyph', 'primitiveMeaning', 'keyword'] })
+    return matchSorter(options, inputValue, { keys: ['glyph', 'primitive', 'keyword'] })
   }
 
   return (
@@ -126,15 +126,15 @@ function SearchRow({ props, option }: { props: React.HTMLAttributes<HTMLLIElemen
         </Typography>
       </When>
 
-      <When condition={'keyword' in option && 'primitiveMeaning' in option}>
+      <When condition={'keyword' in option && 'primitive' in option}>
         <Divider orientation='vertical' flexItem sx={{ mx: 1 }} />
       </When>
 
-      <When condition={'primitiveMeaning' in option}>
+      <When condition={'primitive' in option}>
         <FontAwesomeIcon color={palette.secondary.main} icon={faCube} size='xs' style={{ marginRight: '4px' }} />
 
         <Typography component='span' fontStyle='italic'>
-          {option.primitiveMeaning}
+          {option.primitive}
         </Typography>
       </When>
     </Box>

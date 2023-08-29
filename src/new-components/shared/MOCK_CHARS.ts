@@ -7,7 +7,7 @@ export const CHARS: Character[] = [
     id: 1,
     keyword: 'egy',
     pinyin: 'yī',
-    primitiveMeaning: 'plafon, padló',
+    primitive: 'plafon, padló',
     reminder: true,
     similarMeaning: [{ glyph: '壹', keyword: 'egyes' }],
     story: [
@@ -46,13 +46,13 @@ export const CHARS: Character[] = [
         phraseHungarian: 'abbahagy; abbamarad',
         characters: [
           { pinyin: 'tíng', glyph: '停', keyword: 'leáll' },
-          { pinyin: 'zhĭ', glyph: '止', keyword: 'megáll', primitiveMeaning: 'lábnyom' },
+          { pinyin: 'zhĭ', glyph: '止', keyword: 'megáll', primitive: 'lábnyom' },
         ],
       },
     ],
 
     pinyin: 'zhĭ',
-    primitiveMeaning: 'lábnyom',
+    primitive: 'lábnyom',
     story: [
       [
         'Egy bal láb képe, ami azt jelképezi, hogy valaki itt elég sokáig ',
@@ -69,12 +69,12 @@ export const CHARS: Character[] = [
       {
         glyph: '一',
         keyword: 'egy',
-        primitiveMeaning: 'plafon, padló',
+        primitive: 'plafon, padló',
       },
       {
         glyph: '止',
         keyword: 'megáll',
-        primitiveMeaning: 'lábnyom',
+        primitive: 'lábnyom',
       },
     ],
     explanation: 'A magyarhoz hasonlóan jelentheti azt, hogy „igaz, helytálló”, de azt is, hogy „csinos”.',
@@ -91,7 +91,7 @@ export const CHARS: Character[] = [
         phraseChinese: '正好',
         phraseHungarian: 'pont jó',
         characters: [
-          { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitiveMeaning: 'ortopéd cipő' },
+          { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitive: 'ortopéd cipő' },
           { pinyin: 'hăo', glyph: '好', keyword: 'jó' },
         ],
       },
@@ -99,8 +99,8 @@ export const CHARS: Character[] = [
         phraseChinese: '真正',
         phraseHungarian: 'valódi',
         characters: [
-          { pinyin: 'zhēn', glyph: '真', keyword: 'tényleg', primitiveMeaning: 'hazugságvizsgáló' },
-          { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitiveMeaning: 'ortopéd cipő' },
+          { pinyin: 'zhēn', glyph: '真', keyword: 'tényleg', primitive: 'hazugságvizsgáló' },
+          { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitive: 'ortopéd cipő' },
         ],
       },
       {
@@ -109,15 +109,15 @@ export const CHARS: Character[] = [
         characters: [
           { pinyin: 'guāng', glyph: '光', keyword: 'sugár' },
           { pinyin: 'míng', glyph: '明', keyword: 'világos' },
-          { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitiveMeaning: 'ortopéd cipő' },
-          { pinyin: 'dà', glyph: '大', keyword: 'nagy', primitiveMeaning: 'bernáthegyi' },
+          { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitive: 'ortopéd cipő' },
+          { pinyin: 'dà', glyph: '大', keyword: 'nagy', primitive: 'bernáthegyi' },
         ],
       },
       {
         phraseChinese: '正视',
         phraseHungarian: 'szemtől szemben kiáll ellene',
         characters: [
-          { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitiveMeaning: 'ortopéd cipő' },
+          { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitive: 'ortopéd cipő' },
           { pinyin: 'shì', glyph: '视', keyword: 'megszemlél' },
         ],
       },
@@ -125,12 +125,12 @@ export const CHARS: Character[] = [
         phraseChinese: '正则',
         phraseHungarian: 'szabályos (síkidom)',
         characters: [
-          { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitiveMeaning: 'ortopéd cipő' },
+          { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitive: 'ortopéd cipő' },
           { pinyin: 'zé', glyph: '则', keyword: 'szabály' },
         ],
       },
     ],
-    primitiveMeaning: 'ortopéd cipő',
+    primitive: 'ortopéd cipő',
     productivePhonetic: true,
     story: [
       [
@@ -154,8 +154,8 @@ export const CHARS: Character[] = [
   {
     glyph: '证',
     constituents: [
-      { glyph: '讠', primitiveMeaning: 'szavak' },
-      { glyph: '正', keyword: 'helyes', primitiveMeaning: 'ortopéd cipő' },
+      { glyph: '讠', primitive: 'szavak' },
+      { glyph: '正', keyword: 'helyes', primitive: 'ortopéd cipő' },
     ],
     frequency: 373,
     id: 4,

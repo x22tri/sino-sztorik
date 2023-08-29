@@ -58,7 +58,7 @@ function CharButtonList({
             <KeywordPrimitiveRow
               emphasizePrimitive={(character as SimilarMeaning).similarToPrimitive}
               keyword={character.keyword}
-              primitiveMeaning={character.primitiveMeaning}
+              primitive={character.primitive}
             />
           </ListItemButton>
         </ListItem>

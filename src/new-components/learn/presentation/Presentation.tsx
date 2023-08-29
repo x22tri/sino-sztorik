@@ -9,7 +9,7 @@ import { SpotlightWrapper } from './SpotlightWrapper'
 
 export function Presentation({ currentChar }: { currentChar: Character }) {
   const { palette, spacing } = useTheme()
-  const { glyph, explanation, keyword, pinyin, primitiveMeaning } = currentChar
+  const { glyph, explanation, keyword, pinyin, primitive } = currentChar
 
   return (
     <Box display='flex' flexDirection='column' alignItems='center' marginBottom={4}>
@@ -37,7 +37,7 @@ export function Presentation({ currentChar }: { currentChar: Character }) {
         </Box>
       </When>
 
-      <When condition={primitiveMeaning}>
+      <When condition={primitive}>
         <SpotlightWrapper contentStyles={{ fontSize: 20, fontStyle: 'italic' }} spotlightIf='newPrimitive' {...{ currentChar }}>
           <>
             <FontAwesomeIcon
@@ -46,7 +46,7 @@ export function Presentation({ currentChar }: { currentChar: Character }) {
               size='xs'
               style={{ marginBottom: '2px', marginRight: spacing(0.5), verticalAlign: 'middle' }}
             />
-            {primitiveMeaning}
+            {primitive}
           </>
         </SpotlightWrapper>
       </When>

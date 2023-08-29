@@ -9,13 +9,13 @@ export function ChineseCharLink({
   currentChar,
   keyword,
   pinyin,
-  primitiveMeaning,
+  primitive,
 }: {
   glyph: string
   currentChar: string
   keyword?: string
   pinyin?: string
-  primitiveMeaning?: string
+  primitive?: string
 }) {
   const anchorEl = useRef(null)
   const [open, setOpen] = useState(false)
@@ -67,13 +67,13 @@ export function ChineseCharLink({
         sx={{ pointerEvents: 'none' }}
         {...{ open }}
       >
-        <CharLinkPopoverContent {...{ keyword, primitiveMeaning }} />
+        <CharLinkPopoverContent {...{ keyword, primitive }} />
       </Popover>
     </>
   )
 }
 
-function CharLinkPopoverContent({ keyword, primitiveMeaning }: { keyword?: string; primitiveMeaning?: string }) {
+function CharLinkPopoverContent({ keyword, primitive }: { keyword?: string; primitive?: string }) {
   const { palette, spacing } = useTheme()
 
   return (
@@ -84,7 +84,7 @@ function CharLinkPopoverContent({ keyword, primitiveMeaning }: { keyword?: strin
         </Box>
       </When>
 
-      <When condition={primitiveMeaning}>
+      <When condition={primitive}>
         <Box fontStyle='italic' gridArea='primitive' marginBottom={0.5}>
           <FontAwesomeIcon
             icon={faCube}
@@ -92,7 +92,7 @@ function CharLinkPopoverContent({ keyword, primitiveMeaning }: { keyword?: strin
             size='xs'
             style={{ marginBottom: '2px', marginRight: spacing(0.5), verticalAlign: 'middle' }}
           />
-          {primitiveMeaning}
+          {primitive}
         </Box>
       </When>
     </>
