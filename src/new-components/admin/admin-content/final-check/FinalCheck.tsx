@@ -11,6 +11,16 @@ import {
   isWithheldPrimitiveOccurrence,
 } from '../../utils/occurrence-utils'
 import { PrevNextLinks } from '../../../shared/components/PrevNextLinks'
+import { findLastIndex } from '../../../shared/utility-functions'
+import {
+  FullOccurrence,
+  OccurrenceV3,
+  ReminderOccurrence,
+  SortedOccurrence,
+  WithheldConstituentsOccurrence,
+  WithheldKeywordOccurrence,
+  WithheldPrimitiveOccurrence,
+} from '../../../shared/MOCK_DATABASE_ENTRIES'
 
 export interface UnsubmittedCharacter {
   glyph: string
@@ -65,6 +75,23 @@ export function FinalCheck({ charFormData, timelineData }: { charFormData: CharF
 
         if (isReminder(occurrence)) {
           variant.reminder = true
+
+          const lastContentVariantIndex = findLastIndex(
+            timelineData,
+            (occurrence: SortedOccurrence) => isSet(occurrence) && !isReminder(occurrence)
+          )
+
+          if (!lastContentVariantIndex) {
+            throw new Error('Reminder is set without a previous variant')
+          } else {
+            const lastContentVariant = timelineData[lastContentVariantIndex] as
+              | FullOccurrence
+              | WithheldKeywordOccurrence
+              | WithheldPrimitiveOccurrence
+              | WithheldConstituentsOccurrence
+
+            variant.story = lastContentVariant.story
+          }
         }
 
         result.push(variant)
@@ -90,9 +117,9 @@ export function FinalCheck({ charFormData, timelineData }: { charFormData: CharF
         <div>Ebben a körben nem jelenik meg.</div>
 
         <PrevNextLinks
-          prevTitle={`${selectedTierIndex + 1}. kör`}
+          prevTitle={selectedTierIndex !== 0 ? `${selectedTierIndex + 1}. kör` : undefined}
           prevOnClick={() => selectTierIndex(selectedTierIndex - 1)}
-          nextTitle={`${selectedTierIndex + 2}. kör`}
+          nextTitle={selectedTierIndex !== 3 ? `${selectedTierIndex + 2}. kör` : undefined}
           nextOnClick={() => selectTierIndex(selectedTierIndex + 1)}
         />
       </>
@@ -102,8 +129,8 @@ export function FinalCheck({ charFormData, timelineData }: { charFormData: CharF
   return (
     <LearnContent
       lessonChar={selectedChar}
-      prevChar={`${selectedTierIndex + 1}. kör`} // Instead of glyph, show tier
-      nextChar={`${selectedTierIndex + 2}. kör`} // Instead of glyph, show tier
+      prevChar={selectedTierIndex !== 0 ? `${selectedTierIndex + 1}. kör` : undefined}
+      nextChar={selectedTierIndex !== 3 ? `${selectedTierIndex + 2}. kör` : undefined}
       selectCharIndex={(index: number) => selectTierIndex(index)}
       selectedCharIndex={selectedTierIndex}
     />

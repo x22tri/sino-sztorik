@@ -4,7 +4,7 @@ import { ReactNode } from 'react'
 
 export function Segment({ text, typographyProps }: { text: string | ReactNode; typographyProps?: TypographyProps }) {
   return (
-    <Typography component='span' display='inline-flex' flexWrap='nowrap' alignItems='baseline' {...typographyProps}>
+    <Typography component='span' flexWrap='nowrap' alignItems='baseline' {...typographyProps}>
       {text}
     </Typography>
   )
