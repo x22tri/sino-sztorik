@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 import LearnContent from '../../../learn/LearnContent'
 import { CharFormData, TimelineData } from '../../../shared/logic/loadAdminChar'
-import { Character, OtherUse, Phrase, ReferencedChar, SimilarAppearance, SimilarMeaning } from '../../../shared/interfaces'
+import { Character, Phrase, ReferencedChar, SimilarAppearance, SimilarMeaning } from '../../../shared/interfaces'
 import {
   isReminder,
   isSet,
@@ -19,6 +19,7 @@ import {
   WithheldKeywordOccurrence,
   WithheldPrimitiveOccurrence,
 } from '../../../shared/MOCK_DATABASE_ENTRIES'
+import { CHARS } from '../../../shared/MOCK_CHARS'
 
 export type UnsubmittedCharacter = Omit<Character, 'id'>
 
@@ -27,14 +28,17 @@ export function FinalCheck({ charFormData, timelineData }: { charFormData: CharF
 
   function assembleEntry(): (UnsubmittedCharacter | null)[] {
     const result: (UnsubmittedCharacter | null)[] = []
+    const constituents = getConstituents(charFormData)
+
+    console.log(constituents)
 
     new Array(1, 2, 3, 4).forEach(tier => {
       const occurrence = timelineData[tier - 1]
 
       const variant = {
         ...charFormData,
-        constituents: [] as ReferencedChar[], // To-Do: make query or handle on backend
-        otherUses: [] as OtherUse[], // To-Do: make query or handle on backend
+        constituents,
+        otherUses: charFormData.otherUses,
         phrases: [] as Phrase[], // To-Do: make query or handle on backend
         similarAppearance: [] as SimilarAppearance[], // To-Do: make query or handle on backend
         similarMeaning: [] as SimilarMeaning[], // To-Do: make query or handle on backend
@@ -123,4 +127,22 @@ function FinalCheckPrevNextLinks({
       nextOnClick={() => selectTierIndex(selectedTierIndex + 1)}
     />
   )
+}
+
+function getConstituents(charFormData: CharFormData) {
+  const referencedConstituents: ReferencedChar[] = []
+
+  charFormData.constituents?.forEach(constituent => {
+    const foundChar = CHARS.find(char => char.glyph === constituent)
+
+    if (!foundChar) {
+      console.log(`${constituent} not found in the character database.`)
+      return
+    } else {
+      const { glyph, keyword, primitive } = foundChar
+      referencedConstituents.push({ glyph, keyword, primitive })
+    }
+  })
+
+  return referencedConstituents
 }
