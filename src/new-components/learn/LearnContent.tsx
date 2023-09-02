@@ -1,5 +1,3 @@
-import Box from '@mui/material/Box'
-import { useTheme } from '@mui/material'
 import { Character } from '../shared/interfaces'
 import { useStore } from '../shared/logic/useStore'
 import {
@@ -11,9 +9,9 @@ import { StorySection } from './learn-content-sections/LearnContentSections'
 import { CharacterSection } from './learn-content-sections/LearnContentSections'
 import { PhrasesAndOtherUsesSection } from './learn-content-sections/LearnContentSections'
 import { ReactNode } from 'react'
+import { ContentWrapper } from '../shared/components/ContentWrapper'
 
 export default function LearnContent({ lessonChar, navigation }: { lessonChar: Character; navigation: ReactNode }) {
-  const { constants, spacing } = useTheme()
   const { flashbackChar } = useStore('flashback')
 
   const currentChar = flashbackChar ?? lessonChar
@@ -28,7 +26,7 @@ export default function LearnContent({ lessonChar, navigation }: { lessonChar: C
 
   return (
     <>
-      <Box p={{ xs: 2, md: 4 }} boxShadow={constants.boxShadow} borderRadius={spacing(2)}>
+      <ContentWrapper>
         <CharacterSection {...{ currentChar }} />
 
         <ConstituentsSection {...{ constituents }} />
@@ -40,7 +38,7 @@ export default function LearnContent({ lessonChar, navigation }: { lessonChar: C
         <SimilarMeaningSection {...{ similarMeaning }} />
 
         <SimilarAppearanceSection {...{ similarAppearance }} />
-      </Box>
+      </ContentWrapper>
 
       {navigation}
     </>

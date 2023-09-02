@@ -1,16 +1,13 @@
 import Typography from '@mui/material/Typography'
-import { Box, Divider, Stack, useTheme } from '@mui/material'
+import { Divider, Stack } from '@mui/material'
 import { useLargeScreen } from '../../shared/hooks/useLargeScreen'
 import { When } from 'react-if'
-import { useLoaderData, useLocation } from 'react-router-dom'
-import { LoadLessonSelect } from '../../shared/logic/loadLessonSelect'
-import { PrevNextLinks } from '../../shared/components/PrevNextLinks'
-import { LESSON_SELECT_PATH } from '../../shared/paths'
 import { TierStatusIcons } from '../lesson-picker/TierStatusIcons'
 import { CHARACTER_AMOUNT_LABEL } from '../../shared/strings'
 import { LearnReviewButton } from '../lesson-start/LearnReviewButton'
-import { ReactNode, useEffect } from 'react'
+import { ReactNode } from 'react'
 import { AssembledLesson } from '../../shared/interfaces'
+import { ContentWrapper } from '../../shared/components/ContentWrapper'
 
 export default function LessonSelectContent({
   navigation,
@@ -20,12 +17,11 @@ export default function LessonSelectContent({
   selectedLesson: AssembledLesson
 }) {
   const isLargeScreen = useLargeScreen()
-  const { constants, spacing } = useTheme()
   const { characters, lessonNumber, preface, tierStatuses, title } = selectedLesson
 
   return (
     <>
-      <Box p={{ xs: 2, md: 4 }} boxShadow={constants.boxShadow} borderRadius={spacing(2)}>
+      <ContentWrapper>
         <Typography color='text.secondary' textAlign='center' variant='h6' mt={{ xs: 2, md: 0 }}>
           {lessonNumber}. lecke
         </Typography>
@@ -55,7 +51,7 @@ export default function LessonSelectContent({
         </Typography>
 
         <LearnReviewButton />
-      </Box>
+      </ContentWrapper>
 
       {navigation}
     </>
