@@ -42,12 +42,11 @@ export const CHARS: Character[] = [
     newPrimitive: true,
     phrases: [
       {
-        phrase: '停止',
-        translation: 'abbahagy; abbamarad',
         characters: [
           { pinyin: 'tíng', glyph: '停', keyword: 'leáll' },
           { pinyin: 'zhĭ', glyph: '止', keyword: 'megáll', primitive: 'lábnyom' },
         ],
+        translation: 'abbahagy; abbamarad',
       },
     ],
 
@@ -88,46 +87,41 @@ export const CHARS: Character[] = [
     pinyin: 'zhèng',
     phrases: [
       {
-        phrase: '正好',
-        translation: 'pont jó',
         characters: [
           { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitive: 'ortopéd cipő' },
           { pinyin: 'hăo', glyph: '好', keyword: 'jó' },
         ],
+        translation: 'pont jó',
       },
       {
-        phrase: '真正',
-        translation: 'valódi',
         characters: [
           { pinyin: 'zhēn', glyph: '真', keyword: 'tényleg', primitive: 'hazugságvizsgáló' },
           { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitive: 'ortopéd cipő' },
         ],
+        translation: 'valódi',
       },
       {
-        phrase: '光明正大',
-        translation: 'tisztességes, elvhű',
         characters: [
           { pinyin: 'guāng', glyph: '光', keyword: 'sugár' },
           { pinyin: 'míng', glyph: '明', keyword: 'világos' },
           { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitive: 'ortopéd cipő' },
           { pinyin: 'dà', glyph: '大', keyword: 'nagy', primitive: 'bernáthegyi' },
         ],
+        translation: 'tisztességes, elvhű',
       },
       {
-        phrase: '正视',
-        translation: 'szemtől szemben kiáll ellene',
         characters: [
           { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitive: 'ortopéd cipő' },
           { pinyin: 'shì', glyph: '视', keyword: 'megszemlél' },
         ],
+        translation: 'szemtől szemben kiáll ellene',
       },
       {
-        phrase: '正则',
-        translation: 'szabályos (síkidom)',
         characters: [
           { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitive: 'ortopéd cipő' },
           { pinyin: 'zé', glyph: '则', keyword: 'szabály' },
         ],
+        translation: 'szabályos (síkidom)',
       },
     ],
     primitive: 'ortopéd cipő',
