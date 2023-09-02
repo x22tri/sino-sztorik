@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import LearnContent from '../../../learn/LearnContent'
 import { CharFormData, TimelineData } from '../../../shared/logic/loadAdminChar'
 import { Character, OtherUse, Phrase, ReferencedChar, SimilarAppearance, SimilarMeaning } from '../../../shared/interfaces'
@@ -95,12 +95,7 @@ export function FinalCheck({ charFormData, timelineData }: { charFormData: CharF
       <>
         <div>Ebben a körben nem jelenik meg.</div>
 
-        <PrevNextLinks
-          prevTitle={selectedTierIndex !== 0 ? `${selectedTierIndex + 1}. kör` : undefined}
-          prevOnClick={() => selectTierIndex(selectedTierIndex - 1)}
-          nextTitle={selectedTierIndex !== 3 ? `${selectedTierIndex + 2}. kör` : undefined}
-          nextOnClick={() => selectTierIndex(selectedTierIndex + 1)}
-        />
+        <FinalCheckPrevNextLinks {...{ selectTierIndex, selectedTierIndex }} />
       </>
     )
   }
@@ -108,10 +103,24 @@ export function FinalCheck({ charFormData, timelineData }: { charFormData: CharF
   return (
     <LearnContent
       lessonChar={selectedChar as Character}
-      prevChar={selectedTierIndex !== 0 ? `${selectedTierIndex + 1}. kör` : undefined}
-      nextChar={selectedTierIndex !== 3 ? `${selectedTierIndex + 2}. kör` : undefined}
-      selectCharIndex={(index: number) => selectTierIndex(index)}
-      selectedCharIndex={selectedTierIndex}
+      navigation={<FinalCheckPrevNextLinks {...{ selectTierIndex, selectedTierIndex }} />}
+    />
+  )
+}
+
+function FinalCheckPrevNextLinks({
+  selectTierIndex,
+  selectedTierIndex,
+}: {
+  selectTierIndex: Dispatch<SetStateAction<number>>
+  selectedTierIndex: number
+}) {
+  return (
+    <PrevNextLinks
+      prevTitle={selectedTierIndex !== 0 ? `${selectedTierIndex + 1}. kör` : undefined}
+      prevOnClick={() => selectTierIndex(selectedTierIndex - 1)}
+      nextTitle={selectedTierIndex !== 3 ? `${selectedTierIndex + 2}. kör` : undefined}
+      nextOnClick={() => selectTierIndex(selectedTierIndex + 1)}
     />
   )
 }

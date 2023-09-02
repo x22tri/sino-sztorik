@@ -10,6 +10,8 @@ import { When } from 'react-if'
 import { CharacterPreviews } from './lesson-start/CharacterPreviews'
 import { useLargeScreen } from '../shared/hooks/useLargeScreen'
 import { LoadLessonSelect } from '../shared/logic/loadLessonSelect'
+import { LESSON_SELECT_PATH } from '../shared/paths'
+import { PrevNextLinks } from '../shared/components/PrevNextLinks'
 
 export default function LessonSelect() {
   const { constants } = useTheme()
@@ -17,7 +19,7 @@ export default function LessonSelect() {
   const params = useParams<{ lessonNumber: string }>()
   const lessonNumber = Number(params.lessonNumber)
   const { isDrawerOpen, toggleDrawer } = useDrawer()
-  const { selectedLesson } = useLoaderData() as LoadLessonSelect
+  const { nextLesson, prevLesson, selectedLesson } = useLoaderData() as LoadLessonSelect
   const { characters, tierStatuses } = selectedLesson
 
   return (
@@ -46,7 +48,17 @@ export default function LessonSelect() {
         </Box>
 
         <Stack component='main' gridArea='main' p={2}>
-          <LessonSelectContent />
+          <LessonSelectContent
+            {...{ selectedLesson }}
+            navigation={
+              <PrevNextLinks
+                prevTitle={prevLesson?.title}
+                prevTo={`${LESSON_SELECT_PATH}/${prevLesson?.lessonNumber}`}
+                nextTitle={nextLesson?.title}
+                nextTo={`${LESSON_SELECT_PATH}/${nextLesson?.lessonNumber}`}
+              />
+            }
+          />
         </Stack>
 
         <When condition={isLargeScreen && characters.length}>

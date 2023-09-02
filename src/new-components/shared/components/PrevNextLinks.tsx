@@ -40,7 +40,10 @@ export function PrevNextLinks({
           <Button
             color='neutral'
             component={!!prevTo ? Link : Button}
-            onClick={prevOnClick}
+            onClick={() => {
+              window.scrollTo({ top: 0 })
+              if (prevOnClick) prevOnClick()
+            }}
             to={prevTo}
             startIcon={<FontAwesomeIcon icon={faChevronLeft} transform='shrink-4' />}
             size='large'
@@ -59,7 +62,10 @@ export function PrevNextLinks({
               color='neutral'
               component={!!nextTo ? Link : Button}
               endIcon={<FontAwesomeIcon icon={faChevronRight} transform='shrink-4' />}
-              onClick={nextOnClick}
+              onClick={() => {
+                window.scrollTo({ top: 0 })
+                if (nextOnClick) nextOnClick()
+              }}
               to={nextTo}
               size='large'
               variant='text'

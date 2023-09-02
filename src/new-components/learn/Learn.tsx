@@ -8,15 +8,22 @@ import { useStore } from '../shared/logic/useStore'
 import { useLoaderData } from 'react-router-dom'
 import { LoadLearn } from '../shared/logic/loadLearn'
 import { useDrawer } from '../shared/hooks/useDrawer'
-import { Box, Stack, useTheme } from '@mui/material'
+import { Box, Button, Stack, useTheme } from '@mui/material'
 import { SideNav } from '../shared/components/SideNav'
+import { Unless } from 'react-if'
+import { PrevNextLinks } from '../shared/components/PrevNextLinks'
+import { LESSON_SELECT_PATH } from '../shared/paths'
+import { LEARN_FINISH_LESSON_BUTTON } from '../shared/strings'
+import { useSmallScreen } from '../shared/hooks/useSmallScreen'
 
 export default function Learn() {
+  const isSmallScreen = useSmallScreen()
+  const [contentType, setContentType] = useState<'characters' | 'preface'>('characters')
   const { constants } = useTheme()
   const { lesson } = useLoaderData() as LoadLearn
   const { isDrawerOpen, toggleDrawer } = useDrawer()
-  const [contentType, setContentType] = useState<'characters' | 'preface'>('characters')
   const { selectCharIndex, selectedCharIndex } = useStore('learn')
+  const { flashbackChar } = useStore('flashback')
 
   const selectedChar = lesson.characters[selectedCharIndex]
   const prevChar = lesson.characters[selectedCharIndex - 1] ?? null
@@ -54,9 +61,25 @@ export default function Learn() {
         <Stack component='main' gridArea='main' p={2}>
           <LearnContent
             lessonChar={selectedChar}
-            prevChar={prevChar?.glyph}
-            nextChar={nextChar?.glyph}
-            {...{ selectCharIndex, selectedCharIndex }}
+            navigation={
+              <Unless condition={!!flashbackChar}>
+                <PrevNextLinks
+                  customEndElement={
+                    <Button
+                      variant='contained'
+                      href={LESSON_SELECT_PATH}
+                      sx={{ borderRadius: 6, width: isSmallScreen ? 1 : undefined }}
+                    >
+                      {LEARN_FINISH_LESSON_BUTTON}
+                    </Button>
+                  }
+                  prevTitle={prevChar?.glyph}
+                  prevOnClick={() => selectCharIndex(selectedCharIndex - 1)}
+                  nextTitle={nextChar?.glyph}
+                  nextOnClick={() => selectCharIndex(selectedCharIndex + 1)}
+                />
+              </Unless>
+            }
           />
         </Stack>
       </Box>

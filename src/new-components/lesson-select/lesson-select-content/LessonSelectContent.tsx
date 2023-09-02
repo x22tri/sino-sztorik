@@ -9,16 +9,19 @@ import { LESSON_SELECT_PATH } from '../../shared/paths'
 import { TierStatusIcons } from '../lesson-picker/TierStatusIcons'
 import { CHARACTER_AMOUNT_LABEL } from '../../shared/strings'
 import { LearnReviewButton } from '../lesson-start/LearnReviewButton'
-import { useEffect } from 'react'
+import { ReactNode, useEffect } from 'react'
+import { AssembledLesson } from '../../shared/interfaces'
 
-export default function LessonSelectContent() {
+export default function LessonSelectContent({
+  navigation,
+  selectedLesson,
+}: {
+  navigation: ReactNode
+  selectedLesson: AssembledLesson
+}) {
   const isLargeScreen = useLargeScreen()
   const { constants, spacing } = useTheme()
-  const { pathname } = useLocation()
-  const { nextLesson, prevLesson, selectedLesson } = useLoaderData() as LoadLessonSelect
   const { characters, lessonNumber, preface, tierStatuses, title } = selectedLesson
-
-  useEffect(() => window.scrollTo({ top: 0 }), [pathname])
 
   return (
     <>
@@ -54,12 +57,7 @@ export default function LessonSelectContent() {
         <LearnReviewButton />
       </Box>
 
-      <PrevNextLinks
-        prevTitle={prevLesson?.title}
-        prevTo={`${LESSON_SELECT_PATH}/${prevLesson?.lessonNumber}`}
-        nextTitle={nextLesson?.title}
-        nextTo={`${LESSON_SELECT_PATH}/${nextLesson?.lessonNumber}`}
-      />
+      {navigation}
     </>
   )
 }
