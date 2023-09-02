@@ -3,7 +3,7 @@ import { Fragment } from 'react'
 import { Unless } from 'react-if'
 import { ReferencedChar } from '../../shared/interfaces'
 
-export function PhraseDemo({ characters, phraseHungarian }: { characters: ReferencedChar[]; phraseHungarian: string }) {
+export function PhraseDemo({ characters, translation }: { characters: ReferencedChar[]; translation: string }) {
   return (
     <Box py={2} sx={{ borderTop: ({ palette }) => `1px solid ${palette.grey[300]}` }}>
       <Box display='flex' flexDirection='row' maxWidth='30ch' mx='auto'>
@@ -29,7 +29,7 @@ export function PhraseDemo({ characters, phraseHungarian }: { characters: Refere
       </Box>
 
       <Box textAlign='center' typography='h5' pt={1}>
-        {phraseHungarian}
+        {translation}
       </Box>
     </Box>
   )

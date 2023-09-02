@@ -58,8 +58,8 @@ export type UseKeydownAction = { on: string; do: () => void }
 export type ReferencedChar = Pick<Character, 'keyword' | 'primitive'> & Pick<Character, 'glyph'>
 
 export interface Phrase {
-  phraseChinese: string
-  phraseHungarian: string
+  phrase: string
+  translation: string
   characters: (ReferencedChar & Pick<Character, 'pinyin'>)[]
 }
 

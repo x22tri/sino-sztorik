@@ -30,8 +30,6 @@ export function FinalCheck({ charFormData, timelineData }: { charFormData: CharF
     const result: (UnsubmittedCharacter | null)[] = []
     const constituents = getConstituents(charFormData)
 
-    console.log(constituents)
-
     new Array(1, 2, 3, 4).forEach(tier => {
       const occurrence = timelineData[tier - 1]
 

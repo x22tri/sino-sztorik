@@ -42,8 +42,8 @@ export const CHARS: Character[] = [
     newPrimitive: true,
     phrases: [
       {
-        phraseChinese: '停止',
-        phraseHungarian: 'abbahagy; abbamarad',
+        phrase: '停止',
+        translation: 'abbahagy; abbamarad',
         characters: [
           { pinyin: 'tíng', glyph: '停', keyword: 'leáll' },
           { pinyin: 'zhĭ', glyph: '止', keyword: 'megáll', primitive: 'lábnyom' },
@@ -88,24 +88,24 @@ export const CHARS: Character[] = [
     pinyin: 'zhèng',
     phrases: [
       {
-        phraseChinese: '正好',
-        phraseHungarian: 'pont jó',
+        phrase: '正好',
+        translation: 'pont jó',
         characters: [
           { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitive: 'ortopéd cipő' },
           { pinyin: 'hăo', glyph: '好', keyword: 'jó' },
         ],
       },
       {
-        phraseChinese: '真正',
-        phraseHungarian: 'valódi',
+        phrase: '真正',
+        translation: 'valódi',
         characters: [
           { pinyin: 'zhēn', glyph: '真', keyword: 'tényleg', primitive: 'hazugságvizsgáló' },
           { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitive: 'ortopéd cipő' },
         ],
       },
       {
-        phraseChinese: '光明正大',
-        phraseHungarian: 'tisztességes, elvhű',
+        phrase: '光明正大',
+        translation: 'tisztességes, elvhű',
         characters: [
           { pinyin: 'guāng', glyph: '光', keyword: 'sugár' },
           { pinyin: 'míng', glyph: '明', keyword: 'világos' },
@@ -114,16 +114,16 @@ export const CHARS: Character[] = [
         ],
       },
       {
-        phraseChinese: '正视',
-        phraseHungarian: 'szemtől szemben kiáll ellene',
+        phrase: '正视',
+        translation: 'szemtől szemben kiáll ellene',
         characters: [
           { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitive: 'ortopéd cipő' },
           { pinyin: 'shì', glyph: '视', keyword: 'megszemlél' },
         ],
       },
       {
-        phraseChinese: '正则',
-        phraseHungarian: 'szabályos (síkidom)',
+        phrase: '正则',
+        translation: 'szabályos (síkidom)',
         characters: [
           { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitive: 'ortopéd cipő' },
           { pinyin: 'zé', glyph: '则', keyword: 'szabály' },

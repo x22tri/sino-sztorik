@@ -31,8 +31,8 @@ export function SupplementsDemo() {
         </Grid>
       </Grid>
 
-      {phrases!.map(({ characters, phraseHungarian }, index) => (
-        <PhraseDemo key={index} {...{ characters, phraseHungarian }} />
+      {phrases!.map(({ characters, translation }, index) => (
+        <PhraseDemo key={index} {...{ characters, translation }} />
       ))}
     </Box>
   )
