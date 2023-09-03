@@ -1,3 +1,4 @@
+import { Params } from 'react-router-dom'
 import { LESSON_ENTRY, SortedOccurrence } from '../MOCK_DATABASE_ENTRIES'
 import { CharacterEntryV3 } from '../MOCK_DATABASE_ENTRIES'
 import { CHAR_ENTRY_V3 } from '../MOCK_DATABASE_ENTRIES'
@@ -8,7 +9,7 @@ export type TimelineData = [SortedOccurrence, SortedOccurrence, SortedOccurrence
 
 export type CalculatedIndexes = [number, number, number, number]
 
-export function loadAdminChar(): {
+export function loadAdminChar({ params }: { params: Params }): {
   charFormData: CharFormData
   timelineData: TimelineData
   calculatedIndexes: CalculatedIndexes

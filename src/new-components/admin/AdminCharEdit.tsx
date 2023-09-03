@@ -1,7 +1,7 @@
 import { AdminCharPickerContent } from './char-picker/AdminCharPickerContent'
 import { AdminSubmenuTitle } from './AdminSubmenuTitle'
 import { AdminAppbar } from './admin-appbar/AdminAppbar'
-import AdminContent from './admin-content/AdminContent'
+import AdminCharEditContent from './admin-content/AdminCharEditContent'
 import { AdminBottomNav } from './admin-bottom-nav/AdminBottomNav'
 import { useState } from 'react'
 import { useLoaderData } from 'react-router-dom'
@@ -13,7 +13,7 @@ import { useDrawer } from '../shared/hooks/useDrawer'
 import { Box, useTheme } from '@mui/material'
 import { SideNav } from '../shared/components/SideNav'
 
-export function Admin() {
+export function AdminCharEdit() {
   const { constants } = useTheme()
   const [activeStep, setActiveStep] = useState(0)
   const [toolbarHeight, setToolbarHeight] = useState(0)
@@ -58,9 +58,9 @@ export function Admin() {
             />
           </Box>
 
-          <Box component='main' gridArea='main' p={2}>
+          <Box component='main' gridArea='main'>
             <FormProvider {...formMethods}>
-              <AdminContent {...{ activeStep, saveCharForm, setTimelineData, timelineData, toolbarHeight }} />
+              <AdminCharEditContent {...{ activeStep, saveCharForm, setTimelineData, timelineData, toolbarHeight }} />
 
               <AdminBottomNav {...{ activeStep, setActiveStep, savedTimelineData, setTimelineData, timelineData }} />
             </FormProvider>

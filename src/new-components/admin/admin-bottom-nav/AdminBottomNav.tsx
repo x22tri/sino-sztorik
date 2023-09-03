@@ -9,6 +9,7 @@ import { CharAdminErrorContext, getCharAdminErrors } from '../char-admin-error-c
 import { useFormContext, useFormState } from 'react-hook-form'
 import { TimelineData } from '../../shared/logic/loadAdminChar'
 import { isShallowEqual } from '../../shared/utility-functions'
+import { useLargeScreen } from '../../shared/hooks/useLargeScreen'
 
 export function AdminBottomNav({
   activeStep,
@@ -27,7 +28,6 @@ export function AdminBottomNav({
   const { constants, palette, spacing } = useTheme()
   const { charFormErrors, timelineErrors } = useContext(CharAdminErrorContext)
 
-  const drawerWidth = isSmallScreen ? 0 : constants.drawerWidth
   const isFinalCheckDisabled = getCharAdminErrors(charFormErrors).length > 0 || getCharAdminErrors(timelineErrors).length > 0
 
   function stepBack() {
@@ -57,8 +57,8 @@ export function AdminBottomNav({
       sx={{
         bgcolor: 'background.paper',
         grid: `"revert navigate" auto / max-content auto`,
-        maxWidth: `calc(${constants.maxContentWidth} - ${drawerWidth}px - ${spacing(4)})`,
-        width: `calc(100% - ${drawerWidth}px - ${spacing(4)})`,
+        maxWidth: { xs: constants.maxContentWidth, lg: `calc(${constants.maxContentWidth} - ${constants.drawerWidth}px)` },
+        width: isSmallScreen ? 1 : `calc(100% - ${constants.drawerWidth}px)`,
       }}
     >
       <RevertChangesButton {...{ savedTimelineData, setTimelineData, timelineData }} />

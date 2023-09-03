@@ -12,8 +12,9 @@ import { FinalCheck } from './final-check/FinalCheck'
 import { Heading } from '../../learn/headings/Heading'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { ADMIN_CHARACTERS_SUBPATH, ADMIN_PATH } from '../../shared/paths'
 
-export default function AdminContent({
+export default function AdminCharEditContent({
   activeStep,
   timelineData,
   saveCharForm,
@@ -35,14 +36,13 @@ export default function AdminContent({
   return (
     <Box
       bgcolor='background.paper'
-      component='main'
       minHeight={`calc(100vh - ${toolbarHeight}px - ${constants.bottomToolbarHeight})`}
       marginBottom={constants.bottomToolbarHeight}
       padding={2}
     >
       <Breadcrumbs aria-label='breadcrumb' separator={<FontAwesomeIcon icon={faChevronRight} size='xs' />}>
-        <BreadcrumbLink href='/' text='Kezelőközpont' />
-        <BreadcrumbLink href='/characters' text='Karakterek' />
+        <BreadcrumbLink href={`${ADMIN_PATH}`} text='Kezelőközpont' />
+        <BreadcrumbLink href={`${ADMIN_PATH}${ADMIN_CHARACTERS_SUBPATH}`} text='Karakterek' />
         <Typography color='text.primary'>Karakter szerkesztése ({charFormData.glyph})</Typography>
       </Breadcrumbs>
 

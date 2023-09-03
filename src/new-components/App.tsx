@@ -7,13 +7,12 @@ import Learn from './learn/Learn'
 import LessonSelect from './lesson-select/LessonSelect'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { loadLearn } from './shared/logic/loadLearn'
-import { ADMIN_PATH, LEARN_PATH, LESSON_SELECT_PATH, REVIEW_PATH, ROOT_PATH } from './shared/paths'
+import { ADMIN_CHARACTERS_SUBPATH, ADMIN_PATH, LEARN_PATH, LESSON_SELECT_PATH, REVIEW_PATH, ROOT_PATH } from './shared/paths'
 import { loadReview } from './shared/logic/loadReview'
 import LanguageContextProvider from './shared/localization/LanguageContext'
 import { loadLessonSelect } from './shared/logic/loadLessonSelect'
 import { ErrorPage } from './error-page/ErrorPage'
-import LessonSelectContent from './lesson-select/lesson-select-content/LessonSelectContent'
-import { Admin } from './admin/Admin'
+import { AdminCharEdit } from './admin/AdminCharEdit'
 import { loadAdminChar } from './shared/logic/loadAdminChar'
 
 const router = createBrowserRouter([
@@ -42,13 +41,23 @@ const router = createBrowserRouter([
   },
   {
     path: `${ADMIN_PATH}`,
-    element: <Admin />,
-    action: async ({ params, request }) => {
-      let formData = Object.fromEntries(await request.formData())
-      console.log(formData)
-      return null
-    },
-    loader: loadAdminChar,
+    children: [
+      {
+        path: `${ADMIN_PATH}${ADMIN_CHARACTERS_SUBPATH}`,
+        children: [
+          {
+            path: `${ADMIN_PATH}${ADMIN_CHARACTERS_SUBPATH}/:glyph`,
+            element: <AdminCharEdit />,
+            action: async ({ params, request }) => {
+              let formData = Object.fromEntries(await request.formData())
+              console.log(formData)
+              return null
+            },
+            loader: ({ params }) => loadAdminChar({ params }),
+          },
+        ],
+      },
+    ],
   },
 ])
 
