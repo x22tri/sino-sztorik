@@ -1,9 +1,8 @@
-import { Box, Breadcrumbs, Link, Step, StepLabel, Stepper, Typography, useTheme } from '@mui/material'
+import { Box, Breadcrumbs, Link, Typography, useTheme } from '@mui/material'
 import { TimelineData } from '../../shared/logic/loadAdminChar'
 import { CharFormData } from '../../shared/logic/loadAdminChar'
 import { Timeline } from '../timeline/Timeline'
 import { Dispatch, SetStateAction } from 'react'
-import { CharFormAdminStepLabel, TimelineAdminStepLabel } from './AdminStepLabel'
 import { Case, Default, Switch } from 'react-if'
 import { CharForm } from '../char-form/CharForm'
 import { ADMIN_CHAR_EDIT_STEP_ONE, ADMIN_CHAR_EDIT_STEP_THREE, ADMIN_CHAR_EDIT_STEP_TWO } from '../../shared/strings'
@@ -12,7 +11,7 @@ import { useRegisterCharAdminErrors } from '../hooks/useRegisterCharAdminErrors'
 import { FinalCheck } from './final-check/FinalCheck'
 import { Heading } from '../../learn/headings/Heading'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretRight, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
 export default function AdminContent({
   activeStep,
@@ -27,9 +26,11 @@ export default function AdminContent({
   setTimelineData: Dispatch<SetStateAction<TimelineData>>
   toolbarHeight: number
 }) {
-  const { constants, spacing } = useTheme()
+  const { constants } = useTheme()
 
   const charFormData = useWatch() as CharFormData
+
+  console.log(charFormData.otherUses)
 
   useRegisterCharAdminErrors(charFormData, timelineData)
 

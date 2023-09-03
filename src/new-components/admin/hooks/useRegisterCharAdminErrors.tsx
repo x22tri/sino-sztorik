@@ -68,7 +68,9 @@ export function useRegisterCharAdminErrors(charFormData: CharFormData, timelineD
   useRegisterError({
     condition:
       !!charFormData['otherUses']?.length &&
-      charFormData.otherUses.some(({ pinyin, meanings }) => pinyin === '' || meanings.some(meaning => meaning === '')),
+      charFormData.otherUses.some(
+        ({ pinyin, meanings }) => pinyin.trim() === '' || meanings.some(meaning => meaning.trim() === '')
+      ),
     dependencies: [charFormData.otherUses],
     error: CharFormError.OtherUseCannotBeEmpty,
   })
@@ -116,8 +118,12 @@ function useRegisterError<T extends CharAdminCategory>({
   useDebouncedEffect(() => {
     if (error in CharFormError) {
       setCharFormErrors(prev => ({ ...prev, [error]: { value: condition, dependencies } }))
-    } else {
+      return
+    }
+
+    if (error in TimelineError) {
       setTimelineErrors(prev => ({ ...prev, [error]: { value: condition } }))
+      return
     }
   }, dependencies)
 }
