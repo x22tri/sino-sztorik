@@ -6,13 +6,22 @@ import { faArrowLeft, faArrowRight, faSave, faTrash } from '@fortawesome/free-so
 import { Wrap } from '../../shared/utility-components'
 import { ADMIN_CHAR_EDIT_STEP_ONE, ADMIN_CHAR_EDIT_STEP_THREE, ADMIN_CHAR_EDIT_STEP_TWO } from '../../shared/strings'
 import { CharAdminErrorContext, getCharAdminErrors } from '../char-admin-error-context/CharAdminErrorContext'
+import { useFormContext, useFormState } from 'react-hook-form'
+import { TimelineData } from '../../shared/logic/loadAdminChar'
+import { isShallowEqual } from '../../shared/utility-functions'
 
 export function AdminBottomNav({
   activeStep,
+  savedTimelineData,
   setActiveStep,
+  setTimelineData,
+  timelineData,
 }: {
   activeStep: number
+  savedTimelineData: TimelineData
   setActiveStep: Dispatch<SetStateAction<number>>
+  setTimelineData: Dispatch<SetStateAction<TimelineData>>
+  timelineData: TimelineData
 }) {
   const isSmallScreen = useSmallScreen()
   const { constants, palette, spacing } = useTheme()
@@ -52,7 +61,7 @@ export function AdminBottomNav({
         width: `calc(100% - ${drawerWidth}px - ${spacing(4)})`,
       }}
     >
-      <RevertChangesButton />
+      <RevertChangesButton {...{ savedTimelineData, setTimelineData, timelineData }} />
 
       <Stack direction='row' gap={2} gridArea='navigate' marginLeft='auto'>
         <Buttons {...{ activeStep, isFinalCheckDisabled, saveChanges, stepBack, stepForward }} />
@@ -100,11 +109,30 @@ function Buttons({
   }
 }
 
-function RevertChangesButton() {
+function RevertChangesButton({
+  savedTimelineData,
+  setTimelineData,
+  timelineData,
+}: {
+  savedTimelineData: TimelineData
+  setTimelineData: Dispatch<SetStateAction<TimelineData>>
+  timelineData: TimelineData
+}) {
+  const { formState, reset } = useFormContext()
+
+  function revertChanges() {
+    reset()
+    setTimelineData(savedTimelineData)
+  }
+
+  const hasTimelineDataChanged = savedTimelineData.every((occurrence, index) => isShallowEqual(occurrence, timelineData[index]))
+
   return (
     <Button
       color='error'
+      disabled={!formState.isDirty && hasTimelineDataChanged}
       startIcon={<FontAwesomeIcon icon={faTrash} transform='shrink-4' />}
+      onClick={revertChanges}
       variant='outlined'
       sx={{ gridArea: 'revert' }}
     >

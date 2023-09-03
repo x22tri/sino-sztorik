@@ -30,8 +30,6 @@ export default function AdminContent({
 
   const charFormData = useWatch() as CharFormData
 
-  console.log(charFormData.otherUses)
-
   useRegisterCharAdminErrors(charFormData, timelineData)
 
   return (
@@ -45,12 +43,13 @@ export default function AdminContent({
       <Breadcrumbs aria-label='breadcrumb' separator={<FontAwesomeIcon icon={faChevronRight} size='xs' />}>
         <BreadcrumbLink href='/' text='Kezelőközpont' />
         <BreadcrumbLink href='/characters' text='Karakterek' />
-        <Typography color='text.primary'>Karakter szerkesztése</Typography>
+        <Typography color='text.primary'>Karakter szerkesztése ({charFormData.glyph})</Typography>
       </Breadcrumbs>
+
       <Switch>
         <Case condition={activeStep === 0}>
           <Heading title={ADMIN_CHAR_EDIT_STEP_ONE} />
-          <CharForm {...{ saveCharForm }} />
+          <CharForm />
         </Case>
 
         <Case condition={activeStep === 1}>

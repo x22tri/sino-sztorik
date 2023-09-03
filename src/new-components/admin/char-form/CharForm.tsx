@@ -6,16 +6,9 @@ import { Dispatch, SetStateAction } from 'react'
 import { OtherUsesSection } from '../admin-content/sections/OtherUsesSection'
 import { Subheading } from '../../learn/headings/Subheading'
 
-export function CharForm({ saveCharForm }: { saveCharForm: Dispatch<SetStateAction<CharFormData>> }) {
-  const { handleSubmit } = useFormContext()
-
-  function onSubmit(data: any) {
-    saveCharForm(data)
-    console.log(data)
-  }
-
+export function CharForm() {
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form>
       <Subheading styles={{ marginBottom: 2, marginTop: 0 }} title='Alapadatok' />
       <CharacterSection />
 
@@ -24,8 +17,6 @@ export function CharForm({ saveCharForm }: { saveCharForm: Dispatch<SetStateActi
 
       <Subheading styles={{ marginBottom: 2, marginTop: 6 }} title='Egyéb jelentései' />
       <OtherUsesSection />
-
-      <button onClick={onSubmit}>Log current values</button>
     </form>
   )
 }

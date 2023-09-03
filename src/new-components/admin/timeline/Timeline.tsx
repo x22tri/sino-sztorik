@@ -77,10 +77,6 @@ export function Timeline({
 
   const charFormData = useWatch() as CharFormData
 
-  // console.log(timelineData)
-
-  // useTimelineErrors(charFormData, timelineData)
-
   return (
     <Stack marginTop={2}>
       {timelineData.map((occurrence: SortedOccurrence, index: number) => (
