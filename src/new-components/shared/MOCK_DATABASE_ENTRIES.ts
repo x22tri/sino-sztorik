@@ -1,4 +1,4 @@
-import { Blueprint } from '../admin/Blueprint'
+import { Blueprint } from '../admin/admin-char-edit/Blueprint'
 
 export interface CharacterEntryV2 {
   glyph: string

@@ -12,7 +12,7 @@ import { loadReview } from './shared/logic/loadReview'
 import LanguageContextProvider from './shared/localization/LanguageContext'
 import { loadLessonSelect } from './shared/logic/loadLessonSelect'
 import { ErrorPage } from './error-page/ErrorPage'
-import { AdminCharEdit } from './admin/AdminCharEdit'
+import { AdminCharEdit } from './admin/admin-char-edit/AdminCharEdit'
 import { loadAdminChar } from './shared/logic/loadAdminChar'
 
 const router = createBrowserRouter([
