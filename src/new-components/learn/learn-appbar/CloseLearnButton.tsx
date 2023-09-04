@@ -10,7 +10,6 @@ import {
 import { useState } from 'react'
 import ToolbarButton from '../../shared/components/ToolbarButton'
 import { useStore } from '../../shared/logic/useStore'
-import { LESSON_SELECT_PATH } from '../../shared/paths'
 
 export function CloseLearnButton() {
   const [openModal, setOpenModal] = useState(false)
@@ -50,7 +49,7 @@ export function CloseLearnButton() {
               {LEARN_EXIT_MODAL_CANCEL_BUTTON}
             </Button>
 
-            <Button href={LESSON_SELECT_PATH} variant='contained'>
+            <Button href='/lessons' variant='contained'>
               {LEARN_EXIT_MODAL_EXIT_BUTTON}
             </Button>
           </Box>

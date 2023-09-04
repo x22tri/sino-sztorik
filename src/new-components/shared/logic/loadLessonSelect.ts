@@ -1,7 +1,6 @@
 import { Params, redirect } from 'react-router-dom'
 import { LESSONS } from '../MOCK_LESSONS'
-import { AssembledLesson, LessonStatuses, TierStatuses } from '../interfaces'
-import { LEARN_PATH, LESSON_SELECT_PATH, REVIEW_PATH } from '../paths'
+import { AssembledLesson, LessonStatuses } from '../interfaces'
 import { isDisabledLesson } from '../utility-functions'
 import { LEARN_BUTTON, LEARN_BUTTON_EXPLANATION, REVIEW_BUTTON, REVIEW_BUTTON_EXPLANATION } from '../strings'
 
@@ -41,14 +40,14 @@ export function loadLessonSelect({ params }: { params: Params }): Response | Loa
   }
 
   if (!params.lessonNumber) {
-    return redirect(`${LESSON_SELECT_PATH}/${upcomingIndex + 1}`)
+    return redirect(`/lessons/${upcomingIndex + 1}`)
   }
 
   const selectedLessonNumber = Number(params.lessonNumber)
   const selectedLesson = lessons[selectedLessonNumber - 1]
 
   if (!selectedLesson) {
-    return redirect(`${LESSON_SELECT_PATH}/${upcomingIndex + 1}`)
+    return redirect(`/lessons/${upcomingIndex + 1}`)
   }
 
   const nextLesson = getLessonIfActive(lessons[selectedLessonNumber])
@@ -69,7 +68,7 @@ function getLearnReviewOptions({ lessonNumber, tierStatuses }: AssembledLesson) 
     learnReviewOptions.push({
       buttonText: LEARN_BUTTON,
       explanation: LEARN_BUTTON_EXPLANATION,
-      link: LEARN_PATH,
+      link: '/learn',
     })
   }
 
@@ -77,7 +76,7 @@ function getLearnReviewOptions({ lessonNumber, tierStatuses }: AssembledLesson) 
     learnReviewOptions.push({
       buttonText: REVIEW_BUTTON,
       explanation: REVIEW_BUTTON_EXPLANATION,
-      link: `${REVIEW_PATH}/${lessonNumber}`,
+      link: `/review/${lessonNumber}`,
     })
   }
 

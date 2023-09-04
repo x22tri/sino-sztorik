@@ -4,8 +4,6 @@ import { PREV_NEXT_BUTTONS_PREV, PREV_NEXT_BUTTONS_NEXT } from '../strings'
 import { Else, If, Then, When } from 'react-if'
 import { Box, Button } from '@mui/material'
 import { TitleSubtitle } from './TitleSubtitle'
-import { AssembledLesson } from '../interfaces'
-import { LESSON_SELECT_PATH } from '../paths'
 import { Link } from 'react-router-dom'
 
 export function PrevNextLinks({

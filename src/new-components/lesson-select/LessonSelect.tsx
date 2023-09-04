@@ -10,7 +10,6 @@ import { When } from 'react-if'
 import { CharacterPreviews } from './lesson-start/CharacterPreviews'
 import { useLargeScreen } from '../shared/hooks/useLargeScreen'
 import { LoadLessonSelect } from '../shared/logic/loadLessonSelect'
-import { LESSON_SELECT_PATH } from '../shared/paths'
 import { PrevNextLinks } from '../shared/components/PrevNextLinks'
 
 export default function LessonSelect() {
@@ -53,9 +52,9 @@ export default function LessonSelect() {
             navigation={
               <PrevNextLinks
                 prevTitle={prevLesson?.title}
-                prevTo={`${LESSON_SELECT_PATH}/${prevLesson?.lessonNumber}`}
+                prevTo={`/lessons/${prevLesson?.lessonNumber}`}
                 nextTitle={nextLesson?.title}
-                nextTo={`${LESSON_SELECT_PATH}/${nextLesson?.lessonNumber}`}
+                nextTo={`/lessons/${nextLesson?.lessonNumber}`}
               />
             }
           />

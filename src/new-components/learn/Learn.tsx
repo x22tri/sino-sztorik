@@ -12,7 +12,6 @@ import { Box, Button, Stack, useTheme } from '@mui/material'
 import { SideNav } from '../shared/components/SideNav'
 import { Unless } from 'react-if'
 import { PrevNextLinks } from '../shared/components/PrevNextLinks'
-import { LESSON_SELECT_PATH } from '../shared/paths'
 import { LEARN_FINISH_LESSON_BUTTON } from '../shared/strings'
 import { useSmallScreen } from '../shared/hooks/useSmallScreen'
 
@@ -65,11 +64,7 @@ export default function Learn() {
               <Unless condition={!!flashbackChar}>
                 <PrevNextLinks
                   customEndElement={
-                    <Button
-                      variant='contained'
-                      href={LESSON_SELECT_PATH}
-                      sx={{ borderRadius: 6, width: isSmallScreen ? 1 : undefined }}
-                    >
+                    <Button variant='contained' href='/lessons' sx={{ borderRadius: 6, width: isSmallScreen ? 1 : undefined }}>
                       {LEARN_FINISH_LESSON_BUTTON}
                     </Button>
                   }

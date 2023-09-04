@@ -3,16 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleRight } from '@fortawesome/free-solid-svg-icons'
 import { When } from 'react-if'
 import { isDisabledLesson } from '../../shared/utility-functions'
-import { useStore } from '../../shared/logic/useStore'
 import { Link, useLoaderData, useParams } from 'react-router-dom'
 import { LoadLessonSelect } from '../../shared/logic/loadLessonSelect'
-import { LESSON_SELECT_PATH } from '../../shared/paths'
 
 export function LessonPickerContent({ toggleDrawer }: { toggleDrawer: () => void }) {
   const params = useParams<{ lessonNumber: string }>()
   const selectedLessonNumber = Number(params.lessonNumber)
   const { lessons, upcomingIndex } = useLoaderData() as LoadLessonSelect
-  const { constants, palette, spacing, typography } = useTheme()
+  const { constants, palette, spacing } = useTheme()
 
   return (
     <>
@@ -25,7 +23,7 @@ export function LessonPickerContent({ toggleDrawer }: { toggleDrawer: () => void
               component={Link}
               disabled={isDisabledLesson(tierStatuses)}
               onClick={toggleDrawer}
-              to={`${LESSON_SELECT_PATH}/${lessonNumber}`}
+              to={`/lessons/${lessonNumber}`}
               selected={selectedLessonNumber === lessonNumber}
               sx={{
                 borderRadius: 6,

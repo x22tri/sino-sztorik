@@ -47,7 +47,6 @@ function CharButtonList({
                 cursor: disabled ? 'initial' : 'pointer',
               },
             }}
-            // {...{ disabled }}
           >
             <ListItemIcon>
               <Typography variant='chineseText' color={color === 'primary' ? 'primary.main' : 'secondary.main'}>

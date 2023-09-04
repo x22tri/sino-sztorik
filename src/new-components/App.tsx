@@ -7,55 +7,59 @@ import Learn from './learn/Learn'
 import LessonSelect from './lesson-select/LessonSelect'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { loadLearn } from './shared/logic/loadLearn'
-import { ADMIN_CHARACTERS_SUBPATH, ADMIN_PATH, LEARN_PATH, LESSON_SELECT_PATH, REVIEW_PATH, ROOT_PATH } from './shared/paths'
 import { loadReview } from './shared/logic/loadReview'
 import LanguageContextProvider from './shared/localization/LanguageContext'
 import { loadLessonSelect } from './shared/logic/loadLessonSelect'
 import { ErrorPage } from './error-page/ErrorPage'
 import { AdminCharEdit } from './admin/admin-char-edit/AdminCharEdit'
 import { loadAdminChar } from './shared/logic/loadAdminChar'
+import { AdminCharList } from './admin/admin-char-list/AdminCharList'
+import { AdminDashboard } from './admin/admin-dashboard/AdminDashboard'
 
 const router = createBrowserRouter([
   {
-    path: ROOT_PATH,
+    path: '/',
     element: <Landing />,
     errorElement: <ErrorPage />,
   },
   {
-    path: `${LESSON_SELECT_PATH}/:lessonNumber?`,
+    path: `/lessons/:lessonNumber?`,
     element: <LessonSelect />,
     errorElement: <div>An error occurred on LessonSelect</div>,
     loader: ({ params }) => loadLessonSelect({ params }),
   },
   {
-    path: `${LEARN_PATH}`,
+    path: `/learn`,
     element: <Learn />,
     errorElement: <div>An error occurred on Learn</div>,
     loader: loadLearn,
   },
   {
-    path: `${REVIEW_PATH}/:lessonNumber`,
+    path: `/review/:lessonNumber`,
     element: <Learn />,
     errorElement: <div>An error occurred on Review</div>,
     loader: loadReview,
   },
   {
-    path: `${ADMIN_PATH}`,
+    path: `/admin`,
     children: [
       {
-        path: `${ADMIN_PATH}${ADMIN_CHARACTERS_SUBPATH}`,
-        children: [
-          {
-            path: `${ADMIN_PATH}${ADMIN_CHARACTERS_SUBPATH}/:glyph`,
-            element: <AdminCharEdit />,
-            action: async ({ params, request }) => {
-              let formData = Object.fromEntries(await request.formData())
-              console.log(formData)
-              return null
-            },
-            loader: ({ params }) => loadAdminChar({ params }),
-          },
-        ],
+        path: '',
+        element: <AdminDashboard />,
+      },
+      {
+        path: `characters`,
+        element: <AdminCharList />,
+      },
+      {
+        path: `characters/:glyph`,
+        element: <AdminCharEdit />,
+        action: async ({ params, request }) => {
+          let formData = Object.fromEntries(await request.formData())
+          console.log(formData)
+          return null
+        },
+        loader: ({ params }) => loadAdminChar({ params }),
       },
     ],
   },

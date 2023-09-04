@@ -12,7 +12,6 @@ import { FinalCheck } from './final-check/FinalCheck'
 import { Heading } from '../../../learn/headings/Heading'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
-import { ADMIN_CHARACTERS_SUBPATH, ADMIN_PATH } from '../../../shared/paths'
 
 export default function AdminCharEditContent({
   activeStep,
@@ -40,9 +39,9 @@ export default function AdminCharEditContent({
       marginBottom={constants.bottomToolbarHeight}
       padding={2}
     >
-      <Breadcrumbs aria-label='breadcrumb' separator={<FontAwesomeIcon icon={faChevronRight} size='xs' />}>
-        <BreadcrumbLink href={`${ADMIN_PATH}`} text='Kezelőközpont' />
-        <BreadcrumbLink href={`${ADMIN_PATH}${ADMIN_CHARACTERS_SUBPATH}`} text='Karakterek' />
+      <Breadcrumbs separator={<FontAwesomeIcon icon={faChevronRight} size='xs' />}>
+        <BreadcrumbLink href='/admin' text='Kezelőközpont' />
+        <BreadcrumbLink href='/admin/characters' text='Karakterek' />
         <Typography color='text.primary'>Karakter szerkesztése ({charFormData.glyph})</Typography>
       </Breadcrumbs>
 
@@ -68,7 +67,7 @@ export default function AdminCharEditContent({
   )
 }
 
-function BreadcrumbLink({ href, text }: { href: string; text: string }) {
+export function BreadcrumbLink({ href, text }: { href: string; text: string }) {
   return (
     <Link color='inherit' underline='hover' {...{ href }} sx={{ ':hover': { backgroundColor: 'inherit' } }}>
       {text}
