@@ -45,6 +45,10 @@ export default function AdminCharEditContent({
         <Typography color='text.primary'>Karakter szerkesztése ({charFormData.glyph})</Typography>
       </Breadcrumbs>
 
+      <Typography variant='h4' mt={2}>
+        Karakter szerkesztése ({charFormData.glyph})
+      </Typography>
+
       <Switch>
         <Case condition={activeStep === 0}>
           <Heading title={ADMIN_CHAR_EDIT_STEP_ONE} />

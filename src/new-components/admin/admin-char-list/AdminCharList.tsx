@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { BreadcrumbLink } from '../admin-char-edit/admin-content/AdminCharEditContent'
 import { Link } from 'react-router-dom'
 import { KeywordPrimitiveRow } from '../../shared/components/KeywordPrimitiveRow'
+import { Heading } from '../../learn/headings/Heading'
 
 export function AdminCharList() {
   const { constants } = useTheme()
@@ -23,6 +24,10 @@ export function AdminCharList() {
             <Typography color='text.primary'>Karakterek</Typography>
           </Breadcrumbs>
 
+          <Typography variant='h4' mt={2}>
+            Karakterek
+          </Typography>
+
           <Box mt={2}>
             <List disablePadding>
               {chars.map(({ keyword, glyph, primitive }, index) => (
@@ -30,7 +35,7 @@ export function AdminCharList() {
                   <ListItemButton
                     component={Link}
                     to={`/admin/characters/${glyph}`}
-                    sx={{ borderRadius: 6, ':hover': { bgcolor: 'primary.100', cursor: 'pointer' } }}
+                    sx={{ borderRadius: 8, py: 1.5, ':hover': { bgcolor: 'primary.100', cursor: 'pointer' } }}
                   >
                     <ListItemIcon>
                       <Typography variant='chineseText' color='primary.main'>
