@@ -1,5 +1,4 @@
 import { Character } from '../shared/interfaces'
-import { useStore } from '../shared/logic/useStore'
 import {
   ConstituentsSection,
   SimilarAppearanceSection,
@@ -9,9 +8,10 @@ import { StorySection } from './learn-content-sections/LearnContentSections'
 import { CharacterSection } from './learn-content-sections/LearnContentSections'
 import { PhrasesAndOtherUsesSection } from './learn-content-sections/LearnContentSections'
 import { ReactNode } from 'react'
+import { useFlashback } from './store/useFlashback'
 
 export default function LearnContent({ lessonChar, navigation }: { lessonChar: Character; navigation: ReactNode }) {
-  const { flashbackChar } = useStore('flashback')
+  const { flashbackChar } = useFlashback()
 
   const currentChar = flashbackChar ?? lessonChar
 

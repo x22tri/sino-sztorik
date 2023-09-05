@@ -1,5 +1,5 @@
-import { CHARS } from '../MOCK_CHARS'
-import { Character } from '../interfaces'
+import { CHARS } from '../../shared/MOCK_CHARS'
+import { Character } from '../../shared/interfaces'
 
 export function findFlashbackChar(char: string): Character | null {
   const charInLesson = CHARS.find(({ glyph }) => glyph === char)

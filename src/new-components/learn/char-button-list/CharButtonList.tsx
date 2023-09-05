@@ -1,7 +1,7 @@
 import { List, ListItem, ListItemButton, ListItemIcon, Typography } from '@mui/material'
 import { ReferencedChar, SimilarAppearance, SimilarMeaning } from '../../shared/interfaces'
 import { KeywordPrimitiveRow } from '../../shared/components/KeywordPrimitiveRow'
-import { useStore } from '../../shared/logic/useStore'
+import { useFlashback } from '../store/useFlashback'
 
 export function ConstituentList({ constituents }: { constituents: ReferencedChar[] }) {
   return <CharButtonList characters={constituents} color='secondary' />
@@ -32,7 +32,7 @@ function CharButtonList({
   characters: ReferencedChar[] | SimilarMeaning[]
   disabled?: boolean
 }) {
-  const { startFlashback } = useStore('flashback')
+  const { startFlashback } = useFlashback()
 
   return (
     <List disablePadding>

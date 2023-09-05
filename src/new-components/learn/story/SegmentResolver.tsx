@@ -6,12 +6,12 @@ import { Fragment } from 'react'
 import { Segment } from './Segment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCube } from '@fortawesome/free-solid-svg-icons'
-import { useStore } from '../../shared/logic/useStore'
+import { useFlashback } from '../store/useFlashback'
 
 export function SegmentResolver({ segments }: { segments: SegmentType[] }) {
   const { KEYWORD, PRIMITIVE, CONSTITUENT } = StoryParagraphKeys
   const { palette, spacing } = useTheme()
-  const { startFlashback } = useStore('flashback')
+  const { startFlashback } = useFlashback()
 
   return (
     <Box component='p' marginY={2}>

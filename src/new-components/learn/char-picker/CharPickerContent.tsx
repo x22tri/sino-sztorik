@@ -1,15 +1,22 @@
 import { Box, ListItem, ListItemButton, ListItemIcon, useTheme } from '@mui/material'
 import { Else, If, Then } from 'react-if'
 import { KeywordPrimitiveRow } from '../../shared/components/KeywordPrimitiveRow'
-import { useStore } from '../../shared/logic/useStore'
 import { useLoaderData } from 'react-router-dom'
 import { LoadLearn } from '../../shared/logic/loadLearn'
 import { useDrawer } from '../../shared/hooks/useDrawer'
+import { Dispatch, SetStateAction } from 'react'
 
-export function CharPickerContent({ contentType }: { contentType: 'characters' | 'preface' }) {
+export function CharPickerContent({
+  contentType,
+  selectCharIndex,
+  selectedCharIndex,
+}: {
+  contentType: 'characters' | 'preface'
+  selectCharIndex: Dispatch<SetStateAction<number>>
+  selectedCharIndex: number
+}) {
   const { lesson } = useLoaderData() as LoadLearn
   const { constants, palette, spacing } = useTheme()
-  const { selectCharIndex, selectedCharIndex } = useStore('learn')
   const { toggleDrawer } = useDrawer()
 
   function selectChar(index: number) {

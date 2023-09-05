@@ -4,7 +4,6 @@ import { LearnAppbar } from './learn-appbar/LearnAppbar'
 import { useState } from 'react'
 import { CharPickerContent } from './char-picker/CharPickerContent'
 import { CharPickerTitle } from './char-picker/CharPickerTitle'
-import { useStore } from '../shared/logic/useStore'
 import { useLoaderData } from 'react-router-dom'
 import { LoadLearn } from '../shared/logic/loadLearn'
 import { useDrawer } from '../shared/hooks/useDrawer'
@@ -14,6 +13,7 @@ import { Unless } from 'react-if'
 import { PrevNextLinks } from '../shared/components/PrevNextLinks'
 import { LEARN_FINISH_LESSON_BUTTON } from '../shared/strings'
 import { useSmallScreen } from '../shared/hooks/useSmallScreen'
+import { useFlashback } from './store/useFlashback'
 
 export default function Learn() {
   const isSmallScreen = useSmallScreen()
@@ -21,8 +21,8 @@ export default function Learn() {
   const { constants } = useTheme()
   const { lesson } = useLoaderData() as LoadLearn
   const { isDrawerOpen, toggleDrawer } = useDrawer()
-  const { selectCharIndex, selectedCharIndex } = useStore('learn')
-  const { flashbackChar } = useStore('flashback')
+  const [selectedCharIndex, selectCharIndex] = useState(0)
+  const { flashbackChar } = useFlashback()
 
   const selectedChar = lesson.characters[selectedCharIndex]
   const prevChar = lesson.characters[selectedCharIndex - 1] ?? null
@@ -34,7 +34,7 @@ export default function Learn() {
 
   return (
     <>
-      <LearnAppbar lessonLength={CHARS.length} {...{ toggleDrawer }} />
+      <LearnAppbar lessonLength={CHARS.length} {...{ selectedCharIndex, toggleDrawer }} />
 
       <Box
         display='grid'
@@ -50,7 +50,7 @@ export default function Learn() {
       >
         <Box component='nav' gridArea='nav'>
           <SideNav
-            content={<CharPickerContent {...{ contentType }} />}
+            content={<CharPickerContent {...{ contentType, selectCharIndex, selectedCharIndex }} />}
             title={<CharPickerTitle {...{ contentType, setContentType }} />}
             selected={selectedCharIndex}
             {...{ isDrawerOpen, toggleDrawer }}

@@ -9,11 +9,11 @@ import {
 } from '../../shared/strings'
 import { useState } from 'react'
 import ToolbarButton from '../../shared/components/ToolbarButton'
-import { useStore } from '../../shared/logic/useStore'
+import { useFlashback } from '../store/useFlashback'
 
 export function CloseLearnButton() {
   const [openModal, setOpenModal] = useState(false)
-  const { flashbackChar } = useStore('flashback')
+  const { flashbackChar } = useFlashback()
 
   return (
     <>

@@ -3,27 +3,33 @@ import LinearProgress from '@mui/material/LinearProgress'
 import { AppBar, IconButton, Toolbar, Tooltip, Typography, useTheme } from '@mui/material'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { LEARN_LESSON_INFO_BUTTON } from '../../shared/strings'
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { If, Then, Else, When } from 'react-if'
 import { CloseLearnButton } from './CloseLearnButton'
 import LogoTitle from '../../shared/components/LogoTitle'
 import { faChalkboard } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useStore } from '../../shared/logic/useStore'
 import { useLoaderData } from 'react-router-dom'
 import { ExitFlashbackButton } from './ExitFlashbackButton'
 import { FlashbackModeTitle } from './FlashbackModeTitle'
 import { useVerySmallScreen } from '../../shared/hooks/useVerySmallScreen'
 import { LoadLearn } from '../../shared/logic/loadLearn'
+import { useFlashback } from '../store/useFlashback'
 
-export function LearnAppbar({ lessonLength, toggleDrawer }: { lessonLength: number; toggleDrawer: () => void }) {
+export function LearnAppbar({
+  lessonLength,
+  selectedCharIndex,
+  toggleDrawer,
+}: {
+  lessonLength: number
+  selectedCharIndex: number
+  toggleDrawer: () => void
+}) {
   const isVerySmallScreen = useVerySmallScreen()
   const isSmallScreen = useSmallScreen()
-  const ref = useRef<HTMLDivElement | null>(null)
   const [lessonProgress, setLessonProgress] = useState(0)
   const { lesson } = useLoaderData() as LoadLearn
-  const { flashbackChar } = useStore('flashback')
-  const { selectedCharIndex } = useStore('learn')
+  const { flashbackChar } = useFlashback()
   const { constants, palette, spacing } = useTheme()
 
   useEffect(() => setLessonProgress(calculateProgress(lessonLength, selectedCharIndex)), [lessonLength, selectedCharIndex])
@@ -40,11 +46,7 @@ export function LearnAppbar({ lessonLength, toggleDrawer }: { lessonLength: numb
         }}
         position='fixed'
       >
-        <Toolbar
-          disableGutters
-          {...{ ref }}
-          sx={{ m: 'auto', width: 1, maxWidth: constants.maxContentWidth, px: { xs: 1, sm: 2 } }}
-        >
+        <Toolbar disableGutters sx={{ m: 'auto', width: 1, maxWidth: constants.maxContentWidth, px: { xs: 1, sm: 2 } }}>
           <If condition={!flashbackChar}>
             <Then>
               <Box alignItems='center' display='flex' gap={3} width='100%'>
