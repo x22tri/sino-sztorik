@@ -24,7 +24,7 @@ export function LearnAppbar({ lessonLength, toggleDrawer }: { lessonLength: numb
   const { lesson } = useLoaderData() as LoadLearn
   const { flashbackChar } = useStore('flashback')
   const { selectedCharIndex } = useStore('learn')
-  const { constants, spacing } = useTheme()
+  const { constants, palette, spacing } = useTheme()
 
   useEffect(() => setLessonProgress(calculateProgress(lessonLength, selectedCharIndex)), [lessonLength, selectedCharIndex])
 
@@ -35,6 +35,7 @@ export function LearnAppbar({ lessonLength, toggleDrawer }: { lessonLength: numb
         sx={{
           backgroundColor: flashbackChar ? 'primary.700' : 'background.default',
           backgroundImage: flashbackChar ? constants.synapsesBackground : undefined,
+          borderBottom: `1px solid ${palette.grey[300]}`,
           transition: `background-color ${constants.animationDuration}`,
         }}
         position='fixed'

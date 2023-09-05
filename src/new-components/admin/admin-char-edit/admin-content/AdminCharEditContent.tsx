@@ -18,13 +18,11 @@ export default function AdminCharEditContent({
   timelineData,
   saveCharForm,
   setTimelineData,
-  toolbarHeight,
 }: {
   activeStep: number
   timelineData: TimelineData
   saveCharForm: Dispatch<SetStateAction<CharFormData>>
   setTimelineData: Dispatch<SetStateAction<TimelineData>>
-  toolbarHeight: number
 }) {
   const { constants } = useTheme()
 
@@ -33,12 +31,7 @@ export default function AdminCharEditContent({
   useRegisterCharAdminErrors(charFormData, timelineData)
 
   return (
-    <Box
-      bgcolor='background.paper'
-      minHeight={`calc(100vh - ${toolbarHeight}px - ${constants.bottomToolbarHeight})`}
-      marginBottom={constants.bottomToolbarHeight}
-      padding={2}
-    >
+    <Box bgcolor='background.paper' mb={constants.bottomToolbarHeight} p={2}>
       <Breadcrumbs separator={<FontAwesomeIcon icon={faChevronRight} size='xs' />}>
         <BreadcrumbLink href='/admin' text='Kezelőközpont' />
         <BreadcrumbLink href='/admin/characters' text='Karakterek' />

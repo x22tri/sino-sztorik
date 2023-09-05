@@ -46,7 +46,7 @@ export default function LessonSelect() {
           />
         </Box>
 
-        <Stack component='main' gridArea='main' p={2}>
+        <Stack component='main' gridArea='main' px={{ xs: 3, md: 6 }} py={3}>
           <LessonSelectContent
             {...{ selectedLesson }}
             navigation={

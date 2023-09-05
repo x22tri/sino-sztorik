@@ -9,7 +9,6 @@ import { StorySection } from './learn-content-sections/LearnContentSections'
 import { CharacterSection } from './learn-content-sections/LearnContentSections'
 import { PhrasesAndOtherUsesSection } from './learn-content-sections/LearnContentSections'
 import { ReactNode } from 'react'
-import { ContentWrapper } from '../shared/components/ContentWrapper'
 
 export default function LearnContent({ lessonChar, navigation }: { lessonChar: Character; navigation: ReactNode }) {
   const { flashbackChar } = useStore('flashback')
@@ -26,7 +25,7 @@ export default function LearnContent({ lessonChar, navigation }: { lessonChar: C
 
   return (
     <>
-      <ContentWrapper>
+      <div>
         <CharacterSection {...{ currentChar }} />
 
         <ConstituentsSection {...{ constituents }} />
@@ -38,7 +37,7 @@ export default function LearnContent({ lessonChar, navigation }: { lessonChar: C
         <SimilarMeaningSection {...{ similarMeaning }} />
 
         <SimilarAppearanceSection {...{ similarAppearance }} />
-      </ContentWrapper>
+      </div>
 
       {navigation}
     </>

@@ -57,7 +57,7 @@ export default function Learn() {
           />
         </Box>
 
-        <Stack component='main' gridArea='main' p={2}>
+        <Stack component='main' gridArea='main' px={{ xs: 3, md: 6 }} py={3}>
           <LearnContent
             lessonChar={selectedChar}
             navigation={

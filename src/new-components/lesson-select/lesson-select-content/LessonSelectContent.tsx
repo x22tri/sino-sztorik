@@ -7,7 +7,6 @@ import { CHARACTER_AMOUNT_LABEL } from '../../shared/strings'
 import { LearnReviewButton } from '../lesson-start/LearnReviewButton'
 import { ReactNode } from 'react'
 import { AssembledLesson } from '../../shared/interfaces'
-import { ContentWrapper } from '../../shared/components/ContentWrapper'
 
 export default function LessonSelectContent({
   navigation,
@@ -21,7 +20,7 @@ export default function LessonSelectContent({
 
   return (
     <>
-      <ContentWrapper>
+      <div>
         <Typography color='text.secondary' textAlign='center' variant='h6' mt={{ xs: 2, md: 0 }}>
           {lessonNumber}. lecke
         </Typography>
@@ -51,7 +50,7 @@ export default function LessonSelectContent({
         </Typography>
 
         <LearnReviewButton />
-      </ContentWrapper>
+      </div>
 
       {navigation}
     </>

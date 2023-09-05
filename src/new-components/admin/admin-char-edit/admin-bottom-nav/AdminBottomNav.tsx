@@ -24,7 +24,7 @@ export function AdminBottomNav({
   timelineData: TimelineData
 }) {
   const isSmallScreen = useSmallScreen()
-  const { constants, palette, spacing } = useTheme()
+  const { constants, palette } = useTheme()
   const { charFormErrors, timelineErrors } = useContext(CharAdminErrorContext)
 
   const isFinalCheckDisabled = getCharAdminErrors(charFormErrors).length > 0 || getCharAdminErrors(timelineErrors).length > 0
