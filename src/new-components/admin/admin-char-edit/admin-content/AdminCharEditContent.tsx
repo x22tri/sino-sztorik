@@ -1,4 +1,4 @@
-import { Box, Breadcrumbs, Link, Typography, useTheme } from '@mui/material'
+import { Box, Link, Typography, useTheme } from '@mui/material'
 import { TimelineData } from '../../../shared/route-loaders/loadAdminChar'
 import { CharFormData } from '../../../shared/route-loaders/loadAdminChar'
 import { Timeline } from '../timeline/Timeline'
@@ -10,8 +10,7 @@ import { useWatch } from 'react-hook-form'
 import { useRegisterCharAdminErrors } from '../hooks/useRegisterCharAdminErrors'
 import { FinalCheck } from './final-check/FinalCheck'
 import { Heading } from '../../../learn/headings/Heading'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { Link as RouterLink } from 'react-router-dom'
 
 export default function AdminCharEditContent({
   activeStep,
@@ -60,7 +59,7 @@ export default function AdminCharEditContent({
 
 export function BreadcrumbLink({ href, text }: { href: string; text: string }) {
   return (
-    <Link color='inherit' underline='hover' {...{ href }} sx={{ ':hover': { backgroundColor: 'inherit' } }}>
+    <Link component={RouterLink} color='inherit' underline='hover' to={href} sx={{ ':hover': { backgroundColor: 'inherit' } }}>
       {text}
     </Link>
   )

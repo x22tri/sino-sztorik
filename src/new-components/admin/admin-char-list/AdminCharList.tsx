@@ -1,12 +1,9 @@
-import { Box, Breadcrumbs, List, ListItem, ListItemButton, ListItemIcon, Typography, useTheme } from '@mui/material'
+import { Box, List, ListItem, ListItemButton, ListItemIcon, Typography, useTheme } from '@mui/material'
 import { CHARS } from '../../shared/MOCK_CHARS'
 import { AdminCharListAppbar } from './appbar/AdminCharListAppbar'
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { BreadcrumbLink } from '../admin-char-edit/admin-content/AdminCharEditContent'
 import { Link } from 'react-router-dom'
 import { KeywordPrimitiveRow } from '../../shared/components/KeywordPrimitiveRow'
-import { Heading } from '../../learn/headings/Heading'
+import { AdminCharListBreadcrumbs } from './appbar/AdminCharListBreadcrumbs'
 
 export function AdminCharList() {
   const { constants } = useTheme()
@@ -17,13 +14,10 @@ export function AdminCharList() {
     <>
       <AdminCharListAppbar />
 
-      <Box maxWidth={constants.maxContentWidth} m='auto' p={2}>
-        <Box ml={{ xs: 0, md: `${constants.drawerWidth}px` }}>
-          <Breadcrumbs separator={<FontAwesomeIcon icon={faChevronRight} size='xs' />}>
-            <BreadcrumbLink href='/admin' text='Kezelőközpont' />
-            <Typography color='text.primary'>Karakterek</Typography>
-          </Breadcrumbs>
+      <AdminCharListBreadcrumbs />
 
+      <Box maxWidth={constants.maxContentWidth} mx='auto' mt={4} p={2}>
+        <Box ml={{ xs: 0, md: `${constants.drawerWidth}px` }}>
           <Typography variant='h4' mt={2}>
             Karakterek
           </Typography>
