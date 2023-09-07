@@ -9,11 +9,13 @@ export type TimelineData = [SortedOccurrence, SortedOccurrence, SortedOccurrence
 
 export type CalculatedIndexes = [number, number, number, number]
 
-export function loadAdminChar({ params }: { params: Params }): {
+export type LoadAdminChar = {
+  calculatedIndexes: CalculatedIndexes
   charFormData: CharFormData
   timelineData: TimelineData
-  calculatedIndexes: CalculatedIndexes
-} {
+}
+
+export function loadAdminChar({ params }: { params: Params }): LoadAdminChar {
   const characterEntry = CHAR_ENTRY_V3 // To-Do: Fetch from database.
 
   if (!characterEntry) {
@@ -26,7 +28,11 @@ export function loadAdminChar({ params }: { params: Params }): {
 
   const calculatedIndexes = calculateIndexesInLesson(characterEntry)
 
-  return { charFormData: charFormData as CharFormData, timelineData: timelineData as TimelineData, calculatedIndexes }
+  return {
+    charFormData: { ...charFormData, productivePinyin: charFormData.productivePinyin ?? false } as CharFormData,
+    timelineData: timelineData as TimelineData,
+    calculatedIndexes,
+  }
 }
 
 function calculateIndexesInLesson(character: CharacterEntryV3) {

@@ -3,17 +3,19 @@ import { Stack } from '@mui/material'
 import { OccurrenceType } from '../../../shared/MOCK_DATABASE_ENTRIES'
 import { Occurrence } from './Occurrence'
 import { SortedOccurrence } from '../../../shared/MOCK_DATABASE_ENTRIES'
-import { CalculatedIndexes, TimelineData } from '../../../shared/logic/loadAdminChar'
-import { CharFormData } from '../../../shared/logic/loadAdminChar'
+import { CalculatedIndexes, TimelineData } from '../../../shared/route-loaders/loadAdminChar'
+import { CharFormData } from '../../../shared/route-loaders/loadAdminChar'
 import { Unless } from 'react-if'
 import { ReorderButtonRow } from './ReorderButtonRow'
 import { useWatch } from 'react-hook-form'
 import { useLoaderData } from 'react-router-dom'
 
 export function Timeline({
+  charFormData,
   timelineData,
   setTimelineData,
 }: {
+  charFormData: CharFormData
   timelineData: TimelineData
   setTimelineData: Dispatch<SetStateAction<TimelineData>>
 }) {
@@ -75,7 +77,7 @@ export function Timeline({
     setTimelineData(result)
   }
 
-  const charFormData = useWatch() as CharFormData
+  // const charFormData = useWatch() as CharFormData
 
   return (
     <Stack marginTop={2}>

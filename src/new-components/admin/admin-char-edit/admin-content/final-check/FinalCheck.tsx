@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 import LearnContent from '../../../../learn/LearnContent'
-import { CharFormData, TimelineData } from '../../../../shared/logic/loadAdminChar'
+import { CharFormData, TimelineData } from '../../../../shared/route-loaders/loadAdminChar'
 import { Character, Phrase, ReferencedChar, SimilarAppearance, SimilarMeaning } from '../../../../shared/interfaces'
 import {
   isReminder,

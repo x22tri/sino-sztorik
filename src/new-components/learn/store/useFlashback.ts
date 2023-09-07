@@ -2,8 +2,8 @@ import { create } from 'zustand'
 import { Character } from '../../shared/interfaces'
 import { findFlashbackChar } from './findFlashbackChar'
 
-export const useFlashback = create<FlashbackStore>(set => ({
-  flashbackChar: undefined,
+export const useFlashback = create<FlashbackStore>()(set => ({
+  flashbackChar: null,
   startFlashback: (destination: string) => {
     const foundFlashbackChar = findFlashbackChar(destination)
 
@@ -15,13 +15,13 @@ export const useFlashback = create<FlashbackStore>(set => ({
     }
   },
   quitFlashback: () => {
-    set(() => ({ flashbackChar: undefined }))
+    set(() => ({ flashbackChar: null }))
     window.scrollTo({ top: 0 })
   },
 }))
 
 interface FlashbackStore {
-  flashbackChar: Character | undefined
+  flashbackChar: Character | null
   startFlashback: (destination: string) => void
   quitFlashback: () => void
 }

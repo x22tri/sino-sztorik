@@ -1,7 +1,7 @@
 import { faCube } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Divider, Typography, useTheme } from '@mui/material'
-import { CharFormData, TimelineData } from '../../../shared/logic/loadAdminChar'
+import { CharFormData, TimelineData } from '../../../shared/route-loaders/loadAdminChar'
 import { AddOccurrenceOptions } from './AddOccurrenceOptions'
 import { OccurrenceType, OccurrencePresentation } from '../../../shared/MOCK_DATABASE_ENTRIES'
 

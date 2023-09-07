@@ -1,5 +1,5 @@
 import { Stack } from '@mui/material'
-import { TimelineData } from '../../../shared/logic/loadAdminChar'
+import { TimelineData } from '../../../shared/route-loaders/loadAdminChar'
 import { isReminder } from '../utils/occurrence-utils'
 import { isUnset } from '../utils/occurrence-utils'
 import ToolbarButton from '../../../shared/components/ToolbarButton'

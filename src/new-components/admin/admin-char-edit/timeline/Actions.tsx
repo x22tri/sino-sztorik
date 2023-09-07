@@ -5,7 +5,7 @@ import { AddOccurrence } from './AddOccurrenceOptions'
 import { SortedOccurrence } from '../../../shared/MOCK_DATABASE_ENTRIES'
 import { isUnset } from '../utils/occurrence-utils'
 import { noOrphanedRemindersIfTierWasDeleted } from './getReminderContentType'
-import { TimelineData } from '../../../shared/logic/loadAdminChar'
+import { TimelineData } from '../../../shared/route-loaders/loadAdminChar'
 import { useState } from 'react'
 import { StoryDrawerContent } from './story-drawer-content/StoryDrawerContent'
 

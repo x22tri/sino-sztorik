@@ -4,7 +4,7 @@ import { faCircleRight } from '@fortawesome/free-solid-svg-icons'
 import { When } from 'react-if'
 import { isDisabledLesson } from '../../shared/utility-functions'
 import { Link, useLoaderData, useParams } from 'react-router-dom'
-import { LoadLessonSelect } from '../../shared/logic/loadLessonSelect'
+import { LoadLessonSelect } from '../../shared/route-loaders/loadLessonSelect'
 
 export function LessonPickerContent({ toggleDrawer }: { toggleDrawer: () => void }) {
   const params = useParams<{ lessonNumber: string }>()

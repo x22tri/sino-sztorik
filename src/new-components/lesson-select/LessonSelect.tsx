@@ -9,7 +9,7 @@ import { SideNav } from '../shared/components/SideNav'
 import { When } from 'react-if'
 import { CharacterPreviews } from './lesson-start/CharacterPreviews'
 import { useLargeScreen } from '../shared/hooks/useLargeScreen'
-import { LoadLessonSelect } from '../shared/logic/loadLessonSelect'
+import { LoadLessonSelect } from '../shared/route-loaders/loadLessonSelect'
 import { PrevNextLinks } from '../shared/components/PrevNextLinks'
 
 export default function LessonSelect() {

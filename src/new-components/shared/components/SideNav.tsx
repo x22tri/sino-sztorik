@@ -9,12 +9,14 @@ const itemHeight = 64
 const gap = 0
 
 export function SideNav({
+  appbarHasBreadcrumbs = false,
   content,
   selected,
   title,
   isDrawerOpen,
   toggleDrawer,
 }: {
+  appbarHasBreadcrumbs?: boolean
   content: JSX.Element
   selected: number
   title: JSX.Element
@@ -53,7 +55,13 @@ export function SideNav({
       <List
         subheader={title}
         {...{ ref }}
-        sx={{ bottom: 0, overflowY: 'auto', top: isSmallScreen ? 0 : 64, position: 'fixed', width: `${constants.drawerWidth}px` }}
+        sx={{
+          bottom: 0,
+          overflowY: 'auto',
+          top: isSmallScreen ? 0 : appbarHasBreadcrumbs ? 96 : 64,
+          position: 'fixed',
+          width: `${constants.drawerWidth}px`,
+        }}
       >
         {content}
       </List>

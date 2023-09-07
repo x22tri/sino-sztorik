@@ -1,6 +1,6 @@
 import { Box, Breadcrumbs, Link, Typography, useTheme } from '@mui/material'
-import { TimelineData } from '../../../shared/logic/loadAdminChar'
-import { CharFormData } from '../../../shared/logic/loadAdminChar'
+import { TimelineData } from '../../../shared/route-loaders/loadAdminChar'
+import { CharFormData } from '../../../shared/route-loaders/loadAdminChar'
 import { Timeline } from '../timeline/Timeline'
 import { Dispatch, SetStateAction } from 'react'
 import { Case, Default, Switch } from 'react-if'
@@ -31,13 +31,7 @@ export default function AdminCharEditContent({
   useRegisterCharAdminErrors(charFormData, timelineData)
 
   return (
-    <Box bgcolor='background.paper' mb={constants.bottomToolbarHeight} p={2}>
-      <Breadcrumbs separator={<FontAwesomeIcon icon={faChevronRight} size='xs' />}>
-        <BreadcrumbLink href='/admin' text='Kezelőközpont' />
-        <BreadcrumbLink href='/admin/characters' text='Karakterek' />
-        <Typography color='text.primary'>Karakter szerkesztése ({charFormData.glyph})</Typography>
-      </Breadcrumbs>
-
+    <Box mb={constants.bottomToolbarHeight} p={2} mt={4}>
       <Typography variant='h4' mt={2}>
         Karakter szerkesztése ({charFormData.glyph})
       </Typography>
@@ -50,7 +44,7 @@ export default function AdminCharEditContent({
 
         <Case condition={activeStep === 1}>
           <Heading title={ADMIN_CHAR_EDIT_STEP_TWO} />
-          <Timeline {...{ timelineData, setTimelineData }} />
+          <Timeline {...{ charFormData, timelineData, setTimelineData }} />
         </Case>
 
         <Case condition={activeStep === 2}>

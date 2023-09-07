@@ -8,7 +8,7 @@ import { Else, If, Then } from 'react-if'
 import { faLanguage } from '@fortawesome/free-solid-svg-icons'
 import { useLoaderData } from 'react-router-dom'
 import { AssembledLesson } from '../../shared/interfaces'
-import { LoadLearn } from '../../shared/logic/loadLearn'
+import { LoadLearn } from '../../shared/route-loaders/loadLearn'
 
 export function CharPickerTitle({
   contentType,

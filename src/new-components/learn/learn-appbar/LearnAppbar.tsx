@@ -13,7 +13,7 @@ import { useLoaderData } from 'react-router-dom'
 import { ExitFlashbackButton } from './ExitFlashbackButton'
 import { FlashbackModeTitle } from './FlashbackModeTitle'
 import { useVerySmallScreen } from '../../shared/hooks/useVerySmallScreen'
-import { LoadLearn } from '../../shared/logic/loadLearn'
+import { LoadLearn } from '../../shared/route-loaders/loadLearn'
 import { useFlashback } from '../store/useFlashback'
 
 export function LearnAppbar({

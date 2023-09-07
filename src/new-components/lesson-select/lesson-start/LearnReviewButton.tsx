@@ -5,7 +5,7 @@ import { LEARN_BUTTON, LESSON_START_MORE_OPTIONS } from '../../shared/strings'
 import { Unless, When } from 'react-if'
 import { useOnChange } from '../../shared/hooks/useOnChange'
 import { Link, useLoaderData, useParams } from 'react-router-dom'
-import { ButtonOption, LoadLessonSelect } from '../../shared/logic/loadLessonSelect'
+import { ButtonOption, LoadLessonSelect } from '../../shared/route-loaders/loadLessonSelect'
 import ToolbarButton from '../../shared/components/ToolbarButton'
 
 export function LearnReviewButton() {

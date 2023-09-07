@@ -2,7 +2,7 @@ import { Box, ListItem, ListItemButton, ListItemIcon, useTheme } from '@mui/mate
 import { Else, If, Then } from 'react-if'
 import { KeywordPrimitiveRow } from '../../shared/components/KeywordPrimitiveRow'
 import { useLoaderData } from 'react-router-dom'
-import { LoadLearn } from '../../shared/logic/loadLearn'
+import { LoadLearn } from '../../shared/route-loaders/loadLearn'
 import { useDrawer } from '../../shared/hooks/useDrawer'
 import { Dispatch, SetStateAction } from 'react'
 
