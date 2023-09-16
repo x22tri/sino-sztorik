@@ -1,4 +1,4 @@
-import { AdminCharPickerContent } from './char-picker/AdminCharPickerContent'
+import { CharEditSteps } from './steps/CharEditSteps'
 import { AdminSubmenuTitle } from '../shared/AdminSubmenuTitle'
 import { AdminAppbar } from '../shared/AdminAppbar'
 import AdminCharEditContent from './admin-content/AdminCharEditContent'
@@ -7,7 +7,7 @@ import { useState } from 'react'
 import { useLoaderData } from 'react-router-dom'
 import { LoadCharEdit, TimelineData } from '../../shared/route-loaders/loadCharEdit'
 import { CharFormData } from '../../shared/route-loaders/loadCharEdit'
-import { CharAdminErrorContext, useCharAdminErrors } from './char-admin-error-context/CharAdminErrorContext'
+import { CharAdminErrorContext, useCharAdminErrors } from './error-context/CharAdminErrorContext'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useDrawer } from '../../shared/hooks/useDrawer'
 import { Box, useTheme } from '@mui/material'
@@ -54,7 +54,7 @@ export function AdminCharEdit() {
           <Box component='nav' gridArea='nav'>
             <SideNav
               appbarHasBreadcrumbs
-              content={<AdminCharPickerContent {...{ activeStep }} />}
+              content={<CharEditSteps {...{ activeStep }} />}
               title={<AdminSubmenuTitle text='Lépések' />}
               selected={0}
               {...{ isDrawerOpen, toggleDrawer }}

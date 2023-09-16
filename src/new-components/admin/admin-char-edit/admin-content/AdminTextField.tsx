@@ -2,7 +2,7 @@ import { TextField, TextFieldProps, useTheme } from '@mui/material'
 import { Controller } from 'react-hook-form'
 import { useContext, useRef } from 'react'
 import { CharacterEntryV3 } from '../../../shared/MOCK_DATABASE_ENTRIES'
-import { CharAdminErrorContext } from '../char-admin-error-context/CharAdminErrorContext'
+import { CharAdminErrorContext } from '../error-context/CharAdminErrorContext'
 
 export function AdminTextField({ label, name, ...restProps }: TextFieldProps & { name: keyof CharacterEntryV3 }) {
   const inputRef = useRef<HTMLInputElement>(null)

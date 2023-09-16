@@ -5,7 +5,7 @@ import { Timeline } from '../timeline/Timeline'
 import { Dispatch, SetStateAction } from 'react'
 import { Case, Default, Switch } from 'react-if'
 import { CharForm } from '../char-form/CharForm'
-import { ADMIN_CHAR_EDIT_STEP_ONE, ADMIN_CHAR_EDIT_STEP_THREE, ADMIN_CHAR_EDIT_STEP_TWO } from '../../../shared/strings'
+import { ADMIN_EDIT_STEPS_STEP_ONE, ADMIN_EDIT_STEPS_STEP_THREE, ADMIN_EDIT_STEPS_STEP_TWO } from '../../../shared/strings'
 import { useWatch } from 'react-hook-form'
 import { useRegisterCharAdminErrors } from '../hooks/useRegisterCharAdminErrors'
 import { FinalCheck } from './final-check/FinalCheck'
@@ -37,17 +37,17 @@ export default function AdminCharEditContent({
 
       <Switch>
         <Case condition={activeStep === 0}>
-          <Heading title={ADMIN_CHAR_EDIT_STEP_ONE} />
+          <Heading title={ADMIN_EDIT_STEPS_STEP_ONE} />
           <CharForm />
         </Case>
 
         <Case condition={activeStep === 1}>
-          <Heading title={ADMIN_CHAR_EDIT_STEP_TWO} />
+          <Heading title={ADMIN_EDIT_STEPS_STEP_TWO} />
           <Timeline {...{ charFormData, timelineData, setTimelineData }} />
         </Case>
 
         <Case condition={activeStep === 2}>
-          <Heading title={ADMIN_CHAR_EDIT_STEP_THREE} />
+          <Heading title={ADMIN_EDIT_STEPS_STEP_THREE} />
           <FinalCheck {...{ charFormData, timelineData }} />
         </Case>
 

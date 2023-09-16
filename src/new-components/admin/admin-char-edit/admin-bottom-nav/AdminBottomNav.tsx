@@ -4,13 +4,15 @@ import { Dispatch, SetStateAction, useContext } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight, faSave, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { Wrap } from '../../../shared/utility-components'
-import { ADMIN_CHAR_EDIT_STEP_ONE, ADMIN_CHAR_EDIT_STEP_THREE, ADMIN_CHAR_EDIT_STEP_TWO } from '../../../shared/strings'
-import { CharAdminErrorContext, getCharAdminErrors } from '../char-admin-error-context/CharAdminErrorContext'
+import { ADMIN_EDIT_STEPS_STEP_ONE, ADMIN_EDIT_STEPS_STEP_THREE, ADMIN_EDIT_STEPS_STEP_TWO } from '../../../shared/strings'
+import { CharAdminErrorContext } from '../error-context/CharAdminErrorContext'
 import { useFormContext } from 'react-hook-form'
 import { TimelineData } from '../../../shared/route-loaders/loadCharEdit'
 import { isShallowEqual } from '../../../shared/utility-functions'
+import { getErrors } from '../../shared/getErrors'
+import { LessonTimelineData } from '../../../shared/route-loaders/loadLessonEdit'
 
-export function AdminBottomNav({
+export function AdminBottomNav<T extends TimelineData | LessonTimelineData>({
   activeStep,
   savedTimelineData,
   setActiveStep,
@@ -18,16 +20,16 @@ export function AdminBottomNav({
   timelineData,
 }: {
   activeStep: number
-  savedTimelineData: TimelineData
+  savedTimelineData: T
   setActiveStep: Dispatch<SetStateAction<number>>
-  setTimelineData: Dispatch<SetStateAction<TimelineData>>
-  timelineData: TimelineData
+  setTimelineData: Dispatch<SetStateAction<T>>
+  timelineData: T
 }) {
   const isSmallScreen = useSmallScreen()
   const { constants, palette } = useTheme()
   const { charFormErrors, timelineErrors } = useContext(CharAdminErrorContext)
 
-  const isFinalCheckDisabled = getCharAdminErrors(charFormErrors).length > 0 || getCharAdminErrors(timelineErrors).length > 0
+  const isFinalCheckDisabled = getErrors(charFormErrors).length > 0 || getErrors(timelineErrors).length > 0
 
   function stepBack() {
     setActiveStep(prev => prev - 1)
@@ -84,14 +86,14 @@ function Buttons({
 }) {
   switch (activeStep) {
     case 0:
-      return <StepForwardButton onClick={stepForward} text={ADMIN_CHAR_EDIT_STEP_TWO} />
+      return <StepForwardButton onClick={stepForward} text={ADMIN_EDIT_STEPS_STEP_TWO} />
     case 1:
       return (
         <>
-          <StepBackButton onClick={stepBack} text={ADMIN_CHAR_EDIT_STEP_ONE} />
+          <StepBackButton onClick={stepBack} text={ADMIN_EDIT_STEPS_STEP_ONE} />
           <StepForwardButton
             onClick={stepForward}
-            text={ADMIN_CHAR_EDIT_STEP_THREE}
+            text={ADMIN_EDIT_STEPS_STEP_THREE}
             isStepForwardButtonDisabled={isFinalCheckDisabled}
           />
         </>
@@ -99,7 +101,7 @@ function Buttons({
     case 2:
       return (
         <>
-          <StepBackButton onClick={stepBack} text={ADMIN_CHAR_EDIT_STEP_TWO} />
+          <StepBackButton onClick={stepBack} text={ADMIN_EDIT_STEPS_STEP_TWO} />
           <SaveChangesButton onClick={saveChanges} />
         </>
       )
@@ -108,14 +110,14 @@ function Buttons({
   }
 }
 
-function RevertChangesButton({
+function RevertChangesButton<T extends TimelineData | LessonTimelineData>({
   savedTimelineData,
   setTimelineData,
   timelineData,
 }: {
-  savedTimelineData: TimelineData
-  setTimelineData: Dispatch<SetStateAction<TimelineData>>
-  timelineData: TimelineData
+  savedTimelineData: T
+  setTimelineData: Dispatch<SetStateAction<T>>
+  timelineData: T
 }) {
   const { formState, reset } = useFormContext()
 
@@ -124,7 +126,9 @@ function RevertChangesButton({
     setTimelineData(savedTimelineData)
   }
 
-  const hasTimelineDataChanged = savedTimelineData.every((occurrence, index) => isShallowEqual(occurrence, timelineData[index]))
+  const hasTimelineDataChanged = (savedTimelineData as TimelineData).every((occurrence, index) =>
+    isShallowEqual(occurrence, timelineData[index])
+  )
 
   return (
     <Button

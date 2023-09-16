@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { CharFormData } from '../../../shared/route-loaders/loadCharEdit'
-import { CharFormError, TimelineError } from '../admin-content/AdminStepLabel'
+import { CharFormError, TimelineError } from '../../shared/AdminStepLabel'
 
 export const useCharEditErrors = create<CharEditErrorsStore>(set => ({
   charFormErrors: defaultCharFormErrors,

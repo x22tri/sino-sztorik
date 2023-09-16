@@ -1,18 +1,33 @@
 import { StepLabel, Typography, Popover, useTheme } from '@mui/material'
 import { MouseEvent, TouchEvent, useContext, useState } from 'react'
-import { ADMIN_CHAR_EDIT_STEP_ONE, ADMIN_CHAR_EDIT_STEP_TWO } from '../../../shared/strings'
-import { CharAdminErrorContext } from '../char-admin-error-context/CharAdminErrorContext'
+import { ADMIN_EDIT_STEPS_STEP_ONE, ADMIN_EDIT_STEPS_STEP_TWO } from '../../shared/strings'
+import { CharAdminErrorContext } from '../admin-char-edit/error-context/CharAdminErrorContext'
+import { LessonEditErrorContext } from '../admin-lesson-edit/error-context/LessonEditErrorContext'
 
 export function CharFormAdminStepLabel() {
   const { charFormErrors } = useContext(CharAdminErrorContext)
 
-  return <AdminStepLabel errors={charFormErrors} errorMessages={charFormErrorStrings} title={ADMIN_CHAR_EDIT_STEP_ONE} />
+  return <AdminStepLabel errors={charFormErrors} errorMessages={charFormErrorStrings} title={ADMIN_EDIT_STEPS_STEP_ONE} />
 }
 
 export function TimelineAdminStepLabel() {
   const { timelineErrors } = useContext(CharAdminErrorContext)
 
-  return <AdminStepLabel errors={timelineErrors} errorMessages={timelineErrorStrings} title={ADMIN_CHAR_EDIT_STEP_TWO} />
+  return <AdminStepLabel errors={timelineErrors} errorMessages={timelineErrorStrings} title={ADMIN_EDIT_STEPS_STEP_TWO} />
+}
+
+export function LessonFormAdminStepLabel() {
+  const { lessonFormErrors } = useContext(LessonEditErrorContext)
+
+  return <AdminStepLabel errors={lessonFormErrors} errorMessages={lessonFormErrorStrings} title={ADMIN_EDIT_STEPS_STEP_ONE} />
+}
+
+export function LessonTimelineAdminStepLabel() {
+  const { lessonTimelineErrors } = useContext(LessonEditErrorContext)
+
+  return (
+    <AdminStepLabel errors={lessonTimelineErrors} errorMessages={lessonTimelineErrorStrings} title={ADMIN_EDIT_STEPS_STEP_TWO} />
+  )
 }
 
 export function AdminStepLabel<T extends string>({
@@ -87,20 +102,6 @@ export function AdminStepLabel<T extends string>({
   )
 }
 
-export enum TimelineError {
-  CourseLocationNotSet = 'CourseLocationNotSet',
-  KeywordNotIntroduced = 'KeywordNotIntroduced',
-  MissingStory = 'MissingStory',
-  PrimitiveNotIntroduced = 'PrimitiveNotIntroduced',
-}
-
-const timelineErrorStrings: Record<TimelineError, string> = {
-  CourseLocationNotSet: 'Legalább egy előfordulás nincs elhelyezve a leckében',
-  KeywordNotIntroduced: 'A kulcsszó nincs bevezetve',
-  MissingStory: 'Nincs történet legalább egy előfordulásnál',
-  PrimitiveNotIntroduced: 'Az alapelem nincs bevezetve',
-}
-
 export enum CharFormError {
   FrequencyNotANumber = 'FrequencyNotANumber',
   KeywordAndFrequencyGoHandInHand = 'KeywordAndFrequencyGoHandInHand',
@@ -125,4 +126,34 @@ const charFormErrorStrings: Record<CharFormError, string> = {
     'A kulcsszó és az alapelem szét van választva az idővonalban, de hiányzik a kulcsszó és/vagy az alapelem',
   OtherUseCannotBeEmpty: 'Minden egyéb jelentéshez meg kell adni kiejtést és jelentést is',
   PrimitiveCannotHaveOtherUses: 'Egy karakternek nem lehet egyéb jelentése, ha csak alapelemként létezik',
+}
+
+export enum TimelineError {
+  CourseLocationNotSet = 'CourseLocationNotSet',
+  KeywordNotIntroduced = 'KeywordNotIntroduced',
+  MissingStory = 'MissingStory',
+  PrimitiveNotIntroduced = 'PrimitiveNotIntroduced',
+}
+
+const timelineErrorStrings: Record<TimelineError, string> = {
+  CourseLocationNotSet: 'Legalább egy előfordulás nincs elhelyezve a leckében',
+  KeywordNotIntroduced: 'A kulcsszó nincs bevezetve',
+  MissingStory: 'Nincs történet legalább egy előfordulásnál',
+  PrimitiveNotIntroduced: 'Az alapelem nincs bevezetve',
+}
+
+export enum LessonFormError {
+  NoTitle = 'NoTitle',
+}
+
+const lessonFormErrorStrings: Record<LessonFormError, string> = {
+  NoTitle: 'A lecke címét meg kell adni',
+}
+
+export enum LessonTimelineError {
+  MissingPreface = 'MissingPreface',
+}
+
+const lessonTimelineErrorStrings: Record<LessonTimelineError, string> = {
+  MissingPreface: 'Nincs előszó legalább egy előfordulásnál',
 }

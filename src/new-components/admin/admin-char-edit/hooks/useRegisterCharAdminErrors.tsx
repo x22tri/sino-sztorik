@@ -1,8 +1,8 @@
 import { DependencyList, useContext } from 'react'
 import { CharFormData, TimelineData } from '../../../shared/route-loaders/loadCharEdit'
-import { CharFormError, TimelineError } from '../admin-content/AdminStepLabel'
+import { CharFormError, TimelineError } from '../../shared/AdminStepLabel'
 import { useDebouncedEffect } from '../../../shared/hooks/useDebouncedEffect'
-import { CharAdminErrorContext } from '../char-admin-error-context/CharAdminErrorContext'
+import { CharAdminErrorContext } from '../error-context/CharAdminErrorContext'
 import { isPresent } from '../utils/char-form-utils'
 import {
   isFullOccurrence,

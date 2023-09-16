@@ -1,8 +1,8 @@
 import { Step, StepLabel, Stepper, useTheme } from '@mui/material'
-import { ADMIN_CHAR_EDIT_STEP_THREE } from '../../../shared/strings'
-import { CharFormAdminStepLabel, TimelineAdminStepLabel } from '../admin-content/AdminStepLabel'
+import { ADMIN_EDIT_STEPS_STEP_THREE } from '../../../shared/strings'
+import { CharFormAdminStepLabel, TimelineAdminStepLabel } from '../../shared/AdminStepLabel'
 
-export function AdminCharPickerContent({ activeStep }: { activeStep: number }) {
+export function CharEditSteps({ activeStep }: { activeStep: number }) {
   const { spacing } = useTheme()
 
   return (
@@ -16,7 +16,7 @@ export function AdminCharPickerContent({ activeStep }: { activeStep: number }) {
       </Step>
 
       <Step>
-        <StepLabel>{ADMIN_CHAR_EDIT_STEP_THREE}</StepLabel>
+        <StepLabel>{ADMIN_EDIT_STEPS_STEP_THREE}</StepLabel>
       </Step>
     </Stepper>
   )
