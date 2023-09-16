@@ -404,7 +404,7 @@ export type LessonCharReference = { glyph: string; tiers: number[] }
 
 export type LessonVariant = { preface: string; tier: number }
 
-interface LessonEntry {
+export interface LessonEntry {
   characters: LessonCharReference[]
   lessonNumber: number
   title: string

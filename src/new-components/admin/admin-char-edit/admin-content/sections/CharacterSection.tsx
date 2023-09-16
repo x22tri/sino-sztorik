@@ -1,8 +1,8 @@
 import { faCube } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, InputAdornment, useTheme } from '@mui/material'
-import { AdminTextField } from '../AdminTextField'
 import { ProductivePinyinCheckbox } from '../preview-character-variant/ProductivePinyinCheckbox'
+import { CharAdminTextField } from '../../../shared/AdminTextField'
 
 export function CharacterSection({}: {}) {
   return (
@@ -23,14 +23,14 @@ export function CharacterSection({}: {}) {
 }
 
 function KeywordField() {
-  return <AdminTextField label='Kulcsszó' name='keyword' sx={{ '.MuiInputBase-input': { fontWeight: 'bold' } }} />
+  return <CharAdminTextField label='Kulcsszó' name='keyword' sx={{ '.MuiInputBase-input': { fontWeight: 'bold' } }} />
 }
 
 function PrimitiveField() {
   const { palette } = useTheme()
 
   return (
-    <AdminTextField
+    <CharAdminTextField
       color='secondary'
       InputProps={{
         startAdornment: (
@@ -48,10 +48,14 @@ function PrimitiveField() {
 
 function PinyinField() {
   return (
-    <AdminTextField label='Kiejtés' name='pinyin' sx={{ '.MuiInputBase-input': { textAlign: 'center', typography: 'pinyin' } }} />
+    <CharAdminTextField
+      label='Kiejtés'
+      name='pinyin'
+      sx={{ '.MuiInputBase-input': { textAlign: 'center', typography: 'pinyin' } }}
+    />
   )
 }
 
 function FrequencyField() {
-  return <AdminTextField label='Gyakoriság' name='frequency' />
+  return <CharAdminTextField label='Gyakoriság' name='frequency' />
 }

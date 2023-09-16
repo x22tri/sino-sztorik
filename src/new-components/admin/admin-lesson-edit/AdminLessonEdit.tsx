@@ -10,12 +10,13 @@ import { AdminBreadcrumbs } from '../../shared/components/AdminBreadcrumbs'
 import { LoadLessonEdit } from '../../shared/route-loaders/loadLessonEdit'
 import { LessonEditSteps } from './steps/LessonEditSteps'
 import { LessonEditErrorContext, useLessonEditErrors } from './error-context/LessonEditErrorContext'
+import LessonEditContent from './content/LessonEditContent'
 
 export function AdminLessonEdit() {
   const { constants, palette, spacing } = useTheme()
   const [activeStep, setActiveStep] = useState(0)
   const { isDrawerOpen, toggleDrawer } = useDrawer()
-  const { lessonNumber } = useParams()
+  const params = useParams()
 
   const loaderData = useLoaderData() as LoadLessonEdit
   const formMethods = useForm({ defaultValues: { ...loaderData.lessonFormData } })
@@ -25,6 +26,8 @@ export function AdminLessonEdit() {
   const { lessonFormErrors, lessonTimelineErrors, setLessonFormErrors, setLessonTimelineErrors } = useLessonEditErrors()
 
   console.log(loaderData)
+
+  const lessonNumber = Number(params.lessonNumber)
 
   return (
     <>
@@ -65,9 +68,9 @@ export function AdminLessonEdit() {
 
           <Box component='main' gridArea='main'>
             <FormProvider {...formMethods}>
-              {/* <AdminCharEditContent {...{ activeStep, saveCharForm, setTimelineData, timelineData }} />
+              <LessonEditContent characters={loaderData.lessonFormData.characters} {...{ activeStep, lessonNumber }} />
 
-            <AdminBottomNav {...{ activeStep, setActiveStep, savedTimelineData, setTimelineData, timelineData }} /> */}
+              {/* <AdminBottomNav {...{ activeStep, setActiveStep, savedTimelineData, setTimelineData, timelineData }} /> */}
             </FormProvider>
           </Box>
         </LessonEditErrorContext.Provider>
