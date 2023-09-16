@@ -331,7 +331,7 @@ export const CHAR_ENTRY: CharacterEntry = {
   ],
 }
 
-export const LESSON_ENTRIES = [
+export const LESSON_ENTRIES: LessonEntry[] = [
   {
     characters: [
       { glyph: '一', tiers: [1, 2] }, // Call getUnlockedMeanings upon hover.
@@ -400,11 +400,35 @@ export const LESSON_ENTRIES = [
   },
 ]
 
-export const LESSON_ENTRY = {
+export type LessonCharReference = { glyph: string; tiers: number[] }
+
+export type LessonVariant = { preface: string; tier: number }
+
+interface LessonEntry {
+  characters: LessonCharReference[]
+  lessonNumber: number
+  title: string
+  variants: LessonVariant[]
+}
+
+export const LESSON_ENTRY: LessonEntry = {
   characters: [
-    { glyph: '古', tier: 1 }, // Call getUnlockedMeanings upon hover.
-    { glyph: '咕', tier: 2 },
-    { glyph: '早', tier: 1 },
+    { glyph: '朋', tiers: [1] },
+    { glyph: '明', tiers: [1] },
+    { glyph: '昌', tiers: [1] },
+    { glyph: '唱', tiers: [1] },
+    { glyph: '晶', tiers: [1] },
+    { glyph: '品', tiers: [1] },
+    { glyph: '叱', tiers: [2] },
+    { glyph: '叭', tiers: [2] },
+    { glyph: '叶', tiers: [1] },
+    { glyph: '古', tiers: [1, 2] },
+    { glyph: '咕', tiers: [2] },
+    { glyph: '胡', tiers: [1, 2] },
+    { glyph: '吾', tiers: [2] },
+    { glyph: '世', tiers: [1] },
+    { glyph: '旭', tiers: [2] },
+    { glyph: '早', tiers: [1, 2] },
   ],
   lessonNumber: 2,
   title: 'Több, mint a részek összege',

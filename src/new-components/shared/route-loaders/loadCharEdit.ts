@@ -42,7 +42,12 @@ function calculateIndexesInLesson(character: CharacterEntryV3) {
 
   return new Array<number>(1, 2, 3, 4).map(
     tier =>
-      lesson.characters.filter(c => c.tier === tier || c.glyph === character.glyph).findIndex(c => c.glyph === character.glyph) +
-      1
+      lesson.characters
+        .filter(c => c.tiers.includes(tier) || c.glyph === character.glyph)
+        .findIndex(c => c.glyph === character.glyph) + 1
   ) as CalculatedIndexes
+}
+
+function mapAllTiers<T>(mapFunction: (tier: number) => void): [T, T, T, T] {
+  return new Array<number>(1, 2, 3, 4).map(t => mapFunction(t)) as [T, T, T, T]
 }

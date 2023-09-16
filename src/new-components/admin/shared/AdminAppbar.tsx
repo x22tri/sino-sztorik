@@ -1,13 +1,13 @@
 import { faLanguage } from '@fortawesome/free-solid-svg-icons'
 import { AppBar, Toolbar, useTheme } from '@mui/material'
 import { When } from 'react-if'
-import { useSmallScreen } from '../../../shared/hooks/useSmallScreen'
-import ToolbarButton from '../../../shared/components/ToolbarButton'
-import { ADMIN_CHARACTER_LIST } from '../../../shared/strings'
-import { ProfileMenu } from '../../../lesson-select/appbar/ProfileMenu'
-import LogoTitle from '../../../shared/components/LogoTitle'
+import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
+import ToolbarButton from '../../shared/components/ToolbarButton'
+import { ADMIN_CHARACTER_LIST } from '../../shared/strings'
+import { ProfileMenu } from '../../lesson-select/appbar/ProfileMenu'
+import LogoTitle from '../../shared/components/LogoTitle'
 
-export function AdminCharEditAppbar({ toggleDrawer }: { toggleDrawer: () => void }) {
+export function AdminAppbar({ toggleDrawer }: { toggleDrawer: () => void }) {
   const { constants, palette } = useTheme()
   const isSmallScreen = useSmallScreen()
 

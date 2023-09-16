@@ -18,6 +18,7 @@ export function CourseLocation({
   const [anchorEl, setAnchorEl] = useState<HTMLAnchorElement | null>(null)
 
   const discrepancyDetected = calculatedIndex !== savedIndex
+  // To-Do: Move this to loader, redirect to remediation screen
 
   function openPopover(event: MouseEvent<HTMLAnchorElement> | TouchEvent<HTMLAnchorElement>) {
     if (!discrepancyDetected) {

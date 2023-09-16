@@ -1,6 +1,6 @@
 import { AdminCharPickerContent } from './char-picker/AdminCharPickerContent'
-import { AdminSubmenuTitle } from './AdminSubmenuTitle'
-import { AdminCharEditAppbar } from './admin-appbar/AdminCharEditAppbar'
+import { AdminSubmenuTitle } from '../shared/AdminSubmenuTitle'
+import { AdminAppbar } from '../shared/AdminAppbar'
 import AdminCharEditContent from './admin-content/AdminCharEditContent'
 import { AdminBottomNav } from './admin-bottom-nav/AdminBottomNav'
 import { useState } from 'react'
@@ -28,7 +28,7 @@ export function AdminCharEdit() {
 
   return (
     <>
-      <AdminCharEditAppbar {...{ toggleDrawer }} />
+      <AdminAppbar {...{ toggleDrawer }} />
 
       <AdminBreadcrumbs
         currentMenuItem={`Karakter szerkesztése (${formMethods.getValues().glyph})`}
@@ -55,7 +55,7 @@ export function AdminCharEdit() {
             <SideNav
               appbarHasBreadcrumbs
               content={<AdminCharPickerContent {...{ activeStep }} />}
-              title={<AdminSubmenuTitle />}
+              title={<AdminSubmenuTitle text='Lépések' />}
               selected={0}
               {...{ isDrawerOpen, toggleDrawer }}
             />
