@@ -1,6 +1,6 @@
 import { OccurrencePresentation } from '../../../shared/MOCK_DATABASE_ENTRIES'
 import { SortedOccurrence } from '../../../shared/MOCK_DATABASE_ENTRIES'
-import { CharFormData, TimelineData } from '../../../shared/route-loaders/loadAdminChar'
+import { CharFormData, TimelineData } from '../../../shared/route-loaders/loadCharEdit'
 import { isWithheldConstituentsOccurrence } from '../utils/occurrence-utils'
 import { isWithheldPrimitiveOccurrence } from '../utils/occurrence-utils'
 import { isWithheldKeywordOccurrence } from '../utils/occurrence-utils'

@@ -1,6 +1,6 @@
 import { Box, Link, Typography, useTheme } from '@mui/material'
-import { TimelineData } from '../../../shared/route-loaders/loadAdminChar'
-import { CharFormData } from '../../../shared/route-loaders/loadAdminChar'
+import { TimelineData } from '../../../shared/route-loaders/loadCharEdit'
+import { CharFormData } from '../../../shared/route-loaders/loadCharEdit'
 import { Timeline } from '../timeline/Timeline'
 import { Dispatch, SetStateAction } from 'react'
 import { Case, Default, Switch } from 'react-if'
@@ -54,13 +54,5 @@ export default function AdminCharEditContent({
         <Default>Hiba</Default>
       </Switch>
     </Box>
-  )
-}
-
-export function BreadcrumbLink({ href, text }: { href: string; text: string }) {
-  return (
-    <Link component={RouterLink} color='inherit' underline='hover' to={href} sx={{ ':hover': { backgroundColor: 'inherit' } }}>
-      {text}
-    </Link>
   )
 }

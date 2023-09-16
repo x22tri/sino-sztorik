@@ -331,6 +331,75 @@ export const CHAR_ENTRY: CharacterEntry = {
   ],
 }
 
+export const LESSON_ENTRIES = [
+  {
+    characters: [
+      { glyph: '一', tiers: [1, 2] }, // Call getUnlockedMeanings upon hover.
+      { glyph: '二', tiers: [1, 2] },
+      { glyph: '三', tiers: [1, 2] },
+      { glyph: '四', tiers: [1, 2] },
+      { glyph: '五', tiers: [1, 2] },
+      { glyph: '六', tiers: [1, 2] },
+      { glyph: '七', tiers: [1, 2] },
+      { glyph: '八', tiers: [1, 2] },
+      { glyph: '九', tiers: [1, 2] },
+      { glyph: '十', tiers: [1, 2] },
+      { glyph: '口', tiers: [1] },
+      { glyph: '日', tiers: [1] },
+      { glyph: '月', tiers: [1] },
+      { glyph: '田', tiers: [1] },
+      { glyph: '目', tiers: [1] },
+      { glyph: '凹', tiers: [2] },
+      { glyph: '凸', tiers: [2] },
+    ],
+    lessonNumber: 1,
+    title: 'Első lépések',
+    variants: [
+      { preface: 'Lorem ipsum tier 1', tier: 1 },
+      { preface: 'Lorem ipsum tier 2', tier: 2 },
+    ],
+  },
+  {
+    characters: [
+      { glyph: '朋', tiers: [1] },
+      { glyph: '明', tiers: [1] },
+      { glyph: '昌', tiers: [1] },
+      { glyph: '唱', tiers: [1] },
+      { glyph: '晶', tiers: [1] },
+      { glyph: '品', tiers: [1] },
+      { glyph: '叱', tiers: [2] },
+      { glyph: '叭', tiers: [2] },
+      { glyph: '叶', tiers: [1] },
+      { glyph: '古', tiers: [1, 2] },
+      { glyph: '咕', tiers: [2] },
+      { glyph: '胡', tiers: [1, 2] },
+      { glyph: '吾', tiers: [2] },
+      { glyph: '世', tiers: [1] },
+      { glyph: '旭', tiers: [2] },
+      { glyph: '早', tiers: [1, 2] },
+    ],
+    lessonNumber: 2,
+    title: 'Több, mint a részek összege',
+    variants: [
+      { preface: 'Lorem ipsum tier 1', tier: 1 },
+      { preface: 'Lorem ipsum tier 2', tier: 2 },
+    ],
+  },
+  {
+    characters: [
+      { glyph: '古', tiers: [1] },
+      { glyph: '咕', tiers: [2] },
+      { glyph: '早', tiers: [1] },
+    ],
+    lessonNumber: 3,
+    title: 'Vízszintes és függőleges',
+    variants: [
+      { preface: 'Lorem ipsum tier 1', tier: 1 },
+      { preface: 'Lorem ipsum tier 2', tier: 2 },
+    ],
+  },
+]
+
 export const LESSON_ENTRY = {
   characters: [
     { glyph: '古', tier: 1 }, // Call getUnlockedMeanings upon hover.

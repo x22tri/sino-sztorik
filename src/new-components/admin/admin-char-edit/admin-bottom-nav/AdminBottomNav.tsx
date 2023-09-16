@@ -7,7 +7,7 @@ import { Wrap } from '../../../shared/utility-components'
 import { ADMIN_CHAR_EDIT_STEP_ONE, ADMIN_CHAR_EDIT_STEP_THREE, ADMIN_CHAR_EDIT_STEP_TWO } from '../../../shared/strings'
 import { CharAdminErrorContext, getCharAdminErrors } from '../char-admin-error-context/CharAdminErrorContext'
 import { useFormContext } from 'react-hook-form'
-import { TimelineData } from '../../../shared/route-loaders/loadAdminChar'
+import { TimelineData } from '../../../shared/route-loaders/loadCharEdit'
 import { isShallowEqual } from '../../../shared/utility-functions'
 
 export function AdminBottomNav({

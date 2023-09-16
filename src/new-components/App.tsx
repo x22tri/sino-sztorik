@@ -12,9 +12,12 @@ import LanguageContextProvider from './shared/localization/LanguageContext'
 import { loadLessonSelect } from './shared/route-loaders/loadLessonSelect'
 import { ErrorPage } from './error-page/ErrorPage'
 import { AdminCharEdit } from './admin/admin-char-edit/AdminCharEdit'
-import { loadAdminChar } from './shared/route-loaders/loadAdminChar'
+import { loadCharEdit } from './shared/route-loaders/loadCharEdit'
 import { AdminCharList } from './admin/admin-char-list/AdminCharList'
 import { AdminDashboard } from './admin/admin-dashboard/AdminDashboard'
+import { AdminLessonList } from './admin/admin-lesson-list/AdminLessonList'
+import { AdminLessonEdit } from './admin/admin-lesson-edit/AdminLessonEdit'
+import { loadLessonEdit } from './shared/route-loaders/loadLessonEdit'
 
 const router = createBrowserRouter([
   {
@@ -23,44 +26,46 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: `/lessons/:lessonNumber?`,
+    path: '/lessons/:lessonNumber?',
     element: <LessonSelect />,
     errorElement: <div>An error occurred on LessonSelect</div>,
     loader: ({ params }) => loadLessonSelect({ params }),
   },
   {
-    path: `/learn`,
+    path: '/learn',
     element: <Learn />,
     errorElement: <div>An error occurred on Learn</div>,
     loader: loadLearn,
   },
   {
-    path: `/review/:lessonNumber`,
+    path: '/review/:lessonNumber',
     element: <Learn />,
     errorElement: <div>An error occurred on Review</div>,
     loader: loadReview,
   },
   {
-    path: `/admin`,
+    path: '/admin',
     children: [
       {
         path: '',
         element: <AdminDashboard />,
       },
       {
-        path: `characters`,
+        path: 'characters',
         element: <AdminCharList />,
       },
       {
-        path: `characters/:glyph`,
+        path: 'characters/:glyph',
         element: <AdminCharEdit />,
         action: async ({ params, request }) => {
           let formData = Object.fromEntries(await request.formData())
           console.log(formData)
           return null
         },
-        loader: ({ params }) => loadAdminChar({ params }),
+        loader: ({ params }) => loadCharEdit({ params }),
       },
+      { path: 'lessons', element: <AdminLessonList /> },
+      { path: 'lessons/:lessonNumber', element: <AdminLessonEdit />, loader: ({ params }) => loadLessonEdit({ params }) },
     ],
   },
 ])

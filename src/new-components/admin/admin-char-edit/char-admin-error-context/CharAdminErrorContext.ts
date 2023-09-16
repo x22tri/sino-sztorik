@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, createContext, useState } from 'react'
 import { CharFormError, TimelineError } from '../admin-content/AdminStepLabel'
-import { CharFormData } from '../../../shared/route-loaders/loadAdminChar'
+import { CharFormData } from '../../../shared/route-loaders/loadCharEdit'
 
 type CharAdminErrorContextType = {
   charFormErrors: { [key in CharFormError]: { value: boolean; dependencies: keyof CharFormData[] } }

@@ -1,7 +1,7 @@
 import { CharacterEntryV3, OccurrenceType } from '../../../shared/MOCK_DATABASE_ENTRIES'
 import { SortedOccurrence } from '../../../shared/MOCK_DATABASE_ENTRIES'
-import { TimelineData } from '../../../shared/route-loaders/loadAdminChar'
-import { CharFormData } from '../../../shared/route-loaders/loadAdminChar'
+import { TimelineData } from '../../../shared/route-loaders/loadCharEdit'
+import { CharFormData } from '../../../shared/route-loaders/loadCharEdit'
 import { getOccurrenceType } from '../utils/occurrence-utils'
 import { isUnset } from '../utils/occurrence-utils'
 

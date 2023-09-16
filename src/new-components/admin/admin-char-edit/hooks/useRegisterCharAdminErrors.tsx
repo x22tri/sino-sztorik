@@ -1,5 +1,5 @@
 import { DependencyList, useContext } from 'react'
-import { CharFormData, TimelineData } from '../../../shared/route-loaders/loadAdminChar'
+import { CharFormData, TimelineData } from '../../../shared/route-loaders/loadCharEdit'
 import { CharFormError, TimelineError } from '../admin-content/AdminStepLabel'
 import { useDebouncedEffect } from '../../../shared/hooks/useDebouncedEffect'
 import { CharAdminErrorContext } from '../char-admin-error-context/CharAdminErrorContext'

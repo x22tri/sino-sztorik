@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 import LearnContent from '../../../../learn/LearnContent'
-import { CharFormData, TimelineData } from '../../../../shared/route-loaders/loadAdminChar'
+import { CharFormData, TimelineData } from '../../../../shared/route-loaders/loadCharEdit'
 import { Character, Phrase, ReferencedChar, SimilarAppearance, SimilarMeaning } from '../../../../shared/interfaces'
 import {
   isReminder,
@@ -30,7 +30,7 @@ export function FinalCheck({ charFormData, timelineData }: { charFormData: CharF
     const result: (UnsubmittedCharacter | null)[] = []
     const constituents = getConstituents(charFormData)
 
-    new Array(1, 2, 3, 4).forEach(tier => {
+    new Array<number>(1, 2, 3, 4).forEach(tier => {
       const occurrence = timelineData[tier - 1]
 
       const variant = {

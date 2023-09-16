@@ -3,7 +3,7 @@ import { CHARS } from '../../shared/MOCK_CHARS'
 import { AdminCharListAppbar } from './appbar/AdminCharListAppbar'
 import { Link } from 'react-router-dom'
 import { KeywordPrimitiveRow } from '../../shared/components/KeywordPrimitiveRow'
-import { AdminCharListBreadcrumbs } from './appbar/AdminCharListBreadcrumbs'
+import { AdminBreadcrumbs } from '../../shared/components/AdminBreadcrumbs'
 
 export function AdminCharList() {
   const { constants } = useTheme()
@@ -14,7 +14,7 @@ export function AdminCharList() {
     <>
       <AdminCharListAppbar />
 
-      <AdminCharListBreadcrumbs />
+      <AdminBreadcrumbs currentMenuItem='Karakterek' hierarchy={[{ href: '/admin', text: 'Kezelőközpont' }]} />
 
       <Box maxWidth={constants.maxContentWidth} mx='auto' mt={4} p={2}>
         <Box ml={{ xs: 0, md: `${constants.drawerWidth}px` }}>

@@ -1,4 +1,4 @@
-import { CharFormData } from '../../../shared/route-loaders/loadAdminChar'
+import { CharFormData } from '../../../shared/route-loaders/loadCharEdit'
 
 export function hasNoKeyword(character: CharFormData) {
   return !('keyword' in character) || character.keyword === ''

@@ -3,11 +3,10 @@ import { Stack } from '@mui/material'
 import { OccurrenceType } from '../../../shared/MOCK_DATABASE_ENTRIES'
 import { Occurrence } from './Occurrence'
 import { SortedOccurrence } from '../../../shared/MOCK_DATABASE_ENTRIES'
-import { CalculatedIndexes, TimelineData } from '../../../shared/route-loaders/loadAdminChar'
-import { CharFormData } from '../../../shared/route-loaders/loadAdminChar'
+import { CalculatedIndexes, TimelineData } from '../../../shared/route-loaders/loadCharEdit'
+import { CharFormData } from '../../../shared/route-loaders/loadCharEdit'
 import { Unless } from 'react-if'
 import { ReorderButtonRow } from './ReorderButtonRow'
-import { useWatch } from 'react-hook-form'
 import { useLoaderData } from 'react-router-dom'
 
 export function Timeline({

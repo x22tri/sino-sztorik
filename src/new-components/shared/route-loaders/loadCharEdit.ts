@@ -9,13 +9,13 @@ export type TimelineData = [SortedOccurrence, SortedOccurrence, SortedOccurrence
 
 export type CalculatedIndexes = [number, number, number, number]
 
-export type LoadAdminChar = {
+export type LoadCharEdit = {
   calculatedIndexes: CalculatedIndexes
   charFormData: CharFormData
   timelineData: TimelineData
 }
 
-export function loadAdminChar({ params }: { params: Params }): LoadAdminChar {
+export function loadCharEdit({ params }: { params: Params }): LoadCharEdit {
   const characterEntry = CHAR_ENTRY_V3 // To-Do: Fetch from database.
 
   if (!characterEntry) {
@@ -24,7 +24,9 @@ export function loadAdminChar({ params }: { params: Params }): LoadAdminChar {
 
   const { occurrences, ...charFormData } = characterEntry
 
-  const timelineData = new Array(1, 2, 3, 4).map(tier => occurrences.find(occurrence => occurrence.tier === tier) ?? { tier })
+  const timelineData = new Array<number>(1, 2, 3, 4).map(
+    tier => occurrences.find(occurrence => occurrence.tier === tier) ?? { tier }
+  )
 
   const calculatedIndexes = calculateIndexesInLesson(characterEntry)
 
@@ -38,7 +40,7 @@ export function loadAdminChar({ params }: { params: Params }): LoadAdminChar {
 function calculateIndexesInLesson(character: CharacterEntryV3) {
   const lesson = LESSON_ENTRY // To-Do: Fetch from database by lessonNumber.
 
-  return new Array(1, 2, 3, 4).map(
+  return new Array<number>(1, 2, 3, 4).map(
     tier =>
       lesson.characters.filter(c => c.tier === tier || c.glyph === character.glyph).findIndex(c => c.glyph === character.glyph) +
       1

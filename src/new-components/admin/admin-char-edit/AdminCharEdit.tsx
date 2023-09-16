@@ -5,21 +5,21 @@ import AdminCharEditContent from './admin-content/AdminCharEditContent'
 import { AdminBottomNav } from './admin-bottom-nav/AdminBottomNav'
 import { useState } from 'react'
 import { useLoaderData } from 'react-router-dom'
-import { LoadAdminChar, TimelineData } from '../../shared/route-loaders/loadAdminChar'
-import { CharFormData } from '../../shared/route-loaders/loadAdminChar'
+import { LoadCharEdit, TimelineData } from '../../shared/route-loaders/loadCharEdit'
+import { CharFormData } from '../../shared/route-loaders/loadCharEdit'
 import { CharAdminErrorContext, useCharAdminErrors } from './char-admin-error-context/CharAdminErrorContext'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useDrawer } from '../../shared/hooks/useDrawer'
 import { Box, useTheme } from '@mui/material'
 import { SideNav } from '../../shared/components/SideNav'
-import { AdminCharEditBreadcrumbs } from './admin-appbar/AdminCharEditBreadcrumbs'
+import { AdminBreadcrumbs } from '../../shared/components/AdminBreadcrumbs'
 
 export function AdminCharEdit() {
   const { constants, palette, spacing } = useTheme()
   const [activeStep, setActiveStep] = useState(0)
   const { isDrawerOpen, toggleDrawer } = useDrawer()
 
-  const loaderData = useLoaderData() as LoadAdminChar
+  const loaderData = useLoaderData() as LoadCharEdit
   const formMethods = useForm({ defaultValues: { ...loaderData.charFormData } })
   const [savedCharForm, saveCharForm] = useState<CharFormData>({ ...loaderData.charFormData })
   const [timelineData, setTimelineData] = useState(loaderData.timelineData)
@@ -30,7 +30,13 @@ export function AdminCharEdit() {
     <>
       <AdminCharEditAppbar {...{ toggleDrawer }} />
 
-      <AdminCharEditBreadcrumbs glyph={formMethods.getValues().glyph} />
+      <AdminBreadcrumbs
+        currentMenuItem={`Karakter szerkesztése (${formMethods.getValues().glyph})`}
+        hierarchy={[
+          { href: '/admin', text: 'Kezelőközpont' },
+          { href: '/admin/characters', text: 'Karakterek' },
+        ]}
+      />
 
       <Box
         display='grid'

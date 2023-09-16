@@ -1,7 +1,7 @@
 import { faKey, faCube, faBell, IconDefinition, faPlus, faPen, faStar, faPersonRunning } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Stack, Divider, Tooltip, IconButton } from '@mui/material'
-import { CharFormData, TimelineData } from '../../../shared/route-loaders/loadAdminChar'
+import { CharFormData, TimelineData } from '../../../shared/route-loaders/loadCharEdit'
 import { isWithheldOccurrence } from '../utils/occurrence-utils'
 import { isFullOccurrence } from '../utils/occurrence-utils'
 import { isValidTierForReminder } from './getReminderContentType'
