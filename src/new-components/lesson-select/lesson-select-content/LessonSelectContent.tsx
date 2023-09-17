@@ -1,13 +1,10 @@
 import Typography from '@mui/material/Typography'
 import { Box, Chip, Divider, Stack } from '@mui/material'
-import { useLargeScreen } from '../../shared/hooks/useLargeScreen'
-import { Case, Default, Switch, When } from 'react-if'
-import { TierStatusIcons, iconDictionary } from '../lesson-picker/TierStatusIcons'
-import { CHARACTER_AMOUNT_LABEL } from '../../shared/strings'
-import { LearnReviewButton } from '../lesson-start/LearnReviewButton'
+import { Case, Default, Switch } from 'react-if'
+import { iconDictionary } from '../lesson-picker/TierStatusIcons'
 import { ReactNode } from 'react'
 import { AssembledLesson, LessonStatuses } from '../../shared/interfaces'
-import { isCompletedLesson, isDisabledLesson, isUpcomingLesson } from '../../shared/utility-functions'
+import { isCompletedLesson, isUpcomingLesson } from '../../shared/utility-functions'
 
 export default function LessonSelectContent({
   navigation,
@@ -16,7 +13,6 @@ export default function LessonSelectContent({
   navigation: ReactNode
   selectedLesson: AssembledLesson
 }) {
-  const isLargeScreen = useLargeScreen()
   const { characters, lessonNumber, preface, tierStatuses, title } = selectedLesson
 
   return (
@@ -50,13 +46,13 @@ export default function LessonSelectContent({
           {title}
         </Typography>
 
-        <Typography color='text.secondary' mb={5} variant='body2'>
+        <Typography color='text.secondary' mb={4} variant='body2'>
           {lessonNumber}. lecke
         </Typography>
 
-        <Divider sx={{ mb: 5 }} />
+        <Divider sx={{ mb: 4 }} />
 
-        <Typography component='p' gridArea='preface' mb={3}>
+        <Typography component='p' gridArea='preface' mb={4}>
           {preface}
         </Typography>
       </Box>

@@ -47,11 +47,7 @@ export function AdminLessonEdit() {
         margin='auto'
         sx={{
           maxWidth: constants.maxContentWidth,
-          gridTemplate: {
-            xs: `"main" / auto`,
-            md: `"nav main" / ${constants.drawerWidth}px auto`,
-            lg: `"nav main ." / ${constants.drawerWidth}px 3fr 1fr`,
-          },
+          gridTemplate: { xs: `"main" / auto`, md: `"nav main" / ${constants.drawerWidth}px auto` },
         }}
       >
         <LessonEditErrorContext.Provider

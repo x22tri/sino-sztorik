@@ -31,11 +31,7 @@ export default function LessonSelect() {
         margin='auto'
         sx={{
           maxWidth: constants.maxContentWidth,
-          gridTemplate: {
-            xs: `"main" / auto`,
-            md: `"nav main" / ${constants.drawerWidth}px auto`,
-            lg: `"nav main aside" / ${constants.drawerWidth}px 3fr 1fr`,
-          },
+          gridTemplate: { xs: `"main" / auto`, md: `"nav main" / ${constants.drawerWidth}px auto` },
         }}
       >
         <Box component='nav' gridArea='nav'>
@@ -61,19 +57,6 @@ export default function LessonSelect() {
             }
           />
         </Stack>
-
-        <When condition={isLargeScreen && characters.length}>
-          <Stack
-            component='aside'
-            gridArea='aside'
-            height='fit-content'
-            p={1.5}
-            gap={1}
-            sx={{ overflowY: 'auto', top: 64, position: 'sticky' }}
-          >
-            <CharacterPreviews {...{ characters, tierStatuses }} />
-          </Stack>
-        </When>
       </Box>
     </>
   )
