@@ -3,7 +3,7 @@ import { faCircle, faCircleCheck } from '@fortawesome/free-regular-svg-icons'
 import { LessonStatuses, LessonStatus, TierStatuses } from '../../shared/interfaces'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, useTheme } from '@mui/material'
-import { Fragment, ReactNode } from 'react'
+import { Fragment, ReactElement, ReactNode } from 'react'
 import theme from '../../shared/theme'
 
 const { palette } = theme
@@ -20,7 +20,7 @@ export function TierStatusIcons({ tierStatuses }: { tierStatuses: TierStatuses }
   )
 }
 
-export const iconDictionary: { [key in LessonStatus]: ReactNode } = {
+export const iconDictionary: { [key in LessonStatus]: ReactElement } = {
   [COMPLETED]: <FontAwesomeIcon icon={faCircleCheck} style={{ color: palette.success.main, width: iconWidth }} />,
   [NOT_IN_TIER]: (
     <span className='fa-layers fa-fw' style={{ color: palette.text.disabled, width: iconWidth }}>

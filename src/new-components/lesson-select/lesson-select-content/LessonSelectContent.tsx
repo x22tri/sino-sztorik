@@ -1,12 +1,13 @@
 import Typography from '@mui/material/Typography'
-import { Divider, Stack } from '@mui/material'
+import { Box, Chip, Divider, Stack } from '@mui/material'
 import { useLargeScreen } from '../../shared/hooks/useLargeScreen'
-import { When } from 'react-if'
-import { TierStatusIcons } from '../lesson-picker/TierStatusIcons'
+import { Case, Default, Switch, When } from 'react-if'
+import { TierStatusIcons, iconDictionary } from '../lesson-picker/TierStatusIcons'
 import { CHARACTER_AMOUNT_LABEL } from '../../shared/strings'
 import { LearnReviewButton } from '../lesson-start/LearnReviewButton'
 import { ReactNode } from 'react'
-import { AssembledLesson } from '../../shared/interfaces'
+import { AssembledLesson, LessonStatuses } from '../../shared/interfaces'
+import { isCompletedLesson, isDisabledLesson, isUpcomingLesson } from '../../shared/utility-functions'
 
 export default function LessonSelectContent({
   navigation,
@@ -20,37 +21,45 @@ export default function LessonSelectContent({
 
   return (
     <>
-      <div>
-        <Typography color='text.secondary' textAlign='center' variant='h6' mt={{ xs: 2, md: 0 }}>
-          {lessonNumber}. lecke
-        </Typography>
+      <Box display='flex' flexDirection='column' mt={2}>
+        <Stack alignItems='center' direction='row' gap={1} mb={2}>
+          <Switch>
+            <Case condition={isUpcomingLesson(tierStatuses)}>
+              <Chip
+                icon={iconDictionary[LessonStatuses.UPCOMING]}
+                label={LessonStatuses.UPCOMING}
+                sx={{ backgroundColor: 'primary.100' }}
+              />
+            </Case>
 
-        <Typography textAlign='center' variant='h4' fontSize='175% !important'>
+            <Case condition={isCompletedLesson(tierStatuses)}>
+              <Chip
+                icon={iconDictionary[LessonStatuses.COMPLETED]}
+                label={LessonStatuses.COMPLETED}
+                sx={{ backgroundColor: 'success.100' }}
+              />
+            </Case>
+
+            <Default></Default>
+          </Switch>
+
+          <Chip label={`${characters.length} karakter`} />
+        </Stack>
+
+        <Typography variant='h3' fontWeight='bold' mb={1}>
           {title}
         </Typography>
 
-        <When condition={!isLargeScreen}>
-          <Stack
-            alignItems='center'
-            justifyContent='center'
-            direction='row'
-            divider={<Divider flexItem orientation='vertical' sx={{ mx: 2 }} />}
-            mt={1}
-          >
-            <TierStatusIcons {...{ tierStatuses }} />
-
-            <Typography color='text.secondary' variant='h6'>
-              {characters.length} {CHARACTER_AMOUNT_LABEL}
-            </Typography>
-          </Stack>
-        </When>
-
-        <Typography component='p' gridArea='preface' marginY={3}>
-          {preface}
+        <Typography color='text.secondary' mb={5} variant='body2'>
+          {lessonNumber}. lecke
         </Typography>
 
-        {/* <LearnReviewButton /> */}
-      </div>
+        <Divider sx={{ mb: 5 }} />
+
+        <Typography component='p' gridArea='preface' mb={3}>
+          {preface}
+        </Typography>
+      </Box>
 
       {navigation}
     </>

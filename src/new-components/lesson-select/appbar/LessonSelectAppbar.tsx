@@ -40,7 +40,7 @@ export function LessonSelectAppbar({ toggleDrawer }: { toggleDrawer: () => void 
             {/* To-Do: Make into hamburger menu on mobile */}
             <AppbarButton icon={faBookOpen} text='Tanulás' />
 
-            <AppbarButton disabled icon={faMagnifyingGlass} text='Kereső' />
+            <AppbarButton disabled icon={faMagnifyingGlass} text='Keresés' />
 
             <AppbarButton disabled icon={faUser} text={TOP_NAV_ACCOUNT} />
 
