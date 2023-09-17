@@ -3,7 +3,7 @@ import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontaw
 import { Box, useTheme, Tooltip, SxProps } from '@mui/material'
 import { When } from 'react-if'
 import { SortedOccurrence } from '../../../shared/MOCK_DATABASE_ENTRIES'
-import { TimelineData } from '../../../shared/route-loaders/loadCharEdit'
+import { CharTimelineData } from '../../../shared/route-loaders/loadCharEdit'
 import { CharFormData } from '../../../shared/route-loaders/loadCharEdit'
 import { isReminder } from '../utils/occurrence-utils'
 import { isUnset } from '../utils/occurrence-utils'
@@ -30,7 +30,7 @@ export function Occurrence({
   index: number
   deleteEntry: (source: number) => void
   occurrence: SortedOccurrence
-  timelineData: TimelineData
+  timelineData: CharTimelineData
 }) {
   const reminder = isReminder(occurrence)
 

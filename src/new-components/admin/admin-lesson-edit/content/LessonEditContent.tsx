@@ -9,25 +9,26 @@ import { useWatch } from 'react-hook-form'
 // import { FinalCheck } from './final-check/FinalCheck'
 import { Heading } from '../../../learn/headings/Heading'
 import { Link as RouterLink } from 'react-router-dom'
-import { LessonFormData } from '../../../shared/route-loaders/loadLessonEdit'
+import { LessonFormData, LessonTimelineData } from '../../../shared/route-loaders/loadLessonEdit'
 import { Subheading } from '../../../learn/headings/Subheading'
 import { LessonAdminTextField } from '../../shared/AdminTextField'
 import { LessonCharReference } from '../../../shared/MOCK_DATABASE_ENTRIES'
+import { Timeline } from '../timeline/Timeline'
 
 export default function LessonEditContent({
   activeStep,
   characters,
   lessonNumber,
-}: //   timelineData,
-//   saveCharForm,
-//   setTimelineData,
-{
+  timelineData,
+  // saveCharForm,
+  setTimelineData,
+}: {
   activeStep: number
   characters: LessonCharReference[]
   lessonNumber: number
-  //   timelineData: TimelineData
-  //   saveCharForm: Dispatch<SetStateAction<CharFormData>>
-  //   setTimelineData: Dispatch<SetStateAction<TimelineData>>
+  timelineData: LessonTimelineData
+  // saveCharForm: Dispatch<SetStateAction<CharFormData>>
+  setTimelineData: Dispatch<SetStateAction<LessonTimelineData>>
 }) {
   const { constants } = useTheme()
 
@@ -49,7 +50,7 @@ export default function LessonEditContent({
 
         <Case condition={activeStep === 1}>
           <Heading title={ADMIN_EDIT_STEPS_STEP_TWO} />
-          {/* <Timeline {...{ charFormData, timelineData, setTimelineData }} /> */}
+          <Timeline {...{ lessonFormData, timelineData, setTimelineData }} />
         </Case>
 
         <Case condition={activeStep === 2}>

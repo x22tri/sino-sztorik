@@ -21,7 +21,7 @@ export function loadLessonEdit({ params }: { params: Params }): LoadLessonEdit {
 
   const lessonTimelineData = new Array<number>(1, 2, 3, 4).map(tier => {
     const charactersInTier = characters.filter(char => char.tiers.includes(tier))
-    const variantInTier = variants.find(variant => variant.tier === tier)
+    const variantInTier = variants.find(variant => variant.tier === tier) ?? null
 
     if (charactersInTier.length > 0 && !variantInTier) {
       throw new Response('Characters found in a tier that the lesson does not contain.', { status: 500 })
@@ -30,10 +30,6 @@ export function loadLessonEdit({ params }: { params: Params }): LoadLessonEdit {
     if (charactersInTier.length === 0 && !!variantInTier) {
       throw new Response('A tier was found that contains no characters.', { status: 500 })
     } // To-Do: Remediation screen
-
-    if (charactersInTier.length === 0 && !variantInTier) {
-      return null
-    }
 
     return { charactersInTier, variantInTier }
   })

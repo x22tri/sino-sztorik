@@ -1,6 +1,6 @@
-import { CharacterEntryV3, OccurrenceType } from '../../../shared/MOCK_DATABASE_ENTRIES'
+import { OccurrenceType } from '../../../shared/MOCK_DATABASE_ENTRIES'
 import { SortedOccurrence } from '../../../shared/MOCK_DATABASE_ENTRIES'
-import { TimelineData } from '../../../shared/route-loaders/loadCharEdit'
+import { CharTimelineData } from '../../../shared/route-loaders/loadCharEdit'
 import { CharFormData } from '../../../shared/route-loaders/loadCharEdit'
 import { getOccurrenceType } from '../utils/occurrence-utils'
 import { isUnset } from '../utils/occurrence-utils'
@@ -9,7 +9,7 @@ export function mergePreviousTiers(variants: SortedOccurrence[], tierToStopAt: n
   return variants.slice(0, tierToStopAt).reduce((previousInfo, newInfo) => Object.assign(previousInfo, newInfo), {})
 }
 
-export function getCharVariantsFromOccurrences(character: CharFormData, occurrences: TimelineData) {
+export function getCharVariantsFromOccurrences(character: CharFormData, occurrences: CharTimelineData) {
   const occurrencePropertyMap: Partial<Record<OccurrenceType, (keyof CharFormData)[]>> = {
     withheldKeyword: ['explanation', 'frequency', 'keyword', 'otherUses', 'pinyin', 'phrases', 'similars'],
     withheldPrimitive: ['primitive'],

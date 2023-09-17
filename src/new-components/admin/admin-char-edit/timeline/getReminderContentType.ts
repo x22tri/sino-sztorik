@@ -1,6 +1,6 @@
 import { OccurrencePresentation } from '../../../shared/MOCK_DATABASE_ENTRIES'
 import { SortedOccurrence } from '../../../shared/MOCK_DATABASE_ENTRIES'
-import { CharFormData, TimelineData } from '../../../shared/route-loaders/loadCharEdit'
+import { CharFormData, CharTimelineData } from '../../../shared/route-loaders/loadCharEdit'
 import { isWithheldConstituentsOccurrence } from '../utils/occurrence-utils'
 import { isWithheldPrimitiveOccurrence } from '../utils/occurrence-utils'
 import { isWithheldKeywordOccurrence } from '../utils/occurrence-utils'
@@ -12,7 +12,7 @@ import { isPresent } from '../utils/char-form-utils'
 
 export function getReminderContentType(
   character: CharFormData,
-  timelineData: TimelineData,
+  timelineData: CharTimelineData,
   index: number
 ): OccurrencePresentation {
   const previousTiers = timelineData.slice(0, index)

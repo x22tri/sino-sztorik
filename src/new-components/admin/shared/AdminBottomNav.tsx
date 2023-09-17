@@ -1,18 +1,19 @@
 import { Box, Button, Stack, Tooltip, useTheme } from '@mui/material'
-import { useSmallScreen } from '../../../shared/hooks/useSmallScreen'
+import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { Dispatch, SetStateAction, useContext } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight, faSave, faTrash } from '@fortawesome/free-solid-svg-icons'
-import { Wrap } from '../../../shared/utility-components'
-import { ADMIN_EDIT_STEPS_STEP_ONE, ADMIN_EDIT_STEPS_STEP_THREE, ADMIN_EDIT_STEPS_STEP_TWO } from '../../../shared/strings'
-import { CharAdminErrorContext } from '../error-context/CharAdminErrorContext'
+import { Wrap } from '../../shared/utility-components'
+import { ADMIN_EDIT_STEPS_STEP_ONE, ADMIN_EDIT_STEPS_STEP_THREE, ADMIN_EDIT_STEPS_STEP_TWO } from '../../shared/strings'
+import { CharAdminErrorContext } from '../admin-char-edit/error-context/CharAdminErrorContext'
 import { useFormContext } from 'react-hook-form'
-import { TimelineData } from '../../../shared/route-loaders/loadCharEdit'
-import { isShallowEqual } from '../../../shared/utility-functions'
-import { getErrors } from '../../shared/getErrors'
-import { LessonTimelineData } from '../../../shared/route-loaders/loadLessonEdit'
+import { CharTimelineData } from '../../shared/route-loaders/loadCharEdit'
+import { isShallowEqual } from '../../shared/utility-functions'
+import { getErrors } from './getErrors'
+import { LessonOccurrence, LessonTimelineData } from '../../shared/route-loaders/loadLessonEdit'
+import { SortedOccurrence } from '../../shared/MOCK_DATABASE_ENTRIES'
 
-export function AdminBottomNav<T extends TimelineData | LessonTimelineData>({
+export function AdminBottomNav<T extends CharTimelineData | LessonTimelineData>({
   activeStep,
   savedTimelineData,
   setActiveStep,
@@ -110,7 +111,7 @@ function Buttons({
   }
 }
 
-function RevertChangesButton<T extends TimelineData | LessonTimelineData>({
+function RevertChangesButton<T extends CharTimelineData | LessonTimelineData>({
   savedTimelineData,
   setTimelineData,
   timelineData,
@@ -126,7 +127,7 @@ function RevertChangesButton<T extends TimelineData | LessonTimelineData>({
     setTimelineData(savedTimelineData)
   }
 
-  const hasTimelineDataChanged = (savedTimelineData as TimelineData).every((occurrence, index) =>
+  const hasTimelineDataChanged = (savedTimelineData as Array<SortedOccurrence | LessonOccurrence>).every((occurrence, index) =>
     isShallowEqual(occurrence, timelineData[index])
   )
 

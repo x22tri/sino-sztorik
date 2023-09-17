@@ -1,8 +1,8 @@
 import { DependencyList, useContext } from 'react'
-import { CharFormData, TimelineData } from '../../../shared/route-loaders/loadCharEdit'
+import { CharFormData, CharTimelineData } from '../../../shared/route-loaders/loadCharEdit'
 import { CharFormError, TimelineError } from '../../shared/AdminStepLabel'
 import { useDebouncedEffect } from '../../../shared/hooks/useDebouncedEffect'
-import { CharAdminErrorContext } from '../error-context/CharAdminErrorContext'
+import { CharAdminErrorContext } from './CharAdminErrorContext'
 import { isPresent } from '../utils/char-form-utils'
 import {
   isFullOccurrence,
@@ -11,15 +11,15 @@ import {
   isWithheldPrimitiveOccurrence,
 } from '../utils/occurrence-utils'
 
-type CharAdminCategory = CharFormData | TimelineData
+type CharAdminCategory = CharFormData | CharTimelineData
 
 type CharAdminError<T extends CharAdminCategory> = T extends CharFormData
   ? CharFormError
-  : T extends TimelineData
+  : T extends CharTimelineData
   ? TimelineError
   : never
 
-export function useRegisterCharAdminErrors(charFormData: CharFormData, timelineData: TimelineData) {
+export function useRegisterCharAdminErrors(charFormData: CharFormData, timelineData: CharTimelineData) {
   useRegisterError({
     condition: charFormData.frequency !== undefined && Number.isNaN(+charFormData.frequency),
     dependencies: [charFormData.frequency],

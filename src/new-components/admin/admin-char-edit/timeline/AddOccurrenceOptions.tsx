@@ -1,12 +1,12 @@
-import { faKey, faCube, faBell, IconDefinition, faPlus, faPen, faStar, faPersonRunning } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Stack, Divider, Tooltip, IconButton } from '@mui/material'
-import { CharFormData, TimelineData } from '../../../shared/route-loaders/loadCharEdit'
+import { faKey, faCube, faBell, faStar, faPersonRunning } from '@fortawesome/free-solid-svg-icons'
+import { Stack, Divider } from '@mui/material'
+import { CharFormData, CharTimelineData } from '../../../shared/route-loaders/loadCharEdit'
 import { isWithheldOccurrence } from '../utils/occurrence-utils'
 import { isFullOccurrence } from '../utils/occurrence-utils'
 import { isValidTierForReminder } from './getReminderContentType'
 import { OccurrenceType } from '../../../shared/MOCK_DATABASE_ENTRIES'
 import { isPresent } from '../utils/char-form-utils'
+import { IconButtonAddOrEdit } from '../../shared/IconButtonAddOrEdit'
 
 export function AddOccurrenceOptions({
   addEntry,
@@ -16,7 +16,7 @@ export function AddOccurrenceOptions({
 }: {
   addEntry: (atIndex: number, type: OccurrenceType) => void
   charFormData: CharFormData
-  timelineData: TimelineData
+  timelineData: CharTimelineData
   index: number
 }) {
   const canAddFullOccurrence =
@@ -43,7 +43,7 @@ export function AddOccurrenceOptions({
       {!canAddWithheldPrimitiveOccurrence ? (
         false
       ) : (
-        <AddOccurrence
+        <IconButtonAddOrEdit
           icon={faKey}
           tooltip='Először csak a kulcsszó bevezetése'
           onClick={() => addEntry(index, 'withheldPrimitive')}
@@ -53,7 +53,7 @@ export function AddOccurrenceOptions({
       {!canAddWithheldKeywordOccurrence ? (
         false
       ) : (
-        <AddOccurrence
+        <IconButtonAddOrEdit
           icon={faCube}
           tooltip='Először csak az alapelem bevezetése'
           onClick={() => addEntry(index, 'withheldKeyword')}
@@ -63,7 +63,7 @@ export function AddOccurrenceOptions({
       {!canAddWithheldConstituentsOccurrence ? (
         false
       ) : (
-        <AddOccurrence
+        <IconButtonAddOrEdit
           icon={faPersonRunning}
           tooltip='Először csak felületes bevezetés'
           onClick={() => addEntry(index, 'withheldConstituents')}
@@ -73,7 +73,7 @@ export function AddOccurrenceOptions({
       {!canAddFullOccurrence ? (
         false
       ) : (
-        <AddOccurrence
+        <IconButtonAddOrEdit
           icon={faStar}
           tooltip='Teljes karakter bevezetése ebben a körben'
           onClick={() => addEntry(index, 'full')}
@@ -83,36 +83,8 @@ export function AddOccurrenceOptions({
       {!canAddReminder ? (
         false
       ) : (
-        <AddOccurrence icon={faBell} tooltip='Emlékeztető hozzáadása' onClick={() => addEntry(index, 'reminder')} />
+        <IconButtonAddOrEdit icon={faBell} tooltip='Emlékeztető hozzáadása' onClick={() => addEntry(index, 'reminder')} />
       )}
     </Stack>
-  )
-}
-
-export function AddOccurrence({
-  icon,
-  isAction = false,
-  tooltip,
-  mode = 'add',
-  onClick,
-}: {
-  icon: IconDefinition
-  isAction?: boolean
-  tooltip: string
-  mode?: 'add' | 'edit'
-  onClick: () => void
-}) {
-  return (
-    <Tooltip title={tooltip}>
-      <IconButton
-        className='fa-layers'
-        {...{ onClick }}
-        sx={{ color: isAction ? undefined : 'text.disabled', justifyContent: 'center' }}
-      >
-        <FontAwesomeIcon className='fa-fw' {...{ icon }} transform='left-4' />
-
-        <FontAwesomeIcon icon={mode === 'add' ? faPlus : faPen} transform='shrink-6 up-9 right-9' />
-      </IconButton>
-    </Tooltip>
   )
 }

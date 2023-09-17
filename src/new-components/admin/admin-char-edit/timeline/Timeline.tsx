@@ -3,7 +3,7 @@ import { Stack } from '@mui/material'
 import { OccurrenceType } from '../../../shared/MOCK_DATABASE_ENTRIES'
 import { Occurrence } from './Occurrence'
 import { SortedOccurrence } from '../../../shared/MOCK_DATABASE_ENTRIES'
-import { CalculatedIndexes, TimelineData } from '../../../shared/route-loaders/loadCharEdit'
+import { CalculatedIndexes, CharTimelineData } from '../../../shared/route-loaders/loadCharEdit'
 import { CharFormData } from '../../../shared/route-loaders/loadCharEdit'
 import { Unless } from 'react-if'
 import { ReorderButtonRow } from './ReorderButtonRow'
@@ -15,13 +15,13 @@ export function Timeline({
   setTimelineData,
 }: {
   charFormData: CharFormData
-  timelineData: TimelineData
-  setTimelineData: Dispatch<SetStateAction<TimelineData>>
+  timelineData: CharTimelineData
+  setTimelineData: Dispatch<SetStateAction<CharTimelineData>>
 }) {
   const { calculatedIndexes } = useLoaderData() as { calculatedIndexes: CalculatedIndexes }
 
   function deleteEntry(atIndex: number) {
-    const result = Array.from(timelineData) as TimelineData
+    const result = Array.from(timelineData) as CharTimelineData
 
     result.splice(atIndex, 1, { tier: atIndex + 1 })
 
@@ -29,7 +29,7 @@ export function Timeline({
   }
 
   function switchEntries(topIndex: number) {
-    const result = Array.from(timelineData) as TimelineData
+    const result = Array.from(timelineData) as CharTimelineData
 
     result[topIndex + 1] = {
       ...result[topIndex + 1],
@@ -49,7 +49,7 @@ export function Timeline({
   }
 
   function addEntry(atIndex: number, type: OccurrenceType) {
-    const result = Array.from(timelineData) as TimelineData
+    const result = Array.from(timelineData) as CharTimelineData
     const tier = atIndex + 1
     const calculatedIndex = calculatedIndexes[atIndex]
 
@@ -75,8 +75,6 @@ export function Timeline({
 
     setTimelineData(result)
   }
-
-  // const charFormData = useWatch() as CharFormData
 
   return (
     <Stack marginTop={2}>

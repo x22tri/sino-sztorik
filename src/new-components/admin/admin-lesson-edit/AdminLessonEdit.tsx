@@ -7,10 +7,11 @@ import { useDrawer } from '../../shared/hooks/useDrawer'
 import { Box, useTheme } from '@mui/material'
 import { SideNav } from '../../shared/components/SideNav'
 import { AdminBreadcrumbs } from '../../shared/components/AdminBreadcrumbs'
-import { LoadLessonEdit } from '../../shared/route-loaders/loadLessonEdit'
+import { LessonFormData, LessonTimelineData, LoadLessonEdit } from '../../shared/route-loaders/loadLessonEdit'
 import { LessonEditSteps } from './steps/LessonEditSteps'
 import { LessonEditErrorContext, useLessonEditErrors } from './error-context/LessonEditErrorContext'
 import LessonEditContent from './content/LessonEditContent'
+import { AdminBottomNav } from '../shared/AdminBottomNav'
 
 export function AdminLessonEdit() {
   const { constants, palette, spacing } = useTheme()
@@ -20,12 +21,12 @@ export function AdminLessonEdit() {
 
   const loaderData = useLoaderData() as LoadLessonEdit
   const formMethods = useForm({ defaultValues: { ...loaderData.lessonFormData } })
-  // const [savedCharForm, saveCharForm] = useState<CharFormData>({ ...loaderData.charFormData })
-  // const [timelineData, setTimelineData] = useState(loaderData.timelineData)
-  // const [savedTimelineData, saveTimelineData] = useState<TimelineData>([...loaderData.timelineData])
+  const [savedLessonForm, saveLessonForm] = useState<LessonFormData>({ ...loaderData.lessonFormData })
+  const [timelineData, setTimelineData] = useState(loaderData.lessonTimelineData)
+  const [savedTimelineData, saveTimelineData] = useState<LessonTimelineData>([...loaderData.lessonTimelineData])
   const { lessonFormErrors, lessonTimelineErrors, setLessonFormErrors, setLessonTimelineErrors } = useLessonEditErrors()
 
-  console.log(loaderData)
+  // console.log(loaderData)
 
   const lessonNumber = Number(params.lessonNumber)
 
@@ -68,9 +69,12 @@ export function AdminLessonEdit() {
 
           <Box component='main' gridArea='main'>
             <FormProvider {...formMethods}>
-              <LessonEditContent characters={loaderData.lessonFormData.characters} {...{ activeStep, lessonNumber }} />
+              <LessonEditContent
+                characters={loaderData.lessonFormData.characters}
+                {...{ activeStep, lessonNumber, setTimelineData, timelineData }}
+              />
 
-              {/* <AdminBottomNav {...{ activeStep, setActiveStep, savedTimelineData, setTimelineData, timelineData }} /> */}
+              <AdminBottomNav {...{ activeStep, setActiveStep, savedTimelineData, setTimelineData, timelineData }} />
             </FormProvider>
           </Box>
         </LessonEditErrorContext.Provider>

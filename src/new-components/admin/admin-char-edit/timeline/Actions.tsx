@@ -1,13 +1,13 @@
 import { faBookOpen, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { Drawer, Stack, useTheme } from '@mui/material'
 import ToolbarButton from '../../../shared/components/ToolbarButton'
-import { AddOccurrence } from './AddOccurrenceOptions'
 import { SortedOccurrence } from '../../../shared/MOCK_DATABASE_ENTRIES'
 import { isUnset } from '../utils/occurrence-utils'
 import { noOrphanedRemindersIfTierWasDeleted } from './getReminderContentType'
-import { TimelineData } from '../../../shared/route-loaders/loadCharEdit'
+import { CharTimelineData } from '../../../shared/route-loaders/loadCharEdit'
 import { useState } from 'react'
 import { StoryDrawerContent } from './story-drawer-content/StoryDrawerContent'
+import { IconButtonAddOrEdit } from '../../shared/IconButtonAddOrEdit'
 
 export function Actions({
   deleteEntry,
@@ -18,7 +18,7 @@ export function Actions({
   deleteEntry: (source: number) => void
   index: number
   occurrence: SortedOccurrence
-  timelineData: TimelineData
+  timelineData: CharTimelineData
 }) {
   const { constants } = useTheme()
   const [isStoryDrawerOpen, setStoryDrawerOpen] = useState(false)
@@ -35,13 +35,18 @@ export function Actions({
         {!canAddStory ? (
           false
         ) : (
-          <AddOccurrence icon={faBookOpen} isAction tooltip='Történet hozzáadása' onClick={() => setStoryDrawerOpen(true)} />
+          <IconButtonAddOrEdit
+            icon={faBookOpen}
+            isAction
+            tooltip='Történet hozzáadása'
+            onClick={() => setStoryDrawerOpen(true)}
+          />
         )}
 
         {!canEditStory ? (
           false
         ) : (
-          <AddOccurrence
+          <IconButtonAddOrEdit
             icon={faBookOpen}
             isAction
             mode='edit'

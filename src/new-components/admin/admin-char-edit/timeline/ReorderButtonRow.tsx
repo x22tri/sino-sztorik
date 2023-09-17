@@ -1,5 +1,5 @@
 import { Stack } from '@mui/material'
-import { TimelineData } from '../../../shared/route-loaders/loadCharEdit'
+import { CharTimelineData } from '../../../shared/route-loaders/loadCharEdit'
 import { isReminder } from '../utils/occurrence-utils'
 import { isUnset } from '../utils/occurrence-utils'
 import ToolbarButton from '../../../shared/components/ToolbarButton'
@@ -12,7 +12,7 @@ export function ReorderButtonRow({
   switchEntries,
 }: {
   index: number
-  timelineData: TimelineData
+  timelineData: CharTimelineData
   switchEntries: (topIndex: number) => void
 }) {
   const top = timelineData[index]

@@ -5,14 +5,14 @@ import { CHAR_ENTRY_V3 } from '../MOCK_DATABASE_ENTRIES'
 
 export type CharFormData = Omit<CharacterEntryV3, 'occurrences'>
 
-export type TimelineData = [SortedOccurrence, SortedOccurrence, SortedOccurrence, SortedOccurrence]
+export type CharTimelineData = [SortedOccurrence, SortedOccurrence, SortedOccurrence, SortedOccurrence]
 
 export type CalculatedIndexes = [number, number, number, number]
 
 export type LoadCharEdit = {
   calculatedIndexes: CalculatedIndexes
   charFormData: CharFormData
-  timelineData: TimelineData
+  timelineData: CharTimelineData
 }
 
 export function loadCharEdit({ params }: { params: Params }): LoadCharEdit {
@@ -32,7 +32,7 @@ export function loadCharEdit({ params }: { params: Params }): LoadCharEdit {
 
   return {
     charFormData: { ...charFormData, productivePinyin: charFormData.productivePinyin ?? false } as CharFormData,
-    timelineData: timelineData as TimelineData,
+    timelineData: timelineData as CharTimelineData,
     calculatedIndexes,
   }
 }

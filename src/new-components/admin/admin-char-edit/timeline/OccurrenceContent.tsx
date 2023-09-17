@@ -1,9 +1,9 @@
 import { faCube } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Divider, Typography, useTheme } from '@mui/material'
-import { CharFormData, TimelineData } from '../../../shared/route-loaders/loadCharEdit'
-import { AddOccurrenceOptions } from './AddOccurrenceOptions'
+import { CharFormData, CharTimelineData } from '../../../shared/route-loaders/loadCharEdit'
 import { OccurrenceType, OccurrencePresentation } from '../../../shared/MOCK_DATABASE_ENTRIES'
+import { AddOccurrenceOptions } from './AddOccurrenceOptions'
 
 export function OccurrenceContent({
   addEntry,
@@ -15,7 +15,7 @@ export function OccurrenceContent({
   addEntry: (atIndex: number, type: OccurrenceType) => void
   charFormData: CharFormData
   index: number
-  timelineData: TimelineData
+  timelineData: CharTimelineData
   type: OccurrencePresentation
 }) {
   switch (type) {

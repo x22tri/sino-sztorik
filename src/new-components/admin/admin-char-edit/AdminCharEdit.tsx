@@ -2,10 +2,10 @@ import { CharEditSteps } from './steps/CharEditSteps'
 import { AdminSubmenuTitle } from '../shared/AdminSubmenuTitle'
 import { AdminAppbar } from '../shared/AdminAppbar'
 import AdminCharEditContent from './admin-content/AdminCharEditContent'
-import { AdminBottomNav } from './admin-bottom-nav/AdminBottomNav'
+import { AdminBottomNav } from '../shared/AdminBottomNav'
 import { useState } from 'react'
 import { useLoaderData } from 'react-router-dom'
-import { LoadCharEdit, TimelineData } from '../../shared/route-loaders/loadCharEdit'
+import { LoadCharEdit, CharTimelineData } from '../../shared/route-loaders/loadCharEdit'
 import { CharFormData } from '../../shared/route-loaders/loadCharEdit'
 import { CharAdminErrorContext, useCharAdminErrors } from './error-context/CharAdminErrorContext'
 import { FormProvider, useForm } from 'react-hook-form'
@@ -23,7 +23,7 @@ export function AdminCharEdit() {
   const formMethods = useForm({ defaultValues: { ...loaderData.charFormData } })
   const [savedCharForm, saveCharForm] = useState<CharFormData>({ ...loaderData.charFormData })
   const [timelineData, setTimelineData] = useState(loaderData.timelineData)
-  const [savedTimelineData, saveTimelineData] = useState<TimelineData>([...loaderData.timelineData])
+  const [savedTimelineData, saveTimelineData] = useState<CharTimelineData>([...loaderData.timelineData])
   const { charFormErrors, timelineErrors, setCharFormErrors, setTimelineErrors } = useCharAdminErrors()
 
   return (

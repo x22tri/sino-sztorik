@@ -43,7 +43,7 @@ export function CourseLocation({
         size='small'
         sx={{ minWidth: 0, px: 1 }}
       >
-        {tier}/{lessonNumber}/{calculatedIndex}{' '}
+        {tier}/{lessonNumber}/{calculatedIndex}
         <When condition={discrepancyDetected}>
           <Typography
             component='span'

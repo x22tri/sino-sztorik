@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 import LearnContent from '../../../../learn/LearnContent'
-import { CharFormData, TimelineData } from '../../../../shared/route-loaders/loadCharEdit'
+import { CharFormData, CharTimelineData } from '../../../../shared/route-loaders/loadCharEdit'
 import { Character, Phrase, ReferencedChar, SimilarAppearance, SimilarMeaning } from '../../../../shared/interfaces'
 import {
   isReminder,
@@ -23,7 +23,7 @@ import { CHARS } from '../../../../shared/MOCK_CHARS'
 
 export type UnsubmittedCharacter = Omit<Character, 'id'>
 
-export function FinalCheck({ charFormData, timelineData }: { charFormData: CharFormData; timelineData: TimelineData }) {
+export function FinalCheck({ charFormData, timelineData }: { charFormData: CharFormData; timelineData: CharTimelineData }) {
   const [selectedTierIndex, selectTierIndex] = useState(0)
 
   function assembleEntry(): (UnsubmittedCharacter | null)[] {
