@@ -1,4 +1,4 @@
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PREV_NEXT_BUTTONS_PREV, PREV_NEXT_BUTTONS_NEXT } from '../strings'
 import { Else, If, Then, When } from 'react-if'
@@ -53,7 +53,7 @@ export function PrevNextLinks({
               if (prevOnClick) prevOnClick()
             }}
             to={prevTo}
-            startIcon={<FontAwesomeIcon icon={faChevronLeft} transform='shrink-4' />}
+            startIcon={<FontAwesomeIcon icon={faArrowLeft} transform='shrink-4' />}
             size='large'
             variant='text'
             sx={{
@@ -82,7 +82,7 @@ export function PrevNextLinks({
             <Button
               color='neutral'
               component={!!nextTo ? Link : Button}
-              endIcon={<FontAwesomeIcon icon={faChevronRight} transform='shrink-4' />}
+              endIcon={<FontAwesomeIcon icon={faArrowRight} transform='shrink-4' />}
               onClick={() => {
                 window.scrollTo({ top: 0 })
                 if (nextOnClick) nextOnClick()

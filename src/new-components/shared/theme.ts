@@ -5,7 +5,7 @@ import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
 import { tooltipClasses } from '@mui/material'
 
 const chineseFont = "'Noto Sans SC', sans-serif" // To-Do: Create font with custom chars
-const latinFont = "'Rubik', sans-serif"
+const latinFont = "'Noto Sans', sans-serif"
 
 declare module '@mui/material/styles' {
   interface Theme {

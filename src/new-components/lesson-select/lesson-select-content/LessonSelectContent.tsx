@@ -46,7 +46,7 @@ export default function LessonSelectContent({
           {title}
         </Typography>
 
-        <Typography color='text.secondary' mb={4} variant='body2'>
+        <Typography color='text.secondary' mb={4}>
           {lessonNumber}. lecke
         </Typography>
 

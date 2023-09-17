@@ -18,11 +18,10 @@ export function AdminBreadcrumbs({
       display='flex'
       height={spacing(4)}
       position='fixed'
-      px={3}
       zIndex={1000}
       sx={{ bgcolor: 'background.default', borderBottom: `1px solid ${palette.grey[300]}`, width: 1 }}
     >
-      <Box mx='auto' maxWidth={constants.maxContentWidth} width={1}>
+      <Box mx='auto' maxWidth={constants.maxContentWidth} px={3} width={1}>
         <Breadcrumbs separator={<FontAwesomeIcon icon={faChevronRight} size='xs' />}>
           {hierarchy.map(({ href, text }) => (
             <BreadcrumbLink key={href} {...{ href, text }} />
