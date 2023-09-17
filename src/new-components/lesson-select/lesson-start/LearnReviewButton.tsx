@@ -91,7 +91,7 @@ function ButtonWithModeSwitcher({
   }, [learnReviewOptions, selectedModeIndex])
 
   return (
-    <Box display='flex' gap={1} sx={{ maxWidth: { xs: undefined, lg: '300px' }, mx: 'auto' }}>
+    <Box display='flex' gap={1} sx={{ width: 1 }}>
       <Button component={Link} to={link} variant={buttonText === LEARN_BUTTON ? 'contained' : 'outlined'} sx={{ width: 1 }}>
         {buttonText}
       </Button>

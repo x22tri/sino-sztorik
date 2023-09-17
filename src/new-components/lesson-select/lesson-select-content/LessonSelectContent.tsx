@@ -49,7 +49,7 @@ export default function LessonSelectContent({
           {preface}
         </Typography>
 
-        <LearnReviewButton />
+        {/* <LearnReviewButton /> */}
       </div>
 
       {navigation}

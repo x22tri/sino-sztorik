@@ -112,7 +112,7 @@ export function FinalCheck({ charFormData, timelineData }: { charFormData: CharF
   )
 }
 
-function FinalCheckPrevNextLinks({
+export function FinalCheckPrevNextLinks({
   selectTierIndex,
   selectedTierIndex,
 }: {

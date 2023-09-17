@@ -14,6 +14,7 @@ import { Subheading } from '../../../learn/headings/Subheading'
 import { LessonAdminTextField } from '../../shared/AdminTextField'
 import { LessonCharReference } from '../../../shared/MOCK_DATABASE_ENTRIES'
 import { Timeline } from '../timeline/Timeline'
+import { FinalCheck } from '../final-check/FinalCheck'
 
 export default function LessonEditContent({
   activeStep,
@@ -55,7 +56,7 @@ export default function LessonEditContent({
 
         <Case condition={activeStep === 2}>
           <Heading title={ADMIN_EDIT_STEPS_STEP_THREE} />
-          {/* <FinalCheck {...{ charFormData, timelineData }} /> */}
+          <FinalCheck {...{ lessonFormData, timelineData }} />
         </Case>
 
         <Default>Hiba</Default>

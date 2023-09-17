@@ -1,6 +1,8 @@
 import { AppBar, Toolbar, useTheme } from '@mui/material'
 import LogoTitle from '../../shared/components/LogoTitle'
-import { ProfileMenu } from '../../lesson-select/appbar/ProfileMenu'
+import { AppbarButton } from '../../lesson-select/appbar/AppbarButton'
+import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import { TOP_NAV_LOGOUT } from '../../shared/strings'
 
 export function AdminLessonListAppbar() {
   const { constants, palette } = useTheme()
@@ -21,7 +23,7 @@ export function AdminLessonListAppbar() {
         >
           <LogoTitle />
 
-          <ProfileMenu />
+          <AppbarButton icon={faArrowRightFromBracket} text={TOP_NAV_LOGOUT} />
         </Toolbar>
       </AppBar>
       <Toolbar />

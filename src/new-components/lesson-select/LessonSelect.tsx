@@ -11,6 +11,7 @@ import { CharacterPreviews } from './lesson-start/CharacterPreviews'
 import { useLargeScreen } from '../shared/hooks/useLargeScreen'
 import { LoadLessonSelect } from '../shared/route-loaders/loadLessonSelect'
 import { PrevNextLinks } from '../shared/components/PrevNextLinks'
+import { LearnReviewButton } from './lesson-start/LearnReviewButton'
 
 export default function LessonSelect() {
   const { constants } = useTheme()
@@ -51,6 +52,7 @@ export default function LessonSelect() {
             {...{ selectedLesson }}
             navigation={
               <PrevNextLinks
+                middleElement={<LearnReviewButton />}
                 prevTitle={prevLesson?.title}
                 prevTo={`/lessons/${prevLesson?.lessonNumber}`}
                 nextTitle={nextLesson?.title}

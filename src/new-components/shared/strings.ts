@@ -50,8 +50,8 @@ export const CHARACTERS_IN_LESSON_LABEL = 'Karakterek a leckében'
 export const MOBILE_NAVIGATION_TOOLTIP = 'Navigáció'
 
 export const TOP_NAV_TOOLTIP = 'Főmenü'
-export const TOP_NAV_ACCOUNT = 'Fiókbeállítások'
-export const TOP_NAV_LOGOUT = 'Kijelentkezés'
+export const TOP_NAV_ACCOUNT = 'Fiókom'
+export const TOP_NAV_LOGOUT = 'Kilépés'
 
 export const LEARN_EXIT_MODAL_TITLE = 'Biztosan kilépsz?'
 export const LEARN_EXIT_MODAL_BODY = 'Ha kilépsz a Leckeválasztóba, legközelebb elölről kell majd kezdened a leckét.'

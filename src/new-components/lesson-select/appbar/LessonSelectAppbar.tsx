@@ -1,11 +1,17 @@
-import { faGraduationCap } from '@fortawesome/free-solid-svg-icons'
-import { AppBar, Toolbar, useTheme } from '@mui/material'
+import {
+  faArrowRightFromBracket,
+  faBookOpen,
+  faGraduationCap,
+  faMagnifyingGlass,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons'
+import { AppBar, Box, Toolbar, useTheme } from '@mui/material'
 import { When } from 'react-if'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import LogoTitle from '../../shared/components/LogoTitle'
-import { ProfileMenu } from './ProfileMenu'
+import { AppbarButton } from './AppbarButton'
 import ToolbarButton from '../../shared/components/ToolbarButton'
-import { LESSON_SELECT_TITLE } from '../../shared/strings'
+import { CHARACTER_SEARCH_TITLE, LESSON_SELECT_TITLE, TOP_NAV_ACCOUNT, TOP_NAV_LOGOUT } from '../../shared/strings'
 
 export function LessonSelectAppbar({ toggleDrawer }: { toggleDrawer: () => void }) {
   const { constants, palette } = useTheme()
@@ -30,7 +36,16 @@ export function LessonSelectAppbar({ toggleDrawer }: { toggleDrawer: () => void 
 
           <LogoTitle />
 
-          <ProfileMenu />
+          <Box display='flex' gap={1.5}>
+            {/* To-Do: Make into hamburger menu on mobile */}
+            <AppbarButton icon={faBookOpen} text='Tanulás' />
+
+            <AppbarButton disabled icon={faMagnifyingGlass} text='Kereső' />
+
+            <AppbarButton disabled icon={faUser} text={TOP_NAV_ACCOUNT} />
+
+            <AppbarButton icon={faArrowRightFromBracket} text={TOP_NAV_LOGOUT} />
+          </Box>
         </Toolbar>
       </AppBar>
       <Toolbar />

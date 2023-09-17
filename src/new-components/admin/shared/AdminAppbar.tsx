@@ -1,10 +1,10 @@
-import { faLanguage } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRightFromBracket, faLanguage } from '@fortawesome/free-solid-svg-icons'
 import { AppBar, Toolbar, useTheme } from '@mui/material'
 import { When } from 'react-if'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import ToolbarButton from '../../shared/components/ToolbarButton'
-import { ADMIN_CHARACTER_LIST } from '../../shared/strings'
-import { ProfileMenu } from '../../lesson-select/appbar/ProfileMenu'
+import { ADMIN_CHARACTER_LIST, TOP_NAV_LOGOUT } from '../../shared/strings'
+import { AppbarButton } from '../../lesson-select/appbar/AppbarButton'
 import LogoTitle from '../../shared/components/LogoTitle'
 
 export function AdminAppbar({ toggleDrawer }: { toggleDrawer: () => void }) {
@@ -31,7 +31,7 @@ export function AdminAppbar({ toggleDrawer }: { toggleDrawer: () => void }) {
 
           <LogoTitle />
 
-          <ProfileMenu />
+          <AppbarButton icon={faArrowRightFromBracket} text={TOP_NAV_LOGOUT} />
         </Toolbar>
       </AppBar>
       <Toolbar />

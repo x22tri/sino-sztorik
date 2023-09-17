@@ -7,6 +7,7 @@ import { TitleSubtitle } from './TitleSubtitle'
 import { Link } from 'react-router-dom'
 
 export function PrevNextLinks({
+  middleElement,
   customEndElement,
   prevOnClick,
   prevTitle,
@@ -15,6 +16,7 @@ export function PrevNextLinks({
   nextTitle,
   nextTo,
 }: {
+  middleElement?: JSX.Element
   customEndElement?: JSX.Element
   prevOnClick?: () => void
   prevTitle: string | undefined
@@ -25,13 +27,21 @@ export function PrevNextLinks({
 }) {
   return (
     <Box
-      alignItems='flex-end'
-      display='flex'
-      flexDirection={{ xs: 'column', md: 'row' }}
+      alignItems='center'
+      display='grid'
       gap={1}
       gridArea='prev-next'
       width='100%'
       mt={2}
+      sx={{
+        grid: {
+          xs: `
+        "learn" 
+        "prev" 
+        "next" auto / auto`,
+          md: `"prev learn next" auto / 1fr 1fr 1fr`,
+        },
+      }}
     >
       <When condition={!!prevTitle}>
         {() => (
@@ -46,11 +56,24 @@ export function PrevNextLinks({
             startIcon={<FontAwesomeIcon icon={faChevronLeft} transform='shrink-4' />}
             size='large'
             variant='text'
-            sx={{ justifyContent: 'flex-start', mr: 'auto', px: 2, width: { xs: 1, md: 'max-content' } }}
+            sx={{
+              gridArea: 'prev',
+              justifyContent: 'flex-start',
+              mr: 'auto',
+              px: 2,
+              textAlign: 'start',
+              width: { xs: 1, md: 'max-content' },
+            }}
           >
             <TitleSubtitle title={PREV_NEXT_BUTTONS_PREV} subtitle={prevTitle!} subtitleStyles={{ lineHeight: 'initial' }} />
           </Button>
         )}
+      </When>
+
+      <When condition={!!middleElement}>
+        <Box component='span' gridArea='learn'>
+          {middleElement}
+        </Box>
       </When>
 
       <If condition={!!nextTitle}>
@@ -67,7 +90,14 @@ export function PrevNextLinks({
               to={nextTo}
               size='large'
               variant='text'
-              sx={{ justifyContent: 'flex-end', ml: 'auto', px: 2, width: { xs: 1, md: 'max-content' } }}
+              sx={{
+                gridArea: 'next',
+                justifyContent: 'flex-end',
+                ml: 'auto',
+                px: 2,
+                textAlign: 'end',
+                width: { xs: 1, md: 'max-content' },
+              }}
             >
               <TitleSubtitle
                 title={PREV_NEXT_BUTTONS_NEXT}
