@@ -23,6 +23,7 @@ import { Heading } from '../headings/Heading'
 import { Presentation } from '../presentation/Presentation'
 import { PhrasesAndOtherUses } from '../phrases-and-other-uses/PhrasesAndOtherUses'
 import { Frequency } from '../frequency/Frequency'
+import { InfoChips } from '../info-chips/InfoChips'
 
 export function CharacterSection({ currentChar }: { currentChar: Character }) {
   const { frequency } = currentChar
@@ -32,9 +33,10 @@ export function CharacterSection({ currentChar }: { currentChar: Character }) {
       <Box alignItems='center' display='flex' mb={3}>
         {/* <Heading title={LEARN_HEADING_CHARACTER} styles={{ my: 0 }} /> */}
 
-        <When condition={frequency}>
+        {/* <When condition={frequency}>
           <Frequency frequency={frequency!} />
-        </When>
+        </When> */}
+        <InfoChips char={currentChar} />
       </Box>
 
       <Presentation {...{ currentChar }} />

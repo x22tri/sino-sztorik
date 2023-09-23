@@ -1,4 +1,4 @@
-import { Chip, useTheme } from '@mui/material'
+import { Chip, lighten, useTheme } from '@mui/material'
 import {
   FREQUENCY_VERY_COMMON,
   FREQUENCY_QUITE_COMMON,
@@ -17,7 +17,7 @@ export function Frequency({ frequency }: { frequency: number }) {
     <Chip
       icon={<FontAwesomeIcon icon={faChartColumn} {...{ color }} />}
       label={`${text} (${frequency}.)`}
-      sx={{ pl: 0.5 }}
+      sx={{ backgroundColor: lighten(color, 0.8), pl: 0.5, transition: 'none' }}
     ></Chip>
   )
 }

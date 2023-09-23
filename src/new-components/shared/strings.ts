@@ -101,16 +101,16 @@ export const INFO_CHIP_PREQUEL_LABEL = 'Előzmény:'
 export const INFO_CHIP_PRODUCTIVE_PHONETIC_LABEL = 'Sokszor hangjelölő'
 export const INFO_CHIP_REMINDER_LABEL = 'Emlékeztető'
 
-export const INFO_CHIP_NEW_PRIMITIVE_EXPLANATION = `E karaktert már bevezettük, de nem használtuk fel más karakterekben.
+export const INFO_CHIP_NEW_PRIMITIVE_EXPLANATION = `Ezt a karaktert már bevezettük, de nem használtuk fel más karakterekben.
 Mivel tényleges jelentését csak nehezen tudnánk sztorikba építeni, alkotóelemként új jelentést kap.`
 
 export const INFO_CHIP_PREQUEL_EXPLANATION =
   'E karakter sztorija egy másik sztori folytatása. Ha nem emlékszel rá, [ide kattintva] felfrissítheted az emlékezeted.'
 
 export const INFO_CHIP_PRODUCTIVE_PHONETIC_EXPLANATION =
-  'Az e karaktert tartalmazó más karaktereket sokszor ugyanígy vagy hasonlóan kell kiejteni.'
+  'Az ezt a karaktert tartalmazó más karaktereket sokszor ugyanígy vagy hasonlóan kell kiejteni.'
 
-export const INFO_CHIP_REMINDER_EXPLANATION = `E karaktert már bevezettük. Azért mutatjuk meg újra, mert hamarosan szükséged lesz rá.`
+export const INFO_CHIP_REMINDER_EXPLANATION = `Ezt a karaktert már bevezettük. Azért mutatjuk meg újra, mert hamarosan szükséged lesz rá.`
 
 export const INFO_CHIP_FREQUENCY_EXPLANATION = `Ez a {frequency}. leggyakoribb írásjel a kínaiban, így {frequencyTextLowerCase} karakternek számít.`
 
