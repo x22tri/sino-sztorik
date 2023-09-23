@@ -9,6 +9,7 @@ import { CharacterSection } from './learn-content-sections/LearnContentSections'
 import { PhrasesAndOtherUsesSection } from './learn-content-sections/LearnContentSections'
 import { ReactNode } from 'react'
 import { useFlashback } from './store/useFlashback'
+import { Box, Divider } from '@mui/material'
 
 export default function LearnContent({ lessonChar, navigation }: { lessonChar: Character; navigation: ReactNode }) {
   const { flashbackChar } = useFlashback()
@@ -25,8 +26,10 @@ export default function LearnContent({ lessonChar, navigation }: { lessonChar: C
 
   return (
     <>
-      <div>
+      <Box mt={2}>
         <CharacterSection {...{ currentChar }} />
+
+        <Divider sx={{ my: 4 }} />
 
         <ConstituentsSection {...{ constituents }} />
 
@@ -37,7 +40,7 @@ export default function LearnContent({ lessonChar, navigation }: { lessonChar: C
         <SimilarMeaningSection {...{ similarMeaning }} />
 
         <SimilarAppearanceSection {...{ similarAppearance }} />
-      </div>
+      </Box>
 
       {navigation}
     </>

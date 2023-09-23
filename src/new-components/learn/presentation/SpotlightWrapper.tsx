@@ -37,8 +37,6 @@ export function SpotlightWrapper({
             onMouseEnter={openPopover}
             onMouseLeave={closePopover}
             sx={{
-              border: ({ palette }) => `3px solid ${palette.primary.main}`,
-              borderRadius: 2,
               px: 1,
               transition: ({ constants }) => constants.animationDuration,
               ':hover': { bgcolor: 'primary.100', cursor: 'help' },

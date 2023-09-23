@@ -1,4 +1,4 @@
-import { Box, useTheme } from '@mui/material'
+import { Chip, useTheme } from '@mui/material'
 import {
   FREQUENCY_VERY_COMMON,
   FREQUENCY_QUITE_COMMON,
@@ -14,10 +14,11 @@ export function Frequency({ frequency }: { frequency: number }) {
   const { color, text } = useFrequency(frequency)
 
   return (
-    <Box alignItems='center' color='text.secondary' display='flex' gap={0.5} typography='body2'>
-      <FontAwesomeIcon icon={faChartColumn} {...{ color }} />
-      {`${text} (${frequency}.)`}
-    </Box>
+    <Chip
+      icon={<FontAwesomeIcon icon={faChartColumn} {...{ color }} />}
+      label={`${text} (${frequency}.)`}
+      sx={{ pl: 0.5 }}
+    ></Chip>
   )
 }
 

@@ -18,13 +18,13 @@ export default function LessonSelectContent({
   return (
     <>
       <Box display='flex' flexDirection='column' mt={2}>
-        <Stack alignItems='center' direction='row' gap={1} mb={2}>
+        <Stack alignItems='center' direction='row' gap={1.5} mb={3}>
           <Switch>
             <Case condition={isUpcomingLesson(tierStatuses)}>
               <Chip
                 icon={iconDictionary[LessonStatuses.UPCOMING]}
                 label={LessonStatuses.UPCOMING}
-                sx={{ backgroundColor: 'primary.100' }}
+                sx={{ backgroundColor: 'primary.100', pl: 0.5, transition: 'none' }}
               />
             </Case>
 
@@ -32,7 +32,7 @@ export default function LessonSelectContent({
               <Chip
                 icon={iconDictionary[LessonStatuses.COMPLETED]}
                 label={LessonStatuses.COMPLETED}
-                sx={{ backgroundColor: 'success.100' }}
+                sx={{ backgroundColor: 'success.100', pl: 0.5, transition: 'none' }}
               />
             </Case>
 

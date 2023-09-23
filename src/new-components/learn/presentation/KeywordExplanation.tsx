@@ -22,14 +22,10 @@ export function KeywordExplanation({ explanation }: { explanation: string }) {
       <Box
         component='span'
         color='text.primary'
-        marginLeft={0.5}
+        marginLeft={{ xs: 0.5, md: 1 }}
         onMouseEnter={openPopover}
         onMouseLeave={closePopover}
-        position='absolute'
-        sx={{
-          transition: constants.animationDuration,
-          '&:hover': { color: lighten(palette.text.primary, 0.3), cursor: 'help' },
-        }}
+        sx={{ transition: constants.animationDuration, '&:hover': { color: lighten(palette.text.primary, 0.3), cursor: 'help' } }}
       >
         <FontAwesomeIcon size='xs' transform='shrink-5' icon={faQuestionCircle} />
       </Box>
