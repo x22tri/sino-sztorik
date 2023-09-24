@@ -12,17 +12,14 @@ export function InfoChips({ char }: { char: Character }) {
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
-  const [selectedChip, setSelectedChip] = useState<ChipType | null>(null)
-
   const chipsContent = getChips()
 
   function getChips() {
     return chipConfig.filter(({ id }) => id in char)
   }
 
-  function selectChip(event: MouseEvent<HTMLButtonElement>, chipId: ChipId) {
+  function selectChip(event: MouseEvent<HTMLButtonElement>) {
     setAnchorEl(event.currentTarget)
-    setSelectedChip(chipsContent.find(({ id }) => id === chipId)!)
   }
 
   function deselectChip() {
@@ -30,23 +27,23 @@ export function InfoChips({ char }: { char: Character }) {
   }
 
   return (
-    <>
-      <Stack direction='row' gap={1.5}>
-        {char.frequency ? <Frequency frequency={char.frequency} /> : null}
+    <Stack direction='row' gap={1.5}>
+      {char.frequency ? <Frequency frequency={char.frequency} /> : null}
 
-        {chipsContent.map(({ icon, id, label }) => (
+      {chipsContent.map(({ explanation, icon, id, label }) => (
+        <>
           <InfoChip
             icon={<FontAwesomeIcon {...{ icon }} />}
-            onMouseEnter={(event: MouseEvent<HTMLButtonElement>) => selectChip(event, id)}
+            onMouseEnter={selectChip}
             onMouseLeave={deselectChip}
             key={id}
             {...{ id, label }}
             sx={{ '&:hover': { backgroundColor: lighten(palette.text.disabled, 0.7), cursor: 'help' } }}
           />
-        ))}
-      </Stack>
 
-      <LearnPopover hover {...{ anchorEl }} text={selectedChip?.explanation} />
-    </>
+          <LearnPopover hover {...{ anchorEl }} text={explanation} />
+        </>
+      ))}
+    </Stack>
   )
 }
