@@ -1,7 +1,7 @@
 import { Dispatch, Fragment, SetStateAction } from 'react'
-import { Stack } from '@mui/material'
+import { Divider, Stack } from '@mui/material'
 import { OccurrenceType } from '../../../shared/MOCK_DATABASE_ENTRIES'
-import { Occurrence } from './Occurrence'
+import { Occurrence } from './occurrence/Occurrence'
 import { SortedOccurrence } from '../../../shared/MOCK_DATABASE_ENTRIES'
 import { CalculatedIndexes, CharTimelineData } from '../../../shared/route-loaders/loadCharEdit'
 import { CharFormData } from '../../../shared/route-loaders/loadCharEdit'
@@ -77,19 +77,22 @@ export function Timeline({
   }
 
   return (
-    <Stack marginTop={2}>
-      {timelineData.map((occurrence: SortedOccurrence, index: number) => (
-        <Fragment key={index}>
-          <Occurrence
-            calculatedIndex={calculatedIndexes[index]}
-            {...{ addEntry, charFormData, deleteEntry, index, occurrence, timelineData }}
-          />
+    <>
+      <Divider sx={{ my: 2 }} />
+      <Stack>
+        {timelineData.map((occurrence: SortedOccurrence, index: number) => (
+          <Fragment key={index}>
+            <Occurrence
+              calculatedIndex={calculatedIndexes[index]}
+              {...{ addEntry, charFormData, deleteEntry, index, occurrence, timelineData }}
+            />
 
-          <Unless condition={index === timelineData.length - 1}>
-            <ReorderButtonRow {...{ index, timelineData, switchEntries }} />
-          </Unless>
-        </Fragment>
-      ))}
-    </Stack>
+            <Unless condition={index === timelineData.length - 1}>
+              <ReorderButtonRow {...{ index, timelineData, switchEntries }} />
+            </Unless>
+          </Fragment>
+        ))}
+      </Stack>
+    </>
   )
 }

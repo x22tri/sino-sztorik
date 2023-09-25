@@ -39,21 +39,20 @@ export function OccurrenceContent({
   }
 }
 function Keyword({ keyword }: { keyword: string }) {
-  const { palette } = useTheme()
-
   return (
-    <Typography color={palette.primary.main} fontWeight='bold' margin='auto'>
+    <Typography component='span' variant='h4' fontWeight='bold'>
       {keyword}
     </Typography>
   )
 }
 function Primitive({ primitive }: { primitive: string }) {
-  const { palette } = useTheme()
+  const { palette, spacing } = useTheme()
 
   return (
     <>
-      <FontAwesomeIcon color={palette.secondary.main} icon={faCube} style={{ marginRight: '4px' }} />
-      <Typography color={palette.secondary.main} fontStyle='italic'>
+      <FontAwesomeIcon color={palette.secondary.main} icon={faCube} style={{ marginRight: spacing(0.75) }} />
+
+      <Typography component='span' variant='h4' fontWeight='normal' fontStyle='italic'>
         {primitive}
       </Typography>
     </>

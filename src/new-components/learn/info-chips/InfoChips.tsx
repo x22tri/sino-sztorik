@@ -12,11 +12,7 @@ export function InfoChips({ char }: { char: Character }) {
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
-  const chipsContent = getChips()
-
-  function getChips() {
-    return chipConfig.filter(({ id }) => id in char)
-  }
+  const chipsContent = chipConfig.filter(({ id }) => id in char)
 
   function selectChip(event: MouseEvent<HTMLButtonElement>) {
     setAnchorEl(event.currentTarget)

@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material'
+import { Box, Divider, Stack } from '@mui/material'
 import { CharTimelineData } from '../../../shared/route-loaders/loadCharEdit'
 import { isReminder } from '../utils/occurrence-utils'
 import { isUnset } from '../utils/occurrence-utils'
@@ -23,18 +23,16 @@ export function ReorderButtonRow({
     !(isReminder(top) && isReminder(bottom)) &&
     (isUnset(top) || isUnset(bottom) || isReminder(top) || (isReminder(bottom) && isValidTierForReminder(timelineData, index)))
 
-  return (
-    <Stack direction='row' justifyContent='center' gap={1} minHeight='48px'>
-      {!canSwitch ? (
-        false
-      ) : (
-        <ToolbarButton
-          icon={faArrowRightArrowLeft}
-          iconProps={{ rotation: 90 }}
-          tooltip='Csere'
-          onClick={() => switchEntries(index)}
-        />
-      )}
-    </Stack>
+  return !canSwitch ? (
+    <Divider sx={{ my: 2 }} />
+  ) : (
+    <Divider>
+      <ToolbarButton
+        icon={faArrowRightArrowLeft}
+        iconProps={{ rotation: 90 }}
+        tooltip='Csere'
+        onClick={() => switchEntries(index)}
+      />
+    </Divider>
   )
 }

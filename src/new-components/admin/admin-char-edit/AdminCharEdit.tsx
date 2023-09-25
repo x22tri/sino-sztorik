@@ -43,7 +43,7 @@ export function AdminCharEdit() {
         margin='auto'
         sx={{
           maxWidth: constants.maxContentWidth,
-          gridTemplate: { xs: `"main" / auto`, md: `"nav main" / ${constants.drawerWidth}px auto` },
+          gridTemplate: { xs: `"main" / 1fr`, md: `"nav main" / ${constants.drawerWidth}px auto` },
         }}
       >
         <CharAdminErrorContext.Provider value={{ charFormErrors, timelineErrors, setCharFormErrors, setTimelineErrors }}>
