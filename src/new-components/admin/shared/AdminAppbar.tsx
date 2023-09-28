@@ -1,40 +1,28 @@
-import { faArrowRightFromBracket, faLanguage } from '@fortawesome/free-solid-svg-icons'
-import { AppBar, Toolbar, useTheme } from '@mui/material'
-import { When } from 'react-if'
-import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
-import ToolbarButton from '../../shared/components/ToolbarButton'
-import { ADMIN_CHARACTER_LIST, TOP_NAV_LOGOUT } from '../../shared/strings'
-import { AppbarButton } from '../../lesson-select/appbar/AppbarButton'
 import LogoTitle from '../../shared/components/LogoTitle'
+import { AppbarButton } from '../../shared/components/appbar/AppbarButton'
+import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import { TOP_NAV_LOGOUT } from '../../shared/strings'
+import { AppbarBase } from '../../shared/components/appbar/AppbarWithMobileHamburger'
+import ToolbarButton from '../../shared/components/ToolbarButton'
+import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
+import { If, Then, Else } from 'react-if'
 
-export function AdminAppbar({ toggleDrawer }: { toggleDrawer: () => void }) {
-  const { constants, palette } = useTheme()
+export function AdminAppbar() {
   const isSmallScreen = useSmallScreen()
 
   return (
-    <>
-      <AppBar elevation={0} sx={{ bgcolor: 'background.default', borderBottom: `1px solid ${palette.grey[300]}` }}>
-        <Toolbar
-          disableGutters
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            m: 'auto',
-            maxWidth: constants.maxContentWidth,
-            px: { xs: 1, sm: 2 },
-            width: 1,
-          }}
-        >
-          <When condition={isSmallScreen}>
-            <ToolbarButton icon={faLanguage} onClick={toggleDrawer} tooltip={ADMIN_CHARACTER_LIST} />
-          </When>
+    <AppbarBase>
+      <LogoTitle />
 
-          <LogoTitle />
+      <If condition={isSmallScreen}>
+        <Then>
+          <ToolbarButton icon={faArrowRightFromBracket} onClick={() => {}} tooltip={TOP_NAV_LOGOUT} />
+        </Then>
 
+        <Else>
           <AppbarButton icon={faArrowRightFromBracket} text={TOP_NAV_LOGOUT} />
-        </Toolbar>
-      </AppBar>
-      <Toolbar />
-    </>
+        </Else>
+      </If>
+    </AppbarBase>
   )
 }

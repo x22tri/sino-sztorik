@@ -28,7 +28,7 @@ export function AdminCharEdit() {
 
   return (
     <>
-      <AdminAppbar {...{ toggleDrawer }} />
+      <AdminAppbar />
 
       <AdminBreadcrumbs
         currentMenuItem={`Karakter szerkesztése (${formMethods.getValues().glyph})`}

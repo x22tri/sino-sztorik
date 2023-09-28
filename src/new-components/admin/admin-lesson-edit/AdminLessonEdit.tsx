@@ -32,7 +32,7 @@ export function AdminLessonEdit() {
 
   return (
     <>
-      <AdminAppbar {...{ toggleDrawer }} />
+      <AdminAppbar />
 
       <AdminBreadcrumbs
         currentMenuItem={`Lecke szerkesztése (${lessonNumber}. lecke)`}

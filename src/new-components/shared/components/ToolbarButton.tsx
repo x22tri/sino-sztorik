@@ -18,7 +18,7 @@ export default function ToolbarButton<B extends ElementType>({
     iconProps?: Omit<FontAwesomeIconProps, 'icon'>
     innerRef?: ForwardedRef<HTMLButtonElement>
     tooltip: string
-    onClick: (event: MouseEvent<HTMLElement>) => any
+    onClick: (event: MouseEvent<HTMLButtonElement>) => any
   }
 >) {
   return (

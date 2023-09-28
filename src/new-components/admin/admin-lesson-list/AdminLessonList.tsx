@@ -1,5 +1,5 @@
 import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, useTheme } from '@mui/material'
-import { AdminLessonListAppbar } from './AdminLessonListAppbar'
+import { AdminAppbar } from '../shared/AdminAppbar'
 import { Link } from 'react-router-dom'
 import { AdminBreadcrumbs } from '../../shared/components/AdminBreadcrumbs'
 import { LESSON_ENTRIES } from '../../shared/MOCK_DATABASE_ENTRIES'
@@ -11,7 +11,7 @@ export function AdminLessonList() {
 
   return (
     <>
-      <AdminLessonListAppbar />
+      <AdminAppbar />
 
       <AdminBreadcrumbs currentMenuItem='Leckék' hierarchy={[{ href: '/admin', text: 'Kezelőközpont' }]} />
 

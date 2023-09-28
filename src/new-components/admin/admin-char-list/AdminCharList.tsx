@@ -1,6 +1,6 @@
 import { Box, List, ListItem, ListItemButton, ListItemIcon, Typography, useTheme } from '@mui/material'
 import { CHARS } from '../../shared/MOCK_CHARS'
-import { AdminCharListAppbar } from './appbar/AdminCharListAppbar'
+import { AdminAppbar } from '../shared/AdminAppbar'
 import { Link } from 'react-router-dom'
 import { KeywordPrimitiveRow } from '../../shared/components/KeywordPrimitiveRow'
 import { AdminBreadcrumbs } from '../../shared/components/AdminBreadcrumbs'
@@ -12,7 +12,7 @@ export function AdminCharList() {
 
   return (
     <>
-      <AdminCharListAppbar />
+      <AdminAppbar />
 
       <AdminBreadcrumbs currentMenuItem='Karakterek' hierarchy={[{ href: '/admin', text: 'Kezelőközpont' }]} />
 
