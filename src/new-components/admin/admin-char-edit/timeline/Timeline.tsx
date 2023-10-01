@@ -6,7 +6,7 @@ import { SortedOccurrence } from '../../../shared/MOCK_DATABASE_ENTRIES'
 import { CalculatedIndexes, CharTimelineData } from '../../../shared/route-loaders/loadCharEdit'
 import { CharFormData } from '../../../shared/route-loaders/loadCharEdit'
 import { Unless } from 'react-if'
-import { ReorderButtonRow } from './ReorderButtonRow'
+import { ReorderButtonRow, TierIndicator } from './ReorderButtonRow'
 import { useLoaderData } from 'react-router-dom'
 
 export function Timeline({
@@ -76,9 +76,14 @@ export function Timeline({
     setTimelineData(result)
   }
 
+  console.log(timelineData)
+
   return (
     <>
-      <Divider sx={{ my: 2 }} />
+      <Divider>
+        <TierIndicator index={-1} />
+      </Divider>
+
       <Stack>
         {timelineData.map((occurrence: SortedOccurrence, index: number) => (
           <Fragment key={index}>

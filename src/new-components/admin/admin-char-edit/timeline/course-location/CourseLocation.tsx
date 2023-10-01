@@ -1,7 +1,7 @@
 import { useTheme, Link } from '@mui/material'
 import { Link as RouterLink } from 'react-router-dom'
 
-export function CourseLocation({ tier, lessonNumber, index }: { tier: number; lessonNumber: number; index: number }) {
+export function CourseLocation({ lessonNumber, index }: { lessonNumber: number; index: number }) {
   const { spacing } = useTheme()
 
   return (
@@ -11,7 +11,7 @@ export function CourseLocation({ tier, lessonNumber, index }: { tier: number; le
       underline='none'
       sx={{ borderRadius: spacing(0.5), width: 'max-content' }}
     >
-      {tier}. kör / {lessonNumber}. lecke / {index}. karakter
+      {index}. karakter a leckében
     </Link>
   )
 }
