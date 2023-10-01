@@ -1,17 +1,15 @@
-import { faBell, faPencil, faPlus, faX, faXmark } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome'
-import { Box, useTheme, Tooltip, SxProps, Chip, Stack, Button, Typography, Link } from '@mui/material'
-import { forwardRef, ForwardedRef } from 'react'
-import { When } from 'react-if'
+import { faPencil, faPlus, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Box, useTheme, Stack, Button, Typography } from '@mui/material'
 import { OccurrenceType, SortedOccurrence, OccurrencePresentation } from '../../../../shared/MOCK_DATABASE_ENTRIES'
 import { CharFormData, CharTimelineData } from '../../../../shared/route-loaders/loadCharEdit'
 import { isPresent } from '../../utils/char-form-utils'
 import { isReminder, isUnset } from '../../utils/occurrence-utils'
-import { Actions } from '../Actions'
 import { OccurrenceContent } from '../OccurrenceContent'
 import { getReminderContentType } from '../getReminderContentType'
-import { Link as RouterLink } from 'react-router-dom'
 import { AddOccurrenceOptions } from '../AddOccurrenceOptions'
+import { BlueprintChip } from '../blueprint-chip/BlueprintChip'
+import { CourseLocation } from '../course-location/CourseLocation'
 
 export function Occurrence({
   addEntry,
@@ -54,36 +52,7 @@ export function Occurrence({
       ? 'keyword'
       : 'keywordAndPrimitive'
 
-  const sx = useStepContentStyles(reminder, contentType)
-
   return (
-    // <Box
-    //   borderRadius={({ spacing }) => spacing(6)}
-    //   display='grid'
-    //   minHeight={({ spacing }) => spacing(10)}
-    //   pr={3}
-    //   pl={2}
-    //   sx={{ grid: `"location content actions" auto / 1fr 7fr 1fr`, ...sx }}
-    // >
-    //   <When condition={!isUnset(occurrence)}>
-    //     <CourseLocation
-    //       tier={occurrence.tier}
-    //       lessonNumber={charFormData.lessonNumber}
-    //       savedIndex={'index' in occurrence ? occurrence.index : undefined}
-    //       {...{ calculatedIndex }}
-    //     />
-    //   </When>
-
-    //   <Box alignItems='center' display='flex' margin='auto' gridArea='content'>
-    //     <When condition={reminder}>
-    //       <ReminderIcon />
-    //     </When>
-
-    //     <OccurrenceContent type={contentType} {...{ addEntry, charFormData, index, timelineData }} />
-    //   </Box>
-
-    //   <Actions {...{ occurrence, timelineData, deleteEntry, index }} />
-    // </Box>
     <Stack
       bgcolor={contentType === 'unset' ? 'grey.50' : 'background.default'}
       borderRadius={spacing(2)}
@@ -104,7 +73,7 @@ export function Occurrence({
       ) : (
         <>
           <Box alignItems='center' display='flex' justifyContent='space-between'>
-            <BlueprintChip />
+            <BlueprintChip isReminder={reminder} type={contentType} />
 
             <Button
               color='error'
@@ -116,11 +85,7 @@ export function Occurrence({
             </Button>
           </Box>
 
-          <Box alignItems='center' display='flex'>
-            <When condition={reminder}>
-              <ReminderIcon />
-            </When>
-
+          <Box alignItems='center' display='flex' mt={1}>
             <OccurrenceContent type={contentType} {...{ addEntry, charFormData, index, timelineData }} />
           </Box>
 
@@ -151,80 +116,4 @@ export function Occurrence({
       )}
     </Stack>
   )
-}
-
-function CourseLocation({ tier, lessonNumber, index }: { tier: number; lessonNumber: number; index: number }) {
-  const { spacing } = useTheme()
-
-  return (
-    <Link
-      component={RouterLink}
-      to={`/admin/lessons/${lessonNumber}`}
-      underline='none'
-      sx={{ borderRadius: spacing(0.5), width: 'max-content' }}
-    >
-      {tier}. kör / {lessonNumber}. lecke / {index}. karakter
-    </Link>
-  )
-}
-
-function BlueprintChip() {
-  return <Chip label='test' />
-}
-
-function ReminderIcon() {
-  const { palette } = useTheme()
-
-  return (
-    <Tooltip title='Emlékeztető'>
-      <IconForwardRef color={palette.warning.main} icon={faBell} transform='shrink-4' style={{ marginRight: '4px' }} />
-    </Tooltip>
-  )
-}
-
-const IconForwardRef = forwardRef((props: FontAwesomeIconProps, ref: ForwardedRef<HTMLOrSVGElement>) => {
-  return <FontAwesomeIcon forwardedRef={ref} {...props}></FontAwesomeIcon>
-})
-
-function useStepContentStyles(isReminder: boolean, type: OccurrencePresentation | null): SxProps {
-  const { palette } = useTheme()
-
-  if (isReminder) {
-    switch (type) {
-      case 'keyword':
-        return { background: palette.background.paper, border: `3px solid ${palette.primary.main}` }
-      case 'keywordLite':
-        return { background: palette.background.paper, border: `3px solid ${palette.primary[100]}` }
-      case 'primitive':
-        return { background: palette.background.paper, border: `3px solid ${palette.secondary.main}` }
-      case 'keywordAndPrimitive':
-        return {
-          background: palette.background.paper,
-          border: `3px solid`,
-          borderColor: `${palette.primary.main} ${palette.secondary.main} ${palette.secondary.main} ${palette.primary.main}`,
-        }
-      default:
-        return {}
-    }
-  } else {
-    switch (type) {
-      case 'keyword':
-        return { background: palette.primary[200]!, color: palette.primary.main }
-      case 'keywordLite':
-        return { background: palette.primary[50]!, color: palette.primary.main }
-      case 'primitive':
-        return { background: palette.secondary[200]!, color: palette.secondary.main }
-      case 'keywordAndPrimitive':
-        return { background: `linear-gradient(150deg, ${palette.primary[200]} 25%, ${palette.secondary[200]} 75%)` }
-      case 'unset':
-        return {
-          background: palette.grey[50],
-          color: palette.text.disabled,
-          outline: `2px dashed ${palette.text.disabled}`,
-          outlineOffset: '-6px',
-        }
-      default:
-        return {}
-    }
-  }
 }

@@ -1,28 +1,11 @@
-import {
-  Box,
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Stack,
-  Typography,
-  useTheme,
-} from '@mui/material'
+import { Box, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, useTheme } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { AdminAppbar } from '../shared/AdminAppbar'
 import { SideNav } from '../../shared/components/SideNav'
 import { useDrawer } from '../../shared/hooks/useDrawer'
 import { AdminSubmenuTitle } from '../shared/AdminSubmenuTitle'
-import { IconDefinition, faCircleRight, faGraduationCap, faLanguage } from '@fortawesome/free-solid-svg-icons'
+import { IconDefinition, faBook, faEye, faGraduationCap, faLanguage, faUserFriends } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { constants } from 'buffer'
-import { title } from 'process'
-import { When } from 'react-if'
-import { isDisabledLesson } from '../../shared/utility-functions'
 
 export function AdminDashboard() {
   const { constants } = useTheme()
@@ -62,21 +45,40 @@ export function AdminDashboard() {
 }
 
 export type AdminDashboardOption = {
-  link: string
+  disabled?: boolean
   icon: IconDefinition
+  link: string
   text: string
 }
 
 const adminDashboardOptions: AdminDashboardOption[] = [
   {
-    link: '/admin/characters',
     icon: faLanguage,
+    link: '/admin/characters',
     text: 'Karakterek',
   },
   {
-    link: '/admin/lessons',
     icon: faGraduationCap,
+    link: '/admin/lessons',
     text: 'Leckék',
+  },
+  {
+    disabled: true,
+    icon: faBook,
+    link: '/admin/phrases',
+    text: 'Kifejezések',
+  },
+  {
+    disabled: true,
+    icon: faEye,
+    link: '/admin/similars',
+    text: 'Hasonlóságok',
+  },
+  {
+    disabled: true,
+    icon: faUserFriends,
+    link: '/admin/users',
+    text: 'Felhasználók',
   },
 ]
 
@@ -84,11 +86,12 @@ function AdminDashboardPickerContent() {
   const { constants, spacing } = useTheme()
   return (
     <Box>
-      {adminDashboardOptions.map(({ link, icon, text }) => (
+      {adminDashboardOptions.map(({ disabled, icon, link, text }) => (
         <ListItem key={text} disablePadding>
           <ListItemButton
             component={Link}
             to={link}
+            {...{ disabled }}
             sx={{
               borderRadius: 6,
               color: 'text.secondary',
