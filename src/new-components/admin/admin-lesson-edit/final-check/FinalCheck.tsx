@@ -4,6 +4,8 @@ import { AssembledLesson, Character, LessonStatuses, TierStatuses } from '../../
 import LessonSelectContent from '../../../lesson-select/lesson-select-content/LessonSelectContent'
 import { FinalCheckPrevNextLinks } from '../../admin-char-edit/admin-content/final-check/FinalCheck'
 import { useParams } from 'react-router-dom'
+import { Box, Typography } from '@mui/material'
+import { TierHeading } from '../../shared/TierHeading'
 
 export function FinalCheck({
   lessonFormData,
@@ -49,7 +51,9 @@ export function FinalCheck({
   if (selectedLesson === null) {
     return (
       <>
-        <div>Ebben a körben nem jelenik meg.</div>
+        <TierHeading tier={selectedTierIndex + 1} />
+
+        <Box mb={4}>Ebben a körben nem jelenik meg.</Box>
 
         <FinalCheckPrevNextLinks {...{ selectTierIndex, selectedTierIndex }} />
       </>
@@ -57,10 +61,14 @@ export function FinalCheck({
   }
 
   return (
-    <LessonSelectContent
-      navigation={<FinalCheckPrevNextLinks {...{ selectTierIndex, selectedTierIndex }} />}
-      {...{ selectedLesson }}
-    />
+    <>
+      <TierHeading tier={selectedTierIndex + 1} />
+
+      <LessonSelectContent
+        navigation={<FinalCheckPrevNextLinks {...{ selectTierIndex, selectedTierIndex }} />}
+        {...{ selectedLesson }}
+      />
+    </>
   )
 }
 

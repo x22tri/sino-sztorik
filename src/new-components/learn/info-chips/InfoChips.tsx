@@ -1,6 +1,6 @@
 import { useTheme, Stack, lighten } from '@mui/material'
 import { MouseEvent, useState } from 'react'
-import { Character, ChipId, ChipType } from '../../shared/interfaces'
+import { Character } from '../../shared/interfaces'
 import { InfoChip } from './InfoChip'
 import { chipConfig } from './chipConfig'
 import { Frequency } from '../frequency/Frequency'

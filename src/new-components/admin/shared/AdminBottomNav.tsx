@@ -27,7 +27,7 @@ export function AdminBottomNav<T extends CharTimelineData | LessonTimelineData>(
   timelineData: T
 }) {
   const isSmallScreen = useSmallScreen()
-  const { constants, palette } = useTheme()
+  const { constants, palette, spacing } = useTheme()
   const { charFormErrors, timelineErrors } = useContext(CharAdminErrorContext)
 
   const isFinalCheckDisabled = getErrors(charFormErrors).length > 0 || getErrors(timelineErrors).length > 0
@@ -51,6 +51,8 @@ export function AdminBottomNav<T extends CharTimelineData | LessonTimelineData>(
       alignContent='center'
       bottom={0}
       borderTop={`1px solid ${palette.grey[200]}`}
+      borderLeft={`1px solid ${palette.grey[200]}`}
+      borderRight={`1px solid ${palette.grey[200]}`}
       display='grid'
       height={constants.bottomToolbarHeight}
       paddingX={2}
@@ -58,6 +60,8 @@ export function AdminBottomNav<T extends CharTimelineData | LessonTimelineData>(
       zIndex={1}
       sx={{
         bgcolor: 'background.paper',
+        borderTopLeftRadius: spacing(2),
+        borderTopRightRadius: spacing(2),
         grid: `"revert navigate" auto / max-content auto`,
         maxWidth: { xs: constants.maxContentWidth, lg: `calc(${constants.maxContentWidth} - ${constants.drawerWidth}px)` },
         width: isSmallScreen ? 1 : `calc(100% - ${constants.drawerWidth}px)`,

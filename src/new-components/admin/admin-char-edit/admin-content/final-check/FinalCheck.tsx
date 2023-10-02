@@ -20,6 +20,8 @@ import {
   WithheldPrimitiveOccurrence,
 } from '../../../../shared/MOCK_DATABASE_ENTRIES'
 import { CHARS } from '../../../../shared/MOCK_CHARS'
+import { Box } from '@mui/material'
+import { TierHeading } from '../../../shared/TierHeading'
 
 export type UnsubmittedCharacter = Omit<Character, 'id'>
 
@@ -97,7 +99,9 @@ export function FinalCheck({ charFormData, timelineData }: { charFormData: CharF
   if (selectedChar === null) {
     return (
       <>
-        <div>Ebben a körben nem jelenik meg.</div>
+        <TierHeading tier={selectedTierIndex + 1} />
+
+        <Box mb={4}>Ebben a körben nem jelenik meg.</Box>
 
         <FinalCheckPrevNextLinks {...{ selectTierIndex, selectedTierIndex }} />
       </>
@@ -105,10 +109,14 @@ export function FinalCheck({ charFormData, timelineData }: { charFormData: CharF
   }
 
   return (
-    <LearnContent
-      lessonChar={selectedChar as Character}
-      navigation={<FinalCheckPrevNextLinks {...{ selectTierIndex, selectedTierIndex }} />}
-    />
+    <>
+      <TierHeading tier={selectedTierIndex + 1} />
+
+      <LearnContent
+        lessonChar={selectedChar as Character}
+        navigation={<FinalCheckPrevNextLinks {...{ selectTierIndex, selectedTierIndex }} />}
+      />
+    </>
   )
 }
 

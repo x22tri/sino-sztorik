@@ -55,6 +55,8 @@ export function Occurrence({
       ? 'keyword'
       : 'keywordAndPrimitive'
 
+  const occurrenceHasNoStory = 'story' in occurrence && occurrence.story.length === 0
+
   const canBeDeleted = !isUnset(occurrence) && noOrphanedRemindersIfTierWasDeleted(timelineData, index)
 
   function openStoryDrawer() {
@@ -118,17 +120,17 @@ export function Occurrence({
                 justifyContent={{ xs: 'center', md: 'space-between' }}
                 mt={3}
               >
-                <Box color={!('story' in occurrence) ? 'error.main' : 'text.primary'}>
-                  {'story' in occurrence ? 'Történet' : 'Nincs megadva történet!'}
+                <Box color={occurrenceHasNoStory ? 'error.main' : 'text.primary'}>
+                  {occurrenceHasNoStory ? 'Nincs megadva történet!' : 'Történet'}
                 </Box>
 
                 <Button
                   onClick={openStoryDrawer}
-                  startIcon={<FontAwesomeIcon icon={'story' in occurrence ? faPencil : faPlus} transform='shrink-4' />}
-                  variant={'story' in occurrence ? 'text' : 'contained'}
+                  startIcon={<FontAwesomeIcon icon={occurrenceHasNoStory ? faPlus : faPencil} transform='shrink-4' />}
+                  variant={occurrenceHasNoStory ? 'contained' : 'text'}
                   sx={{ '.MuiButton-startIcon': { marginRight: spacing(0.5) } }}
                 >
-                  {'story' in occurrence ? 'Történet szerkesztése' : 'Történet hozzáadása'}
+                  {occurrenceHasNoStory ? 'Történet hozzáadása' : 'Történet szerkesztése'}
                 </Button>
               </Stack>
             )}

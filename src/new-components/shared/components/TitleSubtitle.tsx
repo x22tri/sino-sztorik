@@ -1,5 +1,6 @@
 import { SxProps } from '@mui/material'
 import Box from '@mui/material/Box'
+import { ReactNode } from 'react'
 
 export function TitleSubtitle({
   containerStyles,
@@ -9,9 +10,9 @@ export function TitleSubtitle({
   titleStyles,
 }: {
   containerStyles?: SxProps
-  subtitle: string
+  subtitle: string | ReactNode
   subtitleStyles?: SxProps
-  title: string
+  title: string | ReactNode
   titleStyles?: SxProps
 }) {
   return (

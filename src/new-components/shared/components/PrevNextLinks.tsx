@@ -32,7 +32,6 @@ export function PrevNextLinks({
       gap={1}
       gridArea='prev-next'
       width='100%'
-      mt={2}
       sx={{
         grid: {
           xs: `

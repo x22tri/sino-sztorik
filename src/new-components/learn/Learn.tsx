@@ -60,7 +60,16 @@ export default function Learn() {
               <Unless condition={!!flashbackChar}>
                 <PrevNextLinks
                   customEndElement={
-                    <Button variant='contained' href='/lessons' sx={{ borderRadius: 6, width: isSmallScreen ? 1 : undefined }}>
+                    <Button
+                      variant='contained'
+                      href='/lessons'
+                      sx={{
+                        borderRadius: 6,
+                        gridArea: 'next',
+                        ml: 'auto',
+                        width: isSmallScreen ? 1 : 'max-content',
+                      }}
+                    >
                       {LEARN_FINISH_LESSON_BUTTON}
                     </Button>
                   }

@@ -26,7 +26,7 @@ export default function LearnContent({ lessonChar, navigation }: { lessonChar: C
 
   return (
     <>
-      <Box mt={2}>
+      <Box mt={2} mb={4}>
         <CharacterSection {...{ currentChar }} />
 
         <Divider sx={{ my: 4 }} />
