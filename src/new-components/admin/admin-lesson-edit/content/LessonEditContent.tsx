@@ -1,4 +1,4 @@
-import { Box, Link, Typography, useTheme } from '@mui/material'
+import { Box, Link, Stack, Typography, useTheme } from '@mui/material'
 // import { Timeline } from '../timeline/Timeline'
 import { Dispatch, SetStateAction } from 'react'
 import { Case, Default, Switch } from 'react-if'
@@ -75,22 +75,17 @@ function LessonForm({ characters }: { characters: LessonCharReference[] }) {
 
       <Subheading styles={{ marginBottom: 2, marginTop: 6 }} title={`Karakterek a leckében (${characters.length})`} />
 
-      <Box display='flex' flexWrap='wrap' gap={3} sx={{ borderRadius: spacing(3) }}>
+      <Stack>
         {characters.map(({ glyph, tiers }) => (
-          <Box alignItems='center' display='flex' flexDirection='column' key={glyph}>
-            <Typography
-              key={glyph}
-              component='span'
-              variant='chineseText'
-              sx={{ borderRadius: 2, border: `1px solid ${palette.grey[300]}`, p: 1 }}
-            >
+          <Stack key={glyph}>
+            <Typography key={glyph} component='span' variant='chineseText' sx={{ p: 1, width: 'max-content' }}>
               {glyph}
             </Typography>
 
             <CharTierVariantCircles {...{ tiers }} />
-          </Box>
+          </Stack>
         ))}
-      </Box>
+      </Stack>
     </form>
   )
 }

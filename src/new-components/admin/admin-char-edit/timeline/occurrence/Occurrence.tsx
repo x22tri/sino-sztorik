@@ -1,7 +1,7 @@
 import { faPencil, faPlus, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Box, useTheme, Stack, Button, Typography, Drawer } from '@mui/material'
-import { OccurrenceType, SortedOccurrence, OccurrencePresentation } from '../../../../shared/MOCK_DATABASE_ENTRIES'
+import { Box, useTheme, Stack, Button, Typography, Drawer, Chip, SxProps } from '@mui/material'
+import { OccurrenceType, SortedOccurrence, OccurrencePresentation, OccurrenceV3 } from '../../../../shared/MOCK_DATABASE_ENTRIES'
 import { CharFormData, CharTimelineData } from '../../../../shared/route-loaders/loadCharEdit'
 import { isPresent } from '../../utils/char-form-utils'
 import { isReminder, isUnset } from '../../utils/occurrence-utils'
@@ -12,6 +12,7 @@ import { BlueprintChip } from '../blueprint-chip/BlueprintChip'
 import { CourseLocation } from '../course-location/CourseLocation'
 import { useState } from 'react'
 import { StoryDrawerContent } from '../story-drawer-content/StoryDrawerContent'
+import { Link } from 'react-router-dom'
 
 export function Occurrence({
   addEntry,
@@ -55,9 +56,11 @@ export function Occurrence({
       ? 'keyword'
       : 'keywordAndPrimitive'
 
+  const canBeDeleted = !isUnset(occurrence) && noOrphanedRemindersIfTierWasDeleted(timelineData, index)
+
   const occurrenceHasNoStory = 'story' in occurrence && occurrence.story.length === 0
 
-  const canBeDeleted = !isUnset(occurrence) && noOrphanedRemindersIfTierWasDeleted(timelineData, index)
+  const noOccurrenceInTier = contentType === 'unset'
 
   function openStoryDrawer() {
     toggleStoryDrawer(true)
@@ -67,20 +70,25 @@ export function Occurrence({
     toggleStoryDrawer(false)
   }
 
+  const bg = useStepContentStyles(reminder, contentType)
+
   return (
     <>
       <Stack
-        bgcolor={contentType === 'unset' ? 'grey.50' : 'background.default'}
+        bgcolor={noOccurrenceInTier ? 'grey.50' : 'background.default'}
         borderRadius={spacing(2)}
         gap={1}
         justifyContent='center'
         minHeight='200px'
         sx={{
-          outline: contentType === 'unset' ? `2px dashed ${palette.text.disabled}` : 'none',
+          // border: noOccurrenceInTier ? 'none' : `1px solid ${palette.grey[300]}`,
+          outline: noOccurrenceInTier ? `2px dashed ${palette.text.disabled}` : 'none',
           outlineOffset: '-6px',
+
+          // ...bg,
         }}
       >
-        {contentType === 'unset' ? (
+        {noOccurrenceInTier ? (
           <Stack alignItems='center' gap={2}>
             <Typography color='text.secondary'>{`${index === 0 ? 'Az' : 'A'} ${index + 1}. körben nem jelenik meg`}</Typography>
 
@@ -89,7 +97,17 @@ export function Occurrence({
         ) : (
           <>
             <Box alignItems='center' display='flex' justifyContent='space-between'>
-              <BlueprintChip isReminder={reminder} type={contentType} />
+              <Stack direction='row' gap={1.5}>
+                <BlueprintChip isReminder={reminder} type={contentType} />
+
+                <Chip
+                  component={Link}
+                  label={`${(occurrence as OccurrenceV3).index}. karakter a leckében`}
+                  to={`/admin/lessons/${charFormData.lessonNumber}`}
+                  sx={{ ':hover': { cursor: 'pointer' } }}
+                />
+              </Stack>
+
               {canBeDeleted && (
                 <Button
                   color='error'
@@ -102,11 +120,11 @@ export function Occurrence({
               )}
             </Box>
 
-            <Box alignItems='center' display='flex' mt={1}>
+            {/* <Box alignItems='center' display='flex' mt={1}>
               <OccurrenceContent type={contentType} {...{ addEntry, charFormData, index, timelineData }} />
-            </Box>
+            </Box> */}
 
-            {'index' in occurrence && <CourseLocation lessonNumber={charFormData.lessonNumber} index={occurrence.index} />}
+            {/* {'index' in occurrence && <CourseLocation lessonNumber={charFormData.lessonNumber} index={occurrence.index} />} */}
 
             {reminder ? (
               <Box color='text.disabled' mt={3}>
@@ -121,7 +139,7 @@ export function Occurrence({
                 mt={3}
               >
                 <Box color={occurrenceHasNoStory ? 'error.main' : 'text.primary'}>
-                  {occurrenceHasNoStory ? 'Nincs megadva történet!' : 'Történet'}
+                  {occurrenceHasNoStory ? 'Nincs megadva történet!' : 'Történet...'}
                 </Box>
 
                 <Button
@@ -148,4 +166,47 @@ export function Occurrence({
       </Drawer>
     </>
   )
+}
+
+function useStepContentStyles(isReminder: boolean, type: OccurrencePresentation | null): SxProps {
+  const { palette } = useTheme()
+
+  if (isReminder) {
+    switch (type) {
+      case 'keyword':
+        return { background: palette.background.paper, border: `3px solid ${palette.primary.main}` }
+      case 'keywordLite':
+        return { background: palette.background.paper, border: `3px solid ${palette.primary[100]}` }
+      case 'primitive':
+        return { background: palette.background.paper, border: `3px solid ${palette.secondary.main}` }
+      case 'keywordAndPrimitive':
+        return {
+          background: palette.background.paper,
+          border: `3px solid`,
+          borderColor: `${palette.primary.main} ${palette.secondary.main} ${palette.secondary.main} ${palette.primary.main}`,
+        }
+      default:
+        return {}
+    }
+  } else {
+    switch (type) {
+      case 'keyword':
+        return { background: palette.primary[200]!, color: palette.primary.main }
+      case 'keywordLite':
+        return { background: palette.primary[50]!, color: palette.primary.main }
+      case 'primitive':
+        return { background: palette.secondary[200]!, color: palette.secondary.main }
+      case 'keywordAndPrimitive':
+        return { background: `linear-gradient(150deg, ${palette.primary[200]} 25%, ${palette.secondary[200]} 60%)` }
+      case 'unset':
+        return {
+          background: palette.grey[50],
+          color: palette.text.disabled,
+          outline: `2px dashed ${palette.text.disabled}`,
+          outlineOffset: '-6px',
+        }
+      default:
+        return {}
+    }
+  }
 }

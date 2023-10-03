@@ -1,7 +1,6 @@
 import { Box, Link, Typography, useTheme } from '@mui/material'
-import { CharTimelineData } from '../../../shared/route-loaders/loadCharEdit'
+import { CalculatedIndexes, CharTimelineData } from '../../../shared/route-loaders/loadCharEdit'
 import { CharFormData } from '../../../shared/route-loaders/loadCharEdit'
-import { Timeline } from '../timeline/Timeline'
 import { Dispatch, SetStateAction } from 'react'
 import { Case, Default, Switch } from 'react-if'
 import { CharForm } from '../char-form/CharForm'
@@ -11,14 +10,17 @@ import { useRegisterCharAdminErrors } from '../error-context/useRegisterCharAdmi
 import { FinalCheck } from './final-check/FinalCheck'
 import { Heading } from '../../../learn/headings/Heading'
 import { Link as RouterLink } from 'react-router-dom'
+import { Timeline } from './timeline/Timeline'
 
 export default function AdminCharEditContent({
   activeStep,
+  calculatedIndexes,
   timelineData,
   saveCharForm,
   setTimelineData,
 }: {
   activeStep: number
+  calculatedIndexes: CalculatedIndexes
   timelineData: CharTimelineData
   saveCharForm: Dispatch<SetStateAction<CharFormData>>
   setTimelineData: Dispatch<SetStateAction<CharTimelineData>>
@@ -43,13 +45,14 @@ export default function AdminCharEditContent({
 
         <Case condition={activeStep === 1}>
           <Heading title={ADMIN_EDIT_STEPS_STEP_TWO} />
-          <Timeline {...{ charFormData, timelineData, setTimelineData }} />
+          {/* <Timeline {...{ charFormData, timelineData, setTimelineData }} /> */}
+          <Timeline {...{ calculatedIndexes, charFormData, timelineData, setTimelineData }} />
         </Case>
 
-        <Case condition={activeStep === 2}>
+        {/* <Case condition={activeStep === 2}>
           <Heading title={ADMIN_EDIT_STEPS_STEP_THREE} />
           <FinalCheck {...{ charFormData, timelineData }} />
-        </Case>
+        </Case> */}
 
         <Default>Hiba</Default>
       </Switch>

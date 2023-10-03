@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Tooltip, useTheme } from '@mui/material'
+import { Box, Button, Slide, Stack, Tooltip, useTheme } from '@mui/material'
 import { useSmallScreen } from '../../shared/hooks/useSmallScreen'
 import { Dispatch, SetStateAction, useContext } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -30,7 +30,9 @@ export function AdminBottomNav<T extends CharTimelineData | LessonTimelineData>(
   const { constants, palette, spacing } = useTheme()
   const { charFormErrors, timelineErrors } = useContext(CharAdminErrorContext)
 
-  const isFinalCheckDisabled = getErrors(charFormErrors).length > 0 || getErrors(timelineErrors).length > 0
+  // const isFinalCheckDisabled = getErrors(charFormErrors).length > 0 || getErrors(timelineErrors).length > 0
+
+  const isSaveDisabled = getErrors(charFormErrors).length > 0 || getErrors(timelineErrors).length > 0
 
   function stepBack() {
     setActiveStep(prev => prev - 1)
@@ -47,44 +49,48 @@ export function AdminBottomNav<T extends CharTimelineData | LessonTimelineData>(
   }
 
   return (
-    <Box
-      alignContent='center'
-      bottom={0}
-      borderTop={`1px solid ${palette.grey[200]}`}
-      borderLeft={`1px solid ${palette.grey[200]}`}
-      borderRight={`1px solid ${palette.grey[200]}`}
-      display='grid'
-      height={constants.bottomToolbarHeight}
-      paddingX={2}
-      position='fixed'
-      zIndex={1}
-      sx={{
-        bgcolor: 'background.paper',
-        borderTopLeftRadius: spacing(2),
-        borderTopRightRadius: spacing(2),
-        grid: `"revert navigate" auto / max-content auto`,
-        maxWidth: { xs: constants.maxContentWidth, lg: `calc(${constants.maxContentWidth} - ${constants.drawerWidth}px)` },
-        width: isSmallScreen ? 1 : `calc(100% - ${constants.drawerWidth}px)`,
-      }}
-    >
-      <RevertChangesButton {...{ savedTimelineData, setTimelineData, timelineData }} />
+    <Slide direction='up' in={true}>
+      <Box
+        alignContent='center'
+        bottom={0}
+        borderTop={`1px solid ${palette.grey[300]}`}
+        borderLeft={`1px solid ${palette.grey[300]}`}
+        borderRight={`1px solid ${palette.grey[300]}`}
+        display='grid'
+        height={constants.bottomToolbarHeight}
+        paddingX={2}
+        position='fixed'
+        zIndex={1}
+        sx={{
+          bgcolor: 'background.paper',
+          borderTopLeftRadius: spacing(2),
+          borderTopRightRadius: spacing(2),
+          grid: `"revert navigate" auto / max-content auto`,
+          maxWidth: { xs: constants.maxContentWidth, lg: `calc(${constants.maxContentWidth} - ${constants.drawerWidth}px)` },
+          width: isSmallScreen ? 1 : `calc(100% - ${constants.drawerWidth}px)`,
+        }}
+      >
+        <RevertChangesButton {...{ savedTimelineData, setTimelineData, timelineData }} />
 
-      <Stack direction='row' gap={2} gridArea='navigate' marginLeft='auto'>
-        <Buttons {...{ activeStep, isFinalCheckDisabled, saveChanges, stepBack, stepForward }} />
-      </Stack>
-    </Box>
+        <Stack direction='row' gap={2} gridArea='navigate' marginLeft='auto'>
+          <Buttons {...{ activeStep, isSaveDisabled, saveChanges, stepBack, stepForward }} />
+        </Stack>
+      </Box>
+    </Slide>
   )
 }
 
 function Buttons({
   activeStep,
-  isFinalCheckDisabled,
+  // isFinalCheckDisabled,
+  isSaveDisabled,
   saveChanges,
   stepBack,
   stepForward,
 }: {
   activeStep: number
-  isFinalCheckDisabled: boolean
+  // isFinalCheckDisabled: boolean
+  isSaveDisabled: boolean
   saveChanges: () => void
   stepBack: () => void
   stepForward: () => void
@@ -96,20 +102,21 @@ function Buttons({
       return (
         <>
           <StepBackButton onClick={stepBack} text={ADMIN_EDIT_STEPS_STEP_ONE} />
-          <StepForwardButton
+          {/* <StepForwardButton
             onClick={stepForward}
             text={ADMIN_EDIT_STEPS_STEP_THREE}
             isStepForwardButtonDisabled={isFinalCheckDisabled}
-          />
+          /> */}
+          <SaveChangesButton onClick={saveChanges} {...{ isSaveDisabled }} />
         </>
       )
-    case 2:
-      return (
-        <>
-          <StepBackButton onClick={stepBack} text={ADMIN_EDIT_STEPS_STEP_TWO} />
-          <SaveChangesButton onClick={saveChanges} />
-        </>
-      )
+    // case 2:
+    //   return (
+    //     <>
+    //       <StepBackButton onClick={stepBack} text={ADMIN_EDIT_STEPS_STEP_TWO} />
+    //       <SaveChangesButton onClick={saveChanges} />
+    //     </>
+    //   )
     default:
       throw new Error('Unknown step.')
   }
@@ -149,11 +156,25 @@ function RevertChangesButton<T extends CharTimelineData | LessonTimelineData>({
   )
 }
 
-function SaveChangesButton({ onClick }: { onClick: () => void }) {
+function SaveChangesButton({ isSaveDisabled = false, onClick }: { isSaveDisabled?: boolean; onClick: () => void }) {
   return (
-    <Button startIcon={<FontAwesomeIcon icon={faSave} transform='shrink-4' />} variant='contained' {...{ onClick }}>
-      Változtatások mentése
-    </Button>
+    <Wrap
+      if={isSaveDisabled}
+      with={children => (
+        <Tooltip title='Oldd fel a problémákat a mentéshez'>
+          <span>{children}</span>
+        </Tooltip>
+      )}
+    >
+      <Button
+        disabled={isSaveDisabled}
+        startIcon={<FontAwesomeIcon icon={faSave} transform='shrink-4' />}
+        variant='contained'
+        {...{ onClick }}
+      >
+        Változtatások mentése
+      </Button>
+    </Wrap>
   )
 }
 

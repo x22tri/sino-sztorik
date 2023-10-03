@@ -11,7 +11,15 @@ import { ReactNode } from 'react'
 import { useFlashback } from './store/useFlashback'
 import { Box, Divider } from '@mui/material'
 
-export default function LearnContent({ lessonChar, navigation }: { lessonChar: Character; navigation: ReactNode }) {
+export default function LearnContent({
+  customStorySection,
+  lessonChar,
+  navigation,
+}: {
+  customStorySection?: ReactNode
+  lessonChar: Character
+  navigation: ReactNode
+}) {
   const { flashbackChar } = useFlashback()
 
   const currentChar = flashbackChar ?? lessonChar
@@ -33,7 +41,7 @@ export default function LearnContent({ lessonChar, navigation }: { lessonChar: C
 
         <ConstituentsSection {...{ constituents }} />
 
-        <StorySection {...{ story }} />
+        {customStorySection ?? <StorySection {...{ story }} />}
 
         <PhrasesAndOtherUsesSection currentChar={glyph} {...{ otherUses, phrases }} />
 

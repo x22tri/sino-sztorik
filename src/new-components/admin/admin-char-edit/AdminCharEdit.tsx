@@ -59,7 +59,10 @@ export function AdminCharEdit() {
 
           <Box component='main' gridArea='main'>
             <FormProvider {...formMethods}>
-              <AdminCharEditContent {...{ activeStep, saveCharForm, setTimelineData, timelineData }} />
+              <AdminCharEditContent
+                calculatedIndexes={loaderData.calculatedIndexes}
+                {...{ activeStep, saveCharForm, setTimelineData, timelineData }}
+              />
 
               <AdminBottomNav {...{ activeStep, setActiveStep, savedTimelineData, setTimelineData, timelineData }} />
             </FormProvider>

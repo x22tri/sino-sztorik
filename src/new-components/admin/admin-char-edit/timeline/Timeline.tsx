@@ -76,7 +76,7 @@ export function Timeline({
     setTimelineData(result)
   }
 
-  console.log(timelineData)
+  // console.log(timelineData)
 
   return (
     <>
