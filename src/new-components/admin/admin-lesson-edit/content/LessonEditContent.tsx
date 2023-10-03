@@ -19,21 +19,17 @@ export default function LessonEditContent({
   characters,
   lessonNumber,
   timelineData,
-  // saveCharForm,
   setTimelineData,
 }: {
   activeStep: number
   characters: LessonCharReference[]
   lessonNumber: number
   timelineData: LessonTimelineData
-  // saveCharForm: Dispatch<SetStateAction<CharFormData>>
   setTimelineData: Dispatch<SetStateAction<LessonTimelineData>>
 }) {
   const { constants } = useTheme()
 
   const lessonFormData = useWatch() as LessonFormData
-
-  //   useRegisterCharAdminErrors(charFormData, timelineData)
 
   return (
     <Box mb={constants.bottomToolbarHeight} p={2} mt={4}>

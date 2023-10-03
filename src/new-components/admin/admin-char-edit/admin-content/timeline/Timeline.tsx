@@ -26,9 +26,9 @@ import { CHARS } from '../../../../shared/MOCK_CHARS'
 import { Box, Button, Stack, Typography, useTheme } from '@mui/material'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { noOrphanedRemindersIfTierWasDeleted } from '../../timeline/getReminderContentType'
-import { AddOccurrenceOptions } from '../../timeline/AddOccurrenceOptions'
-import { CharEditStorySection } from '../story-section/CharEditStorySection'
+import { noOrphanedRemindersIfTierWasDeleted } from '../../utils/char-form-utils'
+import { AddOccurrenceOptions } from '../../timeline/add-occurrence-options/AddOccurrenceOptions'
+import { CharEditStorySection } from '../sections/StorySection'
 
 export type UnsubmittedCharacter = Omit<Character, 'id'>
 

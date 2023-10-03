@@ -26,8 +26,6 @@ export function AdminLessonEdit() {
   const [savedTimelineData, saveTimelineData] = useState<LessonTimelineData>([...loaderData.lessonTimelineData])
   const { lessonFormErrors, lessonTimelineErrors, setLessonFormErrors, setLessonTimelineErrors } = useLessonEditErrors()
 
-  // console.log(loaderData)
-
   const lessonNumber = Number(params.lessonNumber)
 
   return (

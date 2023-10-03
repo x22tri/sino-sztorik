@@ -1,12 +1,11 @@
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { LessonFormData, LessonTimelineData } from '../../../shared/route-loaders/loadLessonEdit'
 import { AssembledLesson, Character, LessonStatuses, TierStatuses } from '../../../shared/interfaces'
 import LessonSelectContent from '../../../lesson-select/lesson-select-content/LessonSelectContent'
-import { FinalCheckPrevNextLinks } from '../../admin-char-edit/admin-content/final-check/FinalCheck'
 import { useParams } from 'react-router-dom'
 import { Stack, Typography, useTheme } from '@mui/material'
-import { TierHeading } from '../../shared/TierHeading'
-import { LessonEditStorySection } from '../story-section/LessonEditStorySection'
+import { LessonEditStorySection } from '../sections/LessonEditStorySection'
+import { PrevNextLinks } from '../../../shared/components/PrevNextLinks'
 
 export function Timeline({ lessonFormData, timelineData }: { lessonFormData: LessonFormData; timelineData: LessonTimelineData }) {
   const { palette, spacing } = useTheme()
@@ -72,7 +71,9 @@ export function Timeline({ lessonFormData, timelineData }: { lessonFormData: Les
 
   return (
     <>
-      <TierHeading tier={selectedTierIndex + 1} />
+      <Typography alignItems='center' display='flex' variant='h6' fontWeight='bold'>
+        {selectedTierIndex + 1}. kör
+      </Typography>
 
       <LessonSelectContent
         customPrefaceSection={<LessonEditStorySection {...{ selectedLesson }} />}
@@ -80,6 +81,23 @@ export function Timeline({ lessonFormData, timelineData }: { lessonFormData: Les
         {...{ selectedLesson }}
       />
     </>
+  )
+}
+
+function FinalCheckPrevNextLinks({
+  selectTierIndex,
+  selectedTierIndex,
+}: {
+  selectTierIndex: Dispatch<SetStateAction<number>>
+  selectedTierIndex: number
+}) {
+  return (
+    <PrevNextLinks
+      prevTitle={selectedTierIndex !== 0 ? `${selectedTierIndex + 1}. kör` : undefined}
+      prevOnClick={() => selectTierIndex(selectedTierIndex - 1)}
+      nextTitle={selectedTierIndex !== 3 ? `${selectedTierIndex + 2}. kör` : undefined}
+      nextOnClick={() => selectTierIndex(selectedTierIndex + 1)}
+    />
   )
 }
 

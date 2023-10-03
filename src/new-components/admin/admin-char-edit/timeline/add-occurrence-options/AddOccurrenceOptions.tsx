@@ -1,11 +1,11 @@
 import { faKey, faCube, faBell, faStar, faPersonRunning } from '@fortawesome/free-solid-svg-icons'
 import { Stack, Button, useTheme, Box } from '@mui/material'
-import { CharFormData, CharTimelineData } from '../../../shared/route-loaders/loadCharEdit'
-import { isWithheldOccurrence } from '../utils/occurrence-utils'
-import { isFullOccurrence } from '../utils/occurrence-utils'
-import { isValidTierForReminder } from './getReminderContentType'
-import { OccurrenceType } from '../../../shared/MOCK_DATABASE_ENTRIES'
-import { isPresent } from '../utils/char-form-utils'
+import { CharFormData, CharTimelineData } from '../../../../shared/route-loaders/loadCharEdit'
+import { isWithheldOccurrence } from '../../utils/occurrence-utils'
+import { isFullOccurrence } from '../../utils/occurrence-utils'
+import { isValidTierForReminder } from '../../utils/char-form-utils'
+import { OccurrenceType } from '../../../../shared/MOCK_DATABASE_ENTRIES'
+import { isPresent } from '../../utils/char-form-utils'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export function AddOccurrenceOptions({

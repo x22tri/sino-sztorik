@@ -95,6 +95,20 @@ export const CHARS: Character[] = [
       },
       {
         characters: [
+          { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitive: 'ortopéd cipő' },
+          { pinyin: 'shì', glyph: '视', keyword: 'megszemlél' },
+        ],
+        translation: 'szemtől szemben kiáll ellene',
+      },
+      {
+        characters: [
+          { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitive: 'ortopéd cipő' },
+          { pinyin: 'zé', glyph: '则', keyword: 'szabály' },
+        ],
+        translation: 'szabályos (síkidom)',
+      },
+      {
+        characters: [
           { pinyin: 'zhēn', glyph: '真', keyword: 'tényleg', primitive: 'hazugságvizsgáló' },
           { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitive: 'ortopéd cipő' },
         ],
@@ -108,20 +122,6 @@ export const CHARS: Character[] = [
           { pinyin: 'dà', glyph: '大', keyword: 'nagy', primitive: 'bernáthegyi' },
         ],
         translation: 'tisztességes, elvhű',
-      },
-      {
-        characters: [
-          { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitive: 'ortopéd cipő' },
-          { pinyin: 'shì', glyph: '视', keyword: 'megszemlél' },
-        ],
-        translation: 'szemtől szemben kiáll ellene',
-      },
-      {
-        characters: [
-          { pinyin: 'zhèng', glyph: '正', keyword: 'helyes', primitive: 'ortopéd cipő' },
-          { pinyin: 'zé', glyph: '则', keyword: 'szabály' },
-        ],
-        translation: 'szabályos (síkidom)',
       },
     ],
     primitive: 'ortopéd cipő',
