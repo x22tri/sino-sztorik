@@ -17,10 +17,16 @@ import { When } from 'react-if'
 import { Character } from '../../../../shared/interfaces'
 import { useState } from 'react'
 import { matchSorter } from 'match-sorter'
+import { NextStep } from '../../../shared/NextStep'
+import { useParams } from 'react-router-dom'
+import { PreviousStep } from '../../../shared/PreviousStep'
+import { Subheading } from '../../../../learn/headings/Subheading'
+import { CharEditHeading } from '../AdminCharEditContent'
 
 const charWidth = '42px'
 
 export function ConstituentsSection() {
+  const { glyph } = useParams()
   const { setValue, getValues } = useFormContext()
   const [inputValue, setInputValue] = useState('')
 
@@ -41,41 +47,51 @@ export function ConstituentsSection() {
   }
 
   return (
-    <Box display='flex' gap={2}>
-      <Controller
-        name='constituents'
-        render={({ field: { value } }) => (
-          <Box display={value.length ? 'flex' : 'none'} gap={2}>
-            {(value as string[]).map((constituent, index) => (
-              <Constituent glyph={constituent} key={index} {...{ index, removeConstituent }} />
-            ))}
-          </Box>
-        )}
-      />
+    <>
+      <PreviousStep link={`/admin/characters/${glyph}/form/1`} text='Alapadatok' />
 
-      <Autocomplete
-        disableClearable
-        getOptionLabel={option => (option as Character).glyph}
-        isOptionEqualToValue={(option, newValue) => option.id === newValue.id}
-        noOptionsText='Nincs találat'
-        options={CHARS.map(char => char)}
-        onChange={(_, newValue, reason) => addConstituent(newValue as Character, reason)}
-        onInputChange={(_, newValue, reason) => setInputValue(reason === 'input' ? newValue : '')}
-        renderInput={params => (
-          <TextField
-            {...params}
-            InputLabelProps={{ shrink: true }}
-            fullWidth
-            size='small'
-            variant='filled'
-            label='Alapelem keresése...'
-          />
-        )}
-        renderOption={(props, option) => <SearchRow {...props} {...{ props, option }} />}
-        sx={{ width: '100%' }}
-        {...{ filterOptions, inputValue }}
-      />
-    </Box>
+      <Typography variant='h4' mb={3}>
+        Összetétel
+      </Typography>
+
+      <Box display='flex' gap={2}>
+        <Controller
+          name='constituents'
+          render={({ field: { value } }) => (
+            <Box display={value.length ? 'flex' : 'none'} gap={2}>
+              {(value as string[]).map((constituent, index) => (
+                <Constituent glyph={constituent} key={index} {...{ index, removeConstituent }} />
+              ))}
+            </Box>
+          )}
+        />
+
+        <Autocomplete
+          disableClearable
+          getOptionLabel={option => (option as Character).glyph}
+          isOptionEqualToValue={(option, newValue) => option.id === newValue.id}
+          noOptionsText='Nincs találat'
+          options={CHARS.map(char => char)}
+          onChange={(_, newValue, reason) => addConstituent(newValue as Character, reason)}
+          onInputChange={(_, newValue, reason) => setInputValue(reason === 'input' ? newValue : '')}
+          renderInput={params => (
+            <TextField
+              {...params}
+              InputLabelProps={{ shrink: true }}
+              fullWidth
+              size='small'
+              variant='filled'
+              label='Alapelem keresése...'
+            />
+          )}
+          renderOption={(props, option) => <SearchRow {...props} {...{ props, option }} />}
+          sx={{ width: '100%' }}
+          {...{ filterOptions, inputValue }}
+        />
+      </Box>
+
+      <NextStep link={`/admin/characters/${glyph}/form/3`} text='Egyéb jelentések' />
+    </>
   )
 }
 

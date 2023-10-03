@@ -24,9 +24,7 @@ export function loadCharEdit({ params }: { params: Params }): LoadCharEdit {
 
   const { occurrences, ...charFormData } = characterEntry
 
-  const timelineData = new Array<number>(1, 2, 3, 4).map(
-    tier => occurrences.find(occurrence => occurrence.tier === tier) ?? { tier }
-  )
+  const timelineData = [1, 2, 3, 4].map(tier => occurrences.find(occurrence => occurrence.tier === tier) ?? { tier })
 
   const calculatedIndexes = calculateIndexesInLesson(characterEntry)
 
@@ -40,7 +38,7 @@ export function loadCharEdit({ params }: { params: Params }): LoadCharEdit {
 function calculateIndexesInLesson(character: CharacterEntryV3) {
   const lesson = LESSON_ENTRY // To-Do: Fetch from database by lessonNumber.
 
-  return new Array<number>(1, 2, 3, 4).map(
+  return [1, 2, 3, 4].map(
     tier =>
       lesson.characters
         .filter(c => c.tiers.includes(tier) || c.glyph === character.glyph)

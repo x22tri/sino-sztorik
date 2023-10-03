@@ -1,10 +1,17 @@
-import { Box, Button, IconButton, Stack, SxProps, TextField, useTheme } from '@mui/material'
+import { Box, Button, IconButton, Stack, SxProps, TextField, Typography, useTheme } from '@mui/material'
 import { Control, Controller, FieldValues, useFieldArray, useFormContext } from 'react-hook-form'
 import { OtherUse } from '../../../../shared/interfaces'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { useParams } from 'react-router-dom'
+import { NextStep } from '../../../shared/NextStep'
+import { Subheading } from '../../../../learn/headings/Subheading'
+import { PreviousStep } from '../../../shared/PreviousStep'
+import { CharEditHeading } from '../AdminCharEditContent'
+import { Heading } from '../../../../learn/headings/Heading'
 
 export function OtherUsesSection() {
+  const { glyph } = useParams()
   const { control } = useFormContext()
   const { fields, append, remove } = useFieldArray({ control, name: 'otherUses' })
 
@@ -17,16 +24,26 @@ export function OtherUsesSection() {
   }
 
   return (
-    <Stack gap={4}>
-      {fields.map((field, index) => (
-        <OtherUseEntry
-          key={field.id}
-          {...{ appendOtherUseEntry, control, field: field as OtherUse & { id: string }, index, removeOtherUseEntry }}
-        />
-      ))}
+    <>
+      <PreviousStep link={`/admin/characters/${glyph}/form/2`} text='Összetétel' />
 
-      <AddNewButton onClick={appendOtherUseEntry} title='Új kiejtés' />
-    </Stack>
+      <Typography variant='h4' mb={3}>
+        Egyéb jelentések
+      </Typography>
+
+      <Stack gap={4}>
+        {fields.map((field, index) => (
+          <OtherUseEntry
+            key={field.id}
+            {...{ appendOtherUseEntry, control, field: field as OtherUse & { id: string }, index, removeOtherUseEntry }}
+          />
+        ))}
+
+        <AddNewButton onClick={appendOtherUseEntry} title='Új kiejtés' />
+      </Stack>
+
+      <NextStep link={`/admin/characters/${glyph}/timeline/1`} text='Idővonal (1. kör)' />
+    </>
   )
 }
 

@@ -5,7 +5,7 @@ import { ThemeProvider } from '@mui/material/styles'
 import theme from './shared/theme'
 import Learn from './learn/Learn'
 import LessonSelect from './lesson-select/LessonSelect'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { Navigate, RouterProvider, createBrowserRouter, redirect } from 'react-router-dom'
 import { loadLearn } from './shared/route-loaders/loadLearn'
 import { loadReview } from './shared/route-loaders/loadReview'
 import LanguageContextProvider from './shared/localization/LanguageContext'
@@ -18,6 +18,11 @@ import { AdminDashboard } from './admin/admin-dashboard/AdminDashboard'
 import { AdminLessonList } from './admin/admin-lesson-list/AdminLessonList'
 import { AdminLessonEdit } from './admin/admin-lesson-edit/AdminLessonEdit'
 import { loadLessonEdit } from './shared/route-loaders/loadLessonEdit'
+import { CharForm } from './admin/admin-char-edit/char-form/CharForm'
+import { loadCharForm } from './shared/route-loaders/loadCharForm'
+import { loadCharTimeline } from './shared/route-loaders/loadCharTimeline'
+import { Timeline } from './admin/admin-char-edit/admin-content/timeline/Timeline'
+import { Overview } from './admin/admin-char-edit/overview/Overview'
 
 const router = createBrowserRouter([
   {
@@ -56,14 +61,40 @@ const router = createBrowserRouter([
       },
       {
         path: 'characters/:glyph',
-        element: <AdminCharEdit />,
-        action: async ({ params, request }) => {
-          let formData = Object.fromEntries(await request.formData())
-          console.log(formData)
-          return null
-        },
+        element: <Overview />,
         loader: ({ params }) => loadCharEdit({ params }),
       },
+      // {
+      //   path: 'characters/:glyph',
+      //   element: <AdminCharEdit />,
+      //   action: async ({ params, request }) => {
+      //     let formData = Object.fromEntries(await request.formData())
+      //     console.log(formData)
+      //     return null
+      //   },
+      //   loader: ({ params }) => loadCharEdit({ params }),
+      //   children: [
+      //     {
+      //       path: 'form/:step',
+      //       element: (
+      //         <form>
+      //           <CharForm />
+      //         </form>
+      //       ),
+      //       loader: ({ params }) => loadCharForm({ params }),
+      //     },
+      //     { path: 'timeline/:tier', element: <Timeline />, loader: ({ params }) => loadCharTimeline({ params }) },
+      //     {
+      //       path: '*',
+      //       loader: ({ params }) => redirect(`/admin/characters/${encodeURI(params.glyph!)}/form/1`),
+      //     },
+      //     {
+      //       path: '',
+      //       element: <Overview />,
+      //       // loader: ({ params }) => redirect(`/admin/characters/${encodeURI(params.glyph!)}/form/1`),
+      //     },
+      //   ],
+      // },
       { path: 'lessons', element: <AdminLessonList /> },
       { path: 'lessons/:lessonNumber', element: <AdminLessonEdit />, loader: ({ params }) => loadLessonEdit({ params }) },
     ],

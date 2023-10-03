@@ -1,24 +1,52 @@
-import { faCube } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRight, faCube } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Box, Checkbox, FormControl, FormControlLabel, FormGroup, InputAdornment, useTheme } from '@mui/material'
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  InputAdornment,
+  Stack,
+  Typography,
+  useTheme,
+} from '@mui/material'
 import { CharAdminTextField } from '../../../shared/AdminTextField'
 import { Controller } from 'react-hook-form'
+import { Link, useParams } from 'react-router-dom'
+import { NextStep } from '../../../shared/NextStep'
+import { CharEditHeading } from '../AdminCharEditContent'
+import { PreviousStep } from '../../../shared/PreviousStep'
+import { Subheading } from '../../../../learn/headings/Subheading'
 
-export function CharacterSection({}: {}) {
+export function CharacterSection() {
+  const { glyph } = useParams()
+
   return (
-    <Box display='flex' flexDirection='column' gap={3}>
-      <KeywordField />
+    <>
+      <PreviousStep link={'/admin/characters'} text='Karakterek' />
 
-      <PrimitiveField />
+      <Typography variant='h4' mb={3}>
+        Alapadatok
+      </Typography>
 
-      <Box alignItems='center' display='flex' flexDirection='row' gap={2}>
-        <PinyinField />
+      <Stack gap={3}>
+        <KeywordField />
 
-        <ProductivePinyinCheckbox />
-      </Box>
+        <PrimitiveField />
 
-      <FrequencyField />
-    </Box>
+        <Box alignItems='center' display='flex' flexDirection='row' gap={2}>
+          <PinyinField />
+
+          <ProductivePinyinCheckbox />
+        </Box>
+
+        <FrequencyField />
+      </Stack>
+
+      <NextStep link={`/admin/characters/${glyph}/form/2`} text='Összetétel' />
+    </>
   )
 }
 

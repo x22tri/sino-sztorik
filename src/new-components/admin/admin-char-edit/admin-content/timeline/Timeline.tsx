@@ -24,11 +24,15 @@ import {
 } from '../../../../shared/MOCK_DATABASE_ENTRIES'
 import { CHARS } from '../../../../shared/MOCK_CHARS'
 import { Box, Button, Stack, Typography, useTheme } from '@mui/material'
-import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faSave, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { noOrphanedRemindersIfTierWasDeleted } from '../../utils/char-form-utils'
 import { AddOccurrenceOptions } from '../../timeline/add-occurrence-options/AddOccurrenceOptions'
 import { CharEditStorySection } from '../sections/StorySection'
+import { useCharEdit } from '../AdminCharEditContent'
+import { NextStep } from '../../../shared/NextStep'
+import { useParams } from 'react-router-dom'
+import { PreviousStep } from '../../../shared/PreviousStep'
 
 export type UnsubmittedCharacter = Omit<Character, 'id'>
 
@@ -40,20 +44,25 @@ const occurrenceTypeMap: Record<OccurrenceType, string> = {
   withheldConstituents: 'Kulcsszó felületes bevezetése',
 }
 
-export function Timeline({
-  calculatedIndexes,
-  charFormData,
-  timelineData,
-  setTimelineData,
-}: {
-  calculatedIndexes: CalculatedIndexes
-  charFormData: CharFormData
-  timelineData: CharTimelineData
-  setTimelineData: Dispatch<SetStateAction<CharTimelineData>>
+export function Timeline({}: // calculatedIndexes,
+// charFormData,
+// timelineData,
+// setTimelineData,
+{
+  // calculatedIndexes: CalculatedIndexes
+  // charFormData: CharFormData
+  // timelineData: CharTimelineData
+  // setTimelineData: Dispatch<SetStateAction<CharTimelineData>>
 }) {
   const { palette, spacing } = useTheme()
 
-  const [selectedTierIndex, selectTierIndex] = useState(0)
+  const params = useParams()
+
+  const selectedTierIndex = Number(params.tier) - 1
+
+  const { calculatedIndexes, charFormData, timelineData, setTimelineData } = useCharEdit()
+
+  // const [selectedTierIndex, selectTierIndex] = useState(0)
 
   const lesson = { characters: assembleEntry(timelineData) }
 
@@ -158,8 +167,17 @@ export function Timeline({
   if (selectedChar === null) {
     return (
       <>
-        <Typography alignItems='center' display='flex' variant='h6' fontWeight='bold'>
-          {selectedTierIndex + 1}. kör – Nem jelenik meg
+        <PreviousStep
+          link={
+            selectedTierIndex === 0
+              ? `/admin/characters/${params.glyph}/form/3`
+              : `/admin/characters/${params.glyph}/timeline/${selectedTierIndex}`
+          }
+          text={selectedTierIndex === 0 ? 'Egyéb jelentések' : `Idővonal (${selectedTierIndex}. kör)`}
+        />
+
+        <Typography variant='h4' mb={3}>
+          Idővonal ({selectedTierIndex + 1}. kör)
         </Typography>
 
         <Stack
@@ -175,7 +193,7 @@ export function Timeline({
           <AddOccurrenceOptions index={selectedTierIndex} {...{ addEntry, charFormData, timelineData }} />
         </Stack>
 
-        <FinalCheckPrevNextLinks {...{ selectTierIndex, selectedTierIndex }} />
+        <NextOrSaveButton glyph={params.glyph!} tier={selectedTierIndex + 1} />
       </>
     )
   }
@@ -186,10 +204,23 @@ export function Timeline({
 
   return (
     <>
+      <PreviousStep
+        link={
+          selectedTierIndex === 0
+            ? `/admin/characters/${params.glyph}/form/3`
+            : `/admin/characters/${params.glyph}/timeline/${selectedTierIndex}`
+        }
+        text={selectedTierIndex === 0 ? 'Egyéb jelentések' : `Idővonal (${selectedTierIndex}. kör)`}
+      />
+
+      <Typography variant='h4' mb={3}>
+        Idővonal ({selectedTierIndex + 1}. kör)
+      </Typography>
+
       <Box alignItems='center' display='flex' justifyContent='space-between'>
-        <Typography alignItems='center' display='flex' variant='h6' fontWeight='bold'>
+        {/* <Typography alignItems='center' display='flex' variant='h6' fontWeight='bold'>
           {selectedTierIndex + 1}. kör – {occurrenceType}
-        </Typography>
+        </Typography> */}
 
         {canBeDeleted ? (
           <Button
@@ -208,28 +239,48 @@ export function Timeline({
       <LearnContent
         customStorySection={<CharEditStorySection {...{ selectedChar }} />}
         lessonChar={selectedChar as Character}
-        navigation={<FinalCheckPrevNextLinks {...{ selectTierIndex, selectedTierIndex }} />}
+        navigation={<></>}
       />
+
+      <NextOrSaveButton glyph={params.glyph!} tier={selectedTierIndex + 1} />
     </>
   )
 }
 
-export function FinalCheckPrevNextLinks({
-  selectTierIndex,
-  selectedTierIndex,
-}: {
-  selectTierIndex: Dispatch<SetStateAction<number>>
-  selectedTierIndex: number
-}) {
-  return (
-    <PrevNextLinks
-      prevTitle={selectedTierIndex !== 0 ? `${selectedTierIndex + 1}. kör` : undefined}
-      prevOnClick={() => selectTierIndex(selectedTierIndex - 1)}
-      nextTitle={selectedTierIndex !== 3 ? `${selectedTierIndex + 2}. kör` : undefined}
-      nextOnClick={() => selectTierIndex(selectedTierIndex + 1)}
-    />
-  )
+function NextOrSaveButton({ glyph, tier }: { glyph: string; tier: number }) {
+  if (tier === 4) {
+    return (
+      <Button
+        // disabled={isSaveDisabled}
+        startIcon={<FontAwesomeIcon icon={faSave} transform='shrink-4' />}
+        variant='contained'
+        // {...{ onClick }}
+        sx={{ mt: 3 }}
+      >
+        Változtatások mentése
+      </Button>
+    )
+  }
+
+  return <NextStep link={`/admin/characters/${glyph}/timeline/${tier + 1}`} text={`Idővonal (${tier + 1}. kör)`} />
 }
+
+// export function FinalCheckPrevNextLinks({
+//   selectTierIndex,
+//   selectedTierIndex,
+// }: {
+//   selectTierIndex: Dispatch<SetStateAction<number>>
+//   selectedTierIndex: number
+// }) {
+//   return (
+//     <PrevNextLinks
+//       prevTitle={selectedTierIndex !== 0 ? `${selectedTierIndex + 1}. kör` : undefined}
+//       prevOnClick={() => selectTierIndex(selectedTierIndex - 1)}
+//       nextTitle={selectedTierIndex !== 3 ? `${selectedTierIndex + 2}. kör` : undefined}
+//       nextOnClick={() => selectTierIndex(selectedTierIndex + 1)}
+//     />
+//   )
+// }
 
 function getConstituents(charFormData: CharFormData) {
   const referencedConstituents: ReferencedChar[] = []
