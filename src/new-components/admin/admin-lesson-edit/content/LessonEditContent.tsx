@@ -1,20 +1,18 @@
-import { Box, Link, Stack, Typography, useTheme } from '@mui/material'
+import { Box, Stack, Typography, useTheme } from '@mui/material'
 // import { Timeline } from '../timeline/Timeline'
 import { Dispatch, SetStateAction } from 'react'
 import { Case, Default, Switch } from 'react-if'
 // import { CharForm } from '../char-form/CharForm'
-import { ADMIN_EDIT_STEPS_STEP_ONE, ADMIN_EDIT_STEPS_STEP_THREE, ADMIN_EDIT_STEPS_STEP_TWO } from '../../../shared/strings'
+import { ADMIN_EDIT_STEPS_STEP_ONE, ADMIN_EDIT_STEPS_STEP_TWO } from '../../../shared/strings'
 import { useWatch } from 'react-hook-form'
 // import { useRegisterCharAdminErrors } from '../hooks/useRegisterCharAdminErrors'
 // import { FinalCheck } from './final-check/FinalCheck'
 import { Heading } from '../../../learn/headings/Heading'
-import { Link as RouterLink } from 'react-router-dom'
 import { LessonFormData, LessonTimelineData } from '../../../shared/route-loaders/loadLessonEdit'
 import { Subheading } from '../../../learn/headings/Subheading'
 import { LessonAdminTextField } from '../../shared/AdminTextField'
 import { LessonCharReference } from '../../../shared/MOCK_DATABASE_ENTRIES'
 import { Timeline } from '../timeline/Timeline'
-import { FinalCheck } from '../final-check/FinalCheck'
 
 export default function LessonEditContent({
   activeStep,
@@ -54,11 +52,6 @@ export default function LessonEditContent({
           <Timeline {...{ lessonFormData, timelineData, setTimelineData }} />
         </Case>
 
-        <Case condition={activeStep === 2}>
-          <Heading title={ADMIN_EDIT_STEPS_STEP_THREE} />
-          <FinalCheck {...{ lessonFormData, timelineData }} />
-        </Case>
-
         <Default>Hiba</Default>
       </Switch>
     </Box>
@@ -66,8 +59,6 @@ export default function LessonEditContent({
 }
 
 function LessonForm({ characters }: { characters: LessonCharReference[] }) {
-  const { palette, spacing } = useTheme()
-
   return (
     <form>
       <Subheading styles={{ marginBottom: 2, marginTop: 0 }} title='Alapadatok' />

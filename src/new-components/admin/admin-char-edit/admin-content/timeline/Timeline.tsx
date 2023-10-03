@@ -99,12 +99,12 @@ export function Timeline({
             variant.story = lastContentVariant.story
 
             if ('withhold' in lastContentVariant) {
-              deleteWithheldProperty(lastContentVariant, variant)
+              deleteWithheld(lastContentVariant, variant)
             }
           }
         }
 
-        deleteWithheldProperty(occurrence, variant)
+        deleteWithheld(occurrence, variant)
 
         result.push(variant)
       }
@@ -249,7 +249,7 @@ function getConstituents(charFormData: CharFormData) {
   return referencedConstituents
 }
 
-function deleteWithheldProperty(occurrence: OccurrenceV3, variant: UnsubmittedCharacter): void {
+function deleteWithheld(occurrence: OccurrenceV3, variant: UnsubmittedCharacter): void {
   if (isWithheldConstituentsOccurrence(occurrence)) {
     delete variant.constituents
   }

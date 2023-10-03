@@ -1,5 +1,4 @@
-import { Step, StepLabel, Stepper, useTheme } from '@mui/material'
-import { ADMIN_EDIT_STEPS_STEP_THREE } from '../../../shared/strings'
+import { Step, Stepper, useTheme } from '@mui/material'
 import { LessonFormAdminStepLabel, LessonTimelineAdminStepLabel } from '../../shared/AdminStepLabel'
 
 export function LessonEditSteps({ activeStep }: { activeStep: number }) {
@@ -13,10 +12,6 @@ export function LessonEditSteps({ activeStep }: { activeStep: number }) {
 
       <Step>
         <LessonTimelineAdminStepLabel />
-      </Step>
-
-      <Step>
-        <StepLabel>{ADMIN_EDIT_STEPS_STEP_THREE}</StepLabel>
       </Step>
     </Stepper>
   )

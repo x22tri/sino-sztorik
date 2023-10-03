@@ -7,9 +7,11 @@ import { AssembledLesson, LessonStatuses } from '../../shared/interfaces'
 import { isCompletedLesson, isUpcomingLesson } from '../../shared/utility-functions'
 
 export default function LessonSelectContent({
+  customPrefaceSection,
   navigation,
   selectedLesson,
 }: {
+  customPrefaceSection?: ReactNode
   navigation: ReactNode
   selectedLesson: AssembledLesson
 }) {
@@ -52,9 +54,11 @@ export default function LessonSelectContent({
 
         <Divider sx={{ mb: 4 }} />
 
-        <Typography component='p' gridArea='preface' mb={4}>
-          {preface}
-        </Typography>
+        {customPrefaceSection ?? (
+          <Typography component='p' gridArea='preface' mb={4}>
+            {preface}
+          </Typography>
+        )}
       </Box>
 
       {navigation}

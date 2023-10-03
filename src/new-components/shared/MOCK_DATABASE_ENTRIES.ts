@@ -1,5 +1,3 @@
-import { Blueprint } from '../admin/admin-char-edit/Blueprint'
-
 export interface CharacterEntryV2 {
   glyph: string
   lessonNumber: number
@@ -82,7 +80,7 @@ export interface WithheldConstituentsOccurrence extends SetOccurrence {
 }
 
 export interface CharacterEntry {
-  blueprint: Blueprint
+  // blueprint: Blueprint
   glyph: string
   lessonNumber: number
   phrases?: number[]
@@ -176,159 +174,6 @@ export const CHAR_ENTRY_V3: CharacterEntryV3 = {
   pinyin: 'zӑo',
   primitive: 'napraforgó',
   similars: [3], // An array of "similar" ID's.
-}
-
-export const CHAR_ENTRY_V2: CharacterEntryV2 = {
-  glyph: '早',
-  constituents: ['日', '十'], // Call getUnlockedMeanings before presenting to the user.
-  frequency: 462,
-  lessonNumber: 2,
-  keyword: 'korai',
-  occurrences: [
-    {
-      index: 11,
-      tier: 1,
-      type: 'keyword',
-      story: [
-        [
-          `Egy `,
-          { constituent: 'nap', references: '日' },
-          ` amely egy `,
-          { constituent: 'tűn', references: '十' },
-          `pihen meg – gyakorlatilag ilyen egy napraforgó, annak vékony szárával és ragyogó virágával.`,
-        ],
-        [
-          `Ismeretes, hogy azért hívjuk a napraforgót napraforgónak, mert követi a `,
-          { constituent: 'nap', references: '日' },
-          `mozgását – magyarán, a kertben a `,
-          { constituent: 'nap', references: '日' },
-          ` erre a virágra süt a leg`,
-          { keyword: 'korábban' },
-          `. Nem csoda hát, hogy a karakter jelentése `,
-          { keyword: '„korai”' },
-          `.`,
-        ],
-      ],
-    },
-    {
-      index: 8,
-      tier: 2,
-      type: 'primitive',
-      story: [
-        [
-          `Egy `,
-          { constituent: 'nap', references: '日' },
-          ` amely egy `,
-          { constituent: 'tűn', references: '十' },
-          `pihen meg – gyakorlatilag ilyen egy `,
-          { primitive: 'napraforgó' },
-          `, annak vékony szárával és ragyogó virágával.`,
-        ],
-        [
-          `Ismeretes, hogy azért hívjuk a `,
-          { primitive: 'napraforgót napraforgónak' },
-          `, mert követi a `,
-          { constituent: 'nap', references: '日' },
-          `mozgását – magyarán, a kertben a `,
-          { constituent: 'nap', references: '日' },
-          ` erre a virágra süt a leg`,
-          { keyword: 'korábban' },
-          `. Nem csoda hát, hogy a karakter jelentése `,
-          { keyword: '„korai”' },
-          `.`,
-        ],
-      ],
-    },
-    {
-      index: 2,
-      tier: 4,
-      type: 'reminder',
-    },
-  ],
-  otherUses: [
-    { pinyin: 'zhèng', meanings: ['test1', 'test2'] },
-    { pinyin: 'zhēng', meanings: ['test3'] },
-  ],
-  phrases: [1, 2], // An array of phrase ID's.
-  pinyin: 'zǎo',
-  primitive: 'napraforgó',
-  similars: [3], // An array of "similar" ID's.
-}
-
-export const CHAR_ENTRY: CharacterEntry = {
-  blueprint: Blueprint.DelayedPrimitive,
-  glyph: '早',
-  lessonNumber: 2,
-  phrases: [1, 2], // An array of phrase ID's.
-  similars: [3], // An array of "similar" ID's.
-  variants: [
-    {
-      constituents: ['日', '十'], // Call getUnlockedMeanings before presenting to the user.
-      frequency: 462,
-      index: 11,
-      keyword: 'korai',
-      otherUses: [
-        { pinyin: 'zhèng', meanings: ['test1', 'test2'] },
-        { pinyin: 'zhēng', meanings: ['test3'] },
-      ],
-      pinyin: 'zǎo',
-      story: [
-        [
-          `Egy `,
-          { constituent: 'nap', references: '日' },
-          ` amely egy `,
-          { constituent: 'tűn', references: '十' },
-          `pihen meg – gyakorlatilag ilyen egy napraforgó, annak vékony szárával és ragyogó virágával.`,
-        ],
-        [
-          `Ismeretes, hogy azért hívjuk a napraforgót napraforgónak, mert követi a `,
-          { constituent: 'nap', references: '日' },
-          `mozgását – magyarán, a kertben a `,
-          { constituent: 'nap', references: '日' },
-          ` erre a virágra süt a leg`,
-          { keyword: 'korábban' },
-          `. Nem csoda hát, hogy a karakter jelentése `,
-          { keyword: '„korai”' },
-          `.`,
-        ],
-      ],
-      tier: 1,
-    },
-    // {
-    //   index: 8,
-    //   primitive: 'napraforgó',
-    //   story: [
-    //     [
-    //       `Egy `,
-    //       { constituent: 'nap', references: '日' },
-    //       ` amely egy `,
-    //       { constituent: 'tűn', references: '十' },
-    //       `pihen meg – gyakorlatilag ilyen egy `,
-    //       { primitive: 'napraforgó' },
-    //       `, annak vékony szárával és ragyogó virágával.`,
-    //     ],
-    //     [
-    //       `Ismeretes, hogy azért hívjuk a `,
-    //       { primitive: 'napraforgót napraforgónak' },
-    //       `, mert követi a `,
-    //       { constituent: 'nap', references: '日' },
-    //       `mozgását – magyarán, a kertben a `,
-    //       { constituent: 'nap', references: '日' },
-    //       ` erre a virágra süt a leg`,
-    //       { keyword: 'korábban' },
-    //       `. Nem csoda hát, hogy a karakter jelentése `,
-    //       { keyword: '„korai”' },
-    //       `.`,
-    //     ],
-    //   ],
-    //   tier: 2,
-    // }, // When there's a "primitive" property on a variant that isn't the first one in the array, a "newPrimitive" flag is added.
-    {
-      index: 2,
-      reminder: true,
-      tier: 4,
-    },
-  ],
 }
 
 export const LESSON_ENTRIES: LessonEntry[] = [
