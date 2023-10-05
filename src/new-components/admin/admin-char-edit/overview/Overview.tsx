@@ -14,7 +14,7 @@ import {
   Button,
 } from '@mui/material'
 import { constants } from 'buffer'
-import { Link as RouterLink, useLoaderData, useParams } from 'react-router-dom'
+import { Link as RouterLink, useLoaderData, useParams, useRouteLoaderData } from 'react-router-dom'
 import { AdminBreadcrumbs } from '../../../shared/components/AdminBreadcrumbs'
 import { KeywordPrimitiveRow } from '../../../shared/components/KeywordPrimitiveRow'
 import { AdminAppbar } from '../../shared/AdminAppbar'
@@ -25,12 +25,13 @@ import { IconDefinition, faBell, faBook, faBookOpen, faCube, faEye, faPen, faSta
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { KeywordExplanation } from '../../../learn/presentation/KeywordExplanation'
 import { isSet } from '../utils/occurrence-utils'
+import { Fragment } from 'react'
 
 export function Overview() {
   const { constants, palette, spacing } = useTheme()
   const { glyph } = useParams()
 
-  const { calculatedIndexes, charFormData, timelineData } = useLoaderData() as LoadCharEdit
+  const { calculatedIndexes, charFormData, timelineData } = useRouteLoaderData('charEdit') as LoadCharEdit
 
   return (
     <>
@@ -52,15 +53,19 @@ export function Overview() {
             Áttekintés
           </Typography>
 
-          <Stack alignItems='center' direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1} mt={4}>
+          <Stack alignItems='center' direction='row' gap={2} mt={4}>
             <Typography variant='h5' fontWeight='bold'>
               Karakter
             </Typography>
 
-            <OverviewIconLink icon={faPen} link={`/admin/characters/${charFormData.glyph}/form/1`} text='Alapadatok módosítása' />
+            <OverviewIconLink
+              icon={faPen}
+              link={`/admin/characters/${charFormData.glyph}/base-info`}
+              text='Alapadatok módosítása'
+            />
           </Stack>
 
-          <Stack alignItems='end' direction='row' gap={5} mt={2}>
+          <Stack alignItems='end' direction='row' gap={5} mt={4}>
             <Stack alignItems='center' alignSelf='flex-start'>
               <When condition={charFormData.pinyin}>
                 <Typography m='auto' variant='pinyin'>
@@ -120,7 +125,7 @@ export function Overview() {
 
               if (isSet(occurrence)) {
                 return (
-                  <>
+                  <Fragment key={tier}>
                     <CourseLocationPresent {...{ tier }} lessonNumber={charFormData.lessonNumber} index={occurrence.index} />
 
                     <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1} my={1}>
@@ -134,11 +139,11 @@ export function Overview() {
                         text='Lecke megtekintése'
                       />
                     </Stack>
-                  </>
+                  </Fragment>
                 )
               } else
                 return (
-                  <>
+                  <Fragment key={tier}>
                     <CourseLocationMissing {...{ tier }} lessonNumber={charFormData.lessonNumber} />
 
                     <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1} my={1}>
@@ -154,7 +159,7 @@ export function Overview() {
                         text='Emlékeztető hozzáadása'
                       />
                     </Stack>
-                  </>
+                  </Fragment>
                 )
             })}
           </Stack>

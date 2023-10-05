@@ -5,6 +5,31 @@ import { CharacterEntryV3, LessonEntry } from '../../shared/MOCK_DATABASE_ENTRIE
 import { CharAdminErrorContext } from '../admin-char-edit/error-context/CharAdminErrorContext'
 import { LessonEditErrorContext } from '../admin-lesson-edit/error-context/LessonEditErrorContext'
 
+export function CharEditTextField({ label, name, ...restProps }: TextFieldProps & { name: keyof CharacterEntryV3 }) {
+  const inputRef = useRef<HTMLInputElement>(null)
+  const { palette } = useTheme()
+
+  return (
+    <Controller
+      {...{ name }}
+      render={({ field: { value, onChange } }) => (
+        <TextField
+          // error={isFieldErrored(charFormErrors, name)}
+          fullWidth
+          id={name}
+          InputLabelProps={{ shrink: true }}
+          onChange={event => onChange(event.target.value)}
+          size='small'
+          variant='filled'
+          {...restProps}
+          {...{ inputRef, label, name, value }}
+          sx={{ flexShrink: 1, '.Mui-error': { '&.MuiInputBase-root': { bgcolor: palette.error[100] } }, ...restProps.sx }}
+        />
+      )}
+    />
+  )
+}
+
 export function CharAdminTextField({ label, name, ...restProps }: TextFieldProps & { name: keyof CharacterEntryV3 }) {
   const inputRef = useRef<HTMLInputElement>(null)
   const { palette } = useTheme()

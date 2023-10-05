@@ -23,6 +23,7 @@ import { loadCharForm } from './shared/route-loaders/loadCharForm'
 import { loadCharTimeline } from './shared/route-loaders/loadCharTimeline'
 import { Timeline } from './admin/admin-char-edit/admin-content/timeline/Timeline'
 import { Overview } from './admin/admin-char-edit/overview/Overview'
+import { CharacterSection } from './admin/admin-char-edit/admin-content/sections/CharacterSection'
 
 const router = createBrowserRouter([
   {
@@ -52,18 +53,46 @@ const router = createBrowserRouter([
     path: '/admin',
     children: [
       {
-        path: '',
+        index: true,
         element: <AdminDashboard />,
       },
       {
         path: 'characters',
-        element: <AdminCharList />,
+        children: [
+          {
+            index: true,
+            element: <AdminCharList />,
+          },
+          {
+            path: ':glyph',
+            loader: ({ params }) => loadCharEdit({ params }),
+            id: 'charEdit',
+            children: [
+              {
+                index: true,
+                element: <Overview />,
+              },
+              {
+                path: 'base-info',
+                element: <CharacterSection />,
+              },
+            ],
+          },
+        ],
+        // element: <AdminCharList />,
       },
-      {
-        path: 'characters/:glyph',
-        element: <Overview />,
-        loader: ({ params }) => loadCharEdit({ params }),
-      },
+      // {
+      //   path: 'characters/:glyph',
+      //   element: <Overview />,
+      //   loader: ({ params }) => loadCharEdit({ params }),
+      //   id: 'overview',
+      //   children: [
+
+      //   ]
+      // },
+      // {
+      //   path: 'characters/:glyph/'
+      // }
       // {
       //   path: 'characters/:glyph',
       //   element: <AdminCharEdit />,
