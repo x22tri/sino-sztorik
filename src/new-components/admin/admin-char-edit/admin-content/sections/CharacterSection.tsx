@@ -22,7 +22,7 @@ import { PreviousStep } from '../../../shared/PreviousStep'
 import { FormEvent } from 'react'
 
 type CharacterSectionInput = {
-  frequency: number | undefined
+  frequency: string | undefined
   keyword: string | undefined
   pinyin: string | undefined
   primitive: string | undefined
@@ -30,19 +30,22 @@ type CharacterSectionInput = {
 }
 
 export function CharacterSection() {
+  const submit = useSubmit()
   const { constants } = useTheme()
   const { charFormData } = useRouteLoaderData('charEdit') as LoadCharEdit
-  const submit = useSubmit()
-
-  const { frequency, keyword, pinyin, primitive, productivePinyin } = charFormData
+  const { frequency, glyph, keyword, pinyin, primitive, productivePinyin } = charFormData
 
   const methods = useForm<CharacterSectionInput>({
-    defaultValues: { frequency, keyword, pinyin, primitive, productivePinyin },
+    defaultValues: { frequency: String(frequency), keyword, pinyin, primitive, productivePinyin },
     mode: 'onBlur',
   })
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+
+    // console.log(new FormData(event.currentTarget))
+
+    console.log(event.currentTarget)
 
     if (methods.formState.isValid) {
       submit(event.currentTarget)
@@ -55,6 +58,8 @@ export function CharacterSection() {
     methods.reset()
   }
 
+  // console.log(methods.formState)
+
   return (
     <>
       <AdminAppbar />
@@ -64,13 +69,13 @@ export function CharacterSection() {
         hierarchy={[
           { href: '/admin', text: 'Kezelőközpont' },
           { href: '/admin/characters', text: 'Karakterek' },
-          { href: `/admin/characters/${charFormData.glyph}`, text: `Áttekintés (${charFormData.glyph})` },
+          { href: `/admin/characters/${glyph}`, text: `Áttekintés (${glyph})` },
         ]}
       />
 
       <Box maxWidth={constants.maxContentWidth} mx='auto' mt={4} p={2}>
         <Box ml={{ xs: 0, md: `${constants.drawerWidth}px` }}>
-          <PreviousStep link={`/admin/characters/${charFormData.glyph}`} text={`Áttekintés (${charFormData.glyph})`} />
+          <PreviousStep link={`/admin/characters/${glyph}`} text={`Áttekintés (${glyph})`} />
 
           <FormProvider {...methods}>
             <Form method='post' {...{ onSubmit }}>
@@ -98,7 +103,7 @@ export function CharacterSection() {
                 </Button>
 
                 <Button onClick={resetForm} type='button'>
-                  Elvetés
+                  Változtatások elvetése
                 </Button>
               </Box>
             </Form>
@@ -226,7 +231,7 @@ function ProductivePinyinCheckbox() {
   )
 }
 
-function CharEditTextField({
+export function CharEditTextField({
   label,
   name,
   rules = {},

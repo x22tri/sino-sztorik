@@ -40,11 +40,7 @@ export function Overview() {
               Karakter
             </Typography>
 
-            <OverviewIconLink
-              icon={faPen}
-              link={`/admin/characters/${charFormData.glyph}/base-info`}
-              text='Alapadatok módosítása'
-            />
+            <OverviewLink icon={faPen} link={`/admin/characters/${charFormData.glyph}/base-info`} text='Alapadatok módosítása' />
           </Stack>
 
           <Stack alignItems='end' direction='row' gap={5} mt={4}>
@@ -81,20 +77,20 @@ export function Overview() {
             </Stack>
           </Stack>
 
-          <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1} mt={6}>
+          <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={0.5} mt={6} ml={-0.5}>
             <OverviewLink
-              link={`/admin/characters/${charFormData.glyph}/form/2`}
+              link={`/admin/characters/${charFormData.glyph}/constituents`}
               text={`${charFormData.constituents?.length} összetevő`}
             />
 
             <OverviewLink
-              link={`/admin/characters/${charFormData.glyph}/form/2`}
+              link={`/admin/characters/${charFormData.glyph}/other-uses`}
               text={`${charFormData.otherUses?.length} egyéb jelentés`}
             />
 
-            <OverviewLink link={`/admin/characters/${charFormData.glyph}/form/2`} text={`0 kifejezés`} />
+            <OverviewLink disabled link={`/admin/characters/${charFormData.glyph}/form/2`} text={`0 kifejezés`} />
 
-            <OverviewLink link={`/admin/characters/${charFormData.glyph}/form/2`} text={`0 hasonló karakter`} />
+            <OverviewLink disabled link={`/admin/characters/${charFormData.glyph}/form/2`} text={`0 hasonló karakter`} />
           </Stack>
 
           <Typography variant='h5' fontWeight='bold' mt={8}>
@@ -111,11 +107,11 @@ export function Overview() {
                     <CourseLocationPresent {...{ tier }} lessonNumber={charFormData.lessonNumber} index={occurrence.index} />
 
                     <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1} my={1}>
-                      <OverviewIconLink icon={faPen} link={`/admin/characters/${charFormData.glyph}/form/2`} text='Módosítás' />
+                      <OverviewLink icon={faPen} link={`/admin/characters/${charFormData.glyph}/form/2`} text='Módosítás' />
 
-                      <OverviewIconLink icon={faEye} link={`/admin/characters/${charFormData.glyph}/form/2`} text='Előnézet' />
+                      <OverviewLink icon={faEye} link={`/admin/characters/${charFormData.glyph}/form/2`} text='Előnézet' />
 
-                      <OverviewIconLink
+                      <OverviewLink
                         icon={faBookOpen}
                         link={`/admin/characters/${charFormData.glyph}/form/2`}
                         text='Lecke megtekintése'
@@ -129,13 +125,13 @@ export function Overview() {
                     <CourseLocationMissing {...{ tier }} lessonNumber={charFormData.lessonNumber} />
 
                     <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1} my={1}>
-                      <OverviewIconLink
+                      <OverviewLink
                         icon={faStar}
                         link={`/admin/characters/${charFormData.glyph}/form/2`}
                         text='Teljes karakter hozzáadása'
                       />
 
-                      <OverviewIconLink
+                      <OverviewLink
                         icon={faBell}
                         link={`/admin/characters/${charFormData.glyph}/form/2`}
                         text='Emlékeztető hozzáadása'
@@ -151,15 +147,17 @@ export function Overview() {
   )
 }
 
-function OverviewLink({ link, text }: { link: string; text: string }) {
-  return (
-    <Link component={RouterLink} to={link} typography='button'>
-      {text}
-    </Link>
-  )
-}
-
-function OverviewIconLink({ icon, link, text }: { icon: IconDefinition; link: string; text: string }) {
+function OverviewLink({
+  disabled = false,
+  icon,
+  link,
+  text,
+}: {
+  disabled?: boolean
+  icon?: IconDefinition
+  link: string
+  text: string
+}) {
   const { spacing } = useTheme()
 
   return (
@@ -167,8 +165,12 @@ function OverviewIconLink({ icon, link, text }: { icon: IconDefinition; link: st
       component={RouterLink}
       to={link}
       size='small'
-      startIcon={<FontAwesomeIcon transform='shrink-4' {...{ icon }} />}
-      sx={{ '.MuiButton-startIcon': { marginRight: spacing(0.75) } }}
+      startIcon={icon ? <FontAwesomeIcon transform='shrink-4' {...{ icon }} /> : undefined}
+      sx={{
+        color: disabled ? 'action.disabled' : 'primary.main',
+        pointerEvents: disabled ? 'none' : 'initial',
+        '.MuiButton-startIcon': { marginRight: spacing(0.75) },
+      }}
     >
       {text}
     </Button>

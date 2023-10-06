@@ -24,6 +24,8 @@ import { loadCharTimeline } from './shared/route-loaders/loadCharTimeline'
 import { Timeline } from './admin/admin-char-edit/admin-content/timeline/Timeline'
 import { Overview } from './admin/admin-char-edit/overview/Overview'
 import { CharacterSection } from './admin/admin-char-edit/admin-content/sections/CharacterSection'
+import { OtherUsesSection } from './admin/admin-char-edit/admin-content/sections/OtherUsesSection'
+import { ConstituentsSection } from './admin/admin-char-edit/admin-content/sections/ConstituentsSection'
 
 const router = createBrowserRouter([
   {
@@ -78,6 +80,25 @@ const router = createBrowserRouter([
                 element: <CharacterSection />,
                 action: async ({ params, request }) => {
                   console.log(await request.formData())
+                  // To-Do: Send to backend, do backend validation, redirect only when 200
+                  return redirect(`/admin/characters/${encodeURI(params.glyph!)}`)
+                },
+              },
+              {
+                path: 'constituents',
+                element: <ConstituentsSection />,
+                action: async ({ params, request }) => {
+                  console.log(await request.formData())
+                  // To-Do: Send to backend, do backend validation, redirect only when 200
+                  return redirect(`/admin/characters/${encodeURI(params.glyph!)}`)
+                },
+              },
+              {
+                path: 'other-uses',
+                element: <OtherUsesSection />,
+                action: async ({ params, request }) => {
+                  console.log(await request.formData())
+                  // To-Do: Send to backend, do backend validation, redirect only when 200
                   return redirect(`/admin/characters/${encodeURI(params.glyph!)}`)
                 },
               },
