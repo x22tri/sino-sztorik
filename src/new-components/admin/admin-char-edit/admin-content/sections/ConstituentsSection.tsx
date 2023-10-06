@@ -31,7 +31,6 @@ export function ConstituentsSection() {
   const { constants } = useTheme()
   const { charFormData } = useRouteLoaderData('charEdit') as LoadCharEdit
   const { constituents, glyph } = charFormData
-
   const { control, getValues, reset, setValue } = useForm({ defaultValues: { constituents } })
   const [inputValue, setInputValue] = useState('')
 
@@ -75,7 +74,7 @@ export function ConstituentsSection() {
 
       <Box maxWidth={constants.maxContentWidth} mx='auto' mt={4} p={2}>
         <Box ml={{ xs: 0, md: `${constants.drawerWidth}px` }}>
-          <PreviousStep link={`/admin/characters/${glyph}/constituents`} text='Összetétel' />
+          <PreviousStep link={`/admin/characters/${glyph}`} text='Áttekintés' />
 
           <Typography variant='h4' mb={3}>
             Összetétel

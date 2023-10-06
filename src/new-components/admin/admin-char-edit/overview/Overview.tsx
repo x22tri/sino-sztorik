@@ -179,23 +179,26 @@ function OverviewLink({
 
 function CourseLocationPresent({ tier, lessonNumber, index }: { tier: number; lessonNumber: number; index: number }) {
   return (
-    <Stack alignItems='center' direction='row' gap={2}>
+    <>
+      <Chip label='test' sx={{ mb: 1, width: 'max-content' }} />
+
       <Typography>
         {tier}. kör / {lessonNumber}. lecke / {index}. hely
       </Typography>
-
-      <Chip label='test' size='small' />
-    </Stack>
+    </>
   )
 }
 
 function CourseLocationMissing({ tier, lessonNumber }: { tier: number; lessonNumber: number }) {
   return (
-    <Typography>
-      {tier}. kör / {lessonNumber}. lecke
-      <Box component='span' color='text.disabled'>
-        &nbsp;/ Nem szerepel
-      </Box>
-    </Typography>
+    <>
+      <Typography color='text.disabled' mb={1}>
+        Nem szerepel
+      </Typography>
+
+      <Typography>
+        {tier}. kör / {lessonNumber}. lecke
+      </Typography>
+    </>
   )
 }

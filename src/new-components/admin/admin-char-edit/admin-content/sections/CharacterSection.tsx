@@ -13,7 +13,7 @@ import {
   Typography,
   useTheme,
 } from '@mui/material'
-import { Controller, FieldValues, FormProvider, RegisterOptions, SubmitHandler, useForm, useFormContext } from 'react-hook-form'
+import { Controller, FieldValues, FormProvider, RegisterOptions, useForm, useFormContext } from 'react-hook-form'
 import { Form, useRouteLoaderData, useSubmit } from 'react-router-dom'
 import { LoadCharEdit } from '../../../../shared/route-loaders/loadCharEdit'
 import { AdminBreadcrumbs } from '../../../../shared/components/AdminBreadcrumbs'
@@ -43,10 +43,6 @@ export function CharacterSection() {
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    // console.log(new FormData(event.currentTarget))
-
-    console.log(event.currentTarget)
-
     if (methods.formState.isValid) {
       submit(event.currentTarget)
     }
@@ -57,8 +53,6 @@ export function CharacterSection() {
   function resetForm() {
     methods.reset()
   }
-
-  // console.log(methods.formState)
 
   return (
     <>

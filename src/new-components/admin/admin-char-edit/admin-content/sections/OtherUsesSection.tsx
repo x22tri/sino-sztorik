@@ -1,18 +1,21 @@
-import { Box, Button, IconButton, Stack, SxProps, TextField, Typography, useTheme } from '@mui/material'
-import { Control, Controller, FieldValues, useFieldArray, useFormContext } from 'react-hook-form'
+import { Box, Button, Divider, IconButton, Stack, SxProps, TextField, Typography, useTheme } from '@mui/material'
+import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { OtherUse } from '../../../../shared/interfaces'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
-import { useParams } from 'react-router-dom'
-import { NextStep } from '../../../shared/NextStep'
-import { Subheading } from '../../../../learn/headings/Subheading'
+import { faSave, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { Form, useRouteLoaderData, useSubmit } from 'react-router-dom'
 import { PreviousStep } from '../../../shared/PreviousStep'
-import { CharEditHeading } from '../AdminCharEditContent'
-import { Heading } from '../../../../learn/headings/Heading'
+import { AdminBreadcrumbs } from '../../../../shared/components/AdminBreadcrumbs'
+import { AdminAppbar } from '../../../shared/AdminAppbar'
+import { FormEvent } from 'react'
+import { LoadCharEdit } from '../../../../shared/route-loaders/loadCharEdit'
 
 export function OtherUsesSection() {
-  const { glyph } = useParams()
-  const { control } = useFormContext()
+  const submit = useSubmit()
+  const { constants } = useTheme()
+  const { charFormData } = useRouteLoaderData('charEdit') as LoadCharEdit
+  const { glyph, otherUses } = charFormData
+  const { control, getValues, reset } = useForm({ defaultValues: { otherUses } })
   const { fields, append, remove } = useFieldArray({ control, name: 'otherUses' })
 
   function appendOtherUseEntry() {
@@ -23,26 +26,62 @@ export function OtherUsesSection() {
     remove(index)
   }
 
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+
+    const formData = new FormData()
+
+    const otherUses = getValues('otherUses') ?? []
+
+    formData.append('otherUses', JSON.stringify(otherUses))
+
+    submit(formData, { method: 'post' })
+  }
+
+  function resetForm() {
+    reset()
+  }
+
   return (
     <>
-      <PreviousStep link={`/admin/characters/${glyph}/form/2`} text='Összetétel' />
+      <AdminAppbar />
 
-      <Typography variant='h4' mb={3}>
-        Egyéb jelentések
-      </Typography>
+      <AdminBreadcrumbs
+        currentMenuItem={`Egyéb jelentések`}
+        hierarchy={[
+          { href: '/admin', text: 'Kezelőközpont' },
+          { href: '/admin/characters', text: 'Karakterek' },
+          { href: `/admin/characters/${glyph}`, text: `Áttekintés (${glyph})` },
+        ]}
+      />
 
-      <Stack gap={4}>
-        {fields.map((field, index) => (
-          <OtherUseEntry
-            key={field.id}
-            {...{ appendOtherUseEntry, control, field: field as OtherUse & { id: string }, index, removeOtherUseEntry }}
-          />
-        ))}
+      <Box maxWidth={constants.maxContentWidth} mx='auto' mt={4} p={2}>
+        <Box ml={{ xs: 0, md: `${constants.drawerWidth}px` }}>
+          <PreviousStep link={`/admin/characters/${glyph}`} text='Áttekintés' />
 
-        <AddNewButton onClick={appendOtherUseEntry} title='Új kiejtés' />
-      </Stack>
+          <Typography variant='h4' mb={3}>
+            Egyéb jelentések
+          </Typography>
 
-      <NextStep link={`/admin/characters/${glyph}/timeline/1`} text='Idővonal (1. kör)' />
+          <Form method='post' {...{ onSubmit }}>
+            {fields.map((field, index) => (
+              <OtherUseEntry key={field.id} {...{ appendOtherUseEntry, control, field, index, removeOtherUseEntry }} />
+            ))}
+
+            <AddNewButton onClick={appendOtherUseEntry} title='Új kiejtés' />
+
+            <Box display='flex' gap={2} mt={6}>
+              <Button startIcon={<FontAwesomeIcon icon={faSave} transform='shrink-4' />} variant='contained' type='submit'>
+                Mentés
+              </Button>
+
+              <Button onClick={resetForm} type='button'>
+                Változtatások elvetése
+              </Button>
+            </Box>
+          </Form>
+        </Box>
+      </Box>
     </>
   )
 }
@@ -53,7 +92,7 @@ const OtherUseEntry = ({
   index,
   removeOtherUseEntry,
 }: {
-  control: Control<FieldValues, any>
+  control: any
   field: OtherUse & { id: string }
   index: number
   removeOtherUseEntry: (index: number) => void
@@ -70,67 +109,73 @@ const OtherUseEntry = ({
   }
 
   return (
-    <Box display='grid' gap={2} sx={{ gridTemplateColumns: `2, max-content auto)` }}>
-      <Controller
-        {...{ control }}
-        name={`otherUses.${index}.pinyin`}
-        render={({ field: { value, onChange } }) => (
-          <TextField
-            {...field}
-            error={isEmptyString(value)}
-            onChange={event => onChange(event.target.value)}
-            InputProps={{
-              endAdornment: (
-                <IconButton color='error' onClick={() => removeOtherUseEntry(index)}>
-                  <FontAwesomeIcon icon={faTrash} size='xs' />
-                </IconButton>
-              ),
-            }}
-            InputLabelProps={{ shrink: true }}
-            fullWidth
-            size='small'
-            variant='filled'
-            label={`${index + 1}. kiejtés`}
-            sx={{ gridColumn: '1 / 2', '.Mui-error': { '&.MuiInputBase-root': { bgcolor: palette.error[100] } } }}
-            {...{ value }}
-          />
-        )}
-      />
-      {fields.map((meaning, meaningIndex) => (
+    <>
+      <Stack gap={2}>
         <Controller
           {...{ control }}
-          key={meaning.id}
-          name={`otherUses.${index}.meanings.${meaningIndex}`}
+          name={`otherUses.${index}.pinyin`}
           render={({ field: { value, onChange } }) => (
             <TextField
               {...field}
-              error={isEmptyString(value.trim())}
+              error={isEmptyString(value)}
               onChange={event => onChange(event.target.value)}
-              fullWidth
               InputProps={{
                 endAdornment: (
-                  <IconButton
-                    color='error'
-                    onClick={() => removeOtherUseMeaning(meaningIndex)}
-                    sx={{ visibility: fields.length === 1 ? 'hidden' : 'visible' }}
-                  >
+                  <IconButton color='error' onClick={() => removeOtherUseEntry(index)}>
                     <FontAwesomeIcon icon={faTrash} size='xs' />
                   </IconButton>
                 ),
               }}
               InputLabelProps={{ shrink: true }}
+              fullWidth
               size='small'
               variant='filled'
-              label={`${meaningIndex + 1}. jelentés`}
-              sx={{ gridColumn: '2 / 3', '.Mui-error': { '&.MuiInputBase-root': { bgcolor: palette.error[100] } } }}
-              value={value.trim()}
+              label={`${index + 1}. kiejtés`}
+              sx={{ '.Mui-error': { '&.MuiInputBase-root': { bgcolor: palette.error[100] } } }}
+              {...{ value }}
             />
           )}
         />
-      ))}
 
-      <AddNewButton onClick={appendOtherUseMeaning} title='Új jelentés ehhez a kiejtéshez' sx={{ gridColumn: '2 / 3' }} />
-    </Box>
+        <Stack gap={2} ml={8}>
+          {fields.map((meaning, meaningIndex) => (
+            <Controller
+              {...{ control }}
+              key={meaning.id}
+              name={`otherUses.${index}.meanings.${meaningIndex}`}
+              render={({ field: { value, onChange } }) => (
+                <TextField
+                  {...field}
+                  error={isEmptyString(value.trim())}
+                  onChange={event => onChange(event.target.value)}
+                  fullWidth
+                  InputProps={{
+                    endAdornment: (
+                      <IconButton
+                        color='error'
+                        onClick={() => removeOtherUseMeaning(meaningIndex)}
+                        sx={{ visibility: fields.length === 1 ? 'hidden' : 'visible' }}
+                      >
+                        <FontAwesomeIcon icon={faTrash} size='xs' />
+                      </IconButton>
+                    ),
+                  }}
+                  InputLabelProps={{ shrink: true }}
+                  size='small'
+                  variant='filled'
+                  label={`${meaningIndex + 1}. jelentés`}
+                  sx={{ '.Mui-error': { '&.MuiInputBase-root': { bgcolor: palette.error[100] } } }}
+                  value={value.trim()}
+                />
+              )}
+            />
+          ))}
+
+          <AddNewButton onClick={appendOtherUseMeaning} title='Új jelentés ehhez a kiejtéshez' />
+        </Stack>
+      </Stack>
+      <Divider sx={{ my: 3 }} />
+    </>
   )
 }
 
@@ -145,7 +190,7 @@ function AddNewButton({ onClick, sx, title }: { onClick: () => void; sx?: SxProp
         minHeight: spacing(6),
         outline: `2px dashed ${palette.primary.main}`,
         outlineOffset: '-6px',
-        ...sx,
+        width: 1,
       }}
     >
       {title}
