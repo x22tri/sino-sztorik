@@ -67,6 +67,7 @@ const router = createBrowserRouter([
             path: ':glyph',
             loader: ({ params }) => loadCharEdit({ params }),
             id: 'charEdit',
+
             children: [
               {
                 index: true,
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
               {
                 path: 'base-info',
                 element: <CharacterSection />,
+                action: async ({ params, request }) => {
+                  console.log(await request.formData())
+                  return redirect(`/admin/characters/${encodeURI(params.glyph!)}`)
+                },
               },
             ],
           },

@@ -1,35 +1,17 @@
-import {
-  Box,
-  Typography,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  useTheme,
-  Stack,
-  Divider,
-  ListItemText,
-  Link,
-  Chip,
-  Button,
-} from '@mui/material'
-import { constants } from 'buffer'
-import { Link as RouterLink, useLoaderData, useParams, useRouteLoaderData } from 'react-router-dom'
+import { Box, Typography, useTheme, Stack, Divider, Link, Chip, Button } from '@mui/material'
+import { Link as RouterLink, useParams, useRouteLoaderData } from 'react-router-dom'
 import { AdminBreadcrumbs } from '../../../shared/components/AdminBreadcrumbs'
-import { KeywordPrimitiveRow } from '../../../shared/components/KeywordPrimitiveRow'
 import { AdminAppbar } from '../../shared/AdminAppbar'
 import { PreviousStep } from '../../shared/PreviousStep'
 import { When } from 'react-if'
 import { LoadCharEdit } from '../../../shared/route-loaders/loadCharEdit'
-import { IconDefinition, faBell, faBook, faBookOpen, faCube, faEye, faPen, faStar } from '@fortawesome/free-solid-svg-icons'
+import { IconDefinition, faBell, faBookOpen, faCube, faEye, faPen, faStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { KeywordExplanation } from '../../../learn/presentation/KeywordExplanation'
 import { isSet } from '../utils/occurrence-utils'
 import { Fragment } from 'react'
 
 export function Overview() {
   const { constants, palette, spacing } = useTheme()
-  const { glyph } = useParams()
 
   const { calculatedIndexes, charFormData, timelineData } = useRouteLoaderData('charEdit') as LoadCharEdit
 

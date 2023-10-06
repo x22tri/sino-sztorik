@@ -14,8 +14,12 @@ import {
   useTheme,
 } from '@mui/material'
 import { Controller, FieldValues, FormProvider, RegisterOptions, SubmitHandler, useForm, useFormContext } from 'react-hook-form'
-import { useRouteLoaderData } from 'react-router-dom'
+import { Form, useRouteLoaderData, useSubmit } from 'react-router-dom'
 import { LoadCharEdit } from '../../../../shared/route-loaders/loadCharEdit'
+import { AdminBreadcrumbs } from '../../../../shared/components/AdminBreadcrumbs'
+import { AdminAppbar } from '../../../shared/AdminAppbar'
+import { PreviousStep } from '../../../shared/PreviousStep'
+import { FormEvent } from 'react'
 
 type CharacterSectionInput = {
   frequency: number | undefined
@@ -26,7 +30,9 @@ type CharacterSectionInput = {
 }
 
 export function CharacterSection() {
+  const { constants } = useTheme()
   const { charFormData } = useRouteLoaderData('charEdit') as LoadCharEdit
+  const submit = useSubmit()
 
   const { frequency, keyword, pinyin, primitive, productivePinyin } = charFormData
 
@@ -35,46 +41,71 @@ export function CharacterSection() {
     mode: 'onBlur',
   })
 
-  const onSubmit: SubmitHandler<CharacterSectionInput> = (data: any) => {
-    console.log(data)
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+
+    if (methods.formState.isValid) {
+      submit(event.currentTarget)
+    }
+
+    await methods.trigger()
   }
 
-  const resetForm = () => {
+  function resetForm() {
     methods.reset()
   }
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <Typography variant='h4' mb={3}>
-          Alapadatok
-        </Typography>
+    <>
+      <AdminAppbar />
 
-        <Stack gap={1}>
-          <KeywordField />
+      <AdminBreadcrumbs
+        currentMenuItem={`Alapadatok`}
+        hierarchy={[
+          { href: '/admin', text: 'Kezelőközpont' },
+          { href: '/admin/characters', text: 'Karakterek' },
+          { href: `/admin/characters/${charFormData.glyph}`, text: `Áttekintés (${charFormData.glyph})` },
+        ]}
+      />
 
-          <PrimitiveField />
+      <Box maxWidth={constants.maxContentWidth} mx='auto' mt={4} p={2}>
+        <Box ml={{ xs: 0, md: `${constants.drawerWidth}px` }}>
+          <PreviousStep link={`/admin/characters/${charFormData.glyph}`} text={`Áttekintés (${charFormData.glyph})`} />
 
-          <Box alignItems='flex-start' display='flex' flexDirection='row' gap={2}>
-            <PinyinField />
+          <FormProvider {...methods}>
+            <Form method='post' {...{ onSubmit }}>
+              <Typography variant='h4' mt={2} mb={3}>
+                Alapadatok
+              </Typography>
 
-            <ProductivePinyinCheckbox />
-          </Box>
+              <Stack gap={1}>
+                <KeywordField />
 
-          <FrequencyField />
-        </Stack>
+                <PrimitiveField />
 
-        <Box display='flex' gap={2} mt={6}>
-          <Button startIcon={<FontAwesomeIcon icon={faSave} transform='shrink-4' />} variant='contained' type='submit'>
-            Mentés
-          </Button>
+                <Box alignItems='flex-start' display='flex' flexDirection='row' gap={2}>
+                  <PinyinField />
 
-          <Button onClick={resetForm} type='button'>
-            Elvetés
-          </Button>
+                  <ProductivePinyinCheckbox />
+                </Box>
+
+                <FrequencyField />
+              </Stack>
+
+              <Box display='flex' gap={2} mt={6}>
+                <Button startIcon={<FontAwesomeIcon icon={faSave} transform='shrink-4' />} variant='contained' type='submit'>
+                  Mentés
+                </Button>
+
+                <Button onClick={resetForm} type='button'>
+                  Elvetés
+                </Button>
+              </Box>
+            </Form>
+          </FormProvider>
         </Box>
-      </form>
-    </FormProvider>
+      </Box>
+    </>
   )
 }
 
