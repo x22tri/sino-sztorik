@@ -1,16 +1,17 @@
-import { Box, Button, TextField, Typography, useTheme } from '@mui/material'
+import { Box, Button, Divider, TextField, Typography, useTheme } from '@mui/material'
 import { FormEvent } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useSubmit, useRouteLoaderData, useLocation, useParams, Form } from 'react-router-dom'
-import { AdminBreadcrumbs } from '../../../../shared/components/AdminBreadcrumbs'
-import { LoadCharEdit } from '../../../../shared/route-loaders/loadCharEdit'
-import { AdminAppbar } from '../../../shared/AdminAppbar'
-import { PreviousStep } from '../../../shared/PreviousStep'
-import { FullOccurrence, OccurrenceV3, WithheldOccurrence } from '../../../../shared/MOCK_DATABASE_ENTRIES'
-import { StoryLinkState } from '../../overview/Overview'
-import { SaveOrReset } from '../../../shared/SaveOrReset'
-import { faSave } from '@fortawesome/free-solid-svg-icons'
+import { AdminBreadcrumbs } from '../../../shared/components/AdminBreadcrumbs'
+import { LoadCharEdit } from '../../../shared/route-loaders/loadCharEdit'
+import { AdminAppbar } from '../../shared/AdminAppbar'
+import { PreviousStep } from '../../shared/PreviousStep'
+import { FullOccurrence, OccurrenceType, OccurrenceV3, WithheldOccurrence } from '../../../shared/MOCK_DATABASE_ENTRIES'
+import { SaveOrReset } from '../../shared/SaveOrReset'
+import { faSave, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+export type StoryLinkState = { mode: 'edit'; title: string } | { mode: 'add'; title: string; type: OccurrenceType }
 
 export function Story() {
   const submit = useSubmit()
@@ -33,7 +34,7 @@ export function Story() {
       <AdminAppbar />
 
       <AdminBreadcrumbs
-        currentMenuItem={`Egyéb jelentések`}
+        currentMenuItem={`Történet szerkesztése (${tier}. kör)`}
         hierarchy={[
           { href: '/admin', text: 'Kezelőközpont' },
           { href: '/admin/characters', text: 'Karakterek' },
@@ -76,6 +77,18 @@ export function Story() {
 
             <SaveOrReset {...{ reset }} />
           </Form>
+
+          {state.mode !== 'edit' ? null : (
+            <>
+              <Divider sx={{ mt: 6, mb: 2 }} />
+
+              <Box display='flex' justifyContent='flex-end'>
+                <Button color='error' startIcon={<FontAwesomeIcon icon={faTrash} transform='shrink-4' />}>
+                  Karakter törlése a körből
+                </Button>
+              </Box>
+            </>
+          )}
         </Box>
       </Box>
     </>

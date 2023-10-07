@@ -27,7 +27,7 @@ import { Box, Button, Stack, Typography, useTheme } from '@mui/material'
 import { faSave, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { noOrphanedRemindersIfTierWasDeleted } from '../../utils/char-form-utils'
-import { AddOccurrenceOptions } from '../../timeline/add-occurrence-options/AddOccurrenceOptions'
+// import { AddOccurrenceOptions } from '../../timeline/add-occurrence-options/AddOccurrenceOptions'
 import { CharEditStorySection } from '../sections/StorySection'
 import { useCharEdit } from '../AdminCharEditContent'
 import { NextStep } from '../../../shared/NextStep'
@@ -190,7 +190,7 @@ export function Timeline({}: // calculatedIndexes,
           gap={1}
           sx={{ border: `1px solid ${palette.grey[300]}`, outline: `2px dashed ${palette.text.disabled}`, outlineOffset: '-6px' }}
         >
-          <AddOccurrenceOptions index={selectedTierIndex} {...{ addEntry, charFormData, timelineData }} />
+          {/* <AddOccurrenceOptions index={selectedTierIndex} {...{ addEntry, charFormData, timelineData }} /> */}
         </Stack>
 
         <NextOrSaveButton glyph={params.glyph!} tier={selectedTierIndex + 1} />

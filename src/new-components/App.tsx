@@ -21,7 +21,7 @@ import { Overview } from './admin/admin-char-edit/overview/Overview'
 import { BaseInfo } from './admin/admin-char-edit/base-info/BaseInfo'
 import { OtherUses } from './admin/admin-char-edit/other-uses/OtherUses'
 import { Constituents } from './admin/admin-char-edit/constituents/Constituents'
-import { Story } from './admin/admin-char-edit/admin-content/story/Story'
+import { Story } from './admin/admin-char-edit/story/Story'
 
 const router = createBrowserRouter([
   {
