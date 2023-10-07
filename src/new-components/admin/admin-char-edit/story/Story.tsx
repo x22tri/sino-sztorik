@@ -10,6 +10,7 @@ import { FullOccurrence, OccurrenceType, OccurrenceV3, WithheldOccurrence } from
 import { SaveOrReset } from '../../shared/SaveOrReset'
 import { faSave, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { noOrphanedRemindersIfTierWasDeleted } from '../utils/char-form-utils'
 
 export type StoryLinkState = { mode: 'edit'; title: string } | { mode: 'add'; title: string; type: OccurrenceType }
 
@@ -23,6 +24,8 @@ export function Story() {
   const { glyph } = charFormData
   const story = (timelineData[tier - 1] as FullOccurrence | WithheldOccurrence).story ?? ''
   const { control, reset, trigger } = useForm({ defaultValues: { story: String(story) } })
+
+  const canBeDeleted = state.mode === 'edit' && noOrphanedRemindersIfTierWasDeleted(timelineData, tier - 1)
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -78,7 +81,7 @@ export function Story() {
             <SaveOrReset {...{ reset }} />
           </Form>
 
-          {state.mode !== 'edit' ? null : (
+          {!canBeDeleted ? null : (
             <>
               <Divider sx={{ mt: 6, mb: 2 }} />
 

@@ -23,7 +23,6 @@ export function OverviewLink({
     <Button
       component={RouterLink}
       to={link}
-      size='small'
       startIcon={icon ? <FontAwesomeIcon transform='shrink-4' {...{ icon }} /> : undefined}
       {...{ state }}
       sx={{

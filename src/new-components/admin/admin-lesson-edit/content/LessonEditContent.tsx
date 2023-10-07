@@ -10,7 +10,7 @@ import { useWatch } from 'react-hook-form'
 import { Heading } from '../../../learn/headings/Heading'
 import { LessonFormData, LessonTimelineData } from '../../../shared/route-loaders/loadLessonEdit'
 import { Subheading } from '../../../learn/headings/Subheading'
-import { LessonAdminTextField } from '../../shared/AdminTextField'
+// import { LessonAdminTextField } from '../../shared/AdminTextField'
 import { LessonCharReference } from '../../../shared/MOCK_DATABASE_ENTRIES'
 import { Timeline } from '../timeline/Timeline'
 
@@ -58,7 +58,7 @@ function LessonForm({ characters }: { characters: LessonCharReference[] }) {
   return (
     <form>
       <Subheading styles={{ marginBottom: 2, marginTop: 0 }} title='Alapadatok' />
-      <LessonAdminTextField label='Lecke címe' name='title' />
+      {/* <LessonAdminTextField label='Lecke címe' name='title' /> */}
 
       <Subheading styles={{ marginBottom: 2, marginTop: 6 }} title={`Karakterek a leckében (${characters.length})`} />
 

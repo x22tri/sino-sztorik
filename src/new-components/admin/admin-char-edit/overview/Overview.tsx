@@ -1,5 +1,5 @@
-import { Box, Typography, useTheme, Stack, Divider } from '@mui/material'
-import { useRouteLoaderData } from 'react-router-dom'
+import { Box, Typography, useTheme, Stack, Divider, Link } from '@mui/material'
+import { Link as RouterLink, useRouteLoaderData } from 'react-router-dom'
 import { AdminBreadcrumbs } from '../../../shared/components/AdminBreadcrumbs'
 import { AdminAppbar } from '../../shared/AdminAppbar'
 import { PreviousStep } from '../../shared/PreviousStep'
@@ -85,19 +85,15 @@ export function Overview() {
 
             <OverviewLink disabled link={`placeholder`} text={`0 hasonló karakter`} />
           </Stack>
-          <Stack alignItems='center' direction='row' gap={2} mt={6} mb={1}>
-            <Typography variant='h5' fontWeight='bold'>
-              Lecke
-            </Typography>
 
-            <OverviewLink
-              disabled
-              icon={faBookOpen}
-              link={`/admin/lessons/${charFormData.lessonNumber}`}
-              text='Leckeszerkesztő'
-            />
-          </Stack>
-          {lessonName} ({charFormData.lessonNumber}. lecke)
+          <Typography variant='h5' fontWeight='bold' mt={6} mb={1}>
+            Lecke
+          </Typography>
+
+          <Link component={RouterLink} to={`/admin/lessons/${charFormData.lessonNumber}`}>
+            {lessonName} ({charFormData.lessonNumber}. lecke)
+          </Link>
+
           <Typography variant='h5' fontWeight='bold' mt={6}>
             Előfordulások
           </Typography>
@@ -114,9 +110,11 @@ export function Overview() {
 
                   {presentation === 'unset' ? (
                     <>
-                      <Typography color='text.disabled'>Nem szerepel</Typography>
+                      <Typography color='text.disabled' variant='body2'>
+                        Nem szerepel
+                      </Typography>
 
-                      <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1} my={1}>
+                      <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1} mt={2} mb={1}>
                         <AddOccurrenceOptions {...{ charFormData, tier, timelineData }} />
                       </Stack>
                     </>
@@ -124,7 +122,7 @@ export function Overview() {
                     <>
                       <BlueprintChip type={presentation} />
 
-                      <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1} my={1}>
+                      <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1} mt={2} mb={1}>
                         {presentation === 'reminder' ? null : (
                           <OverviewLink
                             icon={faPen}

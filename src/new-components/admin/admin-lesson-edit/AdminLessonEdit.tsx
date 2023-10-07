@@ -8,10 +8,10 @@ import { Box, useTheme } from '@mui/material'
 import { SideNav } from '../../shared/components/SideNav'
 import { AdminBreadcrumbs } from '../../shared/components/AdminBreadcrumbs'
 import { LessonFormData, LessonTimelineData, LoadLessonEdit } from '../../shared/route-loaders/loadLessonEdit'
-import { LessonEditSteps } from './steps/LessonEditSteps'
-import { LessonEditErrorContext, useLessonEditErrors } from './error-context/LessonEditErrorContext'
+// import { LessonEditSteps } from './steps/LessonEditSteps'
+// import { LessonEditErrorContext, useLessonEditErrors } from './error-context/LessonEditErrorContext'
 import LessonEditContent from './content/LessonEditContent'
-import { AdminBottomNav } from '../shared/AdminBottomNav'
+// import { AdminBottomNav } from '../shared/AdminBottomNav'
 
 export function AdminLessonEdit() {
   const { constants, palette, spacing } = useTheme()
@@ -24,7 +24,7 @@ export function AdminLessonEdit() {
   const [savedLessonForm, saveLessonForm] = useState<LessonFormData>({ ...loaderData.lessonFormData })
   const [timelineData, setTimelineData] = useState(loaderData.lessonTimelineData)
   const [savedTimelineData, saveTimelineData] = useState<LessonTimelineData>([...loaderData.lessonTimelineData])
-  const { lessonFormErrors, lessonTimelineErrors, setLessonFormErrors, setLessonTimelineErrors } = useLessonEditErrors()
+  // const { lessonFormErrors, lessonTimelineErrors, setLessonFormErrors, setLessonTimelineErrors } = useLessonEditErrors()
 
   const lessonNumber = Number(params.lessonNumber)
 
@@ -48,7 +48,7 @@ export function AdminLessonEdit() {
           gridTemplate: { xs: `"main" / auto`, md: `"nav main" / ${constants.drawerWidth}px auto` },
         }}
       >
-        <LessonEditErrorContext.Provider
+        {/* <LessonEditErrorContext.Provider
           value={{ lessonFormErrors, lessonTimelineErrors, setLessonFormErrors, setLessonTimelineErrors }}
         >
           <Box component='nav' gridArea='nav'>
@@ -71,7 +71,7 @@ export function AdminLessonEdit() {
               <AdminBottomNav {...{ activeStep, setActiveStep, savedTimelineData, setTimelineData, timelineData }} />
             </FormProvider>
           </Box>
-        </LessonEditErrorContext.Provider>
+        </LessonEditErrorContext.Provider> */}
       </Box>
     </>
   )
