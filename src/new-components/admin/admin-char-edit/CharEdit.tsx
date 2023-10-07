@@ -1,19 +1,19 @@
-import { Box, Typography, useTheme, Stack, Divider, Link } from '@mui/material'
+import { Box, Typography, useTheme, Stack, Divider, Link, Button } from '@mui/material'
 import { Link as RouterLink, useRouteLoaderData } from 'react-router-dom'
-import { AdminBreadcrumbs } from '../../../shared/components/AdminBreadcrumbs'
-import { AdminAppbar } from '../../shared/AdminAppbar'
-import { PreviousStep } from '../../shared/PreviousStep'
+import { AdminBreadcrumbs } from '../../shared/components/AdminBreadcrumbs'
+import { AdminAppbar } from '../shared/AdminAppbar'
+import { PreviousStep } from '../shared/PreviousStep'
 import { When } from 'react-if'
-import { LoadCharEdit } from '../../../shared/route-loaders/loadCharEdit'
-import { faBookOpen, faCube, faEye, faPen } from '@fortawesome/free-solid-svg-icons'
+import { LoadCharEdit } from '../../shared/route-loaders/loadCharEdit'
+import { faCube, faEye, faPen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Fragment } from 'react'
-import { getOccurrencePresentation } from '../utils/char-form-utils'
+import { getOccurrencePresentation, noOrphanedRemindersIfTierWasDeleted } from './utils/char-form-utils'
 import { BlueprintChip } from './blueprint-chip/BlueprintChip'
-import { OverviewLink } from '../../shared/overview-link/OverviewLink'
+import { OverviewLink } from '../shared/overview-link/OverviewLink'
 import { AddOccurrenceOptions } from './add-occurrence-options/AddOccurrenceOptions'
 
-export function Overview() {
+export function CharEdit() {
   const { constants, palette, spacing } = useTheme()
 
   const { calculatedIndexes, charFormData, timelineData, lessonName } = useRouteLoaderData('charEdit') as LoadCharEdit
@@ -106,6 +106,7 @@ export function Overview() {
             {[1, 2, 3, 4].map(tier => {
               const occurrence = timelineData[tier - 1]
               const presentation = getOccurrencePresentation(charFormData, occurrence)
+              const canBeDeleted = noOrphanedRemindersIfTierWasDeleted(timelineData, tier - 1)
 
               return (
                 <Fragment key={tier}>
@@ -127,18 +128,21 @@ export function Overview() {
                     <>
                       <BlueprintChip type={presentation} />
 
-                      <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1} mt={2} mb={1}>
-                        {presentation === 'reminder' ? null : (
-                          <OverviewLink
-                            icon={faPen}
-                            link={`story/${tier}`}
-                            state={{ mode: 'edit', title: 'Előfordulás módosítása' }}
-                            text='Módosítás'
-                          />
-                        )}
+                      <Box alignItems='center' display='flex' justifyContent='space-between'>
+                        <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1} mt={2} mb={1}>
+                          {presentation === 'reminder' ? null : (
+                            <OverviewLink
+                              icon={faPen}
+                              link={`story/${tier}`}
+                              state={{ mode: 'edit', title: 'Történet szerkesztése' }}
+                              text='Történet szerkesztése'
+                            />
+                          )}
 
-                        <OverviewLink disabled icon={faEye} link={`placeholder`} text='Előnézet' />
-                      </Stack>
+                          <OverviewLink disabled icon={faEye} link={`placeholder`} text='Előnézet' />
+                        </Stack>
+                        {!canBeDeleted ? null : <Button color='error'>Törlés</Button>}
+                      </Box>
                     </>
                   )}
                 </Fragment>

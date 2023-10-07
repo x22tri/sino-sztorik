@@ -25,8 +25,6 @@ export function Story() {
   const story = (timelineData[tier - 1] as FullOccurrence | WithheldOccurrence).story ?? ''
   const { control, reset, trigger } = useForm({ defaultValues: { story: String(story) } })
 
-  const canBeDeleted = state.mode === 'edit' && noOrphanedRemindersIfTierWasDeleted(timelineData, tier - 1)
-
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     submit(event.currentTarget, { method: 'post' })
@@ -80,18 +78,6 @@ export function Story() {
 
             <SaveOrReset {...{ reset }} />
           </Form>
-
-          {!canBeDeleted ? null : (
-            <>
-              <Divider sx={{ mt: 6, mb: 2 }} />
-
-              <Box display='flex' justifyContent='flex-end'>
-                <Button color='error' startIcon={<FontAwesomeIcon icon={faTrash} transform='shrink-4' />}>
-                  Karakter törlése a körből
-                </Button>
-              </Box>
-            </>
-          )}
         </Box>
       </Box>
     </>

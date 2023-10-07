@@ -1,5 +1,5 @@
 import { AdminAppbar } from '../shared/AdminAppbar'
-import { useParams, useRouteLoaderData } from 'react-router-dom'
+import { Link as RouterLink, useParams, useRouteLoaderData } from 'react-router-dom'
 import { Box, Divider, Stack, Typography, useTheme } from '@mui/material'
 import { AdminBreadcrumbs } from '../../shared/components/AdminBreadcrumbs'
 import { LoadLessonEdit } from '../../shared/route-loaders/loadLessonEdit'
@@ -23,8 +23,8 @@ export function AdminLessonEdit() {
       <AdminBreadcrumbs
         currentMenuItem={`Lecke szerkesztése (${lessonNumber}. lecke)`}
         hierarchy={[
-          { href: '/admin', text: 'Kezelőközpont' },
-          { href: '/admin/lessons', text: 'Leckék' },
+          { href: '../..', text: 'Kezelőközpont' },
+          { href: '..', text: 'Leckék' },
         ]}
       />
 
@@ -53,7 +53,7 @@ export function AdminLessonEdit() {
           </Typography>
 
           <Stack direction='row' ml={-0.5}>
-            <OverviewLink text={`Összes karakter (${lessonFormData.characters.length})`} link='characters' />
+            <OverviewLink text={`Összes karakter a leckében (${lessonFormData.characters.length})`} link='characters' />
           </Stack>
 
           <Typography variant='h5' fontWeight='bold' mt={6}>
@@ -75,10 +75,11 @@ export function AdminLessonEdit() {
                       <Box display='flex' flexWrap='wrap' gap={2} sx={{ borderRadius: spacing(3) }}>
                         {occurrence.charactersInTier.map(({ glyph }) => (
                           <Typography
+                            component={RouterLink}
                             key={glyph}
-                            component='span'
+                            to={`/admin/characters/${glyph}`}
                             variant='chineseText'
-                            sx={{ borderRadius: 2, bgcolor: 'grey.100', p: 1 }}
+                            sx={{ borderRadius: 2, bgcolor: 'grey.100', color: 'initial', textDecoration: 'none', p: 1 }}
                           >
                             {glyph}
                           </Typography>
@@ -86,6 +87,8 @@ export function AdminLessonEdit() {
                       </Box>
 
                       <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1} mt={2} mb={1}>
+                        <OverviewLink icon={faPen} link={`preface/${tier}`} text='Előszó szerkesztése' />
+
                         <OverviewLink disabled icon={faEye} link={`placeholder`} text='Előnézet' />
                       </Stack>
                     </>

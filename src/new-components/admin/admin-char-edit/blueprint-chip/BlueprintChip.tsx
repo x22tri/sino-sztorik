@@ -1,7 +1,7 @@
 import { useTheme, Chip, lighten } from '@mui/material'
 import { IconDefinition, faBell, faCube, faKey, faRunning, faStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { OccurrencePresentation } from '../../../../shared/MOCK_DATABASE_ENTRIES'
+import { OccurrencePresentation } from '../../../shared/MOCK_DATABASE_ENTRIES'
 
 export function BlueprintChip({ isReminder, type }: { isReminder?: boolean; type: Exclude<OccurrencePresentation, 'unset'> }) {
   const { palette } = useTheme()

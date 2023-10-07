@@ -12,12 +12,12 @@ import LanguageContextProvider from './shared/localization/LanguageContext'
 import { loadLessonSelect } from './shared/route-loaders/loadLessonSelect'
 import { ErrorPage } from './error-page/ErrorPage'
 import { loadCharEdit } from './shared/route-loaders/loadCharEdit'
-import { AdminCharList } from './admin/admin-char-list/AdminCharList'
-import { AdminDashboard } from './admin/admin-dashboard/AdminDashboard'
-import { AdminLessonList } from './admin/admin-lesson-list/AdminLessonList'
-import { AdminLessonEdit } from './admin/admin-lesson-edit/AdminLessonEdit'
+import { AdminCharList } from './admin/char-list/CharList'
+import { AdminDashboard } from './admin/dashboard/Dashboard'
+import { AdminLessonList } from './admin/lesson-list/LessonList'
+import { AdminLessonEdit } from './admin/lesson-edit/LessonEdit'
 import { loadLessonEdit } from './shared/route-loaders/loadLessonEdit'
-import { Overview } from './admin/admin-char-edit/overview/Overview'
+import { CharEdit } from './admin/admin-char-edit/CharEdit'
 import { BaseInfo } from './admin/admin-char-edit/base-info/BaseInfo'
 import { OtherUses } from './admin/admin-char-edit/other-uses/OtherUses'
 import { Constituents } from './admin/admin-char-edit/constituents/Constituents'
@@ -68,7 +68,7 @@ const router = createBrowserRouter([
             children: [
               {
                 index: true,
-                element: <Overview />,
+                element: <CharEdit />,
               },
               {
                 path: 'base-info',
@@ -110,13 +110,37 @@ const router = createBrowserRouter([
           },
         ],
       },
-      { path: 'lessons', element: <AdminLessonList /> },
       {
-        path: 'lessons/:lessonNumber',
-
-        loader: ({ params }) => loadLessonEdit({ params }),
-        id: 'lessonEdit',
-        children: [{ index: true, element: <AdminLessonEdit /> }],
+        path: 'lessons',
+        children: [
+          {
+            index: true,
+            element: <AdminLessonList />,
+          },
+          {
+            path: ':lessonNumber',
+            loader: ({ params }) => loadLessonEdit({ params }),
+            id: 'lessonEdit',
+            children: [
+              {
+                index: true,
+                element: <AdminLessonEdit />,
+              },
+              {
+                path: 'base-info',
+                element: <></>,
+              },
+              {
+                path: 'characters',
+                element: <></>,
+              },
+              {
+                path: 'preface/:tier',
+                element: <></>,
+              },
+            ],
+          },
+        ],
       },
     ],
   },
