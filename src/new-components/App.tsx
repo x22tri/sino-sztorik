@@ -18,10 +18,11 @@ import { AdminLessonList } from './admin/lesson-list/LessonList'
 import { AdminLessonEdit } from './admin/lesson-edit/LessonEdit'
 import { loadLessonEdit } from './shared/route-loaders/loadLessonEdit'
 import { CharEdit } from './admin/char-edit/CharEdit'
-import { BaseInfo } from './admin/char-edit/base-info/BaseInfo'
+import { BaseInfo as CharBaseInfo } from './admin/char-edit/base-info/BaseInfo'
 import { OtherUses } from './admin/char-edit/other-uses/OtherUses'
 import { Constituents } from './admin/char-edit/constituents/Constituents'
 import { Story } from './admin/char-edit/story/Story'
+import { BaseInfo as LessonBaseInfo } from './admin/lesson-edit/base-info/BaseInfo'
 
 const router = createBrowserRouter([
   {
@@ -72,38 +73,38 @@ const router = createBrowserRouter([
               },
               {
                 path: 'base-info',
-                element: <BaseInfo />,
-                action: async ({ params, request }) => {
+                element: <CharBaseInfo />,
+                action: async ({ request }) => {
                   console.log(await request.formData())
                   // To-Do: Send to backend, do backend validation, redirect only when 200
-                  return redirect(`/admin/characters/${encodeURI(params.glyph!)}`)
+                  return redirect('..')
                 },
               },
               {
                 path: 'constituents',
                 element: <Constituents />,
-                action: async ({ params, request }) => {
+                action: async ({ request }) => {
                   console.log(await request.formData())
                   // To-Do: Send to backend, do backend validation, redirect only when 200
-                  return redirect(`/admin/characters/${encodeURI(params.glyph!)}`)
+                  return redirect('..')
                 },
               },
               {
                 path: 'other-uses',
                 element: <OtherUses />,
-                action: async ({ params, request }) => {
+                action: async ({ request }) => {
                   console.log(await request.formData())
                   // To-Do: Send to backend, do backend validation, redirect only when 200
-                  return redirect(`/admin/characters/${encodeURI(params.glyph!)}`)
+                  return redirect('..')
                 },
               },
               {
                 path: 'story/:tier',
                 element: <Story />,
-                action: async ({ params, request }) => {
+                action: async ({ request }) => {
                   console.log(await request.formData())
                   // To-Do: Send to backend, do backend validation, redirect only when 200
-                  return redirect(`/admin/characters/${encodeURI(params.glyph!)}`)
+                  return redirect('..')
                 },
               },
             ],
@@ -128,7 +129,12 @@ const router = createBrowserRouter([
               },
               {
                 path: 'base-info',
-                element: <></>,
+                element: <LessonBaseInfo />,
+                action: async ({ request }) => {
+                  console.log(await request.formData())
+                  // To-Do: Send to backend, do backend validation, redirect only when 200
+                  return redirect('..')
+                },
               },
               {
                 path: 'characters',

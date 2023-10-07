@@ -56,15 +56,15 @@ export function BaseInfo() {
       <AdminBreadcrumbs
         currentMenuItem={`Alapadatok`}
         hierarchy={[
-          { href: '/admin', text: 'Kezelőközpont' },
-          { href: '/admin/characters', text: 'Karakterek' },
-          { href: `/admin/characters/${glyph}`, text: `Áttekintés (${glyph})` },
+          { href: '../../..', text: 'Kezelőközpont' },
+          { href: '../..', text: 'Karakterek' },
+          { href: '..', text: `Áttekintés (${glyph})` },
         ]}
       />
 
       <Box maxWidth={constants.maxContentWidth} mx='auto' mt={4} p={2}>
         <Box ml={{ xs: 0, md: `${constants.drawerWidth}px` }}>
-          <PreviousStep link={`/admin/characters/${glyph}`} text={`Áttekintés (${glyph})`} />
+          <PreviousStep link='..' text={`Áttekintés (${glyph})`} />
 
           <FormProvider {...methods}>
             <Form method='post' {...{ onSubmit }}>

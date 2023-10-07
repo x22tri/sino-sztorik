@@ -11,10 +11,9 @@ import { Fragment } from 'react'
 export function AdminLessonEdit() {
   const { constants, palette, spacing } = useTheme()
   const params = useParams()
+  const lessonNumber = Number(params.lessonNumber)
 
   const { lessonFormData, lessonTimelineData } = useRouteLoaderData('lessonEdit') as LoadLessonEdit
-
-  const lessonNumber = Number(params.lessonNumber)
 
   return (
     <>
@@ -97,36 +96,6 @@ export function AdminLessonEdit() {
                       Nem szerepel
                     </Typography>
                   )}
-
-                  {/* {occurrence.charactersInTier?.length} karakter */}
-                  {/* {presentation === 'unset' ? (
-                    <>
-                      <Typography color='text.disabled' variant='body2'>
-                        Nem szerepel
-                      </Typography>
-
-                      <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1} mt={2} mb={1}>
-                        <AddOccurrenceOptions {...{ charFormData, tier, timelineData }} />
-                      </Stack>
-                    </>
-                  ) : (
-                    <>
-                      <BlueprintChip type={presentation} />
-
-                      <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1} mt={2} mb={1}>
-                        {presentation === 'reminder' ? null : (
-                          <OverviewLink
-                            icon={faPen}
-                            link={`story/${tier}`}
-                            state={{ mode: 'edit', title: 'Előfordulás módosítása' }}
-                            text='Módosítás'
-                          />
-                        )}
-
-                        <OverviewLink disabled icon={faEye} link={`placeholder`} text='Előnézet' />
-                      </Stack>
-                    </>
-                  )} */}
                 </Fragment>
               )
             })}
