@@ -2,14 +2,9 @@ import { Box, Typography, useTheme } from '@mui/material'
 import { CalculatedIndexes, CharTimelineData } from '../../../shared/route-loaders/loadCharEdit'
 import { CharFormData } from '../../../shared/route-loaders/loadCharEdit'
 import { Dispatch, SetStateAction } from 'react'
-import { Case, Default, Switch } from 'react-if'
-import { CharForm } from '../char-form/CharForm'
-import { ADMIN_EDIT_STEPS_STEP_ONE, ADMIN_EDIT_STEPS_STEP_TWO } from '../../../shared/strings'
 import { useWatch } from 'react-hook-form'
 import { useRegisterCharAdminErrors } from '../error-context/useRegisterCharAdminErrors'
-import { Heading } from '../../../learn/headings/Heading'
-import { Timeline } from './timeline/Timeline'
-import { Outlet, useMatch, useOutletContext, useParams, useResolvedPath } from 'react-router-dom'
+import { Outlet, useOutletContext, useParams } from 'react-router-dom'
 
 export default function AdminCharEditContent({
   activeStep,

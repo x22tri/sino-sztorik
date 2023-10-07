@@ -2,7 +2,7 @@ import { Box, Button, Divider, IconButton, Stack, SxProps, TextField, Typography
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { OtherUse } from '../../../../shared/interfaces'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSave, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faSave, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { Form, useRouteLoaderData, useSubmit } from 'react-router-dom'
 import { PreviousStep } from '../../../shared/PreviousStep'
 import { AdminBreadcrumbs } from '../../../../shared/components/AdminBreadcrumbs'
@@ -122,7 +122,7 @@ const OtherUseEntry = ({
               InputProps={{
                 endAdornment: (
                   <IconButton color='error' onClick={() => removeOtherUseEntry(index)}>
-                    <FontAwesomeIcon icon={faTrash} size='xs' />
+                    <FontAwesomeIcon icon={faXmark} size='xs' />
                   </IconButton>
                 ),
               }}
@@ -156,7 +156,7 @@ const OtherUseEntry = ({
                         onClick={() => removeOtherUseMeaning(meaningIndex)}
                         sx={{ visibility: fields.length === 1 ? 'hidden' : 'visible' }}
                       >
-                        <FontAwesomeIcon icon={faTrash} size='xs' />
+                        <FontAwesomeIcon icon={faXmark} size='xs' />
                       </IconButton>
                     ),
                   }}
