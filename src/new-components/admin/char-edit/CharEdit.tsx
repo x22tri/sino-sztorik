@@ -128,8 +128,8 @@ export function CharEdit() {
                     <>
                       <BlueprintChip type={presentation} />
 
-                      <Box alignItems='center' display='flex' justifyContent='space-between'>
-                        <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1} mt={2} mb={1}>
+                      <Box alignItems='center' display='flex' justifyContent='space-between' mt={2} mb={1}>
+                        <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1}>
                           {presentation === 'reminder' ? null : (
                             <OverviewLink
                               icon={faPen}

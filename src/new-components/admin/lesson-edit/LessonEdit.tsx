@@ -9,7 +9,7 @@ import { OverviewLink } from '../shared/overview-link/OverviewLink'
 import { Fragment } from 'react'
 
 export function AdminLessonEdit() {
-  const { constants, palette, spacing } = useTheme()
+  const { constants, spacing } = useTheme()
   const params = useParams()
   const lessonNumber = Number(params.lessonNumber)
 
@@ -20,7 +20,7 @@ export function AdminLessonEdit() {
       <AdminAppbar />
 
       <AdminBreadcrumbs
-        currentMenuItem={`Lecke szerkesztése (${lessonNumber}. lecke)`}
+        currentMenuItem={`Áttekintés (${lessonNumber}. lecke)`}
         hierarchy={[
           { href: '../..', text: 'Kezelőközpont' },
           { href: '..', text: 'Leckék' },
@@ -72,7 +72,7 @@ export function AdminLessonEdit() {
                   {occurrence.charactersInTier?.length ? (
                     <>
                       <Box display='flex' flexWrap='wrap' gap={2} sx={{ borderRadius: spacing(3) }}>
-                        {occurrence.charactersInTier.map(({ glyph }) => (
+                        {occurrence.charactersInTier.map(glyph => (
                           <Typography
                             component={RouterLink}
                             key={glyph}

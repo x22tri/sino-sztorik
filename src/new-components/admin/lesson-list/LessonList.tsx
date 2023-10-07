@@ -25,7 +25,8 @@ export function AdminLessonList() {
             <List disablePadding>
               {lessons.map(({ characters, lessonNumber, title }, index) => {
                 const tierLengths = new Array<number>(1, 2, 3, 4)
-                  .map(tier => characters.filter(({ tiers }) => tiers.includes(tier)).length)
+                  // .map(tier => characters.filter(({ tiers }) => tiers.includes(tier)).length)
+                  .map(() => Math.ceil(Math.random() * 10))
                   .join(' - ')
 
                 return (

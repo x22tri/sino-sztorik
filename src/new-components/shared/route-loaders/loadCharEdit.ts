@@ -43,12 +43,13 @@ export function loadCharEdit({ params }: { params: Params }): LoadCharEdit {
 function calculateIndexesInLesson(character: CharacterEntryV3) {
   const lesson = LESSON_ENTRY // To-Do: Fetch from database by lessonNumber.
 
-  return [1, 2, 3, 4].map(
-    tier =>
-      lesson.characters
-        .filter(c => c.tiers.includes(tier) || c.glyph === character.glyph)
-        .findIndex(c => c.glyph === character.glyph) + 1
-  ) as CalculatedIndexes
+  // return [1, 2, 3, 4].map(
+  //   tier =>
+  //     lesson.characters
+  //       .filter(c => c.tiers.includes(tier) || c.glyph === character.glyph)
+  //       .findIndex(c => c.glyph === character.glyph) + 1
+  // ) as CalculatedIndexes
+  return [1, 2, 3, 4] as CalculatedIndexes // To-Do: fix
 }
 
 function mapAllTiers<T>(mapFunction: (tier: number) => void): [T, T, T, T] {

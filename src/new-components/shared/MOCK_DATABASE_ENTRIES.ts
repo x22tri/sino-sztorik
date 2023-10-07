@@ -178,27 +178,13 @@ export const CHAR_ENTRY_V3: CharacterEntryV3 = {
   similars: [3], // An array of "similar" ID's.
 }
 
+export const MOCK_CHARS_IN_TIER_1 = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '口', '日', '月', '田', '目']
+
+export const MOCK_CHARS_IN_TIER_2 = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '凹', '凸']
+
 export const LESSON_ENTRIES: LessonEntry[] = [
   {
-    characters: [
-      { glyph: '一', tiers: [1, 2] }, // Call getUnlockedMeanings upon hover.
-      { glyph: '二', tiers: [1, 2] },
-      { glyph: '三', tiers: [1, 2] },
-      { glyph: '四', tiers: [1, 2] },
-      { glyph: '五', tiers: [1, 2] },
-      { glyph: '六', tiers: [1, 2] },
-      { glyph: '七', tiers: [1, 2] },
-      { glyph: '八', tiers: [1, 2] },
-      { glyph: '九', tiers: [1, 2] },
-      { glyph: '十', tiers: [1, 2] },
-      { glyph: '口', tiers: [1] },
-      { glyph: '日', tiers: [1] },
-      { glyph: '月', tiers: [1] },
-      { glyph: '田', tiers: [1] },
-      { glyph: '目', tiers: [1] },
-      { glyph: '凹', tiers: [2] },
-      { glyph: '凸', tiers: [2] },
-    ],
+    characters: ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '口', '日', '月', '田', '目', '凹', '凸'], // Call getUnlockedMeanings upon hover.
     lessonNumber: 1,
     title: 'Első lépések',
     variants: [
@@ -207,24 +193,7 @@ export const LESSON_ENTRIES: LessonEntry[] = [
     ],
   },
   {
-    characters: [
-      { glyph: '朋', tiers: [1] },
-      { glyph: '明', tiers: [1] },
-      { glyph: '昌', tiers: [1] },
-      { glyph: '唱', tiers: [1] },
-      { glyph: '晶', tiers: [1] },
-      { glyph: '品', tiers: [1] },
-      { glyph: '叱', tiers: [2] },
-      { glyph: '叭', tiers: [2] },
-      { glyph: '叶', tiers: [1] },
-      { glyph: '古', tiers: [1, 2] },
-      { glyph: '咕', tiers: [2] },
-      { glyph: '胡', tiers: [1, 2] },
-      { glyph: '吾', tiers: [2] },
-      { glyph: '世', tiers: [1] },
-      { glyph: '旭', tiers: [2] },
-      { glyph: '早', tiers: [1, 2] },
-    ],
+    characters: ['朋', '明', '昌', '唱', '晶', '品', '叱', '叶', '古', '咕', '胡', '吾', '世', '旭', '早'],
     lessonNumber: 2,
     title: 'Több, mint a részek összege',
     variants: [
@@ -233,11 +202,7 @@ export const LESSON_ENTRIES: LessonEntry[] = [
     ],
   },
   {
-    characters: [
-      { glyph: '古', tiers: [1] },
-      { glyph: '咕', tiers: [2] },
-      { glyph: '早', tiers: [1] },
-    ],
+    characters: ['古', '咕', '早'],
     lessonNumber: 3,
     title: 'Vízszintes és függőleges',
     variants: [
@@ -252,31 +217,14 @@ export type LessonCharReference = { glyph: string; tiers: number[] }
 export type LessonVariant = { preface: string; tier: number }
 
 export interface LessonEntry {
-  characters: LessonCharReference[]
+  characters: string[]
   lessonNumber: number
   title: string
   variants: LessonVariant[]
 }
 
 export const LESSON_ENTRY: LessonEntry = {
-  characters: [
-    { glyph: '朋', tiers: [1] },
-    { glyph: '明', tiers: [1] },
-    { glyph: '昌', tiers: [1] },
-    { glyph: '唱', tiers: [1] },
-    { glyph: '晶', tiers: [1] },
-    { glyph: '品', tiers: [1] },
-    { glyph: '叱', tiers: [2] },
-    { glyph: '叭', tiers: [2] },
-    { glyph: '叶', tiers: [1] },
-    { glyph: '古', tiers: [1, 2] },
-    { glyph: '咕', tiers: [2] },
-    { glyph: '胡', tiers: [1, 2] },
-    { glyph: '吾', tiers: [2] },
-    { glyph: '世', tiers: [1] },
-    { glyph: '旭', tiers: [2] },
-    { glyph: '早', tiers: [1, 2] },
-  ],
+  characters: ['朋', '明', '昌', '唱', '晶', '品', '叱', '叶', '古', '咕', '胡', '吾', '世', '旭', '早'],
   lessonNumber: 2,
   title: 'Több, mint a részek összege',
   variants: [

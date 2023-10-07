@@ -23,6 +23,8 @@ import { OtherUses } from './admin/char-edit/other-uses/OtherUses'
 import { Constituents } from './admin/char-edit/constituents/Constituents'
 import { Story } from './admin/char-edit/story/Story'
 import { BaseInfo as LessonBaseInfo } from './admin/lesson-edit/base-info/BaseInfo'
+import { Characters } from './admin/lesson-edit/characters/Characters'
+import { loadCharacters } from './shared/route-loaders/loadCharacters'
 
 const router = createBrowserRouter([
   {
@@ -138,7 +140,8 @@ const router = createBrowserRouter([
               },
               {
                 path: 'characters',
-                element: <></>,
+                element: <Characters />,
+                loader: ({ params }) => loadCharacters({ params }),
               },
               {
                 path: 'preface/:tier',

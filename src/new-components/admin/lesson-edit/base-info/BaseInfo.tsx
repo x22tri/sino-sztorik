@@ -31,10 +31,10 @@ export function BaseInfo() {
       <AdminAppbar />
 
       <AdminBreadcrumbs
-        currentMenuItem={`Alapadatok`}
+        currentMenuItem='Lecke átnevezése'
         hierarchy={[
           { href: '../../..', text: 'Kezelőközpont' },
-          { href: '../..', text: 'Karakterek' },
+          { href: '../..', text: 'Leckék' },
           { href: '..', text: `Áttekintés (${lessonNumber}. lecke)` },
         ]}
       />
