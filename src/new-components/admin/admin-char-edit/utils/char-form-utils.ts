@@ -21,6 +21,7 @@ export function hasNoPrimitive(character: CharFormData) {
 export function isPresent(character: CharFormData, key: string) {
   return key in character && character[key as keyof CharFormData] !== ''
 }
+
 export function getReminderContentType(
   character: CharFormData,
   timelineData: CharTimelineData,
@@ -54,6 +55,27 @@ export function getReminderContentType(
 
   throw new Error('Reminder type invalid.')
 }
+
+export function getOccurrencePresentation(charFormData: CharFormData, occurrence: SortedOccurrence): OccurrencePresentation {
+  return 'withhold' in occurrence
+    ? occurrence.withhold === 'keyword'
+      ? 'primitive'
+      : occurrence.withhold === 'primitive'
+      ? 'keyword'
+      : occurrence.withhold === 'constituents'
+      ? 'keywordLite'
+      : 'unset' // Should not happen
+    : isReminder(occurrence)
+    ? 'reminder'
+    : isUnset(occurrence)
+    ? 'unset'
+    : !isPresent(charFormData, 'keyword')
+    ? 'primitive'
+    : !isPresent(charFormData, 'primitive')
+    ? 'keyword'
+    : 'keywordAndPrimitive'
+}
+
 export function noOrphanedRemindersIfTierWasDeleted(occurrences: SortedOccurrence[], index: number) {
   const ifTierWasDeleted = Array.from(occurrences)
   ifTierWasDeleted.splice(index, 1, { tier: index + 1 })

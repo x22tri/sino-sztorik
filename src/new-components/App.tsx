@@ -21,6 +21,7 @@ import { Overview } from './admin/admin-char-edit/overview/Overview'
 import { BaseInfo } from './admin/admin-char-edit/base-info/BaseInfo'
 import { OtherUses } from './admin/admin-char-edit/other-uses/OtherUses'
 import { Constituents } from './admin/admin-char-edit/constituents/Constituents'
+import { Story } from './admin/admin-char-edit/admin-content/story/Story'
 
 const router = createBrowserRouter([
   {
@@ -90,6 +91,15 @@ const router = createBrowserRouter([
               {
                 path: 'other-uses',
                 element: <OtherUses />,
+                action: async ({ params, request }) => {
+                  console.log(await request.formData())
+                  // To-Do: Send to backend, do backend validation, redirect only when 200
+                  return redirect(`/admin/characters/${encodeURI(params.glyph!)}`)
+                },
+              },
+              {
+                path: 'story/:tier',
+                element: <Story />,
                 action: async ({ params, request }) => {
                   console.log(await request.formData())
                   // To-Do: Send to backend, do backend validation, redirect only when 200

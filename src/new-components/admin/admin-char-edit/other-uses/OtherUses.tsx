@@ -2,13 +2,14 @@ import { Box, Button, Divider, IconButton, Stack, SxProps, TextField, Typography
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { OtherUse } from '../../../shared/interfaces'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSave, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { Form, useRouteLoaderData, useSubmit } from 'react-router-dom'
 import { PreviousStep } from '../../shared/PreviousStep'
 import { AdminBreadcrumbs } from '../../../shared/components/AdminBreadcrumbs'
 import { AdminAppbar } from '../../shared/AdminAppbar'
 import { FormEvent } from 'react'
 import { LoadCharEdit } from '../../../shared/route-loaders/loadCharEdit'
+import { SaveOrReset } from '../../shared/SaveOrReset'
 
 export function OtherUses() {
   const submit = useSubmit()
@@ -26,7 +27,7 @@ export function OtherUses() {
     remove(index)
   }
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+  function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
     const formData = new FormData()
@@ -36,10 +37,6 @@ export function OtherUses() {
     formData.append('otherUses', JSON.stringify(otherUses))
 
     submit(formData, { method: 'post' })
-  }
-
-  function resetForm() {
-    reset()
   }
 
   return (
@@ -70,15 +67,7 @@ export function OtherUses() {
 
             <AddNewButton onClick={appendOtherUseEntry} title='Új kiejtés' />
 
-            <Box display='flex' gap={2} mt={6}>
-              <Button startIcon={<FontAwesomeIcon icon={faSave} transform='shrink-4' />} variant='contained' type='submit'>
-                Mentés
-              </Button>
-
-              <Button onClick={resetForm} type='button'>
-                Változtatások elvetése
-              </Button>
-            </Box>
+            <SaveOrReset reset={() => reset()} />
           </Form>
         </Box>
       </Box>

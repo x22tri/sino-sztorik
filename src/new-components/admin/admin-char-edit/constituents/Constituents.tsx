@@ -23,6 +23,7 @@ import { PreviousStep } from '../../shared/PreviousStep'
 import { AdminBreadcrumbs } from '../../../shared/components/AdminBreadcrumbs'
 import { AdminAppbar } from '../../shared/AdminAppbar'
 import { LoadCharEdit } from '../../../shared/route-loaders/loadCharEdit'
+import { SaveOrReset } from '../../shared/SaveOrReset'
 
 const charWidth = '42px'
 
@@ -50,13 +51,9 @@ export function Constituents() {
     return matchSorter(options, inputValue, { keys: ['glyph', 'primitive', 'keyword'] })
   }
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+  function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     submit(event.currentTarget)
-  }
-
-  function resetForm() {
-    reset()
   }
 
   return (
@@ -121,15 +118,7 @@ export function Constituents() {
                 )}
               />
 
-              <Box display='flex' gap={2} mt={6}>
-                <Button startIcon={<FontAwesomeIcon icon={faSave} transform='shrink-4' />} variant='contained' type='submit'>
-                  Mentés
-                </Button>
-
-                <Button onClick={resetForm} type='button'>
-                  Változtatások elvetése
-                </Button>
-              </Box>
+              <SaveOrReset {...{ reset }} />
             </Form>
           </Box>
         </Box>

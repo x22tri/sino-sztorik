@@ -79,6 +79,8 @@ export interface WithheldConstituentsOccurrence extends SetOccurrence {
   story: (string | { keyword: string })[][]
 }
 
+export type WithheldOccurrence = WithheldKeywordOccurrence | WithheldPrimitiveOccurrence | WithheldConstituentsOccurrence
+
 export interface CharacterEntry {
   // blueprint: Blueprint
   glyph: string

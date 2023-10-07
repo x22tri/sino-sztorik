@@ -5,13 +5,23 @@ import { AdminAppbar } from '../../shared/AdminAppbar'
 import { PreviousStep } from '../../shared/PreviousStep'
 import { When } from 'react-if'
 import { CharFormData, CharTimelineData, LoadCharEdit } from '../../../shared/route-loaders/loadCharEdit'
-import { IconDefinition, faBell, faBookOpen, faCube, faEye, faPen, faStar } from '@fortawesome/free-solid-svg-icons'
+import {
+  IconDefinition,
+  faBell,
+  faBookOpen,
+  faCube,
+  faEye,
+  faKey,
+  faPen,
+  faRunning,
+  faStar,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { isReminder, isSet, isUnset } from '../utils/occurrence-utils'
 import { Fragment } from 'react'
 import { LESSONS } from '../../../shared/MOCK_LESSONS'
-import { OccurrencePresentation, OccurrenceV3, SortedOccurrence } from '../../../shared/MOCK_DATABASE_ENTRIES'
-import { getReminderContentType, isPresent } from '../utils/char-form-utils'
+import { OccurrencePresentation, OccurrenceType, OccurrenceV3, SortedOccurrence } from '../../../shared/MOCK_DATABASE_ENTRIES'
+import { getOccurrencePresentation, getReminderContentType, isPresent } from '../utils/char-form-utils'
 
 export function Overview() {
   const { constants, palette, spacing } = useTheme()
@@ -25,14 +35,14 @@ export function Overview() {
       <AdminBreadcrumbs
         currentMenuItem={`Áttekintés (${charFormData.glyph})`}
         hierarchy={[
-          { href: '/admin', text: 'Kezelőközpont' },
-          { href: '/admin/characters', text: 'Karakterek' },
+          { href: '../..', text: 'Kezelőközpont' },
+          { href: '..', text: 'Karakterek' },
         ]}
       />
 
       <Box maxWidth={constants.maxContentWidth} mx='auto' mt={4} p={2}>
         <Box ml={{ xs: 0, md: `${constants.drawerWidth}px` }}>
-          <PreviousStep link={`/admin/characters`} text='Karakterek' />
+          <PreviousStep link={`..`} text='Karakterek' />
           <Typography variant='h4' mt={2}>
             Áttekintés
           </Typography>
@@ -41,7 +51,7 @@ export function Overview() {
               Karakter
             </Typography>
 
-            <OverviewLink icon={faPen} link={`/admin/characters/${charFormData.glyph}/base-info`} text='Alapadatok módosítása' />
+            <OverviewLink icon={faPen} link='base-info' text='Alapadatok módosítása' />
           </Stack>
           <Stack alignItems='end' direction='row' gap={5} mt={4}>
             <Stack alignItems='center' alignSelf='flex-start'>
@@ -77,15 +87,9 @@ export function Overview() {
             </Stack>
           </Stack>
           <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={0.5} mt={6} ml={-0.5}>
-            <OverviewLink
-              link={`/admin/characters/${charFormData.glyph}/constituents`}
-              text={`${charFormData.constituents?.length} összetevő`}
-            />
+            <OverviewLink link='constituents' text={`${charFormData.constituents?.length} összetevő`} />
 
-            <OverviewLink
-              link={`/admin/characters/${charFormData.glyph}/other-uses`}
-              text={`${charFormData.otherUses?.length} egyéb jelentés`}
-            />
+            <OverviewLink link='other-uses' text={`${charFormData.otherUses?.length} egyéb jelentés`} />
 
             <OverviewLink disabled link={`/admin/characters/${charFormData.glyph}/form/2`} text={`0 kifejezés`} />
 
@@ -110,45 +114,59 @@ export function Overview() {
           <Stack divider={<Divider sx={{ mb: 2 }} />} mt={2}>
             {[1, 2, 3, 4].map(tier => {
               const occurrence = timelineData[tier - 1]
-              const type = getOccurrenceType(charFormData, occurrence)
+              const presentation = getOccurrencePresentation(charFormData, occurrence)
 
-              if (type !== 'unset') {
-                return (
-                  <Fragment key={tier}>
-                    <CourseLocationPresent {...{ tier, type }} index={(occurrence as OccurrenceV3).index} />
+              return (
+                <Fragment key={tier}>
+                  <Typography variant='h6' fontWeight='bold' mb={1}>
+                    {tier}. kör
+                  </Typography>
 
-                    <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1} my={1}>
-                      <OverviewLink icon={faPen} link={`/admin/characters/${charFormData.glyph}/form/2`} text='Módosítás' />
+                  {presentation === 'unset' ? (
+                    <>
+                      <Typography color='text.disabled'>Nem szerepel</Typography>
 
-                      <OverviewLink
-                        disabled
-                        icon={faEye}
-                        link={`/admin/characters/${charFormData.glyph}/form/2`}
-                        text='Előnézet'
-                      />
-                    </Stack>
-                  </Fragment>
-                )
-              } else
-                return (
-                  <Fragment key={tier}>
-                    <CourseLocationMissing {...{ tier }} />
+                      <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1} my={1}>
+                        <OverviewLink
+                          icon={faStar}
+                          link={`story/${tier}`}
+                          state={{ mode: 'add', title: 'Teljes karakter bevezetése', type: 'full' }}
+                          text='Teljes karakter bevezetése'
+                        />
 
-                    <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1} my={1}>
-                      <OverviewLink
-                        icon={faStar}
-                        link={`/admin/characters/${charFormData.glyph}/form/2`}
-                        text='Teljes karakter hozzáadása'
-                      />
+                        <OverviewLink
+                          icon={faBell}
+                          link={`story/${tier}`}
+                          state={{ mode: 'add', title: 'Emlékeztető hozzáadása', type: 'reminder' }}
+                          text='Emlékeztető hozzáadása'
+                        />
+                      </Stack>
+                    </>
+                  ) : (
+                    <>
+                      <BlueprintChip type={presentation} />
 
-                      <OverviewLink
-                        icon={faBell}
-                        link={`/admin/characters/${charFormData.glyph}/form/2`}
-                        text='Emlékeztető hozzáadása'
-                      />
-                    </Stack>
-                  </Fragment>
-                )
+                      <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1} my={1}>
+                        {presentation === 'reminder' ? null : (
+                          <OverviewLink
+                            icon={faPen}
+                            link={`story/${tier}`}
+                            state={{ mode: 'edit', title: 'Előfordulás módosítása' }}
+                            text='Módosítás'
+                          />
+                        )}
+
+                        <OverviewLink
+                          disabled
+                          icon={faEye}
+                          link={`/admin/characters/${charFormData.glyph}/form/2`}
+                          text='Előnézet'
+                        />
+                      </Stack>
+                    </>
+                  )}
+                </Fragment>
+              )
             })}
           </Stack>
         </Box>
@@ -157,15 +175,19 @@ export function Overview() {
   )
 }
 
+export type StoryLinkState = { mode: 'edit'; title: string } | { mode: 'add'; title: string; type: OccurrenceType }
+
 function OverviewLink({
   disabled = false,
   icon,
   link,
+  state,
   text,
 }: {
   disabled?: boolean
   icon?: IconDefinition
   link: string
+  state?: StoryLinkState
   text: string
 }) {
   const { spacing } = useTheme()
@@ -176,6 +198,7 @@ function OverviewLink({
       to={link}
       size='small'
       startIcon={icon ? <FontAwesomeIcon transform='shrink-4' {...{ icon }} /> : undefined}
+      {...{ state }}
       sx={{
         color: disabled ? 'action.disabled' : 'primary.main',
         pointerEvents: disabled ? 'none' : 'initial',
@@ -187,75 +210,33 @@ function OverviewLink({
   )
 }
 
-function CourseLocationPresent({
-  tier,
-  type,
-  index,
-}: {
-  tier: number
-  type: Exclude<OccurrencePresentation, 'unset'>
-  index: number
-}) {
-  return (
-    <>
-      <Typography variant='h6' fontWeight='bold'>
-        {tier}. kör
-      </Typography>
-
-      <Typography mb={1}>{index}. hely</Typography>
-
-      <BlueprintChip {...{ type }} />
-    </>
-  )
-}
-
-function CourseLocationMissing({ tier }: { tier: number }) {
-  return (
-    <>
-      <Typography variant='h6' fontWeight='bold'>
-        {tier}. kör
-      </Typography>
-
-      <Typography color='text.disabled'>Nem szerepel</Typography>
-    </>
-  )
-}
-
 export function BlueprintChip({ isReminder, type }: { isReminder?: boolean; type: Exclude<OccurrencePresentation, 'unset'> }) {
   const { palette } = useTheme()
 
-  const typeMap: Record<Exclude<OccurrencePresentation, 'unset'>, { background: string; label: string }> = {
-    keyword: { background: palette.primary[200]!, label: 'Kulcsszó' },
+  const typeMap: Record<
+    Exclude<OccurrencePresentation, 'unset'>,
+    { background: string; color: string; icon: IconDefinition; label: string }
+  > = {
+    keyword: { background: palette.primary[200]!, color: palette.primary.main, icon: faKey, label: 'Kulcsszó' },
     keywordAndPrimitive: {
       background: `linear-gradient(150deg, ${palette.primary[200]} 25%, ${palette.secondary[200]} 75%)`,
+      color: palette.primary.main,
+      icon: faStar,
       label: 'Kulcsszó és alapelem',
     },
-    keywordLite: { background: palette.primary[50]!, label: 'Kulcsszó felületes bevezetése' },
-    primitive: { background: palette.secondary[200]!, label: 'Alapelem' },
-    reminder: { background: lighten(palette.warning.main, 0.5), label: 'Emlékeztető' },
+    keywordLite: {
+      background: palette.primary[50]!,
+      color: palette.primary[300]!,
+      icon: faRunning,
+      label: 'Kulcsszó felületes bevezetése',
+    },
+    primitive: { background: palette.secondary[200]!, color: palette.secondary.main, icon: faCube, label: 'Alapelem' },
+    reminder: { background: lighten(palette.warning.main, 0.5), color: palette.warning.dark, icon: faBell, label: 'Emlékeztető' },
   }
 
-  const { background, label } = typeMap[isReminder ? 'reminder' : type]
+  const { background, color, icon, label } = typeMap[isReminder ? 'reminder' : type]
 
-  return <Chip {...{ label }} sx={{ background, width: 'max-content' }} />
-}
-
-function getOccurrenceType(charFormData: CharFormData, occurrence: SortedOccurrence): OccurrencePresentation {
-  return 'withhold' in occurrence
-    ? occurrence.withhold === 'keyword'
-      ? 'primitive'
-      : occurrence.withhold === 'primitive'
-      ? 'keyword'
-      : occurrence.withhold === 'constituents'
-      ? 'keywordLite'
-      : 'unset' // Should not happen
-    : isReminder(occurrence)
-    ? 'reminder'
-    : isUnset(occurrence)
-    ? 'unset'
-    : !isPresent(charFormData, 'keyword')
-    ? 'primitive'
-    : !isPresent(charFormData, 'primitive')
-    ? 'keyword'
-    : 'keywordAndPrimitive'
+  return (
+    <Chip icon={<FontAwesomeIcon {...{ color, icon }} />} {...{ label }} sx={{ background, pl: 0.5, width: 'max-content' }} />
+  )
 }

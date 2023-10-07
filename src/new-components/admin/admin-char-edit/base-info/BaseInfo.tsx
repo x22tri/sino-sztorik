@@ -20,6 +20,7 @@ import { AdminBreadcrumbs } from '../../../shared/components/AdminBreadcrumbs'
 import { AdminAppbar } from '../../shared/AdminAppbar'
 import { PreviousStep } from '../../shared/PreviousStep'
 import { FormEvent } from 'react'
+import { SaveOrReset } from '../../shared/SaveOrReset'
 
 type BaseInfoInput = {
   frequency: string | undefined
@@ -40,18 +41,12 @@ export function BaseInfo() {
     mode: 'onBlur',
   })
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+  function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
     if (methods.formState.isValid) {
       submit(event.currentTarget)
     }
-
-    await methods.trigger()
-  }
-
-  function resetForm() {
-    methods.reset()
   }
 
   return (
@@ -91,15 +86,7 @@ export function BaseInfo() {
                 <FrequencyField />
               </Stack>
 
-              <Box display='flex' gap={2} mt={6}>
-                <Button startIcon={<FontAwesomeIcon icon={faSave} transform='shrink-4' />} variant='contained' type='submit'>
-                  Mentés
-                </Button>
-
-                <Button onClick={resetForm} type='button'>
-                  Változtatások elvetése
-                </Button>
-              </Box>
+              <SaveOrReset reset={methods.reset} />
             </Form>
           </FormProvider>
         </Box>
