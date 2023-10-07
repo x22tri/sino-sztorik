@@ -17,11 +17,11 @@ import { AdminDashboard } from './admin/dashboard/Dashboard'
 import { AdminLessonList } from './admin/lesson-list/LessonList'
 import { AdminLessonEdit } from './admin/lesson-edit/LessonEdit'
 import { loadLessonEdit } from './shared/route-loaders/loadLessonEdit'
-import { CharEdit } from './admin/admin-char-edit/CharEdit'
-import { BaseInfo } from './admin/admin-char-edit/base-info/BaseInfo'
-import { OtherUses } from './admin/admin-char-edit/other-uses/OtherUses'
-import { Constituents } from './admin/admin-char-edit/constituents/Constituents'
-import { Story } from './admin/admin-char-edit/story/Story'
+import { CharEdit } from './admin/char-edit/CharEdit'
+import { BaseInfo } from './admin/char-edit/base-info/BaseInfo'
+import { OtherUses } from './admin/char-edit/other-uses/OtherUses'
+import { Constituents } from './admin/char-edit/constituents/Constituents'
+import { Story } from './admin/char-edit/story/Story'
 
 const router = createBrowserRouter([
   {
