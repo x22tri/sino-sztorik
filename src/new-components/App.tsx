@@ -18,9 +18,9 @@ import { AdminLessonList } from './admin/admin-lesson-list/AdminLessonList'
 import { AdminLessonEdit } from './admin/admin-lesson-edit/AdminLessonEdit'
 import { loadLessonEdit } from './shared/route-loaders/loadLessonEdit'
 import { Overview } from './admin/admin-char-edit/overview/Overview'
-import { CharacterSection } from './admin/admin-char-edit/admin-content/sections/CharacterSection'
-import { OtherUsesSection } from './admin/admin-char-edit/admin-content/sections/OtherUsesSection'
-import { ConstituentsSection } from './admin/admin-char-edit/admin-content/sections/ConstituentsSection'
+import { BaseInfo } from './admin/admin-char-edit/base-info/BaseInfo'
+import { OtherUses } from './admin/admin-char-edit/other-uses/OtherUses'
+import { Constituents } from './admin/admin-char-edit/constituents/Constituents'
 
 const router = createBrowserRouter([
   {
@@ -64,7 +64,6 @@ const router = createBrowserRouter([
             path: ':glyph',
             loader: ({ params }) => loadCharEdit({ params }),
             id: 'charEdit',
-
             children: [
               {
                 index: true,
@@ -72,7 +71,7 @@ const router = createBrowserRouter([
               },
               {
                 path: 'base-info',
-                element: <CharacterSection />,
+                element: <BaseInfo />,
                 action: async ({ params, request }) => {
                   console.log(await request.formData())
                   // To-Do: Send to backend, do backend validation, redirect only when 200
@@ -81,7 +80,7 @@ const router = createBrowserRouter([
               },
               {
                 path: 'constituents',
-                element: <ConstituentsSection />,
+                element: <Constituents />,
                 action: async ({ params, request }) => {
                   console.log(await request.formData())
                   // To-Do: Send to backend, do backend validation, redirect only when 200
@@ -90,7 +89,7 @@ const router = createBrowserRouter([
               },
               {
                 path: 'other-uses',
-                element: <OtherUsesSection />,
+                element: <OtherUses />,
                 action: async ({ params, request }) => {
                   console.log(await request.formData())
                   // To-Do: Send to backend, do backend validation, redirect only when 200
@@ -100,51 +99,7 @@ const router = createBrowserRouter([
             ],
           },
         ],
-        // element: <AdminCharList />,
       },
-      // {
-      //   path: 'characters/:glyph',
-      //   element: <Overview />,
-      //   loader: ({ params }) => loadCharEdit({ params }),
-      //   id: 'overview',
-      //   children: [
-
-      //   ]
-      // },
-      // {
-      //   path: 'characters/:glyph/'
-      // }
-      // {
-      //   path: 'characters/:glyph',
-      //   element: <AdminCharEdit />,
-      //   action: async ({ params, request }) => {
-      //     let formData = Object.fromEntries(await request.formData())
-      //     console.log(formData)
-      //     return null
-      //   },
-      //   loader: ({ params }) => loadCharEdit({ params }),
-      //   children: [
-      //     {
-      //       path: 'form/:step',
-      //       element: (
-      //         <form>
-      //           <CharForm />
-      //         </form>
-      //       ),
-      //       loader: ({ params }) => loadCharForm({ params }),
-      //     },
-      //     { path: 'timeline/:tier', element: <Timeline />, loader: ({ params }) => loadCharTimeline({ params }) },
-      //     {
-      //       path: '*',
-      //       loader: ({ params }) => redirect(`/admin/characters/${encodeURI(params.glyph!)}/form/1`),
-      //     },
-      //     {
-      //       path: '',
-      //       element: <Overview />,
-      //       // loader: ({ params }) => redirect(`/admin/characters/${encodeURI(params.glyph!)}/form/1`),
-      //     },
-      //   ],
-      // },
       { path: 'lessons', element: <AdminLessonList /> },
       { path: 'lessons/:lessonNumber', element: <AdminLessonEdit />, loader: ({ params }) => loadLessonEdit({ params }) },
     ],

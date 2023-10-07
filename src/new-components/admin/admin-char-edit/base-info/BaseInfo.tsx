@@ -15,13 +15,13 @@ import {
 } from '@mui/material'
 import { Controller, FieldValues, FormProvider, RegisterOptions, useForm, useFormContext } from 'react-hook-form'
 import { Form, useRouteLoaderData, useSubmit } from 'react-router-dom'
-import { LoadCharEdit } from '../../../../shared/route-loaders/loadCharEdit'
-import { AdminBreadcrumbs } from '../../../../shared/components/AdminBreadcrumbs'
-import { AdminAppbar } from '../../../shared/AdminAppbar'
-import { PreviousStep } from '../../../shared/PreviousStep'
+import { LoadCharEdit } from '../../../shared/route-loaders/loadCharEdit'
+import { AdminBreadcrumbs } from '../../../shared/components/AdminBreadcrumbs'
+import { AdminAppbar } from '../../shared/AdminAppbar'
+import { PreviousStep } from '../../shared/PreviousStep'
 import { FormEvent } from 'react'
 
-type CharacterSectionInput = {
+type BaseInfoInput = {
   frequency: string | undefined
   keyword: string | undefined
   pinyin: string | undefined
@@ -29,13 +29,13 @@ type CharacterSectionInput = {
   productivePinyin: boolean | undefined
 }
 
-export function CharacterSection() {
+export function BaseInfo() {
   const submit = useSubmit()
   const { constants } = useTheme()
   const { charFormData } = useRouteLoaderData('charEdit') as LoadCharEdit
   const { frequency, glyph, keyword, pinyin, primitive, productivePinyin } = charFormData
 
-  const methods = useForm<CharacterSectionInput>({
+  const methods = useForm<BaseInfoInput>({
     defaultValues: { frequency: String(frequency), keyword, pinyin, primitive, productivePinyin },
     mode: 'onBlur',
   })

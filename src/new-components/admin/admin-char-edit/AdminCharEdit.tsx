@@ -1,4 +1,3 @@
-import { CharEditSteps } from './steps/CharEditSteps'
 import { AdminSubmenuTitle } from '../shared/AdminSubmenuTitle'
 import { AdminAppbar } from '../shared/AdminAppbar'
 import AdminCharEditContent from './admin-content/AdminCharEditContent'
@@ -50,7 +49,7 @@ export function AdminCharEdit() {
           <Box component='nav' gridArea='nav'>
             <SideNav
               appbarHasBreadcrumbs
-              content={<CharEditSteps {...{ activeStep }} />}
+              content={<></>}
               title={<AdminSubmenuTitle text='Lépések' />}
               selected={0}
               {...{ isDrawerOpen, toggleDrawer }}

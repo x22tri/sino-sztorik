@@ -1,16 +1,16 @@
 import { Box, Button, Divider, IconButton, Stack, SxProps, TextField, Typography, useTheme } from '@mui/material'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
-import { OtherUse } from '../../../../shared/interfaces'
+import { OtherUse } from '../../../shared/interfaces'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { Form, useRouteLoaderData, useSubmit } from 'react-router-dom'
-import { PreviousStep } from '../../../shared/PreviousStep'
-import { AdminBreadcrumbs } from '../../../../shared/components/AdminBreadcrumbs'
-import { AdminAppbar } from '../../../shared/AdminAppbar'
+import { PreviousStep } from '../../shared/PreviousStep'
+import { AdminBreadcrumbs } from '../../../shared/components/AdminBreadcrumbs'
+import { AdminAppbar } from '../../shared/AdminAppbar'
 import { FormEvent } from 'react'
-import { LoadCharEdit } from '../../../../shared/route-loaders/loadCharEdit'
+import { LoadCharEdit } from '../../../shared/route-loaders/loadCharEdit'
 
-export function OtherUsesSection() {
+export function OtherUses() {
   const submit = useSubmit()
   const { constants } = useTheme()
   const { charFormData } = useRouteLoaderData('charEdit') as LoadCharEdit

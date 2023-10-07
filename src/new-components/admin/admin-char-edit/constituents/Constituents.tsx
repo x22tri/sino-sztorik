@@ -13,20 +13,20 @@ import {
   useTheme,
 } from '@mui/material'
 import { Controller, useForm } from 'react-hook-form'
-import { CHARS } from '../../../../shared/MOCK_CHARS'
+import { CHARS } from '../../../shared/MOCK_CHARS'
 import { When } from 'react-if'
-import { Character } from '../../../../shared/interfaces'
+import { Character } from '../../../shared/interfaces'
 import { FormEvent, useState } from 'react'
 import { matchSorter } from 'match-sorter'
 import { Form, useRouteLoaderData, useSubmit } from 'react-router-dom'
-import { PreviousStep } from '../../../shared/PreviousStep'
-import { AdminBreadcrumbs } from '../../../../shared/components/AdminBreadcrumbs'
-import { AdminAppbar } from '../../../shared/AdminAppbar'
-import { LoadCharEdit } from '../../../../shared/route-loaders/loadCharEdit'
+import { PreviousStep } from '../../shared/PreviousStep'
+import { AdminBreadcrumbs } from '../../../shared/components/AdminBreadcrumbs'
+import { AdminAppbar } from '../../shared/AdminAppbar'
+import { LoadCharEdit } from '../../../shared/route-loaders/loadCharEdit'
 
 const charWidth = '42px'
 
-export function ConstituentsSection() {
+export function Constituents() {
   const submit = useSubmit()
   const { constants } = useTheme()
   const { charFormData } = useRouteLoaderData('charEdit') as LoadCharEdit
