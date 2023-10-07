@@ -111,7 +111,13 @@ const router = createBrowserRouter([
         ],
       },
       { path: 'lessons', element: <AdminLessonList /> },
-      { path: 'lessons/:lessonNumber', element: <AdminLessonEdit />, loader: ({ params }) => loadLessonEdit({ params }) },
+      {
+        path: 'lessons/:lessonNumber',
+
+        loader: ({ params }) => loadLessonEdit({ params }),
+        id: 'lessonEdit',
+        children: [{ index: true, element: <AdminLessonEdit /> }],
+      },
     ],
   },
 ])

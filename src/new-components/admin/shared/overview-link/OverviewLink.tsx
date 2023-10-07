@@ -2,7 +2,7 @@ import { useTheme, Button } from '@mui/material'
 import { Link as RouterLink } from 'react-router-dom'
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { StoryLinkState } from '../../story/Story'
+import { StoryLinkState } from '../../admin-char-edit/story/Story'
 
 export function OverviewLink({
   disabled = false,

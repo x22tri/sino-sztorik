@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Fragment } from 'react'
 import { getOccurrencePresentation } from '../utils/char-form-utils'
 import { BlueprintChip } from './blueprint-chip/BlueprintChip'
-import { OverviewLink } from './overview-link/OverviewLink'
+import { OverviewLink } from '../../shared/overview-link/OverviewLink'
 import { AddOccurrenceOptions } from './add-occurrence-options/AddOccurrenceOptions'
 
 export function Overview() {
@@ -32,10 +32,12 @@ export function Overview() {
 
       <Box maxWidth={constants.maxContentWidth} mx='auto' mt={4} p={2}>
         <Box ml={{ xs: 0, md: `${constants.drawerWidth}px` }}>
-          <PreviousStep link={`..`} text='Karakterek' />
+          <PreviousStep link='..' text='Karakterek' />
+
           <Typography variant='h4' mt={2}>
             Áttekintés
           </Typography>
+
           <Stack alignItems='center' direction='row' gap={2} mt={4}>
             <Typography variant='h5' fontWeight='bold'>
               Karakter
@@ -43,6 +45,7 @@ export function Overview() {
 
             <OverviewLink icon={faPen} link='base-info' text='Alapadatok módosítása' />
           </Stack>
+
           <Stack alignItems='end' direction='row' gap={5} mt={4}>
             <Stack alignItems='center' alignSelf='flex-start'>
               <When condition={charFormData.pinyin}>
@@ -76,6 +79,7 @@ export function Overview() {
               )}
             </Stack>
           </Stack>
+
           <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={0.5} mt={6} ml={-0.5}>
             <OverviewLink link='constituents' text={`${charFormData.constituents?.length} összetevő`} />
 
@@ -97,6 +101,7 @@ export function Overview() {
           <Typography variant='h5' fontWeight='bold' mt={6}>
             Előfordulások
           </Typography>
+
           <Stack divider={<Divider sx={{ mb: 2 }} />} mt={2}>
             {[1, 2, 3, 4].map(tier => {
               const occurrence = timelineData[tier - 1]

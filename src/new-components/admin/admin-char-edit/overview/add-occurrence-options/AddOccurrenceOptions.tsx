@@ -2,7 +2,7 @@ import { CharFormData, CharTimelineData } from '../../../../shared/route-loaders
 import { faBell, faCube, faKey, faPersonRunning, faStar } from '@fortawesome/free-solid-svg-icons'
 import { isFullOccurrence, isWithheldOccurrence } from '../../utils/occurrence-utils'
 import { isPresent, isValidTierForReminder } from '../../utils/char-form-utils'
-import { OverviewLink } from '../overview-link/OverviewLink'
+import { OverviewLink } from '../../../shared/overview-link/OverviewLink'
 
 export function AddOccurrenceOptions({
   charFormData,

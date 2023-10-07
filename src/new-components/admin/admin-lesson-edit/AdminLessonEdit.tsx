@@ -1,30 +1,18 @@
-import { AdminSubmenuTitle } from '../shared/AdminSubmenuTitle'
 import { AdminAppbar } from '../shared/AdminAppbar'
-import { useState } from 'react'
-import { useLoaderData, useParams } from 'react-router-dom'
-import { FormProvider, useForm } from 'react-hook-form'
-import { useDrawer } from '../../shared/hooks/useDrawer'
-import { Box, useTheme } from '@mui/material'
-import { SideNav } from '../../shared/components/SideNav'
+import { useParams, useRouteLoaderData } from 'react-router-dom'
+import { Box, Divider, Stack, Typography, useTheme } from '@mui/material'
 import { AdminBreadcrumbs } from '../../shared/components/AdminBreadcrumbs'
-import { LessonFormData, LessonTimelineData, LoadLessonEdit } from '../../shared/route-loaders/loadLessonEdit'
-// import { LessonEditSteps } from './steps/LessonEditSteps'
-// import { LessonEditErrorContext, useLessonEditErrors } from './error-context/LessonEditErrorContext'
-import LessonEditContent from './content/LessonEditContent'
-// import { AdminBottomNav } from '../shared/AdminBottomNav'
+import { LoadLessonEdit } from '../../shared/route-loaders/loadLessonEdit'
+import { PreviousStep } from '../shared/PreviousStep'
+import { faEye, faPen } from '@fortawesome/free-solid-svg-icons'
+import { OverviewLink } from '../shared/overview-link/OverviewLink'
+import { Fragment } from 'react'
 
 export function AdminLessonEdit() {
   const { constants, palette, spacing } = useTheme()
-  const [activeStep, setActiveStep] = useState(0)
-  const { isDrawerOpen, toggleDrawer } = useDrawer()
   const params = useParams()
 
-  const loaderData = useLoaderData() as LoadLessonEdit
-  const formMethods = useForm({ defaultValues: { ...loaderData.lessonFormData } })
-  const [savedLessonForm, saveLessonForm] = useState<LessonFormData>({ ...loaderData.lessonFormData })
-  const [timelineData, setTimelineData] = useState(loaderData.lessonTimelineData)
-  const [savedTimelineData, saveTimelineData] = useState<LessonTimelineData>([...loaderData.lessonTimelineData])
-  // const { lessonFormErrors, lessonTimelineErrors, setLessonFormErrors, setLessonTimelineErrors } = useLessonEditErrors()
+  const { lessonFormData, lessonTimelineData } = useRouteLoaderData('lessonEdit') as LoadLessonEdit
 
   const lessonNumber = Number(params.lessonNumber)
 
@@ -40,38 +28,107 @@ export function AdminLessonEdit() {
         ]}
       />
 
-      <Box
-        display='grid'
-        margin='auto'
-        sx={{
-          maxWidth: constants.maxContentWidth,
-          gridTemplate: { xs: `"main" / auto`, md: `"nav main" / ${constants.drawerWidth}px auto` },
-        }}
-      >
-        {/* <LessonEditErrorContext.Provider
-          value={{ lessonFormErrors, lessonTimelineErrors, setLessonFormErrors, setLessonTimelineErrors }}
-        >
-          <Box component='nav' gridArea='nav'>
-            <SideNav
-              appbarHasBreadcrumbs
-              content={<LessonEditSteps {...{ activeStep }} />}
-              title={<AdminSubmenuTitle text='Lépések' />}
-              selected={0}
-              {...{ isDrawerOpen, toggleDrawer }}
-            />
-          </Box>
+      <Box maxWidth={constants.maxContentWidth} mx='auto' mt={4} p={2}>
+        <Box ml={{ xs: 0, md: `${constants.drawerWidth}px` }}>
+          <PreviousStep link='..' text='Leckék' />
 
-          <Box component='main' gridArea='main'>
-            <FormProvider {...formMethods}>
-              <LessonEditContent
-                characters={loaderData.lessonFormData.characters}
-                {...{ activeStep, lessonNumber, setTimelineData, timelineData }}
-              />
+          <Typography variant='h4' mt={2}>
+            Áttekintés
+          </Typography>
 
-              <AdminBottomNav {...{ activeStep, setActiveStep, savedTimelineData, setTimelineData, timelineData }} />
-            </FormProvider>
-          </Box>
-        </LessonEditErrorContext.Provider> */}
+          <Stack alignItems='center' direction='row' gap={2} mt={4}>
+            <Typography variant='h5' fontWeight='bold'>
+              Lecke
+            </Typography>
+
+            <OverviewLink icon={faPen} link='base-info' text='Átnevezés' />
+          </Stack>
+
+          <Typography variant='h3' fontWeight='bold' mb={1} mt={3}>
+            {lessonFormData.title}
+          </Typography>
+
+          <Typography color='text.secondary' mb={4}>
+            {lessonNumber}. lecke
+          </Typography>
+
+          <Stack direction='row' ml={-0.5}>
+            <OverviewLink text={`Összes karakter (${lessonFormData.characters.length})`} link='characters' />
+          </Stack>
+
+          <Typography variant='h5' fontWeight='bold' mt={6}>
+            Előfordulások
+          </Typography>
+
+          <Stack divider={<Divider sx={{ mb: 2 }} />} mt={2}>
+            {[1, 2, 3, 4].map(tier => {
+              const occurrence = lessonTimelineData[tier - 1]
+
+              return (
+                <Fragment key={tier}>
+                  <Typography variant='h6' fontWeight='bold' mb={1}>
+                    {tier}. kör
+                  </Typography>
+
+                  {occurrence.charactersInTier?.length ? (
+                    <>
+                      <Box display='flex' flexWrap='wrap' gap={2} sx={{ borderRadius: spacing(3) }}>
+                        {occurrence.charactersInTier.map(({ glyph }) => (
+                          <Typography
+                            key={glyph}
+                            component='span'
+                            variant='chineseText'
+                            sx={{ borderRadius: 2, bgcolor: 'grey.100', p: 1 }}
+                          >
+                            {glyph}
+                          </Typography>
+                        ))}
+                      </Box>
+
+                      <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1} mt={2} mb={1}>
+                        <OverviewLink disabled icon={faEye} link={`placeholder`} text='Előnézet' />
+                      </Stack>
+                    </>
+                  ) : (
+                    <Typography color='text.disabled' mb={2} variant='body2'>
+                      Nem szerepel
+                    </Typography>
+                  )}
+
+                  {/* {occurrence.charactersInTier?.length} karakter */}
+                  {/* {presentation === 'unset' ? (
+                    <>
+                      <Typography color='text.disabled' variant='body2'>
+                        Nem szerepel
+                      </Typography>
+
+                      <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1} mt={2} mb={1}>
+                        <AddOccurrenceOptions {...{ charFormData, tier, timelineData }} />
+                      </Stack>
+                    </>
+                  ) : (
+                    <>
+                      <BlueprintChip type={presentation} />
+
+                      <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1} mt={2} mb={1}>
+                        {presentation === 'reminder' ? null : (
+                          <OverviewLink
+                            icon={faPen}
+                            link={`story/${tier}`}
+                            state={{ mode: 'edit', title: 'Előfordulás módosítása' }}
+                            text='Módosítás'
+                          />
+                        )}
+
+                        <OverviewLink disabled icon={faEye} link={`placeholder`} text='Előnézet' />
+                      </Stack>
+                    </>
+                  )} */}
+                </Fragment>
+              )
+            })}
+          </Stack>
+        </Box>
       </Box>
     </>
   )
