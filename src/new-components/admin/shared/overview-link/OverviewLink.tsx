@@ -14,7 +14,7 @@ export function OverviewLink({
   disabled?: boolean
   icon?: IconDefinition
   link: string
-  state?: StoryLinkState
+  state?: Record<string, any>
   text: string
 }) {
   const { spacing } = useTheme()

@@ -43,7 +43,7 @@ export function CharEdit() {
               Karakter
             </Typography>
 
-            <OverviewLink icon={faPen} link='base-info' text='Alapadatok módosítása' />
+            <OverviewLink icon={faPen} link='base-info' text='Alapadatok módosítása' state={{ mode: 'edit' }} />
           </Stack>
 
           <Stack alignItems='end' direction='row' gap={5} mt={4}>

@@ -18,7 +18,7 @@ import { AdminLessonList } from './admin/lesson-list/LessonList'
 import { AdminLessonEdit } from './admin/lesson-edit/LessonEdit'
 import { loadLessonEdit } from './shared/route-loaders/loadLessonEdit'
 import { CharEdit } from './admin/char-edit/CharEdit'
-import { BaseInfo as CharBaseInfo } from './admin/char-edit/base-info/BaseInfo'
+import { BaseInfoCreate as CharBaseInfoCreate, BaseInfoEdit as CharBaseInfoEdit } from './admin/char-edit/base-info/BaseInfo'
 import { OtherUses } from './admin/char-edit/other-uses/OtherUses'
 import { Constituents } from './admin/char-edit/constituents/Constituents'
 import { Story } from './admin/char-edit/story/Story'
@@ -65,6 +65,15 @@ const router = createBrowserRouter([
             element: <AdminCharList />,
           },
           {
+            path: 'new',
+            element: <CharBaseInfoCreate />,
+            action: async ({ request }) => {
+              console.log(await request.formData())
+              // To-Do: Send to backend, do backend validation, redirect only when 200
+              return redirect('..')
+            },
+          },
+          {
             path: ':glyph',
             loader: ({ params }) => loadCharEdit({ params }),
             id: 'charEdit',
@@ -75,7 +84,7 @@ const router = createBrowserRouter([
               },
               {
                 path: 'base-info',
-                element: <CharBaseInfo />,
+                element: <CharBaseInfoEdit />,
                 action: async ({ request }) => {
                   console.log(await request.formData())
                   // To-Do: Send to backend, do backend validation, redirect only when 200

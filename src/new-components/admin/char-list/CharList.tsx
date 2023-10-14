@@ -1,9 +1,11 @@
-import { Box, List, ListItem, ListItemButton, ListItemIcon, Typography, useTheme } from '@mui/material'
+import { Box, Button, List, ListItem, ListItemButton, ListItemIcon, Typography, useTheme } from '@mui/material'
 import { CHARS } from '../../shared/MOCK_CHARS'
 import { AdminAppbar } from '../shared/AdminAppbar'
 import { Link } from 'react-router-dom'
 import { KeywordPrimitiveRow } from '../../shared/components/KeywordPrimitiveRow'
 import { AdminBreadcrumbs } from '../../shared/components/AdminBreadcrumbs'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 export function AdminCharList() {
   const { constants } = useTheme()
@@ -18,9 +20,19 @@ export function AdminCharList() {
 
       <Box maxWidth={constants.maxContentWidth} mx='auto' mt={4} p={2}>
         <Box ml={{ xs: 0, md: `${constants.drawerWidth}px` }}>
-          <Typography variant='h4' mt={2}>
-            Karakterek
-          </Typography>
+          <Box alignItems='center' display='flex' justifyContent='space-between' mt={2}>
+            <Typography variant='h4'>Karakterek</Typography>
+
+            <Button
+              component={Link}
+              startIcon={<FontAwesomeIcon icon={faPlus} transform='shrink-4' />}
+              state={{ mode: 'add' }}
+              to='new'
+              variant='contained'
+            >
+              Új karakter
+            </Button>
+          </Box>
 
           <Box mt={2}>
             <List disablePadding>

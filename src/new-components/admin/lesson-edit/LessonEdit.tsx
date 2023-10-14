@@ -86,14 +86,14 @@ export function AdminLessonEdit() {
                       </Box>
 
                       <Stack direction='row' divider={<Divider flexItem orientation='vertical' />} gap={1} mt={2} mb={1}>
-                        <OverviewLink icon={faPen} link={`preface/${tier}`} text='Előszó szerkesztése' />
+                        <OverviewLink disabled icon={faPen} link={`preface/${tier}`} text='Előszó szerkesztése' />
 
                         <OverviewLink disabled icon={faEye} link={`placeholder`} text='Előnézet' />
                       </Stack>
                     </>
                   ) : (
                     <Typography color='text.disabled' mb={2} variant='body2'>
-                      Nem szerepel
+                      Nem szerepel. A kör létrehozásához adj hozzá egy karaktert a Karakterszerkesztőben.
                     </Typography>
                   )}
                 </Fragment>

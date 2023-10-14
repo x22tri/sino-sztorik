@@ -14,39 +14,31 @@ import {
   useTheme,
 } from '@mui/material'
 import { Controller, FieldValues, FormProvider, RegisterOptions, useForm, useFormContext } from 'react-hook-form'
-import { Form, useRouteLoaderData, useSubmit } from 'react-router-dom'
+import { Form, useLocation, useRouteLoaderData, useSubmit } from 'react-router-dom'
 import { LoadCharEdit } from '../../../shared/route-loaders/loadCharEdit'
 import { AdminBreadcrumbs } from '../../../shared/components/AdminBreadcrumbs'
 import { AdminAppbar } from '../../shared/AdminAppbar'
 import { PreviousStep } from '../../shared/PreviousStep'
 import { FormEvent } from 'react'
-import { SaveOrReset } from '../../shared/SaveOrReset'
+import { CreateOrCancel, SaveOrReset } from '../../shared/SaveOrReset'
 
 type BaseInfoInput = {
   frequency: string | undefined
+  glyph: string | undefined
   keyword: string | undefined
   pinyin: string | undefined
   primitive: string | undefined
   productivePinyin: boolean | undefined
 }
 
-export function BaseInfo() {
-  const submit = useSubmit()
-  const { constants } = useTheme()
-  const { charFormData } = useRouteLoaderData('charEdit') as LoadCharEdit
-  const { frequency, glyph, keyword, pinyin, primitive, productivePinyin } = charFormData
-
-  const methods = useForm<BaseInfoInput>({
-    defaultValues: { frequency: String(frequency), keyword, pinyin, primitive, productivePinyin },
-    mode: 'onBlur',
-  })
-
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-
-    if (methods.formState.isValid) {
-      submit(event.currentTarget)
-    }
+export function BaseInfoCreate() {
+  const defaultValues: BaseInfoInput = {
+    frequency: '',
+    glyph: '',
+    keyword: '',
+    pinyin: '',
+    primitive: '',
+    productivePinyin: false,
   }
 
   return (
@@ -54,7 +46,29 @@ export function BaseInfo() {
       <AdminAppbar />
 
       <AdminBreadcrumbs
-        currentMenuItem={`Alapadatok`}
+        currentMenuItem='Karakter létrehozása'
+        hierarchy={[
+          { href: '../..', text: 'Kezelőközpont' },
+          { href: '..', text: 'Karakterek' },
+        ]}
+      />
+
+      <BaseInfo {...{ defaultValues }} />
+    </>
+  )
+}
+
+export function BaseInfoEdit() {
+  const routeLoaderData = useRouteLoaderData('charEdit') as LoadCharEdit
+  const { frequency, glyph, keyword, pinyin, primitive, productivePinyin } = routeLoaderData.charFormData
+  const defaultValues: BaseInfoInput = { frequency: String(frequency), glyph, keyword, pinyin, primitive, productivePinyin }
+
+  return (
+    <>
+      <AdminAppbar />
+
+      <AdminBreadcrumbs
+        currentMenuItem='Alapadatok'
         hierarchy={[
           { href: '../../..', text: 'Kezelőközpont' },
           { href: '../..', text: 'Karakterek' },
@@ -62,37 +76,69 @@ export function BaseInfo() {
         ]}
       />
 
-      <Box maxWidth={constants.maxContentWidth} mx='auto' mt={4} p={2}>
-        <Box ml={{ xs: 0, md: `${constants.drawerWidth}px` }}>
-          <PreviousStep link='..' text={`Áttekintés (${glyph})`} />
-
-          <FormProvider {...methods}>
-            <Form method='post' {...{ onSubmit }}>
-              <Typography variant='h4' mt={2} mb={3}>
-                Alapadatok
-              </Typography>
-
-              <Stack gap={1}>
-                <KeywordField />
-
-                <PrimitiveField />
-
-                <Box alignItems='flex-start' display='flex' flexDirection='row' gap={2}>
-                  <PinyinField />
-
-                  <ProductivePinyinCheckbox />
-                </Box>
-
-                <FrequencyField />
-              </Stack>
-
-              <SaveOrReset reset={methods.reset} />
-            </Form>
-          </FormProvider>
-        </Box>
-      </Box>
+      <BaseInfo {...{ defaultValues }} />
     </>
   )
+}
+
+export function BaseInfo({ defaultValues }: { defaultValues: BaseInfoInput }) {
+  const submit = useSubmit()
+
+  const { constants } = useTheme()
+
+  const methods = useForm<BaseInfoInput>({ defaultValues })
+
+  const isCreate = !defaultValues.glyph
+
+  function onSubmit(event: FormEvent<HTMLFormElement>) {
+    console.log(methods.getValues())
+
+    event.preventDefault()
+
+    methods.trigger()
+
+    if (methods.formState.isValid) {
+      submit(event.currentTarget)
+    }
+  }
+
+  return (
+    <Box maxWidth={constants.maxContentWidth} mx='auto' mt={4} p={2}>
+      <Box ml={{ xs: 0, md: `${constants.drawerWidth}px` }}>
+        {isCreate ? null : <PreviousStep link='..' text={`Áttekintés (${defaultValues.glyph})`} />}
+
+        <FormProvider {...methods}>
+          <Form method='post' {...{ onSubmit }}>
+            <Typography variant='h4' mt={2} mb={3}>
+              {isCreate ? 'Karakter létrehozása' : 'Alapadatok'}
+            </Typography>
+
+            <Stack gap={1}>
+              <GlyphField disabled={!isCreate} />
+
+              <KeywordField />
+
+              <PrimitiveField />
+
+              <Box alignItems='flex-start' display='flex' flexDirection='row' gap={2}>
+                <PinyinField />
+
+                <ProductivePinyinCheckbox />
+              </Box>
+
+              <FrequencyField />
+            </Stack>
+
+            {isCreate ? <CreateOrCancel /> : <SaveOrReset reset={methods.reset} />}
+          </Form>
+        </FormProvider>
+      </Box>
+    </Box>
+  )
+}
+
+function GlyphField({ disabled }: { disabled: boolean }) {
+  return <CharEditTextField label='Írásjel' name='glyph' rules={{ required: 'Kötelező írásjelet megadni' }} {...{ disabled }} />
 }
 
 function KeywordField() {
@@ -227,7 +273,7 @@ export function CharEditTextField({
   return (
     <Controller
       {...{ name, rules }}
-      render={({ field: { value, onBlur, onChange } }) => (
+      render={({ field: { value, onChange } }) => (
         <TextField
           error={!!formState.errors[name]?.message}
           fullWidth
@@ -237,10 +283,6 @@ export function CharEditTextField({
           onChange={event => onChange(event.target.value)}
           size='small'
           variant='filled'
-          onBlur={() => {
-            onBlur()
-            trigger()
-          }}
           {...restProps}
           {...{ label, name, value }}
           sx={{ flexShrink: 1, '.Mui-error': { '&.MuiInputBase-root': { bgcolor: palette.error[100] } }, ...restProps.sx }}
