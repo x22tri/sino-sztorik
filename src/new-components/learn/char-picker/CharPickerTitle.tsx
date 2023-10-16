@@ -2,7 +2,7 @@ import { Box, Typography, useTheme } from '@mui/material'
 import { Dispatch, SetStateAction } from 'react'
 import { TitleSubtitle } from '../../shared/components/TitleSubtitle'
 import { LEARN_LESSON_CHARACTERS_TOOLTIP, LEARN_LESSON_PREFACE_TOOLTIP, LESSON_NUMBER_SUFFIX_APPBAR } from '../../shared/strings'
-import ToolbarButton from '../../shared/components/ToolbarButton'
+import IconButtonWithTooltip from '../../shared/components/IconButtonWithTooltip'
 import { faNewspaper } from '@fortawesome/free-regular-svg-icons'
 import { Else, If, Then } from 'react-if'
 import { faLanguage } from '@fortawesome/free-solid-svg-icons'
@@ -34,11 +34,15 @@ export function CharPickerTitle({
 
       <If condition={contentType === 'characters'}>
         <Then>
-          <ToolbarButton icon={faNewspaper} onClick={() => setContentType('preface')} tooltip={LEARN_LESSON_PREFACE_TOOLTIP} />
+          <IconButtonWithTooltip
+            icon={faNewspaper}
+            onClick={() => setContentType('preface')}
+            tooltip={LEARN_LESSON_PREFACE_TOOLTIP}
+          />
         </Then>
 
         <Else>
-          <ToolbarButton
+          <IconButtonWithTooltip
             icon={faLanguage}
             onClick={() => setContentType('characters')}
             tooltip={LEARN_LESSON_CHARACTERS_TOOLTIP}

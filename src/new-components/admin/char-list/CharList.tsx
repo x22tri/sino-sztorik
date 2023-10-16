@@ -34,27 +34,33 @@ export function AdminCharList() {
             </Button>
           </Box>
 
-          <Box mt={2}>
-            <List disablePadding>
-              {chars.map(({ keyword, glyph, primitive }, index) => (
-                <ListItem disablePadding key={index}>
-                  <ListItemButton
-                    component={Link}
-                    to={`/admin/characters/${glyph}`}
-                    sx={{ borderRadius: 8, py: 1.5, ':hover': { bgcolor: 'primary.100', cursor: 'pointer' } }}
-                  >
-                    <ListItemIcon>
-                      <Typography variant='chineseText' color='primary.main'>
-                        {glyph}
-                      </Typography>
-                    </ListItemIcon>
+          {chars.length === 0 ? (
+            <Box display='flex' justifyContent='center' mt={4}>
+              <Typography color='text.disabled'>Nincsenek bejegyzések.</Typography>
+            </Box>
+          ) : (
+            <Box mt={2}>
+              <List disablePadding>
+                {chars.map(({ keyword, glyph, primitive }, index) => (
+                  <ListItem disablePadding key={index}>
+                    <ListItemButton
+                      component={Link}
+                      to={`/admin/characters/${glyph}`}
+                      sx={{ borderRadius: 8, py: 1.5, ':hover': { bgcolor: 'primary.100', cursor: 'pointer' } }}
+                    >
+                      <ListItemIcon>
+                        <Typography variant='chineseText' color='primary.main'>
+                          {glyph}
+                        </Typography>
+                      </ListItemIcon>
 
-                    <KeywordPrimitiveRow {...{ keyword, primitive }} />
-                  </ListItemButton>
-                </ListItem>
-              ))}
-            </List>
-          </Box>
+                      <KeywordPrimitiveRow {...{ keyword, primitive }} />
+                    </ListItemButton>
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
+          )}
         </Box>
       </Box>
     </>

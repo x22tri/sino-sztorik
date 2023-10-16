@@ -8,7 +8,7 @@ import {
   LEARN_EXIT_MODAL_TITLE,
 } from '../../shared/strings'
 import { useState } from 'react'
-import ToolbarButton from '../../shared/components/ToolbarButton'
+import IconButtonWithTooltip from '../../shared/components/IconButtonWithTooltip'
 import { useFlashback } from '../store/useFlashback'
 
 export function CloseLearnButton() {
@@ -17,7 +17,7 @@ export function CloseLearnButton() {
 
   return (
     <>
-      <ToolbarButton
+      <IconButtonWithTooltip
         icon={faClose}
         onClick={() => setOpenModal(true)}
         tooltip={LEARN_EXIT_MODAL_EXIT_BUTTON}

@@ -1,12 +1,13 @@
 import { IconDefinition, faBars } from '@fortawesome/free-solid-svg-icons'
-import { AppBar, Box, ListItemIcon, ListItemText, Menu, MenuItem, MenuList, Toolbar, useTheme } from '@mui/material'
+import { Box, ListItemIcon, ListItemText, Menu, MenuItem, MenuList, useTheme } from '@mui/material'
 import { Else, If, Then, When } from 'react-if'
 import { useSmallScreen } from '../../hooks/useSmallScreen'
-import ToolbarButton from '../ToolbarButton'
-import { AppbarButton } from './AppbarButton'
+import IconButtonWithTooltip from '../IconButtonWithTooltip'
+import { IconButtonWithText } from './IconButtonWithText'
 import LogoTitle from '../LogoTitle'
-import { ReactNode, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { AppbarBase } from './AppbarBase'
 
 export type AppbarMenuOption = {
   disabled: boolean
@@ -46,7 +47,7 @@ export function AppbarWithMobileHamburger({
       <AppbarBase>
         <When condition={isSmallScreen}>
           {sideNavConfig ? (
-            <ToolbarButton icon={sideNavConfig.icon} onClick={toggleDrawer} tooltip={sideNavConfig.text} />
+            <IconButtonWithTooltip icon={sideNavConfig.icon} onClick={toggleDrawer} tooltip={sideNavConfig.text} />
           ) : (
             <Box />
           )}
@@ -56,13 +57,13 @@ export function AppbarWithMobileHamburger({
 
         <If condition={isSmallScreen}>
           <Then>
-            <ToolbarButton innerRef={ref} icon={faBars} onClick={openMenu} tooltip='Főmenü' />
+            <IconButtonWithTooltip innerRef={ref} icon={faBars} onClick={openMenu} tooltip='Főmenü' />
           </Then>
 
           <Else>
             <Box display='flex' gap={1.5}>
               {menuOptions.map(({ disabled, icon, text }) => (
-                <AppbarButton key={text} {...{ disabled, icon, text }} />
+                <IconButtonWithText key={text} {...{ disabled, icon, text }} />
               ))}
             </Box>
           </Else>
@@ -82,32 +83,6 @@ export function AppbarWithMobileHamburger({
           ))}
         </MenuList>
       </Menu>
-    </>
-  )
-}
-
-export function AppbarBase({ children }: { children: ReactNode }) {
-  const { constants, palette } = useTheme()
-
-  return (
-    <>
-      <AppBar elevation={0} sx={{ bgcolor: 'background.default', borderBottom: `1px solid ${palette.grey[300]}` }}>
-        <Toolbar
-          disableGutters
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            m: 'auto',
-            maxWidth: constants.maxContentWidth,
-            px: { xs: 1, sm: 2 },
-            width: 1,
-          }}
-        >
-          {children}
-        </Toolbar>
-      </AppBar>
-
-      <Toolbar />
     </>
   )
 }

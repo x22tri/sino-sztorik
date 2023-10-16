@@ -2,7 +2,7 @@ import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button, useTheme } from '@mui/material'
 
-export function AppbarButton({ disabled = false, icon, text }: { disabled?: boolean; icon: IconDefinition; text: string }) {
+export function IconButtonWithText({ disabled = false, icon, text }: { disabled?: boolean; icon: IconDefinition; text: string }) {
   const { spacing } = useTheme()
 
   return (

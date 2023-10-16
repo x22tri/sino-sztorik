@@ -6,7 +6,7 @@ import { Unless, When } from 'react-if'
 import { useOnChange } from '../../shared/hooks/useOnChange'
 import { Link, useLoaderData, useParams } from 'react-router-dom'
 import { ButtonOption, LoadLessonSelect } from '../../shared/route-loaders/loadLessonSelect'
-import ToolbarButton from '../../shared/components/ToolbarButton'
+import IconButtonWithTooltip from '../../shared/components/IconButtonWithTooltip'
 
 export function LearnReviewButton() {
   const anchorRef = useRef<HTMLButtonElement>(null)
@@ -97,7 +97,7 @@ function ButtonWithModeSwitcher({
       </Button>
 
       <When condition={learnReviewOptions.length > 1}>
-        <ToolbarButton
+        <IconButtonWithTooltip
           color='primary'
           icon={faEllipsisVertical}
           innerRef={anchorRef}

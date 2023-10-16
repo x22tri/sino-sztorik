@@ -91,14 +91,12 @@ export function BaseInfo({ defaultValues }: { defaultValues: BaseInfoInput }) {
   const isCreate = !defaultValues.glyph
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
-    console.log(methods.getValues())
-
     event.preventDefault()
-
-    methods.trigger()
 
     if (methods.formState.isValid) {
       submit(event.currentTarget)
+    } else {
+      methods.trigger()
     }
   }
 

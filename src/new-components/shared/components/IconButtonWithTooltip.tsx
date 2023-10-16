@@ -4,7 +4,7 @@ import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontaw
 import Tooltip from '@mui/material/Tooltip'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
 
-export default function ToolbarButton<B extends ElementType>({
+export default function IconButtonWithTooltip<B extends ElementType>({
   icon,
   iconProps,
   innerRef,
@@ -44,46 +44,46 @@ const IconButtonForwardRef = forwardRef(
   )
 )
 
-export function FadeControlledToolbarButton({
-  icon,
-  tooltip,
-  onClick,
-  ...restProps
-}: IconButtonProps & {
-  icon: IconDefinition
-  tooltip: string
-  onClick: (event: MouseEvent<HTMLElement>) => any
-}) {
-  const [shown, setShown] = useState(false)
-  const [exitTimeout, setExitTimeout] = useState(150)
+// export function FadeControlledIconButtonWithTooltip({
+//   icon,
+//   tooltip,
+//   onClick,
+//   ...restProps
+// }: IconButtonProps & {
+//   icon: IconDefinition
+//   tooltip: string
+//   onClick: (event: MouseEvent<HTMLElement>) => any
+// }) {
+//   const [shown, setShown] = useState(false)
+//   const [exitTimeout, setExitTimeout] = useState(150)
 
-  function fadeInTooltip() {
-    setShown(true)
-  }
+//   function fadeInTooltip() {
+//     setShown(true)
+//   }
 
-  function fadeOutTooltip() {
-    setExitTimeout(150)
-    setShown(false)
-  }
+//   function fadeOutTooltip() {
+//     setExitTimeout(150)
+//     setShown(false)
+//   }
 
-  function instantlyDisappearTooltip() {
-    setExitTimeout(0)
-    setShown(false)
-  }
+//   function instantlyDisappearTooltip() {
+//     setExitTimeout(0)
+//     setShown(false)
+//   }
 
-  return (
-    <Tooltip title={tooltip} open={shown} TransitionProps={{ timeout: { enter: 150, exit: exitTimeout } }}>
-      <IconButton
-        onMouseEnter={fadeInTooltip}
-        onMouseLeave={fadeOutTooltip}
-        onClick={event => {
-          instantlyDisappearTooltip()
-          onClick(event)
-        }}
-        {...restProps}
-      >
-        <FontAwesomeIcon {...{ icon }} />
-      </IconButton>
-    </Tooltip>
-  )
-}
+//   return (
+//     <Tooltip title={tooltip} open={shown} TransitionProps={{ timeout: { enter: 150, exit: exitTimeout } }}>
+//       <IconButton
+//         onMouseEnter={fadeInTooltip}
+//         onMouseLeave={fadeOutTooltip}
+//         onClick={event => {
+//           instantlyDisappearTooltip()
+//           onClick(event)
+//         }}
+//         {...restProps}
+//       >
+//         <FontAwesomeIcon {...{ icon }} />
+//       </IconButton>
+//     </Tooltip>
+//   )
+// }
