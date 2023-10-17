@@ -1,14 +1,42 @@
-import { Box, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, useTheme } from '@mui/material'
+import {
+  Avatar,
+  Box,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Divider,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Stack,
+  Typography,
+  useTheme,
+} from '@mui/material'
 import { Link } from 'react-router-dom'
 import { AdminAppbar } from '../shared/AdminAppbar'
 import { SideNav } from '../../shared/components/SideNav'
 import { useDrawer } from '../../shared/hooks/useDrawer'
 import { AdminSubmenuTitle } from '../shared/AdminSubmenuTitle'
-import { IconDefinition, faBook, faEye, faGraduationCap, faLanguage, faUserFriends } from '@fortawesome/free-solid-svg-icons'
+import {
+  IconDefinition,
+  faBook,
+  faCaretRight,
+  faChevronRight,
+  faEye,
+  faGraduationCap,
+  faLanguage,
+  faUser,
+  faUserFriends,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
 
 export function AdminDashboard() {
-  const { constants } = useTheme()
+  const { constants, palette, spacing } = useTheme()
   const { isDrawerOpen, toggleDrawer } = useDrawer()
 
   return (
@@ -24,23 +52,41 @@ export function AdminDashboard() {
         }}
       >
         <Box component='nav' gridArea='nav'>
-          <SideNav
+          {/* <SideNav
             content={<AdminDashboardPickerContent />}
             title={<AdminSubmenuTitle text='Kezelőközpont' />}
             selected={0}
             {...{ isDrawerOpen, toggleDrawer }}
-          />
+          /> */}
         </Box>
 
         <Box component='main' gridArea='main'>
-          <Box maxWidth={constants.maxContentWidth} mx='auto' mt={3} p={2}>
-            <Typography variant='h4'>Üdv a Kezelőközpontban!</Typography>
+          <Typography variant='h4' my={2}>
+            Kezelőközpont
+          </Typography>
 
-            <Typography mt={3}>Válassz ki egy lehetőséget a bal oldali menüből.</Typography>
-          </Box>
+          <List>
+            <DashboardCard icon={faUserFriends} heading='Felhasználók' link='users' />
+            <DashboardCard icon={faEye} heading='Hasonlóságok' link='similars' />
+            <DashboardCard icon={faLanguage} heading='Karakterek' link='characters' />
+            <DashboardCard icon={faBook} heading='Kifejezések' link='phrases' />
+            <DashboardCard icon={faGraduationCap} heading='Leckék' link='lessons' />
+          </List>
         </Box>
       </Box>
     </>
+  )
+}
+
+function DashboardCard({ heading, icon, link }: { heading: string; icon: IconDefinition; link: string }) {
+  return (
+    <ListItemButton component={Link} to={link} sx={{ py: 2 }}>
+      <ListItemIcon>
+        <FontAwesomeIcon className='fa-fw' {...{ icon }} size='2x' transform='shrink-2' />
+      </ListItemIcon>
+
+      <ListItemText primary={heading} primaryTypographyProps={{ variant: 'h5' }} />
+    </ListItemButton>
   )
 }
 

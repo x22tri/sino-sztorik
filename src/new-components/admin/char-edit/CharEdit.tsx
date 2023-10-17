@@ -38,13 +38,17 @@ export function CharEdit() {
             Áttekintés
           </Typography>
 
-          <Stack alignItems='center' direction='row' gap={2} mt={4}>
-            <Typography variant='h5' fontWeight='bold'>
-              Karakter
-            </Typography>
+          <Box alignItems='center' display='flex' justifyContent='space-between' mt={4}>
+            <Stack alignItems='center' direction='row' gap={2}>
+              <Typography variant='h5' fontWeight='bold'>
+                Karakter
+              </Typography>
 
-            <OverviewLink icon={faPen} link='base-info' text='Alapadatok módosítása' state={{ mode: 'edit' }} />
-          </Stack>
+              <OverviewLink icon={faPen} link='base-info' text='Alapadatok módosítása' state={{ mode: 'edit' }} />
+            </Stack>
+
+            <Button color='error'>Karakter törlése</Button>
+          </Box>
 
           <Stack alignItems='end' direction='row' gap={5} mt={4}>
             <Stack alignItems='center' alignSelf='flex-start'>
